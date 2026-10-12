@@ -1,0 +1,22 @@
+reference_id: "LISAN-QMOR-0.2"
+version: "0.2.0"
+status: "EVOLVING_REFERENCE_BASELINE"
+canonical_profile: "HAFS_ASIM_MADINAH"
+structural_source:
+  resource_id: "quranic-arabic-corpus-morphology"
+  version: "0.4"
+  bundled_path: "assets/quran/qac/quranic-corpus-morphology-0.4.txt"
+  sha256: "a1d12923815341face765083805d2148ed2d9f5cc3f7d6665219d887675d8c46"
+  authority: "STRUCTURAL_CANDIDATE_ONLY"
+source_package:
+  zip_sha256: "6489052950da94f278969d0f5f1db1b0a6028d8e14f969ce47b73b1be92b0d0d"
+  markdown_sha256: "8e9d53872ffc82930dd737564035ec2755ee3a94a4d3f2255a91680605b2b53d"
+  workbook_sha256: "75627f521ecba568cadd7e13490a25de0b938912bc82514f87704a652613f63b"
+semantic_policy:
+  source: "QURAN_INTERNAL_HYPOTHESES_ONLY"
+  concrete_operator_values_governing: false
+  examples_are_evidence_matrix: false
+prelock_access:
+  structural_counts_and_tags: "ALLOWED_STRUCTURAL_ONLY"
+  semantic_candidates: "METHODOLOGY_HYPOTHESES_NOT_EVIDENCE"
+  operator_discovery_run: "HIDE_SEMANTIC_CANDIDATES"

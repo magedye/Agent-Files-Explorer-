@@ -1,0 +1,80 @@
+register_version: "1.0.0"
+recorded_at: "2026-08-15"
+policy: "no automatic download; user-supplied third-party data may be bundled verbatim only when its terms permit and its notice/hash are preserved"
+resources:
+  - resource_id: "tanzil-quran-text"
+    documented_version: "1.1"
+    role_candidate: "canonical_text"
+    admission_status: "DOCUMENTED_NOT_BUNDLED"
+    artifact_contract: "references/quran/governance/CANONICAL_QURAN_TEXT_ARTIFACT_CONTRACT.md"
+    required_for_final_quote_verification: true
+    current_package_artifact_status: "CANONICAL_TEXT_ARTIFACT_UNAVAILABLE"
+    license_summary: "CC BY 3.0; verbatim distribution with attribution; changing the distributed text is not allowed"
+    source_url: "https://tanzil.net/pub/download/index.php"
+    license_url: "https://tanzil.net/docs/Text_License"
+    prelock_fields: ["canonical_text", "surah", "ayah", "source_metadata"]
+    blocked_prelock_fields: []
+    notes: "Preserve raw bytes; normalization is a separate derived artifact."
+
+  - resource_id: "quranic-arabic-corpus"
+    documented_version: "0.4"
+    role_candidate: "prelock_structural_annotation"
+    admission_status: "BUNDLED_VERBATIM_USER_SUPPLIED"
+    bundled_path: "assets/quran/qac/quranic-corpus-morphology-0.4.txt"
+    content_sha256: "a1d12923815341face765083805d2148ed2d9f5cc3f7d6665219d887675d8c46"
+    canonical_text_authority: false
+    quote_verification_authority: false
+    license_summary: "GNU GPL and explicit verbatim-copy terms in the file; preserve the complete QAC and Tanzil copyright blocks and attribution"
+    source_url: "https://corpus.quran.com/download/"
+    independence_group_candidate: "qac-leeds"
+    derived_from: ["tanzil-quran-text-1.0.2-as-declared-in-qac-file"]
+    prelock_fields: ["surface", "segment", "root", "lemma", "pos", "morphology", "syntax"]
+    blocked_prelock_fields: ["translation", "gloss", "dictionary_definition", "ontology_concept"]
+
+  - resource_id: "masaq"
+    documented_version: "6"
+    role_candidate: "prelock_structural_annotation"
+    admission_status: "DOCUMENTED_USER_SUPPLIED"
+    license_summary: "CC BY-NC 3.0 on the recorded dataset page"
+    source_url: "https://data.mendeley.com/datasets/9yvrzxktmr/6"
+    independence_group_candidate: "masaq-expert-annotation"
+    derived_from: ["tanzil-quran-text"]
+    prelock_fields: ["surface", "segment", "root", "lemma", "pos", "morphology", "syntax"]
+    blocked_prelock_fields: ["semantic_information", "gloss", "translation", "sense", "ontology_concept"]
+
+  - resource_id: "extended-quranic-treebank"
+    documented_version: "1"
+    role_candidate: "prelock_structural_annotation_derived"
+    admission_status: "DOCUMENTED_USER_SUPPLIED"
+    license_summary: "CC BY 4.0"
+    source_url: "https://data.mendeley.com/datasets/rk96pn66m4/1"
+    independence_group_candidate: "eqtb-qac-derived"
+    derived_from: ["tanzil-quran-text", "quranic-arabic-corpus", "classical-arabic-references"]
+    prelock_fields: ["surface", "segment", "root", "lemma", "pos", "morphology", "syntax", "dependency"]
+    blocked_prelock_fields: ["english_translation", "gloss", "semantic_label", "embedding_derived_meaning"]
+
+  - resource_id: "lisan-quranic-morphological-operator-reference"
+    documented_version: "0.2.0"
+    role_candidate: "methodology_reference_and_structural_summary"
+    admission_status: "BUNDLED_PROJECT_DERIVED"
+    bundled_paths:
+      - "references/quran/morphology/LISAN_Quranic_Morphological_Operator_Reference_v0.2.md"
+      - "references/quran/morphology/LISAN_Quranic_Morphological_Operator_Reference_v0.2.xlsx"
+      - "references/quran/morphology/morphological-operator-registry-v0.2.json"
+    derived_from:
+      - "quranic-arabic-corpus-morphology-0.4"
+      - "owner-supplied-morphological-operator-reference-v0.1"
+    structural_authority: "QAC_DERIVED_COUNTS_VERIFIED"
+    semantic_authority: "NON_GOVERNING_HYPOTHESES"
+    prelock_fields:
+      - "operator_id"
+      - "structural_status"
+      - "token_count"
+      - "root_candidate_count"
+      - "qac_tag"
+    conditional_prelock_fields:
+      - "semantic_candidate: methodology hypothesis only; hide when the operator itself is the blind target"
+    blocked_as_evidence:
+      - "semantic_candidate"
+      - "illustrative_examples"
+    notes: "R112 separates structural attestation from semantic validation; R113 prevents operator-stack collapse."

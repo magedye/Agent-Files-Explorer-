@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/sealed-text/rule-registry-entry.schema.json",
+  "title": "Methodology Rule Registry Entry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "rule_id",
+    "name",
+    "status",
+    "weight",
+    "description",
+    "impact",
+    "trigger",
+    "failure_mode_prevented",
+    "provenance",
+    "related_rules",
+    "examples",
+    "regression_tests",
+    "generalization_scope",
+    "arabic_label",
+    "description_ar",
+    "impact_ar",
+    "trigger_ar"
+  ],
+  "properties": {
+    "rule_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string"
+    },
+    "weight": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "impact": {
+      "type": "string",
+      "minLength": 1
+    },
+    "trigger": {
+      "type": "string",
+      "minLength": 1
+    },
+    "failure_mode_prevented": {
+      "type": "string",
+      "minLength": 1
+    },
+    "provenance": {
+      "type": "string",
+      "minLength": 1
+    },
+    "related_rules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "regression_tests": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "generalization_scope": {
+      "type": "string"
+    },
+    "arabic_label": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description_ar": {
+      "type": "string",
+      "minLength": 1
+    },
+    "impact_ar": {
+      "type": "string",
+      "minLength": 1
+    },
+    "trigger_ar": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

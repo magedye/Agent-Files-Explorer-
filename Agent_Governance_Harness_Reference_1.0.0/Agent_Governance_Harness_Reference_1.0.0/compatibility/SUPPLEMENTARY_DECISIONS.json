@@ -1,0 +1,100 @@
+{
+  "decisions": [
+    {
+      "id": "SUP-01",
+      "disposition": "MERGE",
+      "decision": "Native project tracker may remain canonical with an explicit adapter; do not create a competing status database.",
+      "target": "policies/STATE_AND_RECOVERY.md",
+      "authority": "OWNER_REQUESTED_RECONCILIATION",
+      "independent_approval": false
+    },
+    {
+      "id": "SUP-02",
+      "disposition": "MERGE",
+      "decision": "Protected source references substitute for copying confidential originals into a public package.",
+      "target": "policies/CHANGE_CONTROL.md",
+      "authority": "OWNER_REQUESTED_RECONCILIATION",
+      "independent_approval": false
+    },
+    {
+      "id": "SUP-03",
+      "disposition": "STRENGTHEN",
+      "decision": "Stale map invalidates reliance on that view, not all independent authorized work.",
+      "target": "policies/STATE_AND_RECOVERY.md",
+      "authority": "OWNER_REQUESTED_RECONCILIATION",
+      "independent_approval": false
+    },
+    {
+      "id": "SUP-04",
+      "disposition": "MERGE",
+      "decision": "Nondeployable artifacts use acceptance appropriate to their kind, not invented LIVE_ACCEPTED.",
+      "target": "policies/VERIFICATION.md",
+      "authority": "OWNER_REQUESTED_RECONCILIATION",
+      "independent_approval": false
+    },
+    {
+      "id": "SUP-05",
+      "disposition": "MERGE",
+      "decision": "Track actual command argv, working directory, effects and prerequisites.",
+      "target": "templates/PROJECT.json",
+      "authority": "OWNER_REQUESTED_RECONCILIATION",
+      "independent_approval": false
+    },
+    {
+      "id": "SUP-06",
+      "disposition": "MERGE",
+      "decision": "Record pending dispositions; an empty list cannot substitute for proven goals.",
+      "target": "protocols/EXECUTION.md",
+      "authority": "OWNER_REQUESTED_RECONCILIATION",
+      "independent_approval": false
+    },
+    {
+      "id": "SUP-07",
+      "disposition": "REJECT_INHERITANCE",
+      "decision": "Do not inherit source release status, prior PASS or independent-review implications.",
+      "target": "verification/REPORT.md",
+      "authority": "OWNER_REQUESTED_RECONCILIATION",
+      "independent_approval": false
+    },
+    {
+      "id": "SUP-08",
+      "disposition": "REJECT_DUPLICATION",
+      "decision": "Do not import old generated catalogs, derived maps or mirrored guide text as new authorities.",
+      "target": "ARCHITECTURE.md",
+      "authority": "OWNER_REQUESTED_RECONCILIATION",
+      "independent_approval": false
+    },
+    {
+      "id": "SUP-09",
+      "disposition": "REJECT_AUTOMATIC_PROFILE_MAPPING",
+      "decision": "Old SMALL/STRICT labels do not confer LITE/CONTROLLED eligibility without facts.",
+      "target": "profiles/README.md",
+      "authority": "OWNER_REQUESTED_RECONCILIATION",
+      "independent_approval": false
+    },
+    {
+      "id": "SUP-10",
+      "disposition": "RETAIN_LIMITATION",
+      "decision": "Historical 88/441/598 link accounting is not newly proven semantic equivalence of unavailable originals.",
+      "target": "compatibility/V4_RECONCILIATION.md",
+      "authority": "OWNER_REQUESTED_RECONCILIATION",
+      "independent_approval": false
+    },
+    {
+      "id": "SUP-11",
+      "disposition": "REIMPLEMENT",
+      "decision": "Source validators are not the design foundation; new schemas, tests and bounded executor implement the new contracts.",
+      "target": "runtime/README.md",
+      "authority": "OWNER_REQUESTED_RECONCILIATION",
+      "independent_approval": false
+    },
+    {
+      "id": "SUP-12",
+      "disposition": "RETAIN_SCOPE",
+      "decision": "Existing comments/tests may be corrected under a legitimate change; prohibit gaming and unrelated destruction, not all edits.",
+      "target": "policies/ENGINEERING.md",
+      "authority": "OWNER_REQUESTED_RECONCILIATION",
+      "independent_approval": false
+    }
+  ]
+}

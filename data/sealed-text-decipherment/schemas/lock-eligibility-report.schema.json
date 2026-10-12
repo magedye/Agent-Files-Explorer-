@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lisan.local/schemas/lock-eligibility-report.schema.json",
+  "title": "تقرير أهلية القفل",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "source_isolation_verified",
+    "coverage_claim_auditable",
+    "evidence_matrix_present",
+    "positive_hypotheses_plus_c0",
+    "negative_ledger_present",
+    "semantic_exclusion_ledger_present",
+    "hardest_counterexample_examined",
+    "structural_ambiguity_handled",
+    "abstract_core_operationalized",
+    "root_form_construction_traceability",
+    "lexical_differentiation_sufficient_for_claim",
+    "no_hidden_genuine_contradiction",
+    "falsification_or_predictive_condition_present",
+    "holdout_prediction_frozen_or_not_applicable",
+    "verdict",
+    "blockers"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_isolation_verified": {
+      "type": "boolean"
+    },
+    "coverage_claim_auditable": {
+      "type": "boolean"
+    },
+    "evidence_matrix_present": {
+      "type": "boolean"
+    },
+    "positive_hypotheses_plus_c0": {
+      "type": "boolean"
+    },
+    "negative_ledger_present": {
+      "type": "boolean"
+    },
+    "semantic_exclusion_ledger_present": {
+      "type": "boolean"
+    },
+    "hardest_counterexample_examined": {
+      "type": "boolean"
+    },
+    "structural_ambiguity_handled": {
+      "type": "boolean"
+    },
+    "abstract_core_operationalized": {
+      "type": "boolean"
+    },
+    "root_form_construction_traceability": {
+      "type": "boolean"
+    },
+    "lexical_differentiation_sufficient_for_claim": {
+      "type": "boolean"
+    },
+    "no_hidden_genuine_contradiction": {
+      "type": "boolean"
+    },
+    "falsification_or_predictive_condition_present": {
+      "type": "boolean"
+    },
+    "holdout_prediction_frozen_or_not_applicable": {
+      "type": "boolean"
+    },
+    "verdict": {
+      "enum": [
+        "LOCK_ELIGIBLE",
+        "LOCK_BLOCKED",
+        "HUMAN_REVIEW_REQUIRED"
+      ]
+    },
+    "blockers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "independent_falsification_status": {
+      "enum": [
+        "NOT_REQUIRED_FOR_SCOPE",
+        "COMPLETED",
+        "NOT_COMPLETED_LIMITATION",
+        "HUMAN_REVIEW_REQUIRED"
+      ]
+    },
+    "mechanical_validation_status": {
+      "enum": [
+        "PASSED",
+        "FAILED",
+        "NOT_RUN"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "verdict": {
+            "const": "LOCK_ELIGIBLE"
+          }
+        },
+        "required": [
+          "verdict"
+        ]
+      },
+      "then": {
+        "properties": {
+          "source_isolation_verified": {
+            "const": true
+          },
+          "coverage_claim_auditable": {
+            "const": true
+          },
+          "evidence_matrix_present": {
+            "const": true
+          },
+          "positive_hypotheses_plus_c0": {
+            "const": true
+          },
+          "negative_ledger_present": {
+            "const": true
+          },
+          "semantic_exclusion_ledger_present": {
+            "const": true
+          },
+          "hardest_counterexample_examined": {
+            "const": true
+          },
+          "structural_ambiguity_handled": {
+            "const": true
+          },
+          "abstract_core_operationalized": {
+            "const": true
+          },
+          "root_form_construction_traceability": {
+            "const": true
+          },
+          "lexical_differentiation_sufficient_for_claim": {
+            "const": true
+          },
+          "no_hidden_genuine_contradiction": {
+            "const": true
+          },
+          "falsification_or_predictive_condition_present": {
+            "const": true
+          },
+          "holdout_prediction_frozen_or_not_applicable": {
+            "const": true
+          },
+          "blockers": {
+            "maxItems": 0
+          }
+        },
+        "required": [
+          "source_isolation_verified",
+          "coverage_claim_auditable",
+          "evidence_matrix_present",
+          "positive_hypotheses_plus_c0",
+          "negative_ledger_present",
+          "semantic_exclusion_ledger_present",
+          "hardest_counterexample_examined",
+          "structural_ambiguity_handled",
+          "abstract_core_operationalized",
+          "root_form_construction_traceability",
+          "lexical_differentiation_sufficient_for_claim",
+          "no_hidden_genuine_contradiction",
+          "falsification_or_predictive_condition_present",
+          "holdout_prediction_frozen_or_not_applicable"
+        ]
+      }
+    }
+  ]
+}

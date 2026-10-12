@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/sealed-text/source-register.schema.json",
+  "title": "Source Register Entry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "resource_id",
+    "version",
+    "content_hash",
+    "role",
+    "independence_group",
+    "derived_from",
+    "allowed_after_lock"
+  ],
+  "properties": {
+    "resource_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "content_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "CANONICAL_CORPUS",
+        "STRUCTURAL_TOOL",
+        "VISUAL_ANCHOR",
+        "PHONETIC_ANCHOR",
+        "SEMANTIC_EXTERNAL",
+        "PRIOR",
+        "HOLDOUT"
+      ]
+    },
+    "independence_group": {
+      "type": "string",
+      "minLength": 1
+    },
+    "derived_from": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "allowed_after_lock": {
+      "type": "string",
+      "enum": [
+        "NONE",
+        "LOCK_TRANSCRIPTION",
+        "LOCK_STRUCTURE",
+        "LOCK_INTERNAL_SEMANTICS",
+        "LOCK_INTERNAL_RESULT"
+      ]
+    },
+    "allowed_fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "blocked_fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "license_or_access_notes": {
+      "type": "string",
+      "default": ""
+    }
+  }
+}

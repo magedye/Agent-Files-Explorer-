@@ -1,0 +1,13 @@
+interface:
+  display_name: "مختبر لسان الأعمى"
+  short_description: "اكتشاف قرآني داخلي بلا Priors وثائقية"
+  default_prompt: "استخدم $lisan-blind-lab وفق v3.4.0: تحقق من عزل المصادر، ابدأ من UNKNOWN، أنشئ فهرس corpus وملفات موضعية وسجل استبعادات وفرضيات متنافسة وC0، ولا تفتح أي Prior أو نتيجة سابقة ولا تصدر قفلًا بلا تقرير أهلية."
+  icon_small: "assets/icon.svg"
+  icon_large: "assets/icon.svg"
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

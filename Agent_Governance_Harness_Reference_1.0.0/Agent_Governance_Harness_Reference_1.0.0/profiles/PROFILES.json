@@ -1,0 +1,22 @@
+{
+  "default": "STANDARD",
+  "profiles": {
+    "LITE": {
+      "allowed_data_classes": [
+        "PUBLIC",
+        "INTERNAL_NON_SENSITIVE"
+      ],
+      "production_access": false,
+      "irreversible_operations": false,
+      "external_mutations": false,
+      "independent_review_required": false
+    },
+    "STANDARD": {
+      "selection": "Default ordinary software work; scope high-impact operations separately."
+    },
+    "CONTROLLED": {
+      "selection": "Protected/high-impact boundary with explicit authority and actual qualification."
+    }
+  },
+  "note": "Profiles select assurance, never authorization."
+}

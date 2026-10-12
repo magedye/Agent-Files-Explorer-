@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/sealed-text/project-state.schema.json",
+  "title": "Decipherment Project State",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "project_id",
+    "corpus_hash",
+    "active_stage",
+    "claim_ceiling",
+    "known_blockers",
+    "next_action",
+    "updated_at_utc"
+  ],
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "corpus_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "active_stage": {
+      "type": "string",
+      "enum": [
+        "INTAKE",
+        "TRANSCRIPTION",
+        "STRUCTURE",
+        "LOCAL_PROFILES",
+        "SEMANTICS",
+        "HOLDOUT",
+        "EXTERNAL_COMPARISON",
+        "REPORTING",
+        "STOPPED"
+      ]
+    },
+    "claim_ceiling": {
+      "type": "string",
+      "enum": [
+        "OBSERVATION_ONLY",
+        "STRUCTURAL_ONLY",
+        "LEXICAL_CANDIDATES",
+        "INTERNAL_SEMANTICS",
+        "PARTIAL_TRANSLATION",
+        "FULL_TRANSLATION_CANDIDATE"
+      ]
+    },
+    "locks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "known_blockers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "deferred_items": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "next_action": {
+      "type": "string",
+      "minLength": 1
+    },
+    "updated_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

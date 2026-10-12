@@ -1,0 +1,265 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lisan.local/schemas/quran-semantic-analysis-record.schema.json",
+  "title": "سجل التحليل الدلالي القرآني الطبقي",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "target",
+    "root_core_qualification_criteria",
+    "formal_definition",
+    "operational_definition",
+    "conceptual_structure",
+    "semantic_boundary",
+    "representative_contexts",
+    "decisive_contexts",
+    "structurally_sensitive_contexts",
+    "lexical_neighbors",
+    "operator_claims",
+    "local_realization_derivation_chains",
+    "coverage",
+    "falsification_condition",
+    "reopen_condition",
+    "lock_status",
+    "owner_acceptance_status",
+    "registry_adoption_status",
+    "output_level",
+    "evidence_matrix_ref",
+    "semantic_exclusion_ledger_ref",
+    "language_profile"
+  ],
+  "properties": {
+    "target": {
+      "type": "string",
+      "minLength": 1
+    },
+    "root_core_qualification_criteria": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "formal_definition": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "operational_definition": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "conceptual_structure": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "semantic_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "REQUIRED",
+        "PERMITTED",
+        "EXCLUDED",
+        "UNKNOWN"
+      ],
+      "properties": {
+        "REQUIRED": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PERMITTED": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "EXCLUDED": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "UNKNOWN": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "representative_contexts": {
+      "type": "array"
+    },
+    "decisive_contexts": {
+      "type": "array"
+    },
+    "structurally_sensitive_contexts": {
+      "type": "array"
+    },
+    "lexical_neighbors": {
+      "type": "array"
+    },
+    "operator_claims": {
+      "type": "array"
+    },
+    "local_realization_derivation_chains": {
+      "type": "array"
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "total_confirmed_occurrences",
+        "indexed_occurrences",
+        "deeply_analyzed_occurrences",
+        "index_coverage",
+        "deep_analysis_coverage",
+        "context_diversity_status",
+        "structural_stability"
+      ],
+      "properties": {
+        "total_confirmed_occurrences": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "indexed_occurrences": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "deeply_analyzed_occurrences": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "index_coverage": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "deep_analysis_coverage": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "context_diversity_status": {
+          "enum": [
+            "LOW",
+            "MODERATE",
+            "HIGH",
+            "COMPLETE_FOR_IDENTIFIED_CLUSTERS",
+            "UNKNOWN"
+          ]
+        },
+        "structural_stability": {
+          "enum": [
+            "LOW",
+            "MODERATE",
+            "HIGH",
+            "ROOT_ASSIGNMENT_UNCERTAIN",
+            "FORM_IDENTITY_UNCERTAIN",
+            "UNKNOWN"
+          ]
+        },
+        "positive_core_robustness": {
+          "enum": [
+            "NONE",
+            "LOW",
+            "MODERATE",
+            "STRONG",
+            "HIGH",
+            "UNKNOWN"
+          ]
+        },
+        "negative_determination_robustness": {
+          "enum": [
+            "NONE",
+            "LOW",
+            "MODERATE",
+            "STRONG",
+            "HIGH",
+            "UNKNOWN"
+          ]
+        }
+      }
+    },
+    "falsification_condition": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reopen_condition": {
+      "type": "string",
+      "minLength": 1
+    },
+    "lock_status": {
+      "enum": [
+        "NOT_LOCKED",
+        "LOCK_CANDIDATE",
+        "LOCK_BLOCKED",
+        "LOCK_INTERNAL_RESULT",
+        "HUMAN_REVIEW_REQUIRED"
+      ]
+    },
+    "owner_acceptance_status": {
+      "enum": [
+        "NOT_REQUESTED",
+        "PENDING_OWNER_REVIEW",
+        "OWNER_ACCEPTED",
+        "OWNER_REJECTED",
+        "REOPENED"
+      ]
+    },
+    "registry_adoption_status": {
+      "enum": [
+        "NOT_ADOPTED",
+        "PROPOSED_DIFF",
+        "PROVISIONAL",
+        "AGREED",
+        "REGRESSION_BACKED",
+        "UNRESOLVED"
+      ]
+    },
+    "output_level": {
+      "enum": [
+        "FULL_LAYERED_REPORT",
+        "CONTROLLED_CONCISE_SUMMARY",
+        "STATUS_ONLY"
+      ]
+    },
+    "evidence_matrix_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "semantic_exclusion_ledger_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "language_profile": {
+      "const": "ARABIC_FIRST_BILINGUAL_IDENTIFIERS"
+    },
+    "post_lock_interpretive_review_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

@@ -1,0 +1,955 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="دليل AGHR للعقود والحوكمة والتشغيل والإنفاذ والأدلة"><title>AGHR 1.0.0 — الدليل الأكاديمي والتطبيقي</title><style>*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f4f6f9;color:#1b2939;font-family:Tahoma,Arial,sans-serif;line-height:1.95;font-size:16px}header{background:#103449;color:#fff;padding:42px max(5vw,24px)}header .eyebrow{font-size:13px;letter-spacing:.15em;color:#9fcede}header h1{font-size:34px;line-height:1.5;max-width:1000px;margin:12px 0}header p{color:#e0eef7;max-width:950px}.layout{max-width:1480px;margin:auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:32px;padding:30px}aside{position:sticky;top:18px;align-self:start;max-height:90vh;overflow:auto;font-size:12px;background:#fff;border:1px solid #d9e2eb;border-radius:12px;padding:18px}aside a{display:block;padding:6px;border-bottom:1px solid #edf1f5;text-decoration:none;color:#264f66}main{min-width:0;background:#fff;padding:38px 44px;border:1px solid #d9e2eb;border-radius:12px}main h1{font-size:25px;line-height:1.7;color:#123f59;padding:17px 0 8px;border-top:2px solid #dce6ef;margin-top:48px;scroll-margin-top:24px}main h1:first-child{margin-top:0;border:0}h2{font-size:20px;color:#326078}p{margin:14px 0}strong{color:#183f58}a{color:#086a93;overflow-wrap:anywhere}code{direction:ltr;unicode-bidi:isolate;font-family:Consolas,monospace;font-size:.91em;background:#f1f4f8;padding:2px 4px;border-radius:3px;overflow-wrap:anywhere}pre{padding:18px;background:#132c3c;color:#e6f0f9;border-radius:8px;overflow:auto;line-height:1.7;font-size:13px}pre code{background:none;color:inherit;white-space:pre;overflow-wrap:normal}.table-wrap{overflow-x:auto;margin:22px 0;border:1px solid #d9e2eb;border-radius:9px}table{border-collapse:collapse;width:100%;font-size:14px;min-width:520px}th{background:#e9f1f7;color:#143e56;text-align:right}td,th{padding:12px 14px;border-bottom:1px solid #e0e8ef;vertical-align:top}tr:last-child td{border-bottom:none}tr:nth-child(even) td{background:#fafcfe}.diagram{margin:24px 0;overflow:auto;border:1px solid #dce6ef;border-radius:10px;background:#fbfdff}.diagram svg{display:block;width:100%;min-width:700px;height:auto;font-family:Tahoma,Arial,sans-serif}footer{padding:25px;text-align:center;color:#667487;font-size:13px}@media(max-width:1050px){.layout{grid-template-columns:1fr;padding:15px;gap:15px}aside{position:static;max-height:230px}main{padding:24px}}@media(max-width:600px){header{padding:24px 20px}header h1{font-size:26px}body{font-size:15px}main{padding:18px}main h1{font-size:22px}}@media print{body{background:white}aside{display:none}.layout{display:block;padding:0}main{border:0;padding:0}header{background:white;color:#123f59;padding:0}header p{color:#294e62}pre{white-space:pre-wrap}.diagram svg{min-width:0}table{min-width:0}h1,h2{break-after:avoid}.diagram,tr{break-inside:avoid}}</style></head><body><header><div class="eyebrow" dir="ltr">AGHR / REFERENCE EDITION / 1.0.0</div><h1>حوكمةٌ واضحة، وتشغيلٌ مستقل، وأدلةٌ قابلة للمراجعة</h1><p>دليل أكاديمي وتطبيقي لفهم العقود الأربعة، وتكييف المزود والمضيف، وتبني مسار متناسب دون الخلط بين التوجيه والإنفاذ أو بين التحقق والاعتماد.</p></header><div class="layout"><aside aria-label="فهرس الأقسام"><strong>فهرس الدليل</strong><a href="#section-2">1. الفكرة الأساسية: نحكم النظام لا ذاكرة النموذج وحدها</a><a href="#section-3">2. كيف تقرأ الحزمة دون أن تُغرق الوكيل؟</a><a href="#section-4">3. تعريف مكونات بيئة الوكيل</a><a href="#section-5">4. مبدأ مرجعية المطور أولًا</a><a href="#section-6">5. أبعاد القاعدة: لا تختزلها في كلمة MUST</a><a href="#section-7">6. الثوابت الاثنا عشر</a><a href="#section-8">7. العقود الأربعة</a><a href="#section-9">8. المسارات LITE وSTANDARD وCONTROLLED</a><a href="#section-10">9. إجراء التبني في مشروع جديد أو قائم</a><a href="#section-11">10. استقبال أي طلب إضافة أو تعديل</a><a href="#section-12">11. التصنيف والقوة والأثر</a><a href="#section-13">12. دورة حياة القاعدة والقرار</a><a href="#section-14">13. التخطيط: فكر قبل التعديل، لكن لا تتوقف شكليًا</a><a href="#section-15">14. التنفيذ المتتابع المقيّد</a><a href="#section-16">15. التعديل الجراحي Surgical Editing</a><a href="#section-17">16. تكييف المزودين والمضيفين</a><a href="#section-18">17. التعامل مع التعليمات والسياق</a><a href="#section-19">18. حد الإنفاذ قبل الأثر</a><a href="#section-20">19. ما الذي ينفذه المثال البرمجي فعلًا؟</a><a href="#section-21">20. الموافقة ليست تذكرة مفتوحة</a><a href="#section-22">21. نموذج الحالة وخريطة المشروع</a><a href="#section-23">22. تصميم دليل يمكن مراجعته</a><a href="#section-24">23. الاختبار والتقييم ليسا شيئًا واحدًا</a><a href="#section-25">24. السلامة والبيانات والسجلات</a><a href="#section-26">25. الحوادث والاسترداد</a><a href="#section-27">26. التبعيات وسلسلة التوريد</a><a href="#section-28">27. لماذا v4 مصدر تكميلي هنا؟</a><a href="#section-29">28. أمثلة محاكمة عملية</a><a href="#section-30">29. معجم المفاهيم والمصطلحات</a><a href="#section-31">30. تمرينات للمطور والمراجع</a><a href="#section-32">31. صيانة المرجع وتحديثه</a><a href="#section-33">32. الحدود النهائية وكيف تستخدم النتائج</a><a href="#section-34">33. خريطة الملفات الأساسية</a><a href="#section-35">34. المراجع الفنية وطريقة الاستشهاد</a></aside><main><h1 id="section-1">الدليل الأكاديمي والتطبيقي لحوكمة بيئات الوكلاء</h1>
+<h2>Agent Governance and Harness Reference — AGHR 1.0.0</h2>
+<p><strong>لغة الشرح:</strong> العربية مع المصطلحات الإنجليزية. <strong>لغة العقود والملفات التشغيلية:</strong> الإنجليزية. <strong>المسار الافتراضي:</strong> OpenAI / GPT مع STANDARD. <strong>تاريخ مراجعة المراجع التقنية:</strong> 11 أكتوبر 2026.</p>
+<p>هذا دليل تفسيري وتدريبي للمرجع الجديد، وليس مصدرًا موازيًا للقواعد. عند اختلاف ترجمة أو مثال مع قاعدة معتمدة، تُراجع دلالته ويرجع إلى <code>registry/RULES.json</code> والعقد المنطبق. لا تُكتسب صلاحية من وجود نص في هذا الدليل، ولا تصبح الحزمة معتمدة في مشروع لمجرد تنزيلها.</p>
+<h1 id="section-2">1. الفكرة الأساسية: نحكم النظام لا ذاكرة النموذج وحدها</h1>
+<p>حزمة الحوكمة العملية تربط أربعة أسئلة: <strong>ما المطلوب؟ ما المسموح؟ كيف ينفذ الوكيل؟ وما الذي يثبت صحة النتيجة؟</strong> النموذج يستطيع اقتراح الخطة أو الشفرة أو استدعاء الأداة، لكنه ليس الجهة الوحيدة التي ينبغي أن تحكم صلاحية الفعل أو صحة الدليل. المطلوب بيئة تجعل التصرف الصحيح واضحًا، وتمنع الأثر غير المصرح حيث يلزم، وتوفر تغذية راجعة يمكن مراجعتها.</p>
+<p>إذا كتبت «لا تحذف البيانات» في ملف تعليمات، فقد حسنت التوجيه؛ لم تنشئ بعد صلاحيات نظام ملفات أو سياسة خدمة تمنع الحذف. وإذا اجتاز ملف JSON مخططه، فقد أثبتت شكله؛ لم تثبت أن صاحبه نفذ الاختبار الذي يصفه. وإذا أنهى الوكيل جميع المهام، فقد أثبت نشاطًا؛ لا بد من ربطه بالهدف الذي يحتاجه المستخدم.</p>
+<p>هذا الفصل مستلهم من مراجع هندسة البيئات والأمان والتقييم الرسمية، لكنه معمارية صغناها لهذه الحزمة، وليس معيارًا تجاريًا صادرًا باسم OpenAI أو شهادة منها [OA-02، OA-05، OA-09، OA-10].</p>
+<div class="diagram"><svg role="img" aria-label="مخطط 1: هدف المستخدم ثم عقد الحوكمة ثم عقد التشغيل ثم إنفاذ قبل الأثر ثم أدلة وقرار" viewBox="0 0 1000 132" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arrow1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="#306684"/></marker></defs><rect x="812" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="898" y="58" text-anchor="middle" fill="#546b85" font-size="14">01</text><text x="898" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">هدف المستخدم</text><path d="M808 66 H788" stroke="#306684" stroke-width="2" marker-end="url(#arrow1)"/><rect x="614" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="700" y="58" text-anchor="middle" fill="#546b85" font-size="14">02</text><text x="700" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">عقد الحوكمة</text><path d="M610 66 H590" stroke="#306684" stroke-width="2" marker-end="url(#arrow1)"/><rect x="416" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="502" y="58" text-anchor="middle" fill="#546b85" font-size="14">03</text><text x="502" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">عقد التشغيل</text><path d="M412 66 H392" stroke="#306684" stroke-width="2" marker-end="url(#arrow1)"/><rect x="218" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="304" y="58" text-anchor="middle" fill="#546b85" font-size="14">04</text><text x="304" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">إنفاذ قبل الأثر</text><path d="M214 66 H194" stroke="#306684" stroke-width="2" marker-end="url(#arrow1)"/><rect x="20" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="106" y="58" text-anchor="middle" fill="#546b85" font-size="14">05</text><text x="106" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">أدلة وقرار</text></svg></div><h1 id="section-3">2. كيف تقرأ الحزمة دون أن تُغرق الوكيل؟</h1>
+<p>للمتبني البشري: ابدأ بـ<code>START_HERE.md</code>، ثم الميثاق والمعمارية، واختر ملف المشروع والمضيف. وللوكيل أثناء المهمة: يكفي مدخل المشروع، والطلب النشط، والحالة ذات الصلة، والبروتوكول المناسب. تُستدعى السياسات والتفاصيل عندما تؤثر في المهمة.</p>
+<p>حجم المكتبة ليس حجم السياق المطلوب لكل استدعاء. المرجع الشامل ينبغي أن يكون غنيًا عند الرجوع إليه، بينما ينبغي أن يكون مسار التشغيل اليومي قصيرًا. هذه هي فكرة <strong>الإفصاح التدريجي Progressive Disclosure</strong>: توجيه إلى المعرفة المطلوبة بدل تكرارها كلها في كل برومبت.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>الغرض</th>
+<th>نقطة البداية</th>
+<th>ما لا يلزم افتراضه</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>تبني الحزمة</td>
+<td>START_HERE ثم prompts/ADOPT.md</td>
+<td>قراءة الدليل الأكاديمي كاملًا قبل التهيئة</td>
+</tr>
+<tr>
+<td>تخطيط منتج</td>
+<td>protocols/PLANNING.md</td>
+<td>السماح بالتنفيذ أو النشر</td>
+</tr>
+<tr>
+<td>تنفيذ خطة مفوضة</td>
+<td>protocols/EXECUTION.md</td>
+<td>تفويض غير محدود أو تشغيل بلا ميزانية</td>
+</tr>
+<tr>
+<td>تعديل قائم</td>
+<td>protocols/SURGICAL_EDITING.md</td>
+<td>إعادة هيكلة كل المشروع</td>
+</tr>
+<tr>
+<td>إضافة قاعدة أو متطلب</td>
+<td>procedures/REQUEST_INTAKE.md</td>
+<td>ترقية النص المستورد تلقائيًا</td>
+</tr>
+<tr>
+<td>فحص الأدلة</td>
+<td>contracts/EVIDENCE.md</td>
+<td>تصديق كل سجل حسن التنسيق</td>
+</tr>
+</tbody>
+</table></div>
+<h1 id="section-4">3. تعريف مكونات بيئة الوكيل</h1>
+<p><strong>النموذج Model</strong> هو المكوّن الذي يولد الاستجابات واقتراحات الأفعال. <strong>الوكيل Agent</strong> هو ترتيب تشغيلي يربط نموذجًا بهدف وأدوات وحالة وحلقة متابعة. <strong>المضيف Host</strong> هو البيئة التي تحمل التعليمات وتوفر الأدوات والصلاحيات، مثل Codex أو Claude Code أو تطبيق API خاص. <strong>حزام التشغيل Agent Harness</strong> هو المنظومة التي تدير السياق، والتوجيه، والتنفيذ، والتحقق، والاستئناف.</p>
+<p><strong>مزود النموذج Provider</strong> ليس المضيف بالضرورة. يمكن استخدام مضيف متعدد المزودين مع نماذج مختلفة؛ وقد يتغير بروتوكول النموذج بينما تبقى طريقة تحميل ملفات المشروع واحدة، أو يحدث العكس. لذلك تحتوي الحزمة على محورين منفصلين للتكييف، لا قائمة أسماء توحي بالتوافق التلقائي.</p>
+<p><strong>الأداة Tool</strong> عقد لقدرة محددة، وليست مجرد دالة يمكن للنموذج ذكر اسمها. يتضمن عقدها المدخلات والمخرجات والأثر والصلاحيات وحدود الأخطاء. أما <strong>المنفّذ Executor</strong> فهو الذي يحدث الأثر فعلًا. يجب عدم الخلط بين «طلب استدعاء» و«تم التنفيذ» و«نُفذ بنجاح» و«قُبلت النتيجة».</p>
+<h1 id="section-5">4. مبدأ مرجعية المطور أولًا</h1>
+<p>الميثاق يقرر التزامًا تأسيسيًا: <strong>مطور النموذج هو المرجع التقني الأول للتعامل مع نموذجه، ومطور المضيف هو المرجع التقني الأول لسلوك المضيف.</strong> نتحقق من الوثيقة الرسمية المنطبقة على المنتج والإصدار قبل الاعتماد على ذاكرة النموذج أو أمثلة من منتج آخر.</p>
+<p>لكن عبارة «رسمي» لا تجعل كل جملة إلزامية. نفرق بين مواصفة سلوك، ومرجع API، ودليل تشغيل، وتوصية، وتجربة هندسية، ومثال. قد يصف فريق نجاحه بمعمارية معينة دون أن يفرضها على جميع المستخدمين. وقد يوصي المزود بأداة لا يسمح تفويض المشروع باستخدامها على بياناته.</p>
+<p>المرجع التقني لا يتجاوز سلطة المضيف أو الأمن أو النطاق المأذون. وعند التعارض نفحص المنتج والإصدار والنطاق والاعتماد والاستبدال الصريح. الأحدث ليس فائزًا تلقائيًا، والأشد ليس أصح دائمًا. إذا بقي التعارض مؤثرًا، نوقف القرار المتأثر فقط ونواصل العمل المستقل الآمن.</p>
+<p>مثال: وثيقة حالية لواجهة معينة لا تثبت دعم الخيار نفسه في واجهة متوافقة جزئيًا لدى مزود آخر. التصرف الصحيح هو التحقق من المرجع المحلي لذلك المزود وتسجيل الفرق، لا تمرير الخيار بصمت أو الادعاء بأن نتيجته مكافئة.</p>
+<h1 id="section-6">5. أبعاد القاعدة: لا تختزلها في كلمة MUST</h1>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>البعد</th>
+<th>السؤال</th>
+<th>مثال</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>قناة تعليمات المضيف Host Channel</td>
+<td>كيف وصلت التعليمة إلى النموذج؟</td>
+<td>System، Developer، User، بيانات أداة</td>
+</tr>
+<tr>
+<td>السلطة المؤسسية Institutional Authority</td>
+<td>من يملك القرار في المشروع؟</td>
+<td>مالك مخول ضمن نطاق معين</td>
+</tr>
+<tr>
+<td>الثقة Trust</td>
+<td>هل المصدر مخول للتوجيه أم مجرد بيانات؟</td>
+<td>مستند خارجي لم يراجع</td>
+</tr>
+<tr>
+<td>القوة المعيارية Normative Force</td>
+<td>هل هي إلزام أم حظر أم توصية؟</td>
+<td>MUST_NOT</td>
+</tr>
+<tr>
+<td>الانطباق Applicability</td>
+<td>متى وأين وعلى أي فعل؟</td>
+<td>عند نقل بيانات إلى خارج البيئة</td>
+</tr>
+<tr>
+<td>الإنفاذ Enforcement</td>
+<td>من يمنع أو يكشف المخالفة؟</td>
+<td>وسيط أدوات وصلاحيات خدمة</td>
+</tr>
+<tr>
+<td>الدليل Evidence</td>
+<td>كيف نثبت النتيجة؟</td>
+<td>سجل فعل مرتبط بمرشح وبيئة</td>
+</tr>
+<tr>
+<td>دورة الحياة Lifecycle</td>
+<td>هل القاعدة مقترحة أم نافذة؟</td>
+<td>PROPOSED أو EFFECTIVE</td>
+</tr>
+</tbody>
+</table></div>
+<p>وفق مواصفة OpenAI، توجد مستويات لسلطة التعليمات؛ والمحتوى غير الموثوق لا يكتسب سلطة تعليمية بمجرد دخوله إلى السياق. هذه مواصفة للسلوك المرغوب، وليست ضمانًا بأن كل نشر يطبقها بلا خطأ [OA-01]. أما تفاصيل الأبعاد السابقة فهي تمثيل حوكمي محلي يساعد على عدم خلط حقائق مختلفة.</p>
+<p>لا تعني <code>MUST</code> «تعليمة System»، ولا تعني <code>MAY</code> أن الفعل مسموح بلا حدود. وقد تكون التوصية نافعة وعالية الأثر دون أن تكون ملزمة. كما أن <code>APPROVED</code> المسجلة في ملف لا تثبت هوية المعتمد؛ تحتاج إلى قرار محفوظ بآلية موثوقة.</p>
+<div class="diagram"><svg role="img" aria-label="مخطط 2: نص القاعدة ثم المصدر والثقة ثم السلطة والقوة ثم الانطباق ثم الفعل والدليل" viewBox="0 0 1000 132" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arrow2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="#306684"/></marker></defs><rect x="812" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="898" y="58" text-anchor="middle" fill="#546b85" font-size="14">01</text><text x="898" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">نص القاعدة</text><path d="M808 66 H788" stroke="#306684" stroke-width="2" marker-end="url(#arrow2)"/><rect x="614" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="700" y="58" text-anchor="middle" fill="#546b85" font-size="14">02</text><text x="700" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">المصدر والثقة</text><path d="M610 66 H590" stroke="#306684" stroke-width="2" marker-end="url(#arrow2)"/><rect x="416" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="502" y="58" text-anchor="middle" fill="#546b85" font-size="14">03</text><text x="502" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">السلطة والقوة</text><path d="M412 66 H392" stroke="#306684" stroke-width="2" marker-end="url(#arrow2)"/><rect x="218" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="304" y="58" text-anchor="middle" fill="#546b85" font-size="14">04</text><text x="304" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">الانطباق</text><path d="M214 66 H194" stroke="#306684" stroke-width="2" marker-end="url(#arrow2)"/><rect x="20" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="106" y="58" text-anchor="middle" fill="#546b85" font-size="14">05</text><text x="106" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">الفعل والدليل</text></svg></div><h1 id="section-7">6. الثوابت الاثنا عشر</h1>
+<p>المبادئ غير القابلة للتجاوز هي: احترام السلطة الشرعية؛ هدف المنتج قبل الإجراء؛ حدود التفويض؛ حفظ الموجود؛ صدق الأدلة؛ نزاهة الاختبارات؛ فصل التنفيذ والتحقق والقبول؛ الأمن والخصوصية؛ التتبع؛ الاستمرار الآمن؛ مرجعية واحدة لكل حقيقة؛ والتناسب والوضوح.</p>
+<p>الثبات يتعلق بالمبدأ لا بكل وسيلة تطبيق. حماية البيانات ثابتة، لكن آلياتها تختلف بين تجربة محلية ببيانات اصطناعية وخدمة إنتاجية. وصدق الدليل ثابت، لكن اختبار تعديل نص توثيقي لا يطابق اختبار ترحيل قاعدة بيانات. التناسب لا يعفي من الحماية، والصرامة لا تبرر مراسم بلا فائدة.</p>
+<p>أي قاعدة إضافية ينبغي أن تجيب: ما الخطر أو الالتزام الذي تعالجه؟ هل توجد قاعدة تغطيه؟ هل يمكن التعبير عنه بوضوح؟ ما كلفة الالتزام؟ كيف يُكشف عدم الالتزام؟ من يملك اعتمادها وتعديلها؟ إذا لم تضف القاعدة قيمة يمكن تفسيرها، فالأرجح أنها تكرار أو إجراء زائد.</p>
+<h1 id="section-8">7. العقود الأربعة</h1>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>العقد</th>
+<th>مسؤوليته</th>
+<th>يدخل إليه</th>
+<th>يخرج منه</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Governance</td>
+<td>السلطة والانطباق والقرار ودورة القواعد</td>
+<td>طلبات ومراجع وتفويض</td>
+<td>التزامات وحدود وقرارات معلنة</td>
+</tr>
+<tr>
+<td>Runtime</td>
+<td>تشغيل النموذج والأدوات والحالة</td>
+<td>مهمة مصرح بها وسياق مختار</td>
+<td>مقترحات أفعال وتقدم وحالة</td>
+</tr>
+<tr>
+<td>Enforcement</td>
+<td>التحقق الموثوق قبل الأثر</td>
+<td>هوية حقيقية وفعل مقترح وسياسة</td>
+<td>ALLOW أو REVIEW أو DENY</td>
+</tr>
+<tr>
+<td>Evidence</td>
+<td>الربط بين الادعاء وما يثبته</td>
+<td>نتائج فعلية ومرشح وبيئة</td>
+<td>دليل قابل للمراجعة وحدود معلنة</td>
+</tr>
+</tbody>
+</table></div>
+<p>لا يطلب عقد الحوكمة من النموذج أن يصبح مزود هوية، ولا يجعل عقد الإنفاذ ملف Markdown جدارًا أمنيًا. كما أن عقد الأدلة لا يحول البصمة إلى شهادة جودة. العقود تفصل المسؤوليات وتحدد أين يجب بناء الآلية الحقيقية.</p>
+<p>يمكن لمشروع صغير تنفيذ هذه المسؤوليات في مكونات قليلة؛ الفصل المنطقي لا يفرض خدمة شبكية مستقلة لكل عقد. يبدأ التصميم بأبسط حل كافٍ، ويضاف الفصل المادي حين تتطلبه الثقة أو العزل أو التوسع.</p>
+<h1 id="section-9">8. المسارات LITE وSTANDARD وCONTROLLED</h1>
+<p><strong>STANDARD هو المسار الافتراضي.</strong> تختار المسارات مقدار التأكيد المطلوب، ولا تمنح الصلاحيات بنفسها. قد يبقى معظم المشروع STANDARD بينما يحتاج إجراء إنتاجي محدد إلى CONTROLLED. وعندما يصرح ملف المشروع نفسه بوصول إنتاجي أو عمليات غير قابلة للرجوع، فإن مدقق المثال المحافظ يطلب CONTROLLED لذلك الملف.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>الجانب</th>
+<th>LITE</th>
+<th>STANDARD</th>
+<th>CONTROLLED</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>نوع العمل</td>
+<td>محدود وقابل للرجوع</td>
+<td>تطوير وتكامل اعتيادي</td>
+<td>أثر عالٍ أو حدود محمية</td>
+</tr>
+<tr>
+<td>البيانات</td>
+<td>عامة أو داخلية غير حساسة بعد التحقق</td>
+<td>مصنفة وفق السياق</td>
+<td>حساسة أو التزامات خاصة</td>
+</tr>
+<tr>
+<td>الاستقبال</td>
+<td>صيغة قصيرة للطلبات المؤهلة</td>
+<td>سجل واضح للتغير المؤثر</td>
+<td>تحليل مفصل للحدود المعنية</td>
+</tr>
+<tr>
+<td>التحقق</td>
+<td>الفحوص ذات الصلة</td>
+<td>الفحوص والتكامل المتأثر</td>
+<td>فحوص الأمان والاسترداد والحدود</td>
+</tr>
+<tr>
+<td>الاستقلالية</td>
+<td>ضمن التفويض</td>
+<td>ضمن التفويض</td>
+<td>ضمن التفويض والموافقات المحمية</td>
+</tr>
+<tr>
+<td>المراجعة المستقلة</td>
+<td>عند وجود التزام فعلي</td>
+<td>حسب الخطر والالتزام</td>
+<td>عند اشتراطها للحد المعني</td>
+</tr>
+</tbody>
+</table></div>
+<p>صغر عدد الملفات لا يكفي لاختيار LITE. قد يغير سطر واحد وجهة تسريب بيانات، بينما يكون تعديل أربع ملفات توثيقية منخفض الأثر. وبالمثل لا يجعل ارتفاع عدد الوكلاء المشروع CONTROLLED تلقائيًا؛ المهم ما الذي يمكنهم فعله ولمن وبأي بيانات.</p>
+<h1 id="section-10">9. إجراء التبني في مشروع جديد أو قائم</h1>
+<p>التبني ليس نسخ الملفات ثم إعلان النجاح. يبدأ باكتشاف المشروع والتعليمات الحالية وحالة المستودع، واختيار المسار، وتسجيل حقائق البيئة والأوامر الفعلية، ومصالحة المرجعيات، وتحديد قرار التبني، وتأهيل الحدود المنطبقة، والتحقق من سجلاته.</p>
+<p>الأداة <code>init</code> تنشئ <code>.aghr</code> جديدة، ونسخة محلية من المرجع، وملف مشروع وحالة، ومجلد استقبال وأدلة، ومدخل تعليمات <strong>مقترحًا</strong>. لا تستبدل <code>AGENTS.md</code> أو <code>PROJECT_MAP.md</code> الموجودين في جذر مشروعك، ولا تعدّل إعدادات المضيف العامة، ولا تفعّل سياسات، ولا تنفذ Git.</p>
+<pre dir="ltr"><code>python runtime/cli.py init --project ../my-project --name &quot;My Project&quot; --owner &quot;Project Owner&quot; --profile STANDARD
+python runtime/cli.py validate --project ../my-project
+python runtime/cli.py validate --project ../my-project --ready
+</code></pre>
+<p>أول فحص يتحقق من البنية والعلاقات. أما <code>--ready</code> فيفحص متطلبات التبني المسجلة، وليس اكتمال المنتج أو صدق هوية المعتمد. القوالب ذات القيم المجهولة ليست مؤهلة لمجرد صحة شكلها. إن كانت <code>.aghr</code> موجودة، ترفض الأداة الكتابة فوقها، ويستخدم مسار تعديل مدروس.</p>
+<div class="diagram"><svg role="img" aria-label="مخطط 3: اكتشاف بلا تغيير ثم اختيار المسار ثم تهيئة ومصالحة ثم قرار وتأهيل ثم نفاذ محدود" viewBox="0 0 1000 132" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arrow3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="#306684"/></marker></defs><rect x="812" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="898" y="58" text-anchor="middle" fill="#546b85" font-size="14">01</text><text x="898" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">اكتشاف بلا تغيير</text><path d="M808 66 H788" stroke="#306684" stroke-width="2" marker-end="url(#arrow3)"/><rect x="614" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="700" y="58" text-anchor="middle" fill="#546b85" font-size="14">02</text><text x="700" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">اختيار المسار</text><path d="M610 66 H590" stroke="#306684" stroke-width="2" marker-end="url(#arrow3)"/><rect x="416" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="502" y="58" text-anchor="middle" fill="#546b85" font-size="14">03</text><text x="502" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">تهيئة ومصالحة</text><path d="M412 66 H392" stroke="#306684" stroke-width="2" marker-end="url(#arrow3)"/><rect x="218" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="304" y="58" text-anchor="middle" fill="#546b85" font-size="14">04</text><text x="304" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">قرار وتأهيل</text><path d="M214 66 H194" stroke="#306684" stroke-width="2" marker-end="url(#arrow3)"/><rect x="20" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="106" y="58" text-anchor="middle" fill="#546b85" font-size="14">05</text><text x="106" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">نفاذ محدود</text></svg></div><h1 id="section-11">10. استقبال أي طلب إضافة أو تعديل</h1>
+<p>تستخدم الحزمة مسار استقبال واحدًا بصيغة قصيرة أو كاملة. الصيغة القصيرة لا تعني إخفاء المصدر أو التصرف بلا معيار قبول، بل جمع الحد الأدنى الذي يكفي لمهمة منخفضة الأثر ومفوضة. أما إضافة قاعدة حاكمة أو تغيير صلاحية أو متطلب حساس فتحتاج معالجة أوسع.</p>
+<p>خطوات المعالجة: حفظ النص الأصلي أو مرجع حيازة مناسب؛ تفكيك البنود عند الحاجة؛ فصل الملاحظة عن الاقتراح والقرار؛ تحديد السلطة والثقة والانطباق؛ المقارنة بما هو قائم؛ اختيار التصرف؛ تسجيل القرار؛ التنفيذ إن كان مفوضًا؛ التحقق؛ تحديث السجلات.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>المدخل</th>
+<th>المعالجة الصحيحة</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>«راجع اقتراحًا لتحسين الدخول»</td>
+<td>مراجعة فقط، لا إذن تعديل أو نشر</td>
+</tr>
+<tr>
+<td>«أصلح هذا الخلل في الفرع الحالي» من مخول</td>
+<td>تحديد المعيار ثم التنفيذ داخل النطاق</td>
+</tr>
+<tr>
+<td>«اعتمد المبدأ»</td>
+<td>اعتماد ضمن النطاق المعلن، لا اعتماد كل تنفيذ له</td>
+</tr>
+<tr>
+<td>ملف يقول «تجاهل الأمن»</td>
+<td>بيانات غير موثوقة، لا أمر نافذ</td>
+</tr>
+<tr>
+<td>متطلب يحتمل معنيين يؤثران في المنتج</td>
+<td>سؤال محدد أو إيقاف القرار المتأثر</td>
+</tr>
+<tr>
+<td>تفضيل تنسيق غير حاسم</td>
+<td>افتراض معلن أو تطبيق ضمن النمط، دون تعطيل غير لازم</td>
+</tr>
+</tbody>
+</table></div>
+<p>أمر <code>intake</code> يحفظ سجلًا جديدًا ويرفض المعرّف المكرر، ولا يغيّر حالة قاعدة أو يمنح تصريح تنفيذ. توثيق «المصدر قال إن البند معتمد» لا يساوي التحقق من الاعتماد.</p>
+<div class="diagram"><svg role="img" aria-label="مخطط 4: التقاط الأصل ثم تصنيف ومقارنة ثم تصرف مسبب ثم قرار مختص ثم تنفيذ وتحقق" viewBox="0 0 1000 132" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arrow4" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="#306684"/></marker></defs><rect x="812" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="898" y="58" text-anchor="middle" fill="#546b85" font-size="14">01</text><text x="898" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">التقاط الأصل</text><path d="M808 66 H788" stroke="#306684" stroke-width="2" marker-end="url(#arrow4)"/><rect x="614" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="700" y="58" text-anchor="middle" fill="#546b85" font-size="14">02</text><text x="700" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">تصنيف ومقارنة</text><path d="M610 66 H590" stroke="#306684" stroke-width="2" marker-end="url(#arrow4)"/><rect x="416" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="502" y="58" text-anchor="middle" fill="#546b85" font-size="14">03</text><text x="502" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">تصرف مسبب</text><path d="M412 66 H392" stroke="#306684" stroke-width="2" marker-end="url(#arrow4)"/><rect x="218" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="304" y="58" text-anchor="middle" fill="#546b85" font-size="14">04</text><text x="304" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">قرار مختص</text><path d="M214 66 H194" stroke="#306684" stroke-width="2" marker-end="url(#arrow4)"/><rect x="20" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="106" y="58" text-anchor="middle" fill="#546b85" font-size="14">05</text><text x="106" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">تنفيذ وتحقق</text></svg></div><h1 id="section-12">11. التصنيف والقوة والأثر</h1>
+<p>تصنيف <strong>النوع Kind</strong> يجيب: هل هذا مبدأ، سياسة، متطلب، قيد، توصية، تفضيل، ملاحظة، خطر، افتراض، سؤال أو إجراء؟ أما <strong>القوة Force</strong> فتجيب: هل يجب تطبيقه، يحظر فعله، يوصى به، أم هو اختياري أو معلوماتي؟ و<strong>الأثر Impact</strong> يصف عواقب تجاهله أو تغييره، لا سلطته.</p>
+<p><code>MUST</code> و<code>MUST_NOT</code> التزام وحظر ضمن الانطباق؛ <code>SHOULD</code> و<code>SHOULD_NOT</code> توجيه افتراضي يمكن العدول عنه بسبب مناسب دون خرق التزام أعلى؛ <code>MAY</code> خيار داخل الحدود؛ <code>INFORMATIVE</code> معرفة؛ <code>UNRESOLVED</code> دلالة تحتاج حسمًا. لا تستخدم نسبًا مثل MUST=100% وSHOULD=75% لتقدير سلطة القاعدة.</p>
+<p>قد تكون ملاحظة أمنية غير معتمدة عالية الأثر وتستدعي التحقيق، لكنها لا تصبح أمرًا مصرحًا به لتعديل الإنتاج. وقد تكون قاعدة تنسيق معتمدة إلزامية منخفضة الأثر. فصل الأبعاد يمنع إعطاء الملاحظات سلطة زائدة أو إهمال مخاطر مهمة لأنها ليست أوامر.</p>
+<h1 id="section-13">12. دورة حياة القاعدة والقرار</h1>
+<p>دورة القاعدة تشمل CAPTURED، CLASSIFIED، PROPOSED، APPROVED، EFFECTIVE، ثم SUPERSEDED أو RETIRED، مع حالات REJECTED أو DEFERRED عند الحاجة. القاعدة المعتمدة قد لا تكون نافذة بعد إذا بقي شرط تفعيل أو تأهيل. والاستبدال يحتاج علاقة صريحة بالقاعدة السابقة بدل حذفها بصمت.</p>
+<p>أما القرار فيحفظ صاحبه ونطاقه ومرجعه وسببه وما يترتب عليه. عنوان ADR لا يثبت أن صاحبه مخول. كذلك لا يجعل إصدار ملف جديد قرارًا أعلى من سياسة معتمدة سابقة. حماية سجل القرار أو التوقيع أو الإجراء المؤسسي مسؤولية بيئة التبني، وليس ادعاءً تمنحه أداة JSON.</p>
+<p>للاستثناء حدود: سلطة مناسبة، سبب، نطاق، مدة انتهاء، ضوابط تعويضية وطريقة متابعة. لا يُسمح باستثناء ينسف أحد الثوابت، ولا باستثناء دائم غير مرئي يصبح القاعدة الفعلية.</p>
+<h1 id="section-14">13. التخطيط: فكر قبل التعديل، لكن لا تتوقف شكليًا</h1>
+<p>بروتوكول التخطيط يبدأ بالهدف، وحقائق الواقع، والافتراضات، والنطاق، ومعيار القبول. الغموض المؤثر في السلطة أو الأمن أو جوهر المنتج يحتاج سؤالًا قبل القرار المعني. التفاصيل غير الحاسمة يمكن معالجتها بافتراض معقول ومعلن. لا يلزم سؤال المستخدم عن معلومة يمكن اكتشافها من المستودع المصرح بقراءته.</p>
+<p>عند اختيار تبعية أو استخدام خاصية حديثة، يتحقق الوكيل من الزمن والإصدار والمصدر الرسمي بالقدر اللازم. لا يختار «الأحدث» لمجرد حداثته؛ يوازن الدعم والتوافق والمخاطر. عدم توفر الشبكة لا يسمح باختلاق مصدر أو إصدار؛ تُسجل حدود المعرفة ويستمر ما لا يعتمد عليها.</p>
+<p>المعمارية تكون أقل تعقيد كافٍ. Shared/Core مفيدة للمنطق المشترك الحقيقي، وليست طبقة واجبة في كل مشروع. التقسيم حسب الميزة أو المجال قد يكون مناسبًا، لكنه ليس حجة لتفتيت الملفات أو كسر بنية معتمدة. المخرجات مراحل ذات أهداف قابلة للتحقق، لا قائمة نشاط فقط.</p>
+<h1 id="section-15">14. التنفيذ المتتابع المقيّد</h1>
+<p>المقصود بالاستقلالية الآمنة أن الوكيل لا يطلب موافقة شكلية على كل خطوة داخل تفويض واضح. يعمل بدورة: نفذ شريحة مفيدة، تحقق منها، احفظ الحالة، ثم تابع. يتوقف عن الفعل عندما تنتهي الصلاحية أو الميزانية أو يصبح الخطر غير محسوم، لا عندما يصل إلى عدد اعتباطي من الملفات.</p>
+<p>لا تعني عبارة «حتى يكتمل المنتج» حلقة غير محدودة. يحدد عقد المشروع حدود الخطوات والزمن وإعادة المحاولة وحجم المخرجات، وشرط التقدم، ومتى يصعّد. إذا حُجب تكامل خارجي، يسجل شرط الاستئناف ويستمر في العمل المستقل المفوض، دون إعلان التكامل مكتملًا أو استبداله بمحاكاة غير معلنة.</p>
+<p>لا يكون النجاح بإفراغ ORPHANS &amp; PENDING بالحذف أو التأجيل. يرتبط الاكتمال بأهداف ومعايير وأدلة صالحة. وجود حدود مقبولة يحتاج قرارًا واضحًا، لا إعادة تسمية الفشل.</p>
+<div class="diagram"><svg role="img" aria-label="مخطط 5: شريحة مفوضة ثم تنفيذ محدود ثم فحص فعلي ثم حالة وأدلة ثم متابعة آمنة" viewBox="0 0 1000 132" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arrow5" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="#306684"/></marker></defs><rect x="812" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="898" y="58" text-anchor="middle" fill="#546b85" font-size="14">01</text><text x="898" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">شريحة مفوضة</text><path d="M808 66 H788" stroke="#306684" stroke-width="2" marker-end="url(#arrow5)"/><rect x="614" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="700" y="58" text-anchor="middle" fill="#546b85" font-size="14">02</text><text x="700" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">تنفيذ محدود</text><path d="M610 66 H590" stroke="#306684" stroke-width="2" marker-end="url(#arrow5)"/><rect x="416" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="502" y="58" text-anchor="middle" fill="#546b85" font-size="14">03</text><text x="502" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">فحص فعلي</text><path d="M412 66 H392" stroke="#306684" stroke-width="2" marker-end="url(#arrow5)"/><rect x="218" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="304" y="58" text-anchor="middle" fill="#546b85" font-size="14">04</text><text x="304" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">حالة وأدلة</text><path d="M214 66 H194" stroke="#306684" stroke-width="2" marker-end="url(#arrow5)"/><rect x="20" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="106" y="58" text-anchor="middle" fill="#546b85" font-size="14">05</text><text x="106" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">متابعة آمنة</text></svg></div><h1 id="section-16">15. التعديل الجراحي Surgical Editing</h1>
+<p>يبدأ التعديل بتحليل الأثر: ما العقد المتغير؟ ما الملفات والتبعيات ومسارات المستخدم المتأثرة؟ ما الموجود الذي يمكن إعادة استخدامه؟ أقل فرق نصي ليس دائمًا أقل خطر؛ قد يلزم تحديث اختبار وتوثيق وتهيئة ليكون التغيير متكاملًا.</p>
+<p>يحافظ الوكيل على التعليقات والأنواع والعقود التي ما زالت صحيحة، ويعدل ما صار مضللًا بسبب المهمة مع بيان السبب. يزيل المخلفات التي تسبب بها إذا كان ذلك داخل النطاق، ولا يبدأ تنظيفًا عامًا للكود القديم. اتباع النمط القائم لا يبرر تقليد خلل أمني معروف؛ يُظهر التعارض ويعالج حدوده.</p>
+<p>في إصلاح عطل، تُفضل إعادة إنتاج آمنة ثم إثبات التصحيح. TDD وسيلة نافعة لا شرطًا يؤدي إلى تعريض بيانات الإنتاج للخطر. الاختبار الخاطئ يمكن تصحيحه بدليل على تغير المتطلب أو خطأ الاختبار؛ الممنوع هو إضعافه لستر خلل. ولا تحل محاكاة كاملة محل اختبار تكامل مطلوب.</p>
+<h1 id="section-17">16. تكييف المزودين والمضيفين</h1>
+<p>المسار الافتراضي OpenAI/GPT ليس اسم نموذج ثابتًا إلى الأبد. يختار المتبني نموذجًا متاحًا ومدعومًا ويلتقط هويته الفعلية وإعداداته. التبديل إلى مزود آخر يحتاج توثيق الفرق في الرسائل والأدوات والحالة، لا مجرد تغيير عنوان endpoint.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>مزود</th>
+<th>فرق تقني يجب فحصه</th>
+<th>المرجع</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenAI</td>
+<td>سلطة الرسائل، استدعاء الأدوات، خيارات النموذج وحالة المحادثة</td>
+<td>OA-01، OA-08، OA-12</td>
+</tr>
+<tr>
+<td>Anthropic</td>
+<td>tool_use/tool_result وحدود أدوات العميل والخادم</td>
+<td>AN-06</td>
+</tr>
+<tr>
+<td>Google Gemini</td>
+<td>أوضاع function calling وحفظ عناصر الاستمرار المنطبقة</td>
+<td>GO-04، GO-05</td>
+</tr>
+<tr>
+<td>Mistral</td>
+<td>اختيار الأداة والتوازي ومالك التنفيذ</td>
+<td>MI-01</td>
+</tr>
+<tr>
+<td>DeepSeek</td>
+<td>دعم strict mode وقيود المخطط حسب endpoint</td>
+<td>DS-01</td>
+</tr>
+<tr>
+<td>Qwen</td>
+<td>توافق النموذج والقالب والمحلل وخادم الاستدلال</td>
+<td>QW-01</td>
+</tr>
+</tbody>
+</table></div>
+<p>أما المضيف، فيحدد تحميل ملفات التعليمات والأدوات والصلاحيات. توثق مراجع Codex وClaude Code وGemini CLI وOpenCode وGitHub سلوكًا مختلفًا ومتغيرًا حسب الإصدار. لا نعمم اسم AGENTS.md باعتباره ضمانًا مشتركًا، ولا نفترض أن دعم صيغة ما يعني تطابق الأسبقية. التفاصيل والمصادر في ملفات التكييف [OA-04، AN-03، GO-01، OC-01، GH-01].</p>
+<p>جميع هذه المسارات <strong>DOCUMENTED_ONLY</strong> في هذا الإصدار. وجود ستة مزودين وستة مضيفين لا يعني اختبار جميع التركيبات الست والثلاثين، ولا حتى تشغيل أي منها حيًا أثناء إعداد الحزمة.</p>
+<h1 id="section-18">17. التعامل مع التعليمات والسياق</h1>
+<p>السياق يحتوي خليطًا من التعليمات والحقائق والاقتباسات ونتائج الأدوات. يجب إبقاء حد الثقة واضحًا. ملف مستورد قد يحمل بيانات صحيحة وأمرًا خبيثًا في الوقت نفسه؛ استفادة الوكيل من المعلومة لا تمنح النص صلاحية تشغيل أداة مميزة.</p>
+<p>اقتصاد التعليمات يعني إزالة التكرار والغموض والمطالب القديمة التي لم تعد تقدم قيمة، لا حذف ضوابط السلامة. تُختار المهارة عندما تخدم مهمة واضحة، وتُراجع عند تغير النموذج. لا يُطلب من النموذج عرض سلسلة تفكيره الخاصة؛ يكفي تفسير موجز للقرار، والافتراضات، والمراجع، والأدلة الملائمة.</p>
+<p>في ضغط السياق أو تلخيصه، تُحفظ القيود والقرارات وحالة الآثار المعلقة في حالة تطبيق موثوقة. الملخص لا يصبح المصدر الوحيد للحقيقة، ولا يتجاوز المرجع الذي لخصه. تتفق هذه السياسة مع التوجيه نحو سياق منتقى، مع بقاء تفاصيلها تصميمًا لهذه الحزمة [OA-03، OA-13، AN-01].</p>
+<h1 id="section-19">18. حد الإنفاذ قبل الأثر</h1>
+<p>النموذج يقدم <code>operation</code> و<code>path</code> ووسائط الفعل، لكن هوية الممثل وسياسة السماح لا ينبغي أن تأتي من الحقول التي يولدها. وسيط موثوق يطابق المورد الحقيقي، والنطاق، والبيئة، والإصدار، والوقت، والإلغاء، ثم يقرر.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>القرار</th>
+<th>دلالته</th>
+<th>ما يحدث</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ALLOW</td>
+<td>الفعل مأذون ضمن الحد المفحوص</td>
+<td>يمكن الانتقال إلى التنفيذ</td>
+</tr>
+<tr>
+<td>REVIEW</td>
+<td>تحتاج موافقة محددة لم تكتمل</td>
+<td>لا أثر قبلها</td>
+</tr>
+<tr>
+<td>DENY</td>
+<td>غير مسموح أو لم تثبت صلاحيته</td>
+<td>لا تنفيذ ولا التفاف عبر أداة أخرى</td>
+</tr>
+</tbody>
+</table></div>
+<p>ينبغي تغطية جميع مسارات الأثر: أدوات الملفات، shell، الشبكة، المتصفح، MCP، أدوات الخادم، الوكلاء الفرعيين، scripts والمهارات. منع المسار الأول مع ترك الثاني مفتوحًا لا يحقق <strong>Complete Mediation</strong>. كما أن كشف التجاوز بعد حدوثه ليس منعًا له.</p>
+<div class="diagram"><svg role="img" aria-label="مخطط 6: اقتراح النموذج ثم سياق موثوق ثم قرار الصلاحية ثم منفذ مقيد ثم أثر وسجل" viewBox="0 0 1000 132" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arrow6" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="#306684"/></marker></defs><rect x="812" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="898" y="58" text-anchor="middle" fill="#546b85" font-size="14">01</text><text x="898" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">اقتراح النموذج</text><path d="M808 66 H788" stroke="#306684" stroke-width="2" marker-end="url(#arrow6)"/><rect x="614" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="700" y="58" text-anchor="middle" fill="#546b85" font-size="14">02</text><text x="700" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">سياق موثوق</text><path d="M610 66 H590" stroke="#306684" stroke-width="2" marker-end="url(#arrow6)"/><rect x="416" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="502" y="58" text-anchor="middle" fill="#546b85" font-size="14">03</text><text x="502" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">قرار الصلاحية</text><path d="M412 66 H392" stroke="#306684" stroke-width="2" marker-end="url(#arrow6)"/><rect x="218" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="304" y="58" text-anchor="middle" fill="#546b85" font-size="14">04</text><text x="304" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">منفذ مقيد</text><path d="M214 66 H194" stroke="#306684" stroke-width="2" marker-end="url(#arrow6)"/><rect x="20" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="106" y="58" text-anchor="middle" fill="#546b85" font-size="14">05</text><text x="106" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">أثر وسجل</text></svg></div><h1 id="section-20">19. ما الذي ينفذه المثال البرمجي فعلًا؟</h1>
+<p>المنفّذ المرفق يقبل ثلاث عمليات محلية فقط: القراءة، وإنشاء ملف جديد، واستبدال ملف قائم. يطبق نطاقات مجلدات معلنة، وحدود حجم وزمن ومحاولات، ويرفض مسارات الاجتياز والروابط والمسارات المحمية في نطاقه. الإنشاء لا يستبدل ملفًا قائمًا.</p>
+<p>الاستبدال يتطلب موافقة يولدها <strong>المشغّل الموثوق</strong>، مرتبطة بدقة بالفعل ووسائطه والهدف وبصمة الملف والفاعل والمهمة والمرشح والبيئة والسياسة والانتهاء. تستخدم آلية HMAC ومفتاحًا مولدًا داخل العملية لا يكتب في السجلات. دالة إصدار الموافقة ليست أداة تُعطى للنموذج.</p>
+<p>هذه آلية مرجعية محدودة وليست نظام هوية أو خدمة صلاحيات إنتاجية. الذاكرة والمفتاح والسياسة كائنات Python في العملية؛ إذا كان الخصم يتحكم فيها فقد تجاوز حد التجربة. منع السباقات مع عملية عدائية، وحماية جذور المجلدات، واستدامة nonces عبر إعادة التشغيل، وقيود الشبكة وshell، تحتاج ضوابط مضيف حقيقية واختبارًا مستقلًا.</p>
+<p>المهم ألا نصف المثال بأنه «إنفاذ كامل لجميع القواعد». مصفوفة <code>ENFORCEMENT_COVERAGE.json</code> تسمي لكل قاعدة ما هو موثق، وما له فحص محلي، وما بقي بحاجة لتأهيل فعلي.</p>
+<h1 id="section-21">20. الموافقة ليست تذكرة مفتوحة</h1>
+<p>الموافقة الصحيحة محددة الهدف والفاعل والمدة والسياسة والوسائط. تغيير الملف أو البيئة أو السياسة أو انقضاء الوقت قد يبطلها. لذلك يعاد الفحص عند نقطة الفعل وبعد الانتظار أو المحاولة الجديدة، لا عند بداية المهمة فقط.</p>
+<p>إذا نجح فعل خارجي ثم انقطع الرد، فقد يكون الأثر موجودًا رغم أن الوكيل رأى خطأ. نميز <strong>فشل الطلب</strong> عن <strong>عدم حدوث الأثر</strong>. يجب مراجعة معرّف العملية أو الحالة الفعلية قبل التكرار، واستخدام ضمان idempotency الحقيقي عندما توفره الخدمة، لا افتراضه.</p>
+<div class="diagram"><svg role="img" aria-label="مخطط 7: طلب معتمد ثم الحالة الحالية ثم تنفيذ ثم رد أو عدم يقين ثم مصالحة الإعادة" viewBox="0 0 1000 132" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arrow7" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="#306684"/></marker></defs><rect x="812" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="898" y="58" text-anchor="middle" fill="#546b85" font-size="14">01</text><text x="898" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">طلب معتمد</text><path d="M808 66 H788" stroke="#306684" stroke-width="2" marker-end="url(#arrow7)"/><rect x="614" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="700" y="58" text-anchor="middle" fill="#546b85" font-size="14">02</text><text x="700" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">الحالة الحالية</text><path d="M610 66 H590" stroke="#306684" stroke-width="2" marker-end="url(#arrow7)"/><rect x="416" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="502" y="58" text-anchor="middle" fill="#546b85" font-size="14">03</text><text x="502" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">تنفيذ</text><path d="M412 66 H392" stroke="#306684" stroke-width="2" marker-end="url(#arrow7)"/><rect x="218" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="304" y="58" text-anchor="middle" fill="#546b85" font-size="14">04</text><text x="304" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">رد أو عدم يقين</text><path d="M214 66 H194" stroke="#306684" stroke-width="2" marker-end="url(#arrow7)"/><rect x="20" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="106" y="58" text-anchor="middle" fill="#546b85" font-size="14">05</text><text x="106" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">مصالحة الإعادة</text></svg></div><h1 id="section-22">21. نموذج الحالة وخريطة المشروع</h1>
+<p>هناك أربعة محاور لا نخلطها: حالة العمل، ونتيجة الفحص، وحالة التبني، وقرار القبول. <code>IMPLEMENTED</code> لا تعني <code>VERIFIED</code>، و<code>PASS</code> لفحص لا تعني <code>EFFECTIVE</code> للتبني، وأي منها لا يمنح قبول إصدار.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>المحور</th>
+<th>أمثلة</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>العمل</td>
+<td>NOT_STARTED، IN_PROGRESS، IMPLEMENTED، VERIFIED، BLOCKED، CANCELLED</td>
+</tr>
+<tr>
+<td>الفحص</td>
+<td>PASS، FAIL، NOT_RUN، BLOCKED، ERROR، NOT_APPLICABLE</td>
+</tr>
+<tr>
+<td>التبني</td>
+<td>PREPARED، CONFIGURED، EFFECTIVE</td>
+</tr>
+<tr>
+<td>القرار</td>
+<td>ADOPTION، CHANGE، EXCEPTION، ACCEPTANCE، ACTIVATION</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>PROJECT_MAP.md</code> عرض مشتق لأقسام TECH_STACK وSYSTEM_FLOW وARCHITECTURE وORPHANS &amp; PENDING، مع بصمات سجلات المصدر. إذا أصبح قديمًا، لا يُستخدم لإثبات الحالة الحالية. تجديده لا يمنح قرارًا جديدًا. يحافظ السجل على أسباب الحل والتأجيل والسحب بدل حذف التاريخ.</p>
+<p>يستطيع المشروع إبقاء أداة التتبع الأصلية مرجعًا بشرط تعريف محولها وعدم إنشاء حالة منافسة. أدوات المثال ترفض تحديث الحالة الخارجية باعتبارها محلية. وفحص <code>expected_revision</code> في المثال محمي بقفل داخل العملية فقط؛ الكتابات المتزامنة من عمليات أخرى تحتاج تنسيقًا فعليًا.</p>
+<div class="diagram"><svg role="img" aria-label="مخطط 8: مراجع معتمدة ثم الحالة الأصلية ثم خريطة مشتقة ثم مقارنة البصمات ثم تحديث العرض" viewBox="0 0 1000 132" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arrow8" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="#306684"/></marker></defs><rect x="812" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="898" y="58" text-anchor="middle" fill="#546b85" font-size="14">01</text><text x="898" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">مراجع معتمدة</text><path d="M808 66 H788" stroke="#306684" stroke-width="2" marker-end="url(#arrow8)"/><rect x="614" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="700" y="58" text-anchor="middle" fill="#546b85" font-size="14">02</text><text x="700" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">الحالة الأصلية</text><path d="M610 66 H590" stroke="#306684" stroke-width="2" marker-end="url(#arrow8)"/><rect x="416" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="502" y="58" text-anchor="middle" fill="#546b85" font-size="14">03</text><text x="502" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">خريطة مشتقة</text><path d="M412 66 H392" stroke="#306684" stroke-width="2" marker-end="url(#arrow8)"/><rect x="218" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="304" y="58" text-anchor="middle" fill="#546b85" font-size="14">04</text><text x="304" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">مقارنة البصمات</text><path d="M214 66 H194" stroke="#306684" stroke-width="2" marker-end="url(#arrow8)"/><rect x="20" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="106" y="58" text-anchor="middle" fill="#546b85" font-size="14">05</text><text x="106" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">تحديث العرض</text></svg></div><h1 id="section-23">22. تصميم دليل يمكن مراجعته</h1>
+<p>الدليل المفيد يربط معيارًا بادعاء وفحص ومرشح وبيئة ونتيجة ومخرج خام. يستخدم سجل الحزمة حقولًا للزمن وعدد الأهداف والاختبارات والمنتج وبصمات المرفقات والقيود. يجب أن يشير إلى ما نُفذ، لا إلى صيغة ما كان ينبغي تنفيذه.</p>
+<p>لا يقبل المدقق المحلي PASS لاختبار بعدد تنفيذ صفر، أو هدف فارغ، أو مرفق مفقود، أو بصمة لا تطابق الملف، أو مرشح/بيئة مختلفة، أو طوابع زمنية ناقصة أو معكوسة. لكنه لا يستطيع إثبات أن منتج الملف أمين؛ هذه مسألة مصدر التنفيذ وحيازة الأدلة.</p>
+<p>قد ينجح فحص مراجعة يدوي دون عدد اختبارات وحدة؛ نوع الدليل مهم. وقد يكون فحص NOT_APPLICABLE صحيحًا إذا ثبت عدم الانطباق، لكنه ليس PASS. أما NOT_RUN فهو إقرار بعدم التنفيذ، لا وصفًا مخففًا للنجاح.</p>
+<div class="diagram"><svg role="img" aria-label="مخطط 9: معيار القبول ثم فحص محدد ثم مرشح وبيئة ثم مخرج خام ثم ادعاء محدود" viewBox="0 0 1000 132" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arrow9" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="#306684"/></marker></defs><rect x="812" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="898" y="58" text-anchor="middle" fill="#546b85" font-size="14">01</text><text x="898" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">معيار القبول</text><path d="M808 66 H788" stroke="#306684" stroke-width="2" marker-end="url(#arrow9)"/><rect x="614" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="700" y="58" text-anchor="middle" fill="#546b85" font-size="14">02</text><text x="700" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">فحص محدد</text><path d="M610 66 H590" stroke="#306684" stroke-width="2" marker-end="url(#arrow9)"/><rect x="416" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="502" y="58" text-anchor="middle" fill="#546b85" font-size="14">03</text><text x="502" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">مرشح وبيئة</text><path d="M412 66 H392" stroke="#306684" stroke-width="2" marker-end="url(#arrow9)"/><rect x="218" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="304" y="58" text-anchor="middle" fill="#546b85" font-size="14">04</text><text x="304" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">مخرج خام</text><path d="M214 66 H194" stroke="#306684" stroke-width="2" marker-end="url(#arrow9)"/><rect x="20" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="106" y="58" text-anchor="middle" fill="#546b85" font-size="14">05</text><text x="106" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">ادعاء محدود</text></svg></div><h1 id="section-24">23. الاختبار والتقييم ليسا شيئًا واحدًا</h1>
+<p>اختبار الأداة يتحقق من خصائص منطقية محددة، مثل منع مسار خارج الجذر. تقييم الوكيل يسأل إن كان يختار الأداة المناسبة ويحترم الصلاحيات ويحقق الهدف في مهام تمثيلية. وقبول المنتج يسأل إن كانت النسخة الفعلية تلبي المعايير المعتمدة.</p>
+<p>يحتوي المرجع على 36 حالة تأهيل للوكيل والمضيف؛ منها حقن التعليمات، وانتهاء الموافقات، وفقد الاستمرار، والنجاح الزائف، وتجاوز حد عبر أداة بديلة، وإعادة المحاولة بعد أثر جزئي. حالات المضيف والنموذج لم تُنفذ حيًا هنا، وهي مسجلة NOT_RUN. الاختبارات المحلية لا تُرقّيها تلقائيًا.</p>
+<p>المقيّم المحلي القابل للتشغيل يراجع ثماني حالات منفّذة فعلًا في بيئة ملفات اصطناعية. يستخدم توقعات ثابتة ويفحص الأثر النهائي واتساق السجل، ولا يصدق حقل <code>matched</code> الذي يمكن كتابته يدويًا. لكنه لا يحمي من خصم يملك تعديل جميع الأدلة والمنتج؛ تلك حدود معلنة.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ما نقيسه</th>
+<th>لماذا نفصله؟</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>تحقيق الهدف</td>
+<td>كي لا نستبدل قيمة المنتج بكثرة الخطوات</td>
+</tr>
+<tr>
+<td>الأفعال غير المصرح بها</td>
+<td>لا يعوض عنها متوسط جودة مرتفع</td>
+</tr>
+<tr>
+<td>صحة الدليل</td>
+<td>كي لا يكافأ التقرير الجميل بدل التنفيذ</td>
+</tr>
+<tr>
+<td>الانحدار</td>
+<td>لحماية ما كان يعمل</td>
+</tr>
+<tr>
+<td>الزمن والكلفة</td>
+<td>لتحسين الكفاءة دون خفض الحماية</td>
+</tr>
+<tr>
+<td>الاستئناف والإيقاف</td>
+<td>لأن الأعطال والانتظار جزء من التشغيل</td>
+</tr>
+</tbody>
+</table></div>
+<h1 id="section-25">24. السلامة والبيانات والسجلات</h1>
+<p>تصنف البيانات وتحدد الوجهات والمستلمين قبل الخروج المسموح. ليس كل ما داخل المستودع مناسبًا للإرسال إلى النموذج؛ وقد يكون محتوى الأداة نفسه حساسًا. تُستخدم أقل صلاحيات ومواد اعتماد لازمة، وتُحجب القيم عن المطالبات والتقارير والسجلات.</p>
+<p>التسجيل التشخيصي Diagnostic Logging يخدم تشخيص الأخطاء والأداء؛ يمكن تصميمه غير متزامن عندما يناسب الحمل. أما سجل التدقيق الإلزامي Mandatory Audit فقد يحتاج إثبات النية قبل الأثر وحيازة موثوقة. لا يجوز أن يطبق شعار «Logging لا يحجب» على عملية تشترط السياسة إيقافها عند فشل التدقيق.</p>
+<p>في المثال، فشل تسجيل النية يمنع الفعل. وإذا وقع الأثر ثم تعذر تسجيل النتيجة، تُعاد INDETERMINATE بدل ادعاء نجاح موثق. في الإنتاج تحتاج السجلات استدامة وحماية وهوية منتج وسياسة احتفاظ، لا مجرد قائمة Python في الذاكرة.</p>
+<h1 id="section-26">25. الحوادث والاسترداد</h1>
+<p>الاستجابة تبدأ باحتواء الأثر المشتبه به وإيقاف الأفعال التالية، ثم حفظ الأدلة وتحديد النطاق والمتضررين ومالك القرار. لا ينبغي أن يكون أول رد فعل حذف الملفات أو إعادة ضبط المستودع؛ قد يؤدي ذلك إلى إتلاف دليل أو تغييرات سليمة.</p>
+<p>يستند الاسترداد إلى خطة وإذن وحالة فعلية. إن كانت العودة مستحيلة أو جزئية، يُقال ذلك. تُعاد معايرة الصلاحيات والأسرار والمفاتيح عند انكشافها حسب إجراءات المشروع، ولا تُنسخ إلى التقرير لتوثيق الواقعة. يحدد سجل الحادث متى يمكن الاستئناف وما الشروط المطلوبة.</p>
+<div class="diagram"><svg role="img" aria-label="مخطط 10: اشتباه أو فشل ثم احتواء وإيقاف ثم حفظ الأدلة ثم استرداد مخول ثم تأهيل الاستئناف" viewBox="0 0 1000 132" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arrow10" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="#306684"/></marker></defs><rect x="812" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="898" y="58" text-anchor="middle" fill="#546b85" font-size="14">01</text><text x="898" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">اشتباه أو فشل</text><path d="M808 66 H788" stroke="#306684" stroke-width="2" marker-end="url(#arrow10)"/><rect x="614" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="700" y="58" text-anchor="middle" fill="#546b85" font-size="14">02</text><text x="700" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">احتواء وإيقاف</text><path d="M610 66 H590" stroke="#306684" stroke-width="2" marker-end="url(#arrow10)"/><rect x="416" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="502" y="58" text-anchor="middle" fill="#546b85" font-size="14">03</text><text x="502" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">حفظ الأدلة</text><path d="M412 66 H392" stroke="#306684" stroke-width="2" marker-end="url(#arrow10)"/><rect x="218" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="304" y="58" text-anchor="middle" fill="#546b85" font-size="14">04</text><text x="304" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">استرداد مخول</text><path d="M214 66 H194" stroke="#306684" stroke-width="2" marker-end="url(#arrow10)"/><rect x="20" y="28" width="172" height="76" rx="12" fill="#eef4fa" stroke="#a9bed4"/><text x="106" y="58" text-anchor="middle" fill="#546b85" font-size="14">05</text><text x="106" y="85" text-anchor="middle" fill="#12354b" font-size="17" direction="rtl">تأهيل الاستئناف</text></svg></div><h1 id="section-27">26. التبعيات وسلسلة التوريد</h1>
+<p>التبعية تشمل المكتبة، والمولد، وملف تعليمات مستوردًا، ومهارة، وخادم MCP، وscript البناء، وإعدادات CI. مصدر التبعية وإصدارها وأثرها مهمون، وليس رقم إصدارها وحده. يجب فهم install scripts والشبكة والملفات التي قد تتغير عند التشغيل.</p>
+<p>لا تحظر الحزمة قراءة lockfiles مطلقًا؛ قد تكون ضرورية لتحديد الإصدار الفعلي. ولا تفرض تعديلها بلا إذن. تُستخدم قراءة أو معالجة موجهة لاستهلاك سياق متناسب، ثم تُراجع التغييرات ذات الأثر. كما لا تجعل <code>strict schema</code> خدمة التفويض؛ صحة وسائط الأداة لا تثبت حق تنفيذها.</p>
+<p>عند تسليم الحزمة تُستخدم بصمات الملفات وسجل الحمولة، وتبقى بصمة ZIP خارج الأرشيف. لا تثبت البصمة هوية المؤلف أو جودة المحتوى، لكنها تكشف اختلاف البايتات عن قيمة موثوقة. تُحفظ حدود الاستثناءات، مثل نتائج ما بعد تجميد الحمولة، بوضوح.</p>
+<h1 id="section-28">27. لماذا v4 مصدر تكميلي هنا؟</h1>
+<p>بُني الميثاق والمعمارية والعقود الأربعة وسجل المصادر وقواعد AGHR الأربعون أولًا، ثم جُمّدت نسخها وبصماتها قبل فتح أرشيف v4. سجل الترتيب متاح للمراجعة، لكنه ليس ختمًا زمنيًا مستقلاً من جهة ثالثة.</p>
+<p>الأرشيف الذي استُخدم فعليًا يحتوي <strong>73 ملفًا و48 ضابطًا نشطًا</strong>. لكل ملف تصرف معلل، ولكل ضابط ربط بالقواعد الجديدة. أما الأرقام 88 و441 و598 فتخص سجلات تاريخية وروابط مقتطفات ومواضع في سجل v4؛ ليست جميع أصولها متاحة أو متحققًا منها هنا. ورقم 82 الوارد في تقريره القديم يخص مصدر v3 سابقًا، لا عدد ملفات v4 الحالي.</p>
+<p>أُخذت منه قيمة مثل توافق أداة التتبع الأصلية، وحفظ المصادر الحساسة بالمرجع بدل النسخ، ومراقبة قدم الخريطة، وعدم مساواة فراغ النواقص بالاكتمال. ولم تورث حالات الإصدار أو PASS أو المدققات أو المراجع كسلطة تلقائية. هذه محاسبة وتكييف مؤلف، لا شهادة مستقلة بالتكافؤ الدلالي.</p>
+<h1 id="section-29">28. أمثلة محاكمة عملية</h1>
+<h2>المثال الأول: تعديل أربعة ملفات منخفض الخطر</h2>
+<p>المستخدم المخول يطلب إصلاح محلل نصوص في بيئة اصطناعية. يؤثر الحل في ملف كود واختبار وتهيئة وتوثيق. لا يستدعي العدد أربعة موافقة جديدة. يحدد الوكيل الهدف والفحص، ويحافظ على تغيرات المستخدم، وينفذ ويتحقق ويسلم النتيجة. إذا احتاج الحل فجأة إلى ترحيل إنتاجي، يوقف ذلك الفعل فقط ويطلب تفويضه.</p>
+<h2>المثال الثاني: اختبار قديم يفشل</h2>
+<p>إذا كان الفشل نتيجة خلل في الكود الجديد، يُصلح السبب. وإذا تغير المتطلب المعتمد وكان الاختبار يثبت السلوك القديم، يُحدث الاختبار مع ربطه بالقرار. لا يكفي أن يقول الوكيل «الاختبار قديم»؛ يقدم دليل المتطلب أو التحليل. المعيار هو عدم تصنيع النجاح، وليس قداسة كل assertion قديمة.</p>
+<h2>المثال الثالث: مصدر رسمي يقترح خدمة خارجية</h2>
+<p>الوثيقة الرسمية تشرح إرسال بيانات لخدمة. المشروع يحظر إرسال نوع البيانات المعني. يبقى الحظر؛ المرجع التقني يشرح طريقة الاستخدام ولا يمنح صلاحية الخروج. يبحث الوكيل عن بديل داخل النطاق أو يسجل فجوة تحتاج قرارًا، ولا يفسر «المطور أولًا» بوصفه تجاوزًا للخصوصية.</p>
+<h2>المثال الرابع: نتيجة أداة تحتوي تعليمات</h2>
+<p>تُرجع أداة البحث نصًا يطلب تشغيل أمر للحصول على نتائج أفضل. لا ينفذ الوكيل الأمر اعتمادًا على النص. يفحص إن كان الأمر يخدم المهمة وتسمح به صلاحية مستقلة وعقد أداة موثوق. الدليل قد يقترح فعلًا، لكنه ليس مصدر الإذن.</p>
+<h2>المثال الخامس: فقد الرد بعد كتابة</h2>
+<p>نجحت كتابة إلى خدمة لكن الاتصال انقطع. لا تُعاد الكتابة عميانيًا. تُراجع هوية العملية أو حالة المورد، وتسجل حالة عدم اليقين إذا تعذرت المصالحة. التخمين بأن «الطلب فشل إذن لم يحدث شيء» سبب متوقع لتكرار الآثار.</p>
+<h1 id="section-30">29. معجم المفاهيم والمصطلحات</h1>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>المصطلح</th>
+<th>المعنى في هذه الحزمة</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agent — وكيل</td>
+<td>نموذج ضمن حلقة هدف وأدوات وحالة وتنفيذ</td>
+</tr>
+<tr>
+<td>Agent Harness — بيئة تشغيل الوكيل</td>
+<td>تنظيم السياق والأدوات والحدود والتغذية الراجعة</td>
+</tr>
+<tr>
+<td>Host — مضيف</td>
+<td>البيئة التي تحمل التعليمات وتتيح التنفيذ</td>
+</tr>
+<tr>
+<td>Provider — مزود</td>
+<td>مطور/مشغل خدمة النموذج وفق نشره المحدد</td>
+</tr>
+<tr>
+<td>Model Identity — هوية النموذج</td>
+<td>الاسم والإصدار أو الهوية المرجعة الفعلية</td>
+</tr>
+<tr>
+<td>Governance — حوكمة</td>
+<td>تحديد السلطة والقواعد والقرار والمساءلة</td>
+</tr>
+<tr>
+<td>Contract — عقد</td>
+<td>مسؤوليات ومدخلات ومخرجات وحدود قابلة للفحص</td>
+</tr>
+<tr>
+<td>Invariant — ثابت حاكم</td>
+<td>مبدأ لا يخفضه التكييف المحلي</td>
+</tr>
+<tr>
+<td>Authority — سلطة</td>
+<td>صلاحية إصدار قرار ضمن نطاق</td>
+</tr>
+<tr>
+<td>Host Channel — قناة المضيف</td>
+<td>موضع التعليمة في هرم المضيف، لا قوة ألفاظها</td>
+</tr>
+<tr>
+<td>Normative Force — قوة معيارية</td>
+<td>إلزام أو حظر أو توصية أو إتاحة</td>
+</tr>
+<tr>
+<td>Applicability — انطباق</td>
+<td>شروط سريان القاعدة على الحالة</td>
+</tr>
+<tr>
+<td>Trust Boundary — حد ثقة</td>
+<td>الحد بين مصادر/جهات لا تتشارك الصلاحيات</td>
+</tr>
+<tr>
+<td>Provenance — منشأ</td>
+<td>من أين جاء السجل وكيف اشتق</td>
+</tr>
+<tr>
+<td>Source Custody — حيازة المصدر</td>
+<td>حفظ الأصل أو مرجعه وحماية الوصول إليه</td>
+</tr>
+<tr>
+<td>Prompt Injection — حقن تعليمات</td>
+<td>دفع الوكيل إلى توجيه غير مخول من داخل بيانات</td>
+</tr>
+<tr>
+<td>Policy Engine — محرك سياسة</td>
+<td>مكوّن يقرر السماح وفق حقائق موثوقة</td>
+</tr>
+<tr>
+<td>Complete Mediation — وساطة شاملة</td>
+<td>مرور جميع الأفعال المحمية عبر حد الإنفاذ</td>
+</tr>
+<tr>
+<td>Least Privilege — أقل صلاحية</td>
+<td>الحد الأدنى اللازم من القدرات والموارد</td>
+</tr>
+<tr>
+<td>Sandbox — بيئة عزل</td>
+<td>قيد تقني على موارد العملية، لا مجرد نص</td>
+</tr>
+<tr>
+<td>Capability — قدرة</td>
+<td>فعل أو مجموعة أفعال ضمن مورد ونطاق</td>
+</tr>
+<tr>
+<td>Grant — تفويض</td>
+<td>إذن محدد من جهة مختصة</td>
+</tr>
+<tr>
+<td>Approval — موافقة</td>
+<td>قرار مرتبط بفعل أو نطاق وشروط</td>
+</tr>
+<tr>
+<td>Action-Time Check — فحص عند الفعل</td>
+<td>إعادة التحقق وفق الحالة الحالية قبل الأثر</td>
+</tr>
+<tr>
+<td>Revocation — إلغاء التفويض</td>
+<td>إنهاء صلاحية سبق منحها</td>
+</tr>
+<tr>
+<td>Expiry — انتهاء</td>
+<td>حد زمني يبطل بعده الإذن</td>
+</tr>
+<tr>
+<td>HMAC — رمز توثيق رسالة</td>
+<td>إثبات سلامة/حيازة مفتاح مشترك، لا هوية مؤسسية بذاته</td>
+</tr>
+<tr>
+<td>Nonce — قيمة فريدة</td>
+<td>تمنع إعادة استخدام تصريح ضمن نطاق حفظها</td>
+</tr>
+<tr>
+<td>Replay — إعادة استخدام</td>
+<td>تكرار رسالة أو إذن سابق لإحداث أثر</td>
+</tr>
+<tr>
+<td>Idempotency — عدم تكرار الأثر</td>
+<td>خاصية محددة تمنع زيادة الأثر عند تكرار العملية</td>
+</tr>
+<tr>
+<td>TOCTOU — فجوة الفحص والاستخدام</td>
+<td>تغير المورد بين التحقق والفعل</td>
+</tr>
+<tr>
+<td>Control Plane — مستوى التحكم</td>
+<td>السياسات والمفاتيح والهوية التي تحكم التنفيذ</td>
+</tr>
+<tr>
+<td>Data Plane — مستوى البيانات</td>
+<td>البيانات والأفعال التي يخضع التعامل معها للتحكم</td>
+</tr>
+<tr>
+<td>Checkpoint — نقطة استئناف</td>
+<td>حالة محفوظة يمكن العودة منها دون افتراضات</td>
+</tr>
+<tr>
+<td>Canonical Source — مصدر أصلي حاكم</td>
+<td>المرجع الوحيد المعين لحقيقة محددة</td>
+</tr>
+<tr>
+<td>Derived View — عرض مشتق</td>
+<td>تمثيل يُعاد بناؤه من المصدر الأصلي</td>
+</tr>
+<tr>
+<td>Candidate — مرشح</td>
+<td>نسخة محددة من المصدر/البناء/الإعداد تختبر</td>
+</tr>
+<tr>
+<td>Environment — بيئة</td>
+<td>ظروف التنفيذ المعينة للدليل</td>
+</tr>
+<tr>
+<td>Artifact — مخرج</td>
+<td>ملف أو ناتج محفوظ يمكن مراجعته</td>
+</tr>
+<tr>
+<td>Digest — بصمة</td>
+<td>قيمة تحقق لبايتات محددة، لا شهادة حقيقة</td>
+</tr>
+<tr>
+<td>Acceptance Criterion — معيار قبول</td>
+<td>شرط قابل للإثبات لتحقيق الهدف</td>
+</tr>
+<tr>
+<td>Evidence — دليل</td>
+<td>مادة فعلية تدعم ادعاءً محددًا</td>
+</tr>
+<tr>
+<td>Trace — أثر تشغيل</td>
+<td>تسلسل ملاحظات الفعل والنتائج المصرح بتسجيلها</td>
+</tr>
+<tr>
+<td>Evaluation — تقييم</td>
+<td>قياس سلوك/نتيجة مقابل معايير وسيناريوهات</td>
+</tr>
+<tr>
+<td>Regression — انحدار</td>
+<td>تدهور سلوك مطلوب كان يعمل</td>
+</tr>
+<tr>
+<td>Negative Test — اختبار سلبي</td>
+<td>إثبات الرفض أو معالجة حالة غير صالحة</td>
+</tr>
+<tr>
+<td>Guardrail — حاجز حماية</td>
+<td>آلية تحقق ذات نطاق وتوقيت يجب فهمهما</td>
+</tr>
+<tr>
+<td>Blocking Guard — حاجز سابق</td>
+<td>يمنع الفعل قبل تحقق الشرط</td>
+</tr>
+<tr>
+<td>Independent Review — مراجعة مستقلة</td>
+<td>مراجعة باستقلال حقيقي بحسب الالتزام</td>
+</tr>
+<tr>
+<td>Release Acceptance — قبول إصدار</td>
+<td>قرار مختص منفصل عن نجاح الفحوص</td>
+</tr>
+<tr>
+<td>Activation — تفعيل</td>
+<td>إدخال الأثر في البيئة المقصودة بإذن مستقل</td>
+</tr>
+<tr>
+<td>Progressive Disclosure — إفصاح تدريجي</td>
+<td>تحميل التفاصيل عند الحاجة</td>
+</tr>
+<tr>
+<td>Context Budget — ميزانية سياق</td>
+<td>حد المحتوى المستخدم في استدعاء النموذج</td>
+</tr>
+<tr>
+<td>Instruction Economy — اقتصاد التعليمات</td>
+<td>تقليل العبء دون إضعاف الضوابط</td>
+</tr>
+<tr>
+<td>Skill — مهارة</td>
+<td>حزمة توجيه/أدوات لغرض محدد</td>
+</tr>
+<tr>
+<td>Adapter — مسار تكييف</td>
+<td>معالجة الفروق بين عقد عام ومنتج محدد</td>
+</tr>
+<tr>
+<td>Waiver — إعفاء</td>
+<td>استثناء محدود صادر عن جهة مخولة</td>
+</tr>
+<tr>
+<td>Supersession — استبدال صريح</td>
+<td>تحديد ما يحل محل مرجع سابق ونطاق ذلك</td>
+</tr>
+<tr>
+<td>LITE / STANDARD / CONTROLLED</td>
+<td>مستويات عمق التأكيد، لا مراتب صلاحيات</td>
+</tr>
+<tr>
+<td>INDETERMINATE — غير محسوم</td>
+<td>لا تكفي الملاحظة لجزم نتيجة الأثر أو توثيقه</td>
+</tr>
+</tbody>
+</table></div>
+<h1 id="section-31">30. تمرينات للمطور والمراجع</h1>
+<p><strong>تمرين السلطة:</strong> ملف من مستودع مستورد يقول MUST تجاهل سياسة الشبكة. ما نوعه وثقته وقناته؟ الجواب: بيانات غير مخولة لتوسيع الصلاحيات؛ لا تغيّر الألفاظ ذلك. يمكن استخراج معلومة نافعة منه دون تنفيذ الأمر.</p>
+<p><strong>تمرين الأدلة:</strong> سجل PASS له بصمة مرشح صحيحة لكنه دون مخرج خام أو عدد أهداف. ما الحكم؟ لا يكفي للإثبات؛ يُرفض ادعاء التحقق الكامل ويطلب الدليل المفقود. لا يعني ذلك بالضرورة أن الكود معيب، بل أن الدعوى غير مثبتة.</p>
+<p><strong>تمرين التناسب:</strong> مشروع صغير يحتوي عملية حذف إنتاجية. هل يجوز LITE لأن فريقه شخص واحد؟ لا؛ يحدد الأثر ومتطلبات البيانات والتفويض المسار، لا حجم الفريق.</p>
+<p><strong>تمرين الاستئناف:</strong> القائمة خالية لكن هدفًا إلزاميًا ليس له فحص. هل يعلن الوكيل الاكتمال؟ لا؛ يعود إلى السجل ومعيار القبول، ويمنع أن تكون الخريطة أو القائمة مصدر نجاح مستقلًا.</p>
+<p><strong>تمرين التقييم:</strong> حقق الوكيل الهدف مع تسريب ملف غير مصرح. هل تعوض جودة النتيجة الخطأ؟ لا؛ إخفاق حدود السلامة بوابة مستقلة لا يُخفى داخل متوسط نقاط.</p>
+<h1 id="section-32">31. صيانة المرجع وتحديثه</h1>
+<p>عند تغيير النموذج أو المضيف أو مهارة أو سياسة، يفتح طلب تغيير متناسب. يحدد المصدر الرسمي المنطبق، والسبب، والقواعد المتأثرة، والأثر على السياق والأدوات، والفحوص المطلوبة. نزيل التعليمات الزائدة عندما يثبت عدم نفعها، لكن لا نخفض الحماية لأن نموذجًا أحدث يبدو أكثر ذكاءً.</p>
+<p>يجب أن تتضمن المراجعة فحوص المراجع القديمة، والمسارات المعطلة، والتكرار، والتعارض، وحدود المهارات، وتغطية الإنفاذ. لا يُضاف ملف لكل مشكلة صغيرة إذا كانت مسؤوليتها موجودة. ولا يُدمج مصدر جديد بحجة أنه «أفضل» دون تتبع وتكييف.</p>
+<p>التغيير المقبول يحدّث المرجع الأصلي أولًا ثم مشتقاته. تُحفظ هوية الإصدار والفروق والأدلة، وتُلغى فقط الأدلة التي تأثرت. اختبار نجاح التنسيق لا يكفي لاعتماد الحوكمة كسلوك تشغيلي.</p>
+<h1 id="section-33">32. الحدود النهائية وكيف تستخدم النتائج</h1>
+<p>المرجع مكتفٍ بذاته في العقود والسياسات والتعريفات والإجراءات والقوالب والأدوات المحلية المعلنة. لا يضع حقائق مشروعك بدلًا عنك، ولا يتصل تلقائيًا بمزود نموذج، ولا يدعي عزلًا إنتاجيًا أو مراجعة مستقلة. التقرير النهائي يذكر الاختبارات المنفذة فعلًا وبيئتها، بينما تبقى تأهيلات المضيف والنموذج منفصلة.</p>
+<p>للبدء: افتح <code>START_HERE.md</code> ثم انسخ <code>prompts/ADOPT.md</code> إلى وكيل المشروع مع تحديد المشروع والصلاحيات. استخدم LITE عندما تثبت أهليته؛ وإلا ابدأ STANDARD، وارفع الحدود الحساسة إلى CONTROLLED. المسار المختصر طريق إلى العمل الصحيح، وليس طريقًا لتجاوز المسؤولية.</p>
+<h1 id="section-34">33. خريطة الملفات الأساسية</h1>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>الوظيفة</th>
+<th>الملف</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>الميثاق والمبدأ التأسيسي</td>
+<td>CHARTER.md</td>
+</tr>
+<tr>
+<td>التصميم والعقود</td>
+<td>ARCHITECTURE.md وcontracts/</td>
+</tr>
+<tr>
+<td>القواعد الأصلية</td>
+<td>registry/RULES.json</td>
+</tr>
+<tr>
+<td>المصادر الرسمية</td>
+<td>sources/REGISTER.json وsources/REFERENCE_POLICY.md</td>
+</tr>
+<tr>
+<td>اختيار عمق التأكيد</td>
+<td>profiles/</td>
+</tr>
+<tr>
+<td>المزود والمضيف</td>
+<td>adapters/providers/ وadapters/hosts/</td>
+</tr>
+<tr>
+<td>التبني والاستقبال</td>
+<td>procedures/ وprompts/ADOPT.md</td>
+</tr>
+<tr>
+<td>تشغيل المهمة</td>
+<td>protocols/ وprompts/</td>
+</tr>
+<tr>
+<td>السجلات والمخططات</td>
+<td>templates/ وschemas/</td>
+</tr>
+<tr>
+<td>أدوات محلية قابلة للتشغيل</td>
+<td>runtime/ وtools/</td>
+</tr>
+<tr>
+<td>التقييم والسيناريوهات</td>
+<td>evaluations/</td>
+</tr>
+<tr>
+<td>نتائج وحدود التحقق</td>
+<td>verification/</td>
+</tr>
+<tr>
+<td>مصالحة v4</td>
+<td>compatibility/</td>
+</tr>
+<tr>
+<td>دليل ترتيب التصميم</td>
+<td>design/BASELINE.json وdesign/frozen/</td>
+</tr>
+</tbody>
+</table></div>
+<h1 id="section-35">34. المراجع الفنية وطريقة الاستشهاد</h1>
+<p>المعرفات OA وAN وGO وOC وGH وDS وMI وQW تشير إلى سجل المصادر الرسمي. يعرض السجل الجهة والعنوان والرابط ونوع المرجع والتاريخ حين توفر ونطاق الاستفادة وحدودها. ما نُسب إلى مصدر هو ما يدعمه ملخصه؛ أما العقود والأمثلة والتصنيف والمسارات في هذا الدليل فهي صياغة AGHR، ولا تُنسب حرفيًا إلى المزودين.</p>
+<p>المراجع التالية روابط قراءة، لا تبعيات تشغيلية. تحديث المصدر بعد تاريخ المراجعة يستلزم فحص انطباقه على النسخة المستخدمة، ولا يعدل الحزمة تلقائيًا.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>المعرف</th>
+<th>المطور والمصدر الرسمي</th>
+<th>النوع</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OA-01</td>
+<td><a href="https://model-spec.openai.com/2026-08-18.html">OpenAI — Model Spec</a></td>
+<td>BEHAVIOR_SPEC</td>
+</tr>
+<tr>
+<td>OA-02</td>
+<td><a href="https://openai.com/index/harness-engineering/">OpenAI — Harness engineering: leveraging Codex in an agent-first world</a></td>
+<td>ENGINEERING_EXPERIENCE</td>
+</tr>
+<tr>
+<td>OA-03</td>
+<td><a href="https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra">OpenAI — Rethinking skills and prompts for GPT-6 Astra</a></td>
+<td>MODEL_SPECIFIC_GUIDANCE</td>
+</tr>
+<tr>
+<td>OA-04</td>
+<td><a href="https://learn.chatgpt.com/docs/agent-configuration/agents-md">OpenAI — Custom instructions with AGENTS.md</a></td>
+<td>HOST_DOCUMENTATION</td>
+</tr>
+<tr>
+<td>OA-05</td>
+<td><a href="https://openai.com/index/running-codex-safely/">OpenAI — Running Codex safely at OpenAI</a></td>
+<td>ENGINEERING_EXPERIENCE</td>
+</tr>
+<tr>
+<td>OA-06</td>
+<td><a href="https://developers.openai.com/api/docs/guides/agent-builder-safety">OpenAI — Safety in building agents</a></td>
+<td>PRODUCT_GUIDANCE</td>
+</tr>
+<tr>
+<td>OA-07</td>
+<td><a href="https://openai.github.io/openai-agents-python/guardrails/">OpenAI — Guardrails - OpenAI Agents SDK</a></td>
+<td>SDK_DOCUMENTATION</td>
+</tr>
+<tr>
+<td>OA-08</td>
+<td><a href="https://developers.openai.com/api/docs/guides/function-calling">OpenAI — Function calling</a></td>
+<td>API_DOCUMENTATION</td>
+</tr>
+<tr>
+<td>OA-09</td>
+<td><a href="https://developers.openai.com/api/docs/guides/agent-evals">OpenAI — Evaluate agent workflows</a></td>
+<td>EVALUATION_GUIDANCE</td>
+</tr>
+<tr>
+<td>OA-10</td>
+<td><a href="https://developers.openai.com/api/docs/guides/evaluation-best-practices">OpenAI — Evaluation best practices</a></td>
+<td>EVALUATION_GUIDANCE</td>
+</tr>
+<tr>
+<td>OA-11</td>
+<td><a href="https://developers.openai.com/api/docs/guides/agents-api/environments/security">OpenAI — Sandbox security</a></td>
+<td>PRODUCT_GUIDANCE</td>
+</tr>
+<tr>
+<td>OA-12</td>
+<td><a href="https://developers.openai.com/api/docs/guides/conversation-state">OpenAI — Conversation state</a></td>
+<td>API_DOCUMENTATION</td>
+</tr>
+<tr>
+<td>OA-13</td>
+<td><a href="https://developers.openai.com/api/docs/guides/reasoning-best-practices">OpenAI — Reasoning best practices</a></td>
+<td>MODEL_FAMILY_GUIDANCE</td>
+</tr>
+<tr>
+<td>AN-01</td>
+<td><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Anthropic — Effective context engineering for AI agents</a></td>
+<td>ENGINEERING_GUIDANCE</td>
+</tr>
+<tr>
+<td>AN-02</td>
+<td><a href="https://www.anthropic.com/engineering/building-effective-agents">Anthropic — Building effective agents</a></td>
+<td>ENGINEERING_GUIDANCE</td>
+</tr>
+<tr>
+<td>AN-03</td>
+<td><a href="https://code.claude.com/docs/en/memory">Anthropic — How Claude remembers your project</a></td>
+<td>HOST_DOCUMENTATION</td>
+</tr>
+<tr>
+<td>AN-04</td>
+<td><a href="https://code.claude.com/docs/en/permissions">Anthropic — Configure permissions</a></td>
+<td>HOST_DOCUMENTATION</td>
+</tr>
+<tr>
+<td>AN-05</td>
+<td><a href="https://code.claude.com/docs/en/sandboxing">Anthropic — Configure the sandboxed Bash tool</a></td>
+<td>HOST_DOCUMENTATION</td>
+</tr>
+<tr>
+<td>AN-06</td>
+<td><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Anthropic — Tool use with Claude</a></td>
+<td>API_DOCUMENTATION</td>
+</tr>
+<tr>
+<td>GO-01</td>
+<td><a href="https://geminicli.com/docs/cli/gemini-md/">Google — Provide context with GEMINI.md files</a></td>
+<td>HOST_DOCUMENTATION</td>
+</tr>
+<tr>
+<td>GO-02</td>
+<td><a href="https://geminicli.com/docs/cli/sandbox/">Google — Sandboxing in Gemini CLI</a></td>
+<td>HOST_DOCUMENTATION</td>
+</tr>
+<tr>
+<td>GO-03</td>
+<td><a href="https://geminicli.com/docs/reference/policy-engine/">Google — Policy engine</a></td>
+<td>HOST_DOCUMENTATION</td>
+</tr>
+<tr>
+<td>GO-04</td>
+<td><a href="https://ai.google.dev/gemini-api/docs/function-calling">Google — Function calling with the Gemini API</a></td>
+<td>API_DOCUMENTATION</td>
+</tr>
+<tr>
+<td>GO-05</td>
+<td><a href="https://ai.google.dev/gemini-api/docs/thought-signatures">Google — Thought signatures</a></td>
+<td>API_DOCUMENTATION</td>
+</tr>
+<tr>
+<td>OC-01</td>
+<td><a href="https://opencode.ai/docs/rules/">Anomaly / OpenCode — Rules</a></td>
+<td>HOST_DOCUMENTATION</td>
+</tr>
+<tr>
+<td>OC-02</td>
+<td><a href="https://opencode.ai/docs/permissions/">Anomaly / OpenCode — Permissions</a></td>
+<td>HOST_DOCUMENTATION</td>
+</tr>
+<tr>
+<td>GH-01</td>
+<td><a href="https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions">GitHub — Adding repository custom instructions for GitHub Copilot</a></td>
+<td>HOST_DOCUMENTATION</td>
+</tr>
+<tr>
+<td>DS-01</td>
+<td><a href="https://api-docs.deepseek.com/guides/tool_calls/">DeepSeek — Tool Calls</a></td>
+<td>API_DOCUMENTATION</td>
+</tr>
+<tr>
+<td>MI-01</td>
+<td><a href="https://docs.mistral.ai/studio/conversations/function-calling">Mistral — Function Calling</a></td>
+<td>API_DOCUMENTATION</td>
+</tr>
+<tr>
+<td>QW-01</td>
+<td><a href="https://qwen.readthedocs.io/en/latest/framework/function_call.html">Qwen Team — Function Calling</a></td>
+<td>MODEL_INTEGRATION_GUIDANCE</td>
+</tr>
+</tbody>
+</table></div>
+</main></div><footer>AGHR 1.0.0 · مرجع تفسيري محلي بلا تبعيات عرض خارجية · لا يمثل اعتمادًا تشغيليًا لمضيف أو مشروع.</footer></body></html>
