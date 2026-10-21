@@ -66,9 +66,11 @@ export function classifyStatement(statement) {
   }
 
   // 2. Normative Force
-  let force = "MUST";
+  let force = "PROPOSED";
   if (/لا يجوز|يمنع|يحظر|ممنوع|must not|never|prohibit|forbidden/i.test(lower)) {
     force = "MUST_NOT";
+  } else if (/يجب|يلزم|مفروض|إلزامي|ضروري|must|shall|mandatory|required/i.test(lower)) {
+    force = "MUST";
   } else if (/ينبغي|يستحسن|يفضل|يوصى|should|recommend|prefer/i.test(lower)) {
     force = "SHOULD";
   } else if (/ملاحظة|بيان|إشارة|note|info|observation/i.test(lower)) {

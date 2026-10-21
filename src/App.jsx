@@ -10,6 +10,7 @@ import IntakeView from "./components/IntakeView.jsx";
 import AdoptionView from "./components/AdoptionView.jsx";
 import EvaluationView from "./components/EvaluationView.jsx";
 import StagingView from "./components/StagingView.jsx";
+import { useI18n } from "./i18n/I18nProvider.jsx";
 
 const PARSE_EXTS = new Set(["md", "py", "js", "ts", "json", "yaml", "yml", "toml", "txt", "cfg", "ini", "sh"]);
 const PARSE_MAX = 512_000;
@@ -28,6 +29,7 @@ async function pool(items, worker, onDone) {
 }
 
 export default function App() {
+  const { locale, dir, setLocale, t } = useI18n();
   const [roots, setRoots] = useState([]);
   const [root, setRoot] = useState(null);
   const [tree, setTree] = useState(null);
@@ -151,7 +153,7 @@ export default function App() {
     fetchRoots()
       .then((rs) => {
         setRoots(rs);
-        if (rs.length) loadRoot(rs[0]);
+        if (rs.length) loadRoot(rs.find((r) => r.isDefault) || rs[0]);
       })
       .catch((e) => setError(String(e.message || e)));
   }, [loadRoot]);
@@ -174,7 +176,7 @@ export default function App() {
           <div>
             <div className="brand-name">AGHR Governance Studio</div>
             <div className="brand-sub" dir="auto">
-              منصة إدارة حوكمة الوكلاء والمرجعية المعيارية 1.0.0
+              {t("app.subtitle")}
             </div>
           </div>
         </div>
@@ -185,54 +187,59 @@ export default function App() {
             className={"mode-btn" + (mode === "explorer" ? " active" : "")}
             onClick={() => changeMode("explorer")}
           >
-            🧭 المستكشف (Explorer)
+            {t("app.explorer")}
           </button>
           <button
             className={"mode-btn" + (mode === "reference" ? " active" : "")}
             onClick={() => changeMode("reference")}
           >
-            📜 مرجعية AGHR (40 Rules)
+            {t("app.reference")}
           </button>
           <button
             className={"mode-btn" + (mode === "intake" ? " active" : "")}
             onClick={() => changeMode("intake")}
           >
-            📥 الطلبات والتغييرات (ChangePackets)
+            {t("app.intake")}
           </button>
           <button
             className={"mode-btn" + (mode === "adoption" ? " active" : "")}
             onClick={() => changeMode("adoption")}
           >
-            🏗️ تبني المشاريع (Adoption)
+            {t("app.adoption")}
           </button>
           <button
             className={"mode-btn" + (mode === "evaluation" ? " active" : "")}
             onClick={() => changeMode("evaluation")}
           >
-            ⚖️ التحقق والأدلة (Evaluations)
+            {t("app.evaluation")}
           </button>
           <button
             className={"mode-btn" + (mode === "staging" ? " active" : "")}
             onClick={() => changeMode("staging")}
           >
-            🛡️ التطبيق المحكوم (Staging & Apply)
+            {t("app.staging")}
           </button>
         </nav>
 
         {/* Controls */}
         <div className="topbar-controls">
+          <select className="language-select" value={locale} onChange={(e) => setLocale(e.target.value)}
+            aria-label={t("app.language")} title={t("app.language")}>
+            <option value="ar" lang="ar">العربية</option>
+            <option value="en" lang="en">English</option>
+          </select>
           <button
             className={"tab back" + (history.length ? "" : " off")}
             onClick={goBack}
             disabled={!history.length}
-            title="العودة إلى الشاشة السابقة (Esc)"
+            title={t("app.backTitle")}
           >
-            → رجوع
+            {dir === "rtl" ? "→" : "←"} {t("app.back")}
           </button>
           <button
             className="tab theme-toggle"
             onClick={toggleTheme}
-            title={theme === "dark" ? "التبديل إلى النمط النهاري" : "التبديل إلى النمط الليلي"}
+            title={theme === "dark" ? t("app.lightTheme") : t("app.darkTheme")}
           >
             {theme === "dark" ? "☀️" : "🌙"}
           </button>
@@ -245,7 +252,7 @@ export default function App() {
           <>
             <aside className="sidebar">
               <div className="roots">
-                <div className="side-title">الجذور المعتمدة محلياً</div>
+                <div className="side-title">{t("explorer.roots")}</div>
                 {roots.map((r) => (
                   <button
                     key={r.id || r.path}
@@ -261,10 +268,10 @@ export default function App() {
 
               {progress && (
                 <div className="progress">
-                  تحليل الملفات… {progress.done}/{progress.total}
+                  {t("explorer.progress", progress)}
                 </div>
               )}
-              {error && <div className="error">{error}</div>}
+              {error && <div className="error">{t(error)}</div>}
 
               {tree && (
                 <FileTree tree={tree} files={files} selectedRel={selected?.rel} onSelect={selectInPlace} />
@@ -278,19 +285,19 @@ export default function App() {
                   className={"tab" + (tab === "file" ? " on" : "")}
                   onClick={() => changeTab("file")}
                 >
-                  📄 معاينة الملف
+                  {t("explorer.preview")}
                 </button>
                 <button
                   className={"tab" + (tab === "graph" ? " on" : "")}
                   onClick={() => changeTab("graph")}
                 >
-                  🕸️ خريطة العلاقات {analysis ? `(${analysis.edges.length})` : ""}
+                  {t("explorer.graph")} {analysis ? `(${analysis.edges.length})` : ""}
                 </button>
                 <button
                   className={"tab" + (tab === "flow" ? " on" : "")}
                   onClick={() => changeTab("flow")}
                 >
-                  🔄 مخطط التدفق
+                  {t("explorer.flow")}
                 </button>
               </div>
 
@@ -308,7 +315,7 @@ export default function App() {
                       theme={theme}
                     />
                   ) : (
-                    <div className="pane empty">{progress ? "جارٍ التحليل…" : "لا بيانات"}</div>
+                    <div className="pane empty">{progress ? t("common.analyzing") : t("common.noData")}</div>
                   ))}
                 {tab === "flow" &&
                   (analysis ? (
@@ -319,7 +326,7 @@ export default function App() {
                       onSelect={(f) => openFile(f)}
                     />
                   ) : (
-                    <div className="pane empty">{progress ? "جارٍ التحليل…" : "لا بيانات"}</div>
+                    <div className="pane empty">{progress ? t("common.analyzing") : t("common.noData")}</div>
                   ))}
               </div>
             </main>

@@ -1,0 +1,194 @@
+{
+  "version": "1.1.0",
+  "status": "DOCUMENT_AND_REFERENCE_TOOL_COVERAGE",
+  "not_host_conformance": true,
+  "rows": [
+    {
+      "id": "R01",
+      "requirement": "علاقة الحوكمة بالمنهجيات والمهارات",
+      "rule_ids": [
+        "AGHR-038"
+      ],
+      "targets": [
+        "procedures/EXTERNAL_CAPABILITIES_AR.md",
+        "options/EXTERNAL_TOOLS_AR.md"
+      ],
+      "disposition": "INTEGRATED",
+      "qualification": "Local tests where representable; natural-language and host effects remain NOT_RUN"
+    },
+    {
+      "id": "R02",
+      "requirement": "مراحل دورة تطوير البرمجيات",
+      "rule_ids": [
+        "AGHR-043"
+      ],
+      "targets": [
+        "procedures/LIFECYCLE_AR.md",
+        "guide/GUIDE_AR.md"
+      ],
+      "disposition": "INTEGRATED",
+      "qualification": "Local tests where representable; natural-language and host effects remain NOT_RUN"
+    },
+    {
+      "id": "R03",
+      "requirement": "الاستيضاح والخيارات والتوصية قبل القرار المؤثر",
+      "rule_ids": [
+        "AGHR-041",
+        "AGHR-011"
+      ],
+      "targets": [
+        "procedures/SMART_CLARIFICATION_AR.md",
+        "schemas/REQUEST.schema.json",
+        "tests/test_delivery_records.py"
+      ],
+      "disposition": "INTEGRATED",
+      "qualification": "Local tests where representable; natural-language and host effects remain NOT_RUN"
+    },
+    {
+      "id": "R04",
+      "requirement": "البدائل الأفضل دون توسيع صامت",
+      "rule_ids": [
+        "AGHR-042"
+      ],
+      "targets": [
+        "procedures/ALTERNATIVES_AND_IMPACT_AR.md"
+      ],
+      "disposition": "INTEGRATED",
+      "qualification": "Local tests where representable; natural-language and host effects remain NOT_RUN"
+    },
+    {
+      "id": "R05",
+      "requirement": "تأكيد الأثر والسياق والتقدير المسند دون موافقات مكررة",
+      "rule_ids": [
+        "AGHR-023",
+        "AGHR-045"
+      ],
+      "targets": [
+        "procedures/ALTERNATIVES_AND_IMPACT_AR.md",
+        "procedures/COMMUNICATION_AND_HANDOFF_AR.md"
+      ],
+      "disposition": "INTEGRATED",
+      "qualification": "Local tests where representable; natural-language and host effects remain NOT_RUN"
+    },
+    {
+      "id": "R06",
+      "requirement": "الفروع والدمج والمزامنة المصرح بها",
+      "rule_ids": [
+        "AGHR-044"
+      ],
+      "targets": [
+        "procedures/EXECUTION_AND_GIT_AR.md",
+        "schemas/STATE.schema.json"
+      ],
+      "disposition": "INTEGRATED",
+      "qualification": "Local tests where representable; natural-language and host effects remain NOT_RUN"
+    },
+    {
+      "id": "R07",
+      "requirement": "اللغة الواضحة وتسليم الجلسة والنموذج والجهد المتاحان",
+      "rule_ids": [
+        "AGHR-045"
+      ],
+      "targets": [
+        "procedures/COMMUNICATION_AND_HANDOFF_AR.md",
+        "templates/DELIVERY_HANDOFF_AR.md"
+      ],
+      "disposition": "INTEGRATED",
+      "qualification": "Local tests where representable; natural-language and host effects remain NOT_RUN"
+    },
+    {
+      "id": "R08",
+      "requirement": "خيار التنفيذ المتتابع ضمن التفويض",
+      "rule_ids": [
+        "AGHR-010"
+      ],
+      "targets": [
+        "procedures/EXECUTION_AND_GIT_AR.md",
+        "runtime/DELIVERY.md"
+      ],
+      "disposition": "INTEGRATED",
+      "qualification": "Local tests where representable; natural-language and host effects remain NOT_RUN"
+    },
+    {
+      "id": "R09",
+      "requirement": "معرفة التقدم والتطابق مع الخطة والمنتج",
+      "rule_ids": [
+        "AGHR-046",
+        "AGHR-009"
+      ],
+      "targets": [
+        "procedures/PROGRESS_AND_DRIFT_AR.md",
+        "runtime/delivery.py"
+      ],
+      "disposition": "INTEGRATED",
+      "qualification": "Local tests where representable; natural-language and host effects remain NOT_RUN"
+    },
+    {
+      "id": "R10",
+      "requirement": "كشف الانحراف والتجاوز وحدود الرصد",
+      "rule_ids": [
+        "AGHR-046"
+      ],
+      "targets": [
+        "procedures/PROGRESS_AND_DRIFT_AR.md",
+        "schemas/STATE.schema.json"
+      ],
+      "disposition": "INTEGRATED",
+      "qualification": "Local tests where representable; natural-language and host effects remain NOT_RUN"
+    },
+    {
+      "id": "R11",
+      "requirement": "حفظ هيكل الأصل والمرجعية الرسمية لمطوري النماذج",
+      "rule_ids": [
+        "AGHR-001",
+        "AGHR-002"
+      ],
+      "targets": [
+        "CHARTER.md",
+        "compatibility/AGHR_1_0_INPUTS.json",
+        "sources/REVALIDATION_1.1.0.json"
+      ],
+      "disposition": "INTEGRATED",
+      "qualification": "Local tests where representable; natural-language and host effects remain NOT_RUN"
+    },
+    {
+      "id": "R12",
+      "requirement": "استيعاب الإضافات في نسخة أكاديمية موحدة",
+      "rule_ids": [
+        "AGHR-006"
+      ],
+      "targets": [
+        "guide/GUIDE_AR.md",
+        "compatibility/ACADEMIC_INTEGRATION_MAP.json"
+      ],
+      "disposition": "INTEGRATED",
+      "qualification": "Local tests where representable; natural-language and host effects remain NOT_RUN"
+    },
+    {
+      "id": "R13",
+      "requirement": "مهارات اختيارية أصلية وكتالوج أدوات دون إلزام",
+      "rule_ids": [
+        "AGHR-038"
+      ],
+      "targets": [
+        "optional_skills/REGISTER.json",
+        "options/OPTIONAL_SKILLS_AR.md"
+      ],
+      "disposition": "INTEGRATED",
+      "qualification": "Local tests where representable; natural-language and host effects remain NOT_RUN"
+    },
+    {
+      "id": "R14",
+      "requirement": "مجلد المعايير وطبقاتها وضوابطها التطبيقية وحدود النقل",
+      "rule_ids": [
+        "AGHR-047"
+      ],
+      "targets": [
+        "standards/README_AR.md",
+        "standards/CONTROL_CATALOG.json"
+      ],
+      "disposition": "INTEGRATED",
+      "qualification": "Local tests where representable; natural-language and host effects remain NOT_RUN"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "command": "npm test",
+  "scope": "STUDIO_AFTER_ARCHIVING_1_1_0",
+  "exit_code": 0,
+  "tests_executed": 25,
+  "passed": 25,
+  "failed": 0,
+  "stdout_last_chunk": "✔ M2 Reference Explorer: Summary contains exact AGHR counts (7.2549ms)\n✔ M2 Reference Explorer: Rules search and filtering (2.2537ms)\n✔ M2 Reference Explorer: Rule details with basis sources and coverage (6.3327ms)\n✔ M2 Reference Explorer: Packages endpoint returns all registered governance packages (1.771ms)\n✔ M2 Reference Explorer: Compare AGHR 1.0.0 vs AGHR 1.1.0 returns typed structural delta (6.6975ms)\n✔ M2 Reference Explorer: Updated 1.2.0 is registered with scoped reference status (5.0729ms)\n✔ M2 Reference Explorer: Impact analysis for modified rule (2.0761ms)\n✔ M3 Intake: Compound statement decomposition (1.8893ms)\n✔ M3 Intake: 2-Layer classification of domain concern and normative force (16.8207ms)\n✔ M3 Intake: Conflict detection against existing rules triggers REJECT proposal (5.3762ms)\n✔ M3 Intake: Submit intake request generates persistent ChangePacket (7.357ms)\n✔ M4 Adoption: Empty discovery when data/ was removed (3.7106ms)\n✔ M4 Adoption: Prepares adoption plan without silent destruction (3.5946ms)\n✔ M6 Governed Staging & Apply: Staging, Precondition Drift, and Authorized Apply (47.0223ms)\n✔ INBOX custody receipt detects changed bytes or file set (166.3403ms)\n✔ M1 Security: Approved Roots Listing (7.2347ms)\n✔ M1 Security: Reject Path Traversal via rootId + rel (4.7684ms)\n✔ M1 Security: Reject Null Byte Injection (0.8073ms)\n✔ M1 Security: Reject Absolute Path in relPath (1.1696ms)\n✔ M1 Security: Reject Arbitrary Client Path outside Approved Roots (2.0462ms)\n✔ M1 Security: Reject Protected Files (.git, .env) (2.5269ms)\n✔ M1 API Endpoint: GET /api/roots returns approved roots safely (100.1088ms)\n✔ M1 API Endpoint: GET /api/tree with traversal attempt returns 403 (1.9509ms)\n✔ M1 API Endpoint: GET /api/file within approved root succeeds (3.9159ms)\n✔ M1 API Endpoint: GET /api/file requesting protected file returns 403 (6.2537ms)\nℹ tests 25\nℹ suites 0\nℹ pass 25\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 1757.6367\n",
+  "package_1_2_0": "UNCHANGED_BY_RELOCATION",
+  "custody_receipt": "after.json"
+}

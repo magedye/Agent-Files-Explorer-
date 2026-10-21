@@ -1,0 +1,27 @@
+test_authorization_ceiling_prevents_escalation (tests.test_skills.SkillAwareExecutionTests.test_authorization_ceiling_prevents_escalation)
+Scenario 6: Skill requiring permissions beyond task grant -> Blocked with AUTHORIZATION_CEILING_EXCEEDED. ... ok
+test_matching_skill_discovery_and_progressive_loading (tests.test_skills.SkillAwareExecutionTests.test_matching_skill_discovery_and_progressive_loading)
+Scenario 1: Suitable skill exists -> Discovered, selected, loaded on-demand, verified. ... ok
+test_missing_dependencies_rejected (tests.test_skills.SkillAwareExecutionTests.test_missing_dependencies_rejected)
+Scenario 4: Missing host tools or dependencies -> Skill rejected from loading. ... ok
+test_no_skill_adds_value_graceful_direct_execution (tests.test_skills.SkillAwareExecutionTests.test_no_skill_adds_value_graceful_direct_execution)
+Scenario 2: No skill needed or adds value -> Graceful direct execution (non-mandatory). ... ok
+test_skill_conflict_detection (tests.test_skills.SkillAwareExecutionTests.test_skill_conflict_detection)
+Scenario 3: Mutual conflict between candidate skills -> Detected and prevented. ... ok
+test_skill_execution_failure_handling (tests.test_skills.SkillAwareExecutionTests.test_skill_execution_failure_handling)
+Scenario 5: Skill execution failure or invalid output -> Handled gracefully without crash. ... ok
+test_contradictory_evidence_and_unknown_effects_do_not_pass (tests.test_skill_evidence.SkillEvidenceTests.test_contradictory_evidence_and_unknown_effects_do_not_pass) ... ok
+test_empty_outputs_and_unknown_skill_never_pass (tests.test_skill_evidence.SkillEvidenceTests.test_empty_outputs_and_unknown_skill_never_pass) ... ok
+test_loader_rechecks_hash_before_reading_instructions (tests.test_skill_evidence.SkillEvidenceTests.test_loader_rechecks_hash_before_reading_instructions) ... ok
+test_loading_is_neither_activation_execution_nor_verification (tests.test_skill_evidence.SkillEvidenceTests.test_loading_is_neither_activation_execution_nor_verification) ... ok
+test_missing_stale_changed_and_unrelated_evidence_is_rejected (tests.test_skill_evidence.SkillEvidenceTests.test_missing_stale_changed_and_unrelated_evidence_is_rejected) ... ok
+test_permission_and_dependency_blocks_are_not_direct_execution (tests.test_skill_evidence.SkillEvidenceTests.test_permission_and_dependency_blocks_are_not_direct_execution) ... ok
+test_task_criteria_are_evaluated_instead_of_only_output_names (tests.test_skill_evidence.SkillEvidenceTests.test_task_criteria_are_evaluated_instead_of_only_output_names) ... ok
+test_unknown_missing_and_failed_execution_states_never_pass (tests.test_skill_evidence.SkillEvidenceTests.test_unknown_missing_and_failed_execution_states_never_pass) ... ok
+test_unmatched_and_trivial_tasks_have_distinct_nonexecuted_states (tests.test_skill_evidence.SkillEvidenceTests.test_unmatched_and_trivial_tasks_have_distinct_nonexecuted_states) ... ok
+test_valid_recorded_artifacts_pass_only_the_declared_local_scope (tests.test_skill_evidence.SkillEvidenceTests.test_valid_recorded_artifacts_pass_only_the_declared_local_scope) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.335s
+
+OK

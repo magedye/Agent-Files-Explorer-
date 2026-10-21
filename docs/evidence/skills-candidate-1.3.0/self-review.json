@@ -1,0 +1,36 @@
+{
+  "scope": "ADVERSARIAL_SELF_REVIEW_NOT_INDEPENDENT",
+  "axes": [
+    "correctness",
+    "readability",
+    "architecture",
+    "security_boundaries",
+    "performance"
+  ],
+  "required_findings": [
+    {
+      "id": "CR-1",
+      "finding": "A failed content criterion could appear in passed_criteria",
+      "resolution": "Track actual content predicates before marking the criterion passed",
+      "test": "test_task_criteria_are_evaluated_instead_of_only_output_names",
+      "status": "FIXED_AND_PASSED_FINAL_SUITE"
+    },
+    {
+      "id": "CR-2",
+      "finding": "External catalog entries could claim installed/session-available status",
+      "resolution": "Reject contradictory catalog metadata",
+      "test": "test_source_categories_and_same_name_identities_remain_distinct",
+      "status": "FIXED_AND_PASSED_FINAL_SUITE"
+    },
+    {
+      "id": "CR-3",
+      "finding": "A later combined skill could leave a redundant earlier selection",
+      "resolution": "Prune redundant non-required selections before applying the explicit limit",
+      "test": "test_combined_skill_removes_a_redundant_earlier_preference",
+      "status": "FIXED_AND_PASSED_FINAL_SUITE"
+    }
+  ],
+  "independent_review": "NOT_PERFORMED",
+  "no_new_dependencies": true,
+  "native_execution": "NOT_RUN"
+}

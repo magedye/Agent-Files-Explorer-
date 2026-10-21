@@ -1,0 +1,1568 @@
+{
+  "schema_version": "1.0",
+  "review_date": "2026-10-20",
+  "scope": "Owner-directed package update; classifications/dispositions are scoped engineering judgments, not universal semantic proof.",
+  "rows": [
+    {
+      "id": "INT-001",
+      "source": "1.MD",
+      "section": "1 / callers and interface contracts",
+      "kind": "PROCEDURE",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "PARTIAL",
+      "disposition": "ADOPT",
+      "engineering_action": "CLARIFY",
+      "targets": [
+        "policies/ENGINEERING.md"
+      ],
+      "finding_and_effect": "Generalized consumer/type/sync/null/error impact checks; no MARSAD file was edited."
+    },
+    {
+      "id": "INT-002",
+      "source": "1.MD",
+      "section": "2 / historical and temporal validity",
+      "kind": "PROCEDURE",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "MUST",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "PARTIAL",
+      "disposition": "ADOPT",
+      "engineering_action": "CLARIFY",
+      "targets": [
+        "policies/ENGINEERING.md"
+      ],
+      "finding_and_effect": "Preserve applicable as-of/effective-date and explicit supersession semantics; latest alone is insufficient."
+    },
+    {
+      "id": "INT-003",
+      "source": "1.MD",
+      "section": "3 / boundary cases",
+      "kind": "RECOMMENDATION",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "COVERED",
+      "disposition": "ADOPT",
+      "engineering_action": "CLARIFY",
+      "targets": [
+        "policies/ENGINEERING.md"
+      ],
+      "finding_and_effect": "Select relevant empty/zero/extreme/failure cases by contract and impact rather than mandatory universal cases."
+    },
+    {
+      "id": "INT-004",
+      "source": "1.MD",
+      "section": "4 / model and effort selection",
+      "kind": "RECOMMENDATION",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "COVERED",
+      "disposition": "REFERENCE_ONLY",
+      "engineering_action": "REUSE",
+      "targets": [
+        "policies/CONTEXT_AND_MODELS.md"
+      ],
+      "finding_and_effect": "Use actual complexity/risk/availability and measured results; model names do not establish review independence."
+    },
+    {
+      "id": "INT-005",
+      "source": "1.MD",
+      "section": "5 / task formulation",
+      "kind": "PROCEDURE",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "PARTIAL",
+      "disposition": "ADOPT",
+      "engineering_action": "CLARIFY",
+      "targets": [
+        "policies/CONTEXT_AND_MODELS.md"
+      ],
+      "finding_and_effect": "Bound delegated tasks with paths/contracts, outcomes, criteria, constraints and resume points as applicable."
+    },
+    {
+      "id": "INT-006",
+      "source": "1.MD",
+      "section": "MARSAD target paths and merge constraints",
+      "kind": "POLICY",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "INFORMATIVE",
+      "scope": "MARSAD_ONLY",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "NOT_APPLICABLE",
+      "disposition": "REFERENCE_ONLY",
+      "engineering_action": "REFERENCE_ONLY",
+      "targets": [
+        "design/INBOX_RECONCILIATION.md"
+      ],
+      "finding_and_effect": "MARSAD paths and adopted force require that project owner; retain as provenance, not a new AGHR taxonomy."
+    },
+    {
+      "id": "INT-007",
+      "source": "2.MD",
+      "section": "1.1 / receive originals",
+      "kind": "PROCEDURE",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "COVERED",
+      "disposition": "REFERENCE_ONLY",
+      "engineering_action": "REUSE",
+      "targets": [
+        "procedures/PROJECT_INBOX.md",
+        "procedures/REQUEST_INTAKE.md"
+      ],
+      "finding_and_effect": "Retain exact source locators and hashes; no placement-derived permission."
+    },
+    {
+      "id": "INT-008",
+      "source": "2.MD",
+      "section": "1.2 / atomize and classify",
+      "kind": "PROCEDURE",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "PARTIAL",
+      "disposition": "ADOPT",
+      "engineering_action": "EXTEND",
+      "targets": [
+        "procedures/GOVERNED_LEARNING.md",
+        "schemas/LESSON.schema.json"
+      ],
+      "finding_and_effect": "Nine distinct kinds, proposed force, authority, scope and effect are now explicit lesson fields."
+    },
+    {
+      "id": "INT-009",
+      "source": "2.MD",
+      "section": "1.3-4 / coverage and impact",
+      "kind": "PROCEDURE",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "COVERED",
+      "disposition": "ADOPT",
+      "engineering_action": "EXTEND",
+      "targets": [
+        "procedures/GOVERNED_LEARNING.md"
+      ],
+      "finding_and_effect": "Preserve exact owner references and COVERED/PARTIAL/MISSING/CONFLICT plus UNVERIFIED/NOT_APPLICABLE."
+    },
+    {
+      "id": "INT-010",
+      "source": "2.MD",
+      "section": "3 / generalization and destination",
+      "kind": "POLICY",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "PARTIAL",
+      "disposition": "ADOPT",
+      "engineering_action": "EXTEND",
+      "targets": [
+        "policies/CHANGE_CONTROL.md",
+        "procedures/GOVERNED_LEARNING.md"
+      ],
+      "finding_and_effect": "Generalization needs evidence for the broader context and the competent owner; reuse the existing owner file."
+    },
+    {
+      "id": "INT-011",
+      "source": "2.MD",
+      "section": "3.7 / Problem-Lesson-Rule-Enforcement",
+      "kind": "TECHNICAL_CONTROL",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "PARTIAL",
+      "disposition": "ADOPT",
+      "engineering_action": "IMPLEMENT_CONTROL",
+      "targets": [
+        "runtime/learning.py",
+        "tests/test_learning.py"
+      ],
+      "finding_and_effect": "Add evidence/semantic checks and negative-path regression coverage; a rule is one possible outcome, not a mandatory stage."
+    },
+    {
+      "id": "INT-012",
+      "source": "2.MD",
+      "section": "2 / suggested folder and final routing",
+      "kind": "PROCEDURE",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "COVERED",
+      "disposition": "RECONCILE",
+      "engineering_action": "RECONCILE",
+      "targets": [
+        "procedures/PROJECT_INBOX.md"
+      ],
+      "finding_and_effect": "Consumer _INBOX and Studio governance_packages/INBOX have distinct scope; derived artifacts go to their owner targets."
+    },
+    {
+      "id": "INT-013",
+      "source": "2.MD",
+      "section": "4 / Explorer UI and ChangePackets",
+      "kind": "RECOMMENDATION",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "INFORMATIVE",
+      "scope": "STUDIO_PRODUCT",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "UNVERIFIED",
+      "disposition": "DEFER",
+      "engineering_action": "DEFER",
+      "targets": [
+        "design/INBOX_RECONCILIATION.md"
+      ],
+      "finding_and_effect": "A new visual lesson-management product slice is outside this package update; existing Studio registration only."
+    },
+    {
+      "id": "INT-014",
+      "source": "for-learning.md",
+      "section": "inbox placement and authority",
+      "kind": "POLICY",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "COVERED",
+      "disposition": "REFERENCE_ONLY",
+      "engineering_action": "REUSE",
+      "targets": [
+        "procedures/PROJECT_INBOX.md"
+      ],
+      "finding_and_effect": "Use the current intake procedure, not another parallel inbox skill."
+    },
+    {
+      "id": "INT-015",
+      "source": "for-learning.md",
+      "section": "single canonical state",
+      "kind": "POLICY",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "COVERED",
+      "disposition": "REFERENCE_ONLY",
+      "engineering_action": "REUSE",
+      "targets": [
+        "policies/STATE_AND_RECOVERY.md",
+        "runtime/learning.py"
+      ],
+      "finding_and_effect": "Respect native canonical trackers; capture refuses a parallel LOCAL_JSON lesson store when external backend is declared."
+    },
+    {
+      "id": "INT-016",
+      "source": "for-learning.md",
+      "section": "Windows portable paths and foreign encodings",
+      "kind": "PROCEDURE",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "PARTIAL",
+      "disposition": "RECONCILE",
+      "engineering_action": "RECONCILE",
+      "targets": [
+        "runtime/learning.py",
+        "runtime/inbox.py"
+      ],
+      "finding_and_effect": "Portable recorded relative paths use POSIX separators; native operations use Path. Owned JSON is UTF-8; foreign claim inspection uses replacement decoding."
+    },
+    {
+      "id": "INT-017",
+      "source": "for-learning.md",
+      "section": "context budget and archives",
+      "kind": "RECOMMENDATION",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "PARTIAL",
+      "disposition": "RECONCILE",
+      "engineering_action": "RECONCILE",
+      "targets": [
+        "CONTEXT_GUIDE.md",
+        "CONTENTS.md"
+      ],
+      "finding_and_effect": "Advisory configurable context budgets, targeted retrieval and tool-level auditing replace universal 1000-token acceptance claims."
+    },
+    {
+      "id": "INT-018",
+      "source": "for-learning.md",
+      "section": "baseline fingerprint gates",
+      "kind": "TECHNICAL_CONTROL",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "COVERED",
+      "disposition": "REFERENCE_ONLY",
+      "engineering_action": "REUSE",
+      "targets": [
+        "MANIFEST.json",
+        "tools/check_package.py"
+      ],
+      "finding_and_effect": "Freeze/check at relevant boundaries; preserve complete original candidate rather than rehash all references after every edit."
+    },
+    {
+      "id": "INT-019",
+      "source": "for-learning.md",
+      "section": "avoid duplicate Skill/AGENTS patch",
+      "kind": "POLICY",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "COVERED",
+      "disposition": "RECONCILE",
+      "engineering_action": "RECONCILE",
+      "targets": [
+        "AGENTS.md",
+        "optional_skills/governed-learning/SKILL.md"
+      ],
+      "finding_and_effect": "Short router links to a distinct missing learning workflow; no extra inbox skill or global instruction patch."
+    },
+    {
+      "id": "INT-020",
+      "source": "guide.md",
+      "section": "missing attached Antigravity guide",
+      "kind": "OBSERVATION",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "INFORMATIVE",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "UNVERIFIED",
+      "disposition": "HOLD",
+      "engineering_action": "NEEDS_INFORMATION",
+      "targets": [
+        "design/INBOX_RECONCILIATION.md"
+      ],
+      "finding_and_effect": "The mentioned attachment is absent from the eight captured inputs; no invented source or adapter qualification."
+    },
+    {
+      "id": "INT-021",
+      "source": "guide.md",
+      "section": "official host version and qualification claims",
+      "kind": "PROCEDURE",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "INFORMATIVE",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "COVERED",
+      "disposition": "REFERENCE_ONLY",
+      "engineering_action": "REUSE",
+      "targets": [
+        "procedures/HOST_QUALIFICATION.md"
+      ],
+      "finding_and_effect": "Verify official selected host/version/OS when source is supplied. This update makes no new Antigravity technical claim."
+    },
+    {
+      "id": "INT-022",
+      "source": "IMPOERTANT.md",
+      "section": "1-2 / five-pass method",
+      "kind": "PROCEDURE",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "PARTIAL",
+      "disposition": "ADOPT",
+      "engineering_action": "EXTEND",
+      "targets": [
+        "procedures/GOVERNED_LEARNING.md"
+      ],
+      "finding_and_effect": "Adapt Scan-Generate-Dedup-Confirm-Execute with source/authority review and a later validity review."
+    },
+    {
+      "id": "INT-023",
+      "source": "IMPOERTANT.md",
+      "section": "2 / problem-cause-prevention-detection",
+      "kind": "LESSON",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "MISSING",
+      "disposition": "ADOPT",
+      "engineering_action": "IMPLEMENT_CONTROL",
+      "targets": [
+        "schemas/LESSON.schema.json",
+        "templates/LESSON.json"
+      ],
+      "finding_and_effect": "Capture what happened, causal support, counterevidence review, prevention and a concrete detection signal."
+    },
+    {
+      "id": "INT-024",
+      "source": "IMPOERTANT.md",
+      "section": "3 / confidence and root cause",
+      "kind": "POLICY",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "PARTIAL",
+      "disposition": "ADOPT",
+      "engineering_action": "EXTEND",
+      "targets": [
+        "runtime/learning.py",
+        "tests/test_learning.py"
+      ],
+      "finding_and_effect": "Confidence cannot replace evidence or authority. Unknown cause remains UNPROVEN and blocks instruction-promotion preconditions."
+    },
+    {
+      "id": "INT-025",
+      "source": "IMPOERTANT.md",
+      "section": "3 / content approval vs write vs activation",
+      "kind": "POLICY",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "COVERED",
+      "disposition": "ADOPT",
+      "engineering_action": "EXTEND",
+      "targets": [
+        "procedures/GOVERNED_LEARNING.md",
+        "runtime/learning.py"
+      ],
+      "finding_and_effect": "Separate capture/adoption/effect references; local fields authenticate none of them."
+    },
+    {
+      "id": "INT-026",
+      "source": "IMPOERTANT.md",
+      "section": "4 / knowledge lifecycle",
+      "kind": "PROCEDURE",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "MISSING",
+      "disposition": "ADOPT",
+      "engineering_action": "IMPLEMENT_CONTROL",
+      "targets": [
+        "schemas/LESSON.schema.json",
+        "runtime/learning.py"
+      ],
+      "finding_and_effect": "CANDIDATE/SUPPORTED/NEEDS_REVIEW/STALE/SUPERSEDED/REJECTED independent from execution state."
+    },
+    {
+      "id": "INT-027",
+      "source": "IMPOERTANT.md",
+      "section": "4 / action lifecycle",
+      "kind": "PROCEDURE",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "PARTIAL",
+      "disposition": "ADOPT",
+      "engineering_action": "IMPLEMENT_CONTROL",
+      "targets": [
+        "schemas/LESSON.schema.json",
+        "runtime/learning.py"
+      ],
+      "finding_and_effect": "NOT_APPLIED/APPLIED/DEFERRED/NOT_APPLICABLE separate from disposition; applied claims require artifact and check evidence."
+    },
+    {
+      "id": "INT-028",
+      "source": "IMPOERTANT.md",
+      "section": "5-6 / owning architecture and single store",
+      "kind": "POLICY",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "COVERED",
+      "disposition": "ADOPT",
+      "engineering_action": "EXTEND",
+      "targets": [
+        "policies/CHANGE_CONTROL.md",
+        "procedures/GOVERNED_LEARNING.md"
+      ],
+      "finding_and_effect": "Reuse existing rules and intake; no competing policy or user-global memory store."
+    },
+    {
+      "id": "INT-029",
+      "source": "IMPOERTANT.md",
+      "section": "6.6 / existing learn commands",
+      "kind": "SKILL",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "UNVERIFIED",
+      "disposition": "RECONCILE",
+      "engineering_action": "RECONCILE",
+      "targets": [
+        "procedures/GOVERNED_LEARNING.md",
+        "design/LEARNING_SOURCE_REVIEW.json"
+      ],
+      "finding_and_effect": "External commands are optional capture adapters after actual host review; no reserved slash alias or invented native command."
+    },
+    {
+      "id": "INT-030",
+      "source": "IMPOERTANT.md",
+      "section": "6.7 / hooks and private transcripts",
+      "kind": "RISK",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "COVERED",
+      "disposition": "REFERENCE_ONLY",
+      "engineering_action": "REUSE",
+      "targets": [
+        "design/LEARNING_SOURCE_REVIEW.json",
+        "procedures/GOVERNED_LEARNING.md"
+      ],
+      "finding_and_effect": "Inspected pinned hook code and write destinations without executing it; no installation, background collection or transcript migration."
+    },
+    {
+      "id": "INT-031",
+      "source": "IMPOERTANT.md",
+      "section": "6.8 / qualified lesson implementation",
+      "kind": "TECHNICAL_CONTROL",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "PARTIAL",
+      "disposition": "ADOPT",
+      "engineering_action": "IMPLEMENT_CONTROL",
+      "targets": [
+        "runtime/learning.py",
+        "tests/test_learning.py"
+      ],
+      "finding_and_effect": "Keep extraction, approval, effect and verification explicit; route improvements to existing procedure/skill or test."
+    },
+    {
+      "id": "INT-032",
+      "source": "IMPOERTANT.md",
+      "section": "6.9 / stale and superseded lessons",
+      "kind": "PROCEDURE",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "PARTIAL",
+      "disposition": "ADOPT",
+      "engineering_action": "EXTEND",
+      "targets": [
+        "procedures/MAINTENANCE.md",
+        "runtime/learning.py"
+      ],
+      "finding_and_effect": "Candidate changes and review dates block reliance; preserve previous IDs and explicit successor links."
+    },
+    {
+      "id": "INT-033",
+      "source": "IMPOERTANT.md",
+      "section": "6.10 / false lesson negative case",
+      "kind": "TECHNICAL_CONTROL",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "MISSING",
+      "disposition": "ADOPT",
+      "engineering_action": "IMPLEMENT_CONTROL",
+      "targets": [
+        "tests/test_learning.py"
+      ],
+      "finding_and_effect": "Rejected knowledge never passes promotion checks."
+    },
+    {
+      "id": "INT-034",
+      "source": "IMPOERTANT.md",
+      "section": "6.10 / injection negative case",
+      "kind": "TECHNICAL_CONTROL",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "PARTIAL",
+      "disposition": "ADOPT",
+      "engineering_action": "IMPLEMENT_CONTROL",
+      "targets": [
+        "tests/test_learning.py"
+      ],
+      "finding_and_effect": "Unknown approval fields rejected; malicious source prose can be captured as data without changing active files."
+    },
+    {
+      "id": "INT-035",
+      "source": "IMPOERTANT.md",
+      "section": "6.10 / duplicate and conflict cases",
+      "kind": "TECHNICAL_CONTROL",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "PARTIAL",
+      "disposition": "ADOPT",
+      "engineering_action": "IMPLEMENT_CONTROL",
+      "targets": [
+        "tests/test_learning.py"
+      ],
+      "finding_and_effect": "Exact overlap and recorded decision conflicts block new instruction promotion; semantic coverage still requires review."
+    },
+    {
+      "id": "INT-036",
+      "source": "IMPOERTANT.md",
+      "section": "6.10 / global-policy and stale-version cases",
+      "kind": "TECHNICAL_CONTROL",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "PARTIAL",
+      "disposition": "ADOPT",
+      "engineering_action": "IMPLEMENT_CONTROL",
+      "targets": [
+        "tests/test_learning.py"
+      ],
+      "finding_and_effect": "Missing adoption authority, unsafe targets, changed candidate and expired applicability do not pass promotion checks."
+    },
+    {
+      "id": "INT-037",
+      "source": "IMPOERTANT.md",
+      "section": "7 / installing Aprende now",
+      "kind": "SKILL",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "CONFLICT",
+      "disposition": "REJECT",
+      "engineering_action": "REJECT",
+      "targets": [
+        "design/LEARNING_SOURCE_REVIEW.json"
+      ],
+      "finding_and_effect": "Use original host-neutral AGHR implementation; external skill/scripts remain inspected sources only."
+    },
+    {
+      "id": "INT-038",
+      "source": "IMPOERTANT.md",
+      "section": "retrospective triggers and Definition of Done",
+      "kind": "PROCEDURE",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "MUST",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "PARTIAL",
+      "disposition": "RECONCILE",
+      "engineering_action": "RECONCILE",
+      "targets": [
+        "protocols/EXECUTION.md",
+        "procedures/GOVERNED_LEARNING.md"
+      ],
+      "finding_and_effect": "A learning review is required at meaningful checkpoints; NO_NEW_LESSON is valid and owner pause takes precedence."
+    },
+    {
+      "id": "INT-039",
+      "source": "IMPOERTANT.md",
+      "section": "mandatory always convert to rule and write memory",
+      "kind": "RULE",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "MUST",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "CONFLICT",
+      "disposition": "REJECT",
+      "engineering_action": "REJECT",
+      "targets": [
+        "procedures/GOVERNED_LEARNING.md"
+      ],
+      "finding_and_effect": "No automatic global rule/skill/memory promotion; disposition follows support, scope and actual authority."
+    },
+    {
+      "id": "INT-040",
+      "source": "IMPOERTANT.md",
+      "section": "PREFER/AVOID force labels",
+      "kind": "RECOMMENDATION",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "CONFLICT",
+      "disposition": "RECONCILE",
+      "engineering_action": "RECONCILE",
+      "targets": [
+        "schemas/LESSON.schema.json"
+      ],
+      "finding_and_effect": "Use the existing normative taxonomy; map preferences/avoidance to applicable SHOULD/SHOULD_NOT or INFORMATIVE."
+    },
+    {
+      "id": "INT-041",
+      "source": "IMPOERTANT.md",
+      "section": "Docker/MSSQL example",
+      "kind": "LESSON",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "INFORMATIVE",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "NOT_APPLICABLE",
+      "disposition": "REFERENCE_ONLY",
+      "engineering_action": "REFERENCE_ONLY",
+      "targets": [
+        "guide/LEARNING_AND_REPORTS_AR.md"
+      ],
+      "finding_and_effect": "Illustration is not observed evidence here; do not impose its container prerequisite universally."
+    },
+    {
+      "id": "INT-042",
+      "source": "IMPOERTANT.md",
+      "section": "startup brief and memory folder proposal",
+      "kind": "PROCEDURE",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "PARTIAL",
+      "disposition": "RECONCILE",
+      "engineering_action": "RECONCILE",
+      "targets": [
+        "procedures/COMMUNICATION_AND_HANDOFF_AR.md",
+        "policies/CONTEXT_AND_MODELS.md"
+      ],
+      "finding_and_effect": "Retrieve only task-relevant accepted guidance through existing handoff/intake; no full-history preload or duplicate memory files."
+    },
+    {
+      "id": "INT-043",
+      "source": "IMPOERTANT.md",
+      "section": "quality criteria and reusable skill",
+      "kind": "SKILL",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "MISSING",
+      "disposition": "ADOPT",
+      "engineering_action": "EXTEND",
+      "targets": [
+        "optional_skills/governed-learning/SKILL.md"
+      ],
+      "finding_and_effect": "Add one complete evidence/classification workflow wrapper; no compulsory host installation or unfinished skill stub."
+    },
+    {
+      "id": "INT-044",
+      "source": "learning_proposal.md",
+      "section": "1 / five lessons",
+      "kind": "LESSON",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "PARTIAL",
+      "disposition": "RECONCILE",
+      "engineering_action": "RECONCILE",
+      "targets": [
+        "design/INBOX_RECONCILIATION.json"
+      ],
+      "finding_and_effect": "Reconcile against the more precise for-learning corrections; preserve the original as pending proposal."
+    },
+    {
+      "id": "INT-045",
+      "source": "learning_proposal.md",
+      "section": "2 / blanket AGENTS patch",
+      "kind": "RULE",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "CONFLICT",
+      "disposition": "REJECT",
+      "engineering_action": "REJECT",
+      "targets": [
+        "AGENTS.md"
+      ],
+      "finding_and_effect": "No universal POSIX operations, blanket decoding or independent state rewrite; retain a short route to owning procedures."
+    },
+    {
+      "id": "INT-046",
+      "source": "learning_proposal.md",
+      "section": "3 / optional inbox skill",
+      "kind": "SKILL",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "SHOULD",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "COVERED",
+      "disposition": "REJECT",
+      "engineering_action": "REJECT",
+      "targets": [
+        "procedures/PROJECT_INBOX.md"
+      ],
+      "finding_and_effect": "Existing inbox procedure and CLI suffice; the new distinct learning skill does not duplicate them."
+    },
+    {
+      "id": "INT-047",
+      "source": "MARSAD_Agent_Language_and_Decision_Guide_2026-10-19.md",
+      "section": "1-4 / reading result, scope, verification and authority",
+      "kind": "REFERENCE_DOCUMENT",
+      "classification_layer": "SOURCE_ASSET",
+      "proposed_force": "INFORMATIVE",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "COVERED",
+      "disposition": "REFERENCE_ONLY",
+      "engineering_action": "REUSE",
+      "targets": [
+        "procedures/COMMUNICATION_AND_HANDOFF_AR.md",
+        "guide/LEARNING_AND_REPORTS_AR.md"
+      ],
+      "finding_and_effect": "Reuse scoped outcome/evidence/decision reporting without importing a project taxonomy."
+    },
+    {
+      "id": "INT-048",
+      "source": "MARSAD_Agent_Language_and_Decision_Guide_2026-10-19.md",
+      "section": "5-10 / identifiers and qualification states",
+      "kind": "REFERENCE_DOCUMENT",
+      "classification_layer": "SOURCE_ASSET",
+      "proposed_force": "INFORMATIVE",
+      "scope": "MARSAD_ONLY",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "NOT_APPLICABLE",
+      "disposition": "REFERENCE_ONLY",
+      "engineering_action": "REFERENCE_ONLY",
+      "targets": [
+        "guide/LEARNING_AND_REPORTS_AR.md"
+      ],
+      "finding_and_effect": "MARSAD G/W/PR/I/V/E identifiers are project-specific examples, not universal AGHR state values."
+    },
+    {
+      "id": "INT-049",
+      "source": "MARSAD_Agent_Language_and_Decision_Guide_2026-10-19.md",
+      "section": "11-14 / tests, review, Git and architecture language",
+      "kind": "REFERENCE_DOCUMENT",
+      "classification_layer": "SOURCE_ASSET",
+      "proposed_force": "INFORMATIVE",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "COVERED",
+      "disposition": "REFERENCE_ONLY",
+      "engineering_action": "REUSE",
+      "targets": [
+        "procedures/COMMUNICATION_AND_HANDOFF_AR.md"
+      ],
+      "finding_and_effect": "Keep tests/review/acceptance/merge/publication distinct and link evidence."
+    },
+    {
+      "id": "INT-050",
+      "source": "MARSAD_Agent_Language_and_Decision_Guide_2026-10-19.md",
+      "section": "15 / historical MARSAD cases",
+      "kind": "OBSERVATION",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "INFORMATIVE",
+      "scope": "MARSAD_ONLY",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "UNVERIFIED",
+      "disposition": "REFERENCE_ONLY",
+      "engineering_action": "REFERENCE_ONLY",
+      "targets": [
+        "design/INBOX_RECONCILIATION.md"
+      ],
+      "finding_and_effect": "MARSAD runtime/CI facts were not refreshed in this repository; no live claims are inherited."
+    },
+    {
+      "id": "INT-051",
+      "source": "MARSAD_Agent_Language_and_Decision_Guide_2026-10-19.md",
+      "section": "16-24 / hypothetical examples and owner decisions",
+      "kind": "RECOMMENDATION",
+      "classification_layer": "PROPOSED_IMPROVEMENT",
+      "proposed_force": "INFORMATIVE",
+      "scope": "PACKAGE",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "COVERED",
+      "disposition": "REFERENCE_ONLY",
+      "engineering_action": "REUSE",
+      "targets": [
+        "guide/LEARNING_AND_REPORTS_AR.md"
+      ],
+      "finding_and_effect": "Use narrow conditional examples and owner decision questions without compulsory long reports for small edits."
+    },
+    {
+      "id": "INT-052",
+      "source": "MARSAD_Agent_Language_and_Decision_Guide_2026-10-19.md",
+      "section": "25 and appendices A/B / glossary and source limits",
+      "kind": "REFERENCE_DOCUMENT",
+      "classification_layer": "SOURCE_ASSET",
+      "proposed_force": "INFORMATIVE",
+      "scope": "MARSAD_ONLY",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "NOT_APPLICABLE",
+      "disposition": "REFERENCE_ONLY",
+      "engineering_action": "REFERENCE_ONLY",
+      "targets": [
+        "design/INBOX_RECONCILIATION.md"
+      ],
+      "finding_and_effect": "Retain educational reference status; do not copy the 260-entry project glossary into governing instructions."
+    },
+    {
+      "id": "INT-053",
+      "source": "MARSAD_Agent_Language_and_Decision_Guide_2026-10-19.pdf",
+      "section": "entire paired PDF",
+      "kind": "REFERENCE_DOCUMENT",
+      "classification_layer": "SOURCE_ASSET",
+      "proposed_force": "INFORMATIVE",
+      "scope": "MARSAD_ONLY",
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "coverage_before": "UNVERIFIED",
+      "disposition": "REFERENCE_ONLY",
+      "engineering_action": "REFERENCE_ONLY",
+      "targets": [
+        "design/INBOX_SOURCES.json"
+      ],
+      "finding_and_effect": "Independent original hash; text extraction is review evidence, not a proof of exact semantic equivalence with Markdown."
+    }
+  ],
+  "source_section_index": [
+    {
+      "source": "1.MD",
+      "headings": [
+        {
+          "line": 3,
+          "heading": "## ملخص الإضافات المطلوبة",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 16,
+          "heading": "## طلب التنفيذ الجاهز",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 18,
+          "heading": "# طلب استكمال التعليمات الهندسية غير المغطاة — MARSAD",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 26,
+          "heading": "### 1. فحص أثر التغيير والعقود — إلزامي عند الانطباق",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 34,
+          "heading": "### 2. الدلالات الزمنية والتاريخية — إلزامي عند الانطباق",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 42,
+          "heading": "### 3. فحص الحالات الحدية — بحسب أثر التغيير",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 50,
+          "heading": "### 4. اختيار النموذج والجهد — إرشادي",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 58,
+          "heading": "### 5. صياغة مهام الوكلاء — إرشادي",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 66,
+          "heading": "### ضوابط الدمج والتحقق",
+          "locator_kind": "MARKDOWN_HEADING"
+        }
+      ],
+      "disposition_rows": [
+        "INT-001",
+        "INT-002",
+        "INT-003",
+        "INT-004",
+        "INT-005",
+        "INT-006"
+      ]
+    },
+    {
+      "source": "2.MD",
+      "headings": [
+        {
+          "line": 10,
+          "heading": "## 1. الإجراء الذي أوصي باعتماده",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 33,
+          "heading": "## 2. أين تضع الملفات؟",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 54,
+          "heading": "## 3. الطلب الذي تقدمه إلى وكيل حزمة AGHR",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 58,
+          "heading": "# طلب استقبال ومصالحة الدروس المستفادة مع حزمة AGHR",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 81,
+          "heading": "## 4. الطلب الذي تقدمه إلى وكيل Agent-Files-Explorer",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 85,
+          "heading": "# طلب تطوير معالجة الدروس المستفادة في Agent-Files-Explorer",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 105,
+          "heading": "## 5. أي المسارين تبدأ به؟",
+          "locator_kind": "MARKDOWN_HEADING"
+        }
+      ],
+      "disposition_rows": [
+        "INT-007",
+        "INT-008",
+        "INT-009",
+        "INT-010",
+        "INT-011",
+        "INT-012",
+        "INT-013"
+      ]
+    },
+    {
+      "source": "for-learning.md",
+      "headings": [
+        {
+          "line": 5,
+          "heading": "## تقييمي للدروس الخمسة",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 15,
+          "heading": "### تصحيح تقني مهم",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 21,
+          "heading": "## أين توضع التعليمات؟",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 33,
+          "heading": "## الإجابة التي أوصي بتقديمها للوكيل",
+          "locator_kind": "MARKDOWN_HEADING"
+        }
+      ],
+      "disposition_rows": [
+        "INT-014",
+        "INT-015",
+        "INT-016",
+        "INT-017",
+        "INT-018",
+        "INT-019"
+      ]
+    },
+    {
+      "source": "guide.md",
+      "headings": [
+        {
+          "line": 1,
+          "heading": "Entire document body; source has no Markdown headings",
+          "locator_kind": "DOCUMENT_BODY"
+        }
+      ],
+      "disposition_rows": [
+        "INT-020",
+        "INT-021"
+      ]
+    },
+    {
+      "source": "IMPOERTANT.md",
+      "headings": [
+        {
+          "line": 1,
+          "heading": "# تقييم مهارة Aprende وعلاقتها بحوكمة AGHR",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 9,
+          "heading": "## 1. ماذا تقدم مهارة Aprende فعليًا؟",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 30,
+          "heading": "## 2. أهم ما يستحق اقتباسه في AGHR",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 46,
+          "heading": "## 3. أين تتعارض Aprende مع حوكمة AGHR؟",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 68,
+          "heading": "## 4. المعمارية التي أوصي بها لحزمة AGHR",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 79,
+          "heading": "## 5. أين ينبغي إدماج هذه القدرة؟",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 94,
+          "heading": "## 6. الطلب الذي أوصي بتقديمه لوكيل AGHR",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 96,
+          "heading": "# طلب تقييم ودمج منهجية Aprende ضمن حوكمة التعلم المستمر في AGHR",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 123,
+          "heading": "## 7. هل أوصي بتثبيت Aprende نفسها؟",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 137,
+          "heading": "## لماذا هي الأقوى؟",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 148,
+          "heading": "## اسم المهارة المقترح",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 161,
+          "heading": "## قالب الأمر الجاهز",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 207,
+          "heading": "## مثال على مخرَج قوي",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 235,
+          "heading": "## كيف تجعلها “تجبر” الوكيل؟",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 260,
+          "heading": "## البنية المقترحة للذاكرة",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 280,
+          "heading": "## معيار الجودة",
+          "locator_kind": "MARKDOWN_HEADING"
+        }
+      ],
+      "disposition_rows": [
+        "INT-022",
+        "INT-023",
+        "INT-024",
+        "INT-025",
+        "INT-026",
+        "INT-027",
+        "INT-028",
+        "INT-029",
+        "INT-030",
+        "INT-031",
+        "INT-032",
+        "INT-033",
+        "INT-034",
+        "INT-035",
+        "INT-036",
+        "INT-037",
+        "INT-038",
+        "INT-039",
+        "INT-040",
+        "INT-041",
+        "INT-042",
+        "INT-043"
+      ]
+    },
+    {
+      "source": "learning_proposal.md",
+      "headings": [
+        {
+          "line": 1,
+          "heading": "# اقتراح حفظ السلوكيات والضوابط المكتسبة (Learning Proposal)",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 8,
+          "heading": "## 1. ملخص المعارف والسلوكيات المستفادة",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 29,
+          "heading": "## 2. المقترح الأول: تحديث القاعدة الحالية للمستودع ([`AGENTS.md`](file:///D:/APP/Agent-Files-Explorer/AGENTS.md))",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 65,
+          "heading": "## 3. المقترح الثاني (اختياري): إنشاء مهارة متخصصة (`.agents/skills/aghr-inbox-governance/SKILL.md`)",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 71,
+          "heading": "## 4. الإجراء المطلوب من المستخدم",
+          "locator_kind": "MARKDOWN_HEADING"
+        }
+      ],
+      "disposition_rows": [
+        "INT-044",
+        "INT-045",
+        "INT-046"
+      ]
+    },
+    {
+      "source": "MARSAD_Agent_Language_and_Decision_Guide_2026-10-19.md",
+      "headings": [
+        {
+          "line": 1,
+          "heading": "# دليل فهم لغة الوكيل البرمجي والتعامل مع تقاريره",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 3,
+          "heading": "## مرجع عملي لمالك المشروع — تطبيقات على MARSAD وحوكمة AGHR",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 13,
+          "heading": "# الجزء الأول — كيف تفهم رسالة الوكيل في أقل من دقيقة؟",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 15,
+          "heading": "## 1. الغرض من هذا الدليل",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 29,
+          "heading": "## 2. بطاقة القراءة السريعة: ثمانية حقول في كل تقرير",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 42,
+          "heading": "## 3. فك جملة نموذجية خطوة بخطوة",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 57,
+          "heading": "## 4. مخطط العلاقة بين اللغة والقرار",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 94,
+          "heading": "# الجزء الثاني — الرموز بحسب طبقاتها وعلاقاتها",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 96,
+          "heading": "## 5. من الفكرة إلى الشيفرة: G وP وW وS وPR وREQ",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 108,
+          "heading": "### مثال علاقات حقيقي من MARSAD [م]",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 116,
+          "heading": "## 6. من الذي يقرر؟ ADR وODR وINV وDEF وAF",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 132,
+          "heading": "## 7. كيف يحدد الوكيل الاختبار المناسب؟ I ثم V ثم الأبعاد",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 149,
+          "heading": "## 8. E0–E4: مستوى الدليل ليس حالة الإنجاز",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 163,
+          "heading": "## 9. سلسلة التأهيل والقبول والنشر والإغلاق",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 181,
+          "heading": "### الفرق الحاسم بين «الإغلاق» و«التأهيل»",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 190,
+          "heading": "## 10. قراءة حالات التوقف والفشل والتأجيل",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 210,
+          "heading": "# الجزء الثالث — لغة المهام والاختبارات والمراجعة والتسليم",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 212,
+          "heading": "## 11. اجتاز الاختبار… ماذا يعني بالتحديد؟",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 229,
+          "heading": "## 12. لغة ملاحظات المراجعة",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 243,
+          "heading": "## 13. Git والنسخ والتسليم",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 262,
+          "heading": "## 14. المعمارية والخصوصية: لغة ينبغي أن توقف عندها الوكيل",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 290,
+          "heading": "# الجزء الرابع — الحالات العملية التي ستقرأها من وكيل برمجي",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 292,
+          "heading": "## 15. أمثلة MARSAD مستندة إلى السجلات",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 294,
+          "heading": "### الحالة A — نجحت شريحة فرعية وبقيت الشريحة الكبرى مفتوحة [م]",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 302,
+          "heading": "### الحالة B — نجح اتصال Oracle دون التأهيل الإنتاجي [م]",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 310,
+          "heading": "### الحالة C — قياس دقة الاسترجاع لم يبلغ حد التأهيل [م]",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 318,
+          "heading": "### الحالة D — ODR مطروح والتفويض جزئي [م]",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 326,
+          "heading": "### الحالة E — بند مؤجل لا يمنع هدفًا آخر [م]",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 334,
+          "heading": "### الحالة F — نجاح مراجعة لا يساوي التأهيل النهائي [م]",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 342,
+          "heading": "## 16. أمثلة تدريبية على وكيل برمجي عام (غير منسوبة إلى تنفيذ MARSAD) [ث]",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 344,
+          "heading": "### المثال 1 — إصلاح خلل مصادقة",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 352,
+          "heading": "### المثال 2 — ترحيل قاعدة بيانات",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 360,
+          "heading": "### المثال 3 — نجاح اختبارات وهمية وفشل التشغيل الفعلي",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 368,
+          "heading": "### المثال 4 — دمج لم يكتمل نشره",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 376,
+          "heading": "### المثال 5 — إغلاق إداري لبند معلق",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 384,
+          "heading": "### المثال 6 — محاولة ترقية قرار دون سلطة",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 392,
+          "heading": "### المثال 7 — ذاكرة `VERIFIED + STALE`",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 400,
+          "heading": "### المثال 8 — نتيجة تحليلية صحيحة جزئيًا",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 408,
+          "heading": "## 17. حالات يكثر فيها التضليل غير المقصود",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 424,
+          "heading": "# الجزء الخامس — كيف ترد وتصدر القرار الصحيح؟",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 426,
+          "heading": "## 18. شجرة قرار عملية لمالك المشروع",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 452,
+          "heading": "## 19. سبعة ردود جاهزة للمواقف المتكررة [ت]",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 482,
+          "heading": "## 20. نموذج موحد لقراءة تسليم الوكيل دون تضخيم التقارير [ت]",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 503,
+          "heading": "### كيف تستخدم النموذج؟",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 507,
+          "heading": "## 21. قاموس السؤال المقابل: «إذا قرأت X فاسأل Y»",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 523,
+          "heading": "# الجزء السادس — ضوابط تمنع سوء الفهم",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 525,
+          "heading": "## 22. الكلمات متعددة المعنى بحسب موضعها",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 541,
+          "heading": "## 23. حدود التفويض — لا تجعل طلب شرح يتحول إلى تنفيذ",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 550,
+          "heading": "## 24. مستويات القرار التي تخصك فعليًا",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 561,
+          "heading": "## 25. طريقة تطوير هذا الدليل من دون تغيير الحوكمة",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 567,
+          "heading": "# الملحق أ — المعجم الموسع لجميع الرموز (260 مدخلًا)",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 571,
+          "heading": "## أ-01 — تخطيط المشروع والشرائح",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 606,
+          "heading": "## أ-02 — مسارات العمل W0–W11",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 623,
+          "heading": "## أ-03 — معرفات الوثائق والقرارات والاختبارات",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 661,
+          "heading": "## أ-04 — مستويات التحقق وأثر التغيير",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 687,
+          "heading": "## أ-05 — مستويات الأدلة ومعايير الانطباق",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 708,
+          "heading": "## أ-06 — حالات المنتج وقاعدة البيانات والقرار",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 737,
+          "heading": "## أ-07 — نتائج إجابات MARSAD والذاكرة",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 769,
+          "heading": "## أ-08 — معمارية التنفيذ والهوية",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 799,
+          "heading": "## أ-09 — اختصارات تقنية وتقييم وتشغيل",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 832,
+          "heading": "## أ-10 — عائلات معرفات مصفوفة ضمان القدرات",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 867,
+          "heading": "## أ-11 — نتائج المراجعة والتسليم والأدلة التجريبية",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 887,
+          "heading": "# الملحق ب — مصادر الاستدلال والمراجعة",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 891,
+          "heading": "## المراجع المستند إليها",
+          "locator_kind": "MARKDOWN_HEADING"
+        },
+        {
+          "line": 913,
+          "heading": "## ما الذي تم التحقق منه عند إعداد الوثيقة؟",
+          "locator_kind": "MARKDOWN_HEADING"
+        }
+      ],
+      "disposition_rows": [
+        "INT-047",
+        "INT-048",
+        "INT-049",
+        "INT-050",
+        "INT-051",
+        "INT-052"
+      ]
+    }
+  ]
+}

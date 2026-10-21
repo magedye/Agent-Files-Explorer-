@@ -1,0 +1,20 @@
+# Exclude massive historical archives and compatibility layers from automated agent crawlers
+governance_packages/**/compatibility/
+governance_packages/**/verification/
+governance_packages/archive/
+governance_packages/**/*.zip
+
+# Exclude runtime staging and backup directories
+.governance/backups/
+.governance/staging/
+.governance/intake/
+.governance/evaluations/
+.governance/audit.jsonl
+
+# Build and dependencies
+node_modules/
+dist/
+build/
+coverage/
+__pycache__/
+*.pyc

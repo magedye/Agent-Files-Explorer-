@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0",
+  "distribution": "AGHR Minimal",
+  "version": "1.1.0",
+  "derived_from_version": "1.1.0",
+  "source_archive_name": "Agent_Governance_Harness_Reference_1.1.0.zip",
+  "source_archive_sha256": "ff6048d6c96fda6110b460ce93eb32a50e01830c58e921d921c950f2434dd206",
+  "source_file_count": 248,
+  "build_date": "2026-10-12",
+  "normative_policy_change": false,
+  "canonical_rule_count": 47,
+  "source_files_preserved_exact": [
+    {
+      "path": "CHARTER.md",
+      "sha256": "a60d2251398e5cfdf498adb3751077d3f07fdcc36e38d367c64108c65dd37be6",
+      "bytes": 3473
+    },
+    {
+      "path": "LICENSE.md",
+      "sha256": "7f75e60dba65417b72dea6e6bcae745a80bff8fb2fe93ec1b74278763dc6b77e",
+      "bytes": 1024
+    },
+    {
+      "path": "registry/RULES.json",
+      "sha256": "bc37e2eab25b2e7c8fa7e50a837f25ed7862694d9fa2637e3200659c2a887d62",
+      "bytes": 35158
+    },
+    {
+      "path": "sources/REGISTER.json",
+      "sha256": "6a5055130d2f46ba85a17ec6d13195da5b938f402f5bb9f77e1c9fbab65fc431",
+      "bytes": 46279
+    },
+    {
+      "path": "sources/REFERENCE_POLICY.md",
+      "sha256": "a0175d57999ab9d9d34f5512566a64b3319d2b96eedb0cdf5855f3821790efe4",
+      "bytes": 2659
+    },
+    {
+      "path": "profiles/README.md",
+      "sha256": "35b08840db735a0db655c112840d9feed2b880e0009e50c8b8a4a3e6e8b0ea09",
+      "bytes": 1642
+    },
+    {
+      "path": "templates/OPERATING_CONTRACT.md",
+      "sha256": "a3a9a3a34fd85816eff9ebfda164d3c4a8e1c28f225d5c268d12e07f054157e8",
+      "bytes": 1896
+    }
+  ],
+  "source_files_adapted_for_distribution": [
+    {
+      "path": "contracts/GOVERNANCE.md",
+      "source_sha256": "7d6b1507500c2e4637b4994ec7bc8d5004aba654e01ba140a53ef59ac1ca9c6e",
+      "output_sha256": "83bb797caa4d9b5617d316705119d084a6fe422065fecde4009f61b7bfbf7f8a",
+      "reason": "Preserved operational content; added Minimal scope note and adjusted full-edition references/implementation claims only."
+    },
+    {
+      "path": "contracts/RUNTIME.md",
+      "source_sha256": "dd724bf5891d2a122222208358934ac5ca9ca082e43f65e8c06e0d074ae46318",
+      "output_sha256": "6c746b943086fa5ea3747154f58c47db8ddebb26fa01b05b00f5e14e5d1819d5",
+      "reason": "Preserved operational content; added Minimal scope note and adjusted full-edition references/implementation claims only."
+    },
+    {
+      "path": "contracts/ENFORCEMENT.md",
+      "source_sha256": "69aeefbdae8c70f7bf95d2968163afe1c60ce8bf0b20b66e18a1d8cc2695fe8d",
+      "output_sha256": "c6a3bc92f3651ff55283ca36ae4efa6960dd0a59172910a0457023da49251276",
+      "reason": "Preserved operational content; added Minimal scope note and adjusted full-edition references/implementation claims only."
+    },
+    {
+      "path": "contracts/EVIDENCE.md",
+      "source_sha256": "926f5c33836df594f18e2b93c76106356a634fcddaff8345c55402cf222fbcae",
+      "output_sha256": "6a597e3b76a32d3af2b897a6711156e89ad2052c03810eaa27d23ba06388b36f",
+      "reason": "Preserved operational content; added Minimal scope note and adjusted full-edition references/implementation claims only."
+    },
+    {
+      "path": "procedures/SMART_CLARIFICATION_AR.md",
+      "source_sha256": "b335e7e46718bcb2c3aaf4f0771865bfc74b317a71789a21efacc4f671d5e664",
+      "output_sha256": "4c479da16eb277faa0e23a906970d74648934bbb70fe92faee4564a9fabe7cc4",
+      "reason": "Preserved clarification procedure; adjusted source link and declared omitted full-edition helper/evaluations."
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "source_sha256": "ffa7dbdd939e3e29fc8a928abf20dc7b38866d5427cc24f3608823588c4934e7",
+      "output_sha256": "3b7227891c4220c2e5c58f927af25654fefe19a504f9bf3333fb6f6b1b319a3d",
+      "reason": "Distribution-specific derivative notice retaining original license and attribution boundaries; omitted material identified explicitly."
+    }
+  ],
+  "omission_policy": [
+    "No full runtime executor, CLI, schemas, adapters or their test evidence.",
+    "No academic HTML, diagrams, images, standards cards, optional skills or historical reconciliation payloads.",
+    "Rules governing these capabilities are retained; host/project obligations are not waived.",
+    "Full-only reference locations verified against the supplied 1.1.0 archive during build; none auto-loaded."
+  ],
+  "qualification": {
+    "project_adoption": "NOT_PERFORMED",
+    "host": "NOT_RUN",
+    "model_behavior": "NOT_RUN",
+    "independent_review": "NOT_PERFORMED",
+    "production_activation": "NOT_PERFORMED"
+  },
+  "freshness": "Source records inherited, not independently re-browsed for this packaging task.",
+  "integrity_limit": "Hashes are not authenticated signatures and do not prove source authenticity or semantic compliance."
+}

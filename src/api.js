@@ -1,6 +1,6 @@
 export async function fetchRoots() {
   const r = await fetch("/api/roots");
-  if (!r.ok) throw new Error("فشل جلب الجذور المعتمدة");
+  if (!r.ok) throw new Error("error.roots");
   return (await r.json()).roots;
 }
 
@@ -10,7 +10,7 @@ export async function fetchTree(dir, rootId) {
     : "/api/tree?dir=" + encodeURIComponent(dir);
   const r = await fetch(url);
   const j = await r.json();
-  if (!r.ok) throw new Error(j.error || "فشل جلب الشجرة");
+  if (!r.ok) throw new Error(j.error || "error.tree");
   return j;
 }
 
@@ -20,7 +20,7 @@ export async function fetchFile(path, rootId, rel) {
     : "/api/file?path=" + encodeURIComponent(path);
   const r = await fetch(url);
   const j = await r.json();
-  if (!r.ok) throw new Error(j.error || "فشل جلب الملف");
+  if (!r.ok) throw new Error(j.error || "error.file");
   return j;
 }
 

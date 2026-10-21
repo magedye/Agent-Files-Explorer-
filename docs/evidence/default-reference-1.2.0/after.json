@@ -1,0 +1,145 @@
+{
+  "capturedAt": "2026-10-20T18:10:13.587Z",
+  "ownerInstruction": "Make 1.2.0 the application default",
+  "defaultSummary": {
+    "packageId": "aghr_1_2_0",
+    "package": "Agent Governance and Harness Reference",
+    "version": "1.2.0",
+    "reference_state": "FINAL_REFERENCE",
+    "default_provider": "OPENAI",
+    "default_profile": "STANDARD",
+    "independent_review": "NOT_PERFORMED",
+    "release_acceptance": "NOT_GRANTED",
+    "counts": {
+      "rules": 47,
+      "sources": 56,
+      "adapters": 12,
+      "profiles": 3,
+      "contracts": 4
+    }
+  },
+  "packages": [
+    {
+      "id": "aghr",
+      "name": "AGHR Reference 1.0.0",
+      "version": "1.0.0",
+      "kind": "HISTORICAL_BASELINE",
+      "description": "Authoritative Agent Governance and Harness Reference v1.0.0 (Historical Baseline)",
+      "isDefault": false,
+      "counts": {
+        "rules": 40,
+        "sources": 30,
+        "adapters": 12,
+        "profiles": 3
+      }
+    },
+    {
+      "id": "aghr_1_1_0",
+      "name": "AGHR Reference 1.1.0 (Full, Archived)",
+      "version": "1.1.0",
+      "kind": "FULL_REFERENCE",
+      "description": "Archived AGHR v1.1.0 full reference for historical comparison",
+      "isDefault": false,
+      "counts": {
+        "rules": 47,
+        "sources": 56,
+        "adapters": 12,
+        "profiles": 3
+      }
+    },
+    {
+      "id": "aghr_1_2_0",
+      "name": "AGHR Reference 1.2.0",
+      "version": "1.2.0",
+      "kind": "FULL_REFERENCE",
+      "description": "Updated reference with governed learning and classified lesson records",
+      "isDefault": true,
+      "counts": {
+        "rules": 47,
+        "sources": 56,
+        "adapters": 12,
+        "profiles": 3
+      }
+    },
+    {
+      "id": "aghr_minimal_1_1_0",
+      "name": "AGHR Minimal 1.1.0 (Archived)",
+      "version": "1.1.0",
+      "kind": "MINIMAL_CORE",
+      "description": "Archived AGHR Minimal v1.1.0 (Core & Contracts)",
+      "isDefault": false,
+      "counts": {
+        "rules": 47,
+        "sources": 56,
+        "adapters": 0,
+        "profiles": 1
+      }
+    }
+  ],
+  "roots": [
+    {
+      "id": "aghr",
+      "name": "AGHR Reference 1.0.0",
+      "path": "D:/APP/Agent-Files-Explorer/governance_packages/archive/Agent_Governance_Harness_Reference_1.0.0_repository_baseline/Agent_Governance_Harness_Reference_1.0.0",
+      "type": "reference",
+      "description": "Authoritative Agent Governance and Harness Reference v1.0.0",
+      "readOnly": true,
+      "isDefault": false
+    },
+    {
+      "id": "aghr_1_1_0",
+      "name": "AGHR Reference 1.1.0 (Full, Archived)",
+      "path": "D:/APP/Agent-Files-Explorer/governance_packages/archive/Agent_Governance_Harness_Reference_1.1.0",
+      "type": "reference",
+      "description": "Archived AGHR v1.1.0 reference for historical comparison",
+      "readOnly": true,
+      "isDefault": false
+    },
+    {
+      "id": "aghr_minimal_1_1_0",
+      "name": "AGHR Minimal 1.1.0 (Archived)",
+      "path": "D:/APP/Agent-Files-Explorer/governance_packages/archive/AGHR_Minimal_1.1.0",
+      "type": "reference",
+      "description": "Archived AGHR Minimal v1.1.0 (Core & Contracts)",
+      "readOnly": true,
+      "isDefault": false
+    },
+    {
+      "id": "aghr_1_2_0",
+      "name": "AGHR Reference 1.2.0",
+      "path": "D:/APP/Agent-Files-Explorer/governance_packages/references/Agent_Governance_Harness_Reference_1.2.0",
+      "type": "reference",
+      "description": "Owner-directed updated AGHR reference with governed learning",
+      "readOnly": true,
+      "isDefault": true
+    }
+  ],
+  "evaluationRoot": "D:\\APP\\Agent-Files-Explorer\\governance_packages\\references\\Agent_Governance_Harness_Reference_1.2.0",
+  "packageHashes": {
+    "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/MANIFEST.json": "001ab43869013e6446a77c18fa539b26a8f0fd844299efd006af815053169290",
+    "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0.zip": "29497b708bd41cb35453ba12d4ae8212662084be0d53c14135ea15a98f6ac5dc",
+    "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0.zip.sha256": "bb791de54e31238db56818d7b0aee0a6f1feea5b46c8d545693361f52a637a75"
+  },
+  "packageDistributionUnchanged": true,
+  "verification": {
+    "studioTests": {
+      "executed": 26,
+      "passed": 26,
+      "failed": 0,
+      "evidence": "tests.log"
+    },
+    "browser": "browser.json",
+    "build": "build.log"
+  },
+  "sourceHashes": {
+    "server/security.js": "5b59626a9af0b6d9524be7f331d66da28078b2c9ddc14520a62f6353973c5ba8",
+    "server/governance.js": "2c4da002caa6341537b943c0b07f0004d0e7e85fce21d3530eb99bcc5211075c",
+    "server/api.js": "db78f4c03d4fd0b78d0efe444e0a2dd2b86ec5eb7c74626560cbe36998184b15",
+    "server/comparison.js": "218f67172e7d542ae57f0ec35ce86b159cc3a9f4a05734fae59cb09a913e540f",
+    "server/adoption.js": "4e190c4dfeaacd7f6003267b0d8cdf9c83333e6979c1a123fe6f2f4575b13ea2",
+    "src/App.jsx": "a959e683d35dda142e245570a9cfc9b6984fd0e9a4439b4653b28b7950c77840",
+    "src/components/ReferenceManager.jsx": "73f9eecc293a90e3c37199d5ba8363ca46b344cf93dc4c822f46d6fd2d8ca240",
+    "tests/governance_studio.test.mjs": "0669bedfc2cc151fc4104fa2c366cf000e5227f011c2099ba4e6ce89c9cb55e8",
+    "tests/security.test.mjs": "487033eb540468d83dc4dc69dc90d0e0ebb4651daf5c5b2b92c62e70c74917c6"
+  }
+}

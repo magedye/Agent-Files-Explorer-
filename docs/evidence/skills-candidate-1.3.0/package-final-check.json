@@ -1,0 +1,69 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "id": "FILES",
+      "observed": 314,
+      "required": 57
+    },
+    {
+      "id": "CONTEXT_BUDGET",
+      "advisory_status": "PASS",
+      "agents_md_tokens_est": 930,
+      "bootstrap_total_tokens_est": 3882,
+      "advisory_target_range": "1500-2500 tokens",
+      "estimation_method": "CHAR_COUNT_DIV_4_HEURISTIC",
+      "details": {
+        "AGENTS.md": {
+          "bytes": 3718,
+          "chars": 3718,
+          "words": 502,
+          "lines": 34,
+          "tokens_est": 930
+        },
+        "START_HERE.md": {
+          "bytes": 5763,
+          "chars": 5708,
+          "words": 687,
+          "lines": 56,
+          "tokens_est": 1427
+        },
+        "CONTENTS.md": {
+          "bytes": 6187,
+          "chars": 6099,
+          "words": 771,
+          "lines": 69,
+          "tokens_est": 1525
+        }
+      }
+    },
+    {
+      "id": "RULES",
+      "count": 47
+    },
+    {
+      "id": "SOURCES",
+      "count": 56
+    },
+    {
+      "id": "ADAPTERS",
+      "count": 12
+    },
+    {
+      "id": "SUPPLEMENT",
+      "files": 73,
+      "controls": 48
+    },
+    {
+      "id": "PAYLOAD_DIGESTS",
+      "files": 245,
+      "postfreeze_results_excluded": true
+    }
+  ],
+  "errors": [],
+  "limits": [
+    "Structural/semantic/digest checks are not a live host security test.",
+    "Historical trace linkage is not independently verified semantic equivalence.",
+    "Post-freeze results are covered by the detached whole-ZIP digest, not this payload manifest."
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "authority": "Current owner instruction authorizes isolated candidate implementation only",
+  "source_receipt": "2026-10-21-01",
+  "rows": [
+    {
+      "source": "اهم واساس المهارت.md",
+      "sha256": "c8a711059e3fb37bbaa17954502922805c8ef665086614542ab6841b40780157",
+      "bytes": 1849,
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "classification": "RECOMMENDATION",
+      "disposition": "REFERENCE_ONLY",
+      "effect": "Optional alignment of an existing user skill; its instructions and host settings were not copied or changed.",
+      "targets": [
+        "examples/skills/README.md"
+      ]
+    },
+    {
+      "source": "توصيتي هي اعتماد مبدأ «الاستخدام الذكي للمهارات.md",
+      "sha256": "d3b7167aa2801f4f09caa5783295843f651083aabbb94940e266e7d2c89621aa",
+      "bytes": 20424,
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "classification": "RECOMMENDATION",
+      "disposition": "RECONCILE",
+      "effect": "P0/P1/P2 candidate implementation under current owner instruction. Native qualification and cross-host inventory claims remain unproven.",
+      "targets": [
+        "runtime/skills.py",
+        "runtime/skill_catalog.py",
+        "runtime/skill_evidence.py",
+        "runtime/SKILLS.md",
+        "tests/test_skill_scenarios.py"
+      ]
+    },
+    {
+      "source": "codex skills.md",
+      "sha256": "ed06e4ee3d0a0230cfbfc2899c6c45f20162a3cfd8286410de0e3c724b13753a",
+      "bytes": 58220,
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "classification": "REFERENCE_DOCUMENT",
+      "disposition": "REFERENCE_ONLY",
+      "effect": "No installation, host qualification or reference promotion inferred."
+    },
+    {
+      "source": "Antigravity SKILLs.md",
+      "sha256": "cfa9a86277e1a81ddb30aaf80325e65e2dd348ebb95e592a5273a69d911623bc",
+      "bytes": 17410,
+      "source_authority": "PROPOSED_NOT_EFFECTIVE",
+      "classification": "REFERENCE_DOCUMENT",
+      "disposition": "REFERENCE_ONLY",
+      "effect": "No installation, host qualification or reference promotion inferred."
+    }
+  ],
+  "corrections": [
+    "Source and function are separate classifications; using-agent-skills is a user skill here.",
+    "Arabic matching is partially present in 1.2.0; coverage is expanded, not introduced from zero.",
+    "Source inventory counts are dated observations, not live host qualification.",
+    "No new normative requirement was added to AGHR-038."
+  ]
+}

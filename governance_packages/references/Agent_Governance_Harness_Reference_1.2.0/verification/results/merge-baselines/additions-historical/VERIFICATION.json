@@ -1,0 +1,44 @@
+{
+  "measured_at_utc": "2026-10-12T14:33:40.644995+00:00",
+  "verification_scope": "NEW_ADDENDUM_HELPERS_AND_STRUCTURE_ONLY",
+  "runs": [
+    {
+      "name": "unittest",
+      "command_display": "python -m unittest discover -s tests -v",
+      "working_directory": "addendum root",
+      "exit_code": 0,
+      "status": "PASS",
+      "stdout": "evidence/unittest.stdout.txt",
+      "stderr": "evidence/unittest.stderr.txt",
+      "tests_run": 48
+    },
+    {
+      "name": "structure",
+      "command_display": "python tools/validate_addendum.py",
+      "working_directory": "addendum root",
+      "exit_code": 0,
+      "status": "PASS",
+      "stdout": "evidence/structure.stdout.txt",
+      "stderr": "evidence/structure.stderr.txt"
+    }
+  ],
+  "python_version": "3.13.5",
+  "tested_python_file_sha256": {
+    "tools/__init__.py": "60d6818091925134363520c2f6c4762e02bffa02c45fde416a9fb4f3e5fa7eef",
+    "tools/decision_support.py": "091f493c42f01046497b87e368160508d95aea236f4ba5a067b7635683dfc428",
+    "tools/metrics.py": "61303e42217160f170b19b20a980382d356834ab50f05813a03d3631c760ce37",
+    "tools/validate_addendum.py": "54b08ae0aeaebfcb5dfc03f638e84d8c05b433de516a60fbf7fb63fdcf864ef0",
+    "tests/test_decision_support.py": "956aa7349de7e5d2e7277223860cf6aa7331888e1eb3351fbc8f552e803f280c",
+    "tests/test_metrics.py": "d7ee6959dc6aab6f2218f308c34f2282101a59a88dfeb6a97420777824f607a2",
+    "tests/test_structure.py": "4f18d79f363eda43781e86c72852642daab33267f5d736b3b6c837de004b4ef0"
+  },
+  "html_layout_checks": "evidence/HTML_LAYOUT_CHECKS.json",
+  "base_bytes": "UNAVAILABLE",
+  "base_integration": "NOT_PERFORMED",
+  "base_regression_tests": "NOT_RUN",
+  "live_model_host_behavior": "NOT_RUN",
+  "behavioral_cases_planned_not_run": 20,
+  "independent_review": "NOT_PERFORMED",
+  "adoption": "NOT_GRANTED",
+  "publication_or_deployment": "NOT_PERFORMED"
+}

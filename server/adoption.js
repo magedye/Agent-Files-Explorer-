@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { DATA_ROOT, resolveSafePath } from "./security.js";
+import { governanceService } from "./governance.js";
 
 /**
  * Project Adoption Management Service.
@@ -88,11 +89,12 @@ class AdoptionService {
 
     // 1. Generate AGENTS.md content
     let proposedAgentsContent = "";
+    const referenceVersion = governanceService.getSummary().version;
     const aghrHeader = [
-      `# Agent Governance and Harness Reference (AGHR 1.0.0) — Governed Workspace`,
+      `# Agent Governance and Harness Reference (AGHR ${referenceVersion}) — Governed Workspace`,
       ``,
       `> Profile: ${profile} | Provider Default: ${provider} | Host Default: ${host}`,
-      `> Authoritative Reference: Agent Governance and Harness Reference 1.0.0`,
+      `> Authoritative Reference: Agent Governance and Harness Reference ${referenceVersion}`,
       ``,
       `## Foundational Directives`,
       `1. Follow official developer-first documentation for interacting with the model and host.`,

@@ -1,0 +1,682 @@
+{
+  "scope": "Coverage of the shipped reference, not universal operational certification.",
+  "rules": [
+    {
+      "rule_id": "AGHR-001",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-001"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-002",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-001",
+        "EVAL-002",
+        "EVAL-003",
+        "EVAL-006"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-003",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-015"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-004",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-003",
+        "EVAL-027"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-005",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-004"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-006",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-005",
+        "EVAL-007"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-007",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-007",
+        "EVAL-008"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-008",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-001",
+        "EVAL-005",
+        "EVAL-009",
+        "EVAL-034"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-009",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-011"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated.",
+      "delivery_scenario_ids": [
+        "BE-14"
+      ]
+    },
+    {
+      "rule_id": "AGHR-010",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-004",
+        "EVAL-012"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated.",
+      "delivery_scenario_ids": [
+        "BE-06",
+        "BE-07",
+        "BE-10"
+      ]
+    },
+    {
+      "rule_id": "AGHR-011",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-012"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated.",
+      "delivery_scenario_ids": [
+        "BE-03"
+      ]
+    },
+    {
+      "rule_id": "AGHR-012",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "INITIALIZER_PRESERVATION",
+      "local_test_ref": "tests/test_records.py",
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-013"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-013",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-001",
+        "EVAL-009",
+        "EVAL-010"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-014",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "EVIDENCE_CONSISTENCY_ONLY",
+      "local_test_ref": "tests/test_records.py",
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-014",
+        "EVAL-015",
+        "EVAL-021"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-015",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-014",
+        "EVAL-016"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-016",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "EVIDENCE_RECORD_AND_TARGET_CHECKS",
+      "local_test_ref": "tests/test_records.py",
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-010",
+        "EVAL-011",
+        "EVAL-017",
+        "EVAL-030"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated.",
+      "delivery_scenario_ids": [
+        "BE-17"
+      ]
+    },
+    {
+      "rule_id": "AGHR-017",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-035"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-018",
+      "primary_mode": "HOST_AND_REVIEW",
+      "local_implemented_scope": "LOCAL_FILE_PREFIXES_ONLY",
+      "local_test_ref": "tests/test_runtime.py",
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-006",
+        "EVAL-020",
+        "EVAL-036"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-019",
+      "primary_mode": "HOST_AND_REVIEW",
+      "local_implemented_scope": "LOCAL_EXECUTOR_BEFORE_EFFECT",
+      "local_test_ref": "tests/test_runtime.py",
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-018",
+        "EVAL-019",
+        "EVAL-020",
+        "EVAL-031",
+        "EVAL-036"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated.",
+      "delivery_scenario_ids": [
+        "BE-05"
+      ]
+    },
+    {
+      "rule_id": "AGHR-020",
+      "primary_mode": "HOST_AND_REVIEW",
+      "local_implemented_scope": "LOCAL_HIDDEN_PATH_REJECTION",
+      "local_test_ref": "tests/test_runtime.py",
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-018",
+        "EVAL-020",
+        "EVAL-021"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-021",
+      "primary_mode": "HOST_AND_REVIEW",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-002",
+        "EVAL-016",
+        "EVAL-022"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated.",
+      "delivery_scenario_ids": [
+        "BE-18"
+      ]
+    },
+    {
+      "rule_id": "AGHR-022",
+      "primary_mode": "HOST_AND_REVIEW",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-002",
+        "EVAL-003"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated.",
+      "delivery_scenario_ids": [
+        "BE-09"
+      ]
+    },
+    {
+      "rule_id": "AGHR-023",
+      "primary_mode": "HOST_AND_REVIEW",
+      "local_implemented_scope": "LOCAL_BOUND_HMAC_APPROVAL",
+      "local_test_ref": "tests/test_runtime.py",
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-008",
+        "EVAL-018",
+        "EVAL-019"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated.",
+      "delivery_scenario_ids": [
+        "BE-04",
+        "BE-05",
+        "BE-24"
+      ]
+    },
+    {
+      "rule_id": "AGHR-024",
+      "primary_mode": "HOST_AND_REVIEW",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-020",
+        "EVAL-023"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-025",
+      "primary_mode": "HOST_AND_REVIEW",
+      "local_implemented_scope": "LOCAL_REPLAY_AND_INDETERMINATE_RESULT",
+      "local_test_ref": "tests/test_runtime.py",
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-024"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-026",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "LOCAL_STATE_REVISION_AND_MAP",
+      "local_test_ref": "tests/test_records.py",
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-008",
+        "EVAL-024",
+        "EVAL-033"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-027",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "LOCAL_STEP_TIME_OUTPUT_BUDGETS",
+      "local_test_ref": "tests/test_runtime.py",
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-025"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-028",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "LOCAL_PRE_POST_AUDIT",
+      "local_test_ref": "tests/test_runtime.py",
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-022",
+        "EVAL-026"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-029",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "CAPTURE_WITHOUT_PROMOTION",
+      "local_test_ref": "tests/test_records.py",
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-015",
+        "EVAL-027"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-030",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-028"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-031",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "CANDIDATE_ENVIRONMENT_ARTIFACT_CHECKS",
+      "local_test_ref": "tests/test_records.py",
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-029"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-032",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "SOURCE_FILE_ACCOUNTING",
+      "local_test_ref": "tests/test_package.py",
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-030"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated.",
+      "delivery_scenario_ids": [
+        "BE-16"
+      ]
+    },
+    {
+      "rule_id": "AGHR-033",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DECLARED_PROFILE_ELIGIBILITY",
+      "local_test_ref": "tests/test_records.py",
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-007",
+        "EVAL-012",
+        "EVAL-031"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-034",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-032"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated.",
+      "delivery_scenario_ids": [
+        "BE-08"
+      ]
+    },
+    {
+      "rule_id": "AGHR-035",
+      "primary_mode": "HOST_AND_REVIEW",
+      "local_implemented_scope": "LOCAL_CANCEL_REVOKE",
+      "local_test_ref": "tests/test_runtime.py",
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-016",
+        "EVAL-025",
+        "EVAL-026"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated.",
+      "delivery_scenario_ids": [
+        "BE-07"
+      ]
+    },
+    {
+      "rule_id": "AGHR-036",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "LOCAL_EVIDENCE_STRUCTURE",
+      "local_test_ref": "tests/test_records.py",
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-011",
+        "EVAL-017",
+        "EVAL-026",
+        "EVAL-029",
+        "EVAL-033"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-037",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-009",
+        "EVAL-034"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated."
+    },
+    {
+      "rule_id": "AGHR-038",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-002",
+        "EVAL-006"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated.",
+      "delivery_scenario_ids": [
+        "BE-09"
+      ]
+    },
+    {
+      "rule_id": "AGHR-039",
+      "primary_mode": "HOST_AND_REVIEW",
+      "local_implemented_scope": "INSTRUCTION_INVENTORY_ONLY",
+      "local_test_ref": "tests/test_records.py",
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-005",
+        "EVAL-020"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated.",
+      "delivery_scenario_ids": [
+        "BE-20"
+      ]
+    },
+    {
+      "rule_id": "AGHR-040",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "LOCAL_SCENARIO_GRADING_ONLY",
+      "local_test_ref": "tests/test_evaluations.py",
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [
+        "EVAL-009",
+        "EVAL-036"
+      ],
+      "limit": "A passing local fixture does not prove the model follows this rule or that all host routes are mediated.",
+      "delivery_scenario_ids": [
+        "BE-20"
+      ]
+    },
+    {
+      "rule_id": "AGHR-041",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_AND_BOUNDED_RECORD_CHECKS",
+      "local_test_ref": "tests/test_delivery_records.py",
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [],
+      "limit": "Local record checks do not understand natural-language intent, authorize effects or qualify an actual host.",
+      "delivery_scenario_ids": [
+        "BE-01",
+        "BE-02",
+        "BE-03",
+        "BE-04",
+        "BE-06",
+        "BE-16",
+        "BE-23"
+      ]
+    },
+    {
+      "rule_id": "AGHR-042",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [],
+      "limit": "Local record checks do not understand natural-language intent, authorize effects or qualify an actual host.",
+      "delivery_scenario_ids": [
+        "BE-08"
+      ]
+    },
+    {
+      "rule_id": "AGHR-043",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [],
+      "limit": "Local record checks do not understand natural-language intent, authorize effects or qualify an actual host.",
+      "delivery_scenario_ids": [
+        "BE-21"
+      ]
+    },
+    {
+      "rule_id": "AGHR-044",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_AND_BOUNDED_RECORD_CHECKS",
+      "local_test_ref": "tests/test_delivery_records.py",
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [],
+      "limit": "Local record checks do not understand natural-language intent, authorize effects or qualify an actual host.",
+      "delivery_scenario_ids": [
+        "BE-02",
+        "BE-11",
+        "BE-12",
+        "BE-13"
+      ]
+    },
+    {
+      "rule_id": "AGHR-045",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_ONLY",
+      "local_test_ref": null,
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [],
+      "limit": "Local record checks do not understand natural-language intent, authorize effects or qualify an actual host.",
+      "delivery_scenario_ids": [
+        "BE-19",
+        "BE-24"
+      ]
+    },
+    {
+      "rule_id": "AGHR-046",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "DOCUMENTED_PROCEDURE_AND_BOUNDED_RECORD_CHECKS",
+      "local_test_ref": "tests/test_delivery_records.py",
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [],
+      "limit": "Local record checks do not understand natural-language intent, authorize effects or qualify an actual host.",
+      "delivery_scenario_ids": [
+        "BE-14",
+        "BE-15"
+      ]
+    },
+    {
+      "rule_id": "AGHR-047",
+      "primary_mode": "PROCEDURE_AND_VERIFICATION",
+      "local_implemented_scope": "STRUCTURAL_SOURCE_AND_APPLICABILITY_RECORD_CHECKS",
+      "local_test_ref": "tests/test_integration.py",
+      "native_or_model_status": "NOT_RUN",
+      "actual_integration_required": true,
+      "qualification_scenario_ids": [],
+      "limit": "Local record checks do not understand natural-language intent, authorize effects or qualify an actual host.",
+      "delivery_scenario_ids": [
+        "BE-18",
+        "BE-22"
+      ]
+    }
+  ]
+}

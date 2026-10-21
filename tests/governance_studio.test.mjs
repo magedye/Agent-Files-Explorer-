@@ -64,15 +64,16 @@ function makeMockRequest({ url, method = "GET", body = null, headers = {} }) {
 // =============================================================================
 // Milestone 2 Tests: Governance Reference Explorer
 // =============================================================================
-test("M2 Reference Explorer: Summary contains exact AGHR counts", async () => {
+test("M2 Reference Explorer: Default summary uses AGHR 1.2.0 with exact counts", async () => {
   const { req, res, getJSON, getStatusCode } = makeMockRequest({ url: "/api/governance/summary" });
   await handleApiRequest(req, res);
   assert.equal(getStatusCode(), 200);
   const data = getJSON();
-  assert.equal(data.version, "1.0.0");
+  assert.equal(data.packageId, "aghr_1_2_0");
+  assert.equal(data.version, "1.2.0");
   assert.equal(data.default_provider, "OPENAI");
-  assert.equal(data.counts.rules, 40);
-  assert.equal(data.counts.sources, 30);
+  assert.equal(data.counts.rules, 47);
+  assert.equal(data.counts.sources, 56);
   assert.equal(data.counts.adapters, 12);
   assert.equal(data.independent_review, "NOT_PERFORMED");
   assert.equal(data.release_acceptance, "NOT_GRANTED");
@@ -104,14 +105,77 @@ test("M2 Reference Explorer: Rule details with basis sources and coverage", asyn
   assert.equal(data.rule.basis_sources[0].id, "OA-01");
 });
 
-test("M2 Reference Explorer: Relationship graph has typed authoritative edges", async () => {
-  const { req, res, getJSON, getStatusCode } = makeMockRequest({ url: "/api/governance/graph" });
+test("M2 Reference Explorer: Packages endpoint returns all registered governance packages", async () => {
+  const { req, res, getJSON, getStatusCode } = makeMockRequest({ url: "/api/governance/packages" });
   await handleApiRequest(req, res);
   assert.equal(getStatusCode(), 200);
   const data = getJSON();
-  assert.ok(data.nodes.length >= 70); // 40 rules + 30 sources + 4 contracts
-  assert.ok(data.edges.some((e) => e.type === "AUTHORITATIVE_BASIS"));
-  assert.ok(data.edges.some((e) => e.type === "NORMATIVE_CONTRACT"));
+  assert.ok(Array.isArray(data.packages));
+  assert.ok(data.packages.length >= 3);
+  assert.ok(data.packages.some((p) => p.id === "aghr"));
+  assert.ok(data.packages.some((p) => p.id === "aghr_1_1_0"));
+  assert.ok(data.packages.some((p) => p.id === "aghr_minimal_1_1_0"));
+  assert.deepEqual(data.packages.filter((p) => p.isDefault).map((p) => p.id), ["aghr_1_2_0"]);
+});
+
+test("M2 Reference Explorer: Omitted package uses 1.2.0 while historical IDs stay explicit", async () => {
+  for (const [url, verify] of [
+    ["/api/governance/rules", (data) => assert.equal(data.rules.length, 47)],
+    ["/api/governance/sources", (data) => assert.equal(data.sources.length, 56)],
+    ["/api/governance/compare", (data) => {
+      assert.equal(data.comparison.base.version, "1.0.0");
+      assert.equal(data.comparison.target.version, "1.2.0");
+    }],
+    ["/api/governance/impact?ruleId=AGHR-001", (data) => assert.equal(data.impact.packageId, "aghr_1_2_0")],
+    ["/api/governance/summary?packageId=aghr", (data) => assert.equal(data.version, "1.0.0")],
+    ["/api/governance/summary?packageId=aghr_1_0_0", (data) => assert.equal(data.version, "1.0.0")],
+    ["/api/governance/summary?packageId=aghr_1_1_0", (data) => assert.equal(data.version, "1.1.0")],
+  ]) {
+    const { req, res, getJSON, getStatusCode } = makeMockRequest({ url });
+    await handleApiRequest(req, res);
+    assert.equal(getStatusCode(), 200, url);
+    verify(getJSON());
+  }
+});
+
+test("M2 Reference Explorer: Compare AGHR 1.0.0 vs AGHR 1.1.0 returns typed structural delta", async () => {
+  const { req, res, getJSON, getStatusCode } = makeMockRequest({
+    url: "/api/governance/compare?base=aghr&target=aghr_1_1_0",
+  });
+  await handleApiRequest(req, res);
+  assert.equal(getStatusCode(), 200);
+  const data = getJSON();
+  assert.ok(data.comparison);
+  assert.equal(data.comparison.base.version, "1.0.0");
+  assert.equal(data.comparison.target.version, "1.1.0");
+  assert.equal(data.comparison.rulesDelta.addedCount, 7); // 40 rules -> 47 rules
+  assert.ok(data.comparison.impactNotice.includes("NEWER != SUPERSEDES"));
+});
+
+test("M2 Reference Explorer: Updated 1.2.0 is registered with scoped reference status", async () => {
+  const { req, res, getJSON, getStatusCode } = makeMockRequest({ url: "/api/governance/summary?packageId=aghr_1_2_0" });
+  await handleApiRequest(req, res);
+  assert.equal(getStatusCode(), 200);
+  const summary = getJSON();
+  assert.equal(summary.packageId, "aghr_1_2_0");
+  assert.equal(summary.version, "1.2.0");
+  assert.equal(summary.reference_state, "FINAL_REFERENCE");
+  assert.equal(summary.counts.rules, 47);
+  assert.equal(summary.release_acceptance, "NOT_GRANTED");
+  assert.ok(governanceService.listPackages().some((pkg) => pkg.id === "aghr_1_2_0"));
+});
+
+test("M2 Reference Explorer: Impact analysis for modified rule", async () => {
+  const { req, res, getJSON, getStatusCode } = makeMockRequest({
+    url: "/api/governance/impact?ruleId=AGHR-001&packageId=aghr_1_1_0",
+  });
+  await handleApiRequest(req, res);
+  assert.equal(getStatusCode(), 200);
+  const data = getJSON();
+  assert.ok(data.impact);
+  assert.equal(data.impact.ruleId, "AGHR-001");
+  assert.equal(data.impact.currentForce, "MUST");
+  assert.ok(data.impact.downstreamImpact.count >= 1);
 });
 
 // =============================================================================
@@ -166,17 +230,17 @@ test("M3 Intake: Submit intake request generates persistent ChangePacket", async
 // =============================================================================
 // Milestone 4 Tests: Project Adoption Center
 // =============================================================================
-test("M4 Adoption: Discovers candidates in data/", async () => {
+test("M4 Adoption: Empty discovery when data/ was removed", async () => {
   const { req, res, getJSON, getStatusCode } = makeMockRequest({ url: "/api/adoption/candidates" });
   await handleApiRequest(req, res);
   assert.equal(getStatusCode(), 200);
   const data = getJSON();
   assert.ok(Array.isArray(data.candidates));
-  assert.ok(data.candidates.some((c) => c.name === "lisan-blind-lab"));
+  assert.deepEqual(data.candidates, []);
 });
 
 test("M4 Adoption: Prepares adoption plan without silent destruction", async () => {
-  const targetCandidate = path.join(PROJECT_ROOT, "data", "lisan-blind-lab");
+  const targetCandidate = path.join(PROJECT_ROOT, "docs");
   const { req, res, getJSON, getStatusCode } = makeMockRequest({
     url: "/api/adoption/prepare",
     method: "POST",
@@ -194,6 +258,7 @@ test("M4 Adoption: Prepares adoption plan without silent destruction", async () 
   assert.equal(data.plan.profile, "STANDARD");
   assert.ok(data.plan.plannedFiles.some((f) => f.path === "AGENTS.md"));
   assert.ok(data.plan.plannedFiles.some((f) => f.path === ".governance/project.json"));
+  assert.match(data.plan.plannedFiles.find((f) => f.path === "AGENTS.md").proposedContent, /AGHR 1\.2\.0/);
 });
 
 // =============================================================================

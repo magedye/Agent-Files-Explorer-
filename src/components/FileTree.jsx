@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
-import { fileKind, KIND_LABEL } from "../parse.js";
+import { fileKind } from "../parse.js";
+import { useI18n } from "../i18n/I18nProvider.jsx";
 
 const ICON = { skill: "★", doc: "📄", script: "🐍", data: "🧬", image: "🖼", other: "▪" };
 
@@ -56,6 +57,7 @@ function countFiles(dir) {
 }
 
 export default function FileTree({ tree, selectedRel, onSelect, files }) {
+  const { t } = useI18n();
   const [query, setQuery] = useState("");
   const [expanded, setExpanded] = useState(() => {
     const s = new Set();
@@ -98,16 +100,16 @@ export default function FileTree({ tree, selectedRel, onSelect, files }) {
   return (
     <div className="tree-wrap">
       <div className="search-wrap">
-        <input className="search" placeholder="ابحث في أسماء الملفات…" value={query}
+        <input className="search" placeholder={t("tree.search")} aria-label={t("tree.search")} value={query}
           onChange={(e) => setQuery(e.target.value)} />
         {query && (
-          <button className="search-clear" onClick={() => setQuery("")} title="مسح البحث وإظهار الشجرة كاملة">✕</button>
+          <button className="search-clear" onClick={() => setQuery("")} title={t("tree.clear")}>✕</button>
         )}
       </div>
       {counts.length > 0 && (
         <div className="counts">
           {counts.map(([k, n]) => (
-            <span key={k} className="chip">{KIND_LABEL[k] || k}: {n}</span>
+            <span key={k} className="chip">{t(`kind.${k}`)}: {n}</span>
           ))}
         </div>
       )}

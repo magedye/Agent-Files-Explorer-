@@ -1,0 +1,54 @@
+
+> aghr-governance-studio@1.0.0 test
+> node --test tests/*.test.mjs
+
+✔ M2 Reference Explorer: Default summary uses AGHR 1.2.0 with exact counts (8.2942ms)
+✔ M2 Reference Explorer: Rules search and filtering (14.0005ms)
+✔ M2 Reference Explorer: Rule details with basis sources and coverage (1.7342ms)
+✔ M2 Reference Explorer: Packages endpoint returns all registered governance packages (6.1473ms)
+✔ M2 Reference Explorer: Omitted package uses 1.2.0 while historical IDs stay explicit (14.1754ms)
+✔ M2 Reference Explorer: Compare AGHR 1.0.0 vs AGHR 1.1.0 returns typed structural delta (1.6868ms)
+✔ M2 Reference Explorer: Updated 1.2.0 is registered with scoped reference status (1.1923ms)
+✔ M2 Reference Explorer: Impact analysis for modified rule (1.1727ms)
+✔ M3 Intake: Compound statement decomposition (2.0278ms)
+✔ M3 Intake: 2-Layer classification of domain concern and normative force (4.2949ms)
+✔ M3 Intake: Conflict detection against existing rules triggers REJECT proposal (4.0176ms)
+✔ M3 Intake: Submit intake request generates persistent ChangePacket (7.3748ms)
+✔ M4 Adoption: Empty discovery when data/ was removed (1.2606ms)
+✔ M4 Adoption: Prepares adoption plan without silent destruction (4.5627ms)
+✔ M6 Governed Staging & Apply: Staging, Precondition Drift, and Authorized Apply (28.4894ms)
+✔ UI locales: every message has Arabic/English copy and matching parameters (11.4636ms)
+✔ UI locales: stored preference chooses language and matching direction (1.3411ms)
+✔ UI locales: absent, corrupt or unavailable storage preserves the Arabic default (1.0725ms)
+✔ UI locales: interpolation preserves mixed input, dollar signs and zero counts (0.9474ms)
+✖ INBOX custody receipt detects changed bytes or file set (85.6055ms)
+✔ M1 Security: Approved Roots Listing (6.1124ms)
+✔ M1 Security: Reject Path Traversal via rootId + rel (2.069ms)
+✔ M1 Security: Reject Null Byte Injection (0.4898ms)
+✔ M1 Security: Reject Absolute Path in relPath (0.4855ms)
+✔ M1 Security: Reject Arbitrary Client Path outside Approved Roots (1.1506ms)
+✔ M1 Security: Reject Protected Files (.git, .env) (1.1844ms)
+✔ M1 API Endpoint: GET /api/roots returns approved roots safely (2.549ms)
+✔ M1 API Endpoint: GET /api/tree with traversal attempt returns 403 (1.2772ms)
+✔ M1 API Endpoint: GET /api/file within approved root succeeds (3.7799ms)
+✔ M1 API Endpoint: GET /api/file requesting protected file returns 403 (1.4421ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 29
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5709.4225
+
+✖ failing tests:
+
+test at tests\inbox_custody.test.mjs:6:1
+✖ INBOX custody receipt detects changed bytes or file set (85.6055ms)
+  Error: INBOX custody mismatch: file set, size, or hash changed
+      at verifyReceipt (file:///D:/APP/Agent-Files-Explorer/tools/inbox_custody.mjs:39:71)
+      at TestContext.<anonymous> (file:///D:/APP/Agent-Files-Explorer/tests/inbox_custody.test.mjs:8:16)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17)

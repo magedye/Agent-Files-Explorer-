@@ -1,0 +1,386 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PROJECT",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": [
+        "1.0"
+      ]
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "owner": {
+      "type": "string",
+      "minLength": 1
+    },
+    "profile": {
+      "type": "string",
+      "enum": [
+        "LITE",
+        "STANDARD",
+        "CONTROLLED"
+      ]
+    },
+    "artifact_kind": {
+      "type": "string",
+      "enum": [
+        "APPLICATION",
+        "SERVICE",
+        "LIBRARY",
+        "DOCUMENTATION",
+        "UNKNOWN"
+      ]
+    },
+    "repository_ref": {
+      "type": "string",
+      "minLength": 0
+    },
+    "stack": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "architecture": {
+      "type": "string",
+      "minLength": 0
+    },
+    "system_flow": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "provider": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "enum": [
+            "OPENAI",
+            "ANTHROPIC",
+            "GOOGLE",
+            "MISTRAL",
+            "DEEPSEEK",
+            "QWEN"
+          ]
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "endpoint": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "model",
+        "endpoint"
+      ],
+      "additionalProperties": false
+    },
+    "host": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "enum": [
+            "CODEX",
+            "CLAUDE_CODE",
+            "GEMINI_CLI",
+            "OPENCODE",
+            "GITHUB_COPILOT",
+            "GENERIC_API"
+          ]
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "os": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "qualification_ref": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "os",
+        "qualification_ref"
+      ],
+      "additionalProperties": false
+    },
+    "adoption": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "enum": [
+            "PREPARED",
+            "CONFIGURED",
+            "EFFECTIVE"
+          ]
+        },
+        "decision_ref": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effective_scope": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "state",
+        "decision_ref",
+        "effective_scope"
+      ],
+      "additionalProperties": false
+    },
+    "security": {
+      "type": "object",
+      "properties": {
+        "data_class": {
+          "type": "string",
+          "enum": [
+            "UNKNOWN",
+            "PUBLIC",
+            "INTERNAL_NON_SENSITIVE",
+            "CONFIDENTIAL",
+            "RESTRICTED"
+          ]
+        },
+        "production_access": {
+          "type": "boolean"
+        },
+        "irreversible_operations": {
+          "type": "boolean"
+        },
+        "external_mutations": {
+          "type": "boolean"
+        },
+        "independent_review_required": {
+          "type": "boolean"
+        },
+        "allowed_destinations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "data_class",
+        "production_access",
+        "irreversible_operations",
+        "external_mutations",
+        "independent_review_required",
+        "allowed_destinations"
+      ],
+      "additionalProperties": false
+    },
+    "budgets": {
+      "type": "object",
+      "properties": {
+        "max_steps": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_retries": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_output_bytes": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "max_steps",
+        "max_seconds",
+        "max_retries",
+        "max_output_bytes"
+      ],
+      "additionalProperties": false
+    },
+    "commands": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "argv": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "cwd": {
+            "type": "string",
+            "minLength": 1
+          },
+          "prerequisites": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          },
+          "effects": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          },
+          "verification_status": {
+            "type": "string",
+            "enum": [
+              "NOT_RUN",
+              "REVIEWED",
+              "TESTED"
+            ]
+          },
+          "evidence_ref": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "argv",
+          "cwd",
+          "prerequisites",
+          "effects",
+          "verification_status",
+          "evidence_ref"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "canonical_backend": {
+      "type": "string",
+      "enum": [
+        "LOCAL_JSON",
+        "DECLARED_EXTERNAL"
+      ]
+    },
+    "external_backend_ref": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "project_id",
+    "name",
+    "owner",
+    "profile",
+    "artifact_kind",
+    "repository_ref",
+    "stack",
+    "architecture",
+    "system_flow",
+    "provider",
+    "host",
+    "adoption",
+    "security",
+    "budgets",
+    "commands",
+    "canonical_backend",
+    "external_backend_ref"
+  ],
+  "additionalProperties": false
+}

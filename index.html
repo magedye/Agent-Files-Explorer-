@@ -12,6 +12,13 @@
           t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
         document.documentElement.dataset.theme = t;
       } catch (e) {}
+      // Restore language and direction before the first paint.
+      try {
+        var locale = localStorage.getItem("aghr.locale") === "en" ? "en" : "ar";
+        document.documentElement.lang = locale;
+        document.documentElement.dir = locale === "en" ? "ltr" : "rtl";
+        document.title = locale === "en" ? "AGHR Governance Studio" : "استوديو حوكمة الوكلاء — AGHR";
+      } catch (e) {}
     </script>
   </head>
   <body>

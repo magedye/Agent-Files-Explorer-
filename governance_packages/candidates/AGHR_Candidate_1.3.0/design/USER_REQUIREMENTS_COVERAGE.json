@@ -1,0 +1,54 @@
+{
+  "scope": "Current seven-part owner request, not a claim of independent acceptance.",
+  "requirements": [
+    {
+      "id": "OWNER-01",
+      "requirement": "New independent comprehensive reference",
+      "primary": "CHARTER.md",
+      "support": "design/BASELINE.json",
+      "status": "IMPLEMENTED_REFERENCE"
+    },
+    {
+      "id": "OWNER-02",
+      "requirement": "Developer-first technical reference bounded by host/security/authorization",
+      "primary": "CHARTER.md",
+      "support": "sources/REFERENCE_POLICY.md",
+      "status": "IMPLEMENTED_RULE_AND_POLICY"
+    },
+    {
+      "id": "OWNER-03",
+      "requirement": "OpenAI/GPT default with harness and instruction economy",
+      "primary": "adapters/providers/OPENAI.md",
+      "support": "policies/CONTEXT_AND_MODELS.md",
+      "status": "DOCUMENTED_AND_DEFAULT_CONFIGURED"
+    },
+    {
+      "id": "OWNER-04",
+      "requirement": "Separate four contracts and instruction/rule dimensions",
+      "primary": "ARCHITECTURE.md",
+      "support": "contracts/GOVERNANCE.md",
+      "status": "IMPLEMENTED_REFERENCE"
+    },
+    {
+      "id": "OWNER-05",
+      "requirement": "Independent official provider/host routes and three profiles",
+      "primary": "adapters/REGISTER.json",
+      "support": "profiles/PROFILES.json",
+      "status": "DOCUMENTED_ONLY_NATIVE_QUALIFICATION_NOT_RUN"
+    },
+    {
+      "id": "OWNER-06",
+      "requirement": "Review v4 only after primary design freeze with dispositions",
+      "primary": "design/BASELINE.json",
+      "support": "compatibility/V4_RECONCILIATION.md",
+      "status": "AUTHOR_RECONCILIATION_COMPLETED"
+    },
+    {
+      "id": "OWNER-07",
+      "requirement": "Self-contained package, tools, tests, evidence and honest limits",
+      "primary": "runtime/README.md",
+      "support": "verification/REPORT.md",
+      "status": "LOCAL_TOOLS_IMPLEMENTED_AND_TESTED_HOST_ACCEPTANCE_NOT_GRANTED"
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Network } from "vis-network/standalone/esm/vis-network";
-import { fileKind, KIND_LABEL, EDGE_LABEL } from "../parse.js";
+import { fileKind } from "../parse.js";
+import { useI18n } from "../i18n/I18nProvider.jsx";
 
 const GROUP_COLOR = {
   skill: "#7c3aed", doc: "#2563eb", script: "#16a34a",
@@ -10,6 +11,7 @@ const GROUP_SHAPE = { skill: "star", doc: "box", script: "dot", data: "triangle"
 const GROUP_SIZE = { skill: 20, doc: 14, script: 12, data: 10, image: 9, other: 8 };
 
 export default function GraphView({ files, analysis, selectedRel, onSelect, theme }) {
+  const { t } = useI18n();
   const containerRef = useRef(null);
   const netRef = useRef(null);
   const [hidden, setHidden] = useState(new Set());
@@ -52,14 +54,14 @@ export default function GraphView({ files, analysis, selectedRel, onSelect, them
         id: "e" + i,
         from: e.from,
         to: e.to,
-        label: EDGE_LABEL[e.type] || e.type,
+        label: t(`edge.${e.type}`),
         arrows: "to",
         color: { color: edgeColor, highlight: edgeHighlight, hover: edgeHover },
         font: { size: 9, color: edgeFontColor, strokeWidth: 0 },
         smooth: { enabled: false },
       }));
     return { nodes, edges };
-  }, [files, analysis, hidden, theme]);
+  }, [files, analysis, hidden, theme, t]);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -101,22 +103,22 @@ export default function GraphView({ files, analysis, selectedRel, onSelect, them
   return (
     <div className="pane graph-pane">
       <div className="graph-toolbar">
-        <span className="graph-title">خريطة العلاقات — السهم يعني "يشير إلى / يستخدم"</span>
+        <span className="graph-title">{t("graph.title")}</span>
         <div className="legend">
           {kinds.map((k) => (
             <label key={k} className={"legend-item" + (hidden.has(k) ? " off" : "")}>
               <input type="checkbox" checked={!hidden.has(k)} onChange={() => toggle(k)} />
               <span className="dot" style={{ background: GROUP_COLOR[k] }} />
-              {KIND_LABEL[k]} ({files.filter((f) => fileKind(f) === k).length})
+              {t(`kind.${k}`)} ({files.filter((f) => fileKind(f) === k).length})
             </label>
           ))}
         </div>
         <button className="btn" onClick={() => netRef.current?.fit({ animation: { duration: 400 } })}>
-          احتواء الكل
+          {t("graph.fit")}
         </button>
       </div>
       <div className="graph-canvas" ref={containerRef} dir="ltr" />
-      <div className="graph-hint">{analysis ? analysis.edges.length + " علاقة بين " + files.length + " ملفاً — اسحب لتحريك، عجلة الفأرة للتقريب، انقر ملفاً لفتحه" : ""}</div>
+      <div className="graph-hint">{analysis ? t("graph.hint", { edges: analysis.edges.length, files: files.length }) : ""}</div>
     </div>
   );
 }

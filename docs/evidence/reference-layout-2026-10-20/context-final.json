@@ -1,0 +1,5 @@
+{
+  "command": "node tools/check_context_health.mjs",
+  "exit_code": 0,
+  "stdout": "=== Context Health & Budget Check ===\n\n1. Checking Bootstrap File Budgets:\n  ✔ [PASS] AGENTS.md                :   3.5 KB | ~ 981 est. tokens (Budget: 2500)\n  ✔ [PASS] docs/status/CURRENT.md   :   3.1 KB | ~ 855 est. tokens (Budget: 3500)\n  ✔ [PASS] docs/status/HANDOFF.md   :   3.0 KB | ~ 837 est. tokens (Budget: 2500)\n  ✔ [PASS] docs/INDEX.md            :   2.8 KB | ~ 754 est. tokens (Budget: 3000)\n\n  Total Bootstrap Context: ~3427 tokens (Target: < 5,000 tokens)\n\n2. Checking for Prohibited Crawl Patterns in Bootstrap Files:\n  ✔ Prohibited patterns check complete.\n\n3. Verifying Local Markdown Links in docs/:\n  ✔ Markdown link verification complete.\n\n=== Summary ===\nErrors: 0, Warnings: 0\n✅ Context health check PASSED. All context budgets and links are healthy.\n"
+}

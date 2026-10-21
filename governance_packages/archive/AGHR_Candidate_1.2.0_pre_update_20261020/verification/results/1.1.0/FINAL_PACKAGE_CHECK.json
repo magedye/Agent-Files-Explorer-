@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "id": "FILES",
+      "observed": 244,
+      "required": 50
+    },
+    {
+      "id": "RULES",
+      "count": 47
+    },
+    {
+      "id": "SOURCES",
+      "count": 56
+    },
+    {
+      "id": "ADAPTERS",
+      "count": 12
+    },
+    {
+      "id": "SUPPLEMENT",
+      "files": 73,
+      "controls": 48
+    },
+    {
+      "id": "PAYLOAD_DIGESTS",
+      "files": 198,
+      "postfreeze_results_excluded": true
+    }
+  ],
+  "errors": [],
+  "limits": [
+    "Structural/semantic/digest checks are not a live host security test.",
+    "Historical trace linkage is not independently verified semantic equivalence.",
+    "Post-freeze results are covered by the detached whole-ZIP digest, not this payload manifest."
+  ]
+}

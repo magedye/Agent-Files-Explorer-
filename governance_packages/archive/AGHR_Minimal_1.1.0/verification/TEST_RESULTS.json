@@ -1,0 +1,206 @@
+{
+  "distribution": "AGHR Minimal",
+  "version": "1.1.0",
+  "scope": "Structural and mutation tests of Minimal distribution only, not model/host behavior.",
+  "started_at_utc": "2026-10-12T18:14:01.380717+00:00",
+  "finished_at_utc": "2026-10-12T18:14:04.070172+00:00",
+  "command": "python -B -m unittest discover -s tests -v (equivalent unittest loader with evidence collection)",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "tests_run": 44,
+  "failures": 0,
+  "errors": 0,
+  "skips": 0,
+  "outcome": "PASS",
+  "subject_file_sha256": {
+    "CORE.md": "3335f9af22d03bfb24154c5ec506120987cfbb7227c281d783746b28d1a00b4b",
+    "REFERENCE_MAP.json": "077a8efeccff83a9a762ab72e4991a7f6a319ee94213be436f23ecda9230aa50",
+    "VERIFY.py": "d1622906d60d2cf079f557c8c157bdb3daabb9bd5c7d7fa7860002899e06c439",
+    "registry/RULES.json": "bc37e2eab25b2e7c8fa7e50a837f25ed7862694d9fa2637e3200659c2a887d62",
+    "sources/REGISTER.json": "6a5055130d2f46ba85a17ec6d13195da5b938f402f5bb9f77e1c9fbab65fc431",
+    "tests/test_minimal.py": "0e011e051ae7e28a69099c0f7711a9f4acd451c3c6c7b9514dfb48928068663a"
+  },
+  "cases": [
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_adapted_contract_change_detected",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_broken_markdown_link",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_changed_charter_detected_with_new_manifest",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_cli_failure_on_modified_file",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_cli_success",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_duplicate_json_keys",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_duplicate_rule_id",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_duplicate_source_id",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_empty_guidance_route",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_escaping_markdown_link",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_false_behavioral_evaluation_claim",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_false_local_availability",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_full_only_runtime_not_included_implicitly",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_intact_distribution",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_invalid_force",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_invalid_waiver_type",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_manifest_absolute_path",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_manifest_duplicate_entry",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_manifest_false_exclusion",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_manifest_traversal",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_manifest_windows_drive",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_missing_core",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_missing_root",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_missing_route",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_missing_rule",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_no_self_adoption",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_nonfinite_json_number",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_omitted_ref_must_be_declared",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_only_generated_python_bytecode_is_ignored",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_route_changes_applicability",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_route_changes_normative_force",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_route_changes_source_explanation",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_source_archive_baseline_mismatch",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_source_rules_unchanged_even_if_manifest_rebuilt",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_source_version_mismatch",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_symlink_directory_rejected",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_symlink_rejected",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_tampered_core",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_unexpected_link_scheme",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_unknown_guidance_anchor",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_unknown_rule_basis",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_unlisted_file",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_verifier_is_read_only",
+      "outcome": "PASS"
+    },
+    {
+      "test": "test_minimal.MinimalDistributionTests.test_wrong_canonical_rule_pointer",
+      "outcome": "PASS"
+    }
+  ],
+  "raw_console": "verification/TEST_CONSOLE.txt",
+  "host_qualification": "NOT_RUN",
+  "model_behavior": "NOT_RUN",
+  "independent_review": "NOT_PERFORMED",
+  "claim_limit": "This is an author-run structural test, not independent acceptance. Rechecks after final ZIP extraction are recorded in the external distribution-verification JSON."
+}

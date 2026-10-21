@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LESSON",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "lesson_id", "title", "kind", "source", "problem", "root_cause", "evidence", "counterevidence", "detection_signal", "proposed_instruction", "applicability", "confidence", "knowledge_state", "execution_state", "reconciliation", "disposition", "authority", "effect", "supersedes"],
+  "properties": {
+    "schema_version": {"type": "string", "enum": ["1.0"]},
+    "lesson_id": {"type": "string", "pattern": "^LES-[A-Z0-9]+(?:-[A-Z0-9]+)*$"},
+    "title": {"type": "string", "minLength": 1},
+    "kind": {"type": "string", "enum": ["LESSON", "OBSERVATION", "RULE", "POLICY", "PROCEDURE", "SKILL", "TECHNICAL_CONTROL", "RECOMMENDATION", "RISK"]},
+    "source": {
+      "type": "object", "additionalProperties": false, "required": ["locator", "sha256", "channel_observed", "trust"],
+      "properties": {
+        "locator": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "channel_observed": {"type": "string", "enum": ["USER", "FILE_DATA", "TOOL_DATA", "UNKNOWN"]},
+        "trust": {"type": "string", "enum": ["TRUSTED_FOR_SCOPE", "UNTRUSTED_DATA", "UNVERIFIED"]}
+      }
+    },
+    "problem": {"type": "string", "minLength": 1},
+    "root_cause": {
+      "type": "object", "additionalProperties": false, "required": ["status", "explanation", "evidence_refs"],
+      "properties": {
+        "status": {"type": "string", "enum": ["PROVEN", "UNPROVEN"]},
+        "explanation": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "evidence": {
+      "type": "array", "items": {
+        "type": "object", "additionalProperties": false, "required": ["path", "sha256", "candidate_id", "result"],
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "candidate_id": {"type": "string", "minLength": 1},
+          "result": {"type": "string", "enum": ["PASS", "FAIL", "OBSERVATION"]}
+        }
+      }
+    },
+    "counterevidence": {
+      "type": "array", "items": {
+        "type": "object", "additionalProperties": false, "required": ["path", "resolution", "rationale", "resolution_refs"],
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "resolution": {"type": "string", "enum": ["UNRESOLVED", "RESOLVED"]},
+          "rationale": {"type": "string", "minLength": 1},
+          "resolution_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}
+        }
+      }
+    },
+    "detection_signal": {"type": "string", "minLength": 1},
+    "proposed_instruction": {
+      "type": "object", "additionalProperties": false, "required": ["text", "force", "scope", "owner_ref", "target", "verification"],
+      "properties": {
+        "text": {"type": "string", "minLength": 1},
+        "force": {"type": "string", "enum": ["MUST", "MUST_NOT", "SHOULD", "SHOULD_NOT", "MAY", "INFORMATIVE", "UNRESOLVED"]},
+        "scope": {"type": "string", "enum": ["PROJECT", "PACKAGE", "PERSONAL"]},
+        "owner_ref": {"type": "string", "minLength": 1},
+        "target": {"type": "string", "minLength": 1},
+        "verification": {"type": "string", "minLength": 1}
+      }
+    },
+    "applicability": {
+      "type": "object", "additionalProperties": false, "required": ["candidate_id", "context", "review_after"],
+      "properties": {
+        "candidate_id": {"type": "string", "minLength": 1},
+        "context": {"type": "string", "minLength": 1},
+        "review_after": {"anyOf": [{"type": "string", "minLength": 1}, {"type": "null"}]}
+      }
+    },
+    "confidence": {
+      "type": "object", "additionalProperties": false, "required": ["level", "reason"],
+      "properties": {
+        "level": {"type": "string", "enum": ["LOW", "MEDIUM", "HIGH"]},
+        "reason": {"type": "string", "minLength": 1}
+      }
+    },
+    "knowledge_state": {"type": "string", "enum": ["CANDIDATE", "SUPPORTED", "NEEDS_REVIEW", "STALE", "SUPERSEDED", "REJECTED"]},
+    "execution_state": {"type": "string", "enum": ["NOT_APPLIED", "APPLIED", "DEFERRED", "NOT_APPLICABLE"]},
+    "reconciliation": {
+      "type": "object", "additionalProperties": false, "required": ["coverage", "coverage_refs", "conflicts", "duplicate_of", "rationale"],
+      "properties": {
+        "coverage": {"type": "string", "enum": ["COVERED", "PARTIAL", "MISSING", "CONFLICT", "UNVERIFIED", "NOT_APPLICABLE"]},
+        "coverage_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "conflicts": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "duplicate_of": {"anyOf": [{"type": "string", "pattern": "^LES-[A-Z0-9]+(?:-[A-Z0-9]+)*$"}, {"type": "null"}]},
+        "rationale": {"type": "string", "minLength": 1}
+      }
+    },
+    "disposition": {"type": "string", "enum": ["ADOPT", "RECONCILE", "REJECT", "DEFER", "HOLD", "REFERENCE_ONLY"]},
+    "authority": {
+      "type": "object", "additionalProperties": false, "required": ["capture_ref", "adoption_ref", "effect_ref"],
+      "properties": {
+        "capture_ref": {"type": "string", "minLength": 1},
+        "adoption_ref": {"anyOf": [{"type": "string", "minLength": 1}, {"type": "null"}]},
+        "effect_ref": {"anyOf": [{"type": "string", "minLength": 1}, {"type": "null"}]}
+      }
+    },
+    "effect": {
+      "type": "object", "additionalProperties": false, "required": ["artifact_refs", "verification_refs"],
+      "properties": {
+        "artifact_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "verification_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "supersedes": {"anyOf": [{"type": "string", "pattern": "^LES-[A-Z0-9]+(?:-[A-Z0-9]+)*$"}, {"type": "null"}]}
+  }
+}

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { fetchFile, rawUrl } from "../api.js";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { useI18n } from "../i18n/I18nProvider.jsx";
 
 function humanSize(n) {
   if (n == null) return "";
@@ -11,6 +12,7 @@ function humanSize(n) {
 }
 
 export default function FileView({ file, rootName, rootPath }) {
+  const { t } = useI18n();
   const [data, setData] = useState(null);
   const [err, setErr] = useState(null);
 
@@ -25,10 +27,10 @@ export default function FileView({ file, rootName, rootPath }) {
   }, [file, rootPath]);
 
   if (!file) {
-    return <div className="pane empty">اختر ملفاً من الشجرة لعرضه</div>;
+    return <div className="pane empty">{t("file.select")}</div>;
   }
-  if (err) return <div className="pane empty">خطأ: {err}</div>;
-  if (!data) return <div className="pane empty">جارٍ التحميل…</div>;
+  if (err) return <div className="pane empty">{t("common.error")} {t(err)}</div>;
+  if (!data) return <div className="pane empty">{t("common.loading")}</div>;
 
   const rel = file.rel || data.path;
 
@@ -41,8 +43,8 @@ export default function FileView({ file, rootName, rootPath }) {
         </div>
         <div className="file-meta">
           <span className="chip">{humanSize(data.size)}</span>
-          {data.content ? <span className="chip">{data.content.split("\n").length} سطر</span> : null}
-          <span className="chip">{data.kind === "image" ? "صورة" : data.ext || "—"}</span>
+          {data.content ? <span className="chip">{t("file.lines", { count: data.content.split("\n").length })}</span> : null}
+          <span className="chip">{data.kind === "image" ? t("kind.image") : data.ext || "—"}</span>
         </div>
       </div>
 
@@ -58,9 +60,9 @@ export default function FileView({ file, rootName, rootPath }) {
             <img src={rawUrl(data.path)} alt={data.name} />
           </div>
         ) : data.kind === "too-large" ? (
-          <div className="notice">ملف كبير ({humanSize(data.size)}) — معاينة النص متاحة حتى 2MB.</div>
+          <div className="notice">{t("file.large", { size: humanSize(data.size) })}</div>
         ) : (
-          <div className="notice">ملف ثنائي (zip/pyc…) لا يمكن معاينته نصياً. الحجم: {humanSize(data.size)}</div>
+          <div className="notice">{t("file.binary", { size: humanSize(data.size) })}</div>
         )}
       </div>
     </div>

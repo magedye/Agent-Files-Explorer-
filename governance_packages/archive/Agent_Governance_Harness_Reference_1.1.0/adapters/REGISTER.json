@@ -1,0 +1,148 @@
+{
+  "default": {
+    "provider": "OPENAI",
+    "host": "CODEX"
+  },
+  "note": "API integrations select GENERIC_API. The Cartesian product of adapters is not certified.",
+  "adapters": [
+    {
+      "id": "OPENAI",
+      "axis": "PROVIDER",
+      "path": "adapters/providers/OPENAI.md",
+      "source_ids": [
+        "OA-01",
+        "OA-03",
+        "OA-08",
+        "OA-09",
+        "OA-10",
+        "OA-12",
+        "OA-13"
+      ],
+      "status": "DOCUMENTED_ONLY",
+      "live_qualification": "NOT_RUN"
+    },
+    {
+      "id": "ANTHROPIC",
+      "axis": "PROVIDER",
+      "path": "adapters/providers/ANTHROPIC.md",
+      "source_ids": [
+        "AN-01",
+        "AN-02",
+        "AN-06"
+      ],
+      "status": "DOCUMENTED_ONLY",
+      "live_qualification": "NOT_RUN"
+    },
+    {
+      "id": "GOOGLE",
+      "axis": "PROVIDER",
+      "path": "adapters/providers/GOOGLE.md",
+      "source_ids": [
+        "GO-04",
+        "GO-05"
+      ],
+      "status": "DOCUMENTED_ONLY",
+      "live_qualification": "NOT_RUN"
+    },
+    {
+      "id": "MISTRAL",
+      "axis": "PROVIDER",
+      "path": "adapters/providers/MISTRAL.md",
+      "source_ids": [
+        "MI-01"
+      ],
+      "status": "DOCUMENTED_ONLY",
+      "live_qualification": "NOT_RUN"
+    },
+    {
+      "id": "DEEPSEEK",
+      "axis": "PROVIDER",
+      "path": "adapters/providers/DEEPSEEK.md",
+      "source_ids": [
+        "DS-01"
+      ],
+      "status": "DOCUMENTED_ONLY",
+      "live_qualification": "NOT_RUN"
+    },
+    {
+      "id": "QWEN",
+      "axis": "PROVIDER",
+      "path": "adapters/providers/QWEN.md",
+      "source_ids": [
+        "QW-01"
+      ],
+      "status": "DOCUMENTED_ONLY",
+      "live_qualification": "NOT_RUN"
+    },
+    {
+      "id": "CODEX",
+      "axis": "HOST",
+      "path": "adapters/hosts/CODEX.md",
+      "source_ids": [
+        "OA-04",
+        "OA-05",
+        "OA-11"
+      ],
+      "status": "DOCUMENTED_ONLY",
+      "live_qualification": "NOT_RUN"
+    },
+    {
+      "id": "CLAUDE_CODE",
+      "axis": "HOST",
+      "path": "adapters/hosts/CLAUDE_CODE.md",
+      "source_ids": [
+        "AN-03",
+        "AN-04",
+        "AN-05"
+      ],
+      "status": "DOCUMENTED_ONLY",
+      "live_qualification": "NOT_RUN"
+    },
+    {
+      "id": "GEMINI_CLI",
+      "axis": "HOST",
+      "path": "adapters/hosts/GEMINI_CLI.md",
+      "source_ids": [
+        "GO-01",
+        "GO-02",
+        "GO-03"
+      ],
+      "status": "DOCUMENTED_ONLY",
+      "live_qualification": "NOT_RUN"
+    },
+    {
+      "id": "OPENCODE",
+      "axis": "HOST",
+      "path": "adapters/hosts/OPENCODE.md",
+      "source_ids": [
+        "OC-01",
+        "OC-02"
+      ],
+      "status": "DOCUMENTED_ONLY",
+      "live_qualification": "NOT_RUN"
+    },
+    {
+      "id": "GITHUB_COPILOT",
+      "axis": "HOST",
+      "path": "adapters/hosts/GITHUB_COPILOT.md",
+      "source_ids": [
+        "GH-01"
+      ],
+      "status": "DOCUMENTED_ONLY",
+      "live_qualification": "NOT_RUN"
+    },
+    {
+      "id": "GENERIC_API",
+      "axis": "HOST",
+      "path": "adapters/hosts/GENERIC_API.md",
+      "source_ids": [
+        "OA-08",
+        "OA-07",
+        "GO-04",
+        "AN-06"
+      ],
+      "status": "DOCUMENTED_ONLY",
+      "live_qualification": "NOT_RUN"
+    }
+  ]
+}

@@ -7,9 +7,11 @@ import {
   sanitizeErrorMessage,
   MAX_TEXT_BYTES,
   MAX_RAW_BYTES,
+  DEFAULT_PACKAGE_ID,
   SecurityError,
 } from "./security.js";
 import { governanceService } from "./governance.js";
+import { comparisonService } from "./comparison.js";
 import { intakeService } from "./intake.js";
 import { adoptionService } from "./adoption.js";
 import { evaluationService } from "./evaluation.js";
@@ -159,49 +161,75 @@ export async function handleApiRequest(req, res) {
     // -------------------------------------------------------------------------
     // 2. AGHR Governance Reference (M2)
     // -------------------------------------------------------------------------
+    if (u.pathname === "/api/governance/packages") {
+      return send(200, { packages: governanceService.listPackages() });
+    }
+
     if (u.pathname === "/api/governance/summary") {
-      return send(200, governanceService.getSummary());
+      const packageId = u.searchParams.get("packageId") || u.searchParams.get("package") || "";
+      return send(200, governanceService.getSummary(packageId));
     }
 
     if (u.pathname === "/api/governance/rules") {
+      const packageId = u.searchParams.get("packageId") || u.searchParams.get("package") || "";
       const search = u.searchParams.get("search") || "";
       const force = u.searchParams.get("force") || "";
       const source = u.searchParams.get("source") || "";
       const enforcementClass = u.searchParams.get("enforcementClass") || "";
-      const rules = governanceService.getRules({ search, force, source, enforcementClass });
+      const rules = governanceService.getRules({ search, force, source, enforcementClass, packageId });
       return send(200, { rules, total: rules.length });
     }
 
     if (u.pathname === "/api/governance/rule") {
+      const packageId = u.searchParams.get("packageId") || u.searchParams.get("package") || "";
       const id = u.searchParams.get("id");
       if (!id) return send(400, { error: "Rule id parameter is required" });
-      const rule = governanceService.getRule(id);
+      const rule = governanceService.getRule(id, packageId);
       if (!rule) return send(404, { error: `Rule '${id}' not found` });
       return send(200, { rule });
     }
 
     if (u.pathname === "/api/governance/sources") {
+      const packageId = u.searchParams.get("packageId") || u.searchParams.get("package") || "";
       const search = u.searchParams.get("search") || "";
       const publisher = u.searchParams.get("publisher") || "";
       const kind = u.searchParams.get("kind") || "";
-      const sources = governanceService.getSources({ search, publisher, kind });
+      const sources = governanceService.getSources({ search, publisher, kind, packageId });
       return send(200, { sources, total: sources.length });
     }
 
     if (u.pathname === "/api/governance/source") {
+      const packageId = u.searchParams.get("packageId") || u.searchParams.get("package") || "";
       const id = u.searchParams.get("id");
       if (!id) return send(400, { error: "Source id parameter is required" });
-      const source = governanceService.getSource(id);
+      const source = governanceService.getSource(id, packageId);
       if (!source) return send(404, { error: `Source '${id}' not found` });
       return send(200, { source });
     }
 
     if (u.pathname === "/api/governance/adapters") {
-      return send(200, { adapters: governanceService.getAdapters() });
+      const packageId = u.searchParams.get("packageId") || u.searchParams.get("package") || "";
+      return send(200, { adapters: governanceService.getAdapters(packageId) });
     }
 
     if (u.pathname === "/api/governance/graph") {
-      return send(200, governanceService.getRelationshipGraph());
+      const packageId = u.searchParams.get("packageId") || u.searchParams.get("package") || "";
+      return send(200, governanceService.getRelationshipGraph(packageId));
+    }
+
+    if (u.pathname === "/api/governance/compare") {
+      const base = u.searchParams.get("base") || "aghr";
+      const target = u.searchParams.get("target") || DEFAULT_PACKAGE_ID;
+      const comparison = comparisonService.comparePackages(base, target);
+      return send(200, { comparison });
+    }
+
+    if (u.pathname === "/api/governance/impact") {
+      const ruleId = u.searchParams.get("ruleId") || u.searchParams.get("rule");
+      if (!ruleId) return send(400, { error: "ruleId parameter is required" });
+      const packageId = u.searchParams.get("packageId") || u.searchParams.get("package") || DEFAULT_PACKAGE_ID;
+      const impact = comparisonService.analyzeRuleImpact(ruleId, {}, packageId);
+      return send(200, { impact });
     }
 
     // -------------------------------------------------------------------------

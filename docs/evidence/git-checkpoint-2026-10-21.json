@@ -1,0 +1,65 @@
+{
+  "schema": "aghr-repository-checkpoint-v1",
+  "observed_at": "2026-10-21T15:54:23.626Z",
+  "authority": "OWNER_REQUEST_SAVE_AND_PUSH",
+  "branch": "main",
+  "base_head": "4b9b877d835450f119b09d28bdc70faaaf791f4b",
+  "inbox": {
+    "classification": "STALE_CONTEXT",
+    "previous_receipt": "docs/evidence/inbox/2026-10-21-01-custody.json",
+    "previous_entries": 21,
+    "previous_entries_unchanged": true,
+    "current_receipt": "docs/evidence/inbox/2026-10-21-02-custody.json",
+    "current_entries": 23,
+    "additions": [
+      {
+        "name": "agent-roadmap.md",
+        "bytes": 51529,
+        "sha256": "65ece6c5cfb19b3e9112d881a9a3a72ca07912a93eafbc520fa2d8951259e8f8"
+      },
+      {
+        "name": "agent-roadmap.pdf",
+        "bytes": 944213,
+        "sha256": "32bf4d55d7802fc5f989c32a4ffd3239dc45a80c9bbe68f1832b7570b4feeedc"
+      }
+    ],
+    "additions_review": "PENDING_NOT_ADOPTED"
+  },
+  "verification": {
+    "studio": {
+      "status": "PASS",
+      "tests": 30,
+      "failures": 0,
+      "skipped": 0,
+      "log": "git-checkpoint-2026-10-21-tests.log"
+    },
+    "context": {
+      "status": "PASS",
+      "errors": 0,
+      "warnings": 0
+    },
+    "candidate_tests": {
+      "status": "PASS",
+      "tests": 320,
+      "scope": "UNCHANGED_FROZEN_CANDIDATE_LOCAL_TESTS",
+      "source": "skills-candidate-1.3.0/after.json",
+      "rerun": false
+    },
+    "frozen_artifact_hashes": "UNCHANGED",
+    "credential_pattern_check": {
+      "scope": "ACTIVE_NON_PACKAGE_TEXT_AND_TWO_NEW_INPUT_FILES",
+      "findings": 0,
+      "not_a_security_audit": true
+    }
+  },
+  "preservation": {
+    "exact_package_and_evidence_bytes": "GIT_ATTRIBUTES_DISABLE_EOL_CONVERSION",
+    "runtime_logs": "IGNORED",
+    "verification_logs": "INCLUDED",
+    "candidate_reference_state": "CANDIDATE_FOR_REVIEW",
+    "default_reference": "aghr_1_2_0",
+    "reference_promotion": "NOT_PERFORMED",
+    "release_acceptance": "NOT_GRANTED"
+  },
+  "revision_locator": "Use Git commit history and remote refs for the checkpoint revision."
+}

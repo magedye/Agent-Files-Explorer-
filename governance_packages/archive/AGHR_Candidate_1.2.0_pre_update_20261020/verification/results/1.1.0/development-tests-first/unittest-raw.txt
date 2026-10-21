@@ -1,0 +1,262 @@
+test_all_reasons_visible (test_decision_support.IntakeTests.test_all_reasons_visible) ... ok
+test_changed_effect_revalidates_old_confirmation (test_decision_support.IntakeTests.test_changed_effect_revalidates_old_confirmation) ... ok
+test_coercion_rejected (test_decision_support.IntakeTests.test_coercion_rejected) ... ok
+test_contradictory_source_flags_rejected (test_decision_support.IntakeTests.test_contradictory_source_flags_rejected) ... ok
+test_documented_field_set (test_decision_support.IntakeTests.test_documented_field_set) ... ok
+test_high_impact_requires_matching_confirmation (test_decision_support.IntakeTests.test_high_impact_requires_matching_confirmation) ... ok
+test_matching_prior_confirmation_not_repeated (test_decision_support.IntakeTests.test_matching_prior_confirmation_not_repeated) ... ok
+test_material_question (test_decision_support.IntakeTests.test_material_question) ... ok
+test_missing_control (test_decision_support.IntakeTests.test_missing_control) ... ok
+test_missing_field_rejected (test_decision_support.IntakeTests.test_missing_field_rejected) ... ok
+test_no_input_is_never_permission (test_decision_support.IntakeTests.test_no_input_is_never_permission) ... ok
+test_pause_blocks_independent_work (test_decision_support.IntakeTests.test_pause_blocks_independent_work) ... ok
+test_read_only_does_not_need_write_authorization (test_decision_support.IntakeTests.test_read_only_does_not_need_write_authorization) ... ok
+test_review_does_not_authorize_write (test_decision_support.IntakeTests.test_review_does_not_authorize_write) ... ok
+test_routine_does_not_add_approval (test_decision_support.IntakeTests.test_routine_does_not_add_approval) ... ok
+test_scope_boundary (test_decision_support.IntakeTests.test_scope_boundary) ... ok
+test_source_unavailable_blocks_affected_action (test_decision_support.IntakeTests.test_source_unavailable_blocks_affected_action) ... ok
+test_sources_before_question (test_decision_support.IntakeTests.test_sources_before_question) ... ok
+test_unknown_field_rejected (test_decision_support.IntakeTests.test_unknown_field_rejected) ... ok
+test_unresolved_conflict (test_decision_support.IntakeTests.test_unresolved_conflict) ... ok
+test_assumed_material_decision_rejected (test_delivery_records.ClarificationRecords.test_assumed_material_decision_rejected) ... ok
+test_boolean_is_not_string (test_delivery_records.ClarificationRecords.test_boolean_is_not_string) ... ok
+test_capture_timestamp_needs_timezone (test_delivery_records.ClarificationRecords.test_capture_timestamp_needs_timezone) ... ok
+test_duplicate_options (test_delivery_records.ClarificationRecords.test_duplicate_options) ... ok
+test_duplicate_questions (test_delivery_records.ClarificationRecords.test_duplicate_questions) ... ok
+test_material_unresolved_is_valid_capture (test_delivery_records.ClarificationRecords.test_material_unresolved_is_valid_capture) ... ok
+test_missing_decision (test_delivery_records.ClarificationRecords.test_missing_decision) ... ok
+test_old_request_without_extension (test_delivery_records.ClarificationRecords.test_old_request_without_extension) ... ok
+test_recommendation_without_reason (test_delivery_records.ClarificationRecords.test_recommendation_without_reason) ... ok
+test_resolved_with_reference_not_authentication (test_delivery_records.ClarificationRecords.test_resolved_with_reference_not_authentication) ... ok
+test_small_bounded_assumption (test_delivery_records.ClarificationRecords.test_small_bounded_assumption) ... ok
+test_unavailable_options_are_not_invented (test_delivery_records.ClarificationRecords.test_unavailable_options_are_not_invented) ... ok
+test_unknown_authority_field (test_delivery_records.ClarificationRecords.test_unknown_authority_field) ... ok
+test_unknown_recommendation (test_delivery_records.ClarificationRecords.test_unknown_recommendation) ... ok
+test_unresolved_cannot_claim_decision (test_delivery_records.ClarificationRecords.test_unresolved_cannot_claim_decision) ... ok
+test_clarification_capture_no_execution (test_delivery_records.DeliveryCLI.test_clarification_capture_no_execution) ... ok
+test_init_references_current_version (test_delivery_records.DeliveryCLI.test_init_references_current_version) ... ERROR
+test_material_assumption_capture_rejected (test_delivery_records.DeliveryCLI.test_material_assumption_capture_rejected) ... ok
+test_progress_read_only (test_delivery_records.DeliveryCLI.test_progress_read_only) ... ok
+test_accepted_limitation_requires_decision (test_delivery_records.DeliveryRecords.test_accepted_limitation_requires_decision) ... ok
+test_approved_replan_requires_decision (test_delivery_records.DeliveryRecords.test_approved_replan_requires_decision) ... ok
+test_branch_requires_evidence (test_delivery_records.DeliveryRecords.test_branch_requires_evidence) ... ok
+test_changed_artifact_fails_report (test_delivery_records.DeliveryRecords.test_changed_artifact_fails_report) ... ok
+test_conflicting_evidence_not_silently_selected (test_delivery_records.DeliveryRecords.test_conflicting_evidence_not_silently_selected) ... ok
+test_continuous_without_grant (test_delivery_records.DeliveryRecords.test_continuous_without_grant) ... ok
+test_critical_finding_blocks_readiness (test_delivery_records.DeliveryRecords.test_critical_finding_blocks_readiness) ... ok
+test_critical_visible_amid_success (test_delivery_records.DeliveryRecords.test_critical_visible_amid_success) ... ok
+test_default_branch_requires_evidence (test_delivery_records.DeliveryRecords.test_default_branch_requires_evidence) ... ok
+test_duplicate_unmerged_branch (test_delivery_records.DeliveryRecords.test_duplicate_unmerged_branch) ... ok
+test_empty_extension_valid_not_ready (test_delivery_records.DeliveryRecords.test_empty_extension_valid_not_ready) ... ok
+test_external_snapshot_requires_refresh (test_delivery_records.DeliveryRecords.test_external_snapshot_requires_refresh) ... ok
+test_failed_retest_does_not_resolve (test_delivery_records.DeliveryRecords.test_failed_retest_does_not_resolve) ... ok
+test_finished_task_not_complete_product (test_delivery_records.DeliveryRecords.test_finished_task_not_complete_product) ... ok
+test_fraction_none_for_empty_denominator (test_delivery_records.DeliveryRecords.test_fraction_none_for_empty_denominator) ... ok
+test_full_measurement_without_baseline (test_delivery_records.DeliveryRecords.test_full_measurement_without_baseline) ... ok
+test_identity_mismatch_fails (test_delivery_records.DeliveryRecords.test_identity_mismatch_fails) ... ok
+test_no_guessed_main_branch (test_delivery_records.DeliveryRecords.test_no_guessed_main_branch) ... ok
+test_old_state_without_extension (test_delivery_records.DeliveryRecords.test_old_state_without_extension) ... ok
+test_recorded_grant_not_permission (test_delivery_records.DeliveryRecords.test_recorded_grant_not_permission) ... ok
+test_remote_claim_requires_evidence (test_delivery_records.DeliveryRecords.test_remote_claim_requires_evidence) ... ok
+test_resolved_needs_retest (test_delivery_records.DeliveryRecords.test_resolved_needs_retest) ... ok
+test_unknown_finding_evidence (test_delivery_records.DeliveryRecords.test_unknown_finding_evidence) ... ok
+test_unknown_monitoring_not_violation (test_delivery_records.DeliveryRecords.test_unknown_monitoring_not_violation) ... ok
+test_unobserved_scope_not_full_compliance (test_delivery_records.DeliveryRecords.test_unobserved_scope_not_full_compliance) ... ok
+test_valid_criterion_evidence_fraction (test_delivery_records.DeliveryRecords.test_valid_criterion_evidence_fraction) ... ok
+test_valid_recorded_branch (test_delivery_records.DeliveryRecords.test_valid_recorded_branch) ... ok
+test_valid_retest_record (test_delivery_records.DeliveryRecords.test_valid_retest_record) ... ok
+test_violation_requires_evidence (test_delivery_records.DeliveryRecords.test_violation_requires_evidence) ... ok
+test_actual_demo_grades (test_evaluations.EvaluationTests.test_actual_demo_grades) ... ok
+test_claimed_match_ignored (test_evaluations.EvaluationTests.test_claimed_match_ignored) ... ok
+test_demo_does_not_overwrite_existing (test_evaluations.EvaluationTests.test_demo_does_not_overwrite_existing) ... ok
+test_denied_effect_snapshot_mismatch_fails (test_evaluations.EvaluationTests.test_denied_effect_snapshot_mismatch_fails) ... ok
+test_duplicate_case_fails (test_evaluations.EvaluationTests.test_duplicate_case_fails) ... ok
+test_final_artifact_tamper_fails (test_evaluations.EvaluationTests.test_final_artifact_tamper_fails) ... ok
+test_missing_audit_fails (test_evaluations.EvaluationTests.test_missing_audit_fails) ... ok
+test_unauthorized_artifact_fails (test_evaluations.EvaluationTests.test_unauthorized_artifact_fails) ... ok
+test_user_expected_decision_cannot_redefine_rubric (test_evaluations.EvaluationTests.test_user_expected_decision_cannot_redefine_rubric) ... ok
+test_zero_cases_cannot_pass (test_evaluations.EvaluationTests.test_zero_cases_cannot_pass) ... ok
+test_academic_target_is_real_chapter (test_integration.IntegrationTests.test_academic_target_is_real_chapter) ... ok
+test_additions_accounting_complete (test_integration.IntegrationTests.test_additions_accounting_complete) ... ok
+test_duplicate_source_url (test_integration.IntegrationTests.test_duplicate_source_url) ... ok
+test_frozen_original_is_not_rewritten (test_integration.IntegrationTests.test_frozen_original_is_not_rewritten) ... ok
+test_integrated_package (test_integration.IntegrationTests.test_integrated_package) ... FAIL
+test_link_must_stay_in_distribution (test_integration.IntegrationTests.test_link_must_stay_in_distribution) ... ok
+test_material_clarification_cannot_be_weakened (test_integration.IntegrationTests.test_material_clarification_cannot_be_weakened) ... ok
+test_missing_ext_mapping (test_integration.IntegrationTests.test_missing_ext_mapping) ... ok
+test_missing_standard_card (test_integration.IntegrationTests.test_missing_standard_card) ... ok
+test_new_source_ids_resolve (test_integration.IntegrationTests.test_new_source_ids_resolve) ... ok
+test_no_auto_discovery_directory (test_integration.IntegrationTests.test_no_auto_discovery_directory) ... ok
+test_original_rule_preserved (test_integration.IntegrationTests.test_original_rule_preserved) ... ok
+test_skill_not_activated (test_integration.IntegrationTests.test_skill_not_activated) ... ok
+test_skill_payload_integrity (test_integration.IntegrationTests.test_skill_payload_integrity) ... ok
+test_standards_not_licensed_extraction (test_integration.IntegrationTests.test_standards_not_licensed_extraction) ... ok
+test_standards_not_silently_adopted (test_integration.IntegrationTests.test_standards_not_silently_adopted) ... ok
+test_unknown_scenario_rule (test_integration.IntegrationTests.test_unknown_scenario_rule) ... ok
+test_unrun_scenario_not_pass (test_integration.IntegrationTests.test_unrun_scenario_not_pass) ... ok
+test_blocked_is_counted_as_unexamined (test_metrics.MetricTests.test_blocked_is_counted_as_unexamined) ... ok
+test_critical_not_averaged_away (test_metrics.MetricTests.test_critical_not_averaged_away) ... ok
+test_duplicate_ids_rejected (test_metrics.MetricTests.test_duplicate_ids_rejected) ... ok
+test_empty_not_full_compliance (test_metrics.MetricTests.test_empty_not_full_compliance) ... ok
+test_fail_without_reference_rejected (test_metrics.MetricTests.test_fail_without_reference_rejected) ... ok
+test_fraction (test_metrics.MetricTests.test_fraction) ... ok
+test_invalid_counts (test_metrics.MetricTests.test_invalid_counts) ... ok
+test_missing_scope_declaration (test_metrics.MetricTests.test_missing_scope_declaration) ... ok
+test_na_not_pass (test_metrics.MetricTests.test_na_not_pass) ... ok
+test_na_without_rationale_rejected (test_metrics.MetricTests.test_na_without_rationale_rejected) ... ok
+test_partial_evidence_visible (test_metrics.MetricTests.test_partial_evidence_visible) ... ok
+test_pass_without_reference_rejected (test_metrics.MetricTests.test_pass_without_reference_rejected) ... ok
+test_reference_presence_not_authentication (test_metrics.MetricTests.test_reference_presence_not_authentication) ... ok
+test_unexpected_field_rejected (test_metrics.MetricTests.test_unexpected_field_rejected) ... ok
+test_unknown_denominator (test_metrics.MetricTests.test_unknown_denominator) ... ok
+test_unknown_not_pass (test_metrics.MetricTests.test_unknown_not_pass) ... ok
+test_unknown_status_rejected (test_metrics.MetricTests.test_unknown_status_rejected) ... ok
+test_waiver_not_pass (test_metrics.MetricTests.test_waiver_not_pass) ... ok
+test_waiver_without_decision_rejected (test_metrics.MetricTests.test_waiver_without_decision_rejected) ... ok
+test_zero_denominator (test_metrics.MetricTests.test_zero_denominator) ... ok
+test_duplicate_rules_do_not_count_as_complete (test_package.MutationTests.test_duplicate_rules_do_not_count_as_complete) ... ok
+test_invalid_json_matrix_fails (test_package.MutationTests.test_invalid_json_matrix_fails) ... ok
+test_missing_critical_file_fails (test_package.MutationTests.test_missing_critical_file_fails) ... ok
+test_native_pass_claim_rejected (test_package.MutationTests.test_native_pass_claim_rejected) ... ok
+test_truncated_control_mapping_fails (test_package.MutationTests.test_truncated_control_mapping_fails) ... ok
+test_unmanifested_payload_fails (test_package.MutationTests.test_unmanifested_payload_fails) ... ok
+test_active_source_control_targets_complete (test_package.PackageTests.test_active_source_control_targets_complete) ... ok
+test_all_schemas_supported (test_package.PackageTests.test_all_schemas_supported) ... ok
+test_current_file_inventory_not_upstream82 (test_package.PackageTests.test_current_file_inventory_not_upstream82) ... ok
+test_duplicate_id_rejected (test_package.PackageTests.test_duplicate_id_rejected) ... ok
+test_frozen_primary_design_digest (test_package.PackageTests.test_frozen_primary_design_digest) ... ok
+test_independent_acceptance_not_claimed (test_package.PackageTests.test_independent_acceptance_not_claimed) ... ok
+test_inherited_traces_marked_not_reverified (test_package.PackageTests.test_inherited_traces_marked_not_reverified) ... ok
+test_missing_id_rejected (test_package.PackageTests.test_missing_id_rejected) ... ok
+test_missing_package_cannot_pass (test_package.PackageTests.test_missing_package_cannot_pass) ... ok
+test_no_native_adapter_pass_inferred (test_package.PackageTests.test_no_native_adapter_pass_inferred) ... ok
+test_unsupported_nested_keyword_rejected (test_package.PackageTests.test_unsupported_nested_keyword_rejected) ... ok
+test_zero_target_inventory_is_not_success (test_package.PackageTests.test_zero_target_inventory_is_not_success) ... ok
+test_zip_outside_declared_prefix_rejected (test_package.SourceArchiveTests.test_zip_outside_declared_prefix_rejected) ... ok
+test_zip_prefix_is_removed_explicitly (test_package.SourceArchiveTests.test_zip_prefix_is_removed_explicitly) ... ok
+test_zip_traversal_rejected (test_package.SourceArchiveTests.test_zip_traversal_rejected) ... ok
+test_compare_and_swap_revision (test_records.AdoptionTests.test_compare_and_swap_revision) ... ok
+test_derived_map_staleness_detected (test_records.AdoptionTests.test_derived_map_staleness_detected) ... ok
+test_existing_adoption_refused (test_records.AdoptionTests.test_existing_adoption_refused) ... ok
+test_external_backend_not_overwritten (test_records.AdoptionTests.test_external_backend_not_overwritten) ... ok
+test_foreign_state_rejected (test_records.AdoptionTests.test_foreign_state_rejected) ... ok
+test_initial_records_validate_but_not_ready (test_records.AdoptionTests.test_initial_records_validate_but_not_ready) ... ok
+test_initializer_is_not_activation (test_records.AdoptionTests.test_initializer_is_not_activation) ... ok
+test_initializer_preserves_instructions_and_map (test_records.AdoptionTests.test_initializer_preserves_instructions_and_map) ... ok
+test_instruction_audit_not_loading_claim (test_records.AdoptionTests.test_instruction_audit_not_loading_claim) ... ok
+test_intake_does_not_overwrite (test_records.AdoptionTests.test_intake_does_not_overwrite) ... ok
+test_intake_invalid_extra_authority (test_records.AdoptionTests.test_intake_invalid_extra_authority) ... ok
+test_intake_is_capture_only (test_records.AdoptionTests.test_intake_is_capture_only) ... ok
+test_self_contained_reference_copy (test_records.AdoptionTests.test_self_contained_reference_copy) ... ok
+test_all_templates_shape_valid (test_records.RecordTests.test_all_templates_shape_valid) ... ok
+test_artifact_tampering (test_records.RecordTests.test_artifact_tampering) ... ok
+test_blocked_work_needs_reason (test_records.RecordTests.test_blocked_work_needs_reason) ... ok
+test_boolean_is_not_integer (test_records.RecordTests.test_boolean_is_not_integer) ... ok
+test_candidate_mismatch (test_records.RecordTests.test_candidate_mismatch) ... ok
+test_dependency_cycle (test_records.RecordTests.test_dependency_cycle) ... ok
+test_duplicate_json_keys (test_records.RecordTests.test_duplicate_json_keys) ... ok
+test_duplicate_work_id (test_records.RecordTests.test_duplicate_work_id) ... ok
+test_effective_adoption_not_inferred (test_records.RecordTests.test_effective_adoption_not_inferred) ... ok
+test_empty_state_not_product_ready (test_records.RecordTests.test_empty_state_not_product_ready) ... ok
+test_environment_mismatch (test_records.RecordTests.test_environment_mismatch) ... ok
+test_evidence_traversal (test_records.RecordTests.test_evidence_traversal) ... ok
+test_external_backend_requires_mapping (test_records.RecordTests.test_external_backend_requires_mapping) ... ok
+test_future_timestamp (test_records.RecordTests.test_future_timestamp) ... ok
+test_inspection_without_unit_test_count_can_pass (test_records.RecordTests.test_inspection_without_unit_test_count_can_pass) ... ok
+test_lite_with_declared_low_risk (test_records.RecordTests.test_lite_with_declared_low_risk) ... ok
+test_missing_artifact_rejected (test_records.RecordTests.test_missing_artifact_rejected) ... ok
+test_missing_time (test_records.RecordTests.test_missing_time) ... ok
+test_naive_timestamp (test_records.RecordTests.test_naive_timestamp) ... ok
+test_nonfinite_json (test_records.RecordTests.test_nonfinite_json) ... ok
+test_notrun_is_not_pass (test_records.RecordTests.test_notrun_is_not_pass) ... ok
+test_pending_without_resolution (test_records.RecordTests.test_pending_without_resolution) ... ok
+test_production_requires_controlled (test_records.RecordTests.test_production_requires_controlled) ... ok
+test_reversed_timestamp (test_records.RecordTests.test_reversed_timestamp) ... ok
+test_unknown_criterion (test_records.RecordTests.test_unknown_criterion) ... ok
+test_unknown_data_disqualifies_lite (test_records.RecordTests.test_unknown_data_disqualifies_lite) ... ok
+test_unknown_dependency (test_records.RecordTests.test_unknown_dependency) ... ok
+test_unknown_field (test_records.RecordTests.test_unknown_field) ... ok
+test_unknown_goal (test_records.RecordTests.test_unknown_goal) ... ok
+test_unknown_project_not_ready (test_records.RecordTests.test_unknown_project_not_ready) ... ok
+test_unproved_verified (test_records.RecordTests.test_unproved_verified) ... ok
+test_unsupported_schema (test_records.RecordTests.test_unsupported_schema) ... ok
+test_valid_evidence (test_records.RecordTests.test_valid_evidence) ... ok
+test_valid_state_readiness (test_records.RecordTests.test_valid_state_readiness) ... ok
+test_zero_target_pass_rejected (test_records.RecordTests.test_zero_target_pass_rejected) ... ok
+test_zero_test_pass_rejected (test_records.RecordTests.test_zero_test_pass_rejected) ... ok
+test_absolute_path (test_runtime.ExecutorTests.test_absolute_path) ... ok
+test_actor_drift (test_runtime.ExecutorTests.test_actor_drift) ... ok
+test_approval_from_different_executor (test_runtime.ExecutorTests.test_approval_from_different_executor) ... ok
+test_approval_ttl_bounds (test_runtime.ExecutorTests.test_approval_ttl_bounds) ... ok
+test_audit_has_no_payload_or_token (test_runtime.ExecutorTests.test_audit_has_no_payload_or_token) ... ok
+test_backslash_path (test_runtime.ExecutorTests.test_backslash_path) ... ok
+test_bound_approval_executes (test_runtime.ExecutorTests.test_bound_approval_executes) ... ok
+test_cancellation (test_runtime.ExecutorTests.test_cancellation) ... ok
+test_candidate_drift (test_runtime.ExecutorTests.test_candidate_drift) ... ok
+test_changed_action_after_approval (test_runtime.ExecutorTests.test_changed_action_after_approval) ... ok
+test_changed_target_after_approval (test_runtime.ExecutorTests.test_changed_target_after_approval) ... ok
+test_control_plane_path (test_runtime.ExecutorTests.test_control_plane_path) ... ok
+test_create_has_actual_effect (test_runtime.ExecutorTests.test_create_has_actual_effect) ... ok
+test_create_never_overwrites (test_runtime.ExecutorTests.test_create_never_overwrites) ... ok
+test_environment_drift (test_runtime.ExecutorTests.test_environment_drift) ... ok
+test_expired_approval (test_runtime.ExecutorTests.test_expired_approval) ... ok
+test_expiry_during_audit (test_runtime.ExecutorTests.test_expiry_during_audit) ... ok
+test_failed_result_audit_is_indeterminate (test_runtime.ExecutorTests.test_failed_result_audit_is_indeterminate) ... ok
+test_forged_signature (test_runtime.ExecutorTests.test_forged_signature) ... ok
+test_hardlink (test_runtime.ExecutorTests.test_hardlink) ... ok
+test_hidden_credentials_path (test_runtime.ExecutorTests.test_hidden_credentials_path) ... ok
+test_hidden_prefix_cannot_be_granted (test_runtime.ExecutorTests.test_hidden_prefix_cannot_be_granted) ... ok
+test_input_directory_not_writable (test_runtime.ExecutorTests.test_input_directory_not_writable) ... ok
+test_malformed_context_is_denied (test_runtime.ExecutorTests.test_malformed_context_is_denied) ... ok
+test_missing_intent_audit_denies_effect (test_runtime.ExecutorTests.test_missing_intent_audit_denies_effect) ... ok
+test_model_authorized_flag (test_runtime.ExecutorTests.test_model_authorized_flag) ... ok
+test_model_identity_claim (test_runtime.ExecutorTests.test_model_identity_claim) ... ok
+test_model_risk_claim (test_runtime.ExecutorTests.test_model_risk_claim) ... ok
+test_modified_approval_body (test_runtime.ExecutorTests.test_modified_approval_body) ... ok
+test_payload_budget (test_runtime.ExecutorTests.test_payload_budget) ... ok
+test_policy_drift (test_runtime.ExecutorTests.test_policy_drift) ... ok
+test_prefix_boundary (test_runtime.ExecutorTests.test_prefix_boundary) ... ok
+test_read_budget (test_runtime.ExecutorTests.test_read_budget) ... ok
+test_recheck_after_intent_audit (test_runtime.ExecutorTests.test_recheck_after_intent_audit) ... ok
+test_replace_requests_review (test_runtime.ExecutorTests.test_replace_requests_review) ... ok
+test_replay_rejected_even_if_target_restored (test_runtime.ExecutorTests.test_replay_rejected_even_if_target_restored) ... ok
+test_revocation (test_runtime.ExecutorTests.test_revocation) ... ok
+test_scoped_read (test_runtime.ExecutorTests.test_scoped_read) ... ok
+test_step_budget (test_runtime.ExecutorTests.test_step_budget) ... ok
+test_symlink_file (test_runtime.ExecutorTests.test_symlink_file) ... ok
+test_symlink_parent (test_runtime.ExecutorTests.test_symlink_parent) ... ok
+test_task_drift (test_runtime.ExecutorTests.test_task_drift) ... ok
+test_time_budget (test_runtime.ExecutorTests.test_time_budget) ... ok
+test_traversal (test_runtime.ExecutorTests.test_traversal) ... ok
+test_unknown_network (test_runtime.ExecutorTests.test_unknown_network) ... ok
+test_unknown_shell (test_runtime.ExecutorTests.test_unknown_shell) ... ok
+test_windows_drive (test_runtime.ExecutorTests.test_windows_drive) ... ok
+
+======================================================================
+ERROR: test_init_references_current_version (test_delivery_records.DeliveryCLI.test_init_references_current_version)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Agent_Governance_Harness_Reference_1.1.0/tests/test_delivery_records.py", line 105, in test_init_references_current_version
+    def test_init_references_current_version(self):self.assertEqual(load(self.root/'.aghr/project.json')['reference_version'],'1.1.0')
+                                                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'reference_version'
+
+======================================================================
+FAIL: test_integrated_package (test_integration.IntegrationTests.test_integrated_package)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Agent_Governance_Harness_Reference_1.1.0/tests/test_integration.py", line 18, in test_integrated_package
+    def test_integrated_package(self):self.assertEqual(check_integration(self.r),[])
+                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['Missing additions target: verification/r[1632 chars]son'] != []
+
+First list contains 22 additional elements.
+First extra element 0:
+'Missing additions target: verification/results/merge-baselines/addition-tests.txt'
+
+Diff is 1810 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 233 tests in 2.518s
+
+FAILED (failures=1, errors=1)

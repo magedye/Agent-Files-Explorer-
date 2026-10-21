@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "project_id": "project-to-identify",
+  "name": "Project to identify",
+  "owner": "Owner to identify",
+  "profile": "STANDARD",
+  "artifact_kind": "UNKNOWN",
+  "repository_ref": "",
+  "stack": [],
+  "architecture": "",
+  "system_flow": [],
+  "provider": {
+    "id": "OPENAI",
+    "model": null,
+    "endpoint": null
+  },
+  "host": {
+    "id": "CODEX",
+    "version": null,
+    "os": null,
+    "qualification_ref": null
+  },
+  "adoption": {
+    "state": "PREPARED",
+    "decision_ref": null,
+    "effective_scope": []
+  },
+  "security": {
+    "data_class": "UNKNOWN",
+    "production_access": false,
+    "irreversible_operations": false,
+    "external_mutations": false,
+    "independent_review_required": false,
+    "allowed_destinations": []
+  },
+  "budgets": {
+    "max_steps": 50,
+    "max_seconds": 600,
+    "max_retries": 2,
+    "max_output_bytes": 16384
+  },
+  "commands": [],
+  "canonical_backend": "LOCAL_JSON",
+  "external_backend_ref": null
+}

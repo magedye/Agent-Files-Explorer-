@@ -1,0 +1,459 @@
+{
+  "normative": false,
+  "skills": [
+    {
+      "id": "agent-tool-security",
+      "path": "optional_skills/agent-tool-security/SKILL.md",
+      "source": "ORIGINAL_PACKAGE_AUTHORING",
+      "version": "1.1.0",
+      "auto_installed": false,
+      "host_qualification": "NOT_RUN",
+      "activation": "OWNER_SELECTION_AND_HOST_ADOPTION_REQUIRED",
+      "sha256": "00fb742a08b84a0f260e94533145ca198d3b09b89d141a356d7e82f2c690d77b",
+      "triggers": [
+        "tool_security",
+        "mcp_tool",
+        "credential_exposure",
+        "permission_audit",
+        "tool_vetting",
+        "tool_qualification",
+        "أمن الأدوات",
+        "أمن أدوات",
+        "حماية الأسرار",
+        "مراجعة صلاحيات الأدوات"
+      ],
+      "required_tools": [
+        "read_file"
+      ],
+      "permissions": [
+        "READ_ONLY"
+      ],
+      "conflicts_with": [],
+      "dependencies": {
+        "min_tools": [
+          "read_file"
+        ]
+      },
+      "output_criteria": [
+        "security_assessment",
+        "tool_boundaries_report"
+      ],
+      "capabilities": [
+        "tool_security"
+      ],
+      "source_kind": "PACKAGE"
+    },
+    {
+      "id": "architecture-options",
+      "path": "optional_skills/architecture-options/SKILL.md",
+      "source": "ORIGINAL_PACKAGE_AUTHORING",
+      "version": "1.1.0",
+      "auto_installed": false,
+      "host_qualification": "NOT_RUN",
+      "activation": "OWNER_SELECTION_AND_HOST_ADOPTION_REQUIRED",
+      "sha256": "579f4573936ffa650aa4457a06670a00b4b2101adf6e45fe7a6ed2425c5d6704",
+      "triggers": [
+        "architecture_design",
+        "pattern_choice",
+        "tradeoff_analysis",
+        "system_structure",
+        "structural_decision",
+        "تصميم معماري",
+        "بدائل معمارية",
+        "معمارية النظام"
+      ],
+      "required_tools": [
+        "read_file"
+      ],
+      "permissions": [
+        "READ_ONLY"
+      ],
+      "conflicts_with": [],
+      "dependencies": {
+        "min_tools": [
+          "read_file"
+        ]
+      },
+      "output_criteria": [
+        "architecture_options_analysis",
+        "tradeoff_matrix"
+      ],
+      "capabilities": [
+        "architecture"
+      ],
+      "source_kind": "PACKAGE"
+    },
+    {
+      "id": "incremental-change",
+      "path": "optional_skills/incremental-change/SKILL.md",
+      "source": "ORIGINAL_PACKAGE_AUTHORING",
+      "version": "1.1.0",
+      "auto_installed": false,
+      "host_qualification": "NOT_RUN",
+      "activation": "OWNER_SELECTION_AND_HOST_ADOPTION_REQUIRED",
+      "sha256": "c681d722e01533a5e2be93b12a72f3ef9c0a6b5ef4512093250e073b027a5cc3",
+      "triggers": [
+        "incremental_refactor",
+        "stepwise_implementation",
+        "slice_execution",
+        "migration_steps",
+        "surgical_change",
+        "تنفيذ تدريجي",
+        "تطوير ميزة",
+        "إضافة ميزة",
+        "تعديل برمجي"
+      ],
+      "required_tools": [
+        "read_file",
+        "write_file"
+      ],
+      "permissions": [
+        "WORKSPACE_WRITE"
+      ],
+      "conflicts_with": [],
+      "dependencies": {
+        "min_tools": [
+          "read_file",
+          "write_file"
+        ]
+      },
+      "output_criteria": [
+        "slice_plan",
+        "verified_increment"
+      ],
+      "capabilities": [
+        "implementation"
+      ],
+      "source_kind": "PACKAGE"
+    },
+    {
+      "id": "plan-drift-review",
+      "path": "optional_skills/plan-drift-review/SKILL.md",
+      "source": "ORIGINAL_PACKAGE_AUTHORING",
+      "version": "1.1.0",
+      "auto_installed": false,
+      "host_qualification": "NOT_RUN",
+      "activation": "OWNER_SELECTION_AND_HOST_ADOPTION_REQUIRED",
+      "sha256": "cf92548866c5300ef23982331d802071091f3560eee41bdcab5f14f4df803839",
+      "triggers": [
+        "plan_drift",
+        "scope_creep",
+        "orphaned_tasks",
+        "milestone_audit",
+        "drift_analysis",
+        "انحراف الخطة",
+        "مراجعة الخطة",
+        "تجاوز النطاق"
+      ],
+      "required_tools": [
+        "read_file"
+      ],
+      "permissions": [
+        "READ_ONLY"
+      ],
+      "conflicts_with": [],
+      "dependencies": {
+        "min_tools": [
+          "read_file"
+        ]
+      },
+      "output_criteria": [
+        "drift_report",
+        "reconciliation_actions"
+      ],
+      "capabilities": [
+        "plan_review"
+      ],
+      "source_kind": "PACKAGE"
+    },
+    {
+      "id": "rag-data-quality",
+      "path": "optional_skills/rag-data-quality/SKILL.md",
+      "source": "ORIGINAL_PACKAGE_AUTHORING",
+      "version": "1.1.0",
+      "auto_installed": false,
+      "host_qualification": "NOT_RUN",
+      "activation": "OWNER_SELECTION_AND_HOST_ADOPTION_REQUIRED",
+      "sha256": "134e4399e2b0cf7b9194cc04488981967a60159261050d89ba63614b062b586c",
+      "triggers": [
+        "rag_evaluation",
+        "context_retrieval_quality",
+        "grounding_check",
+        "chunking_audit",
+        "retrieval_benchmark",
+        "جودة الاسترجاع",
+        "تقييم الاسترجاع",
+        "جودة المصادر"
+      ],
+      "required_tools": [
+        "read_file"
+      ],
+      "permissions": [
+        "READ_ONLY"
+      ],
+      "conflicts_with": [],
+      "dependencies": {
+        "min_tools": [
+          "read_file"
+        ]
+      },
+      "output_criteria": [
+        "rag_quality_scorecard",
+        "grounding_findings"
+      ],
+      "capabilities": [
+        "retrieval_quality"
+      ],
+      "source_kind": "PACKAGE"
+    },
+    {
+      "id": "requirements-traceability",
+      "path": "optional_skills/requirements-traceability/SKILL.md",
+      "source": "ORIGINAL_PACKAGE_AUTHORING",
+      "version": "1.1.0",
+      "auto_installed": false,
+      "host_qualification": "NOT_RUN",
+      "activation": "OWNER_SELECTION_AND_HOST_ADOPTION_REQUIRED",
+      "sha256": "deefcbe720798dabaac939915970c5118b02411e81700fbb824edf3d901b847f",
+      "triggers": [
+        "requirements_trace",
+        "criteria_mapping",
+        "test_coverage_trace",
+        "acceptance_verification",
+        "traceability_audit",
+        "تتبع المتطلبات",
+        "معايير القبول",
+        "مراجعة المتطلبات"
+      ],
+      "required_tools": [
+        "read_file"
+      ],
+      "permissions": [
+        "READ_ONLY"
+      ],
+      "conflicts_with": [],
+      "dependencies": {
+        "min_tools": [
+          "read_file"
+        ]
+      },
+      "output_criteria": [
+        "traceability_matrix",
+        "gap_identification"
+      ],
+      "capabilities": [
+        "requirements"
+      ],
+      "source_kind": "PACKAGE"
+    },
+    {
+      "id": "risk-based-verification",
+      "path": "optional_skills/risk-based-verification/SKILL.md",
+      "source": "ORIGINAL_PACKAGE_AUTHORING",
+      "version": "1.1.0",
+      "auto_installed": false,
+      "host_qualification": "NOT_RUN",
+      "activation": "OWNER_SELECTION_AND_HOST_ADOPTION_REQUIRED",
+      "sha256": "35fd3382c2af95442ca41feb4f1a339d70bee87fc5e632076f0e5e7d79fb1115",
+      "triggers": [
+        "risk_testing",
+        "safety_gate_verification",
+        "boundary_testing",
+        "critical_path_test",
+        "risk_verification",
+        "تحقق حسب المخاطر",
+        "اختبار الحدود",
+        "اختبارات القبول"
+      ],
+      "required_tools": [
+        "read_file",
+        "run_test"
+      ],
+      "permissions": [
+        "EXECUTE_TEST"
+      ],
+      "conflicts_with": [],
+      "dependencies": {
+        "min_tools": [
+          "read_file",
+          "run_test"
+        ]
+      },
+      "output_criteria": [
+        "risk_test_matrix",
+        "gate_verdict"
+      ],
+      "capabilities": [
+        "verification"
+      ],
+      "source_kind": "PACKAGE"
+    },
+    {
+      "id": "root-cause-debugging",
+      "path": "optional_skills/root-cause-debugging/SKILL.md",
+      "source": "ORIGINAL_PACKAGE_AUTHORING",
+      "version": "1.1.0",
+      "auto_installed": false,
+      "host_qualification": "NOT_RUN",
+      "activation": "OWNER_SELECTION_AND_HOST_ADOPTION_REQUIRED",
+      "sha256": "8b02b4494bc0738fdb7187fc4e01eaa5d1824c8410409328f4fbe3e20b998efc",
+      "triggers": [
+        "root_cause_analysis",
+        "diagnose_failure",
+        "bug_investigation",
+        "reproduce_error",
+        "incident_diagnosis",
+        "تشخيص خطأ",
+        "تصحيح عطل",
+        "السبب الجذري",
+        "اختبار فاشل"
+      ],
+      "required_tools": [
+        "read_file"
+      ],
+      "permissions": [
+        "READ_ONLY"
+      ],
+      "conflicts_with": [],
+      "dependencies": {
+        "min_tools": [
+          "read_file"
+        ]
+      },
+      "output_criteria": [
+        "root_cause_diagnosis",
+        "targeted_fix_recommendation"
+      ],
+      "capabilities": [
+        "debugging"
+      ],
+      "source_kind": "PACKAGE"
+    },
+    {
+      "id": "safe-git-closeout",
+      "path": "optional_skills/safe-git-closeout/SKILL.md",
+      "source": "ORIGINAL_PACKAGE_AUTHORING",
+      "version": "1.1.0",
+      "auto_installed": false,
+      "host_qualification": "NOT_RUN",
+      "activation": "OWNER_SELECTION_AND_HOST_ADOPTION_REQUIRED",
+      "sha256": "c7b7a3f0e909b838c407060ea4ed5f5f5c42fdead9ba50b5de2f7bb2a2c5c89d",
+      "triggers": [
+        "git_closeout",
+        "working_tree_clean",
+        "branch_handoff",
+        "uncommitted_changes",
+        "closeout_verification",
+        "إغلاق الفرع",
+        "تسليم المستودع",
+        "حالة git"
+      ],
+      "required_tools": [
+        "read_file",
+        "git_status"
+      ],
+      "permissions": [
+        "READ_ONLY",
+        "GIT_STATUS"
+      ],
+      "conflicts_with": [],
+      "dependencies": {
+        "min_tools": [
+          "read_file",
+          "git_status"
+        ]
+      },
+      "output_criteria": [
+        "tree_status_report",
+        "safe_closeout_summary"
+      ],
+      "capabilities": [
+        "git_closeout"
+      ],
+      "source_kind": "PACKAGE"
+    },
+    {
+      "id": "smart-clarification",
+      "path": "optional_skills/smart-clarification/SKILL.md",
+      "source": "ORIGINAL_PACKAGE_AUTHORING",
+      "version": "1.1.0",
+      "auto_installed": false,
+      "host_qualification": "NOT_RUN",
+      "activation": "OWNER_SELECTION_AND_HOST_ADOPTION_REQUIRED",
+      "sha256": "ee9adb3e5f2ec02dd5c80db7b750fbf4d857d88a39254c09ecce0eacab6693ae",
+      "triggers": [
+        "clarify_ambiguity",
+        "intake_questions",
+        "assumption_reconciliation",
+        "safety_uncertainty",
+        "ambiguous_requirement",
+        "استيضاح المتطلبات",
+        "طلب غير واضح",
+        "تعارض المتطلبات"
+      ],
+      "required_tools": [
+        "read_file"
+      ],
+      "permissions": [
+        "READ_ONLY"
+      ],
+      "conflicts_with": [],
+      "dependencies": {
+        "min_tools": [
+          "read_file"
+        ]
+      },
+      "output_criteria": [
+        "clarification_matrix",
+        "reversible_assumptions"
+      ],
+      "capabilities": [
+        "clarification"
+      ],
+      "source_kind": "PACKAGE"
+    },
+    {
+      "id": "governed-learning",
+      "path": "optional_skills/governed-learning/SKILL.md",
+      "source": "ORIGINAL_PACKAGE_AUTHORING_WITH_RECONCILED_EXTERNAL_IDEAS",
+      "version": "1.2.0",
+      "auto_installed": false,
+      "host_qualification": "NOT_RUN",
+      "activation": "OWNER_SELECTION_AND_HOST_ADOPTION_REQUIRED",
+      "sha256": "a851238d2936e9fa17ec10c21b56ac36e10744e176fc5079aa55a19ba1b0b28b",
+      "triggers": [
+        "lesson_extraction",
+        "lessons_learned",
+        "learning_review",
+        "retrospective",
+        "classified_instructions",
+        "استخراج الدروس",
+        "الدروس المستفادة",
+        "مراجعة درس",
+        "دروس مستفادة"
+      ],
+      "required_tools": [
+        "read_file"
+      ],
+      "permissions": [
+        "READ_ONLY"
+      ],
+      "conflicts_with": [],
+      "dependencies": {
+        "min_tools": [
+          "read_file"
+        ]
+      },
+      "output_criteria": [
+        "lesson_review",
+        "classified_dispositions"
+      ],
+      "capabilities": [
+        "learning"
+      ],
+      "source_kind": "PACKAGE"
+    }
+  ],
+  "authority": "Procedure wrappers under existing canonical rules. No autonomous permission.",
+  "catalog_revision": "1.3.0-candidate"
+}

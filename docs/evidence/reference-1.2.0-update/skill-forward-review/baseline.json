@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0",
+  "lesson_id": "LES-SYNTHETIC-CURRENT",
+  "title": "Synthetic structural review fixture",
+  "kind": "LESSON",
+  "source": {
+    "locator": "source.json",
+    "sha256": "0bd830989ddda8d7374ea109bd1fdca5e049c126d5d87807cf6a719dbdbf22ad",
+    "channel_observed": "FILE_DATA",
+    "trust": "UNVERIFIED"
+  },
+  "problem": "Synthetic bounded validation problem.",
+  "root_cause": {
+    "status": "PROVEN",
+    "explanation": "Synthetic asserted cause; no real-world claim.",
+    "evidence_refs": [
+      "verification.txt"
+    ]
+  },
+  "evidence": [
+    {
+      "path": "source.json",
+      "sha256": "0bd830989ddda8d7374ea109bd1fdca5e049c126d5d87807cf6a719dbdbf22ad",
+      "candidate_id": "synthetic-current",
+      "result": "OBSERVATION"
+    },
+    {
+      "path": "verification.txt",
+      "sha256": "82ed165b195d7f602949accb8ddbcbc1c4ac4041ba55175369c3c89e46f53423",
+      "candidate_id": "synthetic-current",
+      "result": "PASS"
+    }
+  ],
+  "counterevidence": [],
+  "detection_signal": "Synthetic signal.",
+  "proposed_instruction": {
+    "text": "Use the demonstrated synthetic project procedure.",
+    "force": "SHOULD",
+    "scope": "PROJECT",
+    "owner_ref": "synthetic owner",
+    "target": "docs/runbook.md",
+    "verification": "Synthetic focused check."
+  },
+  "applicability": {
+    "candidate_id": "synthetic-current",
+    "context": "synthetic project",
+    "review_after": null
+  },
+  "confidence": {
+    "level": "MEDIUM",
+    "reason": "Synthetic fixture only."
+  },
+  "knowledge_state": "SUPPORTED",
+  "execution_state": "NOT_APPLIED",
+  "reconciliation": {
+    "coverage": "MISSING",
+    "coverage_refs": [],
+    "conflicts": [],
+    "duplicate_of": null,
+    "rationale": "Synthetic missing coverage."
+  },
+  "disposition": "ADOPT",
+  "authority": {
+    "capture_ref": "urn:synthetic:capture",
+    "adoption_ref": "urn:synthetic:adopt",
+    "effect_ref": null
+  },
+  "effect": {
+    "artifact_refs": [],
+    "verification_refs": []
+  },
+  "supersedes": null
+}

@@ -1,0 +1,165 @@
+{
+  "observed_at": "2026-10-20T07:09:49.484666+00:00",
+  "root": "governance_packages/candidates/AGHR_Reference_1.2.0_update_20261020",
+  "argv": [
+    "tools/check_package.py",
+    "--preflight"
+  ],
+  "implementation_files": {
+    "registry/ENFORCEMENT_COVERAGE.json": {
+      "sha256": "1212b8b9dde8f6846946f687e71d8ee0387d03a0bbeb03e0d78a8b5f7759167c",
+      "bytes": 24502
+    },
+    "registry/RULES.json": {
+      "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db",
+      "bytes": 35907
+    },
+    "runtime/DELIVERY.md": {
+      "sha256": "f30579ea4ddaf8356bcc7d08465d1f7d19d38ca98873c22e8c42f7c9be0d8f57",
+      "bytes": 2016
+    },
+    "runtime/README.md": {
+      "sha256": "cfcb7d0d25d14fa79dddde77e71f7436aa650d211c8fef7c6aec5e14e03f86f0",
+      "bytes": 5548
+    },
+    "runtime/__init__.py": {
+      "sha256": "282f18c57d5b7014a23f56f2b14a9ce7530a5ad6f38fce1ee6aa3263883189ab",
+      "bytes": 76
+    },
+    "runtime/cli.py": {
+      "sha256": "cceb401f516892e62402121a43b3829e292658770f390de58ae59ebc4876a053",
+      "bytes": 19121
+    },
+    "runtime/common.py": {
+      "sha256": "2f6cdf4980820c17f0e439923c98bfa3dc3627bae8ca23be0a6f8aee4cec5ee2",
+      "bytes": 17521
+    },
+    "runtime/delivery.py": {
+      "sha256": "75031ba7ae1becd454225572eee5cf4353d9f0a5db611cff9d7d3bcf5946ef9a",
+      "bytes": 2573
+    },
+    "runtime/inbox.py": {
+      "sha256": "f5e9eac9141df9797f20cba2e81c79850843bf900627f0283fddaea4e9859782",
+      "bytes": 16208
+    },
+    "runtime/learning.py": {
+      "sha256": "4d29bcb03cefb8f44ba038e496c55e4803b19cdb30bebf9a16d0ad5e8b99753c",
+      "bytes": 8058
+    },
+    "runtime/policy.py": {
+      "sha256": "a4d8e631c9cf00c62eb7bfea4b52a1301e6fe8fbaf8ecc70f3d4715d40972a55",
+      "bytes": 12391
+    },
+    "runtime/skills.py": {
+      "sha256": "9eedb60cf40cfac9dc06f8d2abf8f0ec55396f74b70004d09cd497d205e2b9ec",
+      "bytes": 14179
+    },
+    "schemas/EVIDENCE.schema.json": {
+      "sha256": "3d89a181e072b0ebd398e5218599823a7de2179e4954136abdedcd6dc6105ad7",
+      "bytes": 2412
+    },
+    "schemas/LESSON.schema.json": {
+      "sha256": "e7e3b21039ae8f3b803b903c62f98004dc181959662aa98e1f697998acdf739b",
+      "bytes": 5551
+    },
+    "schemas/PROJECT.schema.json": {
+      "sha256": "e4b1b447fd92fc61fae75d6db5c59446a5ecdab4afe4b00d2d8f6c2e815ded08",
+      "bytes": 7764
+    },
+    "schemas/README.md": {
+      "sha256": "50e56cf1518741ce97c6026d4a80166241d4a174d00b34902ea9c7ca2f07fbf9",
+      "bytes": 1446
+    },
+    "schemas/REQUEST.schema.json": {
+      "sha256": "8f7586df5c04a9663cdace6a2c42e9f1bf60b618152e0b515250f1a7d1d36d12",
+      "bytes": 8060
+    },
+    "schemas/RULE.schema.json": {
+      "sha256": "c472ce3f64ed20ddf7e45b5f744a3c3eec42e18e75857a816f133ea6e588e1a1",
+      "bytes": 2273
+    },
+    "schemas/STATE.schema.json": {
+      "sha256": "55d53f2a083404cc91ec497e6a0ee62f66087e023316a5c155a946577ed9d447",
+      "bytes": 14809
+    },
+    "tests/__init__.py": {
+      "sha256": "ebdaeb07de686d2cd7667403726deb7455c88adc678caeb94f21a2b393454fbe",
+      "bytes": 68
+    },
+    "tests/test_decision_support.py": {
+      "sha256": "956aa7349de7e5d2e7277223860cf6aa7331888e1eb3351fbc8f552e803f280c",
+      "bytes": 4861
+    },
+    "tests/test_delivery_records.py": {
+      "sha256": "729f6a4274c1b9caa75bf0e22e269a6bbe2a45d25caca21b181394c2cbae1021",
+      "bytes": 10496
+    },
+    "tests/test_evaluations.py": {
+      "sha256": "22a568457927f12d6aeddae6e0e8a0d749e561e2b13208ccf777b0f6e89f91c8",
+      "bytes": 2171
+    },
+    "tests/test_inbox.py": {
+      "sha256": "57f1d070645a876869b661d1d6eedacf00a1adfa6126c772b7e3992438749d55",
+      "bytes": 11012
+    },
+    "tests/test_integration.py": {
+      "sha256": "7897694bd19779c15f24c6745ada8aebc6134637cab5efaf8ce52fca9f90dbf1",
+      "bytes": 4238
+    },
+    "tests/test_learning.py": {
+      "sha256": "df96bec7f39f6c1e2f3a49f6d95a873caeafd11d10dee4cbad5a70c37138a529",
+      "bytes": 8256
+    },
+    "tests/test_metrics.py": {
+      "sha256": "d7ee6959dc6aab6f2218f308c34f2282101a59a88dfeb6a97420777824f607a2",
+      "bytes": 4564
+    },
+    "tests/test_package.py": {
+      "sha256": "06392ea5773447eb1ae081dd4279d87fa290858dacd489cbf2d190d345a3ed3d",
+      "bytes": 6173
+    },
+    "tests/test_records.py": {
+      "sha256": "a29cade30fb7c54a59647749368cafaf44d90a71ae4afd979278c5c2dbcaf7e4",
+      "bytes": 9762
+    },
+    "tests/test_runtime.py": {
+      "sha256": "ed784fd5af3dec7d6f781c7a2e06a5a25ff430734ebc3c1fdef2b10d5de998d7",
+      "bytes": 9522
+    },
+    "tests/test_skills.py": {
+      "sha256": "9b0e694585aeb516dc5b526f4dd69a7341b1320f1a5262975fdf42bb23cb2289",
+      "bytes": 10724
+    },
+    "tools/__init__.py": {
+      "sha256": "9a644ba12c5868b00ee5614400e24b8c4ecb80b09eacb119147deb53784452a3",
+      "bytes": 52
+    },
+    "tools/check_integration.py": {
+      "sha256": "23907f3bc088e63dae4c36dda26f9570589ba723ed2182d0eef93252d96bc253",
+      "bytes": 6849
+    },
+    "tools/check_package.py": {
+      "sha256": "02bb35980c3e9f53551cfcd7d0a95ce02a78e83de5eb3928aa17a344b432e12f",
+      "bytes": 14958
+    },
+    "tools/decision_support.py": {
+      "sha256": "091f493c42f01046497b87e368160508d95aea236f4ba5a067b7635683dfc428",
+      "bytes": 3774
+    },
+    "tools/metrics.py": {
+      "sha256": "61303e42217160f170b19b20a980382d356834ab50f05813a03d3631c760ce37",
+      "bytes": 4424
+    },
+    "tools/render_guide.py": {
+      "sha256": "db1ea47be902e98ac3ff0d0c06bfe7b77988eb29ef2eeeae3cded7286c2f53cf",
+      "bytes": 9274
+    },
+    "tools/run_tests.py": {
+      "sha256": "521ed0663c5a5acb284b25e2d630153b5182fa957baf766ff6421d639b81be25",
+      "bytes": 1636
+    }
+  },
+  "exit_code": 0,
+  "stdout": "{\n  \"status\": \"PREFLIGHT_PASS\",\n  \"checks\": [\n    {\n      \"id\": \"FILES\",\n      \"observed\": 274,\n      \"required\": 57\n    },\n    {\n      \"id\": \"CONTEXT_BUDGET\",\n      \"advisory_status\": \"PASS\",\n      \"agents_md_tokens_est\": 871,\n      \"bootstrap_total_tokens_est\": 3682,\n      \"advisory_target_range\": \"1500-2500 tokens\",\n      \"estimation_method\": \"CHAR_COUNT_DIV_4_HEURISTIC\",\n      \"details\": {\n        \"AGENTS.md\": {\n          \"bytes\": 3484,\n          \"chars\": 3484,\n          \"words\": 475,\n          \"lines\": 33,\n          \"tokens_est\": 871\n        },\n        \"START_HERE.md\": {\n          \"bytes\": 5521,\n          \"chars\": 5465,\n          \"words\": 660,\n          \"lines\": 54,\n          \"tokens_est\": 1366\n        },\n        \"CONTENTS.md\": {\n          \"bytes\": 5866,\n          \"chars\": 5781,\n          \"words\": 751,\n          \"lines\": 67,\n          \"tokens_est\": 1445\n        }\n      }\n    },\n    {\n      \"id\": \"RULES\",\n      \"count\": 47\n    },\n    {\n      \"id\": \"SOURCES\",\n      \"count\": 56\n    },\n    {\n      \"id\": \"ADAPTERS\",\n      \"count\": 12\n    },\n    {\n      \"id\": \"SUPPLEMENT\",\n      \"files\": 73,\n      \"controls\": 48\n    }\n  ],\n  \"errors\": [],\n  \"limits\": [\n    \"Structural/semantic/digest checks are not a live host security test.\",\n    \"Historical trace linkage is not independently verified semantic equivalence.\",\n    \"Post-freeze results are covered by the detached whole-ZIP digest, not this payload manifest.\"\n  ]\n}\n",
+  "stderr": ""
+}

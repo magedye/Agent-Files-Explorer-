@@ -34,7 +34,7 @@ body {
   font-family: "Segoe UI", Tahoma, "Noto Naskh Arabic", Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
-  direction: rtl;
+  direction: inherit;
   font-size: 14px;
   transition: background-color 0.25s ease, color 0.25s ease;
 }
@@ -269,6 +269,17 @@ body {
   align-items: center;
   gap: 8px;
 }
+
+.language-select {
+  font: inherit;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 10px;
+  cursor: pointer;
+}
+.language-select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* Full Pane Container */
 .studio-full-pane {
@@ -874,4 +885,31 @@ body {
   background: var(--panel);
 }
 .explorer-content-pane { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+/* Language-neutral spacing and wrapping for longer interface labels. */
+.gov-package-bar { flex-wrap: wrap; }
+.gov-package-bar select { min-width: 0; max-width: 100%; }
+.gov-list-col, .gov-detail-col, .intake-form-pane, .intake-result-pane,
+.adoption-config-col, .adoption-preview-col, .eval-history-col, .eval-evidence-col { min-width: 0; }
+
+@media (max-width: 900px) {
+  .gov-content-grid, .intake-layout-grid, .adoption-grid, .eval-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .gov-toolbar, .label-with-examples, .inline-group { flex-wrap: wrap; }
+  .search-input { min-width: 0; }
+  .studio-full-pane { padding: 16px; }
+}
+
+@media (max-width: 600px) {
+  .topbar { gap: 10px; padding: 10px; }
+  .mode-nav { margin-inline: 0; gap: 4px; }
+  .mode-btn { padding: 7px 9px; }
+  .topbar-controls { margin-inline-start: 0; }
+  .body { flex-direction: column; overflow: auto; }
+  .sidebar { width: 100%; max-height: 45vh; flex: 0 0 auto; }
+  .main { min-height: 55vh; flex: 1 0 auto; }
+  .file-head { flex-wrap: wrap; }
+  .file-title { overflow-wrap: anywhere; }
+}
 

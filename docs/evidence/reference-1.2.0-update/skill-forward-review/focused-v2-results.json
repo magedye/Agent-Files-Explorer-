@@ -1,0 +1,87 @@
+{
+  "case_count": 9,
+  "mismatches": {},
+  "original_files_unchanged": true,
+  "candidate_unchanged_during_run": true,
+  "candidate_sha256": {
+    "runtime/learning.py": "8d683cd70521f8b41586db459079f28419eee2b1ea850a6e33d1595f54c90ec3",
+    "schemas/LESSON.schema.json": "e8fe8b12ee0c32f288f5e209f893b54a5b116de2778a623d2d5418485824c91f"
+  },
+  "results": {
+    "baseline": {
+      "status": "PASS",
+      "errors": [],
+      "promotion_checks": "PASS",
+      "reasons": [],
+      "exact_duplicates": []
+    },
+    "failed_effect_verification": {
+      "status": "PASS",
+      "errors": [],
+      "promotion_checks": "BLOCKED",
+      "reasons": [
+        "Applied effect verification failed or belongs to another candidate"
+      ],
+      "exact_duplicates": []
+    },
+    "previous_candidate_effect_verification": {
+      "status": "PASS",
+      "errors": [],
+      "promotion_checks": "BLOCKED",
+      "reasons": [
+        "Applied effect verification failed or belongs to another candidate"
+      ],
+      "exact_duplicates": []
+    },
+    "resolved_counterevidence": {
+      "status": "PASS",
+      "errors": [],
+      "promotion_checks": "PASS",
+      "reasons": [],
+      "exact_duplicates": []
+    },
+    "unresolved_counterevidence": {
+      "status": "PASS",
+      "errors": [],
+      "promotion_checks": "BLOCKED",
+      "reasons": [
+        "Unresolved counterevidence requires successful current-candidate resolution evidence"
+      ],
+      "exact_duplicates": []
+    },
+    "self_resolved_counterevidence": {
+      "status": "FAIL",
+      "errors": [
+        "Resolved counterevidence requires separate resolution evidence"
+      ],
+      "promotion_checks": "BLOCKED"
+    },
+    "previous_candidate_counterevidence_resolution": {
+      "status": "PASS",
+      "errors": [],
+      "promotion_checks": "BLOCKED",
+      "reasons": [
+        "Unresolved counterevidence requires successful current-candidate resolution evidence"
+      ],
+      "exact_duplicates": []
+    },
+    "supported_revision_of_unapplied_candidate": {
+      "status": "PASS",
+      "errors": [],
+      "promotion_checks": "PASS",
+      "reasons": [],
+      "exact_duplicates": []
+    },
+    "revision_of_applied_predecessor": {
+      "status": "PASS",
+      "errors": [],
+      "promotion_checks": "BLOCKED",
+      "reasons": [
+        "Unresolved conflict or duplicate; do not append another instruction"
+      ],
+      "exact_duplicates": [
+        "LES-SYNTHETIC-APPLIED"
+      ]
+    }
+  }
+}

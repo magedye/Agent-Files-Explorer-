@@ -1,0 +1,254 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "REQUEST",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": [
+        "1.0"
+      ]
+    },
+    "request_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "REVIEW",
+        "PLAN",
+        "IMPLEMENT",
+        "ADOPT",
+        "CHANGE_RULE",
+        "INFORMATION"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "captured_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "available_scope": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "locator",
+        "sha256",
+        "captured_at",
+        "available_scope"
+      ],
+      "additionalProperties": false
+    },
+    "original_text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "goal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "exclusions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "authority_ref": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "original_text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "PRINCIPLE",
+              "POLICY",
+              "RULE",
+              "REQUIREMENT",
+              "CONSTRAINT",
+              "RECOMMENDATION",
+              "PREFERENCE",
+              "OBSERVATION",
+              "RISK",
+              "ASSUMPTION",
+              "QUESTION",
+              "DECISION",
+              "PROCEDURE"
+            ]
+          },
+          "force": {
+            "type": "string",
+            "enum": [
+              "MUST",
+              "MUST_NOT",
+              "SHOULD",
+              "SHOULD_NOT",
+              "MAY",
+              "INFORMATIVE",
+              "UNRESOLVED"
+            ]
+          },
+          "authority_ref": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "trust": {
+            "type": "string",
+            "enum": [
+              "TRUSTED_FOR_SCOPE",
+              "UNTRUSTED_DATA",
+              "UNVERIFIED"
+            ]
+          },
+          "approval": {
+            "type": "string",
+            "enum": [
+              "PROPOSED",
+              "APPROVED",
+              "REJECTED",
+              "DEFERRED"
+            ]
+          },
+          "applicability": {
+            "type": "string",
+            "enum": [
+              "APPLICABLE",
+              "NOT_APPLICABLE",
+              "UNRESOLVED"
+            ]
+          },
+          "impact": {
+            "type": "string",
+            "enum": [
+              "CRITICAL",
+              "HIGH",
+              "MEDIUM",
+              "LOW",
+              "INFORMATIONAL",
+              "UNASSESSED"
+            ]
+          },
+          "disposition": {
+            "type": "string",
+            "enum": [
+              "ADD",
+              "MERGE",
+              "STRENGTHEN",
+              "REPLACE",
+              "LINK",
+              "REJECT",
+              "DEFER",
+              "NEEDS_INFORMATION"
+            ]
+          },
+          "target_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "original_text",
+          "kind",
+          "force",
+          "authority_ref",
+          "trust",
+          "approval",
+          "applicability",
+          "impact",
+          "disposition",
+          "target_ids",
+          "rationale"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "schema_version",
+    "request_id",
+    "mode",
+    "source",
+    "original_text",
+    "goal",
+    "scope",
+    "exclusions",
+    "authority_ref",
+    "acceptance_criteria",
+    "items"
+  ],
+  "additionalProperties": false
+}

@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import http from "node:http";
 import path from "node:path";
 import { handleApiRequest } from "../server/api.js";
-import { registry, resolveSafePath, SecurityError } from "../server/security.js";
+import { registry, resolveSafePath, SecurityError, AGHR_ROOT, AGHR_1_2_0_ROOT } from "../server/security.js";
 
 function makeMockRequest({ url, method = "GET", headers = {} }) {
   const req = {
@@ -57,8 +57,13 @@ test("M1 Security: Approved Roots Listing", () => {
   assert.ok(roots.length >= 3, "Expected at least 3 approved roots");
   const rootIds = roots.map((r) => r.id);
   assert.ok(rootIds.includes("aghr"), "Authoritative AGHR root must be registered");
-  assert.ok(rootIds.includes("data-lisan-blind-lab"), "data-lisan-blind-lab must be registered");
-  assert.ok(rootIds.includes("data-sealed-text-decipherment"), "data-sealed-text-decipherment must be registered");
+  assert.ok(rootIds.includes("aghr_1_1_0"), "Full 1.1.0 reference must be registered");
+  assert.ok(rootIds.includes("aghr_minimal_1_1_0"), "Minimal 1.1.0 reference must be registered");
+  assert.ok(rootIds.includes("aghr_1_2_0"), "Updated 1.2.0 reference must be registered");
+  assert.equal(roots.find((root) => root.id === "aghr_1_2_0").readOnly, true);
+  assert.deepEqual(roots.filter((root) => root.isDefault).map((root) => root.id), ["aghr_1_2_0"]);
+  assert.equal(AGHR_ROOT, AGHR_1_2_0_ROOT, "Evaluation must use the current default reference");
+  assert.ok(!rootIds.some((id) => id.startsWith("data-")), "Removed data projects must not remain registered");
 });
 
 test("M1 Security: Reject Path Traversal via rootId + rel", () => {

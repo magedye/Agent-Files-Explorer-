@@ -1,0 +1,673 @@
+{
+  "capturedAt": "2026-10-20T19:18:56.571Z",
+  "status": "IMPLEMENTED_AND_LOCALLY_TESTED",
+  "scope": "English and Arabic interface copy, saved preference, document language/direction, responsive labels. Document/user/evidence text remains original.",
+  "studioTests": {
+    "command": "npm test",
+    "exitCode": 0,
+    "executed": 30,
+    "passed": 30,
+    "failed": 0,
+    "skipped": 0
+  },
+  "build": {
+    "command": "npm run build",
+    "exitCode": 0,
+    "modules": 296,
+    "warning": "Existing bundle size advisory (chunks over 500 kB). No dependency changes."
+  },
+  "catalog": {
+    "messages": 189,
+    "literalTranslationCallsChecked": 183,
+    "missingKeys": []
+  },
+  "browser": {
+    "engine": "Microsoft Edge",
+    "isolation": "Dedicated CDP browser and isolated context",
+    "url": "http://127.0.0.1:5180/",
+    "persistedAfterReload": {
+      "language": "en",
+      "direction": "ltr",
+      "bodyDirection": "ltr",
+      "title": "AGHR Governance Studio",
+      "navigation": [
+        "🧭 Explorer",
+        "📜 AGHR Reference",
+        "📥 Requests & Changes",
+        "🏗️ Project Adoption",
+        "⚖️ Evaluation & Evidence",
+        "🛡️ Staging & Apply"
+      ],
+      "activeNavigation": "📜 AGHR Reference",
+      "headings": [
+        "Governance rules",
+        "Official sources",
+        "Adapters",
+        "Package version",
+        "📜 Governance Rules (47)",
+        "🌐 Official Sources (56)",
+        "🔌 Model & Host Adapters (12)",
+        "⚖️ Version Comparison (1.0.0 vs 1.2.0)"
+      ],
+      "placeholder": "Select a rule or source to view its reference details and links.",
+      "activePackage": "aghr_1_2_0",
+      "buttons": [],
+      "bodyOverflow": false,
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      }
+    },
+    "views": {
+      "adoption": {
+        "en": {
+          "language": "en",
+          "direction": "ltr",
+          "bodyDirection": "ltr",
+          "title": "AGHR Governance Studio",
+          "navigation": [
+            "🧭 Explorer",
+            "📜 AGHR Reference",
+            "📥 Requests & Changes",
+            "🏗️ Project Adoption",
+            "⚖️ Evaluation & Evidence",
+            "🛡️ Staging & Apply"
+          ],
+          "activeNavigation": "🏗️ Project Adoption",
+          "principle": "🏗️\nAdoption principle: AGHR adoption preserves existing project files and owner instructions. An isolated staging workspace is prepared first for explicit review.",
+          "headings": [
+            "📂 Candidate projects",
+            "⚙️ Adoption & runtime options"
+          ],
+          "placeholder": "Select a project and choose “Prepare adoption plan” to preview changes before taking action.",
+          "buttons": [
+            "📝 Prepare adoption plan & preview changes"
+          ],
+          "bodyOverflow": false,
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          }
+        },
+        "ar": {
+          "language": "ar",
+          "direction": "rtl",
+          "bodyDirection": "rtl",
+          "title": "استوديو حوكمة الوكلاء — AGHR",
+          "navigation": [
+            "🧭 المستكشف (Explorer)",
+            "📜 مرجعية AGHR",
+            "📥 الطلبات والتغييرات (ChangePackets)",
+            "🏗️ تبني المشاريع (Adoption)",
+            "⚖️ التحقق والأدلة (Evaluations)",
+            "🛡️ التطبيق المحكوم (Staging & Apply)"
+          ],
+          "activeNavigation": "🏗️ تبني المشاريع (Adoption)",
+          "principle": "🏗️\nضابط التبني (Adoption Principle): يُدمج إطار الحوكمة AGHR دون كتابة صامتة فوق ملفات المشروع القائمة. تُحفظ توجيهات المالك السابقة ويُجهز التبني أولاً في Staging معزول للمراجعة الصريحة.",
+          "headings": [
+            "📂 المشاريع المرشحة للتبني (Candidate Projects)",
+            "⚙️ خيارات التبني والحزم التشغيلية"
+          ],
+          "placeholder": "👈 اختر مشروعاً ثم اضغط «إعداد خطة التبني» لمعاينة الفروقات ومخرجات التبني قبل أي إجراء.",
+          "buttons": [
+            "📝 إعداد خطة التبني وعرض الفروقات (Diff Preview)"
+          ],
+          "bodyOverflow": false,
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          }
+        }
+      },
+      "evaluation": {
+        "en": {
+          "language": "en",
+          "direction": "ltr",
+          "bodyDirection": "ltr",
+          "title": "AGHR Governance Studio",
+          "navigation": [
+            "🧭 Explorer",
+            "📜 AGHR Reference",
+            "📥 Requests & Changes",
+            "🏗️ Project Adoption",
+            "⚖️ Evaluation & Evidence",
+            "🛡️ Staging & Apply"
+          ],
+          "activeNavigation": "⚖️ Evaluation & Evidence",
+          "principle": "⚖️\nEvidence principle: Success claims require evidence. Local test results are limited to their actual scope and do not grant release acceptance or independent review, or replace live host testing.",
+          "headings": [
+            "📜 Verification history"
+          ],
+          "buttons": [
+            "🧪 Run governance tests",
+            "🔍 Check package integrity (check_package.py)"
+          ],
+          "bodyOverflow": false,
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          }
+        },
+        "ar": {
+          "language": "ar",
+          "direction": "rtl",
+          "bodyDirection": "rtl",
+          "title": "استوديو حوكمة الوكلاء — AGHR",
+          "navigation": [
+            "🧭 المستكشف (Explorer)",
+            "📜 مرجعية AGHR",
+            "📥 الطلبات والتغييرات (ChangePackets)",
+            "🏗️ تبني المشاريع (Adoption)",
+            "⚖️ التحقق والأدلة (Evaluations)",
+            "🛡️ التطبيق المحكوم (Staging & Apply)"
+          ],
+          "activeNavigation": "⚖️ التحقق والأدلة (Evaluations)",
+          "principle": "⚖️\nضابط الأدلة والأمانة (Honest Evaluation Principle): لا تقبل المنصة أي نجاح ذاتي غير مثبت بالأدلة الحقيقية. نتائج الاختبارات المحلية مقيدة بنطاقها الفعلي، ولا تمنح اعتماد الإصدار (Release Acceptance) أو مراجعة مستقلة، كما لا تعوض عن الاختبارات الحية للمضيف.",
+          "headings": [
+            "📜 سجلات الفحص والتحقق السابقة"
+          ],
+          "buttons": [
+            "🧪 تشغيل اختبارات الحوكمة",
+            "🔍 فحص تكامل الحزمة (check_package.py)"
+          ],
+          "bodyOverflow": false,
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          }
+        }
+      },
+      "staging": {
+        "en": {
+          "language": "en",
+          "direction": "ltr",
+          "bodyDirection": "ltr",
+          "title": "AGHR Governance Studio",
+          "navigation": [
+            "🧭 Explorer",
+            "📜 AGHR Reference",
+            "📥 Requests & Changes",
+            "🏗️ Project Adoption",
+            "⚖️ Evaluation & Evidence",
+            "🛡️ Staging & Apply"
+          ],
+          "activeNavigation": "🛡️ Staging & Apply",
+          "principle": "🛡️\nGoverned apply principle: Changes are prepared in isolation and checked against the original file state. Application requires explicit authorization at execution time and an immediate backup for recovery.",
+          "headings": [],
+          "placeholder": "Enter a staging ID or prepare an adoption plan in Project Adoption to view and apply changes.",
+          "buttons": [
+            "Load workspace"
+          ],
+          "bodyOverflow": false,
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          }
+        },
+        "ar": {
+          "language": "ar",
+          "direction": "rtl",
+          "bodyDirection": "rtl",
+          "title": "استوديو حوكمة الوكلاء — AGHR",
+          "navigation": [
+            "🧭 المستكشف (Explorer)",
+            "📜 مرجعية AGHR",
+            "📥 الطلبات والتغييرات (ChangePackets)",
+            "🏗️ تبني المشاريع (Adoption)",
+            "⚖️ التحقق والأدلة (Evaluations)",
+            "🛡️ التطبيق المحكوم (Staging & Apply)"
+          ],
+          "activeNavigation": "🛡️ التطبيق المحكوم (Staging & Apply)",
+          "principle": "🛡️\nضابط التطبيق المحكوم (Governed Apply Principle): يُنفذ التغيير فقط في بيئة معزولة مع فحص شرط عدم تغير الملفات الأصلية (Precondition Check). يتطلب التطبيق تفويضاً صريحاً في لحظة التنفيذ مع حفظ نسخة احتياطية فورية لإتاحة الاستعادة (Rollback).",
+          "headings": [],
+          "placeholder": "👈 أدخل معرّف Staging أو قم بتجهيز تبني من تبويب «تبني المشاريع» لعرض الفروقات وتطبيق التغييرات.",
+          "buttons": [
+            "جلب المساحة"
+          ],
+          "bodyOverflow": false,
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          }
+        }
+      },
+      "reference": {
+        "en": {
+          "language": "en",
+          "direction": "ltr",
+          "bodyDirection": "ltr",
+          "title": "AGHR Governance Studio",
+          "navigation": [
+            "🧭 Explorer",
+            "📜 AGHR Reference",
+            "📥 Requests & Changes",
+            "🏗️ Project Adoption",
+            "⚖️ Evaluation & Evidence",
+            "🛡️ Staging & Apply"
+          ],
+          "activeNavigation": "📜 AGHR Reference",
+          "headings": [
+            "Governance rules",
+            "Official sources",
+            "Adapters",
+            "Package version",
+            "📜 Governance Rules (47)",
+            "🌐 Official Sources (56)",
+            "🔌 Model & Host Adapters (12)",
+            "⚖️ Version Comparison (1.0.0 vs 1.2.0)"
+          ],
+          "placeholder": "Select a rule or source to view its reference details and links.",
+          "activePackage": "aghr_1_2_0",
+          "buttons": [],
+          "bodyOverflow": false,
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          }
+        },
+        "ar": {
+          "language": "ar",
+          "direction": "rtl",
+          "bodyDirection": "rtl",
+          "title": "استوديو حوكمة الوكلاء — AGHR",
+          "navigation": [
+            "🧭 المستكشف (Explorer)",
+            "📜 مرجعية AGHR",
+            "📥 الطلبات والتغييرات (ChangePackets)",
+            "🏗️ تبني المشاريع (Adoption)",
+            "⚖️ التحقق والأدلة (Evaluations)",
+            "🛡️ التطبيق المحكوم (Staging & Apply)"
+          ],
+          "activeNavigation": "📜 مرجعية AGHR",
+          "headings": [
+            "قاعدة حاكمة (Rules)",
+            "مصدر رسمي (Official Sources)",
+            "محول تشغيلي (Adapters)",
+            "إصدار الحزمة (Version)",
+            "📜 القواعد الحاكمة (47)",
+            "🌐 المصادر الرسمية المعتمدة (56)",
+            "🔌 محولات النماذج والمضيفين (12)",
+            "⚖️ مقارنة الإصدارات (1.0.0 مقابل 1.2.0)"
+          ],
+          "placeholder": "👈 اختر قاعدة أو مصدراً من القائمة لعرض تفاصيله المرجعية وروابطه.",
+          "activePackage": "aghr_1_2_0",
+          "buttons": [],
+          "bodyOverflow": false,
+          "viewport": {
+            "width": 320,
+            "height": 800
+          }
+        }
+      },
+      "intake": {
+        "en": {
+          "language": "en",
+          "direction": "ltr",
+          "bodyDirection": "ltr",
+          "title": "AGHR Governance Studio",
+          "navigation": [
+            "🧭 Explorer",
+            "📜 AGHR Reference",
+            "📥 Requests & Changes",
+            "🏗️ Project Adoption",
+            "⚖️ Evaluation & Evidence",
+            "🛡️ Staging & Apply"
+          ],
+          "activeNavigation": "📥 Requests & Changes",
+          "principle": "🛡️\nIntake principle: The original input is preserved with a SHA-256 digest and split into classified atomic statements. Every result is a proposal (PROPOSED); adoption and application require owner approval.",
+          "headings": [
+            "📥 New governance note or request"
+          ],
+          "placeholder": "Enter a request and choose “Decompose & analyze” to generate a traceable ChangePacket.",
+          "buttons": [
+            "⚡ Decompose & analyze request"
+          ],
+          "bodyOverflow": false,
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          }
+        },
+        "draftAcrossLanguages": {
+          "en": {
+            "language": "en",
+            "direction": "ltr",
+            "bodyDirection": "ltr",
+            "draft": "English draft — مسودة عربية 123 {keep} $&",
+            "inputDirection": "auto",
+            "submit": "⚡ Decompose & analyze request"
+          },
+          "ar": {
+            "language": "ar",
+            "direction": "rtl",
+            "bodyDirection": "rtl",
+            "draft": "English draft — مسودة عربية 123 {keep} $&",
+            "inputDirection": "auto",
+            "submit": "⚡ تفكيك وتحليل الطلب الحوكمي"
+          }
+        }
+      },
+      "explorer": {
+        "en": {
+          "language": "en",
+          "direction": "ltr",
+          "bodyDirection": "ltr",
+          "activeRoot": "AGHR Reference 1.2.0",
+          "search": "Search file names…",
+          "tabs": [
+            "📄 File Preview",
+            "🕸️ Relationship Graph (354)",
+            "🔄 Flow Diagram"
+          ],
+          "counts": [
+            "Document: 137",
+            "Data: 91",
+            "Script: 31",
+            "SKILL.md: 11",
+            "Image: 6",
+            "Other: 2"
+          ],
+          "bodyOverflow": false
+        },
+        "graph": {
+          "en": {
+            "language": "en",
+            "title": "Relationship graph — arrows mean \"references / uses\"",
+            "legend": [
+              "Document (137)",
+              "Data (91)",
+              "Script (31)",
+              "Other (2)",
+              "SKILL.md (11)",
+              "Image (6)"
+            ],
+            "hint": "354 relationships across 278 files — drag to pan, scroll to zoom, click a file to open it",
+            "canvas": true
+          },
+          "ar": {
+            "language": "ar",
+            "title": "خريطة العلاقات — السهم يعني \"يشير إلى / يستخدم\"",
+            "legend": [
+              "مستند (137)",
+              "بيانات (91)",
+              "سكربت (31)",
+              "أخرى (2)",
+              "SKILL.md (11)",
+              "صورة (6)"
+            ],
+            "hint": "354 علاقة بين 278 ملفاً — اسحب لتحريك، عجلة الفأرة للتقريب، انقر ملفاً لفتحه",
+            "canvas": true
+          }
+        },
+        "flow": {
+          "en": {
+            "language": "en",
+            "intro": "The flow starts at SKILL.md and follows references in document order. Faded cards point back to a file already shown.",
+            "orphans": "Files not referenced in the flow (271)",
+            "edges": []
+          },
+          "ar": {
+            "language": "ar",
+            "intro": "التدفق المنطقي يبدأ من SKILL.md ويتفرع بترتيب الإشارات كما وردت في النصوص. البطاقات الملوّنة باهتة تعني إشارة عائدة لملف ظهر سابقاً.",
+            "orphans": "ملفات غير مُشار إليها في التدفق (271)"
+          }
+        }
+      }
+    },
+    "narrow320": {
+      "reference": {
+        "en": {
+          "language": "en",
+          "direction": "ltr",
+          "bodyDirection": "ltr",
+          "title": "AGHR Governance Studio",
+          "navigation": [
+            "🧭 Explorer",
+            "📜 AGHR Reference",
+            "📥 Requests & Changes",
+            "🏗️ Project Adoption",
+            "⚖️ Evaluation & Evidence",
+            "🛡️ Staging & Apply"
+          ],
+          "activeNavigation": "📜 AGHR Reference",
+          "headings": [
+            "Governance rules",
+            "Official sources",
+            "Adapters",
+            "Package version",
+            "📜 Governance Rules (47)",
+            "🌐 Official Sources (56)",
+            "🔌 Model & Host Adapters (12)",
+            "⚖️ Version Comparison (1.0.0 vs 1.2.0)"
+          ],
+          "placeholder": "Select a rule or source to view its reference details and links.",
+          "activePackage": "aghr_1_2_0",
+          "buttons": [],
+          "bodyOverflow": false,
+          "viewport": {
+            "width": 320,
+            "height": 800
+          }
+        },
+        "ar": {
+          "language": "ar",
+          "direction": "rtl",
+          "bodyDirection": "rtl",
+          "title": "استوديو حوكمة الوكلاء — AGHR",
+          "navigation": [
+            "🧭 المستكشف (Explorer)",
+            "📜 مرجعية AGHR",
+            "📥 الطلبات والتغييرات (ChangePackets)",
+            "🏗️ تبني المشاريع (Adoption)",
+            "⚖️ التحقق والأدلة (Evaluations)",
+            "🛡️ التطبيق المحكوم (Staging & Apply)"
+          ],
+          "activeNavigation": "📜 مرجعية AGHR",
+          "headings": [
+            "قاعدة حاكمة (Rules)",
+            "مصدر رسمي (Official Sources)",
+            "محول تشغيلي (Adapters)",
+            "إصدار الحزمة (Version)",
+            "📜 القواعد الحاكمة (47)",
+            "🌐 المصادر الرسمية المعتمدة (56)",
+            "🔌 محولات النماذج والمضيفين (12)",
+            "⚖️ مقارنة الإصدارات (1.0.0 مقابل 1.2.0)"
+          ],
+          "placeholder": "👈 اختر قاعدة أو مصدراً من القائمة لعرض تفاصيله المرجعية وروابطه.",
+          "activePackage": "aghr_1_2_0",
+          "buttons": [],
+          "bodyOverflow": false,
+          "viewport": {
+            "width": 320,
+            "height": 800
+          }
+        }
+      },
+      "intake": {
+        "language": "en",
+        "direction": "ltr",
+        "width": 320,
+        "bodyOverflow": false,
+        "activeNavigation": "📥 Requests & Changes"
+      },
+      "adoption": {
+        "language": "en",
+        "direction": "ltr",
+        "width": 320,
+        "bodyOverflow": false,
+        "activeNavigation": "🏗️ Project Adoption"
+      },
+      "evaluation": {
+        "language": "en",
+        "direction": "ltr",
+        "width": 320,
+        "bodyOverflow": false,
+        "activeNavigation": "⚖️ Evaluation & Evidence"
+      },
+      "staging": {
+        "language": "en",
+        "direction": "ltr",
+        "width": 320,
+        "bodyOverflow": false,
+        "activeNavigation": "🛡️ Staging & Apply"
+      },
+      "explorer": {
+        "language": "en",
+        "direction": "ltr",
+        "width": 320,
+        "bodyOverflow": false,
+        "activeNavigation": "🧭 Explorer"
+      }
+    },
+    "reference768And1024": {
+      "768-en": {
+        "language": "en",
+        "direction": "ltr",
+        "bodyDirection": "ltr",
+        "title": "AGHR Governance Studio",
+        "navigation": [
+          "🧭 Explorer",
+          "📜 AGHR Reference",
+          "📥 Requests & Changes",
+          "🏗️ Project Adoption",
+          "⚖️ Evaluation & Evidence",
+          "🛡️ Staging & Apply"
+        ],
+        "activeNavigation": "📜 AGHR Reference",
+        "headings": [
+          "Governance rules",
+          "Official sources",
+          "Adapters",
+          "Package version",
+          "📜 Governance Rules (47)",
+          "🌐 Official Sources (56)",
+          "🔌 Model & Host Adapters (12)",
+          "⚖️ Version Comparison (1.0.0 vs 1.2.0)"
+        ],
+        "placeholder": "Select a rule or source to view its reference details and links.",
+        "activePackage": "aghr_1_2_0",
+        "buttons": [],
+        "bodyOverflow": false,
+        "viewport": {
+          "width": 768,
+          "height": 900
+        }
+      },
+      "768-ar": {
+        "language": "ar",
+        "direction": "rtl",
+        "bodyDirection": "rtl",
+        "title": "استوديو حوكمة الوكلاء — AGHR",
+        "navigation": [
+          "🧭 المستكشف (Explorer)",
+          "📜 مرجعية AGHR",
+          "📥 الطلبات والتغييرات (ChangePackets)",
+          "🏗️ تبني المشاريع (Adoption)",
+          "⚖️ التحقق والأدلة (Evaluations)",
+          "🛡️ التطبيق المحكوم (Staging & Apply)"
+        ],
+        "activeNavigation": "📜 مرجعية AGHR",
+        "headings": [
+          "قاعدة حاكمة (Rules)",
+          "مصدر رسمي (Official Sources)",
+          "محول تشغيلي (Adapters)",
+          "إصدار الحزمة (Version)",
+          "📜 القواعد الحاكمة (47)",
+          "🌐 المصادر الرسمية المعتمدة (56)",
+          "🔌 محولات النماذج والمضيفين (12)",
+          "⚖️ مقارنة الإصدارات (1.0.0 مقابل 1.2.0)"
+        ],
+        "placeholder": "👈 اختر قاعدة أو مصدراً من القائمة لعرض تفاصيله المرجعية وروابطه.",
+        "activePackage": "aghr_1_2_0",
+        "buttons": [],
+        "bodyOverflow": false,
+        "viewport": {
+          "width": 768,
+          "height": 900
+        }
+      },
+      "1024-en": {
+        "language": "en",
+        "direction": "ltr",
+        "bodyDirection": "ltr",
+        "title": "AGHR Governance Studio",
+        "navigation": [
+          "🧭 Explorer",
+          "📜 AGHR Reference",
+          "📥 Requests & Changes",
+          "🏗️ Project Adoption",
+          "⚖️ Evaluation & Evidence",
+          "🛡️ Staging & Apply"
+        ],
+        "activeNavigation": "📜 AGHR Reference",
+        "headings": [
+          "Governance rules",
+          "Official sources",
+          "Adapters",
+          "Package version",
+          "📜 Governance Rules (47)",
+          "🌐 Official Sources (56)",
+          "🔌 Model & Host Adapters (12)",
+          "⚖️ Version Comparison (1.0.0 vs 1.2.0)"
+        ],
+        "placeholder": "Select a rule or source to view its reference details and links.",
+        "activePackage": "aghr_1_2_0",
+        "buttons": [],
+        "bodyOverflow": false,
+        "viewport": {
+          "width": 1024,
+          "height": 900
+        }
+      },
+      "1024-ar": {
+        "language": "ar",
+        "direction": "rtl",
+        "bodyDirection": "rtl",
+        "title": "استوديو حوكمة الوكلاء — AGHR",
+        "navigation": [
+          "🧭 المستكشف (Explorer)",
+          "📜 مرجعية AGHR",
+          "📥 الطلبات والتغييرات (ChangePackets)",
+          "🏗️ تبني المشاريع (Adoption)",
+          "⚖️ التحقق والأدلة (Evaluations)",
+          "🛡️ التطبيق المحكوم (Staging & Apply)"
+        ],
+        "activeNavigation": "📜 مرجعية AGHR",
+        "headings": [
+          "قاعدة حاكمة (Rules)",
+          "مصدر رسمي (Official Sources)",
+          "محول تشغيلي (Adapters)",
+          "إصدار الحزمة (Version)",
+          "📜 القواعد الحاكمة (47)",
+          "🌐 المصادر الرسمية المعتمدة (56)",
+          "🔌 محولات النماذج والمضيفين (12)",
+          "⚖️ مقارنة الإصدارات (1.0.0 مقابل 1.2.0)"
+        ],
+        "placeholder": "👈 اختر قاعدة أو مصدراً من القائمة لعرض تفاصيله المرجعية وروابطه.",
+        "activePackage": "aghr_1_2_0",
+        "buttons": [],
+        "bodyOverflow": false,
+        "viewport": {
+          "width": 1024,
+          "height": 900
+        }
+      }
+    },
+    "console": {
+      "content": [
+        {
+          "type": "text",
+          "text": "## Console messages\n<no console messages found>"
+        }
+      ]
+    },
+    "screenshots": "Desktop and narrow English layouts inspected in the browser.",
+    "toolingNote": "Mobile emulation invalidated old DOM handles; fresh snapshots were acquired and acceptance checks repeated. Narrow-width evidence uses actual measured CSS viewport width 320."
+  },
+  "defaultReference": {
+    "packageId": "aghr_1_2_0",
+    "version": "1.2.0",
+    "httpStatus": 200
+  },
+  "boundaries": "Browser verification used navigation and editable drafts. No browser action submitted intake, adopted a consumer, applied changes, rolled back files or ran package qualification."
+}

@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import { useI18n } from "../i18n/I18nProvider.jsx";
 
 export default function EvaluationView() {
+  const { t, locale } = useI18n();
   const [running, setRunning] = useState(false);
   const [activeResult, setActiveResult] = useState(null);
   const [history, setHistory] = useState([]);
@@ -27,7 +29,7 @@ export default function EvaluationView() {
     try {
       const res = await fetch("/api/evaluation/run-suite", { method: "POST" });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "فشل تنفيذ حزمة الاختبارات");
+      if (!res.ok) throw new Error(data.error || "error.suite");
       setActiveResult(data.result);
       loadHistory();
     } catch (err) {
@@ -43,7 +45,7 @@ export default function EvaluationView() {
     try {
       const res = await fetch("/api/evaluation/check-package", { method: "POST" });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "فشل فحص الحزمة");
+      if (!res.ok) throw new Error(data.error || "error.package");
       setActiveResult(data.result);
       loadHistory();
     } catch (err) {
@@ -59,28 +61,26 @@ export default function EvaluationView() {
       <div className="gov-alert-banner">
         <span className="alert-icon">⚖️</span>
         <div>
-          <strong>ضابط الأدلة والأمانة (Honest Evaluation Principle):</strong> لا تقبل المنصة أي نجاح ذاتي غير مثبت
-          بالأدلة الحقيقية. نتائج الاختبارات المحلية مقيدة بنطاقها الفعلي، ولا تمنح اعتماد الإصدار (Release Acceptance)
-          أو مراجعة مستقلة، كما لا تعوض عن الاختبارات الحية للمضيف.
+          <strong>{t("evaluation.principleTitle")}</strong> {t("evaluation.principle")}
         </div>
       </div>
 
       {/* Control Actions Bar */}
       <div className="eval-actions-bar">
         <button className="btn btn-primary" onClick={handleRunSuite} disabled={running}>
-          {running ? "جارٍ تشغيل الاختبارات…" : "🧪 تشغيل اختبارات الوحدة الحوكمية (127 Tests)"}
+          {running ? t("evaluation.running") : t("evaluation.run")}
         </button>
         <button className="btn btn-secondary" onClick={handleCheckPackage} disabled={running}>
-          {running ? "جارٍ فحص الحزمة…" : "🔍 فحص تكامل الحزمة (check_package.py)"}
+          {running ? t("evaluation.checking") : t("evaluation.check")}
         </button>
       </div>
 
-      {error && <div className="gov-error-msg">{error}</div>}
+      {error && <div className="gov-error-msg">{t(error)}</div>}
 
       <div className="eval-grid">
         {/* Left Column: History */}
         <div className="eval-history-col">
-          <div className="pane-title">📜 سجلات الفحص والتحقق السابقة</div>
+          <div className="pane-title">{t("evaluation.history")}</div>
           <div className="history-list">
             {history.map((h) => (
               <div
@@ -94,10 +94,10 @@ export default function EvaluationView() {
                     {h.status}
                   </span>
                 </div>
-                <div className="h-time">{new Date(h.executed_at).toLocaleString("ar")}</div>
+                <div className="h-time">{new Date(h.executed_at).toLocaleString(locale)}</div>
               </div>
             ))}
-            {history.length === 0 && <div className="empty-state">لم يُسجل أي فحص بعد.</div>}
+            {history.length === 0 && <div className="empty-state">{t("evaluation.noHistory")}</div>}
           </div>
         </div>
 
@@ -107,10 +107,10 @@ export default function EvaluationView() {
             <div className="evidence-panel">
               <div className="evidence-header">
                 <div>
-                  <h3>تقرير التحقق: {activeResult.runId}</h3>
+                  <h3>{t("evaluation.report")} {activeResult.runId}</h3>
                   <div className="evidence-meta">
-                    <span>الجناح: {activeResult.suite}</span>
-                    <span>كود الخروج: {activeResult.exitCode}</span>
+                    <span>{t("evaluation.suite")} {activeResult.suite}</span>
+                    <span>{t("evaluation.exitCode")} {activeResult.exitCode}</span>
                   </div>
                 </div>
                 <div className={`eval-status-stamp status-${(activeResult.status || "FAIL").toLowerCase()}`}>
@@ -121,33 +121,33 @@ export default function EvaluationView() {
               {/* Boundaries & Disclaimers */}
               <div className="evidence-boundaries-box">
                 <div className="b-row">
-                  <span>حدود النطاق:</span>
+                  <span>{t("evaluation.scope")}</span>
                   <strong>LOCAL_REFERENCE_TOOLS_ONLY</strong>
                 </div>
                 <div className="b-row">
-                  <span>تقييم النموذج الحي (Live Model):</span>
+                  <span>{t("evaluation.live")}</span>
                   <strong className="text-muted">NOT_RUN</strong>
                 </div>
                 <div className="b-row">
-                  <span>تأهيل المضيف الأصلي (Native Host):</span>
+                  <span>{t("evaluation.native")}</span>
                   <strong className="text-muted">NOT_RUN</strong>
                 </div>
                 <div className="b-row">
-                  <span>المراجعة المستقلة (Independent Review):</span>
+                  <span>{t("evaluation.review")}</span>
                   <strong className="text-muted">NOT_PERFORMED</strong>
                 </div>
                 <div className="b-row">
-                  <span>قبول الإصدار (Release Acceptance):</span>
+                  <span>{t("evaluation.acceptance")}</span>
                   <strong className="text-danger">NOT_GRANTED</strong>
                 </div>
               </div>
 
-              <h4>الأدلة الخام والمخرجات النصية (Raw Output):</h4>
-              <pre className="raw-output-viewer">{activeResult.rawStdout || activeResult.rawStderr || "لا توجد مخرجات نصية."}</pre>
+              <h4>{t("evaluation.output")}</h4>
+              <pre className="raw-output-viewer">{activeResult.rawStdout || activeResult.rawStderr || t("evaluation.noOutput")}</pre>
             </div>
           ) : (
             <div className="pane-placeholder">
-              <span>👈 اضغط على أحد أزرار الفحص لتنفيذ الاختبارات وجمع الأدلة المحكومة.</span>
+              <span>{t("evaluation.empty")}</span>
             </div>
           )}
         </div>

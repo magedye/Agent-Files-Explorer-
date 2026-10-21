@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import { useI18n } from "../i18n/I18nProvider.jsx";
 
 export default function StagingView({ initialStagingId }) {
+  const { t } = useI18n();
   const [stagingId, setStagingId] = useState(initialStagingId || "");
   const [manifest, setManifest] = useState(null);
   const [authToken, setAuthToken] = useState("");
@@ -24,7 +26,7 @@ export default function StagingView({ initialStagingId }) {
     try {
       const res = await fetch(`/api/staging/manifest?stagingId=${encodeURIComponent(id)}`);
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "فشل تحميل مساحة Staging");
+      if (!res.ok) throw new Error(data.error || "error.manifest");
       setManifest(data.manifest);
     } catch (err) {
       setError(err.message);
@@ -48,7 +50,7 @@ export default function StagingView({ initialStagingId }) {
         }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "فشل تطبيق التغييرات");
+      if (!res.ok) throw new Error(data.error || "error.apply");
       setApplyResult(data.result);
       if (data.result.backupId) {
         setRollbackBackupId(data.result.backupId);
@@ -73,7 +75,7 @@ export default function StagingView({ initialStagingId }) {
         body: JSON.stringify({ backupId: rollbackBackupId.trim() }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "فشل استعادة النسخة الاحتياطية");
+      if (!res.ok) throw new Error(data.error || "error.rollback");
       setRollbackResult(data.result);
     } catch (err) {
       setError(err.message);
@@ -88,37 +90,36 @@ export default function StagingView({ initialStagingId }) {
       <div className="gov-alert-banner">
         <span className="alert-icon">🛡️</span>
         <div>
-          <strong>ضابط التطبيق المحكوم (Governed Apply Principle):</strong> يُنفذ التغيير فقط في بيئة معزولة
-          مع فحص شرط عدم تغير الملفات الأصلية (Precondition Check). يتطلب التطبيق تفويضاً صريحاً في لحظة التنفيذ
-          مع حفظ نسخة احتياطية فورية لإتاحة الاستعادة (Rollback).
+          <strong>{t("staging.principleTitle")}</strong> {t("staging.principle")}
         </div>
       </div>
 
       <div className="staging-top-bar">
         <div className="form-group inline-group">
-          <label>معرّف مساحة Staging:</label>
+          <label>{t("staging.id")}</label>
           <input
             type="text"
             className="input-text"
             placeholder="STAGE-…"
+            aria-label={t("staging.id")}
             value={stagingId}
             onChange={(e) => setStagingId(e.target.value)}
           />
           <button className="btn btn-secondary" onClick={() => loadManifest(stagingId)} disabled={loading}>
-            جلب المساحة
+            {t("staging.load")}
           </button>
         </div>
       </div>
 
-      {error && <div className="gov-error-msg">{error}</div>}
+      {error && <div className="gov-error-msg">{t(error)}</div>}
 
       {manifest ? (
         <div className="staging-manifest-card">
           <div className="staging-header">
             <div>
-              <h3>مساحة Staging: {manifest.stagingId}</h3>
+              <h3>{t("staging.workspace")} {manifest.stagingId}</h3>
               <div className="manifest-sub">
-                <span>المشروع المستهدف: <code>{manifest.targetProjectDir}</code></span>
+                <span>{t("staging.target")} <code>{manifest.targetProjectDir}</code></span>
                 <span className="badge badge-warning">{manifest.status}</span>
               </div>
             </div>
@@ -127,22 +128,23 @@ export default function StagingView({ initialStagingId }) {
             {manifest.status !== "APPLIED" && (
               <div className="apply-control-box">
                 <div className="auth-field">
-                  <label>رمز التفويض الصريح (Authorization Token):</label>
+                  <label>{t("staging.authorization")}</label>
                   <input
                     type="password"
+                    aria-label={t("staging.authorization")}
                     className="input-text"
                     placeholder="AUTHORIZED_BY_PROJECT_OWNER"
                     value={authToken}
                     onChange={(e) => setAuthToken(e.target.value)}
                   />
-                  <small>ملاحظة: الرمز التجريبي المعتمد هو: <code>AUTHORIZED_BY_PROJECT_OWNER</code></small>
+                  <small>{t("staging.demoToken")} <code>AUTHORIZED_BY_PROJECT_OWNER</code></small>
                 </div>
                 <button
                   className="btn btn-danger"
                   onClick={handleApply}
                   disabled={loading || !authToken.trim()}
                 >
-                  {loading ? "جارٍ التحقق والتطبيق…" : "⚡ تطبيق التغييرات المحكومة (Authorized Apply)"}
+                  {loading ? t("staging.applying") : t("staging.apply")}
                 </button>
               </div>
             )}
@@ -150,34 +152,35 @@ export default function StagingView({ initialStagingId }) {
 
           {applyResult && (
             <div className="gov-success-banner">
-              <strong>تم التطبيق بنجاح!</strong>
-              <div>تم إنشاء نقطة استعادة احتياطية برقم: <code>{applyResult.backupId}</code></div>
-              <div>الملفات المطبقة: {(applyResult.filesApplied || []).join(", ")}</div>
+              <strong>{t("staging.applied")}</strong>
+              <div>{t("staging.backup")} <code>{applyResult.backupId}</code></div>
+              <div>{t("staging.appliedFiles")} {(applyResult.filesApplied || []).join(", ")}</div>
             </div>
           )}
 
           {/* Staged Diffs List */}
-          <h4>الملفات المجهزة والفروقات المحددة (Staged Diffs):</h4>
+          <h4>{t("staging.diffs")}</h4>
           <div className="staged-files-list">
             {manifest.files.map((f) => (
               <div key={f.relPath} className="staged-diff-card">
                 <div className="diff-card-header">
                   <span>📄 {f.relPath} ({f.action})</span>
-                  <span>SHA البداية: <code>{f.preconditionSha256 ? f.preconditionSha256.slice(0, 10) : "جديد"}</code></span>
+                  <span>{t("staging.sha")} <code>{f.preconditionSha256 ? f.preconditionSha256.slice(0, 10) : t("staging.new")}</code></span>
                 </div>
-                <pre className="unified-diff-view">{f.diff || "(لا توجد فروقات نصية)"}</pre>
+                <pre className="unified-diff-view">{f.diff || t("staging.noDiff")}</pre>
               </div>
             ))}
           </div>
 
           {/* Rollback section */}
           <div className="rollback-section">
-            <h4>🔄 استعادة النسخة الاحتياطية (Rollback Recovery):</h4>
+            <h4>{t("staging.rollback")}</h4>
             <div className="form-group inline-group">
               <input
                 type="text"
                 className="input-text"
-                placeholder="معرّف النسخة الاحتياطية (BACKUP-…)"
+                placeholder={t("staging.backupId")}
+                aria-label={t("staging.backupId")}
                 value={rollbackBackupId}
                 onChange={(e) => setRollbackBackupId(e.target.value)}
               />
@@ -186,19 +189,19 @@ export default function StagingView({ initialStagingId }) {
                 onClick={handleRollback}
                 disabled={loading || !rollbackBackupId.trim()}
               >
-                استعادة الملفات السابقة
+                {t("staging.restore")}
               </button>
             </div>
             {rollbackResult && (
               <div className="gov-success-banner">
-                تمت الاستعادة بنجاح! الملفات المستعادة: {(rollbackResult.filesRestored || []).join(", ")}
+                {t("staging.restored")} {(rollbackResult.filesRestored || []).join(", ")}
               </div>
             )}
           </div>
         </div>
       ) : (
         <div className="pane-placeholder">
-          <span>👈 أدخل معرّف Staging أو قم بتجهيز تبني من تبويب «تبني المشاريع» لعرض الفروقات وتطبيق التغييرات.</span>
+          <span>{t("staging.empty")}</span>
         </div>
       )}
     </div>

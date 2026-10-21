@@ -1,0 +1,148 @@
+{
+  "status": "PASS",
+  "scenario_count": 8,
+  "cases": [
+    {
+      "id": "CREATE",
+      "expected_decision": "ALLOW",
+      "observed": {
+        "decision": "ALLOW",
+        "result": "EXECUTED",
+        "operation_id": "599a8067fe734542870be407",
+        "sha256": "06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58",
+        "bytes": 14
+      },
+      "before_files": {},
+      "after_files": {
+        "work/result.txt": "06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58"
+      },
+      "matched": true
+    },
+    {
+      "id": "READ",
+      "expected_decision": "ALLOW",
+      "observed": {
+        "decision": "ALLOW",
+        "result": "EXECUTED",
+        "operation_id": "9312ae12274b7867a81a5fa8",
+        "sha256": "06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58",
+        "bytes": 14,
+        "content": "verified demo\n"
+      },
+      "before_files": {
+        "work/result.txt": "06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58"
+      },
+      "after_files": {
+        "work/result.txt": "06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58"
+      },
+      "matched": true
+    },
+    {
+      "id": "TRAVERSAL",
+      "expected_decision": "DENY",
+      "observed": {
+        "decision": "DENY",
+        "result": "NOT_EXECUTED",
+        "operation_id": "3e054d61412d6d70cde1e1a0",
+        "reason": "Empty, absolute or traversal path rejected"
+      },
+      "before_files": {
+        "work/result.txt": "06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58"
+      },
+      "after_files": {
+        "work/result.txt": "06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58"
+      },
+      "matched": true
+    },
+    {
+      "id": "CONTROL_PLANE",
+      "expected_decision": "DENY",
+      "observed": {
+        "decision": "DENY",
+        "result": "NOT_EXECUTED",
+        "operation_id": "e8a8cdb9c2a1797403effe28",
+        "reason": "Hidden/control-plane paths denied"
+      },
+      "before_files": {
+        "work/result.txt": "06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58"
+      },
+      "after_files": {
+        "work/result.txt": "06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58"
+      },
+      "matched": true
+    },
+    {
+      "id": "UNKNOWN_SHELL",
+      "expected_decision": "DENY",
+      "observed": {
+        "decision": "DENY",
+        "result": "NOT_EXECUTED",
+        "operation_id": "d8ad9389a3012bdb96e1d587",
+        "reason": "Unknown operation denied"
+      },
+      "before_files": {
+        "work/result.txt": "06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58"
+      },
+      "after_files": {
+        "work/result.txt": "06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58"
+      },
+      "matched": true
+    },
+    {
+      "id": "REVIEW_REQUIRED",
+      "expected_decision": "REVIEW",
+      "observed": {
+        "decision": "REVIEW",
+        "result": "NOT_EXECUTED",
+        "operation_id": "73f08224531c8a60a65a7eff",
+        "reason": "Replacement requires bound operator approval"
+      },
+      "before_files": {
+        "work/result.txt": "06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58"
+      },
+      "after_files": {
+        "work/result.txt": "06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58"
+      },
+      "matched": true
+    },
+    {
+      "id": "APPROVED_REPLACE",
+      "expected_decision": "ALLOW",
+      "observed": {
+        "decision": "ALLOW",
+        "result": "EXECUTED",
+        "operation_id": "caa69bc312af8772ab08a0db",
+        "sha256": "77232f39b1bd65acf24b447672dd0745f9f6f04f05ab1581c58bba30b7f3ddb8",
+        "bytes": 21
+      },
+      "before_files": {
+        "work/result.txt": "06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58"
+      },
+      "after_files": {
+        "work/result.txt": "77232f39b1bd65acf24b447672dd0745f9f6f04f05ab1581c58bba30b7f3ddb8"
+      },
+      "matched": true
+    },
+    {
+      "id": "CANCELLED",
+      "expected_decision": "DENY",
+      "observed": {
+        "decision": "DENY",
+        "result": "NOT_EXECUTED",
+        "operation_id": "288f22a3ef118fee876e9225",
+        "reason": "Grant revoked or run cancelled"
+      },
+      "before_files": {
+        "work/result.txt": "77232f39b1bd65acf24b447672dd0745f9f6f04f05ab1581c58bba30b7f3ddb8"
+      },
+      "after_files": {
+        "work/result.txt": "77232f39b1bd65acf24b447672dd0745f9f6f04f05ab1581c58bba30b7f3ddb8"
+      },
+      "matched": true
+    }
+  ],
+  "boundary": "BUNDLED_LOCAL_EXECUTOR_ONLY",
+  "live_model": "NOT_RUN",
+  "native_host": "NOT_RUN",
+  "independent_review": "NOT_PERFORMED"
+}

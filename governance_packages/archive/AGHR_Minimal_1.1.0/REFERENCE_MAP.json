@@ -1,0 +1,793 @@
+{
+  "schema_version": "1.0",
+  "distribution": "AGHR Minimal",
+  "version": "1.1.0",
+  "canonical_policy": "registry/RULES.json",
+  "source_archive": "Agent_Governance_Harness_Reference_1.1.0.zip",
+  "source_root": "Agent_Governance_Harness_Reference_1.1.0/",
+  "routing_semantics": "Guidance and location map only, not a second rule registry. JSON #AGHR-nnn denotes the record id, not a web fragment. Full-only references are explicit, offline pointers; no automatic download, approval or test inheritance.",
+  "rule_routes": [
+    {
+      "id": "AGHR-001",
+      "source_explanation_ref": "CHARTER.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#authority"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-001",
+      "force": "MUST",
+      "applies_when": "Always",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-002",
+      "source_explanation_ref": "contracts/GOVERNANCE.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#authority"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-002",
+      "force": "MUST",
+      "applies_when": "When instructions affect a decision",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-003",
+      "source_explanation_ref": "contracts/EVIDENCE.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#authority"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-003",
+      "force": "MUST",
+      "applies_when": "When reconciling implementation and specifications",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-004",
+      "source_explanation_ref": "contracts/GOVERNANCE.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#authority"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-004",
+      "force": "MUST_NOT",
+      "applies_when": "When receiving a source or request",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-005",
+      "source_explanation_ref": "contracts/GOVERNANCE.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#authority"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-005",
+      "force": "MUST",
+      "applies_when": "When applicable references conflict",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-006",
+      "source_explanation_ref": "contracts/RUNTIME.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#context"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-006",
+      "force": "SHOULD",
+      "applies_when": "During instruction assembly",
+      "waivable": true
+    },
+    {
+      "id": "AGHR-007",
+      "source_explanation_ref": "contracts/RUNTIME.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#context"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-007",
+      "force": "MUST",
+      "applies_when": "When retrieving or compacting context",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-008",
+      "source_explanation_ref": "contracts/RUNTIME.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#context"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-008",
+      "force": "MUST",
+      "applies_when": "When adopting or changing model or host",
+      "waivable": true
+    },
+    {
+      "id": "AGHR-009",
+      "source_explanation_ref": "contracts/RUNTIME.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#outcome"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-009",
+      "force": "MUST",
+      "applies_when": "Before executing a task",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-010",
+      "source_explanation_ref": "contracts/RUNTIME.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#execution"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-010",
+      "force": "MUST",
+      "applies_when": "During execution",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-011",
+      "source_explanation_ref": "contracts/RUNTIME.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#outcome"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-011",
+      "force": "SHOULD",
+      "applies_when": "When planning a change",
+      "waivable": true
+    },
+    {
+      "id": "AGHR-012",
+      "source_explanation_ref": "contracts/GOVERNANCE.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#engineering"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-012",
+      "force": "MUST",
+      "applies_when": "When changing artifacts",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-013",
+      "source_explanation_ref": "contracts/RUNTIME.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#engineering"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-013",
+      "force": "MUST",
+      "applies_when": "When introducing external interfaces or dependencies",
+      "waivable": true
+    },
+    {
+      "id": "AGHR-014",
+      "source_explanation_ref": "contracts/EVIDENCE.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#engineering"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-014",
+      "force": "MUST_NOT",
+      "applies_when": "When changing tests or acceptance logic",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-015",
+      "source_explanation_ref": "contracts/EVIDENCE.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#engineering"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-015",
+      "force": "MUST",
+      "applies_when": "When fixing a defect",
+      "waivable": true
+    },
+    {
+      "id": "AGHR-016",
+      "source_explanation_ref": "contracts/EVIDENCE.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#evidence"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-016",
+      "force": "MUST_NOT",
+      "applies_when": "For every execution or quality claim",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-017",
+      "source_explanation_ref": "contracts/EVIDENCE.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#evidence"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-017",
+      "force": "MUST",
+      "applies_when": "When reporting completion",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-018",
+      "source_explanation_ref": "contracts/ENFORCEMENT.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#security"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-018",
+      "force": "MUST",
+      "applies_when": "When exposing tools or resources",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-019",
+      "source_explanation_ref": "contracts/ENFORCEMENT.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#security"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-019",
+      "force": "MUST",
+      "applies_when": "Before a consequential action",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-020",
+      "source_explanation_ref": "contracts/ENFORCEMENT.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#security"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-020",
+      "force": "MUST",
+      "applies_when": "When issuing or changing policy",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-021",
+      "source_explanation_ref": "contracts/ENFORCEMENT.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#security"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-021",
+      "force": "MUST",
+      "applies_when": "When processing or exporting data",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-022",
+      "source_explanation_ref": "contracts/ENFORCEMENT.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#security"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-022",
+      "force": "MUST",
+      "applies_when": "When consuming external content",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-023",
+      "source_explanation_ref": "contracts/ENFORCEMENT.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#alternatives"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-023",
+      "force": "MUST",
+      "applies_when": "When an action needs approval",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-024",
+      "source_explanation_ref": "contracts/RUNTIME.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#execution"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-024",
+      "force": "MUST",
+      "applies_when": "When delegating or parallelizing",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-025",
+      "source_explanation_ref": "contracts/ENFORCEMENT.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#execution"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-025",
+      "force": "MUST",
+      "applies_when": "After timeout, failure or resumption",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-026",
+      "source_explanation_ref": "contracts/RUNTIME.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#context"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-026",
+      "force": "MUST",
+      "applies_when": "For resumable work",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-027",
+      "source_explanation_ref": "contracts/RUNTIME.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#execution"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-027",
+      "force": "MUST",
+      "applies_when": "For autonomous loops",
+      "waivable": true
+    },
+    {
+      "id": "AGHR-028",
+      "source_explanation_ref": "contracts/EVIDENCE.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#context"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-028",
+      "force": "MUST",
+      "applies_when": "For consequential tool use",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-029",
+      "source_explanation_ref": "contracts/GOVERNANCE.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#authority"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-029",
+      "force": "MUST",
+      "applies_when": "When proposing rule or requirement changes",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-030",
+      "source_explanation_ref": "contracts/GOVERNANCE.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#authority"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-030",
+      "force": "MUST",
+      "applies_when": "When an exception is allowed",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-031",
+      "source_explanation_ref": "contracts/EVIDENCE.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#evidence"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-031",
+      "force": "MUST",
+      "applies_when": "When relevant candidates or environments change",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-032",
+      "source_explanation_ref": "contracts/GOVERNANCE.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#authority"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-032",
+      "force": "MUST",
+      "applies_when": "When importing or merging material",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-033",
+      "source_explanation_ref": "CHARTER.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#profiles"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-033",
+      "force": "MUST",
+      "applies_when": "When selecting assurance depth",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-034",
+      "source_explanation_ref": "contracts/RUNTIME.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#outcome",
+        "CORE.md#engineering"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-034",
+      "force": "SHOULD",
+      "applies_when": "During engineering design",
+      "waivable": true
+    },
+    {
+      "id": "AGHR-035",
+      "source_explanation_ref": "contracts/ENFORCEMENT.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#execution"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-035",
+      "force": "MUST",
+      "applies_when": "When a safety boundary fails or an incident occurs",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-036",
+      "source_explanation_ref": "contracts/EVIDENCE.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#evidence"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-036",
+      "force": "MUST",
+      "applies_when": "When validating evidence",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-037",
+      "source_explanation_ref": "contracts/RUNTIME.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#security"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-037",
+      "force": "MUST",
+      "applies_when": "For every tool invocation",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-038",
+      "source_explanation_ref": "procedures/EXTERNAL_CAPABILITIES_AR.md",
+      "source_explanation_available_locally": false,
+      "minimal_guidance": [
+        "CORE.md#external"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-038",
+      "force": "MUST",
+      "applies_when": "When loading skills, plugins or guidance",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-039",
+      "source_explanation_ref": "contracts/ENFORCEMENT.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#evidence"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-039",
+      "force": "MUST",
+      "applies_when": "Before claiming effective protected operation",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-040",
+      "source_explanation_ref": "contracts/EVIDENCE.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "CORE.md#evidence"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-040",
+      "force": "MUST",
+      "applies_when": "When qualifying a material agent workflow",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-041",
+      "source_explanation_ref": "procedures/SMART_CLARIFICATION_AR.md",
+      "source_explanation_available_locally": true,
+      "minimal_guidance": [
+        "procedures/SMART_CLARIFICATION_AR.md",
+        "CORE.md#clarification"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-041",
+      "force": "MUST",
+      "applies_when": "Before an action depends on unresolved material intent, requirements, authority or acceptance",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-042",
+      "source_explanation_ref": "procedures/ALTERNATIVES_AND_IMPACT_AR.md",
+      "source_explanation_available_locally": false,
+      "minimal_guidance": [
+        "CORE.md#alternatives"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-042",
+      "force": "MUST",
+      "applies_when": "When a defensible materially better approach is identified",
+      "waivable": true
+    },
+    {
+      "id": "AGHR-043",
+      "source_explanation_ref": "procedures/LIFECYCLE_AR.md",
+      "source_explanation_available_locally": false,
+      "minimal_guidance": [
+        "CORE.md#outcome"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-043",
+      "force": "MUST",
+      "applies_when": "When developing, changing, operating or retiring software or an AI system",
+      "waivable": true
+    },
+    {
+      "id": "AGHR-044",
+      "source_explanation_ref": "procedures/EXECUTION_AND_GIT_AR.md",
+      "source_explanation_available_locally": false,
+      "minimal_guidance": [
+        "CORE.md#git"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-044",
+      "force": "MUST",
+      "applies_when": "When work uses Git",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-045",
+      "source_explanation_ref": "procedures/COMMUNICATION_AND_HANDOFF_AR.md",
+      "source_explanation_available_locally": false,
+      "minimal_guidance": [
+        "CORE.md#communication"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-045",
+      "force": "MUST",
+      "applies_when": "In user-facing delivery and session handoffs",
+      "waivable": true
+    },
+    {
+      "id": "AGHR-046",
+      "source_explanation_ref": "procedures/PROGRESS_AND_DRIFT_AR.md",
+      "source_explanation_available_locally": false,
+      "minimal_guidance": [
+        "CORE.md#progress"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-046",
+      "force": "MUST",
+      "applies_when": "At meaningful progress boundaries and reviews",
+      "waivable": false
+    },
+    {
+      "id": "AGHR-047",
+      "source_explanation_ref": "standards/README_AR.md",
+      "source_explanation_available_locally": false,
+      "minimal_guidance": [
+        "CORE.md#external"
+      ],
+      "canonical_rule_ref": "registry/RULES.json#AGHR-047",
+      "force": "MUST",
+      "applies_when": "When using external standards, frameworks or sector guidance",
+      "waivable": false
+    }
+  ],
+  "full_only_references": [
+    {
+      "path": "adapters/README.md",
+      "available_in_minimal": false,
+      "reason": "Full provider/host adaptation routes; not installed integrations."
+    },
+    {
+      "path": "compatibility/ADDITIONS_CONTROL_MAPPING.json",
+      "available_in_minimal": false,
+      "reason": "Full edition reconciliation of additions."
+    },
+    {
+      "path": "evaluations/DELIVERY_EVAL_PLAN_AR.md",
+      "available_in_minimal": false,
+      "reason": "Full host/model behavioral evaluation plan."
+    },
+    {
+      "path": "evaluations/DELIVERY_SCENARIOS.json",
+      "available_in_minimal": false,
+      "reason": "Additional behavioral scenarios, not included or executed by Minimal."
+    },
+    {
+      "path": "evaluations/README.md",
+      "available_in_minimal": false,
+      "reason": "Scope and limits of full behavioral evaluations."
+    },
+    {
+      "path": "evaluations/SCENARIOS.json",
+      "available_in_minimal": false,
+      "reason": "Behavioral scenario definitions, not included or executed by Minimal."
+    },
+    {
+      "path": "guide/GUIDE_AR.html",
+      "available_in_minimal": false,
+      "reason": "Full offline illustrated guide."
+    },
+    {
+      "path": "guide/GUIDE_AR.md",
+      "available_in_minimal": false,
+      "reason": "Full 38-chapter Arabic academic guide."
+    },
+    {
+      "path": "optional_skills/REGISTER.json",
+      "available_in_minimal": false,
+      "reason": "Ten optional skill candidates; not installed or loaded here."
+    },
+    {
+      "path": "options/EXTERNAL_TOOLS_AR.md",
+      "available_in_minimal": false,
+      "reason": "Optional ecosystem choices; no mandatory vendor/tool."
+    },
+    {
+      "path": "options/OPTIONAL_SKILLS_AR.md",
+      "available_in_minimal": false,
+      "reason": "Description of optional skills; none are automatically available in Minimal."
+    },
+    {
+      "path": "policies/CHANGE_CONTROL.md",
+      "available_in_minimal": false,
+      "reason": "Full change-control policy."
+    },
+    {
+      "path": "policies/CONTEXT_AND_MODELS.md",
+      "available_in_minimal": false,
+      "reason": "Full context/model policy."
+    },
+    {
+      "path": "policies/ENGINEERING.md",
+      "available_in_minimal": false,
+      "reason": "Full engineering policy and detailed guidance."
+    },
+    {
+      "path": "policies/INSTRUCTIONS.md",
+      "available_in_minimal": false,
+      "reason": "Full instruction assembly and adoption policy."
+    },
+    {
+      "path": "policies/SECURITY.md",
+      "available_in_minimal": false,
+      "reason": "Full security policy."
+    },
+    {
+      "path": "policies/STATE_AND_RECOVERY.md",
+      "available_in_minimal": false,
+      "reason": "Full state/recovery policy."
+    },
+    {
+      "path": "policies/VERIFICATION.md",
+      "available_in_minimal": false,
+      "reason": "Full verification policy."
+    },
+    {
+      "path": "procedures/ADOPTION.md",
+      "available_in_minimal": false,
+      "reason": "Full-edition adoption procedure; Minimal uses ADOPT.md for its bounded documentary route."
+    },
+    {
+      "path": "procedures/ALTERNATIVES_AND_IMPACT_AR.md",
+      "available_in_minimal": false,
+      "reason": "Full original explanation; daily summary provided by this rule’s minimal_guidance."
+    },
+    {
+      "path": "procedures/COMMUNICATION_AND_HANDOFF_AR.md",
+      "available_in_minimal": false,
+      "reason": "Full original explanation; daily summary provided by this rule’s minimal_guidance."
+    },
+    {
+      "path": "procedures/EXECUTION_AND_GIT_AR.md",
+      "available_in_minimal": false,
+      "reason": "Full original explanation; daily summary provided by this rule’s minimal_guidance."
+    },
+    {
+      "path": "procedures/EXTERNAL_CAPABILITIES_AR.md",
+      "available_in_minimal": false,
+      "reason": "Full original explanation; daily summary provided by this rule’s minimal_guidance."
+    },
+    {
+      "path": "procedures/HOST_QUALIFICATION.md",
+      "available_in_minimal": false,
+      "reason": "Full host qualification procedure; Minimal does not qualify the host."
+    },
+    {
+      "path": "procedures/INCIDENT_RESPONSE.md",
+      "available_in_minimal": false,
+      "reason": "Full incident response procedure."
+    },
+    {
+      "path": "procedures/LIFECYCLE_AR.md",
+      "available_in_minimal": false,
+      "reason": "Full original explanation; daily summary provided by this rule’s minimal_guidance."
+    },
+    {
+      "path": "procedures/MAINTENANCE.md",
+      "available_in_minimal": false,
+      "reason": "Full maintenance procedure."
+    },
+    {
+      "path": "procedures/MIGRATION_1_0_TO_1_1.md",
+      "available_in_minimal": false,
+      "reason": "Full runtime-record migration procedure; never reinitialize over an existing project."
+    },
+    {
+      "path": "procedures/PROGRESS_AND_DRIFT_AR.md",
+      "available_in_minimal": false,
+      "reason": "Full original explanation; daily summary provided by this rule’s minimal_guidance."
+    },
+    {
+      "path": "procedures/REQUEST_INTAKE.md",
+      "available_in_minimal": false,
+      "reason": "Full detailed intake procedure and optional record CLI."
+    },
+    {
+      "path": "protocols/EXECUTION.md",
+      "available_in_minimal": false,
+      "reason": "Full execution protocol; Minimal summary in CORE.md."
+    },
+    {
+      "path": "protocols/PLANNING.md",
+      "available_in_minimal": false,
+      "reason": "Full planning protocol; Minimal summary in CORE.md."
+    },
+    {
+      "path": "protocols/SURGICAL_EDITING.md",
+      "available_in_minimal": false,
+      "reason": "Full focused-editing protocol."
+    },
+    {
+      "path": "registry/ENFORCEMENT_COVERAGE.json",
+      "available_in_minimal": false,
+      "reason": "Coverage of full-edition mechanisms; not a claim that they ship with Minimal."
+    },
+    {
+      "path": "runtime/README.md",
+      "available_in_minimal": false,
+      "reason": "Full toolkit scope and operation; actual host qualification still required."
+    },
+    {
+      "path": "runtime/cli.py",
+      "available_in_minimal": false,
+      "reason": "Full toolkit CLI; absent in Minimal; do not run this path here."
+    },
+    {
+      "path": "schemas/README.md",
+      "available_in_minimal": false,
+      "reason": "Locate actual schema files in the full archive listing; no schema implementation is bundled."
+    },
+    {
+      "path": "sources/REVALIDATION_1.1.0.json",
+      "available_in_minimal": false,
+      "reason": "Inherited full-edition web rechecks, not rerun for Minimal."
+    },
+    {
+      "path": "standards/CONTROL_CATALOG.json",
+      "available_in_minimal": false,
+      "reason": "Full edition standards engineering recommendations; not ISO clauses."
+    },
+    {
+      "path": "standards/README_AR.md",
+      "available_in_minimal": false,
+      "reason": "Full original explanation; daily summary provided by this rule’s minimal_guidance."
+    },
+    {
+      "path": "verification/REPORT.md",
+      "available_in_minimal": false,
+      "reason": "Historical full 1.1.0 test claims; not Minimal test results."
+    }
+  ],
+  "verification_reference_policy": {
+    "source_rule_verification_field": "Refers to full-package scenario/coverage files. Preserved verbatim for provenance, not evidence of execution in Minimal.",
+    "minimal_structural_check": "VERIFY.py",
+    "minimal_tests": "tests/test_minimal.py",
+    "host_qualification": "NOT_RUN",
+    "behavioral_evaluation": "NOT_RUN",
+    "independent_review": "NOT_PERFORMED"
+  },
+  "source_freshness": "Inherited register retained unchanged; no web revalidation performed for this derivative."
+}

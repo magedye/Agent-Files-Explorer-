@@ -1,0 +1,42 @@
+{
+  "observed_at": "2026-10-20T07:44:59.168775+00:00",
+  "source": "Observed tool outputs in this execution session; summary records actual results.",
+  "branch": "main",
+  "head": "4b9b877d835450f119b09d28bdc70faaaf791f4b",
+  "working_tree": "PREEXISTING_AND_CURRENT_UNCOMMITTED_CHANGES",
+  "package": {
+    "full_tests": 289,
+    "passed": 289,
+    "failed": 0,
+    "skipped": 0,
+    "frozen_manifest_check": "PASS",
+    "post_promotion_check": "PASS",
+    "evidence": "qualifying-tests.json"
+  },
+  "studio": {
+    "command": "npm test",
+    "executed": 25,
+    "passed": 25,
+    "failed": 0,
+    "scope": "LOCAL_API_AND_TOOL_TESTS"
+  },
+  "context": {
+    "command": "node tools/check_context_health.mjs",
+    "errors": 0,
+    "warnings": 0
+  },
+  "build": {
+    "command": "npm run build",
+    "status": "PASS",
+    "advisory": "Existing Vite output chunk exceeds 500 KB"
+  },
+  "inbox_custody": {
+    "registered_files": 8,
+    "unchanged": true
+  },
+  "whole_package_independent_review": "NOT_PERFORMED",
+  "scoped_skill_forward_cases": 9,
+  "native_host_and_live_model_qualification": "NOT_RUN",
+  "consumer_activation": "NOT_PERFORMED",
+  "distribution_sha256": "29497b708bd41cb35453ba12d4ae8212662084be0d53c14135ea15a98f6ac5dc"
+}

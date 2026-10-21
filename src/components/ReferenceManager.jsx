@@ -1,31 +1,54 @@
 import { useState, useEffect } from "react";
+import { useI18n } from "../i18n/I18nProvider.jsx";
 
 export default function ReferenceManager({ onSelectContract }) {
+  const { t } = useI18n();
+  const [packages, setPackages] = useState([]);
+  const [selectedPackageId, setSelectedPackageId] = useState("");
   const [summary, setSummary] = useState(null);
   const [rules, setRules] = useState([]);
   const [sources, setSources] = useState([]);
   const [adapters, setAdapters] = useState([]);
+  const [comparison, setComparison] = useState(null);
   const [search, setSearch] = useState("");
   const [forceFilter, setForceFilter] = useState("");
-  const [activeTab, setActiveTab] = useState("rules"); // rules | sources | adapters
+  const [activeTab, setActiveTab] = useState("rules"); // rules | sources | adapters | compare
   const [selectedRule, setSelectedRule] = useState(null);
   const [selectedSource, setSelectedSource] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Load packages list once
   useEffect(() => {
+    fetch("/api/governance/packages")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.packages && data.packages.length > 0) {
+          setPackages(data.packages);
+          setSelectedPackageId((data.packages.find((pkg) => pkg.isDefault) || data.packages[0]).id);
+        }
+      })
+      .catch((err) => console.error("Failed to load packages", err));
+  }, []);
+
+  // Load data whenever selectedPackageId changes
+  useEffect(() => {
+    if (!selectedPackageId) return;
     async function loadData() {
       setLoading(true);
       try {
+        const pkgParam = `?packageId=${selectedPackageId}`;
         const [sumRes, rulesRes, srcRes, adaptRes] = await Promise.all([
-          fetch("/api/governance/summary").then((r) => r.json()),
-          fetch("/api/governance/rules").then((r) => r.json()),
-          fetch("/api/governance/sources").then((r) => r.json()),
-          fetch("/api/governance/adapters").then((r) => r.json()),
+          fetch(`/api/governance/summary${pkgParam}`).then((r) => r.json()),
+          fetch(`/api/governance/rules${pkgParam}`).then((r) => r.json()),
+          fetch(`/api/governance/sources${pkgParam}`).then((r) => r.json()),
+          fetch(`/api/governance/adapters${pkgParam}`).then((r) => r.json()),
         ]);
         setSummary(sumRes);
         setRules(rulesRes.rules || []);
         setSources(srcRes.sources || []);
         setAdapters(adaptRes.adapters || []);
+        setSelectedRule(null);
+        setSelectedSource(null);
       } catch (err) {
         console.error("Failed to load governance data", err);
       } finally {
@@ -33,7 +56,19 @@ export default function ReferenceManager({ onSelectContract }) {
       }
     }
     loadData();
-  }, []);
+  }, [selectedPackageId]);
+
+  // Load comparison on demand
+  useEffect(() => {
+    if (activeTab === "compare" && !comparison) {
+      fetch("/api/governance/compare?base=aghr")
+        .then((r) => r.json())
+        .then((d) => setComparison(d.comparison))
+        .catch((e) => console.error("Failed to load comparison", e));
+    }
+  }, [activeTab, comparison]);
+
+  const comparisonTargetVersion = comparison?.target?.version || packages.find((pkg) => pkg.isDefault)?.version || "…";
 
   const filteredRules = rules.filter((r) => {
     if (forceFilter && r.force !== forceFilter) return false;
@@ -53,27 +88,47 @@ export default function ReferenceManager({ onSelectContract }) {
 
   return (
     <div className="gov-ref-manager">
+      {/* Package Selector Bar */}
+      <div className="gov-package-bar" style={{ display: "flex", alignItems: "center", gap: "12px", background: "rgba(30, 41, 59, 0.7)", padding: "10px 16px", borderRadius: "8px", marginBottom: "16px", border: "1px solid rgba(255, 255, 255, 0.1)" }}>
+        <span style={{ fontSize: "14px", fontWeight: "600", color: "#94a3b8" }}>{t("reference.activePackage")}</span>
+        <select
+          aria-label={t("reference.activePackage")}
+          value={selectedPackageId}
+          onChange={(e) => setSelectedPackageId(e.target.value)}
+          style={{ background: "#0f172a", color: "#f8fafc", padding: "6px 12px", borderRadius: "6px", border: "1px solid #334155", fontSize: "14px", cursor: "pointer" }}
+        >
+          {packages.map((pkg) => (
+            <option key={pkg.id} value={pkg.id}>
+              {pkg.name} ({pkg.version}) — {pkg.counts.rules} {t("common.rules")}
+            </option>
+          ))}
+        </select>
+        <span className="badge badge-info" style={{ marginInlineStart: "auto" }}>
+          {summary?.reference_state || "LOCAL_VERIFIED"}
+        </span>
+      </div>
+
       {/* Summary Metrics Bar */}
       <div className="gov-summary-cards">
         <div className="metric-card">
-          <div className="metric-val">{summary?.counts?.rules || 40}</div>
-          <div className="metric-lbl">قاعدة حاكمة (Rules)</div>
-          <span className="badge badge-primary">AGHR-001 … 040</span>
+          <div className="metric-val">{summary?.counts?.rules || 0}</div>
+          <div className="metric-lbl">{t("reference.ruleMetric")}</div>
+          <span className="badge badge-primary">{summary?.version || "…"}</span>
         </div>
         <div className="metric-card">
-          <div className="metric-val">{summary?.counts?.sources || 30}</div>
-          <div className="metric-lbl">مصدر رسمي (Official Sources)</div>
+          <div className="metric-val">{summary?.counts?.sources || 0}</div>
+          <div className="metric-lbl">{t("reference.sourceMetric")}</div>
           <span className="badge badge-success">OpenAI · Google · Anthropic</span>
         </div>
         <div className="metric-card">
-          <div className="metric-val">{summary?.counts?.adapters || 12}</div>
-          <div className="metric-lbl">محول تشغيلي (Adapters)</div>
-          <span className="badge badge-info">6 Hosts · 6 Providers</span>
+          <div className="metric-val">{summary?.counts?.adapters || 0}</div>
+          <div className="metric-lbl">{t("reference.adapterMetric")}</div>
+          <span className="badge badge-info">Multi-Host & Provider</span>
         </div>
         <div className="metric-card">
-          <div className="metric-val">FINAL_REF</div>
-          <div className="metric-lbl">حالة المرجعية (v1.0.0)</div>
-          <span className="badge badge-warning">Local-First Verified</span>
+          <div className="metric-val">{summary?.version || "…"}</div>
+          <div className="metric-lbl">{t("reference.versionMetric")}</div>
+          <span className="badge badge-warning">{summary?.packageId || "…"}</span>
         </div>
       </div>
 
@@ -83,19 +138,25 @@ export default function ReferenceManager({ onSelectContract }) {
           className={"subtab" + (activeTab === "rules" ? " active" : "")}
           onClick={() => setActiveTab("rules")}
         >
-          📜 القواعد الحاكمة ({rules.length})
+          {t("reference.rulesTab", { count: rules.length })}
         </button>
         <button
           className={"subtab" + (activeTab === "sources" ? " active" : "")}
           onClick={() => setActiveTab("sources")}
         >
-          🌐 المصادر الرسمية المعتمدة ({sources.length})
+          {t("reference.sourcesTab", { count: sources.length })}
         </button>
         <button
           className={"subtab" + (activeTab === "adapters" ? " active" : "")}
           onClick={() => setActiveTab("adapters")}
         >
-          🔌 محولات النماذج والمضيفين ({adapters.length})
+          {t("reference.adaptersTab", { count: adapters.length })}
+        </button>
+        <button
+          className={"subtab" + (activeTab === "compare" ? " active" : "")}
+          onClick={() => setActiveTab("compare")}
+        >
+          {t("reference.compareTab", { version: comparisonTargetVersion })}
         </button>
       </div>
 
@@ -104,18 +165,19 @@ export default function ReferenceManager({ onSelectContract }) {
         <input
           type="text"
           className="search-input"
-          placeholder="بحث في القواعد والمصادر والمفاهيم…"
+          placeholder={t("reference.search")}
+          aria-label={t("reference.search")}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
         {activeTab === "rules" && (
           <div className="filter-group">
-            <label>قوة الإلزام:</label>
-            <select value={forceFilter} onChange={(e) => setForceFilter(e.target.value)}>
-              <option value="">الكل (All Forces)</option>
-              <option value="MUST">MUST (إلزامي قطعي)</option>
-              <option value="MUST_NOT">MUST_NOT (محظور قطعي)</option>
-              <option value="SHOULD">SHOULD (موصى به)</option>
+            <label>{t("reference.force")}</label>
+            <select aria-label={t("reference.force")} value={forceFilter} onChange={(e) => setForceFilter(e.target.value)}>
+              <option value="">{t("reference.allForces")}</option>
+              <option value="MUST">{t("reference.must")}</option>
+              <option value="MUST_NOT">{t("reference.mustNot")}</option>
+              <option value="SHOULD">{t("reference.should")}</option>
             </select>
           </div>
         )}
@@ -125,7 +187,7 @@ export default function ReferenceManager({ onSelectContract }) {
       <div className="gov-content-grid">
         {/* Left Column: List */}
         <div className="gov-list-col">
-          {loading && <div className="loading-state">جارٍ تحميل بيانات الحوكمة المرجعية…</div>}
+          {loading && <div className="loading-state">{t("reference.loading")}</div>}
 
           {/* RULES LIST */}
           {activeTab === "rules" && (
@@ -140,16 +202,16 @@ export default function ReferenceManager({ onSelectContract }) {
                     <span className="rule-id">{r.id}</span>
                     <span className={`force-badge force-${r.force.toLowerCase()}`}>{r.force}</span>
                   </div>
-                  <div className="rule-card-title">{r.title}</div>
-                  <div className="rule-card-text">{r.text}</div>
+                  <div className="rule-card-title" dir="auto">{r.title}</div>
+                  <div className="rule-card-text" dir="auto">{r.text}</div>
                   <div className="rule-card-footer">
                     <span className="applies-when">📌 {r.applies_when}</span>
-                    <span className="sources-count">🔗 {(r.basis || []).length} مصادر</span>
+                    <span className="sources-count">🔗 {(r.basis || []).length} {t("common.sources")}</span>
                   </div>
                 </div>
               ))}
               {filteredRules.length === 0 && !loading && (
-                <div className="empty-state">لا توجد قواعد مطابقة للبحث المحدد.</div>
+                <div className="empty-state">{t("reference.noMatches")}</div>
               )}
             </div>
           )}
@@ -169,10 +231,10 @@ export default function ReferenceManager({ onSelectContract }) {
                     <span className="badge badge-kind">{s.kind}</span>
                   </div>
                   <div className="source-card-title">{s.title}</div>
-                  <div className="source-card-takeaway">{s.supported_takeaway}</div>
+                  <div className="source-card-takeaway" dir="auto">{s.supported_takeaway}</div>
                   <div className="source-card-footer">
                     <a href={s.url} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}>
-                      🔗 رابط المصدر الرسمي ↗
+                      {t("reference.officialSource")}
                     </a>
                   </div>
                 </div>
@@ -192,11 +254,55 @@ export default function ReferenceManager({ onSelectContract }) {
                   </div>
                   <div className="adapter-card-title">{a.name}</div>
                   <div className="adapter-card-body">
-                    <div>المسار: <code>{a.path}</code></div>
-                    <div>المصادر المرجعية: {(a.source_ids || []).join(", ")}</div>
+                    <div>{t("common.path")} <code>{a.path}</code></div>
+                    <div>{t("reference.basisRefs")} {(a.source_ids || []).join(", ")}</div>
                   </div>
                 </div>
               ))}
+            </div>
+          )}
+
+          {/* VERSION COMPARISON VIEW */}
+          {activeTab === "compare" && (
+            <div className="compare-items-list" style={{ padding: "12px", background: "rgba(15, 23, 42, 0.6)", borderRadius: "8px" }}>
+              {!comparison ? (
+                <div className="loading-state">{t("reference.comparing", { version: comparisonTargetVersion })}</div>
+              ) : (
+                <div>
+                  <div style={{ background: "rgba(30, 41, 59, 0.8)", padding: "12px", borderRadius: "6px", marginBottom: "12px", borderInlineStart: "4px solid #3b82f6" }}>
+                    <h4 style={{ margin: "0 0 6px 0", color: "#60a5fa" }}>{t("reference.comparisonHeading", { base: comparison.base.version, target: comparison.target.version })}</h4>
+                    <p style={{ margin: 0, fontSize: "13px", color: "#94a3b8" }}>{comparison.impactNotice}</p>
+                  </div>
+
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "16px" }}>
+                    <div style={{ background: "#0f172a", padding: "10px", borderRadius: "6px", border: "1px solid #334155" }}>
+                      <div style={{ fontSize: "12px", color: "#64748b" }}>{t("reference.base")}</div>
+                      <div style={{ fontSize: "16px", fontWeight: "bold", color: "#f8fafc" }}>AGHR {comparison.base.version}</div>
+                      <div style={{ fontSize: "13px", color: "#94a3b8" }}>{t("reference.counts", { rules: comparison.base.ruleCount, sources: comparison.base.sourceCount })}</div>
+                    </div>
+                    <div style={{ background: "#0f172a", padding: "10px", borderRadius: "6px", border: "1px solid #334155" }}>
+                      <div style={{ fontSize: "12px", color: "#64748b" }}>{t("reference.target")}</div>
+                      <div style={{ fontSize: "16px", fontWeight: "bold", color: "#10b981" }}>AGHR {comparison.target.version}</div>
+                      <div style={{ fontSize: "13px", color: "#94a3b8" }}>{t("reference.counts", { rules: comparison.target.ruleCount, sources: comparison.target.sourceCount })}</div>
+                    </div>
+                  </div>
+
+                  <h5 style={{ margin: "10px 0 6px 0", color: "#f1f5f9" }}>
+                    {t("reference.addedRules", { version: comparison.target.version, count: comparison.rulesDelta.addedCount })}
+                  </h5>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "6px", maxHeight: "250px", overflowY: "auto" }}>
+                    {comparison.rulesDelta.added.map((r) => (
+                      <div key={r.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.3)", padding: "8px 12px", borderRadius: "6px" }}>
+                        <div>
+                          <strong style={{ color: "#34d399", marginInlineEnd: "8px" }}>{r.id}</strong>
+                          <span style={{ color: "#e2e8f0", fontSize: "13px" }}>{r.title}</span>
+                        </div>
+                        <span className={`force-badge force-${r.force.toLowerCase()}`}>{r.force}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -212,19 +318,19 @@ export default function ReferenceManager({ onSelectContract }) {
                 </span>
               </div>
               <div className="inspector-section">
-                <h4>نص القاعدة الحاكمة (Governing Text)</h4>
-                <div className="inspector-quote">{selectedRule.text}</div>
+                <h4>{t("reference.governingText")}</h4>
+                <div className="inspector-quote" dir="auto">{selectedRule.text}</div>
               </div>
               <div className="inspector-section">
-                <h4>شرط الانطباق (Applicability)</h4>
+                <h4>{t("reference.applicability")}</h4>
                 <div>{selectedRule.applies_when}</div>
               </div>
               <div className="inspector-section">
-                <h4>عقد التفسير (Explanation Reference)</h4>
+                <h4>{t("reference.explanation")}</h4>
                 <code>{selectedRule.explanation_ref}</code>
               </div>
               <div className="inspector-section">
-                <h4>المصادر التأسيسية المعتمدة (Basis Sources)</h4>
+                <h4>{t("reference.basisSources")}</h4>
                 <div className="basis-chips">
                   {(selectedRule.basis || []).map((bid) => (
                     <span key={bid} className="basis-chip">
@@ -234,10 +340,10 @@ export default function ReferenceManager({ onSelectContract }) {
                 </div>
               </div>
               <div className="inspector-section">
-                <h4>فئة الإنفاذ والتحقق (Enforcement Class)</h4>
+                <h4>{t("reference.enforcement")}</h4>
                 <div className="enforcement-info">
-                  <div><strong>الفئة:</strong> {selectedRule.enforcement_class}</div>
-                  <div><strong>التحقق:</strong> {selectedRule.verification}</div>
+                  <div><strong>{t("reference.class")}</strong> {selectedRule.enforcement_class}</div>
+                  <div><strong>{t("reference.verification")}</strong> {selectedRule.verification}</div>
                 </div>
               </div>
             </div>
@@ -248,19 +354,19 @@ export default function ReferenceManager({ onSelectContract }) {
                 <span className="badge badge-publisher">{selectedSource.publisher}</span>
               </div>
               <div className="inspector-section">
-                <h4>الخلاصة المعتمدة (Supported Takeaway)</h4>
-                <div className="inspector-quote">{selectedSource.supported_takeaway}</div>
+                <h4>{t("reference.takeaway")}</h4>
+                <div className="inspector-quote" dir="auto">{selectedSource.supported_takeaway}</div>
               </div>
               <div className="inspector-section">
-                <h4>المحدد المرجعي (Locator)</h4>
+                <h4>{t("reference.locator")}</h4>
                 <div>{selectedSource.locator}</div>
               </div>
               <div className="inspector-section">
-                <h4>نطاق الإصدار (Version Scope)</h4>
+                <h4>{t("reference.versionScope")}</h4>
                 <div>{selectedSource.version_scope}</div>
               </div>
               <div className="inspector-section">
-                <h4>الرابط الرسمي</h4>
+                <h4>{t("reference.officialLink")}</h4>
                 <a href={selectedSource.url} target="_blank" rel="noreferrer">
                   {selectedSource.url} ↗
                 </a>
@@ -268,7 +374,7 @@ export default function ReferenceManager({ onSelectContract }) {
             </div>
           ) : (
             <div className="inspector-empty">
-              <span>👈 اختر قاعدة أو مصدراً من القائمة لعرض تفاصيله المرجعية وروابطه.</span>
+              <span>{t("reference.select")}</span>
             </div>
           )}
         </div>

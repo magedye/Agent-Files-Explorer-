@@ -1,0 +1,37 @@
+{
+  "host": {
+    "id": "EXAMPLE_HOST",
+    "version": "UNKNOWN",
+    "observation_ref": "urn:example:not-live-evidence"
+  },
+  "completeness": "UNKNOWN",
+  "skills": [
+    {
+      "id": "example:user:using-agent-skills",
+      "name": "using-agent-skills",
+      "source_kind": "USER",
+      "version": "UNKNOWN",
+      "locator": "host-owned skill locator",
+      "presence": "UNKNOWN",
+      "session_availability": "UNKNOWN",
+      "host_qualification": "NOT_RUN",
+      "triggers": [
+        "skill selection",
+        "اختيار المهارات"
+      ],
+      "capabilities": [
+        "workflow_selection"
+      ],
+      "required_tools": [
+        "read_file"
+      ],
+      "permissions": [
+        "READ_ONLY"
+      ],
+      "conflicts_with": [],
+      "output_criteria": [
+        "selection_rationale"
+      ]
+    }
+  ]
+}

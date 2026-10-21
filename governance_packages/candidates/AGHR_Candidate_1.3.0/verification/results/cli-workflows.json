@@ -1,0 +1,232 @@
+{
+  "status": "PASS",
+  "case_count": 12,
+  "cases": [
+    {
+      "id": "ADOPTION_PREPARE",
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "runtime/cli.py",
+        "init",
+        "--project",
+        "/mnt/data/aghr_build/acceptance-workflows/project",
+        "--name",
+        "Synthetic adoption proof",
+        "--owner",
+        "Synthetic operator"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "stdout": "{\n  \"status\": \"PREPARED\",\n  \"project\": \"/mnt/data/aghr_build/acceptance-workflows/project\",\n  \"created_at\": \"2026-10-11T16:25:58+00:00\",\n  \"reference_version\": \"1.0.0\",\n  \"activated\": false,\n  \"host_qualified\": false,\n  \"existing_project_instructions_changed\": false,\n  \"next\": \"Discover facts, reconcile instructions, qualify applicable routes, record competent adoption decision.\"\n}\n",
+      "stderr": "",
+      "status": "PASS"
+    },
+    {
+      "id": "STRUCTURE_VALIDATE",
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "runtime/cli.py",
+        "validate",
+        "--project",
+        "/mnt/data/aghr_build/acceptance-workflows/project"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"check\": \"RECORD_STRUCTURE_AND_SEMANTICS\",\n  \"errors\": [],\n  \"limits\": [\n    \"Recorded decisions are not authenticated by this checker.\",\n    \"Host/provider execution is not tested.\",\n    \"This is not product acceptance or release authorization.\"\n  ]\n}\n",
+      "stderr": "",
+      "status": "PASS"
+    },
+    {
+      "id": "UNKNOWN_NOT_READY",
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "runtime/cli.py",
+        "validate",
+        "--project",
+        "/mnt/data/aghr_build/acceptance-workflows/project",
+        "--ready"
+      ],
+      "expected_exit": 1,
+      "actual_exit": 1,
+      "stdout": "{\n  \"status\": \"FAIL\",\n  \"check\": \"ADOPTION_PREREQUISITES\",\n  \"errors\": [\n    \"Adoption is not effective\",\n    \"Data classification unresolved\",\n    \"Model/host identity unresolved\",\n    \"Host qualification evidence reference required\",\n    \"Artifact kind unresolved\"\n  ],\n  \"limits\": [\n    \"Recorded decisions are not authenticated by this checker.\",\n    \"Host/provider execution is not tested.\",\n    \"This is not product acceptance or release authorization.\"\n  ]\n}\n",
+      "stderr": "",
+      "status": "PASS"
+    },
+    {
+      "id": "EXISTING_ADOPTION_REFUSED",
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "runtime/cli.py",
+        "init",
+        "--project",
+        "/mnt/data/aghr_build/acceptance-workflows/project",
+        "--name",
+        "No overwrite",
+        "--owner",
+        "Synthetic operator"
+      ],
+      "expected_exit": 2,
+      "actual_exit": 2,
+      "stdout": "{\n  \"status\": \"ERROR\",\n  \"message\": \"Existing .aghr preserved; use reviewed migration instead\"\n}\n",
+      "stderr": "",
+      "status": "PASS"
+    },
+    {
+      "id": "INSTRUCTION_INVENTORY",
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "runtime/cli.py",
+        "audit-instructions",
+        "--project",
+        "/mnt/data/aghr_build/acceptance-workflows/project"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "stdout": "{\n  \"status\": \"INVENTORY_ONLY\",\n  \"files\": [\n    {\n      \"path\": \"AGENTS.md\",\n      \"bytes\": 42,\n      \"sha256\": \"5e59319f9d1d201388b713688b081a976b59de0f93f98a6329cb7271ac9ddbea\",\n      \"status\": \"DISCOVERED_NOT_TRUSTED\"\n    }\n  ],\n  \"actual_host_loading\": \"NOT_RUN\",\n  \"limits\": [\n    \"Global settings, parent-directory guidance, remote imports and dynamically loaded context require the selected host procedure.\",\n    \"A filename and digest do not authenticate instructional authority.\"\n  ]\n}\n",
+      "stderr": "",
+      "status": "PASS"
+    },
+    {
+      "id": "INTAKE_CAPTURE_ONLY",
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "runtime/cli.py",
+        "intake",
+        "--project",
+        "/mnt/data/aghr_build/acceptance-workflows/project",
+        "--request",
+        "/mnt/data/Agent_Governance_Harness_Reference_1.0.0/templates/REQUEST.json"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "stdout": "{\n  \"status\": \"CAPTURED\",\n  \"request_id\": \"REQ-EXAMPLE\",\n  \"sha256\": \"0b5029f8c2f9a3dfef85a973048f65dde8b7617985b56259207193ccdf1fd64b\",\n  \"promotion\": \"NONE\",\n  \"execution\": \"NOT_AUTHORIZED_BY_CAPTURE\",\n  \"canonical_backend\": \"LOCAL_JSON\"\n}\n",
+      "stderr": "",
+      "status": "PASS"
+    },
+    {
+      "id": "INTAKE_DUPLICATE_REFUSED",
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "runtime/cli.py",
+        "intake",
+        "--project",
+        "/mnt/data/aghr_build/acceptance-workflows/project",
+        "--request",
+        "/mnt/data/Agent_Governance_Harness_Reference_1.0.0/templates/REQUEST.json"
+      ],
+      "expected_exit": 2,
+      "actual_exit": 2,
+      "stdout": "{\n  \"status\": \"ERROR\",\n  \"message\": \"[Errno 17] File exists: '/mnt/data/aghr_build/acceptance-workflows/project/.aghr/intake/REQ-EXAMPLE.json'\"\n}\n",
+      "stderr": "",
+      "status": "PASS"
+    },
+    {
+      "id": "MAP_REGENERATE",
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "runtime/cli.py",
+        "map",
+        "--project",
+        "/mnt/data/aghr_build/acceptance-workflows/project"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "stdout": "{\n  \"status\": \"DERIVED_VIEW_UPDATED\",\n  \"path\": \"/mnt/data/aghr_build/acceptance-workflows/project/.aghr/PROJECT_MAP.md\"\n}\n",
+      "stderr": "",
+      "status": "PASS"
+    },
+    {
+      "id": "COPIED_REFERENCE_TOOL_RUN",
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/aghr_build/acceptance-workflows/project/.aghr/reference/runtime/cli.py",
+        "validate",
+        "--project",
+        "/mnt/data/aghr_build/acceptance-workflows/project"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"check\": \"RECORD_STRUCTURE_AND_SEMANTICS\",\n  \"errors\": [],\n  \"limits\": [\n    \"Recorded decisions are not authenticated by this checker.\",\n    \"Host/provider execution is not tested.\",\n    \"This is not product acceptance or release authorization.\"\n  ]\n}\n",
+      "stderr": "",
+      "status": "PASS"
+    },
+    {
+      "id": "LOCAL_EXECUTOR_DEMO",
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "runtime/cli.py",
+        "demo",
+        "--output",
+        "/mnt/data/aghr_build/acceptance-workflows/demo"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"scenario_count\": 8,\n  \"cases\": [\n    {\n      \"id\": \"CREATE\",\n      \"expected_decision\": \"ALLOW\",\n      \"observed\": {\n        \"decision\": \"ALLOW\",\n        \"result\": \"EXECUTED\",\n        \"operation_id\": \"6f50a6bb1ad74698e4891721\",\n        \"sha256\": \"06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58\",\n        \"bytes\": 14\n      },\n      \"before_files\": {},\n      \"after_files\": {\n        \"work/result.txt\": \"06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58\"\n      },\n      \"matched\": true\n    },\n    {\n      \"id\": \"READ\",\n      \"expected_decision\": \"ALLOW\",\n      \"observed\": {\n        \"decision\": \"ALLOW\",\n        \"result\": \"EXECUTED\",\n        \"operation_id\": \"36a65b18abe2ddb08b7d7ab5\",\n        \"sha256\": \"06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58\",\n        \"bytes\": 14,\n        \"content\": \"verified demo\\n\"\n      },\n      \"before_files\": {\n        \"work/result.txt\": \"06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58\"\n      },\n      \"after_files\": {\n        \"work/result.txt\": \"06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58\"\n      },\n      \"matched\": true\n    },\n    {\n      \"id\": \"TRAVERSAL\",\n      \"expected_decision\": \"DENY\",\n      \"observed\": {\n        \"decision\": \"DENY\",\n        \"result\": \"NOT_EXECUTED\",\n        \"operation_id\": \"e214988b3b5338f743db7d56\",\n        \"reason\": \"Empty, absolute or traversal path rejected\"\n      },\n      \"before_files\": {\n        \"work/result.txt\": \"06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58\"\n      },\n      \"after_files\": {\n        \"work/result.txt\": \"06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58\"\n      },\n      \"matched\": true\n    },\n    {\n      \"id\": \"CONTROL_PLANE\",\n      \"expected_decision\": \"DENY\",\n      \"observed\": {\n        \"decision\": \"DENY\",\n        \"result\": \"NOT_EXECUTED\",\n        \"operation_id\": \"a178f427112614d54da94385\",\n        \"reason\": \"Hidden/control-plane paths denied\"\n      },\n      \"before_files\": {\n        \"work/result.txt\": \"06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58\"\n      },\n      \"after_files\": {\n        \"work/result.txt\": \"06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58\"\n      },\n      \"matched\": true\n    },\n    {\n      \"id\": \"UNKNOWN_SHELL\",\n      \"expected_decision\": \"DENY\",\n      \"observed\": {\n        \"decision\": \"DENY\",\n        \"result\": \"NOT_EXECUTED\",\n        \"operation_id\": \"9e312409914de24c09961ed3\",\n        \"reason\": \"Unknown operation denied\"\n      },\n      \"before_files\": {\n        \"work/result.txt\": \"06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58\"\n      },\n      \"after_files\": {\n        \"work/result.txt\": \"06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58\"\n      },\n      \"matched\": true\n    },\n    {\n      \"id\": \"REVIEW_REQUIRED\",\n      \"expected_decision\": \"REVIEW\",\n      \"observed\": {\n        \"decision\": \"REVIEW\",\n        \"result\": \"NOT_EXECUTED\",\n        \"operation_id\": \"6095040daa482abaff809fc7\",\n        \"reason\": \"Replacement requires bound operator approval\"\n      },\n      \"before_files\": {\n        \"work/result.txt\": \"06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58\"\n      },\n      \"after_files\": {\n        \"work/result.txt\": \"06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58\"\n      },\n      \"matched\": true\n    },\n    {\n      \"id\": \"APPROVED_REPLACE\",\n      \"expected_decision\": \"ALLOW\",\n      \"observed\": {\n        \"decision\": \"ALLOW\",\n        \"result\": \"EXECUTED\",\n        \"operation_id\": \"de7124ea28e49b2755678847\",\n        \"sha256\": \"77232f39b1bd65acf24b447672dd0745f9f6f04f05ab1581c58bba30b7f3ddb8\",\n        \"bytes\": 21\n      },\n      \"before_files\": {\n        \"work/result.txt\": \"06eb36890ab691f35055952496091b541be9e77d614468a9d58b1e9cbca78e58\"\n      },\n      \"after_files\": {\n        \"work/result.txt\": \"77232f39b1bd65acf24b447672dd0745f9f6f04f05ab1581c58bba30b7f3ddb8\"\n      },\n      \"matched\": true\n    },\n    {\n      \"id\": \"CANCELLED\",\n      \"expected_decision\": \"DENY\",\n      \"observed\": {\n        \"decision\": \"DENY\",\n        \"result\": \"NOT_EXECUTED\",\n        \"operation_id\": \"7498493a5be7ae62ee8c5e30\",\n        \"reason\": \"Grant revoked or run cancelled\"\n      },\n      \"before_files\": {\n        \"work/result.txt\": \"77232f39b1bd65acf24b447672dd0745f9f6f04f05ab1581c58bba30b7f3ddb8\"\n      },\n      \"after_files\": {\n        \"work/result.txt\": \"77232f39b1bd65acf24b447672dd0745f9f6f04f05ab1581c58bba30b7f3ddb8\"\n      },\n      \"matched\": true\n    }\n  ],\n  \"boundary\": \"BUNDLED_LOCAL_EXECUTOR_ONLY\",\n  \"live_model\": \"NOT_RUN\",\n  \"native_host\": \"NOT_RUN\",\n  \"independent_review\": \"NOT_PERFORMED\"\n}\n",
+      "stderr": "",
+      "status": "PASS"
+    },
+    {
+      "id": "LOCAL_EFFECT_GRADING",
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "evaluations/grade.py",
+        "--run",
+        "/mnt/data/aghr_build/acceptance-workflows/demo"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"scope\": \"LOCAL_DEMO_EFFECT_AND_RECORD_CONSISTENCY\",\n  \"expected_cases\": 8,\n  \"errors\": [],\n  \"limits\": [\n    \"Evidence producer is not cryptographically authenticated.\",\n    \"No live provider or native host evaluated.\",\n    \"A correct local trace does not confer release approval.\"\n  ]\n}\n",
+      "stderr": "",
+      "status": "PASS"
+    },
+    {
+      "id": "DEMO_OVERWRITE_REFUSED",
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "runtime/cli.py",
+        "demo",
+        "--output",
+        "/mnt/data/aghr_build/acceptance-workflows/demo"
+      ],
+      "expected_exit": 2,
+      "actual_exit": 2,
+      "stdout": "{\n  \"status\": \"ERROR\",\n  \"message\": \"Demo output must not exist\"\n}\n",
+      "stderr": "",
+      "status": "PASS"
+    }
+  ],
+  "preservation": {
+    "before": {
+      "AGENTS.md": "5e59319f9d1d201388b713688b081a976b59de0f93f98a6329cb7271ac9ddbea",
+      "unrelated.txt": "cbc461d914bc36ada4809f1b6d92c2c58a182b2e31a71a7f03ad9acaadf9f41d"
+    },
+    "after": {
+      "AGENTS.md": "5e59319f9d1d201388b713688b081a976b59de0f93f98a6329cb7271ac9ddbea",
+      "unrelated.txt": "cbc461d914bc36ada4809f1b6d92c2c58a182b2e31a71a7f03ad9acaadf9f41d"
+    },
+    "unchanged": true
+  },
+  "syntax_target": {
+    "python": "3.10",
+    "parsed_files": [
+      "tests/__init__.py",
+      "tests/test_runtime.py",
+      "tests/test_package.py",
+      "tests/test_records.py",
+      "tests/test_evaluations.py",
+      "evaluations/__init__.py",
+      "evaluations/grade.py",
+      "tools/__init__.py",
+      "tools/run_tests.py",
+      "tools/check_package.py",
+      "runtime/__init__.py",
+      "runtime/cli.py",
+      "runtime/policy.py",
+      "runtime/common.py"
+    ],
+    "status": "PASS",
+    "limit": "Syntax parser check, not execution on Python 3.10."
+  },
+  "scope": "SYNTHETIC_LOCAL_CLI_WORKFLOWS",
+  "live_host": "NOT_RUN"
+}

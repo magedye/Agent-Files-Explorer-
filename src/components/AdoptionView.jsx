@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import { useI18n } from "../i18n/I18nProvider.jsx";
 
 export default function AdoptionView({ onGoToStaging }) {
+  const { t } = useI18n();
   const [candidates, setCandidates] = useState([]);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [profile, setProfile] = useState("STANDARD");
@@ -24,7 +26,7 @@ export default function AdoptionView({ onGoToStaging }) {
         setSelectedCandidate(data.candidates[0]);
       }
     } catch (err) {
-      setError("فشل جلب المشاريع المرشحة للتبني");
+      setError("error.candidates");
     }
   }
 
@@ -46,7 +48,7 @@ export default function AdoptionView({ onGoToStaging }) {
         }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "فشل إعداد خطة التبني");
+      if (!res.ok) throw new Error(data.error || "error.adoption");
       setPlan(data.plan);
     } catch (err) {
       setError(err.message);
@@ -69,8 +71,8 @@ export default function AdoptionView({ onGoToStaging }) {
         }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "فشل إنشاء مساحة Staging");
-      setStagingMsg(`تم تجهيز التبني بنجاح في مساحة Staging معزولة: ${data.manifest.stagingId}`);
+      if (!res.ok) throw new Error(data.error || "error.stage");
+      setStagingMsg(data.manifest.stagingId);
       if (onGoToStaging) {
         onGoToStaging(data.manifest.stagingId);
       }
@@ -87,15 +89,14 @@ export default function AdoptionView({ onGoToStaging }) {
       <div className="gov-alert-banner">
         <span className="alert-icon">🏗️</span>
         <div>
-          <strong>ضابط التبني (Adoption Principle):</strong> يُدمج إطار الحوكمة AGHR دون كتابة صامتة فوق ملفات المشروع القائمة.
-          تُحفظ توجيهات المالك السابقة ويُجهز التبني أولاً في Staging معزول للمراجعة الصريحة.
+          <strong>{t("adoption.principleTitle")}</strong> {t("adoption.principle")}
         </div>
       </div>
 
       <div className="adoption-grid">
         {/* Left Column: Candidate & Configuration */}
         <div className="adoption-config-col">
-          <div className="pane-title">📂 المشاريع المرشحة للتبني (Candidate Projects)</div>
+          <div className="pane-title">{t("adoption.candidates")}</div>
 
           <div className="candidates-list">
             {candidates.map((c) => (
@@ -110,7 +111,7 @@ export default function AdoptionView({ onGoToStaging }) {
                 <div className="cand-top">
                   <span className="cand-name">{c.name}</span>
                   <span className={`cand-status status-${c.governanceState.toLowerCase()}`}>
-                    {c.governanceState === "ADOPTED_AGHR" ? "متبنّى سابقاً" : "غير متبنّى"}
+                    {c.governanceState === "ADOPTED_AGHR" ? t("adoption.adopted") : t("adoption.notAdopted")}
                   </span>
                 </div>
                 <div className="cand-stack">
@@ -119,37 +120,37 @@ export default function AdoptionView({ onGoToStaging }) {
                       {s}
                     </span>
                   ))}
-                  {c.hasAgentsMd && <span className="stack-pill pill-agents">AGENTS.md موجود</span>}
+                  {c.hasAgentsMd && <span className="stack-pill pill-agents">{t("adoption.hasAgents")}</span>}
                 </div>
               </div>
             ))}
           </div>
 
           <div className="adoption-options-box">
-            <div className="pane-title">⚙️ خيارات التبني والحزم التشغيلية</div>
+            <div className="pane-title">{t("adoption.options")}</div>
 
             <div className="form-group">
-              <label>مستوى الحوكمة (Governance Profile):</label>
-              <select value={profile} onChange={(e) => setProfile(e.target.value)}>
-                <option value="LITE">LITE (مستوى خفيف للمهام المحدودة والبيانات العامة)</option>
-                <option value="STANDARD">STANDARD (المستوى القياسي لأعمال البرمجة - موصى به)</option>
-                <option value="CONTROLLED">CONTROLLED (مستوى حرج محكوم مع متطلب مراجعة مستقلة)</option>
+              <label>{t("adoption.profile")}</label>
+              <select aria-label={t("adoption.profile")} value={profile} onChange={(e) => setProfile(e.target.value)}>
+                <option value="LITE">{t("adoption.lite")}</option>
+                <option value="STANDARD">{t("adoption.standard")}</option>
+                <option value="CONTROLLED">{t("adoption.controlled")}</option>
               </select>
             </div>
 
             <div className="form-group">
-              <label>المزود الافتراضي (Default Provider):</label>
-              <select value={provider} onChange={(e) => setProvider(e.target.value)}>
-                <option value="OPENAI">OpenAI (GPT-4o / GPT-6 Astra) [الافتراضي]</option>
+              <label>{t("adoption.provider")}</label>
+              <select aria-label={t("adoption.provider")} value={provider} onChange={(e) => setProvider(e.target.value)}>
+                <option value="OPENAI">{t("adoption.openai")}</option>
                 <option value="ANTHROPIC">Anthropic (Claude 3.5 Sonnet)</option>
                 <option value="GOOGLE">Google (Gemini 2.0 / 2.5 Pro)</option>
               </select>
             </div>
 
             <div className="form-group">
-              <label>المضيف التشغيلي (Host Adapter):</label>
-              <select value={host} onChange={(e) => setHost(e.target.value)}>
-                <option value="CODEX">Codex CLI [الافتراضي]</option>
+              <label>{t("adoption.host")}</label>
+              <select aria-label={t("adoption.host")} value={host} onChange={(e) => setHost(e.target.value)}>
+                <option value="CODEX">{t("adoption.codex")}</option>
                 <option value="CLAUDE_CODE">Claude Code</option>
                 <option value="GEMINI_CLI">Gemini CLI</option>
                 <option value="GITHUB_COPILOT">GitHub Copilot</option>
@@ -161,10 +162,10 @@ export default function AdoptionView({ onGoToStaging }) {
               onClick={handlePreparePlan}
               disabled={loading || !selectedCandidate}
             >
-              {loading ? "جارٍ إعداد خطة التبني…" : "📝 إعداد خطة التبني وعرض الفروقات (Diff Preview)"}
+              {loading ? t("adoption.preparing") : t("adoption.prepare")}
             </button>
 
-            {error && <div className="gov-error-msg">{error}</div>}
+            {error && <div className="gov-error-msg">{t(error)}</div>}
           </div>
         </div>
 
@@ -174,7 +175,7 @@ export default function AdoptionView({ onGoToStaging }) {
             <div className="plan-details-box">
               <div className="plan-header">
                 <div>
-                  <h3>خطة التبني: {plan.projectName}</h3>
+                  <h3>{t("adoption.plan")} {plan.projectName}</h3>
                   <div className="plan-tags">
                     <span className="badge badge-primary">{plan.profile}</span>
                     <span className="badge badge-info">{plan.provider}</span>
@@ -182,13 +183,13 @@ export default function AdoptionView({ onGoToStaging }) {
                   </div>
                 </div>
                 <button className="btn btn-success" onClick={handleStagePlan} disabled={loading}>
-                  🚀 تجهيز التبني في Staging للمراجعة
+                  {t("adoption.stage")}
                 </button>
               </div>
 
-              {stagingMsg && <div className="gov-success-banner">{stagingMsg}</div>}
+              {stagingMsg && <div className="gov-success-banner">{t("adoption.staged", { id: stagingMsg })}</div>}
 
-              <h4>الملفات المستهدفة والفروقات (Planned Files & Diffs):</h4>
+              <h4>{t("adoption.files")}</h4>
 
               {plan.plannedFiles.map((pf) => (
                 <div key={pf.path} className="planned-file-card">
@@ -199,12 +200,12 @@ export default function AdoptionView({ onGoToStaging }) {
                 </div>
               ))}
 
-              <h4>سجل التبني الحوكمي المشتق (PROJECT.json Record):</h4>
+              <h4>{t("adoption.record")}</h4>
               <pre className="json-record-view">{JSON.stringify(plan.projectRecord, null, 2)}</pre>
             </div>
           ) : (
             <div className="pane-placeholder">
-              <span>👈 اختر مشروعاً ثم اضغط «إعداد خطة التبني» لمعاينة الفروقات ومخرجات التبني قبل أي إجراء.</span>
+              <span>{t("adoption.empty")}</span>
             </div>
           )}
         </div>

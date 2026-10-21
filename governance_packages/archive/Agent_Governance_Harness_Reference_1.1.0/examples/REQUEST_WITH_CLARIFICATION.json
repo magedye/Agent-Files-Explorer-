@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "request_id": "clarification-example",
+  "mode": "REVIEW",
+  "source": {
+    "locator": "user-provided-request",
+    "sha256": null,
+    "captured_at": "2026-10-11T00:00:00+00:00",
+    "available_scope": "Illustrative template only; replace with the actual captured request."
+  },
+  "original_text": "Review the proposed change without editing the repository.",
+  "goal": "Identify evidence-backed gaps and corrections.",
+  "scope": [
+    "Read-only review of the named change"
+  ],
+  "exclusions": [
+    "No source modification",
+    "No publication"
+  ],
+  "authority_ref": null,
+  "acceptance_criteria": [
+    "Findings distinguish facts, inference and unverified claims."
+  ],
+  "items": [],
+  "clarifications": [
+    {
+      "id": "Q-001",
+      "question": "Does account cancellation mean disable access or delete retained records?",
+      "material": true,
+      "source_refs": [
+        "urn:synthetic:requirements-no-cancellation-policy"
+      ],
+      "options": [
+        {
+          "id": "disable",
+          "label": "Disable sign-in",
+          "impact": "Reversible access change; still needs scoped authorization."
+        },
+        {
+          "id": "delete",
+          "label": "Delete account records",
+          "impact": "May affect retention and recovery; requires authorized policy."
+        }
+      ],
+      "recommendation_id": "disable",
+      "recommendation_reason": "Reversible alternative while retention requirements are resolved.",
+      "affected_work_ids": [
+        "W-cancellation"
+      ],
+      "status": "UNRESOLVED",
+      "decision_ref": null
+    }
+  ]
+}

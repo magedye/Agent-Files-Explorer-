@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import { useI18n } from "../i18n/I18nProvider.jsx";
 
 export default function IntakeView({ onStagePacket }) {
+  const { t, locale } = useI18n();
   const [rawText, setRawText] = useState("");
-  const [author, setAuthor] = useState("مهندس الجودة");
+  const [author, setAuthor] = useState("");
   const [loading, setLoading] = useState(false);
   const [currentPacket, setCurrentPacket] = useState(null);
   const [packetsHistory, setPacketsHistory] = useState([]);
@@ -32,12 +34,12 @@ export default function IntakeView({ onStagePacket }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           rawText,
-          author,
+          author: author.trim() || t("intake.defaultAuthor"),
           source: "STUDIO_WEB_INTAKE",
         }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "فشل معالجة الطلب");
+      if (!res.ok) throw new Error(data.error || "error.intake");
       setCurrentPacket(data.packet);
       loadPackets();
     } catch (err) {
@@ -50,12 +52,12 @@ export default function IntakeView({ onStagePacket }) {
   const loadExample = (type) => {
     if (type === "compound") {
       setRawText(
-        "يجب حفظ النص القرآني دون أي تعديل أو تسريب.\nبالإضافة إلى ذلك يمنع حذف أي أثر أو دليل عند إجراء التحليل الدلالي؛ كذلك ينبغي إضافة اختبار تراجعي للتحقق من المخرجات."
+        t("intake.exampleCompound")
       );
     } else if (type === "conflict") {
-      setRawText("لا يجوز الرجوع إلى المراجع الرسمية للمطور ويجب الاعتماد على التخمين الحر.");
+      setRawText(t("intake.exampleConflict"));
     } else if (type === "tool") {
-      setRawText("ينبغي إضافة فاحص آلي للتحقق من توافق ملفات المهارة مع Schema قبل اعتماد التغييرات.");
+      setRawText(t("intake.exampleTool"));
     }
   };
 
@@ -65,8 +67,7 @@ export default function IntakeView({ onStagePacket }) {
       <div className="gov-alert-banner">
         <span className="alert-icon">🛡️</span>
         <div>
-          <strong>ضابط الحوكمة (Intake Principle):</strong> يُحفظ النص الأصلي الخام دون تعديل مع بصمة SHA-256،
-          ويُفكك إلى عبارات ذرية مصنفة. كل نتيجة هي مقترح (PROPOSED) ولا تُعتمد ولا تُطبق تلقائياً دون موافقة المالك.
+          <strong>{t("intake.principleTitle")}</strong> {t("intake.principle")}
         </div>
       </div>
 
@@ -74,39 +75,43 @@ export default function IntakeView({ onStagePacket }) {
         {/* Left Form: Intake Capture */}
         <div className="intake-form-pane">
           <form onSubmit={handleSubmit}>
-            <div className="pane-title">📥 إدخال ملاحظة أو طلب حوكمي جديد (Raw Intake)</div>
+            <div className="pane-title">{t("intake.heading")}</div>
 
             <div className="form-group">
-              <label>صاحب الطلب / المصدر:</label>
+              <label>{t("intake.author")}</label>
               <input
                 type="text"
+                dir="auto"
                 className="input-text"
                 value={author}
                 onChange={(e) => setAuthor(e.target.value)}
-                placeholder="اسم المستخدم أو صفة المصدر…"
+                placeholder={t("intake.authorPlaceholder")}
+                aria-label={t("intake.author")}
               />
             </div>
 
             <div className="form-group">
               <div className="label-with-examples">
-                <label>نص الملاحظة أو الطلب (عربي أو إنجليزي):</label>
+                <label>{t("intake.text")}</label>
                 <div className="example-links">
-                  <span>أمثلة: </span>
+                  <span>{t("intake.examples")} </span>
                   <button type="button" onClick={() => loadExample("compound")} className="link-btn">
-                    طلب مركب
+                    {t("intake.compound")}
                   </button>
                   <button type="button" onClick={() => loadExample("conflict")} className="link-btn">
-                    طلب متعارض
+                    {t("intake.conflict")}
                   </button>
                   <button type="button" onClick={() => loadExample("tool")} className="link-btn">
-                    طلب أداة فحص
+                    {t("intake.tool")}
                   </button>
                 </div>
               </div>
               <textarea
+                dir="auto"
                 className="input-textarea"
                 rows="6"
-                placeholder="أدخل الملاحظة أو النتيجة أو المتطلب هنا…"
+                placeholder={t("intake.placeholder")}
+                aria-label={t("intake.text")}
                 value={rawText}
                 onChange={(e) => setRawText(e.target.value)}
               />
@@ -114,16 +119,16 @@ export default function IntakeView({ onStagePacket }) {
 
             <div className="form-actions">
               <button type="submit" className="btn btn-primary" disabled={loading || !rawText.trim()}>
-                {loading ? "جارٍ التفكيك والتحليل…" : "⚡ تفكيك وتحليل الطلب الحوكمي"}
+                {loading ? t("intake.processing") : t("intake.submit")}
               </button>
             </div>
 
-            {error && <div className="gov-error-msg">{error}</div>}
+            {error && <div className="gov-error-msg">{t(error)}</div>}
           </form>
 
           {/* History of ChangePackets */}
           <div className="packets-history-section">
-            <h4>📦 حزم التغييرات المحفوظة ({packetsHistory.length})</h4>
+            <h4>{t("intake.history", { count: packetsHistory.length })}</h4>
             <div className="packets-list">
               {packetsHistory.map((p) => (
                 <div
@@ -133,10 +138,10 @@ export default function IntakeView({ onStagePacket }) {
                 >
                   <div className="packet-item-id">{p.packetId}</div>
                   <div className="packet-item-meta">
-                    <span>{new Date(p.createdAt).toLocaleTimeString("ar")}</span>
-                    <span>{p.changeItems?.length || 0} عناصر ذرية</span>
+                    <span>{new Date(p.createdAt).toLocaleTimeString(locale)}</span>
+                    <span>{t("intake.atomicCount", { count: p.changeItems?.length || 0 })}</span>
                   </div>
-                  <div className="packet-item-text">{p.rawText?.slice(0, 50)}…</div>
+                  <div className="packet-item-text" dir="auto">{p.rawText?.slice(0, 50)}…</div>
                 </div>
               ))}
             </div>
@@ -149,20 +154,20 @@ export default function IntakeView({ onStagePacket }) {
             <div className="packet-details">
               <div className="packet-header">
                 <div>
-                  <h3>حزمة التغييرات: {currentPacket.packetId}</h3>
+                  <h3>{t("intake.packet")} {currentPacket.packetId}</h3>
                   <div className="packet-meta-row">
-                    <span>بصمة SHA-256: <code>{currentPacket.rawDigestSha256?.slice(0, 16)}…</code></span>
+                    <span>{t("intake.digest")} <code>{currentPacket.rawDigestSha256?.slice(0, 16)}…</code></span>
                     <span className="badge badge-warning">{currentPacket.status}</span>
                   </div>
                 </div>
               </div>
 
               <div className="raw-preserved-box">
-                <div className="box-label">النص الخام المحفوظ (Preserved Raw Input):</div>
-                <div className="raw-text-content">{currentPacket.rawText}</div>
+                <div className="box-label">{t("intake.preserved")}</div>
+                <div className="raw-text-content" dir="auto">{currentPacket.rawText}</div>
               </div>
 
-              <h4>العناصر الذرية المشتقة والتصنيف (Atomic Change Items):</h4>
+              <h4>{t("intake.items")}</h4>
 
               <div className="change-items-grid">
                 {currentPacket.changeItems.map((item, idx) => (
@@ -175,7 +180,7 @@ export default function IntakeView({ onStagePacket }) {
                     </div>
 
                     <div className="item-statement">
-                      <strong>العبارة الذرية:</strong> {item.statement}
+                      <strong>{t("intake.statement")}</strong> <bdi>{item.statement}</bdi>
                     </div>
 
                     {/* 2-Layer Classification Badges */}
@@ -197,18 +202,18 @@ export default function IntakeView({ onStagePacket }) {
                     {/* Reconciliation details */}
                     <div className="reconciliation-box">
                       <div className="rec-rationale">
-                        <strong>التعليل الحوكمي:</strong> {item.rationale}
+                        <strong>{t("intake.rationale")}</strong> <bdi>{item.rationale}</bdi>
                       </div>
                       {item.relatedRules && item.relatedRules.length > 0 && (
                         <div className="rec-rules">
-                          <strong>القواعد المرتبطة:</strong> {item.relatedRules.join(", ")}
+                          <strong>{t("intake.relatedRules")}</strong> {item.relatedRules.join(", ")}
                         </div>
                       )}
                     </div>
 
                     <div className="item-status-footer">
-                      <span>حالة العنصر: <strong>{item.status}</strong></span>
-                      <span>سلطة الاعتماد: {currentPacket.authorityRequired}</span>
+                      <span>{t("intake.status")} <strong>{item.status}</strong></span>
+                      <span>{t("intake.authority")} {currentPacket.authorityRequired}</span>
                     </div>
                   </div>
                 ))}
@@ -216,7 +221,7 @@ export default function IntakeView({ onStagePacket }) {
             </div>
           ) : (
             <div className="pane-placeholder">
-              <span>👈 أدخل طلباً في النموذج واضغط «تفكيك وتحليل» لتوليد حزمة التغييرات Traceable ChangePacket.</span>
+              <span>{t("intake.empty")}</span>
             </div>
           )}
         </div>

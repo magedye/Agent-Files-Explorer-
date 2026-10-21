@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RULE",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": [
+        "1.0"
+      ]
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "original_text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "host_channel_observed": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "SYSTEM",
+        "DEVELOPER",
+        "USER",
+        "TOOL_DATA",
+        "FILE_DATA"
+      ]
+    },
+    "institutional_authority_ref": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "kind": {
+      "type": "string",
+      "minLength": 1
+    },
+    "force": {
+      "type": "string",
+      "enum": [
+        "MUST",
+        "MUST_NOT",
+        "SHOULD",
+        "SHOULD_NOT",
+        "MAY",
+        "INFORMATIVE",
+        "UNRESOLVED"
+      ]
+    },
+    "trust": {
+      "type": "string",
+      "enum": [
+        "TRUSTED_FOR_SCOPE",
+        "UNTRUSTED_DATA",
+        "UNVERIFIED"
+      ]
+    },
+    "lifecycle": {
+      "type": "string",
+      "enum": [
+        "CAPTURED",
+        "CLASSIFIED",
+        "PROPOSED",
+        "APPROVED",
+        "EFFECTIVE",
+        "SUPERSEDED",
+        "RETIRED",
+        "REJECTED",
+        "DEFERRED"
+      ]
+    },
+    "applies_when": {
+      "type": "string",
+      "minLength": 1
+    },
+    "waivable": {
+      "type": "boolean"
+    },
+    "enforcement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verification": {
+      "type": "string",
+      "minLength": 1
+    },
+    "decision_ref": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "original_text",
+    "source_ref",
+    "host_channel_observed",
+    "institutional_authority_ref",
+    "kind",
+    "force",
+    "trust",
+    "lifecycle",
+    "applies_when",
+    "waivable",
+    "enforcement",
+    "verification",
+    "decision_ref"
+  ],
+  "additionalProperties": false
+}

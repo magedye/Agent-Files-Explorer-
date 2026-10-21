@@ -1,0 +1,335 @@
+{
+  "status": "PASS",
+  "cases_executed": 12,
+  "cases": [
+    {
+      "id": "WF01_INIT",
+      "args": [
+        "init",
+        "--project",
+        "/mnt/data/work/merge-cli-project",
+        "--name",
+        "Synthetic merge test",
+        "--owner",
+        "Synthetic operator"
+      ],
+      "expected_exit": 0,
+      "observed_exit": 0,
+      "expected_status": "PREPARED",
+      "observed": {
+        "status": "PREPARED",
+        "project": "/mnt/data/work/merge-cli-project",
+        "created_at": "2026-10-12T17:23:16+00:00",
+        "reference_version": "1.1.0",
+        "activated": false,
+        "host_qualified": false,
+        "existing_project_instructions_changed": false,
+        "next": "Discover facts, reconcile instructions, qualify applicable routes, record competent adoption decision."
+      },
+      "stderr": "",
+      "matched": true
+    },
+    {
+      "id": "WF02_RECORDS",
+      "args": [
+        "validate",
+        "--project",
+        "/mnt/data/work/merge-cli-project"
+      ],
+      "expected_exit": 0,
+      "observed_exit": 0,
+      "expected_status": "PASS",
+      "observed": {
+        "status": "PASS",
+        "check": "RECORD_STRUCTURE_AND_SEMANTICS",
+        "errors": [],
+        "limits": [
+          "Recorded decisions are not authenticated by this checker.",
+          "Host/provider execution is not tested.",
+          "This is not product acceptance or release authorization."
+        ]
+      },
+      "stderr": "",
+      "matched": true
+    },
+    {
+      "id": "WF03_NOT_EFFECTIVE",
+      "args": [
+        "validate",
+        "--project",
+        "/mnt/data/work/merge-cli-project",
+        "--ready"
+      ],
+      "expected_exit": 1,
+      "observed_exit": 1,
+      "expected_status": "FAIL",
+      "observed": {
+        "status": "FAIL",
+        "check": "ADOPTION_PREREQUISITES",
+        "errors": [
+          "Adoption is not effective",
+          "Data classification unresolved",
+          "Model/host identity unresolved",
+          "Host qualification evidence reference required",
+          "Artifact kind unresolved"
+        ],
+        "limits": [
+          "Recorded decisions are not authenticated by this checker.",
+          "Host/provider execution is not tested.",
+          "This is not product acceptance or release authorization."
+        ]
+      },
+      "stderr": "",
+      "matched": true
+    },
+    {
+      "id": "WF04_QUESTION_CAPTURE",
+      "args": [
+        "intake",
+        "--project",
+        "/mnt/data/work/merge-cli-project",
+        "--request",
+        "/mnt/data/work/merge-cli-project/request.json"
+      ],
+      "expected_exit": 0,
+      "observed_exit": 0,
+      "expected_status": "CAPTURED",
+      "observed": {
+        "status": "CAPTURED",
+        "request_id": "clarification-example",
+        "sha256": "144bd9757421d6c36127bee9048ed9945adae2dafcc2fa628bb63082756ff1e2",
+        "promotion": "NONE",
+        "execution": "NOT_AUTHORIZED_BY_CAPTURE",
+        "canonical_backend": "LOCAL_JSON"
+      },
+      "stderr": "",
+      "matched": true
+    },
+    {
+      "id": "WF05_DUPLICATE_REFUSED",
+      "args": [
+        "intake",
+        "--project",
+        "/mnt/data/work/merge-cli-project",
+        "--request",
+        "/mnt/data/work/merge-cli-project/request.json"
+      ],
+      "expected_exit": 2,
+      "observed_exit": 2,
+      "expected_status": "ERROR",
+      "observed": {
+        "status": "ERROR",
+        "message": "[Errno 17] File exists: '/mnt/data/work/merge-cli-project/.aghr/intake/clarification-example.json'"
+      },
+      "stderr": "",
+      "matched": true
+    },
+    {
+      "id": "WF06_PROGRESS_READ",
+      "args": [
+        "progress",
+        "--project",
+        "/mnt/data/work/merge-cli-project"
+      ],
+      "expected_exit": 0,
+      "observed_exit": 0,
+      "expected_status": "DERIVED_VIEW",
+      "observed": {
+        "status": "DERIVED_VIEW",
+        "scope": "DECLARED_CANONICAL_SNAPSHOT_ONLY",
+        "canonical_backend": "LOCAL_JSON",
+        "external_snapshot_needs_refresh": false,
+        "declared_tasks": 0,
+        "tasks_with_verified_status": 0,
+        "required_criteria": 0,
+        "criteria_with_checked_pass_evidence": 0,
+        "criterion_evidence_fraction": null,
+        "conflicting_criterion_ids": [],
+        "measurement_scope_complete_as_declared": false,
+        "phase": "UNKNOWN",
+        "git_observation": {
+          "branch": null,
+          "default_branch": null,
+          "observed_at": null,
+          "remote_checked": false,
+          "unmerged_branches": [],
+          "evidence_ref": null
+        },
+        "open_findings": 0,
+        "open_critical_findings": [],
+        "overall_compliance_verdict": "NOT_ASSESSED",
+        "release_acceptance": "NOT_GRANTED",
+        "permission_granted": false,
+        "limits": [
+          "Valid record/artifact hashes do not authenticate the human decision or evidence producer.",
+          "No live Git, host or model observation; missing telemetry is unknown.",
+          "Task counts and criterion coverage are separate from plan completeness and product acceptance."
+        ]
+      },
+      "stderr": "",
+      "matched": true
+    },
+    {
+      "id": "WF07_INSTRUCTION_INVENTORY",
+      "args": [
+        "audit-instructions",
+        "--project",
+        "/mnt/data/work/merge-cli-project"
+      ],
+      "expected_exit": 0,
+      "observed_exit": 0,
+      "expected_status": "INVENTORY_ONLY",
+      "observed": {
+        "status": "INVENTORY_ONLY",
+        "files": [
+          {
+            "path": "AGENTS.md",
+            "bytes": 46,
+            "sha256": "f1a4a4fa20311acc11e63125d212a0a91307c215773795ca78ff8cb27dd4fc38",
+            "status": "DISCOVERED_NOT_TRUSTED"
+          }
+        ],
+        "actual_host_loading": "NOT_RUN",
+        "limits": [
+          "Global settings, parent-directory guidance, remote imports and dynamically loaded context require the selected host procedure.",
+          "A filename and digest do not authenticate instructional authority."
+        ]
+      },
+      "stderr": "",
+      "matched": true
+    },
+    {
+      "id": "WF08_MAP",
+      "args": [
+        "map",
+        "--project",
+        "/mnt/data/work/merge-cli-project"
+      ],
+      "expected_exit": 0,
+      "observed_exit": 0,
+      "expected_status": "DERIVED_VIEW_UPDATED",
+      "observed": {
+        "status": "DERIVED_VIEW_UPDATED",
+        "path": "/mnt/data/work/merge-cli-project/.aghr/PROJECT_MAP.md"
+      },
+      "stderr": "",
+      "matched": true
+    },
+    {
+      "id": "WF09_REINIT_REFUSED",
+      "args": [
+        "init",
+        "--project",
+        "/mnt/data/work/merge-cli-project",
+        "--name",
+        "Again",
+        "--owner",
+        "Other"
+      ],
+      "expected_exit": 2,
+      "observed_exit": 2,
+      "expected_status": "ERROR",
+      "observed": {
+        "status": "ERROR",
+        "message": "Existing .aghr preserved; use reviewed migration instead"
+      },
+      "stderr": "",
+      "matched": true
+    },
+    {
+      "id": "WF10_MATERIAL_ASSUMPTION_REFUSED",
+      "args": [
+        "intake",
+        "--project",
+        "/mnt/data/work/merge-cli-project",
+        "--request",
+        "/mnt/data/work/merge-cli-project/request.json"
+      ],
+      "expected_exit": 2,
+      "observed_exit": 2,
+      "expected_status": "ERROR",
+      "observed": {
+        "status": "ERROR",
+        "message": "Material decision cannot be assumed: Q-001"
+      },
+      "stderr": "",
+      "matched": true
+    },
+    {
+      "id": "WF11_PROGRESS_NOT_TASK_COMPLETION",
+      "args": [
+        "progress",
+        "--project",
+        "/mnt/data/work/merge-cli-project"
+      ],
+      "expected_exit": 0,
+      "observed_exit": 0,
+      "expected_status": "DERIVED_VIEW",
+      "observed": {
+        "status": "DERIVED_VIEW",
+        "scope": "DECLARED_CANONICAL_SNAPSHOT_ONLY",
+        "canonical_backend": "LOCAL_JSON",
+        "external_snapshot_needs_refresh": false,
+        "declared_tasks": 1,
+        "tasks_with_verified_status": 1,
+        "required_criteria": 2,
+        "criteria_with_checked_pass_evidence": 1,
+        "criterion_evidence_fraction": 0.5,
+        "conflicting_criterion_ids": [],
+        "measurement_scope_complete_as_declared": false,
+        "phase": "UNKNOWN",
+        "git_observation": {
+          "branch": null,
+          "default_branch": null,
+          "observed_at": null,
+          "remote_checked": false,
+          "unmerged_branches": [],
+          "evidence_ref": null
+        },
+        "open_findings": 0,
+        "open_critical_findings": [],
+        "overall_compliance_verdict": "NOT_ASSESSED",
+        "release_acceptance": "NOT_GRANTED",
+        "permission_granted": false,
+        "limits": [
+          "Valid record/artifact hashes do not authenticate the human decision or evidence producer.",
+          "No live Git, host or model observation; missing telemetry is unknown.",
+          "Task counts and criterion coverage are separate from plan completeness and product acceptance."
+        ]
+      },
+      "stderr": "",
+      "matched": true
+    },
+    {
+      "id": "WF12_TAMPER_REFUSED",
+      "args": [
+        "progress",
+        "--project",
+        "/mnt/data/work/merge-cli-project"
+      ],
+      "expected_exit": 1,
+      "observed_exit": 1,
+      "expected_status": "FAIL",
+      "observed": {
+        "status": "FAIL",
+        "errors": [
+          "CHECK-1: Evidence digest mismatch: proof.txt",
+          "Unproved VERIFIED work: W1"
+        ],
+        "overall_compliance_verdict": "NOT_ASSESSED",
+        "permission_granted": false
+      },
+      "stderr": "",
+      "matched": true
+    }
+  ],
+  "preservation": {
+    "AGENTS.md": true,
+    "unrelated.txt": true
+  },
+  "scope": "SYNTHETIC_LOCAL_CLI_ONLY",
+  "executed_at": "2026-10-12T17:23:28+00:00",
+  "native_host": "NOT_RUN",
+  "live_model": "NOT_RUN",
+  "independent_review": "NOT_PERFORMED"
+}

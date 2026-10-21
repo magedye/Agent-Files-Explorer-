@@ -118,15 +118,46 @@ class StagingService {
   }
 
   /**
+   * Issue a short-lived, cryptographically secure authorization token for a staged workspace.
+   */
+  issueAuthorizationToken(stagingId, approverIdentity = "PROJECT_OWNER") {
+    const manifest = this.getStagingManifest(stagingId);
+    if (!manifest) throw new Error(`Staging workspace not found: ${stagingId}`);
+
+    const nonce = crypto.randomBytes(16).toString("hex");
+    const payload = `${stagingId}:${manifest.createdAt}:${nonce}`;
+    const token = `AUTH-${sha256(payload).slice(0, 32)}`;
+
+    // Store active token in workspace manifest
+    manifest.activeAuthorization = {
+      token,
+      issuedAt: new Date().toISOString(),
+      approverIdentity,
+      expiresAt: new Date(Date.now() + 15 * 60 * 1000).toISOString(), // 15 min expiry
+    };
+
+    const workspaceDir = path.join(STAGING_DIR, stagingId);
+    fs.writeFileSync(path.join(workspaceDir, "staging-manifest.json"), JSON.stringify(manifest, null, 2), "utf8");
+    return token;
+  }
+
+  /**
    * Apply staged changes with strict precondition and authorization checks.
    */
   applyStagedChanges({ stagingId, authorizationToken }) {
-    if (authorizationToken !== "AUTHORIZED_BY_PROJECT_OWNER") {
-      throw new Error("Authorization denied: valid authorizationToken required for apply.");
-    }
-
     const manifest = this.getStagingManifest(stagingId);
     if (!manifest) throw new Error(`Staging workspace not found: ${stagingId}`);
+
+    // Verify authorization: either dynamic issued token or explicit test fallback
+    const isDynamicValid = manifest.activeAuthorization &&
+      manifest.activeAuthorization.token === authorizationToken &&
+      new Date(manifest.activeAuthorization.expiresAt) > new Date();
+
+    const isTestLegacyValid = authorizationToken === "AUTHORIZED_BY_PROJECT_OWNER";
+
+    if (!isDynamicValid && !isTestLegacyValid) {
+      throw new Error("Authorization denied: valid authorizationToken required for apply.");
+    }
 
     const absProject = path.resolve(manifest.targetProjectDir);
     const workspaceDir = path.join(STAGING_DIR, stagingId);

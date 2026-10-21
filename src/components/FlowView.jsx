@@ -1,5 +1,6 @@
 import { useMemo } from "react";
-import { fileKind, KIND_LABEL, EDGE_LABEL } from "../parse.js";
+import { fileKind } from "../parse.js";
+import { useI18n } from "../i18n/I18nProvider.jsx";
 
 const ICON = { skill: "★", doc: "📄", script: "🐍", data: "🧬", image: "🖼", other: "▪" };
 const FOLDER_RANK = { "": 0, methodology: 1, quality: 2, scripts: 3, assets: 4 };
@@ -41,6 +42,7 @@ function buildFlowTree(analysis, files) {
 }
 
 function Step({ node, analysis, files, selectedRel, onSelect, level }) {
+  const { t } = useI18n();
   const f = files.find((x) => x.rel === node.rel);
   if (!f) return null;
   const k = fileKind(f);
@@ -48,11 +50,11 @@ function Step({ node, analysis, files, selectedRel, onSelect, level }) {
   return (
     <li className={"flow-step" + (active ? " active" : "") + (node.backref ? " backref" : "")}>
       <button className="flow-card" onClick={() => onSelect && onSelect(f)} title={node.rel}>
-        <span className={"dot k-" + k} style={{ marginLeft: 6 }} />
+        <span className={"dot k-" + k} style={{ marginInlineEnd: 6 }} />
         <span className="flow-icon">{ICON[k]}</span>
         <span className="flow-name" dir="auto">{naturalLabel(node.rel)}</span>
         <span className="flow-dir" dir="ltr">{node.rel}</span>
-        {node.via && <span className="chip via">{EDGE_LABEL[node.via]}</span>}
+        {node.via && <span className="chip via">{t(`edge.${node.via}`)}</span>}
       </button>
       {node.children.length > 0 && (
         <ul className="flow-children">
@@ -67,6 +69,7 @@ function Step({ node, analysis, files, selectedRel, onSelect, level }) {
 }
 
 export default function FlowView({ files, analysis, selectedRel, onSelect }) {
+  const { t, locale } = useI18n();
   const flow = useMemo(() => buildFlowTree(analysis, files), [analysis, files]);
 
   const orphans = useMemo(() => {
@@ -81,19 +84,18 @@ export default function FlowView({ files, analysis, selectedRel, onSelect }) {
         const ra = FOLDER_RANK[a.rel.includes("/") ? a.rel.split("/")[0] : ""] ?? 9;
         const rb = FOLDER_RANK[b.rel.includes("/") ? b.rel.split("/")[0] : ""] ?? 9;
         if (ra !== rb) return ra - rb;
-        return a.rel.localeCompare(b.rel, "ar", { numeric: true });
+        return a.rel.localeCompare(b.rel, locale, { numeric: true });
       });
-  }, [flow, files]);
+  }, [flow, files, locale]);
 
   if (!flow) {
-    return <div className="pane empty">لا يوجد SKILL.md لبدء التدفق — استخدم الخريطة للاستعراض</div>;
+    return <div className="pane empty">{t("flow.noSkill")}</div>;
   }
 
   return (
     <div className="pane flow-pane">
       <div className="flow-intro">
-        التدفق المنطقي يبدأ من <b>SKILL.md</b> ويتفرع بترتيب الإشارات كما وردت في النصوص.
-        البطاقات الملوّنة باهتة تعني إشارة عائدة لملف ظهر سابقاً.
+        {t("flow.intro")}
       </div>
       <ul className="flow-root">
         <Step node={flow.root} analysis={analysis} files={files} selectedRel={selectedRel} onSelect={onSelect} level={0} />
@@ -101,7 +103,7 @@ export default function FlowView({ files, analysis, selectedRel, onSelect }) {
 
       {orphans.length > 0 && (
         <div className="orphans">
-          <div className="orphans-title">ملفات غير مُشار إليها في التدفق ({orphans.length})</div>
+          <div className="orphans-title">{t("flow.orphans", { count: orphans.length })}</div>
           <div className="orphans-list">
             {orphans.map((f) => (
               <button key={f.rel} className={"chip file-chip" + (selectedRel === f.rel ? " active" : "")}

@@ -1,0 +1,10 @@
+{
+  "observed_at": "2026-10-20T06:25:42.574040+00:00",
+  "root": "governance_packages/candidates/AGHR_Candidate_1.2.0",
+  "argv": [
+    "tools/check_package.py"
+  ],
+  "exit_code": 0,
+  "stdout": "{\n  \"status\": \"PASS\",\n  \"checks\": [\n    {\n      \"id\": \"FILES\",\n      \"observed\": 260,\n      \"required\": 50\n    },\n    {\n      \"id\": \"CONTEXT_BUDGET\",\n      \"advisory_status\": \"PASS\",\n      \"agents_md_tokens_est\": 792,\n      \"bootstrap_total_tokens_est\": 3330,\n      \"advisory_target_range\": \"1500-2500 tokens\",\n      \"estimation_method\": \"CHAR_COUNT_DIV_4_HEURISTIC\",\n      \"details\": {\n        \"AGENTS.md\": {\n          \"bytes\": 3167,\n          \"chars\": 3167,\n          \"words\": 436,\n          \"lines\": 31,\n          \"tokens_est\": 792\n        },\n        \"START_HERE.md\": {\n          \"bytes\": 5002,\n          \"chars\": 5000,\n          \"words\": 618,\n          \"lines\": 51,\n          \"tokens_est\": 1250\n        },\n        \"CONTENTS.md\": {\n          \"bytes\": 5171,\n          \"chars\": 5153,\n          \"words\": 682,\n          \"lines\": 60,\n          \"tokens_est\": 1288\n        }\n      }\n    },\n    {\n      \"id\": \"RULES\",\n      \"count\": 47\n    },\n    {\n      \"id\": \"SOURCES\",\n      \"count\": 56\n    },\n    {\n      \"id\": \"ADAPTERS\",\n      \"count\": 12\n    },\n    {\n      \"id\": \"SUPPLEMENT\",\n      \"files\": 73,\n      \"controls\": 48\n    },\n    {\n      \"id\": \"PAYLOAD_DIGESTS\",\n      \"files\": 210,\n      \"postfreeze_results_excluded\": true\n    }\n  ],\n  \"errors\": [],\n  \"limits\": [\n    \"Structural/semantic/digest checks are not a live host security test.\",\n    \"Historical trace linkage is not independently verified semantic equivalence.\",\n    \"Post-freeze results are covered by the detached whole-ZIP digest, not this payload manifest.\"\n  ]\n}\n",
+  "stderr": ""
+}

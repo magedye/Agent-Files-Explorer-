@@ -4,12 +4,32 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const PROJECT_ROOT = path.resolve(__dirname, "..");
-export const AGHR_ROOT = path.resolve(
+export const AGHR_1_0_0_ROOT = path.resolve(
   PROJECT_ROOT,
-  "Agent_Governance_Harness_Reference_1.0.0",
+  "governance_packages",
+  "archive",
+  "Agent_Governance_Harness_Reference_1.0.0_repository_baseline",
   "Agent_Governance_Harness_Reference_1.0.0"
 );
+export const GOVERNANCE_PACKAGES_ROOT = path.resolve(PROJECT_ROOT, "governance_packages");
+export const AGHR_1_1_0_ROOT = path.resolve(
+  GOVERNANCE_PACKAGES_ROOT,
+  "archive",
+  "Agent_Governance_Harness_Reference_1.1.0"
+);
+export const AGHR_MINIMAL_1_1_0_ROOT = path.resolve(
+  GOVERNANCE_PACKAGES_ROOT,
+  "archive",
+  "AGHR_Minimal_1.1.0"
+);
 export const DATA_ROOT = path.resolve(PROJECT_ROOT, "data");
+export const AGHR_1_2_0_ROOT = path.resolve(
+  GOVERNANCE_PACKAGES_ROOT,
+  "references",
+  "Agent_Governance_Harness_Reference_1.2.0"
+);
+export const DEFAULT_PACKAGE_ID = "aghr_1_2_0";
+export const AGHR_ROOT = AGHR_1_2_0_ROOT;
 
 export const MAX_TEXT_BYTES = 2_000_000; // 2 MB
 export const MAX_RAW_BYTES = 8_000_000;  // 8 MB
@@ -46,19 +66,54 @@ class RootRegistry {
   }
 
   _initializeDefaultRoots() {
-    // 1. Authoritative AGHR Reference
-    if (fs.existsSync(AGHR_ROOT)) {
+    // Historical baseline retains its stable ID for explicit selection/comparison.
+    if (fs.existsSync(AGHR_1_0_0_ROOT)) {
       this.registerRoot({
         id: "aghr",
         name: "AGHR Reference 1.0.0",
-        path: AGHR_ROOT,
+        path: AGHR_1_0_0_ROOT,
         type: "reference",
         description: "Authoritative Agent Governance and Harness Reference v1.0.0",
         readOnly: true,
       });
     }
 
-    // 2. Local Candidate Projects in data/
+    // Previous full reference, retained read-only for comparison.
+    if (fs.existsSync(AGHR_1_1_0_ROOT)) {
+      this.registerRoot({
+        id: "aghr_1_1_0",
+        name: "AGHR Reference 1.1.0 (Full, Archived)",
+        path: AGHR_1_1_0_ROOT,
+        type: "reference",
+        description: "Archived AGHR v1.1.0 reference for historical comparison",
+        readOnly: true,
+      });
+    }
+
+    // Previous minimal distribution, retained read-only for comparison.
+    if (fs.existsSync(AGHR_MINIMAL_1_1_0_ROOT)) {
+      this.registerRoot({
+        id: "aghr_minimal_1_1_0",
+        name: "AGHR Minimal 1.1.0 (Archived)",
+        path: AGHR_MINIMAL_1_1_0_ROOT,
+        type: "reference",
+        description: "Archived AGHR Minimal v1.1.0 (Core & Contracts)",
+        readOnly: true,
+      });
+    }
+
+    if (fs.existsSync(AGHR_1_2_0_ROOT)) {
+      this.registerRoot({
+        id: "aghr_1_2_0",
+        name: "AGHR Reference 1.2.0",
+        path: AGHR_1_2_0_ROOT,
+        type: "reference",
+        description: "Owner-directed updated AGHR reference with governed learning",
+        readOnly: true,
+      });
+    }
+
+    // Optional local candidate projects in data/
     if (fs.existsSync(DATA_ROOT)) {
       const entries = fs.readdirSync(DATA_ROOT, { withFileTypes: true });
       for (const entry of entries) {
@@ -105,6 +160,7 @@ class RootRegistry {
       type: r.type,
       description: r.description,
       readOnly: r.readOnly,
+      isDefault: r.id === DEFAULT_PACKAGE_ID,
     }));
   }
 
