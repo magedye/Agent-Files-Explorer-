@@ -1,0 +1,46 @@
+import fs from 'node:fs/promises';
+import {appendFileSync,writeFileSync} from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import {spawn} from 'node:child_process';
+const root='D:/APP/Agent-Files-Explorer';
+const candidate='governance_packages/candidates/AGHR_rc3_Core_Candidate/';
+const ev=path.join(root,'docs/evidence/studio-e2-2026-10-22');
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+const provenance=JSON.parse(await fs.readFile(path.join(root,candidate,'PROVENANCE.json'),'utf8'));
+const mapping={};for(const p of [...provenance.source_files].sort())mapping[p]=sha(await fs.readFile(path.join(root,candidate,p)));
+const sourceHash=sha(Buffer.from(JSON.stringify(mapping)));
+const pin={stage:'E2.a-e',recorded_at_utc:new Date().toISOString(),source_hash:sourceHash,prior_source_hash:'f55c0c7f57340c890ee0ceff3025b1691d05dd9855482176c1abcb0415ccc55d',algorithm:'sha256-path-map-v1',files:mapping,owner_license:'PROVISIONAL_OWNER_LICENSE',E1:'ACCEPTED_BY_OWNER',T01:'BLOCKED_NOT_CLOSED',runtime_honesty:'7 REQUIRED / NOT_RUN / NOT_WAIVED; deferred E4'};
+await fs.writeFile(path.join(ev,'SOURCE_PIN.json'),JSON.stringify(pin,null,2)+'\n');
+async function run(executable,args,label,timeout=600000){
+ const start=new Date().toISOString();
+ const stdoutPath=path.join(ev,label+'.stdout.txt'),stderrPath=path.join(ev,label+'.stderr.txt');
+ writeFileSync(stdoutPath,'');writeFileSync(stderrPath,'');
+ const result=await new Promise((resolve,reject)=>{const cp=spawn(executable,args,{cwd:root,windowsHide:true,stdio:['ignore','pipe','pipe']});const timer=setTimeout(()=>{cp.kill();reject(Error('Verification timeout: '+label));},timeout);cp.stdout.on('data',b=>appendFileSync(stdoutPath,b));cp.stderr.on('data',b=>appendFileSync(stderrPath,b));cp.on('error',e=>{clearTimeout(timer);reject(e);});cp.on('close',code=>{clearTimeout(timer);resolve({code});});});
+ const receipt={label,executable,args,cwd:root,start,end:new Date().toISOString(),exit_code:result.code,source_hash:sourceHash,stdout:label+'.stdout.txt',stderr:label+'.stderr.txt',stdout_sha256:sha(await fs.readFile(stdoutPath)),stderr_sha256:sha(await fs.readFile(stderrPath))};
+ await fs.writeFile(path.join(ev,label+'.execution.json'),JSON.stringify(receipt,null,2)+'\n');
+ console.log(JSON.stringify({label,exit_code:result.code}));return receipt;
+}
+const python=path.join(root,'temp/aghr-e1a-20261022-01/venv/Scripts/python.exe');
+const npm=path.join(path.dirname(process.execPath),'node_modules/npm/bin/npm-cli.js');
+const jobs=[['candidate',()=>run(python,['-I','-B','-X','utf8','-m','unittest','discover','-s',candidate+'tests','-p','test_*.py','-v'],'candidate-tests')],['studio',()=>run(process.execPath,[npm,'test'],'npm-test')],['app-boundary',()=>run('git',['diff','HEAD','--','src','server','package.json','package-lock.json'],'app-boundary',90000)]];
+const selectedJobs=process.argv.includes('--candidate-only')?jobs.filter(([name])=>name!=='studio'):jobs;
+const settled=await Promise.allSettled(selectedJobs.map(async([name,fn])=>({name,receipt:await fn()})));
+const receipts={};for(let i=0;i<settled.length;i++){const r=settled[i];if(r.status==='fulfilled')receipts[r.value.name]=r.value.receipt;else{console.log(JSON.stringify({job:selectedJobs[i][0],error:String(r.reason)}));throw r.reason;}}
+if(process.argv.includes('--candidate-only')){
+ const reused=JSON.parse(await fs.readFile(path.join(ev,'npm-test.execution.json'),'utf8'));
+ if(reused.exit_code!==0)throw Error('Cannot reuse failed npm evidence');
+ receipts.studio={...reused,reused_for_source_hash:sourceHash,reuse_reason:'Only the isolated candidate tests changed after the original run; application, root tests and contract implementation inputs unchanged. Original npm evidence preserved.'};
+}
+for(const [name,r]of Object.entries(receipts))if(r.exit_code!==0)throw Error(name+' failed; preserve raw logs and resolve');
+if((await fs.stat(path.join(ev,'app-boundary.stdout.txt'))).size)throw Error('Unexpected application changes');
+const candidateLog=await fs.readFile(path.join(ev,'candidate-tests.stderr.txt'),'utf8');
+const match=candidateLog.match(/^Ran ([0-9]+) tests? in ([0-9.]+)s$/m);
+if(!match||!/^OK\s*$/m.test(candidateLog)||/FAILED|skipped=/.test(candidateLog))throw Error('Candidate suite summary does not prove a full pass');
+const npmLog=await fs.readFile(path.join(ev,'npm-test.stdout.txt'),'utf8');
+const npmCounts={};for(const line of npmLog.split(/\r?\n/)){const m=line.trim().match(/^[#ℹ] (tests|pass|fail|skipped|cancelled) ([0-9]+)$/);if(m)npmCounts[m[1]]=Number(m[2]);}
+if(!npmCounts.tests||npmCounts.tests!==npmCounts.pass||npmCounts.fail!==0||npmCounts.skipped!==0||npmCounts.cancelled!==0)throw Error('npm summary does not prove a full pass');
+for(const [p,h]of Object.entries(mapping))if(sha(await fs.readFile(path.join(root,candidate,p)))!==h)throw Error('Frozen source changed during verification: '+p);
+const summary={status:'PASS_FOR_FROZEN_E2_CORE_AND_STUDIO_REGRESSION',recorded_at_utc:new Date().toISOString(),source_hash:sourceHash,candidate:{total:Number(match[1]),passed:Number(match[1]),failed:0,skipped:0,seconds:Number(match[2])},studio:npmCounts,application_source_changes:[],receipts,T01:'BLOCKED_NOT_CLOSED',T02:'NOT_STARTED',runtime_honesty:'7 REQUIRED / NOT_RUN / NOT_WAIVED; deferred E4',qualification:'NOT_RUN',independent_review:'NOT_PERFORMED',release_acceptance:'NOT_GRANTED'};
+await fs.writeFile(path.join(ev,'TEST_RESULTS.json'),JSON.stringify(summary,null,2)+'\n');
+console.log(JSON.stringify(summary));

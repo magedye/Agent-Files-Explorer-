@@ -1,0 +1,170 @@
+"""E2.d: preserve unavailable evidence; never execute E4 honesty checks."""
+
+from copy import deepcopy
+from e2_support import FixtureCase, item
+from evidence import check_evidence, check_documentation
+from diagnostics import ReadFailure
+from loader import read_package
+from scope import ScopeContext
+from validate import validate_package
+
+
+class EvidenceTests(FixtureCase):
+    context = ScopeContext(as_of="2026-10-22")
+
+    def codes(self, values, context=None):
+        return {e["code"] for e in check_evidence(self.package(values), context or self.context)}
+
+    def test_plain_observation_needs_no_invented_evidence(self):
+        self.assertEqual(self.codes(item()), set())
+
+    def test_qualified_text_and_referenced_result_do_not_prove_qualification(self):
+        cap = item(kind="CAPABILITY")
+        cap["skillQualification"].update(status="QUALIFIED", qualifiedAt="2026-10-20", evidence=["self-asserted-pass.json"])
+        self.assertIn("QUALIFICATION_E4_EVIDENCE_UNAVAILABLE", self.codes(cap))
+
+    def test_host_version_and_qualification_age_are_checked_without_running_host(self):
+        cap = item(kind="CAPABILITY"); cap["maxAgeDays"] = 1
+        cap["skillQualification"].update(status="QUALIFIED", qualifiedAt="2026-10-01", evidence=["old.json"])
+        self.assertIn("STALE_OR_FUTURE_QUALIFICATION", self.codes(cap))
+        self.assertIn("QUALIFICATION_CONTEXT_MISMATCH", self.codes(cap, ScopeContext(agent="codex", host_version="changed", as_of="2026-10-22")))
+
+    def test_unknown_skill_and_each_multi_skill_coverage_reject(self):
+        cap = item("KNOWN", kind="CAPABILITY"); rule = item("USES")
+        rule["scope"]["skillIds"] = ["KNOWN", "MISSING"]
+        rule["skillQualification"] = deepcopy(cap["skillQualification"])
+        codes = self.codes([cap, rule])
+        self.assertIn("UNKNOWN_ID", codes); self.assertIn("QUALIFICATION_COVERAGE_MISSING", codes)
+
+    def test_conflicting_records_with_same_four_key_identity_reject(self):
+        cap = item(kind="CAPABILITY"); changed = deepcopy(cap["skillQualification"])
+        changed["status"] = "FAILED"; cap["skillQualification"] = [cap["skillQualification"], changed]
+        self.assertIn("QUALIFICATION_IDENTITY_CONFLICT", self.codes(cap))
+
+    def test_required_host_and_minimum_qualification_are_not_assumed(self):
+        cap = item(kind="CAPABILITY"); cap.update(requiredOnHosts=["antigravity"], minimumStatus="QUALIFIED")
+        codes = self.codes(cap)
+        self.assertIn("QUALIFICATION_HOST_COVERAGE_MISSING", codes)
+        self.assertIn("QUALIFICATION_E4_EVIDENCE_UNAVAILABLE", codes)
+
+    def test_calibration_claim_is_blocked_even_when_numbers_exist(self):
+        value = item(); value["impact"] = {"evidence": "repo-measured", "lastCalibrated": "2026-10-20", "measuredDelta": 0.99}
+        self.assertIn("CALIBRATION_E5_EVIDENCE_UNAVAILABLE", self.codes(value))
+
+    def test_gate_name_and_p0_priority_never_substitute_for_execution(self):
+        value = item(); value["enforcement"] = {"gate": {"type": "present-file", "required": True}}
+        self.assertIn("ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE", self.codes(value))
+        cap = item(kind="CAPABILITY"); cap["defaultTier"] = "P0-Safety"
+        self.assertIn("P0_EVAL_QUALIFICATION_UNAVAILABLE", self.codes(cap))
+
+    def test_exception_expiry_target_and_parent_permission_are_independent(self):
+        exception = item("WAIVER", kind="EXCEPTION"); exception["expiresOn"] = "2026-10-21"
+        codes = self.codes(exception)
+        self.assertIn("EXCEPTION_EXPIRED", codes); self.assertIn("UNKNOWN_EXCEPTION_TARGET", codes)
+        target = item("SYNTHETIC-TARGET")
+        self.assertIn("EXCEPTION_NOT_ALLOWED", self.codes([exception, target]))
+        target["exceptions"] = {"allowed": True}; exception["expiresOn"] = "2026-10-22"
+        self.assertEqual(self.codes([exception, target]), {"EXCEPTION_E5_APPROVAL_UNAVAILABLE"})
+
+    def test_local_unknown_alternatives_and_request_id_reject(self):
+        cap = item(kind="CAPABILITY"); cap["alternatives"] = ["UNKNOWN"]
+        self.assertIn("UNKNOWN_ID", self.codes(cap))
+        self.assertIn("UNKNOWN_ID", self.codes(item(), ScopeContext(skill_id="UNKNOWN")))
+
+
+class DocumentationTests(FixtureCase):
+    def library(self, count=2):
+        root = self.fixture()
+        mapping = {"register_path": "optional_skills/REGISTER.json", "document_path": "options/SKILLS.md",
+                   "register_format": "skills-array-v1", "document_format": "numbered-headings-v1"}
+        self.write(root, "SOURCE_MAP.json", {"skills_documentation": mapping})
+        self.write(root, mapping["register_path"], {"skills": [{"id": "first"}, {"id": "second"}]})
+        document = root / mapping["document_path"]; document.parent.mkdir()
+        document.write_text("# Skills\n" + "".join(f"## {i + 1}. Synthetic skill\n" for i in range(count)), encoding="utf-8")
+        return root
+
+    def test_absent_library_is_explicitly_not_applicable(self):
+        root = self.fixture(); issues, sources, status = check_documentation(read_package(root), root)
+        self.assertEqual(issues, []); self.assertEqual(status["status"], "NOT_APPLICABLE")
+        self.assertTrue(status["reason"])
+
+    def test_equal_counts_pass_and_original_bytes_remain_unchanged(self):
+        root = self.library(); paths = ("SOURCE_MAP.json", "optional_skills/REGISTER.json", "options/SKILLS.md")
+        before = {p: (root / p).read_bytes() for p in paths}
+        issues, sources, status = check_documentation(read_package(root), root)
+        self.assertEqual(issues, []); self.assertEqual(status["status"], "PASS")
+        self.assertEqual(len(sources), 3)
+        self.assertEqual(before, {p: (root / p).read_bytes() for p in paths})
+
+    def test_mismatched_counts_fail_lint_input_check(self):
+        root = self.library(count=1)
+        issues, _, status = check_documentation(read_package(root), root)
+        self.assertEqual(status["status"], "FAIL")
+        self.assertIn("SKILL_DOCUMENTATION_COUNT_MISMATCH", [e["code"] for e in issues])
+
+    def test_missing_registry_is_an_error_never_zero_skills(self):
+        root = self.library(); (root / "optional_skills/REGISTER.json").unlink()
+        with self.assertRaises(ReadFailure):
+            check_documentation(read_package(root), root)
+
+
+class PipelineTests(FixtureCase):
+    def test_real_observation_passes_governing_static_profile(self):
+        from e2_support import ROOT
+        report, support = validate_package(read_package(ROOT), ROOT, ScopeContext(as_of="2026-10-22"))
+        self.assertEqual(report["result"], "VALID")
+        self.assertEqual(report["qualification"], "NOT_RUN")
+        self.assertEqual(support[0].path, "SOURCE_MAP.json")
+
+    def test_complete_must_passes_only_with_external_bound_grant(self):
+        from test_authority import grants
+        root = self.fixture(item(force="MUST")); package = read_package(root)
+        self.assertEqual(validate_package(package, root, ScopeContext())[0]["result"], "BLOCKED")
+        report, _ = validate_package(package, root, ScopeContext(), grants=grants(package))
+        self.assertEqual(report["result"], "VALID")
+        self.assertEqual(report["authority"]["SYNTHETIC"]["status"], "CALLER_ATTESTED")
+
+    def test_invalid_out_of_scope_item_still_rejects_whole_package(self):
+        value = item(force="MUST"); del value["authority"]["level"]
+        value["scope"]["paths"] = ["other/**"]
+        root = self.fixture(value)
+        report, _ = validate_package(read_package(root), root, ScopeContext(path="src/a.py"))
+        self.assertEqual(report["result"], "INVALID")
+        self.assertEqual(report["stages"]["authority"]["status"], "NOT_RUN")
+
+    def test_unknown_auxiliary_schema_blocks_without_fabricating_one(self):
+        root = self.fixture(); self.write(root, "profiles/local.json", {"opaque": True})
+        report, _ = validate_package(read_package(root), root, ScopeContext())
+        self.assertEqual(report["result"], "BLOCKED")
+        self.assertIn("AUXILIARY_SCHEMA_UNAVAILABLE", [e["code"] for e in report["findings"]])
+
+    def test_arabic_and_english_preserve_targeted_item_ids(self):
+        value = item(); value["scope"] = {"paths": ["src/**"], "language": ["en"]}
+        root = self.fixture(value); package = read_package(root)
+        reports = [validate_package(package, root, ScopeContext(path="src/a.py", language=lang))[0] for lang in ("ar", "en")]
+        self.assertEqual([r["result"] for r in reports], ["VALID", "VALID"])
+        self.assertEqual(reports[0]["items"][0]["applicability"], reports[1]["items"][0]["applicability"])
+        self.assertTrue(reports[0]["items"][0]["presentation"]["translation_unavailable"])
+
+    def test_targeted_missing_scope_context_cannot_be_guessed(self):
+        value = item(); value["scope"] = {"appliesToAgents": ["codex"]}
+        root = self.fixture(value)
+        report, _ = validate_package(read_package(root), root, ScopeContext(path="src/a"))
+        self.assertEqual(report["result"], "BLOCKED")
+
+    def test_invalid_globs_fail_even_without_a_selected_task(self):
+        value = item(); value["scope"] = {"paths": ["../outside/**"]}
+        root = self.fixture(value)
+        report, _ = validate_package(read_package(root), root, ScopeContext())
+        self.assertEqual(report["result"], "INVALID")
+
+    def test_library_without_mapping_blocks(self):
+        root = self.fixture(); (root / "skills").mkdir()
+        issues, _, _ = check_documentation(read_package(root), root)
+        self.assertEqual(issues[0]["disposition"], "BLOCKED")
+
+    def test_documentation_cannot_read_outside_selected_root(self):
+        root = self.library(); mapping = {"register_path": "../outside.json", "document_path": "options/SKILLS.md", "register_format": "skills-array-v1", "document_format": "numbered-headings-v1"}
+        self.write(root, "SOURCE_MAP.json", {"skills_documentation": mapping})
+        with self.assertRaises(ReadFailure):
+            check_documentation(read_package(root), root)

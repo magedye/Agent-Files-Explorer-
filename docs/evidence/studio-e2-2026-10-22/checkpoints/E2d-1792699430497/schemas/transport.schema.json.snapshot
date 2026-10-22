@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aghr.invalid/contracts/rc3/transport.schema.json",
+  "title": "API envelopes, diagnostics and common results",
+  "$defs": {
+    "Issue": {
+      "type": "object", "additionalProperties": false, "required": ["code", "message", "severity"],
+      "properties": { "code": { "$ref": "common.schema.json#/$defs/Text" }, "message": { "$ref": "common.schema.json#/$defs/Text" }, "severity": { "enum": ["error", "warning", "info"] }, "path": { "type": "string" }, "line": { "type": "integer", "minimum": 1 }, "item_id": { "$ref": "common.schema.json#/$defs/Text" } }
+    },
+    "Meta": {
+      "type": "object", "additionalProperties": false, "required": ["request_id", "contract_revision", "recorded_at"],
+      "properties": {
+        "request_id": { "$ref": "common.schema.json#/$defs/Text" }, "contract_revision": { "const": "contract.1" }, "recorded_at": { "$ref": "common.schema.json#/$defs/Time" },
+        "total": { "type": "integer", "minimum": 0 }, "limit": { "type": "integer", "minimum": 1, "maximum": 500 }, "next_cursor": { "type": ["string", "null"] },
+        "error": { "$ref": "#/$defs/Error" }
+      }
+    },
+    "Error": {
+      "type": "object", "additionalProperties": false, "required": ["code", "message", "halted", "issues"],
+      "properties": {
+        "code": { "enum": ["INVALID_REQUEST", "UNAUTHENTICATED", "FORBIDDEN", "NOT_FOUND", "UNKNOWN_ID", "DISCOVERY_UNAVAILABLE", "STALE_PROPOSAL", "VALIDATION_FAILED", "ENGINE_UNAVAILABLE", "RESOURCE_CONTROLS_UNAVAILABLE", "UNSUPPORTED_SERIALIZATION", "NOT_SUPPORTED", "RATE_LIMITED", "CONFLICT", "PAYLOAD_TOO_LARGE", "INTERNAL_ERROR"] },
+        "message": { "$ref": "common.schema.json#/$defs/Text" }, "halted": { "type": "boolean" }, "issues": { "type": "array", "items": { "$ref": "#/$defs/Issue" } }
+      },
+      "allOf": [{ "if": { "properties": { "code": { "const": "DISCOVERY_UNAVAILABLE" } }, "required": ["code"] }, "then": { "properties": { "halted": { "const": true } } } }]
+    },
+    "ErrorEnvelope": {
+      "type": "object", "additionalProperties": false, "required": ["data", "meta"],
+      "properties": { "data": { "type": "null" }, "meta": { "allOf": [{ "$ref": "#/$defs/Meta" }], "required": ["error"] } }
+    },
+    "Ack": {
+      "type": "object", "additionalProperties": false, "required": ["accepted", "resource_id"],
+      "properties": { "accepted": { "type": "boolean" }, "resource_id": { "$ref": "common.schema.json#/$defs/Text" }, "reason": { "$ref": "common.schema.json#/$defs/Text" } }
+    },
+    "RemovedRegistration": {
+      "type": "object", "additionalProperties": false, "required": ["id", "registration_removed", "source_deleted"],
+      "properties": { "id": { "$ref": "common.schema.json#/$defs/Text" }, "registration_removed": { "const": true }, "source_deleted": { "const": false } }
+    }
+  }
+}

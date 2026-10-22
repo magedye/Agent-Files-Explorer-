@@ -1,0 +1,70 @@
+"""E2.b scope and rendering acceptance; no filesystem traversal or host use."""
+
+from copy import deepcopy
+import unittest
+from e2_support import item
+from scope import ScopeContext, applies, matches, render, compare_specificity
+
+
+class ScopeTests(unittest.TestCase):
+    def test_recursive_globs_include_root_files_and_segment_globs_do_not_cross_slashes(self):
+        for pattern, path, expected in (("**/*", "root.py", True), ("src/**/*.py", "src/a.py", True),
+                                        ("src/**/*.py", "src/a/b.py", True), ("src/*.py", "src/a/b.py", False),
+                                        ("src/?.[pj]y", "src/a.py", True), ("src/?.py", "src/ab.py", False)):
+            self.assertEqual(matches(pattern, path), expected)
+
+    def test_exclusion_precedes_inclusion(self):
+        value = item(); value["scope"] = {"paths": ["**/*"], "exclude": ["private/**"]}
+        self.assertEqual(applies(value, ScopeContext(path="private/a"))["reason"], "EXCLUDED_PATH")
+        self.assertEqual(applies(value, ScopeContext(path="public/a"))["status"], "APPLIES")
+
+    def test_each_nonlanguage_dimension_is_applied(self):
+        values = {"appliesToAgents": ("agent", "codex"), "environments": ("environment", "ci"),
+                  "stages": ("stage", "review"), "taskTypes": ("task_type", "migration"), "skillIds": ("skill_id", "known")}
+        for field, (parameter, selected) in values.items():
+            value = item(); value["scope"] = {field: [selected]}
+            self.assertEqual(applies(value, ScopeContext(**{parameter: selected}))["status"], "APPLIES")
+            self.assertEqual(applies(value, ScopeContext(**{parameter: "other"}))["status"], "DOES_NOT_APPLY")
+            self.assertEqual(applies(value, ScopeContext())["status"], "CONTEXT_REQUIRED")
+
+    def test_requested_unknown_capability_is_not_no_skill_match(self):
+        value = item(kind="CAPABILITY"); value["scope"]["skillIds"] = ["known"]
+        self.assertEqual(applies(value, ScopeContext(skill_id="unknown"))["status"], "UNKNOWN_ID")
+
+    def test_language_never_changes_applicable_ids(self):
+        values = [item("AR"), item("EN"), item("UNSPECIFIED")]
+        values[0]["scope"]["language"] = ["ar"]; values[1]["scope"]["language"] = ["en"]
+        ids = lambda language: [v["id"] for v in values if applies(v, ScopeContext(language=language))["status"] == "APPLIES"]
+        self.assertEqual(ids("ar"), ids("en"))
+        self.assertEqual(ids("ar"), ["AR", "EN", "UNSPECIFIED"])
+
+    def test_missing_translation_renders_original_and_cannot_mutate_it(self):
+        value = item(); value["scope"]["language"] = ["en"]; before = deepcopy(value)
+        output = render(value, "ar")
+        self.assertTrue(output["translation_unavailable"])
+        self.assertEqual(output["rule"], value["rule"])
+        self.assertFalse(render(value, "ar", {"ar": "ترجمة تركيبية"})["translation_unavailable"])
+        self.assertEqual(value, before)
+
+    def test_portable_invalid_paths_reject_before_matching(self):
+        for invalid in ("/absolute", "../escape", "a/../b", "a//b", "C:/drive", "a\\b", "a/.", "a ", "a\x00b"):
+            with self.subTest(path=invalid), self.assertRaises(ValueError):
+                ScopeContext(path=invalid)
+        for invalid in ("src/a**b", "src/[ab"):
+            with self.assertRaises(ValueError):
+                matches(invalid, "src/a")
+
+    def test_no_context_does_not_assume_a_match(self):
+        value = item(); value["scope"]["paths"] = ["services/**"]
+        self.assertEqual(applies(value, ScopeContext())["status"], "CONTEXT_REQUIRED")
+
+    def test_specificity_requires_a_provable_language_subset(self):
+        for left, right, expected in ((["src/a.py"], ["**/*.py"], "LEFT"), (["src/pay/**"], ["src/**"], "LEFT"),
+                                       (["src/**"], ["src/pay/**"], "RIGHT"), (["src/**"], ["src/**"], "EQUAL"),
+                                       (["src/*/a.py"], ["src/a/*.py"], "INCOMPARABLE")):
+            self.assertEqual(compare_specificity(left, right), expected)
+
+    def test_context_date_is_reproducible(self):
+        self.assertEqual(str(ScopeContext(as_of="2026-10-22").day), "2026-10-22")
+        with self.assertRaises(ValueError):
+            ScopeContext(as_of="2026-02-30")

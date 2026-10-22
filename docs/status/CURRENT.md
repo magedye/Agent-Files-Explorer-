@@ -1,10 +1,10 @@
 # Active Project Execution State — Derived View
 
-> Updated: 2026-10-22. Git, source and exact check evidence take precedence over this snapshot.
+> Updated: 2026-10-23. Git, source and exact check evidence take precedence over this snapshot.
 
-## Active scope — E1 technically complete; acceptance pending
+## Active scope — E1 accepted; E2 technically complete
 
-[E1.d](../evidence/studio-e1d-2026-10-22/README.md): Path B; portable catalog + 16 schemas/17 fields/13 kinds; candidate 63/63, Studio 41/41. Owner/license PROVISIONAL accepted for E1. E1 output acceptance pending; E2 NOT_STARTED.
+[E2 delivery](../evidence/studio-e2-2026-10-22/README.md): E1 accepted; E2.a–e implemented/tested, Path B; candidate 141/141, Studio 41/41. CLI protocol 3; owner/license PROVISIONAL. T01 re-entry NOT_RUN.
 
 [T01](../evidence/studio-t00-t01-2026-10-22/README.md) BLOCKED; T02 NOT_STARTED. READ is not validation. Seven runtime honesty checks and whole Studio SOURCE-01 REQUIRED / NOT_RUN / NOT_WAIVED.
 

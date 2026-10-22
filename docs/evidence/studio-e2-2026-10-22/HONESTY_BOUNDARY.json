@@ -1,0 +1,50 @@
+{
+  "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+  "authority": "OWNER_DIRECTIVE.txt",
+  "runtime_checks": [
+    {
+      "id": "HON-1",
+      "requirement": "No `VERIFIED` without execution evidence.",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "executor": "E4 + qualified native host"
+    },
+    {
+      "id": "HON-2",
+      "requirement": "No `PASS` for `UNKNOWN_ID`.",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "executor": "E4 + qualified native host"
+    },
+    {
+      "id": "HON-3",
+      "requirement": "No `PASS` for empty outputs.",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "executor": "E4 + qualified native host"
+    },
+    {
+      "id": "HON-4",
+      "requirement": "`task_criteria` consumed, not merely accepted.",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "executor": "E4 + qualified native host"
+    },
+    {
+      "id": "HON-5",
+      "requirement": "`BLOCKED` distinct from `NO_SKILL_MATCH`.",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "executor": "E4 + qualified native host"
+    },
+    {
+      "id": "HON-6",
+      "requirement": "No `HOST_SIGNAL` without host signal.",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "executor": "E4 + qualified native host"
+    },
+    {
+      "id": "HON-7",
+      "requirement": "Qualification resets on version change.",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "executor": "E4 + qualified native host"
+    }
+  ],
+  "E2_tests": "Static schema/reference/evidence rejection only; no runtime honesty qualification",
+  "whole_Studio_SOURCE_01": "REQUIRED / NOT_RUN / NOT_WAIVED"
+}

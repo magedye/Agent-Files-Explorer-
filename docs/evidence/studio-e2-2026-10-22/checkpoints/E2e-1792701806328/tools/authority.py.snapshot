@@ -1,0 +1,71 @@
+"""Bound caller attestations, never source self-attestation or publisher authentication."""
+
+from dataclasses import dataclass
+import re
+
+from validate import finding
+
+LEVELS = {"component": 1, "project": 2, "organization": 3, "enterprise": 4}
+CORE_KINDS = frozenset(("OBSERVATION", "PRINCIPLE", "CONSTRAINT", "REQUIREMENT", "PROCEDURE", "GUIDELINE"))
+
+
+@dataclass(frozen=True)
+class SourceGrant:
+    """Host-owned API input. CLI never loads grants from candidate files.
+
+    The host must authenticate its caller before supplying these attestations.
+    Hash/issuer matching binds the attestation; it does not verify a signature.
+    """
+    item_path: str
+    source_sha256: str
+    authority_source: str
+    level: str
+    owner: str
+    approved_by: str
+    evidence_ref: str
+    item_ids: tuple[str, ...]
+    advanced_kinds: tuple[str, ...] = ()
+
+    def __post_init__(self):
+        if self.level not in LEVELS or not re.fullmatch(r"[a-f0-9]{64}", self.source_sha256):
+            raise ValueError("Invalid source attestation.")
+        if not isinstance(self.item_ids, tuple) or not isinstance(self.advanced_kinds, tuple) or not self.item_ids or not all(isinstance(s, str) and s.strip() for s in (self.item_path, self.authority_source, self.owner, self.approved_by, self.evidence_ref, *self.item_ids, *self.advanced_kinds)):
+            raise ValueError("Incomplete source attestation.")
+
+
+def authority_state(member, package, grants=()):
+    value = member.value
+    authority = value.get("authority", {})
+    if "level" not in authority:
+        return {"status": "UNCLAIMED", "level": None, "evidence_ref": None}
+    digest = next(source.sha256 for source in package.sources if source.path == member.location.path)
+    matching = [grant for grant in grants if isinstance(grant, SourceGrant)
+                and grant.item_path == member.location.path and grant.source_sha256 == digest
+                and grant.authority_source == authority.get("source") and grant.level == authority["level"]
+                and grant.owner == authority.get("owner") and grant.approved_by == authority.get("approvedBy")
+                and value["id"] in grant.item_ids]
+    if len(matching) != 1:
+        return {"status": "UNKNOWN", "level": authority["level"], "evidence_ref": None}
+    return {"status": "CALLER_ATTESTED", "level": authority["level"], "evidence_ref": matching[0].evidence_ref,
+            "reviewed_kinds": list(matching[0].advanced_kinds)}
+
+
+def check_authority(package, context, grants=()):
+    issues, states = [], {}
+    for member in package.items:
+        value = member.value
+        state = states[value["id"]] = authority_state(member, package, grants)
+        mandatory = value["force"] in ("MUST", "MUST_NOT")
+        if (mandatory or state["level"] is not None) and state["status"] != "CALLER_ATTESTED":
+            issues.append(finding(member, "AUTHORITY_SOURCE_UNVERIFIED", "/authority", disposition="BLOCKED"))
+        authority = value.get("authority", {})
+        if mandatory and authority.get("status") != "active":
+            issues.append(finding(member, "AUTHORITY_NOT_ACTIVE", "/authority/status", disposition="BLOCKED"))
+        if authority.get("effectiveFrom") and authority["effectiveFrom"] > str(context.day):
+            issues.append(finding(member, "AUTHORITY_NOT_YET_EFFECTIVE", "/authority/effectiveFrom", disposition="BLOCKED"))
+        if value["kind"] not in CORE_KINDS:
+            allowed_location = member.location.path.split("/")[0] in ("decisions", "policies", "capabilities")
+            reviewed = state["status"] == "CALLER_ATTESTED" and value["kind"] in state["reviewed_kinds"]
+            if not allowed_location or not reviewed:
+                issues.append(finding(member, "ADVANCED_KIND_REVIEW_REQUIRED", "/kind", disposition="BLOCKED"))
+    return issues, states

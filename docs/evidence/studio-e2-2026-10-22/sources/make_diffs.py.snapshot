@@ -1,0 +1,32 @@
+"""Exact before/after receipts; descriptive text patches never replace raw bytes."""
+import difflib
+import hashlib
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+EVIDENCE = ROOT / "docs/evidence/studio-e2-2026-10-22"
+PREFIX = "governance_packages/candidates/AGHR_rc3_Core_Candidate/"
+pre = json.loads((EVIDENCE / "PREFLIGHT.json").read_text(encoding="utf-8"))
+pin = json.loads((EVIDENCE / "SOURCE_PIN.json").read_text(encoding="utf-8"))
+old = {entry["path"]: entry for entry in pre["before"]}
+targets = sorted(set(old) | {PREFIX + name for name in pin["files"]})
+patches = []
+unchanged = []
+for target in targets:
+    before = (EVIDENCE / old[target]["snapshot"]).read_bytes() if target in old else b""
+    after = (ROOT / target).read_bytes()
+    digest = lambda value: hashlib.sha256(value).hexdigest()
+    if target in old:
+        assert digest(before) == old[target]["sha256"]
+    if before == after:
+        unchanged.append({"path": target, "sha256": digest(after)})
+        continue
+    name = f"change-{len(patches) + 1:02}.patch"
+    diff = "".join(difflib.unified_diff(before.decode("utf-8").splitlines(keepends=True), after.decode("utf-8").splitlines(keepends=True),
+                                         fromfile="before/" + target if target in old else "/dev/null", tofile="after/" + target))
+    (EVIDENCE / name).write_bytes(diff.encode("utf-8"))
+    patches.append({"path": target, "before_sha256": digest(before) if target in old else None, "before_bytes": len(before),
+                    "after_sha256": digest(after), "after_bytes": len(after), "patch": name, "before_snapshot": old.get(target, {}).get("snapshot")})
+(EVIDENCE / "DIFFS.json").write_text(json.dumps({"source_hash": pin["source_hash"], "patches": patches, "unchanged": unchanged}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+print(json.dumps({"changed_or_added": len(patches), "unchanged": len(unchanged)}))

@@ -1,0 +1,51 @@
+import fs from 'node:fs/promises';
+const root='D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_rc3_Core_Candidate/';
+const read=async p=>JSON.parse(await fs.readFile(root+p,'utf8'));
+const write=async(p,v)=>fs.writeFile(root+p,JSON.stringify(v,null,2)+'\n','utf8');
+const contract=await read('CLI_CONTRACT.json');
+contract.$id='https://aghr.invalid/internal/cli/3';
+contract.title='Internal AGHR CLI protocol 3 — E2 static validate/lint';
+contract.$comment='Protocol 3 adds governing E2 reports and real input hashes. Protocol 2 bytes are preserved in the E2 before snapshot. Locked public contract.1 and 16 copied schemas are unchanged. No configured consumer bridge.';
+const cli=contract['x-cli'];cli.protocol_version='3';
+cli.implemented=['help','version','catalog','validate','lint'];
+delete cli.blocked_until.validate;delete cli.blocked_until.lint;
+cli.exit_codes['0']='Metadata INFO, catalog READ, or VALID for the explicit E2 static package profile only';
+cli.exit_codes['1']='Real INVALID strict/lint result; never a skipped mandatory check';
+cli.reader_api='catalog preserves raw data; validate/lint use the one Python governing pipeline and do not write. Runtime qualification remains NOT_RUN.';
+cli.context_options=['--path','--agent','--host-version','--environment','--stage','--task-type','--skill-id','--language','--as-of'];
+cli.compatibility='Intentional internal protocol 2 -> 3; no consumer bridge configured. E3+ commands remain BLOCKED. No locked Studio contract changes.';
+contract.$defs.Response.properties.protocol_version.const='3';
+contract.$defs.Source.properties.artifacts.items.properties.path.description='Owned raw-byte source inventory, including E2 code/tests/profile; paths are relative POSIX.';
+Object.assign(contract.$defs.Diagnostic.properties,{pointer:{type:'string'},item_id:{type:['string','null']},disposition:{enum:['INVALID','BLOCKED','WARNING']}});
+contract.$defs.Finding={type:'object',additionalProperties:false,required:['code','message','path','pointer','item_id','line','column','byte_offset','disposition'],properties:{...contract.$defs.Diagnostic.properties}};
+const stage={type:'object',additionalProperties:false,required:['status'],properties:{status:{enum:['PASS','FAIL','BLOCKED','NOT_RUN','NOT_APPLICABLE']},reason:{type:'string'},registered:{type:'integer',minimum:0},documented:{type:'integer',minimum:0},scope:{type:'string'}}};
+contract.$defs.Validation={type:'object',additionalProperties:false,required:['profile','result','exit_code','findings','stages','items','authority','resolutions','conflict_coverage','qualification','runtime_honesty','publisher_authentication','governance_release_acceptance'],properties:{
+profile:{const:'E2_PACKAGE_READ_VALIDATE_LINT'},result:{enum:['VALID','INVALID','BLOCKED']},exit_code:{enum:[0,1,3]},findings:{type:'array',items:{$ref:'#/$defs/Finding'}},
+stages:{type:'object',required:['structure','scope','authority','conflicts','evidence','documentation'],additionalProperties:stage},
+items:{type:'array',items:{type:'object',additionalProperties:false,required:['id','location','applicability','presentation'],properties:{id:{type:'string'},location:{$ref:'#/$defs/Location'},applicability:{type:'object'},presentation:{type:'object'}}}},
+authority:{type:'object',additionalProperties:{type:'object',additionalProperties:false,required:['status','level','evidence_ref'],properties:{status:{enum:['UNCLAIMED','UNKNOWN','CALLER_ATTESTED']},level:{type:['string','null']},evidence_ref:{type:['string','null']},reviewed_kinds:{type:'array',items:{type:'string'}}}}},
+resolutions:{type:'array',items:{type:'object',additionalProperties:false,required:['items','status','winner','reason'],properties:{items:{type:'array',minItems:2,maxItems:2,items:{type:'string'}},status:{enum:['RESOLVED','BLOCKED','UNRESOLVED']},winner:{type:['string','null']},reason:{type:'string'}}}},
+conflict_coverage:{const:'Explicit relationships only; free-text semantic conflicts not claimed resolved'},qualification:{const:'NOT_RUN'},runtime_honesty:{const:'7 REQUIRED / NOT_RUN / NOT_WAIVED; E4 deferred'},publisher_authentication:{const:'UNKNOWN'},governance_release_acceptance:{const:'NOT_GRANTED'}
+}};
+const dataSchema={type:'object',additionalProperties:false,required:['catalog','validation'],properties:{catalog:{$ref:'#/$defs/Catalog'},validation:{$ref:'#/$defs/Validation'}}};
+contract.$defs.Response.properties.data.oneOf.push(dataSchema);
+for(const [result,code]of [['VALID',0],['INVALID',1]])contract.$defs.Response.allOf.push({if:{properties:{result:{const:result}}},then:{properties:{data:{...dataSchema,properties:{...dataSchema.properties,validation:{allOf:[{$ref:'#/$defs/Validation'},{properties:{result:{const:result},exit_code:{const:code}}}]}}}}}});
+const warningOnly={properties:{findings:{items:{properties:{disposition:{const:'WARNING'}}}}}};
+contract.$defs.Response.allOf.push({if:{properties:{result:{const:'VALID'}}},then:{properties:{data:{properties:{validation:warningOnly}}}}});
+await write('CLI_CONTRACT.json',contract);
+const provenance=await read('PROVENANCE.json');
+provenance.stage='E2.e';provenance.origin.repository_context_head='d45904489f398915de5b3131abfe2e5bc5824b1a';provenance.origin.source_at_context_head=false;
+provenance.origin.authority='Current explicit owner accepts E1 outputs including PROVISIONAL license and authorizes E2.a-e. T01 remains BLOCKED; seven runtime honesty checks deferred to E4.';
+const extra=['E2_PROFILE.md','tests/e2_support.py','tests/test_validate.py','tests/test_scope.py','tests/test_authority.py','tests/test_evidence.py','tests/test_e2_cli.py','tools/validate.py','tools/scope.py','tools/authority.py','tools/conflicts.py','tools/evidence.py','tools/lint.py'];
+provenance.source_files=[...new Set([...provenance.source_files,...extra])].sort();
+provenance.reader_profile.manifest='Manifest and item validation against unchanged contract.1 is implemented in E2; unsupported auxiliary schemas BLOCK.';
+provenance.reader_profile.writes='None. Catalog/validate/lint use read-only filesystem operations; no source/state/evidence/cache/log writes, network or child processes.';
+provenance.runtime.validation_dependencies='Pinned jsonschema 4.26.0 / referencing 0.37.0; registry is in-memory only; explicit date/date-time checks use Python standard library. No dependency additions.';
+provenance.remaining=['T01 BLOCKED_NOT_CLOSED; no gate re-entry in E2','T02 and app binding NOT_STARTED / NOT_CONFIGURED','E3/E4/E5/E6 required; seven runtime honesty checks NOT_RUN until E4','Final owner signature remains deferred; owner/license PROVISIONAL accepted for work','Native host qualification NOT_RUN; independent review NOT_PERFORMED; release acceptance NOT_GRANTED'];
+provenance.documentation_sources=[...new Set([...provenance.documentation_sources,'https://python-jsonschema.readthedocs.io/en/v4.26.0/referencing/'])];
+provenance.validation_profile={document:'E2_PROFILE.md',commands:['validate --strict','lint'],scope:'Static package read/structure/scope/bound authority/explicit conflicts/evidence guards/documentation consistency only',protocol_version:'3',trust:'Host API bound attestations; CLI does not consume source-provided grants; publisher UNKNOWN',unsupported:'Required E3+ evidence and unsupported auxiliary schemas BLOCK; no fake success',runtime_honesty:'7 REQUIRED / NOT_RUN / NOT_WAIVED; deferred E4'};
+provenance.catalog_profile.protocol_version='3';
+provenance.catalog_profile.read_identity='Catalog READ keeps governing hashes null. E2 validate/lint bind candidate/config/inputs using explicit raw path-map/compact JSON definitions in E2_PROFILE; not CP/JCS.';
+await write('PROVENANCE.json',provenance);
+const status=await read('PACKAGE_STATUS.json');status.stage='E2.e';status.e1_acceptance='ACCEPTED_BY_OWNER';status.e2_delivery='IMPLEMENTED_PENDING_FINAL_FROZEN_VERIFICATION';status.governing_validation='E2_STATIC_PROFILE_IMPLEMENTED_PENDING_VERIFICATION';status.remaining=provenance.remaining;await write('PACKAGE_STATUS.json',status);
+console.log(JSON.stringify({protocol:'3',source_files:provenance.source_files.length,locked_schemas_unchanged:true}));

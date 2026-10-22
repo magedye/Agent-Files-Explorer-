@@ -1,0 +1,157 @@
+--- /dev/null
++++ after/governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/evidence.py
+@@ -0,0 +1,154 @@
++"""E2 evidence guards. E3/E4/E5/E6 checks are never simulated as successful."""
++
++from datetime import date
++from pathlib import Path
++import re
++
++from loader import read_support_sources, parse_source, support_path_present
++from validate import finding
++from scope import matches
++
++
++def check_evidence(package, context):
++    issues = []
++    members = {m.value["id"]: m for m in package.items}
++    capabilities = {m.value["skillId"]: m for m in package.items if m.value["kind"] == "CAPABILITY"}
++    if len(capabilities) != sum(m.value["kind"] == "CAPABILITY" for m in package.items):
++        issues.append(finding(package.manifest, "DUPLICATE_SKILL_ID"))
++    records = []
++    for member in package.items:
++        value = member.value
++        qualifications = value.get("skillQualification", [])
++        records.extend((member, q) for q in (qualifications if isinstance(qualifications, list) else [qualifications]))
++    for source in package.auxiliary:
++        if source.source.role == "qualification":
++            records.extend((member, member.value) for document in source.documents for member in document.members)
++    identities = {}
++    for member, record in records:
++        key = tuple(record[k] for k in ("skillId", "host", "hostVersion", "scope", "contentHash"))
++        if key in identities and identities[key] != record:
++            issues.append(finding(member, "QUALIFICATION_IDENTITY_CONFLICT", "/skillQualification"))
++        identities[key] = record
++        if record["skillId"] not in capabilities:
++            issues.append(finding(member, "UNKNOWN_ID", "/skillQualification/skillId"))
++        if record["host"] not in package.manifest.value["compatibility"]["agents"]:
++            issues.append(finding(member, "UNKNOWN_QUALIFICATION_HOST", "/skillQualification/host"))
++        if record["status"] == "QUALIFIED":
++            issues.append(finding(member, "QUALIFICATION_E4_EVIDENCE_UNAVAILABLE", "/skillQualification", disposition="BLOCKED"))
++            cap = capabilities.get(record["skillId"])
++            max_age = cap.value.get("maxAgeDays") if cap else None
++            stamp = date.fromisoformat(record["qualifiedAt"])
++            if stamp > context.day or (max_age and (context.day - stamp).days > max_age):
++                issues.append(finding(member, "STALE_OR_FUTURE_QUALIFICATION", "/skillQualification/qualifiedAt"))
++        if context.agent and context.agent == record["host"] and context.host_version and context.host_version != record["hostVersion"]:
++            issues.append(finding(member, "QUALIFICATION_CONTEXT_MISMATCH", "/skillQualification/hostVersion", disposition="BLOCKED"))
++    for member in package.items:
++        value = member.value
++        required = set(value["scope"].get("skillIds", []))
++        if value["kind"] == "CAPABILITY":
++            required.add(value["skillId"])
++            for field in ("alternatives", "conflictsWith"):
++                for skill in value.get(field, []):
++                    if skill not in capabilities:
++                        issues.append(finding(member, "UNKNOWN_ID", "/" + field))
++        for skill in required:
++            if skill not in capabilities:
++                issues.append(finding(member, "UNKNOWN_ID", "/scope/skillIds"))
++            available = [record for _, record in records if record["skillId"] == skill]
++            embedded = value.get("skillQualification", [])
++            embedded = embedded if isinstance(embedded, list) else [embedded]
++            if not any(q["skillId"] == skill for q in embedded) or not available:
++                issues.append(finding(member, "QUALIFICATION_COVERAGE_MISSING", "/skillQualification"))
++            if context.agent:
++                targeted = [q for q in available if q["host"] == context.agent]
++                if not targeted:
++                    issues.append(finding(member, "QUALIFICATION_HOST_COVERAGE_MISSING", "/skillQualification", disposition="BLOCKED"))
++                elif context.host_version is None:
++                    issues.append(finding(member, "QUALIFICATION_VERSION_CONTEXT_REQUIRED", "/context/host_version", disposition="BLOCKED"))
++                else:
++                    targeted = [q for q in targeted if q["hostVersion"] == context.host_version]
++                    if not targeted:
++                        issues.append(finding(member, "QUALIFICATION_CONTEXT_MISMATCH", "/skillQualification", disposition="BLOCKED"))
++                if context.path and targeted:
++                    try:
++                        covered = any(matches(q["scope"], context.path) for q in targeted)
++                    except ValueError:
++                        covered = False
++                    if not covered:
++                        issues.append(finding(member, "QUALIFICATION_SCOPE_COVERAGE_MISSING", "/skillQualification/scope", disposition="BLOCKED"))
++            cap = capabilities.get(skill)
++            if cap:
++                for host in cap.value.get("requiredOnHosts", []):
++                    if not any(q["host"] == host for q in available):
++                        issues.append(finding(member, "QUALIFICATION_HOST_COVERAGE_MISSING", "/skillQualification"))
++                if cap.value.get("minimumStatus") == "QUALIFIED":
++                    issues.append(finding(member, "QUALIFICATION_E4_EVIDENCE_UNAVAILABLE", "/minimumStatus", disposition="BLOCKED"))
++        if value["impact"]["evidence"] == "repo-measured":
++            issues.append(finding(member, "CALIBRATION_E5_EVIDENCE_UNAVAILABLE", "/impact", disposition="BLOCKED"))
++        enforcement = value.get("enforcement", {})
++        if enforcement.get("gate", {}).get("required") or (value["force"] == "MUST_NOT" and value["severity"] in ("critical", "high")):
++            issues.append(finding(member, "ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE", "/enforcement", disposition="BLOCKED"))
++        if value.get("defaultTier") in package.manifest.value["validation"]["requireEvalForPriority"]:
++            issues.append(finding(member, "P0_EVAL_QUALIFICATION_UNAVAILABLE", "/defaultTier", disposition="BLOCKED"))
++        if value["kind"] == "EXCEPTION":
++            if date.fromisoformat(value["expiresOn"]) < context.day:
++                issues.append(finding(member, "EXCEPTION_EXPIRED", "/expiresOn"))
++            for target in value["references"]:
++                if target not in members:
++                    issues.append(finding(member, "UNKNOWN_EXCEPTION_TARGET", "/references"))
++                elif not members[target].value.get("exceptions", {}).get("allowed", False):
++                    issues.append(finding(member, "EXCEPTION_NOT_ALLOWED", "/references"))
++            issues.append(finding(member, "EXCEPTION_E5_APPROVAL_UNAVAILABLE", "/references", disposition="BLOCKED"))
++        for reference in value.get("references", []):
++            if "/" not in reference and reference not in members:
++                issues.append(finding(member, "UNKNOWN_ITEM_REFERENCE", "/references"))
++    if context.skill_id and context.skill_id not in capabilities:
++        issues.append(finding(package.manifest, "UNKNOWN_ID", "/context/skill_id"))
++    return issues
++
++
++def check_documentation(package, root):
++    """Explicit source-map adapter, not host discovery. Formats are versioned.
++
++    numbered-headings-v1 counts '## 1. name' or '## 1) name'; no input regex.
++    skills-array-v1 accepts an array or an object with a skills array of id objects.
++    """
++    root = Path(root)
++    captured = []
++    mapping = None
++    if support_path_present(root, "SOURCE_MAP.json"):
++        source, = read_support_sources(root, (("SOURCE_MAP.json", "provenance"),))
++        captured.append(source)
++        documents = parse_source(source.path, source.raw, role="provenance").documents
++        if len(documents) != 1 or not isinstance(documents[0].value, dict):
++            return [finding(package.manifest, "INVALID_SOURCE_MAP")], captured, {"status": "FAIL"}
++        mapping = documents[0].value.get("skills_documentation")
++    library_present = any(support_path_present(root, p) for p in ("skills", "optional_skills"))
++    capability_present = any(m.value["kind"] == "CAPABILITY" for m in package.items)
++    if mapping is None:
++        if library_present:
++            return [finding(package.manifest, "SKILL_DOCUMENTATION_MAPPING_REQUIRED", disposition="BLOCKED")], captured, {"status": "BLOCKED"}
++        reason = "No packaged instruction library or documentation mapping; CAPABILITY declarations do not establish a host library" if capability_present else "No packaged skill library, CAPABILITY or documentation mapping"
++        return [], captured, {"status": "NOT_APPLICABLE", "reason": reason}
++    if (not isinstance(mapping, dict) or set(mapping) != {"register_path", "document_path", "register_format", "document_format"}
++            or mapping["register_format"] != "skills-array-v1" or mapping["document_format"] != "numbered-headings-v1"):
++        return [finding(package.manifest, "SKILL_DOCUMENTATION_FORMAT_UNSUPPORTED", disposition="BLOCKED")], captured, {"status": "BLOCKED"}
++    sources = read_support_sources(root, ((mapping["register_path"], "skill-register"), (mapping["document_path"], "skill-documentation")))
++    captured.extend(sources)
++    registry = parse_source(sources[0].path, sources[0].raw, role="skill-register").documents
++    if len(registry) != 1:
++        return [finding(package.manifest, "SKILL_REGISTER_FORMAT_UNSUPPORTED", disposition="BLOCKED")], captured, {"status": "BLOCKED"}
++    entries = registry[0].value
++    entries = entries.get("skills") if isinstance(entries, dict) else entries
++    if not isinstance(entries, list) or any(not isinstance(row, dict) or not isinstance(row.get("id"), str) or not row["id"].strip() for row in entries):
++        return [finding(package.manifest, "SKILL_REGISTER_FORMAT_UNSUPPORTED", disposition="BLOCKED")], captured, {"status": "BLOCKED"}
++    if not sources[1].valid_utf8:
++        return [finding(package.manifest, "INVALID_DOCUMENTATION_UTF8")], captured, {"status": "FAIL"}
++    count = sum(bool(re.match(r"^##\s+\d+[.)]\s+\S", line)) for line in sources[1].text.splitlines())
++    issues = []
++    if len({row["id"] for row in entries}) != len(entries):
++        issues.append(finding(package.manifest, "DUPLICATE_SKILL_ID"))
++    if count != len(entries):
++        issues.append(finding(package.manifest, "SKILL_DOCUMENTATION_COUNT_MISMATCH"))
++    return issues, captured, {"status": "FAIL" if issues else "PASS", "registered": len(entries), "documented": count,
++                              "scope": "Documentation count only; no existence/discovery/qualification/use claim"}

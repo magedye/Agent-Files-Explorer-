@@ -1,0 +1,24 @@
+{
+  "classification": "TEST_DEFECT",
+  "candidate_tests": {
+    "total": 141,
+    "passed": 139,
+    "failed": 2
+  },
+  "source_hash": "ce00b843993dca82725ec949be3ee8f1f844a68149123739d08239a2b6346a95",
+  "failures": [
+    {
+      "name": "test_protocol_rejects_manufactured_success",
+      "cause": "Test turns an already VALID E2 report into the same VALID report, so no manufactured success exists",
+      "fix": "Start from catalog READ and assert that fabricated governing success still rejects"
+    },
+    {
+      "name": "test_text_format_keeps_diagnostics_separate",
+      "cause": "E1 test assumes lint is unimplemented; E2 now implements it",
+      "fix": "Check VALID lint text plus BLOCKED E3 generation with separate stderr"
+    }
+  ],
+  "production_changes_required": false,
+  "full_raw_logs_preserved": true,
+  "archive_contains_exact_original_46_file_source": true
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aghr.invalid/contracts/rc3/proposal.schema.json",
+  "title": "Normalized JSON view of a parsed CP proposed_yaml payload",
+  "$comment": "YAML parsing, wrapper-to-payload matching and policy checks belong to the pinned Python engine. The original proposed_yaml bytes remain hash-bound.",
+  "oneOf": [{ "$ref": "item.schema.json" }, { "$ref": "#/$defs/ProjectSelection" }, { "$ref": "#/$defs/GeneratedFiles" }, { "$ref": "#/$defs/Calibration" }],
+  "$defs": {
+    "ProjectSelection": {
+      "type": "object", "additionalProperties": false, "required": ["kind", "project_id", "selections"],
+      "properties": { "kind": { "const": "PROJECT_SELECTION" }, "project_id": { "$ref": "common.schema.json#/$defs/Text" }, "selections": { "type": "array", "items": { "$ref": "api.read.schema.json#/$defs/ProjectSelection" } } }
+    },
+    "GeneratedFiles": {
+      "type": "object", "additionalProperties": false, "required": ["kind", "target_project_id", "files"],
+      "properties": {
+        "kind": { "const": "GENERATED_FILE" }, "target_project_id": { "$ref": "common.schema.json#/$defs/Text" },
+        "files": { "type": "array", "minItems": 1, "items": { "type": "object", "additionalProperties": false, "required": ["path", "content", "content_hash"], "properties": { "path": { "$ref": "common.schema.json#/$defs/Text" }, "content": { "type": "string" }, "content_hash": { "$ref": "common.schema.json#/$defs/Hash" } } } },
+        "adoption": { "type": "object", "additionalProperties": false, "required": ["level", "profile"], "properties": { "level": { "$ref": "common.schema.json#/$defs/Level" }, "profile": { "$ref": "common.schema.json#/$defs/Text" } } }
+      }
+    },
+    "Calibration": {
+      "type": "object", "additionalProperties": false, "required": ["kind", "target_item_id", "eval_run_id", "measured_delta", "reason", "proposed_item"],
+      "properties": { "kind": { "const": "calibration" }, "target_item_id": { "$ref": "common.schema.json#/$defs/Text" }, "eval_run_id": { "$ref": "common.schema.json#/$defs/Text" }, "measured_delta": { "type": "number" }, "reason": { "$ref": "common.schema.json#/$defs/Text" }, "proposed_item": { "$ref": "item.schema.json" } }
+    }
+  }
+}

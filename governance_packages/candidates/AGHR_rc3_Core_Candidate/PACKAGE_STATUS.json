@@ -1,7 +1,7 @@
 {
   "package_id": "aghr-rc3-core-candidate",
   "status": "CANDIDATE_FOR_REVIEW",
-  "stage": "E1.d",
+  "stage": "E2.e",
   "target_spec_version": "1.0.0-rc.3",
   "schema_version": "1.2",
   "content_origin": "REAL_APPLICATION_SOURCE_OBSERVATION",
@@ -28,7 +28,7 @@
     "final_acceptance": "PENDING_EXPLICIT_OWNER_SIGNATURE"
   },
   "e1c_delivery": "PREPARED_PROVISIONAL",
-  "governing_validation": "NOT_RUN",
+  "governing_validation": "E2_STATIC_PROFILE_IMPLEMENTED; exact verification results and source pin in scoped external evidence",
   "native_host_qualification": "NOT_RUN",
   "publisher_authentication": "UNKNOWN",
   "independent_review": "NOT_PERFORMED",
@@ -38,10 +38,13 @@
   "default_reference": "aghr_1_2_0",
   "later_owner_license_changes": "Separate before/after and impact record; no automatic rebuild or promotion",
   "remaining": [
-    "E1 owner acceptance after read/catalog/schema delivery",
-    "E2 governing strict/lint",
-    "T01 aggregate re-entry only after E1 and E2 evaluation",
-    "Explicit owner signature before final licensing/promotion; provisional values permit E1 progress"
+    "T01 BLOCKED_NOT_CLOSED; no gate re-entry in E2",
+    "T02 and app binding NOT_STARTED / NOT_CONFIGURED",
+    "E3/E4/E5/E6 required; seven runtime honesty checks NOT_RUN until E4",
+    "Final owner signature remains deferred; owner/license PROVISIONAL accepted for work",
+    "Native host qualification NOT_RUN; independent review NOT_PERFORMED; release acceptance NOT_GRANTED"
   ],
-  "e1d_delivery": "PREPARED_FOR_OWNER_REVIEW"
+  "e1d_delivery": "PREPARED_FOR_OWNER_REVIEW",
+  "e1_acceptance": "ACCEPTED_BY_OWNER",
+  "e2_delivery": "IMPLEMENTED_RESULTS_RECORDED_IN_EXTERNAL_RECEIPT"
 }

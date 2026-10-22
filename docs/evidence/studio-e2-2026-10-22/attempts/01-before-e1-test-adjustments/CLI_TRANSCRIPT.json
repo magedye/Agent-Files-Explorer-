@@ -1,0 +1,255 @@
+{
+  "source_hash": "ce00b843993dca82725ec949be3ee8f1f844a68149123739d08239a2b6346a95",
+  "invocations": [
+    {
+      "label": "real-version",
+      "command": [
+        "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "--version"
+      ],
+      "cwd": "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate",
+      "started_at": "2026-10-22T20:56:33.390546+00:00",
+      "ended_at": "2026-10-22T20:56:34.265785+00:00",
+      "fixture": false,
+      "not_a_proposed_policy": false,
+      "exit_code": 0,
+      "result": "INFO",
+      "source_hash": "ce00b843993dca82725ec949be3ee8f1f844a68149123739d08239a2b6346a95",
+      "stdout": "real-version.stdout.json",
+      "stderr": "real-version.stderr.txt",
+      "stdout_sha256": "cfdae77a969773254ed902b16842909c9270670810c50867e98853eaab1dfca9",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "diagnostic_codes": []
+    },
+    {
+      "label": "real-strict",
+      "command": [
+        "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--as-of",
+        "2026-10-22"
+      ],
+      "cwd": "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate",
+      "started_at": "2026-10-22T20:56:34.268784+00:00",
+      "ended_at": "2026-10-22T20:56:39.959858+00:00",
+      "fixture": false,
+      "not_a_proposed_policy": false,
+      "exit_code": 0,
+      "result": "VALID",
+      "source_hash": "ce00b843993dca82725ec949be3ee8f1f844a68149123739d08239a2b6346a95",
+      "stdout": "real-strict.stdout.json",
+      "stderr": "real-strict.stderr.txt",
+      "stdout_sha256": "578805ebbe81c9fb2b501a54be6a02faebdf1e2854c46781da37cd22d9ce0c90",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "diagnostic_codes": []
+    },
+    {
+      "label": "real-lint",
+      "command": [
+        "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "lint",
+        "--as-of",
+        "2026-10-22"
+      ],
+      "cwd": "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate",
+      "started_at": "2026-10-22T20:56:39.974860+00:00",
+      "ended_at": "2026-10-22T20:56:44.906201+00:00",
+      "fixture": false,
+      "not_a_proposed_policy": false,
+      "exit_code": 0,
+      "result": "VALID",
+      "source_hash": "ce00b843993dca82725ec949be3ee8f1f844a68149123739d08239a2b6346a95",
+      "stdout": "real-lint.stdout.json",
+      "stderr": "real-lint.stderr.txt",
+      "stdout_sha256": "567732ee70fcc9a0b0c25d063efea44936e24a85ddee3e83b92f38709bc89fc6",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "diagnostic_codes": []
+    },
+    {
+      "label": "relocated-strict",
+      "command": [
+        "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\temp\\studio-e2-20261022\\delivery-205633239551\\محرك منقول\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--as-of",
+        "2026-10-22"
+      ],
+      "cwd": "D:\\APP\\Agent-Files-Explorer\\temp\\studio-e2-20261022\\delivery-205633239551\\محرك منقول",
+      "started_at": "2026-10-22T20:56:45.212755+00:00",
+      "ended_at": "2026-10-22T20:56:50.306331+00:00",
+      "fixture": false,
+      "not_a_proposed_policy": false,
+      "exit_code": 0,
+      "result": "VALID",
+      "source_hash": "ce00b843993dca82725ec949be3ee8f1f844a68149123739d08239a2b6346a95",
+      "stdout": "relocated-strict.stdout.json",
+      "stderr": "relocated-strict.stderr.txt",
+      "stdout_sha256": "578805ebbe81c9fb2b501a54be6a02faebdf1e2854c46781da37cd22d9ce0c90",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "diagnostic_codes": []
+    },
+    {
+      "label": "missing-level-must",
+      "command": [
+        "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict"
+      ],
+      "cwd": "D:\\APP\\Agent-Files-Explorer\\temp\\studio-e2-20261022\\delivery-205633239551\\missing-level-must",
+      "started_at": "2026-10-22T20:56:50.624931+00:00",
+      "ended_at": "2026-10-22T20:56:55.453330+00:00",
+      "fixture": true,
+      "not_a_proposed_policy": true,
+      "exit_code": 1,
+      "result": "INVALID",
+      "source_hash": "ce00b843993dca82725ec949be3ee8f1f844a68149123739d08239a2b6346a95",
+      "stdout": "missing-level-must.stdout.json",
+      "stderr": "missing-level-must.stderr.txt",
+      "stdout_sha256": "7dfb9a125af918595f124e7a443e88b61bc4ca835f766522d8bed2ba7779c4a9",
+      "stderr_sha256": "a511ce6e4f193c0f865d65222a5485cbe678cd0ba864ba1f72f317d90dfd6f3c",
+      "diagnostic_codes": [
+        "SCHEMA_REQUIRED",
+        "SCHEMA_REQUIRED"
+      ]
+    },
+    {
+      "label": "missing-level-must_not",
+      "command": [
+        "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict"
+      ],
+      "cwd": "D:\\APP\\Agent-Files-Explorer\\temp\\studio-e2-20261022\\delivery-205633239551\\missing-level-must_not",
+      "started_at": "2026-10-22T20:56:55.779142+00:00",
+      "ended_at": "2026-10-22T20:57:00.526306+00:00",
+      "fixture": true,
+      "not_a_proposed_policy": true,
+      "exit_code": 1,
+      "result": "INVALID",
+      "source_hash": "ce00b843993dca82725ec949be3ee8f1f844a68149123739d08239a2b6346a95",
+      "stdout": "missing-level-must_not.stdout.json",
+      "stderr": "missing-level-must_not.stderr.txt",
+      "stdout_sha256": "79585ce1731d4399a9c51b0d88a8cabcf1f1fed049e87d405c85cc16a1f163bc",
+      "stderr_sha256": "70754609e91d81516b48ed055b15dec491df82a48d4abc1c5ac2e83d6b4bde55",
+      "diagnostic_codes": [
+        "SCHEMA_REQUIRED"
+      ]
+    },
+    {
+      "label": "self-enterprise",
+      "command": [
+        "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict"
+      ],
+      "cwd": "D:\\APP\\Agent-Files-Explorer\\temp\\studio-e2-20261022\\delivery-205633239551\\self-enterprise",
+      "started_at": "2026-10-22T20:57:00.879864+00:00",
+      "ended_at": "2026-10-22T20:57:06.159974+00:00",
+      "fixture": true,
+      "not_a_proposed_policy": true,
+      "exit_code": 3,
+      "result": "BLOCKED",
+      "source_hash": "ce00b843993dca82725ec949be3ee8f1f844a68149123739d08239a2b6346a95",
+      "stdout": "self-enterprise.stdout.json",
+      "stderr": "self-enterprise.stderr.txt",
+      "stdout_sha256": "1827a8745f7e688cf739bdf49420ebc2081ec117c4cc4d897dfe76eb8a684538",
+      "stderr_sha256": "9729feeaf4d824675cd2458307ca4f21df5b6ef029a030406950853515add870",
+      "diagnostic_codes": [
+        "AUTHORITY_SOURCE_UNVERIFIED"
+      ]
+    },
+    {
+      "label": "unproven-calibration",
+      "command": [
+        "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict"
+      ],
+      "cwd": "D:\\APP\\Agent-Files-Explorer\\temp\\studio-e2-20261022\\delivery-205633239551\\unproven-calibration",
+      "started_at": "2026-10-22T20:57:07.676915+00:00",
+      "ended_at": "2026-10-22T20:57:13.503785+00:00",
+      "fixture": true,
+      "not_a_proposed_policy": true,
+      "exit_code": 3,
+      "result": "BLOCKED",
+      "source_hash": "ce00b843993dca82725ec949be3ee8f1f844a68149123739d08239a2b6346a95",
+      "stdout": "unproven-calibration.stdout.json",
+      "stderr": "unproven-calibration.stderr.txt",
+      "stdout_sha256": "e07e5536650ca82a7bab852556bdd293b738ce12cf24a749c4f765990a41986e",
+      "stderr_sha256": "a1f1bb967ddb4e8dd45c13d0be3e6e27d88bf47c190cc69a88cae03450ec7a15",
+      "diagnostic_codes": [
+        "CALIBRATION_E5_EVIDENCE_UNAVAILABLE"
+      ]
+    },
+    {
+      "label": "malformed-utf8",
+      "command": [
+        "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict"
+      ],
+      "cwd": "D:\\APP\\Agent-Files-Explorer\\temp\\studio-e2-20261022\\delivery-205633239551\\malformed-utf8",
+      "started_at": "2026-10-22T20:57:14.197729+00:00",
+      "ended_at": "2026-10-22T20:57:15.206147+00:00",
+      "fixture": true,
+      "not_a_proposed_policy": true,
+      "exit_code": 2,
+      "result": "ERROR",
+      "source_hash": "ce00b843993dca82725ec949be3ee8f1f844a68149123739d08239a2b6346a95",
+      "stdout": "malformed-utf8.stdout.json",
+      "stderr": "malformed-utf8.stderr.txt",
+      "stdout_sha256": "5cd27b8da6586210804fc4104a45a961fccda732d928c47c3d8d9cef74ef040c",
+      "stderr_sha256": "a02f44789364f0237037f6f417dcfcc6d11f020bc1bde8b710bd99f88f290daf",
+      "diagnostic_codes": [
+        "INVALID_UTF8"
+      ]
+    }
+  ],
+  "T01": "BLOCKED_NOT_CLOSED"
+}

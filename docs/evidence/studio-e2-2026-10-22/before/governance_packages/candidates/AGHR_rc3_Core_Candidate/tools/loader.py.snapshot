@@ -1,0 +1,468 @@
+"""Bounded data reader. Loading is not governance validation or activation."""
+
+from array import array
+from dataclasses import dataclass, fields
+import hashlib
+import json
+import math
+import os
+from pathlib import Path, PurePosixPath
+import re
+import stat
+
+import yaml
+from yaml.events import AliasEvent
+from yaml.nodes import MappingNode, ScalarNode, SequenceNode
+
+from diagnostics import Diagnostic, ReadFailure, fail
+
+
+@dataclass(frozen=True)
+class ReaderLimits:
+    max_file_bytes: int = 1024 * 1024
+    max_total_bytes: int = 16 * 1024 * 1024
+    max_files: int = 256
+    max_entries: int = 4096
+    max_directory_depth: int = 16
+    max_depth: int = 48
+    max_nodes: int = 20000
+    max_documents: int = 128
+    max_items: int = 10000
+
+    def __post_init__(self):
+        if any(type(getattr(self, f.name)) is not int or getattr(self, f.name) < 1 for f in fields(self)):
+            raise ValueError("Reader limits must be positive integers.")
+
+
+@dataclass(frozen=True)
+class SourceRecord:
+    path: str
+    role: str
+    raw: bytes
+    text: str
+    sha256: str | None
+    complete: bool
+    valid_utf8: bool
+
+
+@dataclass(frozen=True)
+class Location:
+    path: str
+    document: int
+    pointer: str
+    line: int
+    column: int
+    start_byte: int
+    end_byte: int
+
+
+@dataclass(frozen=True)
+class LocatedValue:
+    value: object
+    location: Location
+
+
+@dataclass(frozen=True)
+class Document:
+    value: object
+    location: Location
+    members: tuple[LocatedValue, ...]
+
+
+@dataclass(frozen=True)
+class ParsedSource:
+    source: SourceRecord
+    documents: tuple[Document, ...]
+
+
+TAG = "tag:yaml.org,2002:"
+
+
+class DataLoader(yaml.SafeLoader):
+    """Pinned PyYAML composer; no Python object constructors are invoked.
+
+    https://github.com/yaml/pyyaml/blob/6.0.3/lib/yaml/composer.py
+    Aliases, merges and explicit tags are outside this reader's input profile.
+    """
+
+    def __init__(self, source, limits):
+        self.source, self.limits = source, limits
+        self.depth = self.nodes = 0
+        super().__init__(source.text)
+
+    def error(self, code, message, mark=None):
+        fail(code, message, self.source.path, mark=mark, text=self.source.text, sources=(self.source,))
+
+    def compose_node(self, parent, index):
+        event = self.peek_event()
+        if isinstance(event, AliasEvent):
+            self.error("YAML_ALIAS_UNSUPPORTED", "Aliases and cycles are not supported.", event.start_mark)
+        if event.tag is not None:
+            self.error("YAML_TAG_UNSUPPORTED", "Explicit YAML tags are not supported.", event.start_mark)
+        self.depth += 1
+        self.nodes += 1
+        if self.depth > self.limits.max_depth or self.nodes > self.limits.max_nodes:
+            self.error("PARSE_LIMIT_EXCEEDED", "YAML depth or node limit exceeded.", event.start_mark)
+        try:
+            return super().compose_node(parent, index)
+        finally:
+            self.depth -= 1
+
+    def value(self, node):
+        if isinstance(node, MappingNode):
+            result = {}
+            for key, value in node.value:
+                if key.tag == TAG + "merge":
+                    self.error("YAML_MERGE_UNSUPPORTED", "YAML merge keys are not supported.", key.start_mark)
+                if not isinstance(key, ScalarNode) or key.tag != TAG + "str":
+                    self.error("NON_STRING_KEY", "Mapping keys must be strings.", key.start_mark)
+                name = self.value(key)
+                if name in result:
+                    self.error("DUPLICATE_KEY", "Duplicate mapping key.", key.start_mark)
+                result[name] = self.value(value)
+            return result
+        if isinstance(node, SequenceNode):
+            return [self.value(child) for child in node.value]
+        try:
+            if node.tag == TAG + "str":
+                value = node.value
+                if any(0xD800 <= ord(character) <= 0xDFFF for character in value):
+                    value = value.encode("utf-16-le", errors="surrogatepass").decode("utf-16-le", errors="strict")
+                value.encode("utf-8", errors="strict")
+                return value
+            if node.tag == TAG + "null":
+                return None
+            if node.tag == TAG + "bool":
+                return node.value.lower() == "true"
+            if node.tag == TAG + "int":
+                return bounded_int(node.value)
+            if node.tag == TAG + "float":
+                return finite_float(node.value)
+        except (ValueError, UnicodeError):
+            self.error("INVALID_SCALAR", "Scalar is outside the supported JSON data profile.", node.start_mark)
+        self.error("YAML_TAG_UNSUPPORTED", "Unsupported YAML data type.", node.start_mark)
+
+
+# Keep dates and yes/no/on/off as text, rather than PyYAML's YAML 1.1 coercions.
+# Copy the resolver lists: modifying this subclass must not modify SafeLoader.
+DataLoader.yaml_implicit_resolvers = {
+    key: [(tag, pattern) for tag, pattern in values if tag not in {TAG + name for name in ("bool", "int", "float", "timestamp")}]
+    for key, values in yaml.SafeLoader.yaml_implicit_resolvers.items()
+}
+DataLoader.add_implicit_resolver(TAG + "bool", re.compile(r"^(?:true|false)$", re.IGNORECASE), list("tTfF"))
+DataLoader.add_implicit_resolver(TAG + "int", re.compile(r"^-?(?:0|[1-9][0-9]*)$"), list("-0123456789"))
+DataLoader.add_implicit_resolver(TAG + "float", re.compile(r"^-?(?:0|[1-9][0-9]*)(?:\.[0-9]+(?:[eE][-+]?[0-9]+)?|[eE][-+]?[0-9]+)$"), list("-0123456789"))
+
+
+def bounded_int(text):
+    if len(text.lstrip("-")) > 256:
+        raise ValueError("Integer digit limit exceeded.")
+    return int(text, 10)
+
+
+def finite_float(text):
+    value = float(text)
+    if not math.isfinite(value):
+        raise ValueError("Non-finite number.")
+    return value
+
+
+def reject_constant(text):
+    raise ValueError("Non-JSON numeric constant.")
+
+
+def capture_source(path, raw, role, *, complete=True):
+    try:
+        text, valid = raw.decode("utf-8", errors="strict"), True
+    except UnicodeDecodeError:
+        text, valid = raw.decode("utf-8", errors="replace"), False
+    return SourceRecord(path, role, raw, text, hashlib.sha256(raw).hexdigest() if complete else None, complete, valid)
+
+
+def parse_source(path, raw, *, role="item", limits=None):
+    """Parse captured bytes only; no file access, imports or execution from input."""
+    limits = ReaderLimits() if limits is None else limits
+    if not isinstance(limits, ReaderLimits):
+        raise ValueError("limits must be a ReaderLimits instance.")
+    complete = len(raw) <= limits.max_file_bytes
+    source = capture_source(path, raw[:limits.max_file_bytes + 1], role, complete=complete)
+    text, valid = source.text, source.valid_utf8
+    if not complete:
+        fail("FILE_LIMIT_EXCEEDED", "Source byte limit exceeded; retained bytes are a prefix only.", path, sources=(source,))
+    if not valid:
+        fail("INVALID_UTF8", "Package text must be valid UTF-8; replacement text is display only.", path, sources=(source,))
+    suffix = PurePosixPath(path).suffix.lower()
+    if suffix not in (".json", ".yaml", ".yml"):
+        fail("UNSUPPORTED_FORMAT", "Only JSON and YAML source files are supported.", path, sources=(source,))
+    if suffix == ".json":
+        try:
+            json.loads(text, parse_int=bounded_int, parse_float=finite_float, parse_constant=reject_constant)
+        except json.JSONDecodeError as error:
+            raise ReadFailure(Diagnostic("INVALID_JSON", "Malformed JSON source.", path, error.lineno, error.colno, len(text[:error.pos].encode("utf-8"))), (source,)) from None
+        except (ValueError, RecursionError):
+            fail("INVALID_JSON_SCALAR", "JSON numeric or nesting limit exceeded.", path, sources=(source,))
+    # A bounded UTF-8 offset table avoids quadratic rescans for many flow items.
+    offsets, size = array("I", [0]), 0
+    for character in text:
+        size += len(character.encode("utf-8"))
+        offsets.append(size)
+    documents = []
+    loader = None
+    try:
+        loader = DataLoader(source, limits)
+        while loader.check_node():
+            if len(documents) >= limits.max_documents:
+                loader.error("DOCUMENT_LIMIT_EXCEEDED", "Document count limit exceeded.")
+            node = loader.get_node()
+            value, index = loader.value(node), len(documents)
+            def location(part, pointer):
+                return Location(path, index, pointer, part.start_mark.line + 1, part.start_mark.column + 1, offsets[part.start_mark.index], offsets[part.end_mark.index])
+            members = tuple(LocatedValue(value[i], location(child, f"/{i}")) for i, child in enumerate(node.value)) if isinstance(node, SequenceNode) else (LocatedValue(value, location(node, "")),)
+            documents.append(Document(value, location(node, ""), members))
+    except yaml.YAMLError as error:
+        mark = getattr(error, "problem_mark", None)
+        fail("INVALID_YAML", "Malformed YAML source.", path, mark=mark, text=text, sources=(source,))
+    except RecursionError:
+        fail("PARSE_LIMIT_EXCEEDED", "Parser recursion limit exceeded.", path, sources=(source,))
+    finally:
+        if loader is not None:
+            loader.dispose()
+    if not documents:
+        fail("EMPTY_SOURCE", "Source contains no document.", path, sources=(source,))
+    return ParsedSource(source, tuple(documents))
+
+
+SOURCE_ROOTS = ("capabilities", "decisions", "policies", "profiles")
+FORBIDDEN = frozenset((".git", ".aghr", "compatibility", "verification", "archive", "node_modules", "runtime_evidence"))
+
+
+@dataclass(frozen=True)
+class PackageRead:
+    manifest: Document
+    files: tuple[ParsedSource, ...]
+    items: tuple[LocatedValue, ...]
+    status: str = "READ"
+    validation_status: str = "NOT_RUN"
+    source_paths: tuple[str, ...] = SOURCE_ROOTS
+    selection_mode: str = "DEFAULT_ROOTS"
+
+    @property
+    def sources(self):
+        return tuple(file.source for file in self.files)
+
+    @property
+    def auxiliary(self):
+        return tuple(file for file in self.files if file.source.role not in ("manifest", "item"))
+
+
+def source_role(relative):
+    parts = PurePosixPath(relative).parts
+    if parts[:2] == ("capabilities", "qualifications"):
+        return "qualification"
+    if parts[:2] == ("capabilities", "project-selections"):
+        return "selection"
+    return "profile" if parts[0] == "profiles" else "item"
+
+
+def portable_path(value):
+    if not isinstance(value, str) or not value or len(value) > 4096:
+        fail("INVALID_SOURCE_PATH", "Source path must be a nonempty relative POSIX path.", ".")
+    try:
+        value.encode("utf-8", errors="strict")
+    except UnicodeError:
+        fail("INVALID_SOURCE_PATH", "Source path must contain valid Unicode text.", ".")
+    parts = value.split("/")
+    if any(part in ("", ".", "..") or part.rstrip(" .") != part for part in parts) or any(c in value for c in ("\\", ":", "\x00", "\r", "\n")):
+        fail("INVALID_SOURCE_PATH", "Absolute, escaping or ambiguous source paths are forbidden.", value)
+    if any(part.casefold() in FORBIDDEN for part in parts):
+        fail("DISALLOWED_SOURCE_PATH", "Source path enters an excluded directory.", value)
+    return PurePosixPath(value)
+
+
+def is_link(info):
+    return stat.S_ISLNK(info.st_mode) or bool(getattr(info, "st_file_attributes", 0) & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0))
+
+
+def signature(info):
+    return info.st_dev, info.st_ino, info.st_size, info.st_mtime_ns
+
+
+class _PackageReader:
+    def __init__(self, root, limits):
+        self.root = Path(root).absolute()
+        self.limits = limits
+        self.files = []
+        self.fingerprints = {}
+        self.directories = {}
+        self.total_bytes = self.entries = 0
+        self.current = "."
+
+    def checked_path(self, relative):
+        portable = portable_path(relative)
+        if len(portable.parts) > self.limits.max_directory_depth + 1:
+            fail("DIRECTORY_DEPTH_EXCEEDED", "Source path exceeds the directory depth limit.", relative)
+        current = self.root
+        for part in portable.parts:
+            current = current / part
+            info = current.lstat()
+            if is_link(info) or current.is_junction():
+                fail("LINK_UNSUPPORTED", "Symlinks, junctions and reparse points are not followed.", relative)
+            if stat.S_ISDIR(info.st_mode):
+                # Also check intermediate parents of an explicitly selected file.
+                for marker in (".git", "aghr.json"):
+                    try:
+                        (current / marker).lstat()
+                    except FileNotFoundError:
+                        continue
+                    fail("NESTED_SOURCE_ROOT", "Nested repositories and packages require a separate selected root.", relative)
+        if not current.resolve(strict=True).is_relative_to(self.root):
+            fail("PATH_OUTSIDE_ROOT", "Resolved source path leaves the selected root.", relative)
+        return current, info
+
+    def read_file(self, relative, role):
+        self.current = relative
+        path, before = self.checked_path(relative)
+        if not stat.S_ISREG(before.st_mode):
+            fail("NOT_REGULAR_FILE", "Source is not a regular file.", relative)
+        if len(self.files) >= self.limits.max_files:
+            fail("FILE_COUNT_EXCEEDED", "Source file count limit exceeded.", relative)
+        remaining = self.limits.max_total_bytes - self.total_bytes
+        with path.open("rb") as stream:
+            opened = os.fstat(stream.fileno())
+            if signature(opened) != signature(before):
+                fail("SOURCE_CHANGED", "Source changed before the read.", relative)
+            raw = stream.read(min(self.limits.max_file_bytes, remaining) + 1)
+            after = os.fstat(stream.fileno())
+        if len(raw) > self.limits.max_file_bytes or len(raw) > remaining:
+            captured = capture_source(relative, raw, role, complete=len(raw) == after.st_size)
+            code = "FILE_LIMIT_EXCEEDED" if len(raw) > self.limits.max_file_bytes else "TOTAL_BYTES_EXCEEDED"
+            fail(code, "Reader byte limit exceeded; capture completeness is recorded.", relative, sources=(captured,))
+        _, final = self.checked_path(relative)
+        if signature(before) != signature(after) or signature(after) != signature(final) or len(raw) != after.st_size:
+            fail("SOURCE_CHANGED", "Source changed while being read.", relative, sources=(capture_source(relative, raw, role, complete=len(raw) == after.st_size),))
+        parsed = parse_source(relative, raw, role=role, limits=self.limits)
+        self.files.append(parsed)
+        self.total_bytes += len(raw)
+        self.fingerprints[relative] = signature(final)
+        return parsed
+
+    def discover(self, relative):
+        self.current = relative
+        path, info = self.checked_path(relative)
+        if stat.S_ISREG(info.st_mode):
+            if path.suffix.lower() not in (".json", ".yaml", ".yml"):
+                fail("UNSUPPORTED_FORMAT", "Explicit source path is not JSON or YAML.", relative)
+            yield relative
+            return
+        if not stat.S_ISDIR(info.st_mode):
+            fail("NOT_REGULAR_FILE", "Source path is neither a file nor a directory.", relative)
+        if len(PurePosixPath(relative).parts) > self.limits.max_directory_depth:
+            fail("DIRECTORY_DEPTH_EXCEEDED", "Directory depth limit exceeded.", relative)
+        entries = []
+        with os.scandir(path) as iterator:
+            for entry in iterator:
+                self.entries += 1
+                if self.entries > self.limits.max_entries:
+                    fail("DIRECTORY_ENTRY_LIMIT_EXCEEDED", "Directory entry limit exceeded.", relative)
+                entries.append(entry.name)
+        self.directories[relative] = signature(info)
+        for name in sorted(entries):
+            child = (PurePosixPath(relative) / name).as_posix()
+            self.current = child
+            child_path, child_info = self.checked_path(child)
+            if stat.S_ISDIR(child_info.st_mode):
+                yield from self.discover(child)
+            elif child_path.suffix.lower() in (".json", ".yaml", ".yml"):
+                if not stat.S_ISREG(child_info.st_mode):
+                    fail("NOT_REGULAR_FILE", "Source is not a regular file.", child)
+                yield child
+
+    def load(self, source_paths):
+        root_info = self.root.lstat()
+        if is_link(root_info) or self.root.is_junction():
+            fail("LINK_UNSUPPORTED", "Selected root cannot be a symlink or junction.", ".")
+        self.root = self.root.resolve(strict=True)
+        if not self.root.is_dir():
+            fail("INVALID_ROOT", "Selected root must be a directory.", ".")
+        root_signature = signature(self.root.stat())
+        explicit = source_paths is not None
+        if explicit and (not isinstance(source_paths, (tuple, list)) or len(source_paths) > self.limits.max_entries):
+            fail("INVALID_SOURCE_SELECTION", "Explicit sources must be a bounded list or tuple of paths.", ".")
+        selected = tuple(source_paths) if explicit else SOURCE_ROOTS
+        normalized = []
+        for source in selected:
+            relative = portable_path(source)
+            if relative.parts[0] not in SOURCE_ROOTS:
+                fail("DISALLOWED_SOURCE_PATH", "Sources must be inside the canonical source roots.", source)
+            key = relative.as_posix().casefold() if os.name == "nt" else relative.as_posix()
+            if any(key == prior or key.startswith(prior + "/") or prior.startswith(key + "/") for prior in normalized):
+                fail("OVERLAPPING_SOURCE_PATHS", "Selected source paths overlap or repeat.", source)
+            normalized.append(key)
+        manifest = self.read_file("aghr.json", "manifest")
+        if len(manifest.documents) != 1 or not isinstance(manifest.documents[0].value, dict):
+            fail("INVALID_MANIFEST", "Manifest must be a single JSON object.", "aghr.json")
+        if manifest.documents[0].value.get("schemaVersion") != "1.2":
+            fail("UNSUPPORTED_SCHEMA_VERSION", "Reader requires manifest schemaVersion 1.2.", "aghr.json")
+        items, identities = [], set()
+        for source in sorted(selected):
+            try:
+                self.current = source
+                self.checked_path(source)
+            except FileNotFoundError:
+                if not explicit:
+                    continue
+                raise
+            for relative in self.discover(source):
+                parsed = self.read_file(relative, source_role(relative))
+                if parsed.source.role != "item":
+                    continue
+                for document in parsed.documents:
+                    for member in document.members:
+                        if not isinstance(member.value, dict):
+                            fail("INVALID_ITEM_SHAPE", "Each item must be an object.", relative)
+                        identifier = member.value.get("id")
+                        if not isinstance(identifier, str) or not identifier.strip():
+                            fail("MISSING_ITEM_ID", "An indexed item needs a nonempty string id.", relative)
+                        if identifier in identities:
+                            location = member.location
+                            raise ReadFailure(Diagnostic("DUPLICATE_ID", "Duplicate governance item id.", relative, location.line, location.column, location.start_byte))
+                        if len(items) >= self.limits.max_items:
+                            fail("ITEM_COUNT_EXCEEDED", "Governance item count limit exceeded.", relative)
+                        identities.add(identifier)
+                        items.append(member)
+        if not items:
+            fail("NO_ITEMS_FOUND", "No governance items were read; no successful empty index is returned.", ".")
+        for relative, expected in self.fingerprints.items():
+            self.current = relative
+            _, current = self.checked_path(relative)
+            if signature(current) != expected:
+                fail("SOURCE_CHANGED", "Previously read source changed during the operation.", relative)
+        for relative, expected in self.directories.items():
+            self.current = relative
+            _, current = self.checked_path(relative)
+            if signature(current) != expected:
+                fail("SOURCE_CHANGED", "A source directory changed during the operation.", relative)
+        if signature(self.root.stat()) != root_signature:
+            fail("SOURCE_CHANGED", "Selected source root changed during the operation.", ".")
+        return PackageRead(manifest.documents[0], tuple(self.files), tuple(items), source_paths=tuple(sorted(selected)), selection_mode="EXPLICIT_PATHS" if explicit else "DEFAULT_ROOTS")
+
+
+def read_package(root, *, source_paths=None, limits=None):
+    """Read only the selected package's manifest and bounded canonical roots.
+
+    No referenced files, Python, Markdown, runtime evidence or nested projects
+    are imported. Item/schema/authority/qualification validation remains E2.
+    """
+    limits = ReaderLimits() if limits is None else limits
+    if not isinstance(limits, ReaderLimits):
+        raise ValueError("limits must be a ReaderLimits instance.")
+    reader = _PackageReader(root, limits)
+    try:
+        return reader.load(source_paths)
+    except ReadFailure as error:
+        sources = {file.source.path: file.source for file in reader.files}
+        sources.update({source.path: source for source in error.sources})
+        raise ReadFailure(error.diagnostic, tuple(sources.values())) from None
+    except OSError:
+        sources = tuple(file.source for file in reader.files)
+        fail("SOURCE_IO_ERROR", "Cannot access the selected source.", reader.current, sources=sources)

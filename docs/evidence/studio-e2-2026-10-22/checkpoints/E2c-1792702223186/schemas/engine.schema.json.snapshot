@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aghr.invalid/contracts/rc3/engine.schema.json",
+  "title": "Pinned Python engine and controlled subprocess contract",
+  "$ref": "#/$defs/Binding",
+  "$defs": {
+    "Identity": {
+      "type": "object", "additionalProperties": false, "required": ["version", "content_hash", "schema_version", "distribution"],
+      "properties": { "version": { "$ref": "common.schema.json#/$defs/Text" }, "content_hash": { "$ref": "common.schema.json#/$defs/Hash" }, "schema_version": { "const": "1.2" }, "distribution": { "$ref": "common.schema.json#/$defs/Artifact" } }
+    },
+    "Binding": {
+      "type": "object", "additionalProperties": false, "required": ["implementation", "status", "executable", "identity", "shell"],
+      "properties": {
+        "implementation": { "const": "pinned_python_aghr" }, "status": { "enum": ["NOT_CONFIGURED", "PINNED", "QUALIFIED", "FAILED"] },
+        "executable": { "type": ["string", "null"] }, "identity": { "oneOf": [{ "$ref": "#/$defs/Identity" }, { "type": "null" }] },
+        "shell": { "const": false }, "qualification_evidence": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/Artifact" } }, "reason": { "$ref": "common.schema.json#/$defs/Text" }
+      },
+      "allOf": [
+        { "if": { "properties": { "status": { "enum": ["PINNED", "QUALIFIED"] } }, "required": ["status"] }, "then": { "properties": { "identity": { "type": "object" }, "executable": { "$ref": "common.schema.json#/$defs/Text" } } } },
+        { "if": { "properties": { "status": { "const": "QUALIFIED" } }, "required": ["status"] }, "then": { "required": ["qualification_evidence"], "properties": { "qualification_evidence": { "minItems": 1 } } }, "else": { "required": ["reason"] } }
+      ]
+    },
+    "Limits": {
+      "type": "object", "additionalProperties": false, "required": ["timeout_ms", "memory_mib"],
+      "properties": { "timeout_ms": { "type": "integer", "minimum": 1, "maximum": 86400000 }, "memory_mib": { "type": "integer", "minimum": 1, "maximum": 1048576 } }
+    },
+    "ControlAdapter": {
+      "type": "object", "additionalProperties": false, "required": ["platform", "adapter", "status", "process_tree", "wall_clock", "memory", "evidence"],
+      "properties": {
+        "platform": { "$ref": "common.schema.json#/$defs/Text" }, "adapter": { "$ref": "common.schema.json#/$defs/Text" },
+        "status": { "enum": ["QUALIFIED", "NOT_RUN", "NOT_SUPPORTED", "FAILED"] },
+        "process_tree": { "type": "boolean" }, "wall_clock": { "type": "boolean" }, "memory": { "type": "boolean" },
+        "evidence": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/Artifact" } }, "reason": { "$ref": "common.schema.json#/$defs/Text" }
+      },
+      "allOf": [{
+        "if": { "properties": { "status": { "const": "QUALIFIED" } }, "required": ["status"] },
+        "then": { "properties": { "process_tree": { "const": true }, "wall_clock": { "const": true }, "memory": { "const": true }, "evidence": { "minItems": 1 } } },
+        "else": { "required": ["reason"] }
+      }]
+    },
+    "Comparison": {
+      "type": "object", "additionalProperties": false, "required": ["status", "candidate_hash", "engine_hash", "inputs_hash", "config_hash", "local_run_id", "ci_run_ref"],
+      "properties": {
+        "status": { "enum": ["MATCH", "DIVERGED", "NOT_RUN", "NOT_COMPARABLE"] },
+        "candidate_hash": { "$ref": "common.schema.json#/$defs/Hash" }, "engine_hash": { "$ref": "common.schema.json#/$defs/Hash" },
+        "inputs_hash": { "$ref": "common.schema.json#/$defs/Hash" }, "config_hash": { "$ref": "common.schema.json#/$defs/Hash" },
+        "local_run_id": { "$ref": "common.schema.json#/$defs/Text" }, "ci_run_ref": { "type": ["string", "null"] }, "reason": { "$ref": "common.schema.json#/$defs/Text" }
+      },
+      "allOf": [{ "if": { "properties": { "status": { "enum": ["MATCH", "DIVERGED"] } }, "required": ["status"] }, "then": { "properties": { "ci_run_ref": { "$ref": "common.schema.json#/$defs/Text" } } }, "else": { "required": ["reason"] } }]
+    }
+  }
+}

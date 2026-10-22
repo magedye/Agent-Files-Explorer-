@@ -1,0 +1,52 @@
+{
+  "status": "COMPLETE_FOR_E2_STATIC_READ_VALIDATE_LINT_PROFILE",
+  "completed_at_utc": "2026-10-22T21:28:44.862Z",
+  "completed_local_date": "2026-10-23",
+  "base_head": "d45904489f398915de5b3131abfe2e5bc5824b1a",
+  "branch": "main",
+  "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+  "source_files": 46,
+  "candidate_tests": {
+    "total": 141,
+    "passed": 141,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 217.739
+  },
+  "studio_tests": {
+    "tests": 41,
+    "pass": 41,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "context_health": {
+    "status": "PASS",
+    "errors": 0,
+    "warnings": 0,
+    "log": "context-health.log"
+  },
+  "diff_check": {
+    "exit_code": 0,
+    "receipt": "git-diff-check.execution.json"
+  },
+  "before_after": 24,
+  "unchanged_source_files": 26,
+  "protected_inputs": 293,
+  "E1": "ACCEPTED_BY_OWNER",
+  "E2": "IMPLEMENTED_AND_TESTED; owner acceptance not self-granted",
+  "T01": "BLOCKED_NOT_CLOSED",
+  "T01_reentry": "NOT_RUN",
+  "T02": "NOT_STARTED",
+  "runtime_honesty": "7 REQUIRED / NOT_RUN / NOT_WAIVED; E4 deferred",
+  "whole_Studio_SOURCE_01": "REQUIRED / NOT_RUN / NOT_WAIVED",
+  "owner_license": "PROVISIONAL_OWNER_LICENSE",
+  "final_signature": "DEFERRED",
+  "reference_default": "1.2.0",
+  "candidate_1_3_0": "PRESERVED",
+  "engine_binding": "NOT_CONFIGURED",
+  "native_host_qualification": "NOT_RUN",
+  "independent_review": "NOT_PERFORMED",
+  "release_acceptance": "NOT_GRANTED",
+  "next_action": "Owner review of E2 delivery, then separately authorized T01 re-entry; do not auto-start T02/SEC-001"
+}

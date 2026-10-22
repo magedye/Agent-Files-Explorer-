@@ -1,0 +1,536 @@
+--- before/governance_packages/candidates/AGHR_rc3_Core_Candidate/CLI_CONTRACT.json
++++ after/governance_packages/candidates/AGHR_rc3_Core_Candidate/CLI_CONTRACT.json
+@@ -1,10 +1,10 @@
+ {
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+-  "$id": "https://aghr.invalid/internal/cli/2",
+-  "title": "Internal AGHR CLI protocol 2 — E1.d read catalog",
+-  "$comment": "Version 2 adds explicit READ catalog transport without governing validation. Prior protocol 1 is preserved in E1.d before snapshots. Public Studio contract.1 and its copied schemas are unchanged. JSON stdout is one UTF-8 object plus newline; text catalog output is a summary.",
++  "$id": "https://aghr.invalid/internal/cli/3",
++  "title": "Internal AGHR CLI protocol 3 — E2 static validate/lint",
++  "$comment": "Protocol 3 adds governing E2 reports and real input hashes. Protocol 2 bytes are preserved in the E2 before snapshot. Locked public contract.1 and 16 copied schemas are unchanged. No configured consumer bridge.",
+   "x-cli": {
+-    "protocol_version": "2",
++    "protocol_version": "3",
+     "default_format": "json",
+     "formats": [
+       "json",
+@@ -31,12 +31,12 @@
+     "implemented": [
+       "help",
+       "version",
+-      "catalog"
++      "catalog",
++      "validate",
++      "lint"
+     ],
+-    "reader_api": "tools/catalog.py build_catalog + serialize_catalog preserve raw sources/grouping/presence and a frozen model. catalog selects cwd. It performs read/integrity operations only; strict/lint remain E2.",
++    "reader_api": "catalog preserves raw data; validate/lint use the one Python governing pipeline and do not write. Runtime qualification remains NOT_RUN.",
+     "blocked_until": {
+-      "validate": "E2",
+-      "lint": "E2",
+       "generate": "E3",
+       "check": "E3",
+       "doctor": "E3",
+@@ -44,15 +44,26 @@
+       "qualify": "E4 and T15"
+     },
+     "exit_codes": {
+-      "0": "Metadata INFO or completed catalog READ; never governing validation",
+-      "1": "Reserved for real INVALID governing results in E2",
++      "0": "Metadata INFO, catalog READ, or VALID for the explicit E2 static package profile only",
++      "1": "Real INVALID strict/lint result; never a skipped mandatory check",
+       "2": "Invalid invocation, unreadable/malformed input or schema integrity/transport error",
+       "3": "Required implementation/dependency/evidence unavailable"
+     },
+     "identity": "sha256-path-map-v1 as defined in PROVENANCE.json; source identity is not authenticated publisher identity, a distribution or Binding.QUALIFIED.",
+     "raw_streams": "Never mix text/help into JSON stdout. Error and blocked diagnostics are also written to stderr. No user argument values are echoed on syntax errors. The last valid --format selection also controls syntax-error rendering.",
+     "writes": "None: no package/state/evidence/cache/log writes, child processes or network calls in CLI execution.",
+-    "compatibility": "Intentional internal protocol 1 -> 2 for READ/data shape; no configured consumer bridge. Old bytes and diff retained. No HTTP or locked Studio contract change."
++    "compatibility": "Intentional internal protocol 2 -> 3; no consumer bridge configured. E3+ commands remain BLOCKED. No locked Studio contract changes.",
++    "context_options": [
++      "--path",
++      "--agent",
++      "--host-version",
++      "--environment",
++      "--stage",
++      "--task-type",
++      "--skill-id",
++      "--language",
++      "--as-of"
++    ]
+   },
+   "$ref": "#/$defs/Response",
+   "$defs": {
+@@ -120,7 +131,7 @@
+               "path": {
+                 "type": "string",
+                 "minLength": 1,
+-                "description": "Owned source inventory relative POSIX path; E1.d includes thirty-three pinned artifacts."
++                "description": "Owned raw-byte source inventory, including E2 code/tests/profile; paths are relative POSIX."
+               },
+               "sha256": {
+                 "$ref": "#/$defs/Digest"
+@@ -185,6 +196,22 @@
+             "null"
+           ],
+           "minimum": 0
++        },
++        "pointer": {
++          "type": "string"
++        },
++        "item_id": {
++          "type": [
++            "string",
++            "null"
++          ]
++        },
++        "disposition": {
++          "enum": [
++            "INVALID",
++            "BLOCKED",
++            "WARNING"
++          ]
+         }
+       }
+     },
+@@ -204,7 +231,7 @@
+       ],
+       "properties": {
+         "protocol_version": {
+-          "const": "2"
++          "const": "3"
+         },
+         "command": {
+           "enum": [
+@@ -359,6 +386,22 @@
+                       }
+                     }
+                   }
++                }
++              }
++            },
++            {
++              "type": "object",
++              "additionalProperties": false,
++              "required": [
++                "catalog",
++                "validation"
++              ],
++              "properties": {
++                "catalog": {
++                  "$ref": "#/$defs/Catalog"
++                },
++                "validation": {
++                  "$ref": "#/$defs/Validation"
+                 }
+               }
+             }
+@@ -655,6 +698,122 @@
+               }
+             }
+           }
++        },
++        {
++          "if": {
++            "properties": {
++              "result": {
++                "const": "VALID"
++              }
++            }
++          },
++          "then": {
++            "properties": {
++              "data": {
++                "type": "object",
++                "additionalProperties": false,
++                "required": [
++                  "catalog",
++                  "validation"
++                ],
++                "properties": {
++                  "catalog": {
++                    "$ref": "#/$defs/Catalog"
++                  },
++                  "validation": {
++                    "allOf": [
++                      {
++                        "$ref": "#/$defs/Validation"
++                      },
++                      {
++                        "properties": {
++                          "result": {
++                            "const": "VALID"
++                          },
++                          "exit_code": {
++                            "const": 0
++                          }
++                        }
++                      }
++                    ]
++                  }
++                }
++              }
++            }
++          }
++        },
++        {
++          "if": {
++            "properties": {
++              "result": {
++                "const": "INVALID"
++              }
++            }
++          },
++          "then": {
++            "properties": {
++              "data": {
++                "type": "object",
++                "additionalProperties": false,
++                "required": [
++                  "catalog",
++                  "validation"
++                ],
++                "properties": {
++                  "catalog": {
++                    "$ref": "#/$defs/Catalog"
++                  },
++                  "validation": {
++                    "allOf": [
++                      {
++                        "$ref": "#/$defs/Validation"
++                      },
++                      {
++                        "properties": {
++                          "result": {
++                            "const": "INVALID"
++                          },
++                          "exit_code": {
++                            "const": 1
++                          }
++                        }
++                      }
++                    ]
++                  }
++                }
++              }
++            }
++          }
++        },
++        {
++          "if": {
++            "properties": {
++              "result": {
++                "const": "VALID"
++              }
++            }
++          },
++          "then": {
++            "properties": {
++              "data": {
++                "properties": {
++                  "validation": {
++                    "properties": {
++                      "findings": {
++                        "items": {
++                          "properties": {
++                            "disposition": {
++                              "const": "WARNING"
++                            }
++                          }
++                        }
++                      }
++                    }
++                  }
++                }
++              }
++            }
++          }
+         }
+       ]
+     },
+@@ -1029,6 +1188,284 @@
+           }
+         }
+       }
++    },
++    "Finding": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "code",
++        "message",
++        "path",
++        "pointer",
++        "item_id",
++        "line",
++        "column",
++        "byte_offset",
++        "disposition"
++      ],
++      "properties": {
++        "code": {
++          "type": "string",
++          "minLength": 1
++        },
++        "message": {
++          "type": "string",
++          "minLength": 1
++        },
++        "stage": {
++          "type": [
++            "string",
++            "null"
++          ]
++        },
++        "path": {
++          "type": "string"
++        },
++        "line": {
++          "type": [
++            "integer",
++            "null"
++          ],
++          "minimum": 1
++        },
++        "column": {
++          "type": [
++            "integer",
++            "null"
++          ],
++          "minimum": 1
++        },
++        "byte_offset": {
++          "type": [
++            "integer",
++            "null"
++          ],
++          "minimum": 0
++        },
++        "pointer": {
++          "type": "string"
++        },
++        "item_id": {
++          "type": [
++            "string",
++            "null"
++          ]
++        },
++        "disposition": {
++          "enum": [
++            "INVALID",
++            "BLOCKED",
++            "WARNING"
++          ]
++        }
++      }
++    },
++    "Validation": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "profile",
++        "result",
++        "exit_code",
++        "findings",
++        "stages",
++        "items",
++        "authority",
++        "resolutions",
++        "conflict_coverage",
++        "qualification",
++        "runtime_honesty",
++        "publisher_authentication",
++        "governance_release_acceptance"
++      ],
++      "properties": {
++        "profile": {
++          "const": "E2_PACKAGE_READ_VALIDATE_LINT"
++        },
++        "result": {
++          "enum": [
++            "VALID",
++            "INVALID",
++            "BLOCKED"
++          ]
++        },
++        "exit_code": {
++          "enum": [
++            0,
++            1,
++            3
++          ]
++        },
++        "findings": {
++          "type": "array",
++          "items": {
++            "$ref": "#/$defs/Finding"
++          }
++        },
++        "stages": {
++          "type": "object",
++          "required": [
++            "structure",
++            "scope",
++            "authority",
++            "conflicts",
++            "evidence",
++            "documentation"
++          ],
++          "additionalProperties": {
++            "type": "object",
++            "additionalProperties": false,
++            "required": [
++              "status"
++            ],
++            "properties": {
++              "status": {
++                "enum": [
++                  "PASS",
++                  "FAIL",
++                  "BLOCKED",
++                  "NOT_RUN",
++                  "NOT_APPLICABLE"
++                ]
++              },
++              "reason": {
++                "type": "string"
++              },
++              "registered": {
++                "type": "integer",
++                "minimum": 0
++              },
++              "documented": {
++                "type": "integer",
++                "minimum": 0
++              },
++              "scope": {
++                "type": "string"
++              }
++            }
++          }
++        },
++        "items": {
++          "type": "array",
++          "items": {
++            "type": "object",
++            "additionalProperties": false,
++            "required": [
++              "id",
++              "location",
++              "applicability",
++              "presentation"
++            ],
++            "properties": {
++              "id": {
++                "type": "string"
++              },
++              "location": {
++                "$ref": "#/$defs/Location"
++              },
++              "applicability": {
++                "type": "object"
++              },
++              "presentation": {
++                "type": "object"
++              }
++            }
++          }
++        },
++        "authority": {
++          "type": "object",
++          "additionalProperties": {
++            "type": "object",
++            "additionalProperties": false,
++            "required": [
++              "status",
++              "level",
++              "evidence_ref"
++            ],
++            "properties": {
++              "status": {
++                "enum": [
++                  "UNCLAIMED",
++                  "UNKNOWN",
++                  "CALLER_ATTESTED"
++                ]
++              },
++              "level": {
++                "type": [
++                  "string",
++                  "null"
++                ]
++              },
++              "evidence_ref": {
++                "type": [
++                  "string",
++                  "null"
++                ]
++              },
++              "reviewed_kinds": {
++                "type": "array",
++                "items": {
++                  "type": "string"
++                }
++              }
++            }
++          }
++        },
++        "resolutions": {
++          "type": "array",
++          "items": {
++            "type": "object",
++            "additionalProperties": false,
++            "required": [
++              "items",
++              "status",
++              "winner",
++              "reason"
++            ],
++            "properties": {
++              "items": {
++                "type": "array",
++                "minItems": 2,
++                "maxItems": 2,
++                "items": {
++                  "type": "string"
++                }
++              },
++              "status": {
++                "enum": [
++                  "RESOLVED",
++                  "BLOCKED",
++                  "UNRESOLVED"
++                ]
++              },
++              "winner": {
++                "type": [
++                  "string",
++                  "null"
++                ]
++              },
++              "reason": {
++                "type": "string"
++              }
++            }
++          }
++        },
++        "conflict_coverage": {
++          "const": "Explicit relationships only; free-text semantic conflicts not claimed resolved"
++        },
++        "qualification": {
++          "const": "NOT_RUN"
++        },
++        "runtime_honesty": {
++          "const": "7 REQUIRED / NOT_RUN / NOT_WAIVED; E4 deferred"
++        },
++        "publisher_authentication": {
++          "const": "UNKNOWN"
++        },
++        "governance_release_acceptance": {
++          "const": "NOT_GRANTED"
++        }
++      }
+     }
+   }
+ }

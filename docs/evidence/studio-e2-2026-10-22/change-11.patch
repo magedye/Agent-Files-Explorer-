@@ -1,0 +1,71 @@
+--- before/governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_cli.py
++++ after/governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_cli.py
+@@ -81,10 +81,12 @@
+                 self.assertEqual(report["checks"]["status"], "NOT_RUN")
+                 self.assertIn(b"IMPLEMENTATION_UNAVAILABLE", process.stderr)
+ 
+-    def test_strict_does_not_report_success(self):
++    def test_strict_validates_actual_source_without_qualifying_runtime(self):
+         process, report = self.invoke("validate", "--strict", "--format=json")
+-        self.assertEqual(process.returncode, 3)
+-        self.assertEqual(report["diagnostics"][0]["stage"], "E2")
++        self.assertEqual(process.returncode, 0)
++        self.assertEqual(report["result"], "VALID")
++        self.assertEqual(report["checks"]["status"], "COMPLETE")
++        self.assertEqual(report["data"]["validation"]["qualification"], "NOT_RUN")
+ 
+     def test_invalid_invocations(self):
+         for args in [(), ("unknown",), ("--for", "json"), ("lint", "--strict"),
+@@ -106,6 +108,7 @@
+             "PACKAGE_STATUS.json",
+             "PROVENANCE.json",
+             "SOURCE_MAP.json",
++            "E2_PROFILE.md",
+             "aghr.json",
+             "policies/observations/reference-state.json",
+             "requirements.lock",
+@@ -130,10 +133,22 @@
+             "tests/test_catalog.py",
+             "tests/test_cli.py",
+             "tests/test_loader.py",
++            "tests/e2_support.py",
++            "tests/test_validate.py",
++            "tests/test_scope.py",
++            "tests/test_authority.py",
++            "tests/test_evidence.py",
++            "tests/test_e2_cli.py",
+             "tools/catalog.py",
+             "tools/cli.py",
+             "tools/diagnostics.py",
+             "tools/loader.py",
++            "tools/validate.py",
++            "tools/scope.py",
++            "tools/authority.py",
++            "tools/conflicts.py",
++            "tools/evidence.py",
++            "tools/lint.py",
+         })
+         self.assertTrue(all("\\" not in name for name in mapping))
+ 
+@@ -176,7 +191,11 @@
+         self.assertEqual(help_process.returncode, 0)
+         self.assertTrue(help_process.stdout.startswith(b"usage: aghr"))
+         self.assertEqual(help_process.stderr, b"")
+-        blocked = self.run_cli("lint", "--format=text")
++        valid = self.run_cli("lint", "--format=text")
++        self.assertEqual(valid.returncode, 0)
++        self.assertTrue(valid.stdout.startswith(b"VALID:"))
++        self.assertEqual(valid.stderr, b"")
++        blocked = self.run_cli("generate", "--format=text")
+         self.assertEqual(blocked.returncode, 3)
+         self.assertIn(b"IMPLEMENTATION_UNAVAILABLE", blocked.stderr)
+ 
+@@ -222,7 +241,7 @@
+             self.assertEqual(before, snapshot())
+ 
+     def test_protocol_rejects_manufactured_success(self):
+-        _, report = self.invoke("validate", "--strict")
++        _, report = self.invoke("catalog")
+         invented = deepcopy(report)
+         invented.update(result="VALID", exit_code=0, diagnostics=[])
+         with self.assertRaises(ValidationError):

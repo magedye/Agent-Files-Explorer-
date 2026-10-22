@@ -1,0 +1,146 @@
+"""External delivery harness; writes evidence/fixtures, never the selected source."""
+
+import base64
+from datetime import datetime, timezone
+import hashlib
+import json
+import os
+from pathlib import Path, PurePosixPath
+import subprocess
+import sys
+import zipfile
+
+WORKSPACE = Path(__file__).resolve().parents[2]
+CANDIDATE = WORKSPACE / "governance_packages/candidates/AGHR_rc3_Core_Candidate"
+EVIDENCE = WORKSPACE / "docs/evidence/studio-e2-2026-10-22"
+PIN = json.loads((EVIDENCE / "SOURCE_PIN.json").read_text(encoding="utf-8"))
+RUN = WORKSPACE / "temp/studio-e2-20261022" / ("delivery-" + datetime.now(timezone.utc).strftime("%H%M%S%f"))
+RUN.mkdir(parents=True)
+DIST = EVIDENCE / "distribution"
+DIST.mkdir(exist_ok=True)
+ARCHIVE = DIST / ("AGHR_rc3_Core_Candidate_E2_" + PIN["source_hash"][:12] + ".zip")
+
+
+def sha(raw):
+    return hashlib.sha256(raw).hexdigest()
+
+
+def save(name, value):
+    (EVIDENCE / name).write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def check_source():
+    for name, digest in PIN["files"].items():
+        assert sha((CANDIDATE / name).read_bytes()) == digest, name
+
+
+check_source()
+if ARCHIVE.exists():
+    raise RuntimeError("Distribution already exists; preserve it and inspect before retrying")
+with zipfile.ZipFile(ARCHIVE, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
+    for name in sorted(PIN["files"]):
+        assert PurePosixPath(name).as_posix() == name and not PurePosixPath(name).is_absolute() and ".." not in PurePosixPath(name).parts
+        info = zipfile.ZipInfo(name, (1980, 1, 1, 0, 0, 0))
+        info.create_system = 3
+        info.external_attr = 0o100644 << 16
+        info.compress_type = zipfile.ZIP_DEFLATED
+        archive.writestr(info, (CANDIDATE / name).read_bytes(), compress_type=zipfile.ZIP_DEFLATED, compresslevel=9)
+archive_hash = sha(ARCHIVE.read_bytes())
+(DIST / (ARCHIVE.name + ".sha256")).write_text(archive_hash + "  " + ARCHIVE.name + "\n", encoding="utf-8")
+
+
+def extract(name):
+    destination = RUN / name
+    assert destination.resolve().is_relative_to(RUN.resolve())
+    with zipfile.ZipFile(ARCHIVE) as archive:
+        assert archive.namelist() == sorted(PIN["files"])
+        for member in archive.namelist():
+            raw = archive.read(member)
+            assert sha(raw) == PIN["files"][member]
+            target = destination / member
+            assert target.resolve().is_relative_to(destination.resolve())
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(raw)
+    return destination
+
+
+environment = {key: os.environ[key] for key in ("SYSTEMROOT", "WINDIR", "TEMP", "TMP") if key in os.environ}
+invocations = []
+
+
+def invoke(label, cwd, args, expected, *, engine=CANDIDATE, fixture=False):
+    command = [sys.executable, "-I", "-B", "-X", "utf8", str(engine / "tools/cli.py"), *args]
+    started = datetime.now(timezone.utc).isoformat()
+    completed = subprocess.run(command, cwd=cwd, env=environment, shell=False, capture_output=True, timeout=120)
+    ended = datetime.now(timezone.utc).isoformat()
+    stdout = label + ".stdout.json"
+    stderr = label + ".stderr.txt"
+    (EVIDENCE / stdout).write_bytes(completed.stdout)
+    (EVIDENCE / stderr).write_bytes(completed.stderr)
+    value = json.loads(completed.stdout.decode("utf-8"))
+    record = {"label": label, "command": command, "cwd": str(cwd), "started_at": started, "ended_at": ended,
+              "fixture": fixture, "not_a_proposed_policy": fixture, "exit_code": completed.returncode, "result": value["result"],
+              "source_hash": value["source"]["content_hash"], "stdout": stdout, "stderr": stderr,
+              "stdout_sha256": sha(completed.stdout), "stderr_sha256": sha(completed.stderr),
+              "diagnostic_codes": [d["code"] for d in value["diagnostics"]]}
+    invocations.append(record)
+    save("CLI_TRANSCRIPT.json", {"source_hash": PIN["source_hash"], "invocations": invocations, "T01": "BLOCKED_NOT_CLOSED"})
+    assert (completed.returncode, value["result"]) == expected, record
+    assert value["source"]["content_hash"] == PIN["source_hash"]
+    print(json.dumps({"probe": label, "exit_code": completed.returncode, "result": value["result"]}), flush=True)
+    return value
+
+
+version = invoke("real-version", CANDIDATE, ["--version"], (0, "INFO"))
+positive = invoke("real-strict", CANDIDATE, ["validate", "--strict", "--as-of", "2026-10-22"], (0, "VALID"))
+invoke("real-lint", CANDIDATE, ["lint", "--as-of", "2026-10-22"], (0, "VALID"))
+moved = extract("محرك منقول")
+relocated = invoke("relocated-strict", moved, ["validate", "--strict", "--as-of", "2026-10-22"], (0, "VALID"), engine=moved)
+assert relocated["source"] == positive["source"] and relocated["inputs"] == positive["inputs"]
+
+ITEM_PATH = "policies/observations/reference-state.json"
+mutations = []
+
+
+def mutate(label, change, args, expected):
+    root = extract(label)
+    before = (root / ITEM_PATH).read_bytes()
+    value = json.loads(before.decode("utf-8"))
+    change(value)
+    after = json.dumps(value, ensure_ascii=False, indent=2).encode("utf-8") + b"\n"
+    (root / ITEM_PATH).write_bytes(after)
+    name = "fixture-" + label + ".json"
+    (EVIDENCE / name).write_bytes(after)
+    mutations.append({"label": label, "path": ITEM_PATH, "before_sha256": sha(before), "after_sha256": sha(after), "snapshot": name, "synthetic_mutation": True})
+    invoke(label, root, args, expected, fixture=True)
+    assert (root / ITEM_PATH).read_bytes() == after
+
+
+def mandatory(value, force, *, level=None):
+    value.update(kind="REQUIREMENT" if force == "MUST" else "CONSTRAINT", force=force, severity="medium", rationale="Synthetic negative mutation; never an adopted instruction.")
+    value["authority"] = {"source": ITEM_PATH, "owner": "SYNTHETIC_ONLY", "approvedBy": "SYNTHETIC_ONLY", "status": "active", "effectiveFrom": "2026-01-01"}
+    if level:
+        value["authority"]["level"] = level
+    value["verification"] = {"commands": ["synthetic-never-executed"]}
+
+
+for force in ("MUST", "MUST_NOT"):
+    mutate("missing-level-" + force.lower(), lambda v, f=force: mandatory(v, f), ["validate", "--strict"], (1, "INVALID"))
+mutate("self-enterprise", lambda v: mandatory(v, "MUST", level="enterprise"), ["validate", "--strict"], (3, "BLOCKED"))
+mutate("unproven-calibration", lambda v: v.update(impact={"evidence": "repo-measured", "lastCalibrated": "2026-10-20", "measuredDelta": 99.0}), ["validate", "--strict"], (3, "BLOCKED"))
+
+broken = extract("malformed-utf8")
+raw = b'{"id":"SYNTHETIC_BAD_UTF8","rule":"\xff"}'
+(broken / ITEM_PATH).write_bytes(raw)
+bad = invoke("malformed-utf8", broken, ["validate", "--strict"], (2, "ERROR"), fixture=True)
+captured = next(s for s in bad["data"]["read_error"]["sources"] if s["path"] == ITEM_PATH)
+assert base64.b64decode(captured["raw_base64"]) == raw
+
+check_source()
+save("MUTATIONS.json", {"mutations": mutations, "real_source_unchanged": True, "no_reference_promoted": True})
+save("DISTRIBUTION.json", {"status": "LOCAL_E2_SOURCE_ARCHIVE_VERIFIED", "archive": "distribution/" + ARCHIVE.name,
+                           "sha256": archive_hash, "bytes": ARCHIVE.stat().st_size, "members": len(PIN["files"]),
+                           "all_member_bytes_match_source_pin": True, "relocated_cli": "VALID/0; identical source and inputs",
+                           "source_hash": PIN["source_hash"], "publisher_authentication": "UNKNOWN", "signature_verification": "NOT_RUN",
+                           "native_host_qualification": "NOT_RUN", "release_acceptance": "NOT_GRANTED", "T01": "BLOCKED_NOT_CLOSED"})
+print(json.dumps({"status": "DELIVERY_PROBES_PASS", "invocations": len(invocations), "members": len(PIN["files"]), "archive_sha256": archive_hash}), flush=True)

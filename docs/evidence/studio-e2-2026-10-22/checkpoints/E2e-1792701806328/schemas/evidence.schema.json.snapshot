@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aghr.invalid/contracts/rc3/evidence.schema.json",
+  "title": "rc.3 runtime evidence — one event per JSONL line, contract.1",
+  "$comment": "Reference 12.2 logical task view serialized as one event per line. Raw host.acknowledged is observational only; reporting HOST_SIGNAL additionally requires current-task execution evidence, preserving the stricter 14.2 requirement. Original bytes are retained. Structure proves neither execution nor trust.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["task_id", "session", "events", "submit_to_ci"],
+  "properties": {
+    "task_id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$" },
+    "session": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["agent", "agent_version", "host_os", "started_at"],
+      "properties": {
+        "agent": { "$ref": "#/$defs/text" },
+        "agent_version": { "$ref": "#/$defs/text" },
+        "host_os": { "$ref": "#/$defs/text" },
+        "started_at": { "type": "string", "format": "date-time" },
+        "ended_at": { "type": ["string", "null"], "format": "date-time" }
+      }
+    },
+    "events": { "type": "array", "minItems": 1, "maxItems": 1, "items": { "$ref": "#/$defs/event" } },
+    "submit_to_ci": { "type": "boolean" }
+  },
+  "$defs": {
+    "text": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "artifacts": { "type": "array", "items": { "$ref": "#/$defs/text" } },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["at", "type"],
+      "properties": {
+        "at": { "type": "string", "format": "date-time" },
+        "type": { "enum": ["skill.selected", "skill.loaded", "host.acknowledged", "host.signal", "skill.executed", "skill.verified", "skill.blocked", "discovery.outcome", "authorization.request", "authorization.denied"] },
+        "skill_id": { "$ref": "#/$defs/text" },
+        "source": { "enum": ["agent", "host", "ci"], "description": "Declared producer only; never an authenticated role or trust proof." },
+        "reason": { "$ref": "#/$defs/text" },
+        "qualification_ref": { "$ref": "#/$defs/text" },
+        "instruction_hash": { "$ref": "common.schema.json#/$defs/Hash" },
+        "status": { "enum": ["HOST_SIGNAL", "NOT_OBSERVABLE", "BLOCKED"] },
+        "acknowledgement": { "type": "object", "minProperties": 1, "description": "Host adapter response retained as data; must be attributed and validated outside JSON Schema." },
+        "execution_ref": { "$ref": "common.schema.json#/$defs/Artifact" },
+        "inputs": { "$ref": "#/$defs/artifacts" },
+        "outputs": { "$ref": "#/$defs/artifacts" },
+        "exit_status": { "enum": ["success", "failed", "errored", "cancelled"] },
+        "task_criteria": { "$ref": "#/$defs/text" },
+        "verifier_output": { "type": "object", "minProperties": 1 },
+        "result": { "enum": ["PASS", "FAIL", "NOT_RUN", "NOT_OBSERVABLE"] },
+        "task_language": { "$ref": "#/$defs/text" },
+        "outcome": { "enum": ["UNKNOWN_ID", "NO_SKILL_MATCH", "DISCOVERY_UNAVAILABLE"] },
+        "request_ref": { "$ref": "#/$defs/text" },
+        "action": { "$ref": "#/$defs/text" },
+        "target": { "$ref": "#/$defs/text" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "type": { "const": "skill.selected" } }, "required": ["type"] },
+          "then": { "required": ["skill_id", "reason", "qualification_ref"] }
+        },
+        {
+          "if": { "properties": { "type": { "const": "skill.loaded" } }, "required": ["type"] },
+          "then": { "required": ["skill_id", "instruction_hash"] }
+        },
+        {
+          "if": { "properties": { "type": { "const": "host.signal" } }, "required": ["type"] },
+          "then": {
+            "required": ["status"],
+            "properties": { "status": { "enum": ["HOST_SIGNAL", "NOT_OBSERVABLE"] } },
+            "allOf": [{
+              "if": { "properties": { "status": { "const": "HOST_SIGNAL" } }, "required": ["status"] },
+              "then": { "required": ["skill_id", "acknowledgement", "execution_ref"] },
+              "else": { "required": ["reason"], "not": { "required": ["acknowledgement"] } }
+            }]
+          }
+        },
+        {
+          "if": { "properties": { "type": { "const": "skill.executed" } }, "required": ["type"] },
+          "then": {
+            "required": ["skill_id", "inputs", "outputs", "exit_status"],
+            "allOf": [{
+              "if": { "properties": { "exit_status": { "const": "success" } }, "required": ["exit_status"] },
+              "then": { "properties": { "outputs": { "minItems": 1 } } }
+            }]
+          }
+        },
+        {
+          "if": { "properties": { "type": { "const": "skill.verified" } }, "required": ["type"] },
+          "then": { "required": ["skill_id", "task_criteria", "verifier_output", "result"] }
+        },
+        {
+          "if": { "properties": { "type": { "const": "discovery.outcome" } }, "required": ["type"] },
+          "then": { "required": ["task_language", "outcome", "reason"] }
+        },
+        {
+          "if": { "properties": { "type": { "const": "skill.blocked" } }, "required": ["type"] },
+          "then": { "required": ["skill_id", "reason", "status"], "properties": { "status": { "const": "BLOCKED" } } }
+        },
+        {
+          "if": { "properties": { "type": { "enum": ["authorization.request", "authorization.denied"] } }, "required": ["type"] },
+          "then": { "required": ["request_ref", "action", "target", "reason"] }
+        },
+        {
+          "if": { "anyOf": [{ "required": ["result"] }, { "required": ["task_criteria"] }, { "required": ["verifier_output"] }] },
+          "then": { "properties": { "type": { "const": "skill.verified" } } }
+        },
+        {
+          "if": { "required": ["instruction_hash"] },
+          "then": { "properties": { "type": { "const": "skill.loaded" } } }
+        },
+        {
+          "if": { "anyOf": [{ "required": ["exit_status"] }, { "required": ["inputs"] }, { "required": ["outputs"] }] },
+          "then": { "properties": { "type": { "const": "skill.executed" } } }
+        },
+        {
+          "if": { "required": ["acknowledgement"] },
+          "then": { "properties": { "type": { "enum": ["host.acknowledged", "host.signal"] } } }
+        },
+        {
+          "if": { "required": ["outcome"] },
+          "then": { "properties": { "type": { "const": "discovery.outcome" } } }
+        },
+        {
+          "if": { "properties": { "type": { "const": "host.acknowledged" } }, "required": ["type"] },
+          "then": { "required": ["skill_id", "acknowledgement"], "not": { "anyOf": [{ "required": ["status"] }, { "required": ["execution_ref"] }, { "required": ["result"] }] } }
+        },
+        {
+          "if": { "required": ["execution_ref"] },
+          "then": { "properties": { "type": { "const": "host.signal" }, "status": { "const": "HOST_SIGNAL" } }, "required": ["status"] }
+        },
+        {
+          "if": { "required": ["status"] },
+          "then": { "properties": { "type": { "enum": ["host.signal", "skill.blocked"] } } }
+        }
+      ]
+    }
+  }
+}

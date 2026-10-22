@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aghr.invalid/contracts/rc3/api.read.schema.json",
+  "title": "Workspace, instruction, capability, evidence, metrics and audit read types",
+  "$defs": {
+    "WorkspaceCreate": {
+      "type": "object", "additionalProperties": false, "required": ["name", "package_path"],
+      "properties": { "name": { "$ref": "common.schema.json#/$defs/Text" }, "package_path": { "$ref": "common.schema.json#/$defs/Text" } }
+    },
+    "Workspace": {
+      "type": "object", "additionalProperties": false, "required": ["id", "name", "package_path", "package_version", "schema_version", "read_only", "package_signature_verified", "created_at", "last_scanned_at"],
+      "properties": {
+        "id": { "$ref": "common.schema.json#/$defs/Text" }, "name": { "$ref": "common.schema.json#/$defs/Text" }, "package_path": { "$ref": "common.schema.json#/$defs/Text" },
+        "package_version": { "$ref": "common.schema.json#/$defs/Text" }, "schema_version": { "const": "1.2" }, "read_only": { "const": true },
+        "package_signature_verified": { "type": "boolean" }, "signature_identity": { "type": ["string", "null"] }, "signature_verified_at": { "oneOf": [{ "$ref": "common.schema.json#/$defs/Time" }, { "type": "null" }] },
+        "created_at": { "$ref": "common.schema.json#/$defs/Time" }, "last_scanned_at": { "oneOf": [{ "$ref": "common.schema.json#/$defs/Time" }, { "type": "null" }] }, "scan_duration_ms": { "type": ["integer", "null"], "minimum": 0 }
+      }
+    },
+    "Workspaces": { "type": "array", "items": { "$ref": "#/$defs/Workspace" } },
+    "Scan": {
+      "type": "object", "additionalProperties": false, "required": ["workspace_id", "scanned_at", "duration_ms", "counts", "issues", "source_written"],
+      "properties": { "workspace_id": { "$ref": "common.schema.json#/$defs/Text" }, "scanned_at": { "$ref": "common.schema.json#/$defs/Time" }, "duration_ms": { "type": "integer", "minimum": 0 }, "counts": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 0 } }, "issues": { "type": "array", "items": { "$ref": "transport.schema.json#/$defs/Issue" } }, "source_written": { "const": false } }
+    },
+    "ProjectCreate": {
+      "type": "object", "additionalProperties": false, "required": ["name", "path", "host", "host_version"],
+      "properties": { "name": { "$ref": "common.schema.json#/$defs/Text" }, "path": { "$ref": "common.schema.json#/$defs/Text" }, "host": { "$ref": "common.schema.json#/$defs/Text" }, "host_version": { "$ref": "common.schema.json#/$defs/Text" } }
+    },
+    "Project": {
+      "type": "object", "additionalProperties": false, "required": ["id", "workspace_id", "name", "path", "host", "host_version", "instruction_level", "skill_level"],
+      "properties": {
+        "id": { "$ref": "common.schema.json#/$defs/Text" }, "workspace_id": { "$ref": "common.schema.json#/$defs/Text" }, "name": { "$ref": "common.schema.json#/$defs/Text" }, "path": { "$ref": "common.schema.json#/$defs/Text" },
+        "host": { "type": ["string", "null"] }, "host_version": { "type": ["string", "null"] }, "instruction_level": { "$ref": "common.schema.json#/$defs/Level" }, "skill_level": { "$ref": "common.schema.json#/$defs/Level" },
+        "detected_profile": { "type": ["string", "null"] }, "git_remote": { "type": ["string", "null"] }, "git_branch": { "type": ["string", "null"] }, "git_commit_sha": { "type": ["string", "null"] }, "last_scanned_at": { "oneOf": [{ "$ref": "common.schema.json#/$defs/Time" }, { "type": "null" }] }
+      }
+    },
+    "Projects": { "type": "array", "items": { "$ref": "#/$defs/Project" } },
+    "ProjectSelection": {
+      "type": "object", "additionalProperties": false, "required": ["skill_id", "preferred", "alternatives", "rationale"],
+      "properties": { "skill_id": { "$ref": "common.schema.json#/$defs/Text" }, "preferred": { "type": "boolean" }, "alternatives": { "$ref": "common.schema.json#/$defs/Texts" }, "rationale": { "$ref": "common.schema.json#/$defs/Text" } }
+    },
+    "ProjectConfig": {
+      "type": "object", "additionalProperties": false, "required": ["project_id", "state", "source", "profile", "selections"],
+      "properties": { "project_id": { "$ref": "common.schema.json#/$defs/Text" }, "state": { "oneOf": [{ "$ref": "state.schema.json" }, { "type": "null" }] }, "source": { "oneOf": [{ "$ref": "common.schema.json#/$defs/Artifact" }, { "type": "null" }] }, "profile": { "type": ["string", "null"] }, "selections": { "type": "array", "items": { "$ref": "#/$defs/ProjectSelection" } } }
+    },
+    "ItemView": {
+      "description": "Invalid or unvalidated source remains visible; it is never silently treated as an applicable accepted item.",
+      "type": "object", "additionalProperties": false, "required": ["item", "source_path", "source_hash", "source_yaml", "validation_status", "diagnostics", "translation_unavailable", "is_review_due", "priority_tier", "issuer_trust"],
+      "properties": {
+        "item": { "oneOf": [{ "$ref": "item.schema.json" }, { "type": "null" }] }, "source_path": { "$ref": "common.schema.json#/$defs/Text" }, "source_hash": { "$ref": "common.schema.json#/$defs/Hash" }, "source_yaml": { "type": "string" },
+        "validation_status": { "enum": ["VALID", "INVALID", "NOT_RUN"] }, "diagnostics": { "type": "array", "items": { "$ref": "transport.schema.json#/$defs/Issue" } },
+        "translation_unavailable": { "type": "boolean" }, "is_review_due": { "type": ["boolean", "null"] }, "priority_tier": { "oneOf": [{ "$ref": "common.schema.json#/$defs/Priority" }, { "type": "null" }] }, "issuer_trust": { "$ref": "auth.schema.json#/$defs/Trust" }
+      },
+      "allOf": [
+        { "if": { "properties": { "validation_status": { "const": "VALID" } }, "required": ["validation_status"] }, "then": { "properties": { "item": { "type": "object" } } } },
+        { "if": { "properties": { "validation_status": { "const": "INVALID" } }, "required": ["validation_status"] }, "then": { "properties": { "item": { "type": "null" }, "diagnostics": { "minItems": 1 } } } }
+      ]
+    },
+    "Items": { "type": "array", "items": { "$ref": "#/$defs/ItemView" } },
+    "Relation": {
+      "type": "object", "additionalProperties": false, "required": ["source_id", "target_id", "relation", "resolved"],
+      "properties": { "source_id": { "$ref": "common.schema.json#/$defs/Text" }, "target_id": { "$ref": "common.schema.json#/$defs/Text" }, "relation": { "enum": ["supersedes", "superseded_by", "overrides", "overridden_by", "references", "capability", "exception"] }, "resolved": { "type": "boolean" } }
+    },
+    "Relations": { "type": "array", "items": { "$ref": "#/$defs/Relation" } },
+    "HistoryEntry": {
+      "type": "object", "additionalProperties": false, "required": ["item_id", "source_hash", "source_path", "at", "change_package_id"],
+      "properties": { "item_id": { "$ref": "common.schema.json#/$defs/Text" }, "source_hash": { "$ref": "common.schema.json#/$defs/Hash" }, "source_path": { "$ref": "common.schema.json#/$defs/Text" }, "at": { "$ref": "common.schema.json#/$defs/Time" }, "change_package_id": { "type": ["string", "null"] } }
+    },
+    "History": { "type": "array", "items": { "$ref": "#/$defs/HistoryEntry" } },
+    "Calibration": {
+      "type": "object", "additionalProperties": false, "required": ["item_id", "change_package_id", "eval_run_id", "measured_delta", "at", "reason", "evidence"],
+      "properties": { "item_id": { "$ref": "common.schema.json#/$defs/Text" }, "change_package_id": { "$ref": "common.schema.json#/$defs/Text" }, "eval_run_id": { "$ref": "common.schema.json#/$defs/Text" }, "measured_delta": { "type": "number" }, "at": { "$ref": "common.schema.json#/$defs/Time" }, "reason": { "$ref": "common.schema.json#/$defs/Text" }, "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "common.schema.json#/$defs/Artifact" } } }
+    },
+    "Calibrations": { "type": "array", "items": { "$ref": "#/$defs/Calibration" } },
+    "Observation": {
+      "type": "object", "additionalProperties": false, "required": ["state", "evidence"],
+      "properties": { "state": { "enum": ["EXISTS", "DISCOVERED", "QUALIFIED", "USED", "SELECTED", "LOADED", "HOST_SIGNAL", "NOT_OBSERVABLE", "EXECUTED", "VERIFIED", "BLOCKED", "UNKNOWN_ID", "EXECUTED_FAILED", "ABANDONED", "NO_SKILL_MATCH", "DISCOVERY_UNAVAILABLE", "NOT_RUN", "UNKNOWN"] }, "evidence": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/Artifact" } }, "reason": { "$ref": "common.schema.json#/$defs/Text" } },
+      "allOf": [{ "if": { "properties": { "state": { "enum": ["EXISTS", "DISCOVERED", "QUALIFIED", "USED", "SELECTED", "LOADED", "HOST_SIGNAL", "EXECUTED", "VERIFIED"] } }, "required": ["state"] }, "then": { "properties": { "evidence": { "minItems": 1 } } }, "else": { "required": ["reason"] } }]
+    },
+    "Usage": {
+      "type": "object", "additionalProperties": false, "required": ["task_id", "skill_id", "selected", "loaded", "host_signal", "executed", "verified"],
+      "properties": {
+        "task_id": { "$ref": "common.schema.json#/$defs/Text" }, "skill_id": { "$ref": "common.schema.json#/$defs/Text" },
+        "selected": { "$ref": "#/$defs/Observation", "properties": { "state": { "enum": ["SELECTED", "NOT_RUN", "UNKNOWN_ID", "NO_SKILL_MATCH", "DISCOVERY_UNAVAILABLE", "BLOCKED", "ABANDONED", "UNKNOWN"] } } },
+        "loaded": { "$ref": "#/$defs/Observation", "properties": { "state": { "enum": ["LOADED", "NOT_RUN", "BLOCKED", "ABANDONED", "UNKNOWN"] } } },
+        "host_signal": { "$ref": "#/$defs/Observation", "properties": { "state": { "enum": ["HOST_SIGNAL", "NOT_OBSERVABLE", "NOT_RUN", "UNKNOWN"] } } },
+        "executed": { "$ref": "#/$defs/Observation", "properties": { "state": { "enum": ["EXECUTED", "EXECUTED_FAILED", "NOT_RUN", "BLOCKED", "ABANDONED", "UNKNOWN"] } } },
+        "verified": { "$ref": "#/$defs/Observation", "properties": { "state": { "enum": ["VERIFIED", "EXECUTED_FAILED", "NOT_RUN", "NOT_OBSERVABLE", "BLOCKED", "UNKNOWN"] } } }
+      }
+    },
+    "Usages": { "type": "array", "items": { "$ref": "#/$defs/Usage" } },
+    "Qualifications": { "type": "array", "items": { "$ref": "qualification.schema.json" } },
+    "CapabilityView": {
+      "type": "object", "additionalProperties": false, "required": ["item_id", "capability", "qualifications", "availability", "source_path", "content_hash", "issuer_trust"],
+      "properties": { "item_id": { "$ref": "common.schema.json#/$defs/Text" }, "capability": { "$ref": "capability.schema.json" }, "qualifications": { "$ref": "#/$defs/Qualifications" }, "availability": { "type": "array", "items": { "$ref": "#/$defs/Observation" } }, "source_path": { "$ref": "common.schema.json#/$defs/Text" }, "content_hash": { "$ref": "common.schema.json#/$defs/Hash" }, "issuer_trust": { "$ref": "auth.schema.json#/$defs/Trust" } }
+    },
+    "Capabilities": { "type": "array", "items": { "$ref": "#/$defs/CapabilityView" } },
+    "Matrix": {
+      "type": "object", "additionalProperties": false, "required": ["skills", "hosts", "cells"],
+      "properties": {
+        "skills": { "$ref": "common.schema.json#/$defs/Texts" }, "hosts": { "type": "array", "items": { "type": "object", "additionalProperties": false, "required": ["host", "host_version"], "properties": { "host": { "$ref": "common.schema.json#/$defs/Text" }, "host_version": { "$ref": "common.schema.json#/$defs/Text" } } } },
+        "cells": { "$ref": "#/$defs/Qualifications" }
+      }
+    },
+    "EvidenceTask": {
+      "type": "object", "additionalProperties": false, "required": ["task_id", "agent", "agent_version", "event_count", "attention_flags", "parse_status"],
+      "properties": { "task_id": { "$ref": "common.schema.json#/$defs/Text" }, "agent": { "$ref": "common.schema.json#/$defs/Text" }, "agent_version": { "$ref": "common.schema.json#/$defs/Text" }, "event_count": { "type": "integer", "minimum": 0 }, "attention_flags": { "type": "array", "uniqueItems": true, "items": { "enum": ["BLOCKED", "UNKNOWN_ID", "DISCOVERY_UNAVAILABLE", "INVALID_EVIDENCE"] } }, "parse_status": { "enum": ["VALID", "INVALID", "UNSUPPORTED_SERIALIZATION"] } }
+    },
+    "EvidenceTasks": { "type": "array", "items": { "$ref": "#/$defs/EvidenceTask" } },
+    "EvidenceEvent": {
+      "type": "object", "additionalProperties": false, "required": ["task_id", "source_file", "source_line", "source_hash", "event"],
+      "properties": { "task_id": { "$ref": "common.schema.json#/$defs/Text" }, "source_file": { "$ref": "common.schema.json#/$defs/Text" }, "source_line": { "type": "integer", "minimum": 1 }, "source_hash": { "$ref": "common.schema.json#/$defs/Hash" }, "event": { "$ref": "evidence.schema.json#/$defs/event" } }
+    },
+    "EvidenceEvents": { "type": "array", "items": { "$ref": "#/$defs/EvidenceEvent" } },
+    "EvidenceDetail": {
+      "type": "object", "additionalProperties": false, "required": ["task", "source_file", "source_hash", "raw_source_base64", "source_bytes", "issues"],
+      "properties": { "task": { "$ref": "#/$defs/EvidenceTask" }, "source_file": { "$ref": "common.schema.json#/$defs/Text" }, "source_hash": { "$ref": "common.schema.json#/$defs/Hash" }, "raw_source_base64": { "type": "string", "contentEncoding": "base64" }, "source_bytes": { "type": "integer", "minimum": 0 }, "issues": { "type": "array", "items": { "$ref": "transport.schema.json#/$defs/Issue" } } }
+    },
+    "EvidenceSubmission": {
+      "type": "object", "additionalProperties": false, "required": ["task_id", "source_hash", "state_written", "evidence_written", "ci_status"],
+      "properties": { "task_id": { "$ref": "common.schema.json#/$defs/Text" }, "source_hash": { "$ref": "common.schema.json#/$defs/Hash" }, "state_written": { "const": false }, "evidence_written": { "const": false }, "ci_status": { "const": "NOT_RUN" }, "pr_draft_url": { "type": "string", "format": "uri" } }
+    },
+    "Metric": {
+      "type": "object", "additionalProperties": false, "required": ["status", "value", "unit", "numerator", "denominator", "evidence"],
+      "properties": { "status": { "enum": ["MEASURED", "NOT_RUN", "NOT_OBSERVABLE"] }, "value": { "type": ["number", "null"], "minimum": 0 }, "unit": { "enum": ["percent", "days", "count"] }, "numerator": { "type": ["number", "null"], "minimum": 0 }, "denominator": { "type": ["number", "null"], "exclusiveMinimum": 0 }, "evidence": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/Artifact" } }, "reason": { "$ref": "common.schema.json#/$defs/Text" } },
+      "allOf": [
+        { "if": { "properties": { "status": { "const": "MEASURED" } }, "required": ["status"] }, "then": { "properties": { "value": { "type": "number" }, "evidence": { "minItems": 1 } } }, "else": { "required": ["reason"], "properties": { "value": { "type": "null" }, "numerator": { "type": "null" }, "denominator": { "type": "null" } } } },
+        { "if": { "properties": { "unit": { "const": "percent" }, "status": { "const": "MEASURED" } }, "required": ["unit", "status"] }, "then": { "properties": { "value": { "maximum": 100 }, "numerator": { "type": "number" }, "denominator": { "type": "number" } } } }
+      ]
+    },
+    "Metrics": {
+      "type": "object", "additionalProperties": false, "required": ["workspace_id", "captured_at", "candidate_hash", "package_version", "period_start", "period_end", "instruction_metrics", "skill_metrics", "honesty", "behavioral", "discovery_reporting_accuracy"],
+      "properties": {
+        "workspace_id": { "$ref": "common.schema.json#/$defs/Text" }, "captured_at": { "$ref": "common.schema.json#/$defs/Time" }, "candidate_hash": { "$ref": "common.schema.json#/$defs/Hash" }, "package_version": { "$ref": "common.schema.json#/$defs/Text" }, "period_start": { "$ref": "common.schema.json#/$defs/Time" }, "period_end": { "$ref": "common.schema.json#/$defs/Time" },
+        "instruction_metrics": { "type": "object", "additionalProperties": false, "required": ["policy_coverage_pct", "eval_pass_rate_pct", "exception_half_life_days", "drift_rate_pct", "calibration_coverage_pct"], "properties": { "policy_coverage_pct": { "$ref": "#/$defs/Metric" }, "eval_pass_rate_pct": { "$ref": "#/$defs/Metric" }, "exception_half_life_days": { "$ref": "#/$defs/Metric" }, "drift_rate_pct": { "$ref": "#/$defs/Metric" }, "calibration_coverage_pct": { "$ref": "#/$defs/Metric" } } },
+        "skill_metrics": { "type": "object", "additionalProperties": false, "required": ["skill_qualification_coverage_pct", "skill_eval_pass_rate_pct", "false_success_rate_pct", "discovery_recall_multilingual_pct", "qualification_drift_count"], "properties": { "skill_qualification_coverage_pct": { "$ref": "#/$defs/Metric" }, "skill_eval_pass_rate_pct": { "$ref": "#/$defs/Metric" }, "false_success_rate_pct": { "$ref": "#/$defs/Metric" }, "discovery_recall_multilingual_pct": { "$ref": "#/$defs/Metric" }, "qualification_drift_count": { "$ref": "#/$defs/Metric" } } },
+        "honesty": { "$ref": "#/$defs/Metric" }, "behavioral": { "$ref": "#/$defs/Metric" }, "discovery_reporting_accuracy": { "$ref": "#/$defs/Metric" }
+      }
+    },
+    "MetricsHistory": { "type": "array", "items": { "$ref": "#/$defs/Metrics" } },
+    "AuditEvent": {
+      "type": "object", "additionalProperties": false, "required": ["id", "at", "actor", "actor_role", "simulated_role", "event_type", "workspace_id", "resource_type", "resource_id", "payload"],
+      "properties": { "id": { "type": "integer", "minimum": 1 }, "at": { "$ref": "common.schema.json#/$defs/Time" }, "actor": { "$ref": "common.schema.json#/$defs/Text" }, "actor_role": { "oneOf": [{ "$ref": "common.schema.json#/$defs/Role" }, { "type": "null" }] }, "simulated_role": { "oneOf": [{ "$ref": "common.schema.json#/$defs/Role" }, { "type": "null" }] }, "event_type": { "$ref": "common.schema.json#/$defs/Text" }, "workspace_id": { "type": ["string", "null"] }, "resource_type": { "type": ["string", "null"] }, "resource_id": { "type": ["string", "null"] }, "payload": { "$ref": "common.schema.json#/$defs/JsonObject" }, "ip_address": { "type": "string" }, "user_agent": { "type": "string" } }
+    },
+    "AuditEvents": { "type": "array", "items": { "$ref": "#/$defs/AuditEvent" } }
+  }
+}

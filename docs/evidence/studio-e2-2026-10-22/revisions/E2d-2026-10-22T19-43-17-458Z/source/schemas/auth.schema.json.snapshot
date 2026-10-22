@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aghr.invalid/contracts/rc3/auth.schema.json",
+  "title": "Server-owned authorization context; never request-body authority",
+  "$ref": "#/$defs/Context",
+  "$defs": {
+    "Trust": {
+      "type": "object", "additionalProperties": false, "required": ["status", "evidence"],
+      "properties": { "status": { "enum": ["VERIFIED", "UNKNOWN", "REJECTED"] }, "issuer": { "$ref": "common.schema.json#/$defs/Text" }, "evidence": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/Artifact" } }, "reason": { "$ref": "common.schema.json#/$defs/Text" } },
+      "allOf": [{ "if": { "properties": { "status": { "const": "VERIFIED" } }, "required": ["status"] }, "then": { "required": ["issuer"], "properties": { "evidence": { "minItems": 1 } } }, "else": { "required": ["reason"] } }]
+    },
+    "Context": {
+      "type": "object", "additionalProperties": false,
+      "required": ["authenticated_actor", "server_resolved_role", "action", "workspace_id", "target_project", "resource_id", "proposal_version_hash", "installation_owner_verified"],
+      "properties": {
+        "authenticated_actor": { "$ref": "common.schema.json#/$defs/Text" }, "server_resolved_role": { "$ref": "common.schema.json#/$defs/Role" },
+        "action": { "$ref": "common.schema.json#/$defs/Text" }, "workspace_id": { "type": ["string", "null"] },
+        "target_project": { "type": ["string", "null"] }, "resource_id": { "type": ["string", "null"] },
+        "proposal_version_hash": { "oneOf": [{ "$ref": "common.schema.json#/$defs/Hash" }, { "type": "null" }] },
+        "installation_owner_verified": { "type": "boolean" }, "simulated_role": { "$ref": "common.schema.json#/$defs/Role" }
+      }
+    }
+  }
+}

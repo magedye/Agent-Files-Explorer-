@@ -1,0 +1,30 @@
+{
+  "scope": "Internal CLI only",
+  "before": {
+    "protocol": "2",
+    "implemented": [
+      "help",
+      "version",
+      "catalog"
+    ],
+    "governing_hashes": null
+  },
+  "after": {
+    "protocol": "3",
+    "implemented": [
+      "help",
+      "version",
+      "catalog",
+      "validate",
+      "lint"
+    ],
+    "governing_hashes": "candidate/config/inputs populated only for attempted E2 governing results"
+  },
+  "public_contract": "contract.1 UNCHANGED",
+  "schema_assets": 18,
+  "copied_schemas": 16,
+  "closed_local_references": 564,
+  "engine_binding": "NOT_CONFIGURED",
+  "reference_default": "1.2.0",
+  "T01": "BLOCKED_NOT_CLOSED"
+}

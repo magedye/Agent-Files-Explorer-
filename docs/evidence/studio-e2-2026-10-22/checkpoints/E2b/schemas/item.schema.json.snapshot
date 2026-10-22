@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aghr.invalid/contracts/rc3/item.schema.json",
+  "title": "rc.3 governance item — contract.1",
+  "$comment": "Reference sections 3, 5.2, 6.1, 7.4 and Studio 39. Structural contract, not an AGHR runtime validator. Qualification accepts the canonical single record or a nonempty list for multiple skills/host tuples; source bytes and original shape are preserved. Trust, reference coverage, gate existence and eval results remain pinned-engine checks.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "kind", "force", "severity", "scope", "rule", "impact"],
+  "properties": {
+    "id": { "$ref": "#/$defs/text" },
+    "title": { "$ref": "#/$defs/text" },
+    "kind": { "enum": ["OBSERVATION", "PRINCIPLE", "CONSTRAINT", "REQUIREMENT", "PROCEDURE", "GUIDELINE", "POLICY", "RULE", "STANDARD", "CONTROL", "DECISION", "EXCEPTION", "CAPABILITY"] },
+    "force": { "enum": ["MUST", "MUST_NOT", "SHOULD", "SHOULD_NOT", "MAY", "INFORMATIVE"] },
+    "severity": { "enum": ["critical", "high", "medium", "low", "info"] },
+    "rationale": { "$ref": "#/$defs/text" },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source": { "$ref": "#/$defs/text" },
+        "level": { "enum": ["enterprise", "organization", "project", "component"] },
+        "owner": { "$ref": "#/$defs/text" },
+        "approvedBy": { "$ref": "#/$defs/text" },
+        "status": { "enum": ["draft", "active", "deprecated", "superseded"] },
+        "effectiveFrom": { "type": "string", "format": "date" },
+        "supersedes": { "type": ["string", "null"] }
+      }
+    },
+    "reviewCadence": { "$ref": "#/$defs/text" },
+    "nextReview": { "type": "string", "format": "date" },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "paths": { "$ref": "#/$defs/texts" },
+        "exclude": { "$ref": "#/$defs/texts" },
+        "appliesToAgents": { "$ref": "#/$defs/texts" },
+        "environments": { "$ref": "#/$defs/texts" },
+        "stages": { "$ref": "#/$defs/texts" },
+        "taskTypes": { "$ref": "#/$defs/texts" },
+        "language": { "$ref": "#/$defs/texts", "description": "Rendering preference only; MUST NOT affect applicability or query filtering." },
+        "skillIds": { "$ref": "#/$defs/texts" }
+      }
+    },
+    "rule": { "$ref": "#/$defs/text" },
+    "enforcement": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "textual": { "type": "boolean" },
+        "technical": { "$ref": "#/$defs/texts" },
+        "failureAction": { "enum": ["block", "warn", "review", "log"] },
+        "mergeEffect": { "enum": ["blocking", "advisory", "none"] },
+        "gate": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "required"],
+          "properties": { "type": { "$ref": "#/$defs/text" }, "required": { "type": "boolean" } }
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "commands": { "$ref": "#/$defs/nonemptyTexts" },
+        "evidence": { "$ref": "#/$defs/nonemptyTexts" },
+        "evalFixtures": { "$ref": "#/$defs/nonemptyTexts" }
+      }
+    },
+    "impact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidence"],
+      "properties": {
+        "band": { "enum": ["critical", "high", "medium", "low", "info"] },
+        "evidence": { "enum": ["assumed", "benchmark", "repo-measured"] },
+        "lastCalibrated": { "type": ["string", "null"], "format": "date" },
+        "measuredDelta": { "type": ["number", "null"] }
+      }
+    },
+    "conflictPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "precedence": { "enum": ["auto", "explicit"] },
+        "overrides": { "$ref": "#/$defs/texts" },
+        "overriddenBy": { "$ref": "#/$defs/texts" }
+      }
+    },
+    "exceptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": { "allowed": { "type": "boolean" }, "approval": { "$ref": "#/$defs/text" } }
+    },
+    "references": { "$ref": "#/$defs/texts" },
+    "expiresOn": { "$ref": "common.schema.json#/$defs/Date" },
+    "skillId": { "$ref": "capability.schema.json#/$defs/Fields/properties/skillId" },
+    "source": { "$ref": "capability.schema.json#/$defs/Fields/properties/source" },
+    "function": { "$ref": "capability.schema.json#/$defs/Fields/properties/function" },
+    "instructionsPath": { "$ref": "capability.schema.json#/$defs/Fields/properties/instructionsPath" },
+    "permissions": { "$ref": "capability.schema.json#/$defs/Fields/properties/permissions" },
+    "inputs": { "$ref": "capability.schema.json#/$defs/Fields/properties/inputs" },
+    "outputs": { "$ref": "capability.schema.json#/$defs/Fields/properties/outputs" },
+    "defaultTier": { "$ref": "capability.schema.json#/$defs/Fields/properties/defaultTier" },
+    "requiredApprovals": { "$ref": "capability.schema.json#/$defs/Fields/properties/requiredApprovals" },
+    "conflictsWith": { "$ref": "capability.schema.json#/$defs/Fields/properties/conflictsWith" },
+    "alternatives": { "$ref": "capability.schema.json#/$defs/Fields/properties/alternatives" },
+    "minimumStatus": { "$ref": "capability.schema.json#/$defs/Fields/properties/minimumStatus" },
+    "requiredOnHosts": { "$ref": "capability.schema.json#/$defs/Fields/properties/requiredOnHosts" },
+    "maxAgeDays": { "$ref": "capability.schema.json#/$defs/Fields/properties/maxAgeDays" },
+    "skillQualification": {
+      "oneOf": [
+        { "$ref": "qualification.schema.json" },
+        { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "qualification.schema.json" } }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "force": { "enum": ["SHOULD", "SHOULD_NOT", "MUST", "MUST_NOT"] } }, "required": ["force"] },
+      "then": { "required": ["authority", "rationale"], "properties": { "authority": { "required": ["owner"] } } }
+    },
+    {
+      "if": { "properties": { "force": { "enum": ["MUST", "MUST_NOT"] } }, "required": ["force"] },
+      "then": { "required": ["authority"], "properties": { "authority": { "required": ["level"] } } }
+    },
+    {
+      "if": { "properties": { "force": { "const": "MUST" } }, "required": ["force"] },
+      "then": { "$ref": "#/$defs/mandatoryAuthority" }
+    },
+    {
+      "if": { "properties": { "force": { "const": "MUST_NOT" }, "severity": { "enum": ["critical", "high"] } }, "required": ["force", "severity"] },
+      "then": {
+        "allOf": [{ "$ref": "#/$defs/mandatoryAuthority" }],
+        "required": ["enforcement"],
+        "properties": {
+          "verification": { "required": ["evalFixtures"] },
+          "enforcement": {
+            "required": ["mergeEffect", "gate"],
+            "anyOf": [
+              { "required": ["technical"], "properties": { "technical": { "minItems": 1 } } },
+              { "properties": { "gate": { "properties": { "type": { "const": "human-approval" }, "required": { "const": true } } } } }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": { "anyOf": [
+        { "properties": { "kind": { "const": "CAPABILITY" } }, "required": ["kind"] },
+        { "properties": { "scope": { "properties": { "skillIds": { "minItems": 1 } }, "required": ["skillIds"] } }, "required": ["scope"] }
+      ] },
+      "then": { "required": ["skillQualification"] }
+    },
+    {
+      "if": { "properties": { "kind": { "const": "CAPABILITY" } }, "required": ["kind"] },
+      "then": { "$ref": "capability.schema.json#/$defs/Fields" },
+      "else": { "not": { "anyOf": [{ "required": ["skillId"] }, { "required": ["permissions"] }, { "required": ["inputs"] }, { "required": ["outputs"] }] } }
+    },
+    {
+      "if": { "properties": { "kind": { "const": "EXCEPTION" } }, "required": ["kind"] },
+      "then": { "required": ["expiresOn", "references"], "properties": { "references": { "minItems": 1 } } }
+    },
+    {
+      "if": { "properties": { "impact": { "properties": { "evidence": { "const": "repo-measured" } }, "required": ["evidence"] } }, "required": ["impact"] },
+      "then": { "properties": { "impact": { "required": ["lastCalibrated", "measuredDelta"], "properties": { "lastCalibrated": { "$ref": "common.schema.json#/$defs/Date" }, "measuredDelta": { "type": "number" } } } } }
+    },
+    {
+      "if": { "properties": { "enforcement": { "properties": { "mergeEffect": { "const": "blocking" } }, "required": ["mergeEffect"] } }, "required": ["enforcement"] },
+      "then": { "properties": { "enforcement": { "required": ["gate"], "properties": { "gate": { "properties": { "required": { "const": true } } } } } } }
+    }
+  ],
+  "$defs": {
+    "text": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "texts": { "type": "array", "items": { "$ref": "#/$defs/text" }, "uniqueItems": true },
+    "nonemptyTexts": { "allOf": [{ "$ref": "#/$defs/texts" }], "minItems": 1 },
+    "mandatoryAuthority": {
+      "required": ["authority", "verification"],
+      "properties": { "authority": { "required": ["source", "level", "owner", "approvedBy", "status", "effectiveFrom"] } }
+    }
+  }
+}

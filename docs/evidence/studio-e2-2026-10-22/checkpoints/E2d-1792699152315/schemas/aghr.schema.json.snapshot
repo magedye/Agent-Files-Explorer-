@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aghr.invalid/contracts/rc3/aghr.schema.json",
+  "title": "DRAFT — AGHR package manifest, schemaVersion 1.2",
+  "$comment": "Derived from AGHR_REFERENCE.md section 2.1. Not wired into Studio or the pinned Python engine. Declared owner/signature fields do not authenticate an issuer.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "version", "schemaVersion", "owner", "license", "compatibility", "validation"],
+  "properties": {
+    "id": { "$ref": "#/$defs/text" },
+    "name": { "$ref": "#/$defs/text" },
+    "version": { "$ref": "#/$defs/text" },
+    "schemaVersion": { "const": "1.2" },
+    "owner": { "$ref": "#/$defs/text" },
+    "license": { "$ref": "#/$defs/text" },
+    "signed": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method", "identity"],
+      "properties": {
+        "method": { "$ref": "#/$defs/text" },
+        "identity": { "$ref": "#/$defs/text" }
+      }
+    },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["agents", "targets"],
+      "properties": {
+        "agents": { "$ref": "#/$defs/texts" },
+        "targets": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "file": { "$ref": "#/$defs/text" },
+              "dir": { "$ref": "#/$defs/text" },
+              "budgetBytes": { "type": "integer", "minimum": 1 },
+              "imports": { "$ref": "#/$defs/texts" }
+            },
+            "oneOf": [ { "required": ["file"] }, { "required": ["dir"] } ]
+          }
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["strict", "coreKindsOnly", "requireEvalForPriority", "requireTechnicalEnforcementFor", "requireSkillQualificationFor", "enforceSkillStateHonesty", "enforceDocumentationConsistency", "enforceAuthorityLevel"],
+      "properties": {
+        "strict": { "const": true },
+        "coreKindsOnly": { "const": true },
+        "requireEvalForPriority": { "$ref": "#/$defs/p0Tiers" },
+        "requireTechnicalEnforcementFor": { "type": "array", "items": { "const": "MUST_NOT" }, "minItems": 1, "uniqueItems": true },
+        "requireSkillQualificationFor": { "$ref": "#/$defs/p0Tiers" },
+        "enforceSkillStateHonesty": { "const": true },
+        "enforceDocumentationConsistency": { "const": true },
+        "enforceAuthorityLevel": { "const": true }
+      }
+    }
+  },
+  "$defs": {
+    "text": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "texts": { "type": "array", "items": { "$ref": "#/$defs/text" }, "minItems": 1, "uniqueItems": true },
+    "p0Tiers": { "type": "array", "items": { "enum": ["P0-Safety", "P0-Integrity"] }, "minItems": 2, "maxItems": 2, "uniqueItems": true }
+  }
+}

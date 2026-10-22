@@ -1,0 +1,38 @@
+{
+  "mutations": [
+    {
+      "label": "missing-level-must",
+      "path": "policies/observations/reference-state.json",
+      "before_sha256": "f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0",
+      "after_sha256": "3c5c0cf8547de0c1752011d7c0df973292047c3b4b1dd6e7c837c713d5180103",
+      "snapshot": "fixture-missing-level-must.json",
+      "synthetic_mutation": true
+    },
+    {
+      "label": "missing-level-must_not",
+      "path": "policies/observations/reference-state.json",
+      "before_sha256": "f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0",
+      "after_sha256": "bce445e4bbaf28f67e61d409490739ec4e8e1d9afb17886e88db4ff462567d61",
+      "snapshot": "fixture-missing-level-must_not.json",
+      "synthetic_mutation": true
+    },
+    {
+      "label": "self-enterprise",
+      "path": "policies/observations/reference-state.json",
+      "before_sha256": "f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0",
+      "after_sha256": "2f639ae702cd9e8af29576579adb7f2e6bad958e1fca6ccfbfe6fc5e0a296173",
+      "snapshot": "fixture-self-enterprise.json",
+      "synthetic_mutation": true
+    },
+    {
+      "label": "unproven-calibration",
+      "path": "policies/observations/reference-state.json",
+      "before_sha256": "f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0",
+      "after_sha256": "ce3ef307e79aeeff802a50c2c5585a3c9879905a84e1b09fd2bbb2a3bde7b814",
+      "snapshot": "fixture-unproven-calibration.json",
+      "synthetic_mutation": true
+    }
+  ],
+  "real_source_unchanged": true,
+  "no_reference_promoted": true
+}

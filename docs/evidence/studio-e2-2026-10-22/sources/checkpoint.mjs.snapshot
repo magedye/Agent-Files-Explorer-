@@ -1,0 +1,44 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import {spawn} from 'node:child_process';
+const root='D:/APP/Agent-Files-Explorer';
+const prefix='governance_packages/candidates/AGHR_rc3_Core_Candidate/';
+const ev=path.join(root,'docs/evidence/studio-e2-2026-10-22');
+const stage=process.argv[2]; const pattern=process.argv[3]; const filter=process.argv[4];
+if(!/^E2[abcde]$/.test(stage))throw Error('Invalid phase');
+const phase=stage+'-'+Date.now();
+const prior=JSON.parse(await fs.readFile(path.join(root,'docs/evidence/studio-e1d-2026-10-22/SOURCE_PIN.json'),'utf8'));
+try {
+ const previous=JSON.parse(await fs.readFile(path.join(ev,phase+'.checkpoint.json'),'utf8'));
+ const archive=path.join(ev,'revisions',phase+'-'+new Date().toISOString().replace(/[:.]/g,'-'));
+ await fs.mkdir(archive,{recursive:true});
+ for(const ending of ['.stdout.txt','.stderr.txt','.execution.json','.checkpoint.json']){
+  try{await fs.copyFile(path.join(ev,phase+ending),path.join(archive,phase+ending));}catch(e){if(e.code!=='ENOENT')throw e;}
+ }
+ for(const p of Object.keys(previous.files)){const target=path.join(archive,'source',p+'.snapshot');await fs.mkdir(path.dirname(target),{recursive:true});await fs.copyFile(path.join(ev,'checkpoints',phase,p+'.snapshot'),target);}
+}catch(e){if(e.code!=='ENOENT')throw e;}
+const extra=['tools/validate.py','tools/scope.py','tools/authority.py','tools/conflicts.py','tools/lint.py','tools/evidence.py','tests/e2_support.py','tests/test_validate.py','tests/test_scope.py','tests/test_authority.py','tests/test_conflicts.py','tests/test_evidence.py','tests/test_e2_cli.py','E2_PROFILE.md'];
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+let transcript=null;let testExit=0;
+if(pattern){
+ const args=['-I','-B','-X','utf8','-m','unittest','discover','-s',prefix+'tests','-p',pattern,'-v'];
+ if(filter)args.push('-k',filter);
+ const python=path.join(root,'temp/aghr-e1a-20261022-01/venv/Scripts/python.exe');
+ const start=new Date().toISOString();
+ const result=await new Promise((resolve,reject)=>{const cp=spawn(python,args,{cwd:root,windowsHide:true,stdio:['ignore','pipe','pipe']});const stdout=[],stderr=[];cp.stdout.on('data',b=>stdout.push(b));cp.stderr.on('data',b=>stderr.push(b));cp.on('error',reject);cp.on('close',code=>resolve({code,stdout:Buffer.concat(stdout),stderr:Buffer.concat(stderr)}));});
+ await fs.writeFile(path.join(ev,phase+'.stdout.txt'),result.stdout);await fs.writeFile(path.join(ev,phase+'.stderr.txt'),result.stderr);
+ transcript={executable:python,args,cwd:root,start,end:new Date().toISOString(),exit_code:result.code,stdout:phase+'.stdout.txt',stderr:phase+'.stderr.txt'};
+ await fs.writeFile(path.join(ev,phase+'.execution.json'),JSON.stringify(transcript,null,2)+'\n');
+ console.log(JSON.stringify({phase,exit_code:result.code,summary:result.stderr.toString().split(/\r?\n/).slice(-5).join('\n')}));
+ testExit=result.code||0;
+}
+const files={};
+for(const p of [...new Set([...Object.keys(prior.files),...extra])].sort()){
+ let b;try{b=await fs.readFile(path.join(root,prefix,p));}catch(e){if(e.code==='ENOENT')continue;throw e;}
+ files[p]=sha(b);const target=path.join(ev,'checkpoints',phase,p+'.snapshot');await fs.mkdir(path.dirname(target),{recursive:true});await fs.writeFile(target,b);
+}
+const hash=sha(Buffer.from(JSON.stringify(files)));
+await fs.writeFile(path.join(ev,phase+'.checkpoint.json'),JSON.stringify({phase,recorded_at_utc:new Date().toISOString(),files,source_hash:hash,hash_algorithm:'sha256-path-map-v1',transcript,claim:'Phase API check only until complete E2.e CLI acceptance',T01:'BLOCKED_NOT_CLOSED',runtime_honesty:'7 REQUIRED / NOT_RUN / NOT_WAIVED'},null,2)+'\n');
+console.log(JSON.stringify({phase,files:Object.keys(files).length,source_hash:hash}));
+process.exitCode=testExit;

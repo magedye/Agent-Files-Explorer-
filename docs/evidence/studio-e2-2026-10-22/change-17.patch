@@ -1,0 +1,33 @@
+--- before/governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/catalog.py
++++ after/governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/catalog.py
+@@ -21,9 +21,11 @@
+     return json.dumps(value, ensure_ascii=False, allow_nan=False, sort_keys=True, separators=(",", ":"))
+ 
+ 
+-def load_assets(asset_root=None):
++def load_assets(asset_root=None, *, with_documents=False):
+     """Read only the owned, hash-anchored contract copies; never fetch a $ref."""
+     root = ROOT / "schemas" if asset_root is None else Path(asset_root)
++
++    documents = {}
+ 
+     def read(name, expected):
+         path = root / name
+@@ -37,13 +39,15 @@
+             fail("SCHEMA_ASSET_UNAVAILABLE", "Cannot read the complete owned schema closure.", "schemas/" + name)
+         if hashlib.sha256(raw).hexdigest() != expected:
+             fail("SCHEMA_ASSET_MISMATCH", "Owned schema asset does not match the frozen revision.", "schemas/" + name)
+-        return json.loads(raw.decode("utf-8"))
++        document = json.loads(raw.decode("utf-8"))
++        documents[name] = document
++        return document
+ 
+     lock = read("SCHEMAS.lock.json", SCHEMA_LOCK_SHA256)
+     for entry in lock["files"]:
+         read(entry["path"], entry["sha256"])
+     model = read(lock["model_index"]["path"], lock["model_index"]["sha256"])
+-    return lock, model
++    return (lock, model, documents) if with_documents else (lock, model)
+ 
+ 
+ def source_record(source):

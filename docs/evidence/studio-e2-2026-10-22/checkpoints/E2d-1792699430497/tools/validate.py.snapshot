@@ -1,0 +1,140 @@
+"""rc.3 structural checks against the immutable contract. No input code executes."""
+
+from datetime import date, datetime
+from dataclasses import asdict
+import re
+
+from jsonschema import Draft202012Validator, FormatChecker
+from referencing import Registry, Resource
+from referencing.exceptions import NoSuchResource
+
+from catalog import load_assets
+from loader import SOURCE_ROOTS
+
+
+def finding(member, code, pointer="", *, disposition="INVALID", message=None):
+    location = member.location
+    value = member.value
+    return {"code": code, "disposition": disposition,
+            "message": message or f"{code} at {pointer or '/' }.",
+            "path": location.path, "line": location.line, "column": location.column,
+            "byte_offset": location.start_byte, "pointer": pointer,
+            "item_id": value.get("id") if isinstance(value, dict) else None}
+
+
+class SchemaChecks:
+    """All $refs resolve from owned memory; remote retrieval is forbidden.
+
+    https://python-jsonschema.readthedocs.io/en/v4.26.0/referencing/
+    https://python-jsonschema.readthedocs.io/en/v4.26.0/validate/
+    """
+
+    def __init__(self):
+        self.lock, self.model, documents = load_assets(with_documents=True)
+        def refuse(uri):
+            raise NoSuchResource(ref=uri)
+        registry = Registry(retrieve=refuse).with_resources(
+            (document["$id"], Resource.from_contents(document))
+            for name, document in documents.items() if name.endswith(".schema.json"))
+        formats = FormatChecker(formats=())
+        @formats.checks("date", raises=(ValueError, TypeError))
+        def valid_date(value):
+            return not isinstance(value, str) or bool(re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", value) and date.fromisoformat(value))
+        @formats.checks("date-time", raises=(ValueError, TypeError))
+        def valid_time(value):
+            if not isinstance(value, str):
+                return True
+            return bool(re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\.[0-9]+)?(?:Z|[+-][0-9]{2}:[0-9]{2})", value)
+                        and datetime.fromisoformat(value.replace("Z", "+00:00")))
+        self.validators = {}
+        for name, document in documents.items():
+            if name.endswith(".schema.json"):
+                Draft202012Validator.check_schema(document)
+                self.validators[name] = Draft202012Validator(document, registry=registry, format_checker=formats)
+
+    def errors(self, name, member):
+        issues = []
+        for error in self.validators[name].iter_errors(member.value):
+            pointer = "/" + "/".join(str(part).replace("~", "~0").replace("/", "~1") for part in error.absolute_path)
+            if error.validator == "required" and isinstance(error.instance, dict):
+                for missing in error.validator_value:
+                    if missing not in error.instance:
+                        issues.append(finding(member, "SCHEMA_REQUIRED", pointer.rstrip("/") + "/" + missing))
+            else:
+                issues.append(finding(member, "SCHEMA_" + str(error.validator).upper(), pointer))
+        return issues
+
+
+def check_structure(package, schemas=None):
+    """Checks only this phase; it cannot grant complete governance validation."""
+    schemas = schemas or SchemaChecks()
+    issues = schemas.errors("aghr.schema.json", package.manifest)
+    if package.selection_mode != "DEFAULT_ROOTS" and set(package.source_paths) != set(SOURCE_ROOTS):
+        issues.append(finding(package.manifest, "PARTIAL_SOURCE_SELECTION", disposition="BLOCKED"))
+    for item in package.items:
+        issues.extend(schemas.errors("item.schema.json", item))
+    for source in package.auxiliary:
+        if source.source.role == "qualification":
+            for document in source.documents:
+                for member in document.members:
+                    issues.extend(schemas.errors("qualification.schema.json", member))
+    return issues
+
+
+def validate_package(package, root, context, *, grants=()):
+    """One governing pipeline for CLI and future host bridges; no disk writes.
+
+    Grants can only arrive through the caller-owned Python API, never source data.
+    Every unavailable mandatory downstream check blocks; no E4 execution occurs.
+    """
+    from authority import check_authority
+    from conflicts import check_conflicts
+    from evidence import check_documentation, check_evidence
+    from scope import applies, render
+    issues = check_structure(package)
+    stages = {"structure": {"status": "FAIL" if any(i["disposition"] == "INVALID" for i in issues) else "PASS"}}
+    views, resolutions, states, support = [], [], {}, []
+    documentation = {"status": "NOT_RUN", "reason": "Structure rejected before documentation checks"}
+    if not any(i["disposition"] == "INVALID" for i in issues):
+        scope_issues = []
+        for member in package.items:
+            try:
+                applicability = applies(member.value, context)
+            except ValueError:
+                scope_issues.append(finding(member, "INVALID_SCOPE_PATTERN", "/scope"))
+                applicability = {"status": "INVALID"}
+            if context.targeted and applicability["status"] == "CONTEXT_REQUIRED":
+                scope_issues.append(finding(member, "SCOPE_CONTEXT_REQUIRED", "/scope", disposition="BLOCKED"))
+            if applicability["status"] == "UNKNOWN_ID":
+                scope_issues.append(finding(member, "UNKNOWN_ID", "/scope/skillIds"))
+            views.append({"id": member.value["id"], "location": asdict(member.location),
+                          "applicability": applicability if context.targeted else {"status": "NOT_REQUESTED", "reason": "Static package validation; no task target selected"},
+                          "presentation": render(member.value, context.language)})
+        authority_issues, states = check_authority(package, context, grants)
+        if not any(i["disposition"] == "INVALID" for i in scope_issues):
+            conflict_issues, resolutions = check_conflicts(package, states)
+        else:
+            conflict_issues = []
+            stages["conflicts"] = {"status": "NOT_RUN", "reason": "Invalid scope prevents meaningful ordering"}
+        evidence_issues = check_evidence(package, context)
+        documentation_issues, support, documentation = check_documentation(package, root)
+        for source in package.auxiliary:
+            if source.source.role not in ("qualification",):
+                evidence_issues.append(finding(source.documents[0], "AUXILIARY_SCHEMA_UNAVAILABLE", disposition="BLOCKED"))
+        for name, additions in (("scope", scope_issues), ("authority", authority_issues), ("conflicts", conflict_issues), ("evidence", evidence_issues)):
+            issues.extend(additions)
+            if name not in stages:
+                stages[name] = {"status": "FAIL" if any(i["disposition"] == "INVALID" for i in additions) else "BLOCKED" if additions else "PASS"}
+        issues.extend(documentation_issues)
+    else:
+        for name in ("scope", "authority", "conflicts", "evidence"):
+            stages[name] = {"status": "NOT_RUN", "reason": "Invalid structure rejected before dependent check"}
+    stages["documentation"] = documentation
+    result = "INVALID" if any(i["disposition"] == "INVALID" for i in issues) else "BLOCKED" if any(i["disposition"] == "BLOCKED" for i in issues) else "VALID"
+    report = {"profile": "E2_PACKAGE_READ_VALIDATE_LINT", "result": result,
+              "exit_code": {"VALID": 0, "INVALID": 1, "BLOCKED": 3}[result], "findings": issues,
+              "stages": stages, "items": views, "authority": states, "resolutions": resolutions,
+              "conflict_coverage": "Explicit relationships only; free-text semantic conflicts not claimed resolved",
+              "qualification": "NOT_RUN", "runtime_honesty": "7 REQUIRED / NOT_RUN / NOT_WAIVED; E4 deferred",
+              "publisher_authentication": "UNKNOWN", "governance_release_acceptance": "NOT_GRANTED"}
+    return report, support

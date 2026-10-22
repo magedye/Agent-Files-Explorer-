@@ -1,0 +1,27 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import {execFile} from 'node:child_process';
+import {promisify} from 'node:util';
+const root='D:/APP/Agent-Files-Explorer';
+const candidate='governance_packages/candidates/AGHR_rc3_Core_Candidate/';
+const out='docs/evidence/studio-e2-2026-10-22/';
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+const git=async args=>(await promisify(execFile)('git',args,{cwd:root,encoding:'utf8',timeout:90000})).stdout.trim();
+const head=await git(['rev-parse','HEAD']);const status=await git(['status','--porcelain=v1']);
+if(status)throw Error('Pre-existing changes: '+status);
+const prior=JSON.parse(await fs.readFile(path.join(root,'docs/evidence/studio-e1d-2026-10-22/SOURCE_PIN.json'),'utf8'));
+const initial=JSON.parse(await fs.readFile(path.join(root,'docs/evidence/studio-e1d-2026-10-22/PREFLIGHT.json'),'utf8'));
+const docs=['docs/status/CURRENT.md','docs/status/HANDOFF.md','docs/plans/STUDIO_E1_E2_CORE_SCOPE_AR.md','docs/plans/STUDIO_UPGRADE_TASKS_AR.md'];
+const targets=[...Object.keys(prior.files).map(p=>candidate+p),...docs];
+await fs.mkdir(path.join(root,out,'before'),{recursive:true});
+const before=[];
+for(const p of targets){const b=await fs.readFile(path.join(root,p));if(p.startsWith(candidate)&&sha(b)!==prior.files[p.slice(candidate.length)])throw Error('E1 source mismatch '+p);const snapshot='before/'+p;await fs.mkdir(path.dirname(path.join(root,out,snapshot)),{recursive:true});await fs.writeFile(path.join(root,out,snapshot),b);before.push({path:p,bytes:b.length,sha256:sha(b),snapshot});}
+const directive='بصفتي المالك، أقر واعتمد ما يلي:\n\n1. اعتماد مخرجات E1 (Acceptance):\nأوافق رسمياً على اعتماد مخرجات E1 كما هي (بما في ذلك الترخيص المؤقت PROVISIONAL). أنتقل الآن رسمياً إلى مرحلة E2.\n\n2. بدء تنفيذ E2:\nابدأ فوراً في تنفيذ شرائح E2.a حتى E2.e (التحقق الصارم، الانطباق، السلطة والتعارض، حدود الأدلة، وCLI فعلي) وفق النطاق المعتمد في وثيقة STUDIO_E1_E2_CORE_SCOPE.\n\n3. التزامات إلزامية أثناء E2:\n- التطبيق الصارم لشروط rc.3: يجب أن يرفض المحرك أي بند MUST أو MUST_NOT يفتقد لحقل authority.level.\n- تطبيق الفصل في السلطة والتعارض: لا تسمح لملف بفرض سلطة enterprise على نفسه دون دليل مصدر.\n- إثبات CLI فعلي: تأكد أن أوامر validate --strict و lint تعمل وترفض الملفات المعيبة برموز خروج صحيحة، دون أي تعديل على الملفات المصدرية.\n- التزام صارم بالقيود: فحوص الصدق السبعة (7 Honesty checks) تبقى مؤجلة لـ E4 كما ذكرت. لا تحاول تنفيذها الآن، فقط احفظ حدودها في منطق E2.\n- T01 لا تزال محجوبة (BLOCKED). لا تحاول فتحها حتى تنهي E2 بالكامل وتقدم الأدلة الفعلية.\n\n4. عند الانتهاء من E2:\nقدم تقريراً يوضح: ما الذي تم تنفيذه في E2.a-e، نتائج اختبارات CLI، حالة التطبيق، والفجوات المتبقية (إن وجدت).\n';
+await fs.writeFile(path.join(root,out,'OWNER_DIRECTIVE.txt'),directive,'utf8');
+const acceptance={recorded_at_utc:new Date().toISOString(),authority:'Current explicit owner instruction',directive:'OWNER_DIRECTIVE.txt',directive_sha256:sha(Buffer.from(directive)),E1:{status:'ACCEPTED_BY_OWNER',accepted_source_hash:prior.source_hash,prior_acceptance_receipt:'../studio-e1d-2026-10-22/E1_ACCEPTANCE.json',prior_receipt_preserved:true},owner_license:'PROVISIONAL_OWNER_LICENSE_ACCEPTED_FOR_CONTINUED_WORK',E2:{authorized:['E2.a','E2.b','E2.c','E2.d','E2.e'],status:'AUTHORIZED_IN_PROGRESS'},T01:'BLOCKED_NOT_CLOSED',T02:'NOT_STARTED',runtime_honesty:'7 REQUIRED / NOT_RUN / NOT_WAIVED; deferred to E4',final_signature:'DEFERRED',release_acceptance:'NOT_GRANTED'};
+await fs.writeFile(path.join(root,out,'OWNER_ACCEPTANCE.json'),JSON.stringify(acceptance,null,2)+'\n');
+const protectedEntries=await Promise.all(initial.protected_inputs.map(async entry=>{const b=await fs.readFile(path.join(root,entry.path));return {path:entry.path,bytes:b.length,sha256:sha(b),prior_observed_sha256:entry.sha256};}));
+const receipt={recorded_at_utc:new Date().toISOString(),head,branch:await git(['branch','--show-current']),working_tree_before:'CLEAN',path:'B',prior_source_hash:prior.source_hash,before,protected_inputs:protectedEntries,acceptance:'OWNER_ACCEPTANCE.json',scope:['E2.a','E2.b','E2.c','E2.d','E2.e'],T01:'BLOCKED_NOT_CLOSED',T02:'NOT_STARTED'};
+await fs.writeFile(path.join(root,out,'PREFLIGHT.json'),JSON.stringify(receipt,null,2)+'\n');
+console.log(JSON.stringify({head,before:before.length,protected_input_shape:Array.isArray(protectedEntries)?'array':typeof protectedEntries,E1:'ACCEPTED_BY_OWNER',E2:'AUTHORIZED_IN_PROGRESS',prior_source_hash:prior.source_hash}));

@@ -1,0 +1,120 @@
+"""E2.c tests use explicit synthetic caller attestations, not production grants."""
+
+from copy import deepcopy
+from dataclasses import replace
+from e2_support import FixtureCase, item
+from authority import SourceGrant, authority_state, check_authority
+from conflicts import check_conflicts, relationship_graph, resolve
+from scope import ScopeContext
+
+
+def grants(package, *, advanced=()):
+    result = []
+    for member in package.items:
+        value = member.value; authority = value.get("authority", {})
+        if "level" not in authority:
+            continue
+        digest = next(s.sha256 for s in package.sources if s.path == member.location.path)
+        result.append(SourceGrant(member.location.path, digest, authority["source"], authority["level"], authority["owner"], authority["approvedBy"], "synthetic://not-production/" + value["id"], (value["id"],), advanced))
+    return tuple(result)
+
+
+class AuthorityTests(FixtureCase):
+    def test_file_cannot_self_assert_enterprise_or_any_other_level(self):
+        for level in ("enterprise", "organization", "project", "component"):
+            value = item(force="MUST"); value["authority"]["level"] = level
+            package = self.package(value)
+            issues, states = check_authority(package, ScopeContext(as_of="2026-10-22"))
+            self.assertEqual(states[value["id"]]["status"], "UNKNOWN")
+            self.assertIn("AUTHORITY_SOURCE_UNVERIFIED", [e["code"] for e in issues])
+
+    def test_bound_grant_allows_exact_source_only(self):
+        package = self.package(item(force="MUST")); approval = grants(package)
+        self.assertEqual(check_authority(package, ScopeContext(), approval)[0], [])
+        for changed in (replace(approval[0], source_sha256="0" * 64), replace(approval[0], level="enterprise"),
+                        replace(approval[0], item_ids=("OTHER",)), replace(approval[0], owner="other"), replace(approval[0], approved_by="other")):
+            self.assertTrue(check_authority(package, ScopeContext(), (changed,))[0])
+        self.assertEqual(authority_state(package.items[0], package, (approval[0], approval[0]))["status"], "UNKNOWN")
+
+    def test_reused_trusted_source_name_does_not_authenticate_new_content(self):
+        root = self.fixture(item(force="MUST")); from loader import read_package
+        package = read_package(root); approval = grants(package)
+        changed = item(force="MUST"); changed["rule"] = "Changed after approval."
+        self.write(root, "policies/items.json", changed)
+        self.assertTrue(check_authority(read_package(root), ScopeContext(), approval)[0])
+
+    def test_advanced_kinds_require_explicit_review_even_with_structural_support(self):
+        value = item(force="MUST", kind="CAPABILITY"); package = self.package(value)
+        self.assertIn("ADVANCED_KIND_REVIEW_REQUIRED", [e["code"] for e in check_authority(package, ScopeContext(), grants(package))[0]])
+        self.assertEqual(check_authority(package, ScopeContext(), grants(package, advanced=("CAPABILITY",)))[0], [])
+
+    def test_informative_item_needs_no_invented_authority(self):
+        package = self.package(item()); issues, states = check_authority(package, ScopeContext())
+        self.assertEqual(issues, []); self.assertEqual(states["SYNTHETIC"]["status"], "UNCLAIMED")
+
+    def test_future_or_inactive_authority_is_blocked(self):
+        for field, value in (("status", "draft"), ("effectiveFrom", "2027-01-01")):
+            data = item(force="MUST"); data["authority"][field] = value; package = self.package(data)
+            self.assertTrue(check_authority(package, ScopeContext(as_of="2026-10-22"), grants(package))[0])
+
+
+class ConflictTests(FixtureCase):
+    def pair(self, left=None, right=None):
+        left = left or item("A", force="MUST"); right = right or item("B", force="MUST")
+        left["conflictPolicy"] = {"overrides": ["B"]}
+        package = self.package([left, right]); states = check_authority(package, ScopeContext(), grants(package))[1]
+        return package, states
+
+    def result(self, left, right):
+        package, states = self.pair(left, right)
+        return resolve(left, right, states, {m.value["id"]: m for m in package.items})
+
+    def test_authority_precedes_specificity_force_and_supersession(self):
+        left = item("A", force="MUST_NOT"); right = item("B", force="MUST")
+        left["authority"]["supersedes"] = "B"; left["scope"]["paths"] = ["src/a.py"]
+        right["authority"]["level"] = "enterprise"
+        self.assertEqual(self.result(left, right), {"status": "RESOLVED", "winner": "B", "reason": "AUTHORITY_LEVEL"})
+
+    def test_explicit_supersession_precedes_environment(self):
+        left = item("A", force="MUST"); right = item("B", force="MUST")
+        left["authority"]["supersedes"] = "B"; right["scope"]["environments"] = ["production"]
+        self.assertEqual(self.result(left, right)["reason"], "EXPLICIT_SUPERSESSION")
+
+    def test_environment_precedes_path(self):
+        left = item("A", force="MUST"); right = item("B", force="MUST")
+        left["scope"] = {"environments": ["ci"], "paths": ["src/a.py"]}
+        right["scope"] = {"environments": ["production"], "paths": ["**/*"]}
+        self.assertEqual(self.result(left, right)["winner"], "B")
+
+    def test_specific_path_precedes_force(self):
+        left = item("A", force="MUST"); right = item("B", force="MUST_NOT")
+        left["scope"]["paths"] = ["src/a.py"]; right["scope"]["paths"] = ["src/**"]
+        self.assertEqual(self.result(left, right)["reason"], "PATH_SPECIFICITY")
+
+    def test_force_breaks_equal_scope_tie(self):
+        left = item("A", force="MUST"); right = item("B", force="MUST_NOT")
+        self.assertEqual(self.result(left, right)["winner"], "B")
+
+    def test_severity_does_not_break_unresolved_ties(self):
+        left = item("A", force="MUST"); right = item("B", force="MUST")
+        left["severity"] = "critical"; right["severity"] = "low"
+        self.assertEqual(self.result(left, right)["reason"], "UNRESOLVED_CONFLICT")
+        package, states = self.pair(left, right)
+        self.assertTrue(check_conflicts(package, states)[0])
+
+    def test_unknown_source_prevents_resolution(self):
+        package, states = self.pair(); states["A"]["status"] = "UNKNOWN"
+        self.assertEqual(check_conflicts(package, states)[0][0]["disposition"], "BLOCKED")
+
+    def test_missing_self_and_cyclic_references_reject(self):
+        for target in ("MISSING", "A"):
+            left = item("A"); left["conflictPolicy"] = {"overrides": [target]}
+            self.assertTrue(relationship_graph(self.package(left))[2])
+        left = item("A"); right = item("B")
+        left["conflictPolicy"] = {"overrides": ["B"]}; right["authority"] = {"supersedes": "A"}
+        self.assertTrue(relationship_graph(self.package([left, right]))[2])
+
+    def test_incomparable_globs_remain_unresolved(self):
+        left = item("A", force="MUST"); right = item("B", force="MUST_NOT")
+        left["scope"]["paths"] = ["src/*/a.py"]; right["scope"]["paths"] = ["src/a/*.py"]
+        self.assertEqual(self.result(left, right)["reason"], "PATH_INCOMPARABLE")

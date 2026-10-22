@@ -1,0 +1,98 @@
+"""Explicit relationship checks and conservative rc.3 section 5.2 resolution."""
+
+from collections import deque
+from authority import LEVELS
+from scope import compare_specificity
+from validate import finding
+
+FORCE = {name: index for index, name in enumerate(("INFORMATIVE", "MAY", "SHOULD", "SHOULD_NOT", "MUST", "MUST_NOT"))}
+ENVIRONMENTS = {"local": 1, "ci": 2, "production": 3}
+
+
+def relationship_graph(package):
+    index = {m.value["id"]: m for m in package.items}
+    edges = {key: set() for key in index}
+    pairs, issues = set(), []
+    for identifier, member in index.items():
+        value = member.value
+        policy = value.get("conflictPolicy", {})
+        supersedes = value.get("authority", {}).get("supersedes")
+        relations = [(target, False) for target in policy.get("overrides", [])]
+        relations += [(target, True) for target in policy.get("overriddenBy", [])]
+        if supersedes:
+            relations.append((supersedes, False))
+        for target, reverse in relations:
+            if target not in index:
+                issues.append(finding(member, "UNKNOWN_ITEM_REFERENCE", "/conflictPolicy"))
+                continue
+            winner, loser = (target, identifier) if reverse else (identifier, target)
+            edges[winner].add(loser)
+            pairs.add(tuple(sorted((identifier, target))))
+    indegrees = {key: 0 for key in index}
+    for targets in edges.values():
+        for target in targets:
+            indegrees[target] += 1
+    queue = deque(key for key, degree in indegrees.items() if degree == 0)
+    visited = 0
+    while queue:
+        current = queue.popleft(); visited += 1
+        for target in edges[current]:
+            indegrees[target] -= 1
+            if indegrees[target] == 0:
+                queue.append(target)
+    if visited != len(index):
+        for key in sorted(key for key, degree in indegrees.items() if degree):
+            issues.append(finding(index[key], "RELATIONSHIP_CYCLE", "/conflictPolicy"))
+    return index, pairs, issues
+
+
+def _supersedes(left, right, index):
+    seen = set()
+    current = left
+    while current in index and current not in seen:
+        seen.add(current)
+        current = index[current].value.get("authority", {}).get("supersedes")
+        if current == right:
+            return True
+    return False
+
+
+def resolve(left, right, states, index):
+    a, b = left["id"], right["id"]
+    if any(states[key]["status"] != "CALLER_ATTESTED" for key in (a, b)):
+        return {"status": "BLOCKED", "winner": None, "reason": "AUTHORITY_SOURCE_UNVERIFIED"}
+    levels = [LEVELS[states[key]["level"]] for key in (a, b)]
+    if levels[0] != levels[1]:
+        return {"status": "RESOLVED", "winner": a if levels[0] > levels[1] else b, "reason": "AUTHORITY_LEVEL"}
+    supersession = [_supersedes(a, b, index), _supersedes(b, a, index)]
+    if supersession[0] != supersession[1]:
+        return {"status": "RESOLVED", "winner": a if supersession[0] else b, "reason": "EXPLICIT_SUPERSESSION"}
+    environments = [set(value["scope"].get("environments", [])) for value in (left, right)]
+    if environments[0] != environments[1]:
+        if any(not e.issubset(ENVIRONMENTS) for e in environments):
+            return {"status": "UNRESOLVED", "winner": None, "reason": "ENVIRONMENT_INCOMPARABLE"}
+        ranks = [max((ENVIRONMENTS[e] for e in values), default=0) for values in environments]
+        if ranks[0] != ranks[1]:
+            return {"status": "RESOLVED", "winner": a if ranks[0] > ranks[1] else b, "reason": "ENVIRONMENT_SCOPE"}
+    exclusions_equal = set(left["scope"].get("exclude", [])) == set(right["scope"].get("exclude", []))
+    specificity = compare_specificity(left["scope"].get("paths"), right["scope"].get("paths")) if exclusions_equal else "INCOMPARABLE"
+    if specificity in ("LEFT", "RIGHT"):
+        return {"status": "RESOLVED", "winner": a if specificity == "LEFT" else b, "reason": "PATH_SPECIFICITY"}
+    if specificity == "INCOMPARABLE":
+        return {"status": "UNRESOLVED", "winner": None, "reason": "PATH_INCOMPARABLE"}
+    if FORCE[left["force"]] != FORCE[right["force"]]:
+        return {"status": "RESOLVED", "winner": a if FORCE[left["force"]] > FORCE[right["force"]] else b, "reason": "FORCE_RANK"}
+    return {"status": "UNRESOLVED", "winner": None, "reason": "UNRESOLVED_CONFLICT"}
+
+
+def check_conflicts(package, states):
+    index, pairs, issues = relationship_graph(package)
+    resolutions = []
+    if issues:
+        return issues, resolutions
+    for a, b in sorted(pairs):
+        result = resolve(index[a].value, index[b].value, states, index)
+        resolutions.append({"items": [a, b], **result})
+        if result["status"] != "RESOLVED":
+            issues.append(finding(index[a], result["reason"], "/conflictPolicy", disposition="BLOCKED" if result["status"] == "BLOCKED" else "INVALID"))
+    return issues, resolutions

@@ -1,0 +1,51 @@
+--- before/docs/plans/STUDIO_E1_E2_CORE_SCOPE_AR.md
++++ after/docs/plans/STUDIO_E1_E2_CORE_SCOPE_AR.md
+@@ -1,7 +1,7 @@
+ # نطاق استكمال نواة rc.3 — E1/E2
+ 
+-**التاريخ:** 2026-10-22. **الحالة:** `E1 TECHNICAL_WORK_COMPLETE / OWNER_ACCEPTANCE_PENDING / E2 NOT_STARTED`.  
+-**التوجيه اللاحق:** أكد المالك المسار B وأجاز E1.d وأقر بيانات E1.c المؤقتة لاستكمال E1 دون انتظار التوقيع. [تسليم E1.d](../evidence/studio-e1d-2026-10-22/README.md): فهرس فعلي، 16 schema ثابتة و17 حقلًا و13 نوعًا؛ 63/63 مرشح و41/41 تطبيق. [قبول E1](../evidence/studio-e1d-2026-10-22/E1_ACCEPTANCE.json) = عمل تقني مكتمل ينتظر اعتماد المالك للمخرجات؛ لا تفويض E2 حتى الاعتماد. T01 BLOCKED_NOT_CLOSED، T02 NOT_STARTED؛ الترخيص PROVISIONAL_OWNER_LICENSE. أدلة E1.a/b/c محفوظة.
++**التاريخ:** 2026-10-22. **الحالة:** `E1 ACCEPTED_BY_OWNER / E2 IMPLEMENTED_AND_TESTED / T01 BLOCKED_NOT_CLOSED`.  
++**التوجيه اللاحق:** اعتمد المالك مخرجات E1 بما فيها الترخيص المؤقت، وأجاز E2.a–e؛ [القرار](../evidence/studio-e2-2026-10-22/OWNER_ACCEPTANCE.json). [تسليم E2](../evidence/studio-e2-2026-10-22/README.md): تحقق صارم وانطباق وسلطة وتعارض وحدود أدلة وCLI بروتوكول 3؛ 141/141 مرشح و41/41 تطبيق. T01 BLOCKED_NOT_CLOSED وT02 NOT_STARTED، وفحوص الصدق السبعة مؤجلة E4. التوقيع النهائي مؤجل؛ لا ترقية مرجع.
+ 
+ ## 1. سبب اختيار هذا المسار ومصادره
+ 
+@@ -33,7 +33,7 @@
+ 
+ ## 3. مواضع الملفات المقترحة ومصدر التنفيذ الوحيد
+ 
+-أصبحت شجرة المرشح 33 ملفًا بعد E1.d: 16 نسخة schema مطابقة لبايتات contract.1، وقفل إغلاق وفهرس نموذج، وcatalog.py واختباره؛ بقيت بيانات E1.c الفعلية دون تغيير. ملفات التحقق validate/lint/scope/authority/conflicts أدناه مستهدفة في E2 ولم تنشأ.
++أصبحت شجرة المرشح 46 ملفًا بعد E2.a–e؛ ملفات validate/lint/scope/authority/conflicts/evidence واختباراتها فعلية. بقيت بيانات E1.c و16 schema وقفلها وفهرس النموذج ثابتة. نطاق التنفيذ وحدوده في E2_PROFILE.md، والنتائج والبصمات في إيصال E2.
+ 
+ ```text
+ governance_packages/candidates/AGHR_rc3_Core_Candidate/
+@@ -102,11 +102,11 @@
+ 
+ ### واجهة CLI التي تثبت قبل ربطها بـT02
+ 
+-الصيغ الحاكمة validate --strict وlint تبقى محجوبة إلى E2. انتقل بروتوكول CLI الداخلي صراحة من 1 إلى 2 لإضافة catalog ونتيجة READ؛ حفظت النسخة السابقة والفروق. help/version يعيدان INFO/0 وcatalog يقرأ cwd ويعيد READ/0 أو ERROR/2؛ الفحوص NOT_RUN. يستخدم Python مطلقًا وargv منظمة وshell=false ومنع bytecode؛ لا تغيير في HTTP أو contract.1.
++أصبحت validate --strict وlint منفذتين فعليًا ضمن ملف التحقق الساكن E2؛ validate دون العلم يطبق الصرامة نفسها. CLI داخلي 3، مع حفظ بروتوكول 2 وبايتاته السابقة. help/version يعيدان INFO/0، وcatalog يعيد READ/0 دون تحقق حاكم. VALID/0 وINVALID/1 وERROR/2 وBLOCKED/3 مثبتة بتشغيل فعلي، ولا تكتب الأوامر ملفات المصدر. بقي HTTP وcontract.1 دون تعديل.
+ 
+-يثبت CLI هوية المصدر ذي 33 ملفًا. catalog ينقل المصادر الخام والمستندات الأصلية والفهرس وإغلاق schema؛ read_set_hash بصمة بايتات مجموعة القراءة وحدها مع اختيار المصادر ظاهرًا. تبقى candidate/config/inputs hashes وinputs.catalog الحاكم null حتى E2. 1 وVALID/INVALID محجوزة للتحقق الفعلي؛ أوامر E2+ المحجوبة تعيد 3. نصوص QUALIFIED/PASS/HOST_SIGNAL في المصدر تبقى ادعاءات خامًا تحت NOT_RUN/NOT_EVALUATED.
++هوية المصدر تشمل 46 ملفًا. candidate_hash يحفظ خريطة البايتات الخام للمدخلات المقروءة، وconfig_hash يربط السياق والتاريخ والإعدادات، وinputs_hash يربطها بالمحرك وقفل schemas. ليست هذه بصمات CP/JCS أو توقيعًا. لا تمنح CLI سلطة من SOURCE_MAP أو أعلام ثقة؛ الإقرارات الخارجية المرتبطة بالبصمة مدخل API للمضيف المخول، مع بقاء التحقق الأصلي من المصدر ضمن T02/E6.
+ 
+-لا ينفذ strict «جزئيًا» ثم يرجع نجاحًا شاملًا؛ الفحوص الإلزامية المنطبقة غير المنفذة تمنع الخروج 0. الفحص غير المنطبق يحتاج سببًا مشتقًا من المتطلبات، لا استثناءً لتجاوز غياب المحرك. ويظل الفرق بين نجاح validate على حزمة محدودة ونجاح اختبارات دورة المهارات ظاهرًا. الأوامر المؤجلة لا تعاد كـstubs ناجحة.
++النقص الإلزامي في الدليل يحجب النجاح؛ E3/E4/E5/E6 لا تنفذ ضمن E2. المخططات المساعدة غير المتاحة تحجب المدخل المتأثر، والتعارض الدلالي للنص الحر وصلاحية المراجع الخارجية غير مقاسين. [الفجوات](../evidence/studio-e2-2026-10-22/GAPS.json) لا تغير شروط إعادة T01؛ لم تبدأ إعادة البوابة.
+ 
+ ## 7. شرائح التنفيذ المرتبة
+ 
+@@ -117,7 +117,7 @@
+ | E1.a — مصدر وبروتوكول التنفيذ | تقرير T01 وتوجيه المالك؛ IMPLEMENTED_AND_TESTED | PROVENANCE.json، CLI_CONTRACT.json، tools/cli.py، tests/test_cli.py، requirements.lock | [الدليل](../evidence/studio-e1a-2026-10-22/README.md): 18/18، ستة probes، بصمة المصدر وقفل 7 توزيعات؛ ترخيص المصدر NOT_ASSIGNED معلن، لا قبول توزيع. help وهوية وأخطاء فعلية دون shell؛ لا نجاح لغير المنفذ |
+ | E1.b — قراءة manifest والبنود | E1.a وتوجيه المالك؛ IMPLEMENTED_AND_TESTED | tools/loader.py، tools/diagnostics.py، tests/test_loader.py، وتحديث جرد المصدر | [الدليل](../evidence/studio-e1b-2026-10-22/README.md): 28 اختبار قارئ و18 CLI؛ الخام والموقع والبصمة محفوظة؛ رفض المعيب والمعرف المكرر والخروج من الجذر وjunction فعلي؛ اختيار المصادر محفوظ والقراءة لا تعني التحقق |
+ | E1.c — مرشح مصدر فعلي | E1.b وتوجيه E1.c؛ DELIVERED_PROVISIONAL | aghr.json، PACKAGE_STATUS.json، LICENSE، SOURCE_MAP.json، بند observation، سجل E1.c(4) | بند فعلي موثق وقراءة غير فارغة؛ بنية وتتبع المصدر مختبران؛ المالك والترخيص PROVISIONAL حتى التوقيع؛ لا ترقية أو SEC-001 |
+-| E1.d — إخراج فهرس قابل للنقل | E1.b وE1.c؛ IMPLEMENTED_AND_TESTED | 16 schema + إغلاق/نموذج، catalog.py وCLI protocol 2، اختبار serialization | [الإيصال](../evidence/studio-e1d-2026-10-22/README.md): 63/63، فهرس فعلي، 17/13، 564 إحالة محلية؛ الخام محفوظ وصفر كتابة عند الحد المختبر؛ E1 تنتظر اعتماد المالك قبل E2 |
++| E1.d — إخراج فهرس قابل للنقل | E1.b وE1.c؛ IMPLEMENTED_AND_TESTED | 16 schema + إغلاق/نموذج، catalog.py وCLI protocol 2، اختبار serialization | [الإيصال](../evidence/studio-e1d-2026-10-22/README.md): 63/63، فهرس فعلي، 17/13، 564 إحالة محلية؛ الخام محفوظ وصفر كتابة عند الحد المختبر؛ اعتمد المالك E1 وأجاز E2؛ الإيصال اللاحق يحفظ النتائج |
+ | E2.a — strict وtiers | E1.d | tools/validate.py، اختبار tiers، مصفوفة vectors | إيجابيات وسلبيات لكل tier؛ missing authority.level وحقول الإلزام يفشلان؛ coreKindsOnly لا يفعّل advanced |
+ | E2.b — الانطباق واللغة | E2.a | tools/scope.py، اختبار paths، اختبار language | إدراج/استثناء ومضيف/مرحلة صحيحة، وسلوك glob مثبت؛ مجموعة IDs نفسها للعربية والإنجليزية مع ظهور الأصل عند غياب الترجمة |
+ | E2.c — السلطة والتعارض | E2.b | tools/authority.py، tools/conflicts.py، tools/lint.py، اختبار resolver | تزوير مستوى السلطة لا يرفع الثقة؛ ترتيب §5.2 مثبت؛ المرجع المفقود والدورة والتعادل والتعارض غير المحسوم ترفض دون ترجيح severity |
+@@ -189,4 +189,4 @@
+ 
+ الافتراضات السابقة قائمة؛ انتظار قرار الترخيص وبيانات المالك غير مقدر زمنيًا، ولا يشمل المجموع E3–E6 أو التطبيق كله. لم تقس أيام هندسية فعلية من زمن تشغيل الاختبارات. يعاد تقدير المتبقي عند E2.c أو تغير مدخلاته؛ لا موعد تسليم أو سقف إيقاف جديد.
+ 
+-**الوضع بعد E1.d:** المسار B فقط؛ E1 TECHNICAL_WORK_COMPLETE / OWNER_ACCEPTANCE_PENDING، وE2 NOT_STARTED حتى قبول المخرجات. T01 BLOCKED_NOT_CLOSED وT02 NOT_STARTED. بيانات المالك والترخيص المؤقتة مقرة لسير E1؛ التوقيع النهائي مطلوب لاحقًا للقبول النهائي/الترقية، ولا إعادة بناء تلقائية. المرجع 1.2.0 والمرشح 1.3.0 والعقود محفوظة.
++**الوضع بعد E2:** E1 ACCEPTED_BY_OWNER؛ E2 IMPLEMENTED_AND_TESTED ضمن الملف الساكن، وقبول E2 من المالك لا يمنحه المنفذ. T01 BLOCKED_NOT_CLOSED وإعادة البوابة NOT_RUN وT02 NOT_STARTED. بيانات المالك/الترخيص PROVISIONAL؛ فحوص الصدق E4 مؤجلة؛ المرجع 1.2.0 والمرشح 1.3.0 والعقود محفوظة.

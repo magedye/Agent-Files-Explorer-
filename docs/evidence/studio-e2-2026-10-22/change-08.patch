@@ -1,0 +1,138 @@
+--- before/governance_packages/candidates/AGHR_rc3_Core_Candidate/PROVENANCE.json
++++ after/governance_packages/candidates/AGHR_rc3_Core_Candidate/PROVENANCE.json
+@@ -1,6 +1,6 @@
+ {
+   "implementation_id": "aghr-rc3-core-candidate",
+-  "stage": "E1.d",
++  "stage": "E2.e",
+   "status": "LOCAL_SOURCE_CANDIDATE",
+   "target_spec_version": "1.0.0-rc.3",
+   "schema_version": "1.2",
+@@ -8,12 +8,12 @@
+   "origin": {
+     "type": "NEW_LOCAL_IMPLEMENTATION",
+     "workspace_relative_root": "governance_packages/candidates/AGHR_rc3_Core_Candidate",
+-    "repository_context_head": "bb76a0b61617512f4cd6d0c6cea792e35d5ff4aa",
++    "repository_context_head": "d45904489f398915de5b3131abfe2e5bc5824b1a",
+     "source_at_context_head": false,
+     "upstream_repository": null,
+     "upstream_release": null,
+     "legacy_source_copied": false,
+-    "authority": "Current explicit owner instruction confirms Path B and authorizes E1.d only; provisional owner/license accepted for continued E1 work. E2 awaits completed E1 and owner acceptance; T01 remains BLOCKED."
++    "authority": "Current explicit owner accepts E1 outputs including PROVISIONAL license and authorizes E2.a-e. T01 remains BLOCKED; seven runtime honesty checks deferred to E4."
+   },
+   "license": {
+     "status": "PROVISIONAL_OWNER_LICENSE",
+@@ -28,6 +28,7 @@
+   },
+   "source_files": [
+     "CLI_CONTRACT.json",
++    "E2_PROFILE.md",
+     "LICENSE",
+     "PACKAGE_STATUS.json",
+     "PROVENANCE.json",
+@@ -53,13 +54,25 @@
+     "schemas/settings.schema.json",
+     "schemas/state.schema.json",
+     "schemas/transport.schema.json",
++    "tests/e2_support.py",
++    "tests/test_authority.py",
+     "tests/test_catalog.py",
+     "tests/test_cli.py",
++    "tests/test_e2_cli.py",
++    "tests/test_evidence.py",
+     "tests/test_loader.py",
++    "tests/test_scope.py",
++    "tests/test_validate.py",
++    "tools/authority.py",
+     "tools/catalog.py",
+     "tools/cli.py",
++    "tools/conflicts.py",
+     "tools/diagnostics.py",
+-    "tools/loader.py"
++    "tools/evidence.py",
++    "tools/lint.py",
++    "tools/loader.py",
++    "tools/scope.py",
++    "tools/validate.py"
+   ],
+   "identity": {
+     "algorithm": "sha256-path-map-v1",
+@@ -89,7 +102,8 @@
+     "bootstrap_dependencies": "Python standard library only",
+     "reader_dependencies": "PyYAML 6.0.3 from the unchanged locked dependency closure; no new libraries or global installation.",
+     "locked_libraries": "requirements.lock includes YAML, JSON Schema and their complete CPython 3.12 dependency closure; no optional format extras.",
+-    "installed_location": "Not a global install or application engine binding; see the scoped evidence receipt for the isolated test environment."
++    "installed_location": "Not a global install or application engine binding; see the scoped evidence receipt for the isolated test environment.",
++    "validation_dependencies": "Pinned jsonschema 4.26.0 / referencing 0.37.0; registry is in-memory only; explicit date/date-time checks use Python standard library. No dependency additions."
+   },
+   "reader_profile": {
+     "api": "tools/loader.py:read_package",
+@@ -109,7 +123,7 @@
+       "yaml",
+       "yml"
+     ],
+-    "manifest": "Strict JSON object with schemaVersion 1.2; full manifest/item schema and governance validation are NOT_RUN until E2.",
++    "manifest": "Manifest and item validation against unchanged contract.1 is implemented in E2; unsupported auxiliary schemas BLOCK.",
+     "data": "Raw bytes/hash/UTF-8 text and original document/list grouping are retained. Dates and yes/no/on/off stay strings; decimal JSON numbers and true/false are typed. Valid Unicode escape pairs are preserved; lone surrogates reject.",
+     "locations": "Zero-based document index, JSON pointer, one-based line/column, zero-based UTF-8 byte spans with exclusive end.",
+     "limits": "ReaderLimits in tools/loader.py is the source of default byte/file/entry/depth/node/document/item bounds; integer scalar limit is 256 digits. Limits are caller-owned, not read from the input manifest.",
+@@ -125,7 +139,7 @@
+     "selection": "Optional source_paths restrict the read to explicit canonical paths; PackageRead preserves selection_mode and source_paths. Partial reads are not full-package verification.",
+     "errors": "ReadFailure retains captured SourceRecords and a located diagnostic; incomplete capture has no full-file hash. Invalid UTF-8 replacement text is display only. No successful empty index on failure.",
+     "consistency": "Link/path and descriptor identity checks plus final file/directory metadata checks detect changes; callers must keep sources stable. This is not an OS-atomic snapshot or full platform qualification.",
+-    "writes": "None. E1.d catalog is an explicit read-only CLI command; no input code imports, network, state/evidence/cache/log writes."
++    "writes": "None. Catalog/validate/lint use read-only filesystem operations; no source/state/evidence/cache/log writes, network or child processes."
+   },
+   "documentation_sources": [
+     "https://docs.python.org/3.12/library/argparse.html",
+@@ -136,13 +150,14 @@
+     "https://github.com/yaml/pyyaml/blob/6.0.3/lib/yaml/composer.py",
+     "https://docs.python.org/3.12/library/pathlib.html#pathlib.Path.is_junction",
+     "https://docs.python.org/3.12/library/json.html#standard-compliance-and-interoperability",
+-    "https://spdx.org/licenses/MIT.html"
++    "https://spdx.org/licenses/MIT.html",
++    "https://python-jsonschema.readthedocs.io/en/v4.26.0/referencing/"
+   ],
+   "remaining": [
+-    "E1 owner acceptance pending after E1.d delivery; E2 NOT_STARTED",
+-    "Strict/lint and skill honesty runtime checks NOT_IMPLEMENTED / REQUIRED / NOT_RUN / NOT_WAIVED",
+-    "T01 BLOCKED_NOT_CLOSED; T02 NOT_STARTED",
+-    "Final owner signature pending without blocking authorized E1 progress",
++    "T01 BLOCKED_NOT_CLOSED; no gate re-entry in E2",
++    "T02 and app binding NOT_STARTED / NOT_CONFIGURED",
++    "E3/E4/E5/E6 required; seven runtime honesty checks NOT_RUN until E4",
++    "Final owner signature remains deferred; owner/license PROVISIONAL accepted for work",
+     "Native host qualification NOT_RUN; independent review NOT_PERFORMED; release acceptance NOT_GRANTED"
+   ],
+   "schema_closure": {
+@@ -152,14 +167,26 @@
+     "canonical_schemas": 16,
+     "main_fields": 17,
+     "kinds": 13,
+-    "copy": "Byte-identical contract.1; all local refs closed; no network retrieval or schema evaluation"
++    "copy": "Byte-identical contract.1 closure; no network retrieval; governing E2 schema evaluation uses owned in-memory registry."
+   },
+   "catalog_profile": {
+     "api": "tools/catalog.py:build_catalog + serialize_catalog",
+-    "protocol_version": "2",
++    "protocol_version": "3",
+     "result": "READ; checks/validation/qualification NOT_RUN; trust NOT_EVALUATED",
+-    "read_identity": "Selected raw-byte path map only; governing candidate/config/inputs hashes remain null",
++    "read_identity": "Catalog READ keeps governing hashes null. E2 validate/lint bind candidate/config/inputs using explicit raw path-map/compact JSON definitions in E2_PROFILE; not CP/JCS.",
+     "shape": "Original grouped documents and values plus 17 presence projections; explicit null and missing differ; specialized/unknown fields retained",
+     "schema_assets": "16 raw-byte copies, model index and anchored closure revision; no schema evaluation or automatic rebuild"
++  },
++  "validation_profile": {
++    "document": "E2_PROFILE.md",
++    "commands": [
++      "validate --strict",
++      "lint"
++    ],
++    "scope": "Static package read/structure/scope/bound authority/explicit conflicts/evidence guards/documentation consistency only",
++    "protocol_version": "3",
++    "trust": "Host API bound attestations; CLI does not consume source-provided grants; publisher UNKNOWN",
++    "unsupported": "Required E3+ evidence and unsupported auxiliary schemas BLOCK; no fake success",
++    "runtime_honesty": "7 REQUIRED / NOT_RUN / NOT_WAIVED; deferred E4"
+   }
+ }

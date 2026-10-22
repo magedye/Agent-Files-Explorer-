@@ -1,0 +1,31 @@
+{
+  "issues": [
+    {
+      "classification": "TEST_DEFECT",
+      "phase": "E2.d",
+      "cause": "Documentation helper test method was placed in PipelineTests, which has no library helper",
+      "failed_execution": "E2d.execution.json",
+      "failed_source": "E2d-1792699152315.checkpoint.json",
+      "fix": "Move the test to DocumentationTests without product-code changes",
+      "focused_recovery": "E2d-1792699430497.execution.json",
+      "final_frozen_result": "TEST_RESULTS.json"
+    },
+    {
+      "classification": "TEST_DEFECT",
+      "phase": "Final suite attempt 1",
+      "cause": "Two E1 tests assumed E2 commands were unimplemented",
+      "preserved_attempt": "attempts/01-before-e1-test-adjustments/CLASSIFICATION.json",
+      "fix": "Keep manufactured-success rejection from READ and verify successful lint text separately from blocked E3",
+      "final_frozen_result": "TEST_RESULTS.json"
+    },
+    {
+      "classification": "EVIDENCE_HELPER_DEFECT",
+      "phase": "E2.c history",
+      "receipt": "E2C_HISTORY_RECOVERY.json",
+      "source_reconstruction": "Exact original aggregate verified",
+      "original_full_raw_stderr": "NOT_RETAINED; not invented"
+    }
+  ],
+  "runtime_honesty": "NOT_RUN",
+  "no_tests_skipped_or_requirements_weakened": true
+}

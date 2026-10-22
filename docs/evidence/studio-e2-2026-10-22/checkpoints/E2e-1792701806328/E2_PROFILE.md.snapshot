@@ -1,0 +1,68 @@
+# E2 static package validation profile
+
+E1 was accepted by the owner, including provisional owner/license values. E2.a-e
+implements read-only validate/lint; T01 remains BLOCKED and T02 is not started.
+This profile grants no publisher authentication, host qualification or release.
+
+## Invocation
+
+Use the pinned Python with `-I -B -X utf8 tools/cli.py`, cwd the selected package.
+`validate --strict` and `validate` both enforce the full strict profile. `lint`
+reuses that validator and adds advisory warnings. Internal protocol 3 deliberately
+extends protocol 2 with governing reports and input hashes. Catalog stays READ
+with validation NOT_RUN. The 16 contract.1 schemas and their closure are unchanged.
+Exit: VALID=0, INVALID=1, malformed/unreadable/integrity ERROR=2, BLOCKED=3.
+
+Optional task context: `--path`, `--agent`, `--host-version`, `--environment`,
+`--stage`, `--task-type`, `--skill-id`, `--language ar|en`, `--as-of YYYY-MM-DD`.
+Without a task target validation is static: it checks every source item, records
+applicability NOT_REQUESTED, and never claims execution. A targeted operation
+with missing required context is BLOCKED. Language never filters the items.
+
+## Trust and evidence
+
+The Python API accepts immutable SourceGrant values supplied by an authenticated
+host caller, bound to raw source hash, path, issuer fields, level, item IDs,
+advanced-kind review and an external evidence ref. The CLI accepts no trust-grant
+files or flags. Declared authority without a bound host attestation remains
+UNKNOWN and any required authority judgment is BLOCKED. Caller attestations
+are not publisher authentication; T02 authorization and E6 signatures are future
+gates. No authority grant is extracted from the candidate or its SOURCE_MAP.
+
+QUALIFIED, repo-measured, mandatory enforcement and exception approvals cannot
+be proven from source declarations. Their E3/E4/E5/E6 dependencies block the
+affected check. All seven runtime honesty checks remain NOT_RUN for E4. E2
+does not execute verification.commands, eval fixtures, skill tools, CI or imports
+from the selected package. Unsupported auxiliary schemas block explicitly.
+
+## Scope and conflict resolution
+
+Root-relative POSIX globs are case-sensitive: `*`, `?` and balanced character
+classes stay within a segment; a complete `**` segment spans zero or more.
+Escapes, absolute paths and ambiguous segments are rejected. Exclusion wins.
+Filesystem roots, links, junctions and nested packages use the bounded loader.
+
+Resolve explicit relationships in order: trusted authority level, explicit
+supersession, production/ci/local environment order, proven path-set inclusion,
+then force. Severity never breaks ties. Specificity proves exact-path and literal
+prefix/subtree inclusion; other pattern-language comparisons or differing
+exclusions remain INCOMPARABLE. Missing references, cycles and unresolved
+conflicts reject. Free-text semantic conflict absence is not claimed.
+
+## Documentation and identities
+
+An existing library requires an explicit SOURCE_MAP.json skills_documentation
+mapping: register_path, document_path, register_format=skills-array-v1,
+document_format=numbered-headings-v1. The former accepts an array or {skills:[]}
+of id objects; the latter counts `## 1. name` / `## 1) name` headings. Unknown
+formats BLOCK, missing registries ERROR, unequal counts INVALID. No library and
+no mapping yield NOT_APPLICABLE with a reason. This is not host discovery.
+
+candidate_hash hashes the raw POSIX path-to-digest map of selected manifest,
+items and captured supporting sources. config_hash hashes strict settings,
+command, normalized task/date context, source selection and empty CLI grants.
+inputs_hash binds those hashes, engine source identity and frozen schema lock.
+Encoding is sorted compact UTF-8 JSON, not CP/JCS or a signature. Whole-package
+VALID is disallowed for partial source selections. A final source re-read rejects
+observed changes; this is not an OS-atomic snapshot. Zero-write applies only to
+the tested Python API/CLI boundary; whole-Studio SOURCE-01 remains NOT_RUN.

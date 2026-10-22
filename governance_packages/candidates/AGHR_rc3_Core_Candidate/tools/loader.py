@@ -319,7 +319,7 @@ class _PackageReader:
             fail("PATH_OUTSIDE_ROOT", "Resolved source path leaves the selected root.", relative)
         return current, info
 
-    def read_file(self, relative, role):
+    def read_file(self, relative, role, *, parse=True):
         self.current = relative
         path, before = self.checked_path(relative)
         if not stat.S_ISREG(before.st_mode):
@@ -340,7 +340,7 @@ class _PackageReader:
         _, final = self.checked_path(relative)
         if signature(before) != signature(after) or signature(after) != signature(final) or len(raw) != after.st_size:
             fail("SOURCE_CHANGED", "Source changed while being read.", relative, sources=(capture_source(relative, raw, role, complete=len(raw) == after.st_size),))
-        parsed = parse_source(relative, raw, role=role, limits=self.limits)
+        parsed = parse_source(relative, raw, role=role, limits=self.limits) if parse else ParsedSource(capture_source(relative, raw, role), ())
         self.files.append(parsed)
         self.total_bytes += len(raw)
         self.fingerprints[relative] = signature(final)
@@ -466,3 +466,40 @@ def read_package(root, *, source_paths=None, limits=None):
     except OSError:
         sources = tuple(file.source for file in reader.files)
         fail("SOURCE_IO_ERROR", "Cannot access the selected source.", reader.current, sources=sources)
+
+
+def read_support_sources(root, paths):
+    """Capture explicitly mapped documentation bytes using the same path guard.
+
+    This never discovers a library or imports instructions. Missing paths fail.
+    """
+    reader = _PackageReader(root, ReaderLimits())
+    try:
+        info = reader.root.lstat()
+        if is_link(info) or reader.root.is_junction():
+            fail("LINK_UNSUPPORTED", "Selected root cannot be a link.", ".")
+        reader.root = reader.root.resolve(strict=True)
+        for relative, role in paths:
+            reader.read_file(relative, role, parse=False)
+        return tuple(source.source for source in reader.files)
+    except ReadFailure as error:
+        captured = {source.source.path: source.source for source in reader.files}
+        captured.update({source.path: source for source in error.sources})
+        raise ReadFailure(error.diagnostic, tuple(captured.values())) from None
+    except OSError:
+        fail("SOURCE_IO_ERROR", "Cannot read mapped supporting evidence.", reader.current, sources=tuple(source.source for source in reader.files))
+
+
+def support_path_present(root, relative):
+    """Check a known support path without following links or discovering files."""
+    reader = _PackageReader(root, ReaderLimits())
+    if is_link(reader.root.lstat()) or reader.root.is_junction():
+        fail("LINK_UNSUPPORTED", "Selected root cannot be a link.", ".")
+    reader.root = reader.root.resolve(strict=True)
+    try:
+        reader.checked_path(relative)
+        return True
+    except FileNotFoundError:
+        return False
+    except OSError:
+        fail("SOURCE_IO_ERROR", "Cannot inspect mapped supporting evidence.", relative)
