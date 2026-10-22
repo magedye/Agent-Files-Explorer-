@@ -1,0 +1,91 @@
+diff --git a/governance_packages/archive/studio-designs-2026-10-21/new-app/AGHR — Agent Governance & Harness Refev2.md b/docs/specs/aghr-rc3/AGHR_REFERENCE.md
+index a7de014..9020350 100644
+--- a/governance_packages/archive/studio-designs-2026-10-21/new-app/AGHR — Agent Governance & Harness Refev2.md	
++++ b/docs/specs/aghr-rc3/AGHR_REFERENCE.md
+@@ -1,11 +1,10 @@
+-
+ # AGHR — Agent Governance & Harness Reference
+ 
+ **A Distributable, Verifiable Governance Package for AI Coding Agents**
+ 
+-**Version:** 1.0.0-rc.3 (Consolidated) · **Status:** Release Candidate / Architectural Correction · **Steward:** Platform Governance Team
++**Version:** 1.0.0-rc.3 (Consolidated) · **Status:** Final Release Candidate / Architectural Correction · **Steward:** Platform Governance Team
+ 
+-> **Change note (rc.3 consolidated).** This revision incorporates all corrections from the rc.3 delta into a self-contained specification. It addresses critical architectural feedback: (1) Conflict resolution now prioritizes **Source Authority Level** over rule specificity or severity — with `authority.level` as an explicit schema field. (2) Rule application is **decoupled from language**; language scoping only affects rendering, never enforcement. (3) Skill lifecycle states are simplified to reflect actual host capabilities; `HOST_SIGNAL` is optional and `NOT_OBSERVABLE` is a valid state. (4) **Runtime evidence** is strictly separated from the CI-owned canonical `state.json`, with an explicit schema. (5) Arbitrary quantitative impact percentages are replaced with qualitative tiers plus an `impact.evidence` field. (6) Enforcement is explicitly defined as a **host responsibility**, not a YAML declaration. (7) `PRIN-007` is codified as a mandatory principle. (8) All appendices are self-contained.
++> **Change note (rc.3 consolidated).** This revision is a fully self-contained specification incorporating all architectural corrections. (1) Conflict resolution prioritizes **Source Authority Level** (`authority.level`) over specificity, environment scope, path specificity, and force rank. (2) Rule application is **decoupled from language**; language scoping affects rendering only, never enforcement. (3) Skill lifecycle states are simplified; `HOST_SIGNAL` is optional and `NOT_OBSERVABLE` is a valid, non-failing state. (4) **Runtime evidence** is strictly separated from the CI-owned canonical `state.json`, with an explicit schema. (5) Arbitrary quantitative impact percentages are replaced with qualitative tiers plus an `impact.evidence` field. (6) Enforcement is explicitly defined as a **host responsibility**, not a YAML declaration. (7) `PRIN-007` is codified as a mandatory principle. (8) All appendices are self-contained; no "unchanged from rc.2" references remain.
+ 
+ ---
+ 
+@@ -46,10 +45,7 @@ Statements about how a specific host (Codex, Gemini CLI, Antigravity, Claude Cod
+ ```text
+ aghr/
+ ├── aghr.json                           # package manifest
+-├── README.md
+-├── THREAT_MODEL.md
+-├── CHANGELOG.md
+-├── pyproject.toml
++├── README.md, THREAT_MODEL.md, CHANGELOG.md, pyproject.toml
+ ├── schemas/
+ │   ├── package.schema.json
+ │   ├── item.schema.json
+@@ -151,7 +147,7 @@ Every item is a first-class artifact with **five orthogonal dimensions plus life
+ 
+ ### 3.1 Authority Levels (New in rc.3)
+ 
+-The `authority.level` field operationalizes §5.1's "source authority" rule. Valid values, in precedence order:
++The `authority.level` field operationalizes §5.2's "source authority" rule. Valid values, in precedence order:
+ 
+ | Level | Typical issuer | Example |
+ |---|---|---|
+@@ -160,7 +156,7 @@ The `authority.level` field operationalizes §5.1's "source authority" rule. Val
+ | `project` | Project maintainers | "This service uses PostgreSQL" |
+ | `component` | Team within a project | "The billing module uses the shared validation library" |
+ 
+-**Rule.** A rule at a *higher* level (e.g., `enterprise`) overrides a rule at a *lower* level (e.g., `project`) **regardless of specificity or force rank**. This is the correction that §5.1 in the previous revision required.
++**Rule.** A rule at a *higher* level (e.g., `enterprise`) overrides a rule at a *lower* level (e.g., `project`) **regardless of specificity or force rank**. This is the correction that §5.2 in the previous revision required.
+ 
+ ### 3.2 Canonical Item Schema (Complete)
+ 
+@@ -339,7 +335,7 @@ Arbitrary quantitative percentages are removed. Impact is assessed qualitatively
+ 
+ ### 6.2 Priority Drop Policy
+ 
+-When the context budget is exceeded, the generator **must** drop P3, then P2. It **must fail** rather than silently drop any P0. A graceful-degradation path (§9.2) applies before failure.
++When the context budget is exceeded, the generator **must** drop P3, then P2. It **must fail** rather than silently drop any P0. A graceful-degradation path (§9.4) applies before failure.
+ 
+ Line-count targets (e.g., 20–35 lines for root `AGENTS.md`, ≤5 P0 items in root) are **heuristics for optimization**, not rigid standards.
+ 
+@@ -363,7 +359,7 @@ Skill state is recorded across three mandatory layers plus one optional observat
+ 
+ 1. **No state above `LOADED` may be reported without evidence for the next state.** Returning `VERIFIED` or `HOST_SIGNAL` upon `LOADED` alone is a **governance defect**.
+ 2. **`NOT_OBSERVABLE` is a valid state.** When a host does not provide a distinct activation signal, the system records `NOT_OBSERVABLE` — never fabricated `HOST_SIGNAL`. The system relies on `EXECUTED` and `VERIFIED` evidence.
+-3. **Terminal states** (see Appendix E): `BLOCKED`, `UNKNOWN_ID`, `NOT_OBSERVABLE`, `EXECUTED_FAILED`, `ABANDONED`, `NO_SKILL_MATCH`.
++3. **Terminal states** (see Appendix E): `BLOCKED`, `UNKNOWN_ID`, `NOT_OBSERVABLE`, `EXECUTED_FAILED`, `ABANDONED`, `NO_SKILL_MATCH`, `DISCOVERY_UNAVAILABLE`.
+ 
+ ### 7.2 Discovery Outcomes (Corrected in rc.3)
+ 
+@@ -891,9 +887,7 @@ Modifying the AGHR framework itself (`tools/`, `schemas/`, core `policies/`) is
+ 
+ ---
+ 
+-## 17. Metrics (Restored in rc.3 Consolidated)
+-
+-Treat AGHR adoption like DORA metrics.
++## 17. Metrics
+ 
+ ### 17.1 Instruction-Item Metrics
+ 
+@@ -921,7 +915,7 @@ Treat AGHR adoption like DORA metrics.
+ 
+ ### 18.1 Phase 1 — Specification Correction (Current)
+ 
+-The current rc.3-consof consolidated is the output of this phase. **Exit criterion:** internal consistency and clear contracts, as reviewed.
++The current **rc.3 consolidated** is the output of this phase. **Exit criterion:** internal consistency and clear contracts, as reviewed.
+ 
+ ### 18.2 Phase 2 — Core Execution Proof
+ 
+@@ -1076,3 +1070,4 @@ Measure friction and benefit on representative projects (one small, one producti
+ **Final note.** The governing principle remains: **every instruction costs attention, and an instruction that does not change behavior is a net negative.** The rc.3 addendum extends this to skills: **every loaded skill costs context, and a skill that is loaded but not executed — or executed but not verified — is a governance liability.** The `impact.evidence` field, the skill state machine (Appendix E), the eval schedule, the qualification-reset rule, and the strict separation of runtime evidence from canonical state exist specifically to enforce these principles over time — so that AGHR remains a **governance system** rather than accumulating into a **governance artifact**.
+ 
+ ---
++

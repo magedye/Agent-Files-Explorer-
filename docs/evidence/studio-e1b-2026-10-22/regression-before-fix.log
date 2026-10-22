@@ -1,0 +1,46 @@
+test_unicode_escape_pairs_preserve_valid_json_text (__main__.ParserTests.test_unicode_escape_pairs_preserve_valid_json_text) ... ERROR
+test_explicit_file_selection_cannot_cross_nested_repository (__main__.PackageTests.test_explicit_file_selection_cannot_cross_nested_repository) ... FAIL
+
+======================================================================
+ERROR: test_unicode_escape_pairs_preserve_valid_json_text (__main__.ParserTests.test_unicode_escape_pairs_preserve_valid_json_text)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\APP\Agent-Files-Explorer\governance_packages\candidates\AGHR_rc3_Core_Candidate\tools\loader.py", line 128, in value
+    node.value.encode("utf-8", errors="strict")
+UnicodeEncodeError: 'utf-8' codec can't encode characters in position 0-1: surrogates not allowed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\APP\Agent-Files-Explorer\governance_packages\candidates\AGHR_rc3_Core_Candidate\tests\test_loader.py", line 77, in test_unicode_escape_pairs_preserve_valid_json_text
+    result = parse_source("policies/test.json", b'{"id":"X","rule":"\\ud83d\\ude00"}')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\APP\Agent-Files-Explorer\governance_packages\candidates\AGHR_rc3_Core_Candidate\tools\loader.py", line 212, in parse_source
+    value, index = loader.value(node), len(documents)
+                   ^^^^^^^^^^^^^^^^^^
+  File "D:\APP\Agent-Files-Explorer\governance_packages\candidates\AGHR_rc3_Core_Candidate\tools\loader.py", line 122, in value
+    result[name] = self.value(value)
+                   ^^^^^^^^^^^^^^^^^
+  File "D:\APP\Agent-Files-Explorer\governance_packages\candidates\AGHR_rc3_Core_Candidate\tools\loader.py", line 139, in value
+    self.error("INVALID_SCALAR", "Scalar is outside the supported JSON data profile.", node.start_mark)
+  File "D:\APP\Agent-Files-Explorer\governance_packages\candidates\AGHR_rc3_Core_Candidate\tools\loader.py", line 94, in error
+    fail(code, message, self.source.path, mark=mark, text=self.source.text, sources=(self.source,))
+  File "D:\APP\Agent-Files-Explorer\governance_packages\candidates\AGHR_rc3_Core_Candidate\tools\diagnostics.py", line 27, in fail
+    raise ReadFailure(Diagnostic(code, message, path, line, column, offset), sources)
+diagnostics.ReadFailure: INVALID_SCALAR: Scalar is outside the supported JSON data profile.
+
+======================================================================
+FAIL: test_explicit_file_selection_cannot_cross_nested_repository (__main__.PackageTests.test_explicit_file_selection_cannot_cross_nested_repository)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\APP\Agent-Files-Explorer\governance_packages\candidates\AGHR_rc3_Core_Candidate\tests\test_loader.py", line 255, in test_explicit_file_selection_cannot_cross_nested_repository
+    self.reject(root, "NESTED_SOURCE_ROOT", source_paths=("policies/nested/item.yaml",))
+  File "D:\APP\Agent-Files-Explorer\governance_packages\candidates\AGHR_rc3_Core_Candidate\tests\test_loader.py", line 125, in reject
+    with self.assertRaises(ReadFailure) as caught:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ReadFailure not raised
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.387s
+
+FAILED (failures=1, errors=1)

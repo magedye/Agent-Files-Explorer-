@@ -1,0 +1,660 @@
+{
+  "schema": "aghr-last-app-requirement-coverage-v1",
+  "method": "Bounded manual semantic reconciliation, supported by exact source comparison, SQL parsing and anchor checks; not independent review or runtime qualification",
+  "baseline_before": [
+    {
+      "path": "docs/specs/aghr-rc3/AGHR_REFERENCE.md",
+      "bytes": 60534,
+      "sha256": "6591522156b6b163d248b455e92a646dd1beb4500d98ed8b0f9c770db63b73c6",
+      "archived_path": "governance_packages/archive/studio-designs-2026-10-21/pre-last-app-baseline/AGHR_REFERENCE.md"
+    },
+    {
+      "path": "docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md",
+      "bytes": 26543,
+      "sha256": "de6e048d0151f03780185a957f19872d38258262ba369300c673ff3e3ab6fc2b",
+      "archived_path": "governance_packages/archive/studio-designs-2026-10-21/pre-last-app-baseline/STUDIO_SPECIFICATION.md"
+    },
+    {
+      "path": "docs/specs/aghr-rc3/README.md",
+      "bytes": 2227,
+      "sha256": "650e341d1b0b4c8e47b646acc088a6501a7a9bc919771fa35e9447b72b4e5185",
+      "archived_path": "governance_packages/archive/studio-designs-2026-10-21/pre-last-app-baseline/README.md"
+    },
+    {
+      "path": "docs/specs/aghr-rc3/ADOPTION.json",
+      "bytes": 1514,
+      "sha256": "f66adfcf2a36d94543c690b091debd744305163d9b9008bfebca10371a3d0c23",
+      "archived_path": "governance_packages/archive/studio-designs-2026-10-21/pre-last-app-baseline/ADOPTION.json"
+    }
+  ],
+  "selected_inputs": [
+    {
+      "path": "governance_packages/INBOX/last-app/AGHR — Agent Governance & Harness Refe final.md",
+      "bytes": 60556,
+      "sha256": "064820539a90ffe51ccfd1e6dd4700e82bdd4a1d8edb32ea63e15e642c33ef6b"
+    },
+    {
+      "path": "governance_packages/INBOX/last-app/AGHR Governance Studio — Complete Spec.md",
+      "bytes": 70180,
+      "sha256": "dc0008fa548f4f57d17682dc3d64b4a50dec2a953904e0c4d18fa4ce407d2428"
+    }
+  ],
+  "reference": {
+    "main_sections": 18,
+    "appendices": 6,
+    "change": "Only status adjective, expanded tree rows and trailing whitespace; all normative text is identical after these explicit editorial substitutions"
+  },
+  "studio": {
+    "previous_sections": [
+      {
+        "heading": "## 1. Identity and Mandatory Commitments",
+        "target_sections": [
+          "1",
+          "3",
+          "G.1"
+        ],
+        "status": "COVERED"
+      },
+      {
+        "heading": "## 2. Product Model",
+        "target_sections": [
+          "4",
+          "G.1"
+        ],
+        "status": "COVERED"
+      },
+      {
+        "heading": "## 3. Data Model (SQLite — Updated for rc.3 Consolidated)",
+        "target_sections": [
+          "5",
+          "10",
+          "G.2"
+        ],
+        "status": "COVERED"
+      },
+      {
+        "heading": "## 4. Screens (Updated — 16 Screens)",
+        "target_sections": [
+          "11",
+          "26"
+        ],
+        "status": "COVERED"
+      },
+      {
+        "heading": "## 5. Key Interaction Details",
+        "target_sections": [
+          "11",
+          "22"
+        ],
+        "status": "COVERED"
+      },
+      {
+        "heading": "## 6. Change and Approval Path",
+        "target_sections": [
+          "4",
+          "21",
+          "33",
+          "44"
+        ],
+        "status": "COVERED"
+      },
+      {
+        "heading": "## 7. Technical Architecture",
+        "target_sections": [
+          "41",
+          "44"
+        ],
+        "status": "COVERED"
+      },
+      {
+        "heading": "## 8. Metrics Mapping (§17 → Screens)",
+        "target_sections": [
+          "25",
+          "G.3"
+        ],
+        "status": "COVERED"
+      },
+      {
+        "heading": "## 9. Execution Plan (7 Phases — Updated)",
+        "target_sections": [
+          "45"
+        ],
+        "status": "COVERED"
+      },
+      {
+        "heading": "## 10. Acceptance Criteria (Fixed Numbering)",
+        "target_sections": [
+          "47",
+          "48"
+        ],
+        "status": "COVERED"
+      },
+      {
+        "heading": "## 11. Risks and Mitigation (Unchanged from v3)",
+        "target_sections": [
+          "49"
+        ],
+        "status": "COVERED"
+      },
+      {
+        "heading": "## 12. Final Decision",
+        "target_sections": [
+          "45",
+          "46",
+          "G.4"
+        ],
+        "status": "COVERED"
+      }
+    ],
+    "commitments": [
+      {
+        "id": "C1",
+        "status": "COVERED",
+        "target_section": "3"
+      },
+      {
+        "id": "C2",
+        "status": "COVERED",
+        "target_section": "3"
+      },
+      {
+        "id": "C3",
+        "status": "COVERED",
+        "target_section": "3"
+      },
+      {
+        "id": "C4",
+        "status": "COVERED",
+        "target_section": "3"
+      },
+      {
+        "id": "C5",
+        "status": "COVERED",
+        "target_section": "3"
+      },
+      {
+        "id": "C6",
+        "status": "COVERED",
+        "target_section": "3"
+      },
+      {
+        "id": "C7",
+        "status": "COVERED",
+        "target_section": "3"
+      },
+      {
+        "id": "C8",
+        "status": "COVERED",
+        "target_section": "3"
+      },
+      {
+        "id": "C9",
+        "status": "COVERED",
+        "target_section": "3"
+      },
+      {
+        "id": "C10",
+        "status": "COVERED",
+        "target_section": "3"
+      },
+      {
+        "id": "C11",
+        "status": "COVERED",
+        "target_section": "3"
+      },
+      {
+        "id": "C12",
+        "status": "COVERED",
+        "target_section": "3"
+      }
+    ],
+    "screens": [
+      {
+        "screen": 1,
+        "section": 11,
+        "status": "COVERED"
+      },
+      {
+        "screen": 2,
+        "section": 12,
+        "status": "COVERED"
+      },
+      {
+        "screen": 3,
+        "section": 13,
+        "status": "COVERED"
+      },
+      {
+        "screen": 4,
+        "section": 14,
+        "status": "COVERED"
+      },
+      {
+        "screen": 5,
+        "section": 15,
+        "status": "COVERED"
+      },
+      {
+        "screen": 6,
+        "section": 16,
+        "status": "COVERED"
+      },
+      {
+        "screen": 7,
+        "section": 17,
+        "status": "COVERED"
+      },
+      {
+        "screen": 8,
+        "section": 18,
+        "status": "COVERED"
+      },
+      {
+        "screen": 9,
+        "section": 19,
+        "status": "COVERED"
+      },
+      {
+        "screen": 10,
+        "section": 20,
+        "status": "COVERED"
+      },
+      {
+        "screen": 11,
+        "section": 21,
+        "status": "COVERED"
+      },
+      {
+        "screen": 12,
+        "section": 22,
+        "status": "COVERED"
+      },
+      {
+        "screen": 13,
+        "section": 23,
+        "status": "COVERED"
+      },
+      {
+        "screen": 14,
+        "section": 24,
+        "status": "COVERED"
+      },
+      {
+        "screen": 15,
+        "section": 25,
+        "status": "COVERED"
+      },
+      {
+        "screen": 16,
+        "section": 26,
+        "status": "COVERED"
+      }
+    ],
+    "metrics": [
+      {
+        "name": "Policy coverage",
+        "section": "25",
+        "prior_routes": "G.3",
+        "status": "COVERED"
+      },
+      {
+        "name": "Eval pass rate",
+        "section": "25",
+        "prior_routes": "G.3",
+        "status": "COVERED"
+      },
+      {
+        "name": "Exception half-life",
+        "section": "25",
+        "prior_routes": "G.3",
+        "status": "COVERED"
+      },
+      {
+        "name": "Drift rate",
+        "section": "25",
+        "prior_routes": "G.3",
+        "status": "COVERED"
+      },
+      {
+        "name": "Calibration coverage",
+        "section": "25",
+        "prior_routes": "G.3",
+        "status": "COVERED"
+      },
+      {
+        "name": "Skill qualification coverage",
+        "section": "25",
+        "prior_routes": "G.3",
+        "status": "COVERED"
+      },
+      {
+        "name": "Skill eval pass rate",
+        "section": "25",
+        "prior_routes": "G.3",
+        "status": "COVERED"
+      },
+      {
+        "name": "False-success rate",
+        "section": "25",
+        "prior_routes": "G.3",
+        "status": "COVERED"
+      },
+      {
+        "name": "Discovery recall (multilingual)",
+        "section": "25",
+        "prior_routes": "G.3",
+        "status": "COVERED"
+      },
+      {
+        "name": "Qualification drift",
+        "section": "25",
+        "prior_routes": "G.3",
+        "status": "COVERED"
+      }
+    ],
+    "sql_field_aliases": {
+      "instruction_items_cache.content_hash": "source_hash",
+      "capability_items_cache.permissions_read": "permissions_read_json",
+      "capability_items_cache.permissions_write": "permissions_write_json",
+      "capability_items_cache.conflicts_with": "conflicts_with_json",
+      "capability_items_cache.alternatives": "alternatives_json",
+      "change_packages.base_version": "base_package_version",
+      "change_packages.version_hash": "proposal_version_hash"
+    },
+    "restored_columns": [
+      "runtime_evidence_events.source",
+      "verification_runs.raw_output",
+      "metrics_snapshots.instruction_metrics_json",
+      "metrics_snapshots.skill_metrics_json",
+      "audit_events.simulated_role"
+    ],
+    "acceptance": [
+      {
+        "id": "F01",
+        "previous_text": "Every instruction and capability traceable to source + version",
+        "status": "COVERED",
+        "target_anchor": "fa-01",
+        "current_text": "Every instruction and capability is traceable to its source file + version"
+      },
+      {
+        "id": "F02",
+        "previous_text": "`authority.level` visible + filterable on every MUST/MUST_NOT",
+        "status": "COVERED",
+        "target_anchor": "fa-02",
+        "current_text": "`authority.level` is visible, sortable, filterable on every `MUST`/`MUST_NOT`"
+      },
+      {
+        "id": "F03",
+        "previous_text": "`impact.evidence` visible with distinct colors per class",
+        "status": "COVERED",
+        "target_anchor": "fa-04",
+        "current_text": "`impact.evidence` is visible on every item with distinct color per class (`assumed`=gray, `benchmark`=blue, `repo-measured`=green)"
+      },
+      {
+        "id": "F04",
+        "previous_text": "Language never hides an item; translation optional with badge",
+        "status": "COVERED",
+        "target_anchor": "fa-06",
+        "current_text": "Language **never** hides an item; `translation_unavailable` shown as a badge, not a hide reason"
+      },
+      {
+        "id": "F05",
+        "previous_text": "Validation consistent between editor and `aghr` (no discrepancies)",
+        "status": "MAPPED",
+        "target_anchor": "fa-07",
+        "current_text": "Validation in Studio is byte-identical to `aghr validate --strict` (tested via 100 random items)"
+      },
+      {
+        "id": "F06",
+        "previous_text": "Generation ≤ `budgetBytes`; stage (`full`/`compress`/`compact`/`fail`) visible; P0 preserved in every stage except `fail`",
+        "status": "RESTORED",
+        "target_anchor": "fa-27",
+        "current_text": "Generated output respects each target's `budgetBytes`; every non-failing stage has P0-preservation evidence; `compact` requires a hash-bound governance-owner acknowledgement and verified rule lookup"
+      },
+      {
+        "id": "F07",
+        "previous_text": "`PRIN-007` present in every `AGENTS.md` at L1+",
+        "status": "COVERED",
+        "target_anchor": "fa-09",
+        "current_text": "`PRIN-007` presence check displayed; absence blocks export"
+      },
+      {
+        "id": "F08",
+        "previous_text": "`task_criteria` consumed in verification (not merely accepted)",
+        "status": "RESTORED",
+        "target_anchor": "fa-28",
+        "current_text": "`task_criteria` is applied to output content with per-criterion evidence; unknown IDs, UNKNOWN execution, empty outputs or failed execution cannot receive PASS"
+      },
+      {
+        "id": "F09",
+        "previous_text": "`BLOCKED`, `NO_SKILL_MATCH`, `UNKNOWN_ID`, `DISCOVERY_UNAVAILABLE` visually + semantically distinct",
+        "status": "COVERED",
+        "target_anchor": "fa-12",
+        "current_text": "`BLOCKED`, `NO_SKILL_MATCH`, `UNKNOWN_ID`, `DISCOVERY_UNAVAILABLE` have distinct colors + icons + copy"
+      },
+      {
+        "id": "F10",
+        "previous_text": "`DISCOVERY_UNAVAILABLE` triggers halt recommendation, not silent fallback",
+        "status": "COVERED",
+        "target_anchor": "fa-13",
+        "current_text": "`DISCOVERY_UNAVAILABLE` triggers halt warning panel; session marked untrusted"
+      },
+      {
+        "id": "F11",
+        "previous_text": "`NOT_OBSERVABLE` displayed as valid (gray), not error",
+        "status": "COVERED",
+        "target_anchor": "fa-14",
+        "current_text": "`NOT_OBSERVABLE` displayed as valid (gray); `HOST_SIGNAL` never fabricated (verified by 5 negative tests)"
+      },
+      {
+        "id": "F12",
+        "previous_text": "`HOST_SIGNAL` never fabricated",
+        "status": "COVERED",
+        "target_anchor": "fa-14",
+        "current_text": "`NOT_OBSERVABLE` displayed as valid (gray); `HOST_SIGNAL` never fabricated (verified by 5 negative tests)"
+      },
+      {
+        "id": "F13",
+        "previous_text": "Qualification invalidated on change to: `host`, `hostVersion`, `scope`, `contentHash`",
+        "status": "RESTORED",
+        "target_anchor": "fa-11",
+        "current_text": "Any change to `host`, `hostVersion`, `scope` or `contentHash` → `[Qualification Expired]` → qualification `NOT_RUN` for the new tuple → P0 selection blocked"
+      },
+      {
+        "id": "F14",
+        "previous_text": "Approval tied to `version_hash`; any proposal change invalidates it",
+        "status": "MAPPED",
+        "target_anchor": "fa-15",
+        "current_text": "CP approvals tied to `proposal_version_hash`; any proposal change invalidates all approvals (tested)"
+      },
+      {
+        "id": "F15",
+        "previous_text": "`state.json` unwritable by Studio (regression test)",
+        "status": "COVERED",
+        "target_anchor": "fa-16",
+        "current_text": "`state.json` never modified by any Studio action (regression test with file watcher on `state.json`)"
+      },
+      {
+        "id": "F16",
+        "previous_text": "`runtime_evidence` displayed + attachable to PR, never directly merged into `state.json`",
+        "status": "COVERED",
+        "target_anchor": "fa-17",
+        "current_text": "`runtime_evidence/` never modified by any Studio action"
+      },
+      {
+        "id": "F17",
+        "previous_text": "`mergeEffect: blocking` requires existing `gate.required: true` (verified via `aghr doctor`)",
+        "status": "COVERED",
+        "target_anchor": "fa-18",
+        "current_text": "`mergeEffect=blocking` requires existing `gate.required=true` (verified via `aghr doctor` before export)"
+      },
+      {
+        "id": "F18",
+        "previous_text": "Declared adoption controls actually enforced (no false claims)",
+        "status": "RESTORED",
+        "target_anchor": "fa-29",
+        "current_text": "Declared adoption controls have measured enforcement evidence; unsupported or unobserved controls remain `NOT_SUPPORTED`/`NOT_RUN`, with no false enforcement claims"
+      },
+      {
+        "id": "F19",
+        "previous_text": "UI works in Arabic and English in isolated Microsoft Edge",
+        "status": "RESTORED",
+        "target_anchor": "fa-22",
+        "current_text": "UI works in Arabic and English in isolated Microsoft Edge; both fully usable, RTL/LTR chrome localized while source/user text and identifiers retain their original language"
+      },
+      {
+        "id": "F20",
+        "previous_text": "Local test results separated from host qualification, independent review, and release acceptance",
+        "status": "COVERED",
+        "target_anchor": "fa-23",
+        "current_text": "Local test results separated from host qualification, independent review, release acceptance"
+      },
+      {
+        "id": "F21",
+        "previous_text": "100% honesty checks separated from ≥95% behavioral tolerance",
+        "status": "RESTORED",
+        "target_anchor": "fa-24",
+        "current_text": "100% honesty checks and fixture-specific behavioral tolerance (general target ≥95%, P0-Safety zero violations) displayed as distinct gauges; never averaged"
+      },
+      {
+        "id": "F22",
+        "previous_text": "`eval`/`qualify` governed by timeout + memory limits; `resource_limit_exceeded` state exists",
+        "status": "MAPPED",
+        "target_anchor": "fa-25",
+        "current_text": "`eval`/`qualify` respect timeout + memory limits; `resource_limit_exceeded` status recorded on overflow"
+      },
+      {
+        "id": "F23",
+        "previous_text": "**NEW:** \"Review Due\" badge visible for items past `nextReview`",
+        "status": "COVERED",
+        "target_anchor": "fa-05",
+        "current_text": "`nextReview` past today triggers `[Review Due]` badge in Registry and Dashboard"
+      },
+      {
+        "id": "F24",
+        "previous_text": "**NEW:** Impact Calibration workflow available; requires linked passed eval run",
+        "status": "COVERED",
+        "target_anchor": "fa-19",
+        "current_text": "Calibration workflow: `assumed` → `repo-measured` requires a linked **passed** eval run; `lastCalibrated` and `measuredDelta` populated correctly"
+      },
+      {
+        "id": "F25",
+        "previous_text": "**NEW:** Meta-Governance screen routes §16.1 and §16.2 changes correctly",
+        "status": "RESTORED",
+        "target_anchor": "fa-20",
+        "current_text": "Meta-Governance screen routes §16.1 and §16.2 changes correctly with all required approvals"
+      },
+      {
+        "id": "F26",
+        "previous_text": "**NEW:** All 10 §17 metrics visible in Metrics screen",
+        "status": "COVERED",
+        "target_anchor": "fa-21",
+        "current_text": "All 10 §17 metrics visible in Metrics screen; false-success rate must be 0% (red alert if >0)"
+      },
+      {
+        "id": "F27",
+        "previous_text": "**NEW:** False-success rate = 0% enforced as P0 indicator",
+        "status": "COVERED",
+        "target_anchor": "fa-21",
+        "current_text": "All 10 §17 metrics visible in Metrics screen; false-success rate must be 0% (red alert if >0)"
+      },
+      {
+        "id": "N01",
+        "previous_text": "Cold start < 3 seconds",
+        "status": "COVERED",
+        "target_anchor": "nfa-01",
+        "current_text": "Cold start < 3s"
+      },
+      {
+        "id": "N02",
+        "previous_text": "Indexing 500 items < 5 seconds",
+        "status": "COVERED",
+        "target_anchor": "nfa-02",
+        "current_text": "Indexing 500 items < 5s"
+      },
+      {
+        "id": "N03",
+        "previous_text": "In-process `validate` < 2 seconds",
+        "status": "MAPPED",
+        "target_anchor": "nfa-03",
+        "current_text": "End-to-end `validate` < 2s through the same pinned Python CLI; no duplicate Node governance engine"
+      },
+      {
+        "id": "N04",
+        "previous_text": "File watcher constrained (debounce + extension filter + exclude `node_modules`, `.git`, `__pycache__`)",
+        "status": "COVERED",
+        "target_anchor": "nfa-04",
+        "current_text": "File watcher constrained: debounce 500ms + extension filter (`*.yaml`, `*.md`, `*.json`) + exclude `node_modules`, `.git`, `__pycache__`, `.venv`"
+      },
+      {
+        "id": "N05",
+        "previous_text": "GPG signing optional with fallback + visible warning",
+        "status": "COVERED",
+        "target_anchor": "nfa-05",
+        "current_text": "GPG signing optional with fallback + visible warning in UI"
+      },
+      {
+        "id": "N06",
+        "previous_text": "Every write preceded by diff preview",
+        "status": "COVERED",
+        "target_anchor": "fa-26",
+        "current_text": "Every write action (patch, commit, adoption apply) preceded by diff preview"
+      },
+      {
+        "id": "N07",
+        "previous_text": "Server-side authorization on every request, bound to project + action + change",
+        "status": "RESTORED",
+        "target_anchor": "nfa-09",
+        "current_text": "Every API request authorized server-side and bound to project + action + change/hash; unauthorized → 403; simulated roles never grant authority"
+      },
+      {
+        "id": "N08",
+        "previous_text": "No command injection via job-runner (fixed allowlist)",
+        "status": "COVERED",
+        "target_anchor": "nfa-08",
+        "current_text": "No command injection via job-runner (fixed allowlist, structured args)"
+      },
+      {
+        "id": "N09",
+        "previous_text": "E2E tests (Playwright) cover critical paths",
+        "status": "RESTORED",
+        "target_anchor": "nfa-10",
+        "current_text": "E2E tests (Playwright) cover critical paths and all 16 screens using isolated Microsoft Edge on Windows, bound to 127.0.0.1 with no owner browser profile"
+      }
+    ]
+  },
+  "incoming_structure": {
+    "main_sections": 49,
+    "sql_tables": 12,
+    "screens": 16,
+    "workflow_walkthroughs": 4,
+    "state_appendices": 2,
+    "appendices_before": 6,
+    "appendices_after": 7
+  },
+  "coverage_gaps": [],
+  "inherited_contract_questions": [
+    {
+      "section": "G.4",
+      "topic": "Optional HOST_SIGNAL acknowledgement evidence vs reference §14.2 wording"
+    },
+    {
+      "section": "G.4",
+      "topic": "JSONL schema vs YAML-shaped reference example"
+    },
+    {
+      "section": "G.4",
+      "topic": "Declared authority level vs authenticated principal trust"
+    },
+    {
+      "section": "G.4",
+      "topic": "Adapters, lookup availability, resource controls and distribution qualification"
+    }
+  ],
+  "claims": {
+    "implementation": "NOT_STARTED_FOR_THIS_DESIGN",
+    "native_qualification": "NOT_RUN",
+    "independent_review": "NOT_PERFORMED",
+    "release_acceptance": "NOT_GRANTED"
+  }
+}

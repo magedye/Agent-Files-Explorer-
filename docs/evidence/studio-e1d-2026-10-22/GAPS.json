@@ -1,0 +1,55 @@
+{
+  "source_hash": "f55c0c7f57340c890ee0ceff3025b1691d05dd9855482176c1abcb0415ccc55d",
+  "gaps": [
+    {
+      "id": "G-E1-ACCEPT",
+      "status": "PENDING_OWNER_ACCEPTANCE",
+      "blocks": "Formal E2 start",
+      "detail": "E1 technical work complete; current outputs await owner acceptance"
+    },
+    {
+      "id": "G-E2",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "blocks": "Strict/lint and aggregate T01 readiness",
+      "detail": "No E2 implementation or governing schema/authority/scope/evidence verification started"
+    },
+    {
+      "id": "G-HONESTY",
+      "status": "7 REQUIRED / NOT_RUN / NOT_WAIVED",
+      "blocks": "Runtime skill/host qualification",
+      "detail": "Seven read-boundary claim vectors passed; they do not execute or qualify the seven runtime honesty checks",
+      "evidence": "HONESTY_MATRIX.json"
+    },
+    {
+      "id": "G-UI-ZERO-WRITE",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "blocks": "Whole Studio runtime SOURCE-01 qualification",
+      "detail": "CLI/Python audit + snapshots pass for E1.d; app bridge/UI not modified or invoked, full source gate is future work"
+    },
+    {
+      "id": "G-FINAL-SIGNATURE",
+      "status": "PROVISIONAL_OWNER_LICENSE",
+      "blocks": "Final licensing/release/reference promotion",
+      "does_not_block": "Owner-authorized E1 progress",
+      "detail": "Final signature deferred explicitly; no signature or authenticated rights-holder invented"
+    },
+    {
+      "id": "G-PROTOCOL",
+      "status": "DOCUMENTED_COMPATIBILITY_CHANGE",
+      "blocks": "Unqualified assumptions in future T02 bridge",
+      "detail": "Internal protocol 1 -> 2 adds READ/catalog. Prior bytes preserved. Public Studio contract.1 unchanged; future consumer must negotiate/use version 2 explicitly"
+    },
+    {
+      "id": "G-T01",
+      "status": "BLOCKED_NOT_CLOSED",
+      "blocks": "T02 and SEC-001",
+      "detail": "Re-evaluate only after complete, accepted E1 and completed/evaluated E2; no automatic gate opening"
+    },
+    {
+      "id": "G-PLATFORM",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "blocks": "Native host/signature/CI/resource/release claims",
+      "detail": "Source hashes/read-set hashes are not CP/JCS, authenticated publisher identity, distribution binding, native qualification or release acceptance"
+    }
+  ]
+}

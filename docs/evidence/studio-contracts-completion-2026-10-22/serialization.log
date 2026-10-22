@@ -1,0 +1,18 @@
+✔ Contract JSONL: multiple lines round-trip without changing original bytes or granting trust (12.3103ms)
+✔ Contract JSONL: CRLF and optional final newline preserve source bytes and line locations (1.1868ms)
+✔ Contract JSONL: duplicate records are reported, never counted as extra successful use (3.9125ms)
+✔ Contract JSONL: duplicate JSON keys and noncanonical foreign JSON remain unsupported originals (1.0504ms)
+✔ Contract JSONL: task or immutable session mismatch blocks import of the entire file (2.1128ms)
+✔ Contract JSONL: a session can acquire an end time, but cannot rewrite it (3.0344ms)
+✔ Contract JSONL: malformed UTF-8, BOM, YAML and blank records keep their original bytes (1.7894ms)
+✔ Contract JSONL: multiple events on one line cannot overwrite the SQL source-line identity (0.9535ms)
+✔ Contract JSONL: byte, line and record-count limits reject bounded inputs explicitly (1.6317ms)
+✔ Contract canonical JSON: UTF-16 ordering, array order and Unicode text are stable (1.9102ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 514.3364

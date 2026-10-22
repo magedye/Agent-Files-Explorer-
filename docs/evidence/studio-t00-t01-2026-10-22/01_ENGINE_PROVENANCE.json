@@ -1,0 +1,126 @@
+{
+  "observed_at_utc": "2026-10-22T02:50:51.876Z",
+  "target": "AGHR rc.3 / manifest schema 1.2",
+  "selected_rc3_engine": null,
+  "binding_status": "NOT_CONFIGURED",
+  "repository_context": {
+    "repository_url": "https://github.com/magedye/Agent-Files-Explorer-",
+    "head": "bb76a0b61617512f4cd6d0c6cea792e35d5ff4aa",
+    "head_tags": [],
+    "engine_repository_url": null,
+    "engine_release_tag": null,
+    "scope": "Local application repository context, not an authenticated standalone engine release"
+  },
+  "python": {
+    "executable": "C:/Users/Majed/AppData/Local/Programs/Python/Python312/python.exe",
+    "sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+    "version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]"
+  },
+  "inspected_legacy_packages": [
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0",
+      "version_declared": "1.2.0",
+      "package_status": "FINAL_REFERENCE",
+      "manifest": {
+        "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/MANIFEST.json",
+        "sha256": "001ab43869013e6446a77c18fa539b26a8f0fd844299efd006af815053169290",
+        "frozen_at": "2026-10-20T07:39:25.852363+00:00",
+        "version": "1.2.0"
+      },
+      "license": {
+        "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/LICENSE.md",
+        "sha256": "7f75e60dba65417b72dea6e6bcae745a80bff8fb2fe93ec1b74278763dc6b77e",
+        "spdx": null,
+        "classification": "CUSTOM_PERMISSION_NOTICE; no SPDX ID inferred"
+      },
+      "distribution": {
+        "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0.zip",
+        "sha256": "29497b708bd41cb35453ba12d4ae8212662084be0d53c14135ea15a98f6ac5dc",
+        "declared_digest": "29497b708bd41cb35453ba12d4ae8212662084be0d53c14135ea15a98f6ac5dc",
+        "digest_matches": true,
+        "byte_count": 1709426
+      },
+      "signature": {
+        "checked_paths": [
+          {
+            "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0.zip.sig",
+            "exists": false
+          },
+          {
+            "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0.zip.asc",
+            "exists": false
+          },
+          {
+            "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/SIGNATURE",
+            "exists": false
+          },
+          {
+            "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/MANIFEST.sig",
+            "exists": false
+          }
+        ],
+        "presence": "NOT_FOUND_IN_CHECKED_PATHS",
+        "verification": "NOT_RUN",
+        "authenticity": "UNKNOWN"
+      },
+      "source_release_tag": null,
+      "observed_at_utc": "2026-10-22T02:48:49.962Z"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0",
+      "version_declared": "1.3.0",
+      "package_status": "CANDIDATE_FOR_REVIEW",
+      "manifest": {
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/MANIFEST.json",
+        "sha256": "974a29e5f2950d2aeab1bb8cd03caf9f961a1da04c3205309b70601343c6433e",
+        "frozen_at": "2026-10-21T14:43:27.805675+00:00",
+        "version": "1.3.0"
+      },
+      "license": {
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/LICENSE.md",
+        "sha256": "7f75e60dba65417b72dea6e6bcae745a80bff8fb2fe93ec1b74278763dc6b77e",
+        "spdx": null,
+        "classification": "CUSTOM_PERMISSION_NOTICE; no SPDX ID inferred"
+      },
+      "distribution": {
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0.zip",
+        "sha256": "41dbd6df9de1e17b69d1aece08aadce104a338f7ed1450c1166263de2ca46829",
+        "declared_digest": "41dbd6df9de1e17b69d1aece08aadce104a338f7ed1450c1166263de2ca46829",
+        "digest_matches": true,
+        "byte_count": 1814319
+      },
+      "signature": {
+        "checked_paths": [
+          {
+            "path": "governance_packages/candidates/AGHR_Candidate_1.3.0.zip.sig",
+            "exists": false
+          },
+          {
+            "path": "governance_packages/candidates/AGHR_Candidate_1.3.0.zip.asc",
+            "exists": false
+          },
+          {
+            "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/SIGNATURE",
+            "exists": false
+          },
+          {
+            "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/MANIFEST.sig",
+            "exists": false
+          }
+        ],
+        "presence": "NOT_FOUND_IN_CHECKED_PATHS",
+        "verification": "NOT_RUN",
+        "authenticity": "UNKNOWN"
+      },
+      "source_release_tag": null,
+      "observed_at_utc": "2026-10-22T02:48:50.025Z"
+    }
+  ],
+  "acceptance": "PARTIAL_LEGACY_PROVENANCE_ONLY; no rc.3 distribution or signature qualified",
+  "environment_evidence": [
+    "PYTHON_ENVIRONMENT.json",
+    "USER_SITE_METADATA.json",
+    "COMMAND_DISCOVERY.json"
+  ],
+  "environment_scope": "Configured Python global metadata plus explicit user-site metadata; no whole-host interpreter or drive scan"
+}

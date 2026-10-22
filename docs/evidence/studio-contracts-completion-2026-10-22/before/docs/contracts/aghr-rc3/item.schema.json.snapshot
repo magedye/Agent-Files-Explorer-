@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aghr.invalid/contracts/rc3/item.schema.json",
+  "title": "DRAFT — rc.3 governance item",
+  "$comment": "Structural proposal from reference sections 3, 5.2, 6.1 and 7.4; not an AGHR runtime validator. The pinned engine must check trust, applicability, gate existence, eval results and qualification. Additional capability payloads require a reviewed adapter before contract freeze.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "kind", "force", "severity", "scope", "rule", "impact"],
+  "properties": {
+    "id": { "$ref": "#/$defs/text" },
+    "title": { "$ref": "#/$defs/text" },
+    "kind": { "enum": ["OBSERVATION", "PRINCIPLE", "CONSTRAINT", "REQUIREMENT", "PROCEDURE", "GUIDELINE", "POLICY", "RULE", "STANDARD", "CONTROL", "DECISION", "EXCEPTION", "CAPABILITY"] },
+    "force": { "enum": ["MUST", "MUST_NOT", "SHOULD", "SHOULD_NOT", "MAY", "INFORMATIVE"] },
+    "severity": { "enum": ["critical", "high", "medium", "low", "info"] },
+    "rationale": { "$ref": "#/$defs/text" },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source": { "$ref": "#/$defs/text" },
+        "level": { "enum": ["enterprise", "organization", "project", "component"] },
+        "owner": { "$ref": "#/$defs/text" },
+        "approvedBy": { "$ref": "#/$defs/text" },
+        "status": { "enum": ["draft", "active", "deprecated", "superseded"] },
+        "effectiveFrom": { "type": "string", "format": "date" },
+        "supersedes": { "type": ["string", "null"] }
+      }
+    },
+    "reviewCadence": { "$ref": "#/$defs/text" },
+    "nextReview": { "type": "string", "format": "date" },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "paths": { "$ref": "#/$defs/texts" },
+        "exclude": { "$ref": "#/$defs/texts" },
+        "appliesToAgents": { "$ref": "#/$defs/texts" },
+        "environments": { "$ref": "#/$defs/texts" },
+        "stages": { "$ref": "#/$defs/texts" },
+        "taskTypes": { "$ref": "#/$defs/texts" },
+        "language": { "$ref": "#/$defs/texts", "description": "Rendering preference only; MUST NOT affect applicability or query filtering." },
+        "skillIds": { "$ref": "#/$defs/texts" }
+      }
+    },
+    "rule": { "$ref": "#/$defs/text" },
+    "enforcement": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "textual": { "type": "boolean" },
+        "technical": { "$ref": "#/$defs/texts" },
+        "failureAction": { "enum": ["block", "warn", "review", "log"] },
+        "mergeEffect": { "enum": ["blocking", "advisory", "none"] },
+        "gate": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "required"],
+          "properties": { "type": { "$ref": "#/$defs/text" }, "required": { "type": "boolean" } }
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "commands": { "$ref": "#/$defs/nonemptyTexts" },
+        "evidence": { "$ref": "#/$defs/nonemptyTexts" },
+        "evalFixtures": { "$ref": "#/$defs/nonemptyTexts" }
+      }
+    },
+    "impact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidence"],
+      "properties": {
+        "band": { "enum": ["critical", "high", "medium", "low", "info"] },
+        "evidence": { "enum": ["assumed", "benchmark", "repo-measured"] },
+        "lastCalibrated": { "type": ["string", "null"], "format": "date" },
+        "measuredDelta": { "type": ["number", "null"] }
+      }
+    },
+    "conflictPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "precedence": { "enum": ["auto", "explicit"] },
+        "overrides": { "$ref": "#/$defs/texts" },
+        "overriddenBy": { "$ref": "#/$defs/texts" }
+      }
+    },
+    "exceptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": { "allowed": { "type": "boolean" }, "approval": { "$ref": "#/$defs/text" } }
+    },
+    "references": { "$ref": "#/$defs/texts" },
+    "skillQualification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["skillId", "host", "hostVersion", "scope", "contentHash", "status"],
+      "properties": {
+        "skillId": { "$ref": "#/$defs/text" },
+        "host": { "$ref": "#/$defs/text" },
+        "hostVersion": { "$ref": "#/$defs/text" },
+        "scope": { "$ref": "#/$defs/text" },
+        "contentHash": { "type": "string", "pattern": "^sha256:[a-fA-F0-9]{64}$" },
+        "status": { "enum": ["QUALIFIED", "NOT_RUN", "NOT_OBSERVABLE", "UNKNOWN", "FAILED"] },
+        "qualifiedAt": { "type": ["string", "null"], "format": "date" },
+        "evidence": { "$ref": "#/$defs/texts" }
+      },
+      "allOf": [{
+        "if": { "properties": { "status": { "const": "QUALIFIED" } }, "required": ["status"] },
+        "then": { "required": ["qualifiedAt", "evidence"], "properties": { "qualifiedAt": { "type": "string" }, "evidence": { "minItems": 1 } } }
+      }]
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "force": { "enum": ["SHOULD", "SHOULD_NOT", "MUST", "MUST_NOT"] } }, "required": ["force"] },
+      "then": { "required": ["authority", "rationale"], "properties": { "authority": { "required": ["owner"] } } }
+    },
+    {
+      "if": { "properties": { "force": { "enum": ["MUST", "MUST_NOT"] } }, "required": ["force"] },
+      "then": { "required": ["authority"], "properties": { "authority": { "required": ["level"] } } }
+    },
+    {
+      "if": { "properties": { "force": { "const": "MUST" } }, "required": ["force"] },
+      "then": { "$ref": "#/$defs/mandatoryAuthority" }
+    },
+    {
+      "if": { "properties": { "force": { "const": "MUST_NOT" }, "severity": { "enum": ["critical", "high"] } }, "required": ["force", "severity"] },
+      "then": {
+        "allOf": [{ "$ref": "#/$defs/mandatoryAuthority" }],
+        "required": ["enforcement"],
+        "properties": {
+          "verification": { "required": ["evalFixtures"] },
+          "enforcement": {
+            "required": ["mergeEffect", "gate"],
+            "anyOf": [
+              { "required": ["technical"], "properties": { "technical": { "minItems": 1 } } },
+              { "properties": { "gate": { "properties": { "type": { "const": "human-approval" }, "required": { "const": true } } } } }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": { "anyOf": [
+        { "properties": { "kind": { "const": "CAPABILITY" } }, "required": ["kind"] },
+        { "properties": { "scope": { "properties": { "skillIds": { "minItems": 1 } }, "required": ["skillIds"] } }, "required": ["scope"] }
+      ] },
+      "then": { "required": ["skillQualification"] }
+    }
+  ],
+  "$defs": {
+    "text": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "texts": { "type": "array", "items": { "$ref": "#/$defs/text" }, "uniqueItems": true },
+    "nonemptyTexts": { "allOf": [{ "$ref": "#/$defs/texts" }], "minItems": 1 },
+    "mandatoryAuthority": {
+      "required": ["authority", "verification"],
+      "properties": { "authority": { "required": ["source", "level", "owner", "approvedBy", "status", "effectiveFrom"] } }
+    }
+  }
+}

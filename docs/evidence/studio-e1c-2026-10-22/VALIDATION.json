@@ -1,0 +1,68 @@
+{
+  "recorded_at_utc": "2026-10-22T15:12:56.698Z",
+  "scope": "E1.c real candidate read + local structural and provenance checks under provisional owner/license; no strict governing validation",
+  "source_hash": "3c8c536b0c02c80173cb5e3758a90123f4c3bec5f32e44b2de822c2c26932955",
+  "package_verification": {
+    "status": "VERIFIED_FOR_E1C_PROVISIONAL_READ_AND_STRUCTURE",
+    "items": 1,
+    "raw_sources": 2,
+    "source_unchanged": true,
+    "stdout": "package-verification.stdout.txt"
+  },
+  "structural_schema": {
+    "positive_inputs": 2,
+    "negative_vectors": [
+      "manifest_missing_owner",
+      "manifest_missing_license",
+      "mandatory_item_without_authority",
+      "measured_item_without_calibration_fields"
+    ],
+    "local_schemas": 5,
+    "network_retrieval": false
+  },
+  "cli_tests": {
+    "passed": 18,
+    "total": 18,
+    "failed": 0,
+    "skipped": 0,
+    "log": "cli-tests.stderr.txt"
+  },
+  "reader_engine_regressions": {
+    "status": "PRESERVED_E1B_EVIDENCE",
+    "passed": 28,
+    "note": "Loader source, diagnostics and reader tests unchanged; historical evidence not rerun or promoted"
+  },
+  "npm_test": {
+    "tests": 41,
+    "pass": 41,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "stdout": "npm-test-retry.stdout.txt",
+    "stderr": "npm-test-retry.stderr.txt"
+  },
+  "harness_recovery": "NPM_EVIDENCE_RECOVERY.json",
+  "cli_probes": {
+    "version": "INFO_0",
+    "strict": "BLOCKED_3"
+  },
+  "owner_license": "PROVISIONAL_OWNER_LICENSE",
+  "signed_decision": "NOT_SUPPLIED",
+  "governance_validation": "NOT_RUN",
+  "native_host_qualification": "NOT_RUN",
+  "independent_review": "NOT_PERFORMED",
+  "release_acceptance": "NOT_GRANTED",
+  "context_health": {
+    "status": "PASS",
+    "exit_code": 0,
+    "errors": 0,
+    "warnings": 0,
+    "estimated_bootstrap_tokens": 4958,
+    "log": "context-health.log"
+  },
+  "git_diff_check": {
+    "exit_code": 0,
+    "log": "git-diff-check.log"
+  }
+}

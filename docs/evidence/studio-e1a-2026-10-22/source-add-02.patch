@@ -1,0 +1,68 @@
+diff --git "a/D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e1a-2026-10-22\\before\\empty.snapshot" "b/D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\PROVENANCE.json"
+index e69de29..cc36235 100644
+--- "a/D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e1a-2026-10-22\\before\\empty.snapshot"
++++ "b/D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\PROVENANCE.json"
+@@ -0,0 +1,63 @@
++{
++  "implementation_id": "aghr-rc3-core-candidate",
++  "stage": "E1.a",
++  "status": "LOCAL_SOURCE_CANDIDATE",
++  "target_spec_version": "1.0.0-rc.3",
++  "schema_version": "1.2",
++  "created_on": "2026-10-22",
++  "origin": {
++    "type": "NEW_LOCAL_IMPLEMENTATION",
++    "workspace_relative_root": "governance_packages/candidates/AGHR_rc3_Core_Candidate",
++    "repository_context_head": "bb76a0b61617512f4cd6d0c6cea792e35d5ff4aa",
++    "source_at_context_head": false,
++    "upstream_repository": null,
++    "upstream_release": null,
++    "legacy_source_copied": false,
++    "authority": "Owner explicitly requested E1.a implementation on 2026-10-22; no release or reference promotion granted."
++  },
++  "license": {
++    "status": "NOT_ASSIGNED",
++    "spdx": null,
++    "reason": "No owner license decision for this new source has been recorded. Dependency licenses do not license this implementation."
++  },
++  "source_files": [
++    "CLI_CONTRACT.json",
++    "PROVENANCE.json",
++    "requirements.lock",
++    "tests/test_cli.py",
++    "tools/cli.py"
++  ],
++  "identity": {
++    "algorithm": "sha256-path-map-v1",
++    "definition": "SHA-256 of UTF-8 JSON mapping the five source_files POSIX paths to their raw-byte SHA-256 digests; keys sorted, no whitespace, no BOM or trailing newline. Not CP/JCS hashing.",
++    "publisher_authentication": "UNKNOWN",
++    "signature_verification": "NOT_RUN",
++    "qualification": "NOT_RUN",
++    "distribution": null
++  },
++  "governing_inputs": [
++    { "path": "docs/specs/aghr-rc3/AGHR_REFERENCE.md", "sha256": "064820539a90ffe51ccfd1e6dd4700e82bdd4a1d8edb32ea63e15e642c33ef6b" },
++    { "path": "docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md", "sha256": "7061607b534bc1d8765521c4249089d14b344511bd770b618692f793b4c403ef" },
++    { "path": "docs/contracts/aghr-rc3/CONTRACTS.lock.json", "revision": "contract.1", "access": "READ_ONLY" }
++  ],
++  "runtime": {
++    "python_profile": "CPython 3.12 Windows AMD64",
++    "bootstrap_dependencies": "Python standard library only",
++    "locked_libraries": "requirements.lock includes YAML, JSON Schema and their complete CPython 3.12 dependency closure; no optional format extras.",
++    "installed_location": "Not a global install or application engine binding; see the scoped evidence receipt for the isolated test environment."
++  },
++  "documentation_sources": [
++    "https://docs.python.org/3.12/library/argparse.html",
++    "https://docs.python.org/3.12/library/venv.html",
++    "https://pip.pypa.io/en/stable/topics/secure-installs/",
++    "https://pyyaml.org/wiki/PyYAMLDocumentation",
++    "https://python-jsonschema.readthedocs.io/en/v4.26.0/validate/"
++  ],
++  "remaining": [
++    "E1.b loader and source indexing NOT_STARTED",
++    "E1.c real governance package, owner and license inputs NOT_STARTED",
++    "E2 strict validation and lint NOT_IMPLEMENTED",
++    "T01 BLOCKED_NOT_CLOSED; T02 NOT_STARTED",
++    "Native host qualification NOT_RUN; independent review NOT_PERFORMED; release acceptance NOT_GRANTED"
++  ]
++}

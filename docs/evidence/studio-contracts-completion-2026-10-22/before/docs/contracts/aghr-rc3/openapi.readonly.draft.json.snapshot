@@ -1,0 +1,131 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "DRAFT — AGHR Studio initial read contracts",
+    "version": "0.0.0-draft.1",
+    "description": "Four GET operations from Studio sections 27-29. Not implemented or qualified. Remaining API types and operations in sections 27-36 are REQUIRED and incomplete. Declared metadata never grants authority. JSON Schema checks are transport checks, not a replacement AGHR policy engine."
+  },
+  "servers": [{ "url": "/api/v1" }],
+  "security": [{ "StudioToken": [] }],
+  "x-contract-status": "DRAFT_PARTIAL",
+  "x-authentication": "Ephemeral startup token; server independently resolves principal, role and scope. Request content and role simulation grant no authority.",
+  "x-unknown-query-parameters": "reject",
+  "paths": {
+    "/workspaces": {
+      "get": {
+        "operationId": "listWorkspaces",
+        "summary": "Read registered workspaces",
+        "responses": {
+          "200": { "description": "Read-only workspace list", "content": { "application/json": { "schema": { "allOf": [{ "$ref": "#/components/schemas/Envelope" }], "properties": { "data": { "type": "array", "items": { "$ref": "#/components/schemas/Workspace" } } } } } } },
+          "401": { "$ref": "#/components/responses/Error" },
+          "403": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/workspaces/{id}/instructions": {
+      "parameters": [{ "$ref": "#/components/parameters/WorkspaceId" }],
+      "get": {
+        "operationId": "listInstructions",
+        "summary": "Read governance items; language never filters applicability",
+        "description": "Unsupported parameters, including language, must be rejected by the future query adapter. Accept-Language may affect rendering only. No item mutation here; changes require a CP.",
+        "parameters": [
+          { "name": "kind", "in": "query", "schema": { "$ref": "item.schema.json#/properties/kind" } },
+          { "name": "force", "in": "query", "schema": { "$ref": "item.schema.json#/properties/force" } },
+          { "name": "priority", "in": "query", "schema": { "enum": ["P0-Safety", "P0-Integrity", "P1-Reasoning", "P2-Quality", "P3-Presentation"] } },
+          { "name": "authority_level", "in": "query", "schema": { "$ref": "item.schema.json#/properties/authority/properties/level" } },
+          { "name": "status", "in": "query", "schema": { "$ref": "item.schema.json#/properties/authority/properties/status" } },
+          { "name": "impact_evidence", "in": "query", "schema": { "$ref": "item.schema.json#/properties/impact/properties/evidence" } },
+          { "name": "is_review_due", "in": "query", "schema": { "type": "boolean" } },
+          { "name": "host", "in": "query", "schema": { "type": "string", "minLength": 1 } },
+          { "name": "path", "in": "query", "schema": { "type": "string", "minLength": 1 } },
+          { "name": "q", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Complete applicable item set regardless of rendering language", "content": { "application/json": { "schema": { "allOf": [{ "$ref": "#/components/schemas/Envelope" }], "properties": { "data": { "type": "array", "items": { "$ref": "#/components/schemas/ItemView" } } } } } } },
+          "400": { "$ref": "#/components/responses/Error" },
+          "401": { "$ref": "#/components/responses/Error" },
+          "403": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/workspaces/{id}/instructions/{item_id}": {
+      "parameters": [{ "$ref": "#/components/parameters/WorkspaceId" }, { "$ref": "#/components/parameters/ItemId" }],
+      "get": {
+        "operationId": "getInstruction",
+        "summary": "Read item and immutable source identity",
+        "responses": {
+          "200": { "description": "Read-only item", "content": { "application/json": { "schema": { "allOf": [{ "$ref": "#/components/schemas/Envelope" }], "properties": { "data": { "$ref": "#/components/schemas/ItemView" } } } } } },
+          "401": { "$ref": "#/components/responses/Error" },
+          "403": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/workspaces/{id}/capabilities/{item_id}": {
+      "parameters": [{ "$ref": "#/components/parameters/WorkspaceId" }, { "$ref": "#/components/parameters/ItemId" }],
+      "get": {
+        "operationId": "getCapability",
+        "summary": "Read capability; source, presence and qualification remain distinct",
+        "responses": {
+          "200": { "description": "Initial capability view; full skill payload contract remains open", "content": { "application/json": { "schema": { "allOf": [{ "$ref": "#/components/schemas/Envelope" }], "properties": { "data": { "$ref": "#/components/schemas/CapabilityView" } } } } } },
+          "401": { "$ref": "#/components/responses/Error" },
+          "403": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": { "StudioToken": { "type": "apiKey", "in": "header", "name": "X-Studio-Token", "description": "Rotated at startup; no fixed token in settings or this draft." } },
+    "parameters": {
+      "WorkspaceId": { "name": "id", "in": "path", "required": true, "schema": { "type": "string", "minLength": 1 } },
+      "ItemId": { "name": "item_id", "in": "path", "required": true, "schema": { "type": "string", "minLength": 1 } }
+    },
+    "responses": {
+      "Error": {
+        "description": "Failure envelope; never success metadata",
+        "content": { "application/json": { "schema": {
+          "allOf": [{ "$ref": "#/components/schemas/Envelope" }],
+          "properties": {
+            "data": { "type": "null" },
+            "meta": { "required": ["error"], "properties": { "error": { "type": "object", "required": ["code", "message"], "properties": { "code": { "type": "string" }, "message": { "type": "string" } } } } }
+          }
+        } } }
+      }
+    },
+    "schemas": {
+      "Envelope": { "type": "object", "additionalProperties": false, "required": ["data", "meta"], "properties": { "data": true, "meta": { "type": "object", "required": ["request_id"], "properties": { "request_id": { "type": "string", "minLength": 1 } } } } },
+      "Workspace": {
+        "type": "object",
+        "required": ["id", "name", "package_path", "package_version", "schema_version", "read_only", "package_signature_verified"],
+        "properties": {
+          "id": { "type": "string" }, "name": { "type": "string" }, "package_path": { "type": "string" },
+          "package_version": { "type": "string" }, "schema_version": { "type": "string" },
+          "read_only": { "const": true }, "package_signature_verified": { "type": "boolean" },
+          "last_scanned_at": { "type": ["string", "null"], "format": "date-time" }
+        }
+      },
+      "ItemView": {
+        "type": "object", "additionalProperties": false,
+        "required": ["item", "source_path", "source_hash", "translation_unavailable"],
+        "properties": {
+          "item": { "$ref": "item.schema.json" }, "source_path": { "type": "string", "minLength": 1 },
+          "source_hash": { "type": "string", "pattern": "^sha256:[a-fA-F0-9]{64}$" },
+          "translation_unavailable": { "type": "boolean" }
+        }
+      },
+      "CapabilityView": {
+        "type": "object",
+        "required": ["skill_id", "source", "function", "qualifications"],
+        "properties": {
+          "skill_id": { "type": "string", "minLength": 1 },
+          "source": { "enum": ["system", "user", "project", "extension", "catalog", "aghr"] },
+          "function": { "enum": ["routing", "design", "implementation", "debugging", "security", "verification", "learning"] },
+          "presence": { "type": "array", "uniqueItems": true, "items": { "enum": ["EXISTS", "DISCOVERED", "QUALIFIED", "USED"] } },
+          "qualifications": { "type": "array", "items": { "$ref": "item.schema.json#/properties/skillQualification" } }
+        }
+      }
+    }
+  }
+}

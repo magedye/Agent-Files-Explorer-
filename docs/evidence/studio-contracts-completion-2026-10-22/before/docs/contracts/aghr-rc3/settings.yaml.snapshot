@@ -1,0 +1,43 @@
+# DRAFT configuration contract — not read by the running application.
+# No credential, actor assignment, signing identity or executable is supplied.
+contract_status: DRAFT
+listen:
+  host: 127.0.0.1
+authentication:
+  credential: ephemeral_per_startup
+  header: X-Studio-Token
+  principal_bindings: []  # server-resolved; default deny until configured
+storage:
+  mode: memory
+  database: ':memory:'
+  filesystem_writes: false
+sources:
+  package: read_only
+  canonical_state: read_only
+  runtime_evidence: read_only
+engine:
+  implementation: pinned_python_aghr
+  executable: null  # REQUIRED/NOT_RUN: resolve and qualify the actual binary
+  version: null
+  content_hash: null
+  shell: false
+  allowlisted_commands: [validate, lint, generate, check, eval, qualify, doctor]
+limits:
+  eval: {timeout_ms: 600000, memory_mib: 2048}
+  qualify: {timeout_ms: 3600000, memory_mib: 2048}
+  require_qualified_process_tree_adapter: true
+  unavailable_adapter_action: block
+  overflow_status: resource_limit_exceeded
+authorization:
+  scope: [authenticated_actor, server_resolved_role, target_project, action, change_package, proposal_version_hash]
+  simulated_role_grants_permissions: false
+  approvals_invalidated_on_proposal_change: true
+  roles:
+    developer: [read:*, cp.create, cp.edit_own, adoption.preview, verify.run.fast]
+    governance-owner: [read:*, cp.create, cp.edit_any, cp.approve.governance, adoption.apply, verify.run.*, calibrate.*, meta.change.propose]
+    security-owner: [read:*, cp.approve.security, verify.run.*]
+    architecture-board: [read:*, cp.approve.architecture, exceptions.approve]
+intake:
+  watcher_enabled: false
+  allowed_extensions: [.md, .yaml, .json]
+  result: draft_change_package_only

@@ -1,0 +1,58 @@
+diff --git a/docs/evidence/studio-e1c-2026-10-22/before/06.snapshot b/governance_packages/candidates/AGHR_rc3_Core_Candidate/PROVENANCE.json
+index f17b11c..dfd0426 100644
+--- a/docs/evidence/studio-e1c-2026-10-22/before/06.snapshot
++++ b/governance_packages/candidates/AGHR_rc3_Core_Candidate/PROVENANCE.json
+@@ -1,6 +1,6 @@
+ {
+   "implementation_id": "aghr-rc3-core-candidate",
+-  "stage": "E1.b",
++  "stage": "E1.c",
+   "status": "LOCAL_SOURCE_CANDIDATE",
+   "target_spec_version": "1.0.0-rc.3",
+   "schema_version": "1.2",
+@@ -13,16 +13,27 @@
+     "upstream_repository": null,
+     "upstream_release": null,
+     "legacy_source_copied": false,
+-    "authority": "Owner explicitly requested E1.a, then E1.b implementation on 2026-10-22; no release or reference promotion granted."
++    "authority": "Owner explicitly requested E1.a, E1.b, then E1.c on 2026-10-22. E1.c(4) records provisional owner/license values pending explicit signature; no release or reference promotion granted."
+   },
+   "license": {
+-    "status": "NOT_ASSIGNED",
+-    "spdx": null,
+-    "reason": "No owner license decision for this new source has been recorded. Dependency licenses do not license this implementation."
++    "status": "PROVISIONAL_OWNER_LICENSE",
++    "spdx": "MIT",
++    "owner": "Platform Governance Team",
++    "text_path": "LICENSE",
++    "record_id": "E1.c(4)",
++    "source_map": "SOURCE_MAP.json",
++    "signed_decision": "NOT_SUPPLIED",
++    "final_acceptance": "PENDING_EXPLICIT_OWNER_SIGNATURE",
++    "reason": "Current explicit user instruction supplies provisional values. LICENSE contains proposed SPDX MIT text and provisional attribution; owner identity is unauthenticated. Dependency licenses are separate."
+   },
+   "source_files": [
+     "CLI_CONTRACT.json",
++    "LICENSE",
++    "PACKAGE_STATUS.json",
+     "PROVENANCE.json",
++    "SOURCE_MAP.json",
++    "aghr.json",
++    "policies/observations/reference-state.json",
+     "requirements.lock",
+     "tests/test_cli.py",
+     "tests/test_loader.py",
+@@ -73,10 +84,11 @@
+     "https://python-jsonschema.readthedocs.io/en/v4.26.0/validate/",
+     "https://github.com/yaml/pyyaml/blob/6.0.3/lib/yaml/composer.py",
+     "https://docs.python.org/3.12/library/pathlib.html#pathlib.Path.is_junction",
+-    "https://docs.python.org/3.12/library/json.html#standard-compliance-and-interoperability"
++    "https://docs.python.org/3.12/library/json.html#standard-compliance-and-interoperability",
++    "https://spdx.org/licenses/MIT.html"
+   ],
+   "remaining": [
+-    "E1.c real governance package, owner and license inputs NOT_STARTED",
++    "E1.c real observation and manifest prepared; PROVISIONAL_OWNER_LICENSE per E1.c(4), final owner signature pending",
+     "E1.d portable catalog/CLI serialization and schema closure NOT_STARTED",
+     "E2 strict validation and lint NOT_IMPLEMENTED",
+     "T01 BLOCKED_NOT_CLOSED; T02 NOT_STARTED",

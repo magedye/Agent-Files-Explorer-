@@ -1,0 +1,68 @@
+{
+  "contract_revision": "contract.1",
+  "listen": {
+    "host": "127.0.0.1"
+  },
+  "authentication": {
+    "credential": "ephemeral_per_startup",
+    "header": "X-Studio-Token",
+    "principal_bindings": []
+  },
+  "storage": {
+    "mode": "memory",
+    "database": ":memory:",
+    "filesystem_writes": false
+  },
+  "sources": {
+    "package": "read_only",
+    "canonical_state": "read_only",
+    "runtime_evidence": "read_only"
+  },
+  "engine": {
+    "implementation": "pinned_python_aghr",
+    "status": "NOT_CONFIGURED",
+    "executable": null,
+    "identity": null,
+    "shell": false,
+    "reason": "No rc.3 engine binary/version/hash has been qualified for this workspace."
+  },
+  "limits": {
+    "eval": {
+      "timeout_ms": 600000,
+      "memory_mib": 2048
+    },
+    "qualify": {
+      "timeout_ms": 3600000,
+      "memory_mib": 2048
+    }
+  },
+  "resource_controls": {
+    "require_qualified_process_tree_adapter": true,
+    "unavailable_adapter_action": "block",
+    "overflow_status": "resource_limit_exceeded"
+  },
+  "authorization": {
+    "simulated_role_grants_permissions": false,
+    "approvals_invalidated_on_proposal_change": true
+  },
+  "git": {
+    "gpg_key_id": null,
+    "default_branch": "main",
+    "commit_message_template": "aghr: {title}"
+  },
+  "hosts": [],
+  "security": {
+    "binding": "127.0.0.1",
+    "audit_retention_days": 90,
+    "token_rotation": "per_session"
+  },
+  "intake": {
+    "watcher_enabled": false,
+    "allowed_extensions": [
+      ".md",
+      ".yaml",
+      ".json"
+    ],
+    "result": "draft_change_package_only"
+  }
+}

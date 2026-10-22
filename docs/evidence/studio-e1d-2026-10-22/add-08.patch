@@ -1,0 +1,56 @@
+diff --git a/docs/evidence/studio-e1d-2026-10-22/before/empty.snapshot b/governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/common.schema.json
+index e69de29..6bc3eb5 100644
+--- a/docs/evidence/studio-e1d-2026-10-22/before/empty.snapshot
++++ b/governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/common.schema.json
+@@ -0,0 +1,51 @@
++{
++  "$schema": "https://json-schema.org/draft/2020-12/schema",
++  "$id": "https://aghr.invalid/contracts/rc3/common.schema.json",
++  "title": "Studio contract primitives — contract.1",
++  "$defs": {
++    "Text": { "type": "string", "minLength": 1, "pattern": "\\S" },
++    "Texts": { "type": "array", "items": { "$ref": "#/$defs/Text" }, "uniqueItems": true },
++    "Hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
++    "Date": { "type": "string", "format": "date", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
++    "Time": { "type": "string", "format": "date-time", "pattern": "^\\d{4}-\\d{2}-\\d{2}T.*(?:Z|[+-]\\d{2}:\\d{2})$" },
++    "Role": { "enum": ["developer", "governance-owner", "security-owner", "architecture-board"] },
++    "ApprovalRole": { "enum": ["governance-owner", "security-owner", "architecture-board"] },
++    "Level": { "enum": ["L0", "L1", "L2", "L3", "L4"] },
++    "Priority": { "enum": ["P0-Safety", "P0-Integrity", "P1-Reasoning", "P2-Quality", "P3-Presentation"] },
++    "CheckStatus": { "enum": ["PASS", "FAIL", "NOT_RUN", "NOT_OBSERVABLE", "NOT_APPLICABLE", "UNKNOWN"] },
++    "QualificationStatus": { "enum": ["QUALIFIED", "NOT_RUN", "NOT_OBSERVABLE", "UNKNOWN", "FAILED"] },
++    "Command": { "enum": ["validate", "lint", "generate", "check", "eval", "qualify", "doctor"] },
++    "RunStatus": { "enum": ["running", "passed", "failed", "suspicious", "errored", "resource_limit_exceeded"] },
++    "JsonValue": { "type": ["string", "number", "boolean", "null", "array", "object"], "description": "Already parsed JSON; nested members are JSON values by construction." },
++    "JsonObject": { "type": "object", "additionalProperties": { "$ref": "#/$defs/JsonValue" } },
++    "SchemaDocument": {
++      "description": "A JSON Schema document carried as data, not evaluated as a Studio request. Validate its dialect with the generic schema adapter before use.",
++      "oneOf": [{ "type": "boolean" }, { "$ref": "#/$defs/JsonObject" }]
++    },
++    "Artifact": {
++      "type": "object", "additionalProperties": false,
++      "required": ["path", "content_hash"],
++      "properties": { "path": { "$ref": "#/$defs/Text" }, "content_hash": { "$ref": "#/$defs/Hash" }, "bytes": { "type": "integer", "minimum": 0 } }
++    },
++    "Source": {
++      "type": "object", "additionalProperties": false,
++      "required": ["source_path", "source_hash"],
++      "properties": { "source_path": { "$ref": "#/$defs/Text" }, "source_hash": { "$ref": "#/$defs/Hash" } }
++    },
++    "Check": {
++      "type": "object", "additionalProperties": false,
++      "required": ["status", "evidence"],
++      "properties": {
++        "status": { "$ref": "#/$defs/CheckStatus" }, "at": { "$ref": "#/$defs/Time" },
++        "duration_ms": { "type": "integer", "minimum": 0 }, "run_id": { "$ref": "#/$defs/Text" },
++        "evidence": { "type": "array", "items": { "$ref": "#/$defs/Artifact" } },
++        "reason": { "$ref": "#/$defs/Text" }
++      },
++      "allOf": [{
++        "if": { "properties": { "status": { "const": "PASS" } }, "required": ["status"] },
++        "then": { "required": ["run_id", "at"], "properties": { "evidence": { "minItems": 1 } } },
++        "else": { "required": ["reason"] }
++      }]
++    }
++  }
++}

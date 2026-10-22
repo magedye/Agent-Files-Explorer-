@@ -1,0 +1,117 @@
+diff --git a/docs/evidence/studio-e1c-2026-10-22/before/empty.snapshot b/governance_packages/candidates/AGHR_rc3_Core_Candidate/SOURCE_MAP.json
+index e69de29..3c1a976 100644
+--- a/docs/evidence/studio-e1c-2026-10-22/before/empty.snapshot
++++ b/governance_packages/candidates/AGHR_rc3_Core_Candidate/SOURCE_MAP.json
+@@ -0,0 +1,112 @@
++{
++  "revision": 1,
++  "stage": "E1.c",
++  "observed_at_utc": "2026-10-22T14:59:52.967Z",
++  "package_state": "CANDIDATE_FOR_REVIEW",
++  "decision_state": "PROVISIONAL_OWNER_LICENSE",
++  "owner_license": {
++    "record_id": "E1.c(4)",
++    "repository_receipt": "docs/evidence/studio-e1c-2026-10-22/E1C_4_OWNER_LICENSE.json",
++    "bindings": [
++      {
++        "path": "aghr.json",
++        "sha256": "ef25b809b529fc6898db46c0afcaafaffc6ac67fa52c5e54c0517b088fe972c6",
++        "bytes": 903
++      },
++      {
++        "path": "LICENSE",
++        "sha256": "dd92d820f1edbf814873bebe95f4e4e07452e1ae0f701f908e2fb1cb2b8018a9",
++        "bytes": 1407
++      }
++    ],
++    "source_basis": "Current explicit provisional owner instruction; signed decision not supplied",
++    "receipt_sha256": "60924761e73d5628b6b1a42d7a63c3aa508b9d7271ad973243e7437a0899f042",
++    "instruction_text_sha256": "84cd3f779635e2c4afedbc8730ef970da283d28f02c9dcebd5bfdb1d7fe05cd0"
++  },
++  "manifest_fields": {
++    "/id": "New local candidate identifier; not an upstream release",
++    "/name": "New local candidate descriptive name",
++    "/version": "Target AGHR_REFERENCE.md section 2.1 version; target declaration, not a release verdict",
++    "/schemaVersion": "contract.1 aghr.schema.json const 1.2",
++    "/owner": "E1.c(4) current explicit provisional owner instruction",
++    "/license": "E1.c(4) current explicit provisional owner instruction + LICENSE proposed SPDX text",
++    "/compatibility": "Codex and Antigravity target declarations selected from AGHR_REFERENCE.md section 2.1 and contract.1 aghr.json; native qualification NOT_RUN",
++    "/validation": "Exact validation settings from contract.1 aghr.json / AGHR_REFERENCE.md section 2.1; strict implementation remains E2"
++  },
++  "items": [
++    {
++      "id": "OBS-REFERENCE-STATE-001",
++      "path": "policies/observations/reference-state.json",
++      "sha256": "f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0",
++      "type": "NEW_OBSERVATION_DERIVED_FROM_REAL_APPLICATION_SOURCE",
++      "source": {
++        "repository_path": "server/security.js",
++        "sha256": "5b59626a9af0b6d9524be7f331d66da28078b2c9ddc14520a62f6353973c5ba8",
++        "bytes": 9086,
++        "lines": [
++          31,
++          32
++        ],
++        "snapshot_repository_path": "docs/evidence/studio-e1c-2026-10-22/sources/security.js.snapshot",
++        "scope": "Static source declarations at the recorded instant; runtime/default persistence and consumer adoption are not measured",
++        "byte_start": 984,
++        "byte_end": 1073,
++        "excerpt": "export const DEFAULT_PACKAGE_ID = \"aghr_1_2_0\";\nexport const AGHR_ROOT = AGHR_1_2_0_ROOT;",
++        "excerpt_raw_base64": "ZXhwb3J0IGNvbnN0IERFRkFVTFRfUEFDS0FHRV9JRCA9ICJhZ2hyXzFfMl8wIjsKZXhwb3J0IGNvbnN0IEFHSFJfUk9PVCA9IEFHSFJfMV8yXzBfUk9PVDs="
++      },
++      "field_map": {
++        "/id": "Identifier proposed in STUDIO_E1_E2_CORE_SCOPE_AR.md section 4",
++        "/title": "Authored descriptive label for this observation",
++        "/kind": "OBSERVATION taxonomy + scoped E1.c source proposal",
++        "/force": "INFORMATIVE; source describes a declaration and creates no obligation",
++        "/severity": "info; descriptive observation, no enforcement or priority claim",
++        "/scope/paths": "Observed repository-relative source path",
++        "/rule": "Arabic description of the exact source declarations at lines 31-32 and observation date",
++        "/impact/band": "info; declared authoring classification, not a measurement",
++        "/impact/evidence": "assumed as required by the scoped E1.c plan; no calibration/eval claimed"
++      },
++      "authority": "OMITTED; no governing authority or signature invented",
++      "absent_fields": [
++        "skillQualification",
++        "enforcement",
++        "verification",
++        "impact.measuredDelta",
++        "impact.lastCalibrated"
++      ]
++    }
++  ],
++  "scope_limits": [
++    "Single real observation, not migration of 1.2.0 or 1.3.0",
++    "Source snapshots and receipts remain outside this candidate in repository evidence",
++    "Portable schema closure / catalog serialization remain E1.d; governing validation remains E2",
++    "No SEC-001, PRIN-007 authoring or promotion in E1.c"
++  ],
++  "governing_sources": [
++    {
++      "repository_path": "docs/specs/aghr-rc3/AGHR_REFERENCE.md",
++      "bytes": 60556,
++      "sha256": "064820539a90ffe51ccfd1e6dd4700e82bdd4a1d8edb32ea63e15e642c33ef6b"
++    },
++    {
++      "repository_path": "docs/contracts/aghr-rc3/aghr.json",
++      "bytes": 1012,
++      "sha256": "5f900e39b500f1300593bba8651f4b63fc6e26e7f5d30c4ea98f645b79d35e48"
++    },
++    {
++      "repository_path": "docs/contracts/aghr-rc3/aghr.schema.json",
++      "bytes": 2996,
++      "sha256": "2ebbc02ff25cbb659a37351e7c155f8e66e8cd1890dfe50af6e738b8b40f5a4f"
++    },
++    {
++      "repository_path": "docs/contracts/aghr-rc3/item.schema.json",
++      "bytes": 9343,
++      "sha256": "e101feba90172939f007db9a41b456ce3297473477cb094c24549cc6d712d122"
++    },
++    {
++      "repository_path": "docs/plans/STUDIO_E1_E2_CORE_SCOPE_AR.md",
++      "sha256": "c59a084318dc502bf0bf77cb96f149163eb98d3c0e1a13439c45ef847c4d178e",
++      "snapshot_repository_path": "docs/evidence/studio-e1c-2026-10-22/before/01.snapshot",
++      "scope": "Pre-E1.c approved proposal, section 4, lines 65-73; later status updates do not replace this original snapshot"
++    }
++  ]
++}

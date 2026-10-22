@@ -1,0 +1,18 @@
+usage: cli.py inbox [-h] --project PROJECT [--register REGISTER]
+                    [--requester REQUESTER] [--classification CLASSIFICATION]
+                    [--notes NOTES]
+                    [--disposition {ADOPT,RECONCILE,REJECT,DEFER,HOLD,REFERENCE_ONLY}]
+                    [--request-id REQUEST_ID] [--rationale RATIONALE]
+                    [--authority-ref AUTHORITY_REF]
+
+options:
+  -h, --help            show this help message and exit
+  --project PROJECT
+  --register REGISTER   Inbox filename to register
+  --requester REQUESTER
+  --classification CLASSIFICATION
+  --notes NOTES
+  --disposition {ADOPT,RECONCILE,REJECT,DEFER,HOLD,REFERENCE_ONLY}
+  --request-id REQUEST_ID
+  --rationale RATIONALE
+  --authority-ref AUTHORITY_REF

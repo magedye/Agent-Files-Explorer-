@@ -1,0 +1,124 @@
+{
+  "source_content_hash": "7adb0e1aaa3a71bd1ed4814cd7d5b428a6a7895bed401c7953f00cc4f0fc5481",
+  "fixture_origin": "Synthetic disposable input under ignored temp; not E1.c",
+  "reader_driver": "import base64,json,sys\nfrom dataclasses import asdict\nsys.path.insert(0,sys.argv[1])\nfrom loader import read_package\nfrom diagnostics import ReadFailure\ndef capture(s):\n return {\"path\":s.path,\"role\":s.role,\"raw_base64\":base64.b64encode(s.raw).decode(\"ascii\"),\"sha256\":s.sha256,\"complete\":s.complete,\"valid_utf8\":s.valid_utf8,\"text\":s.text}\ntry:\n r=read_package(sys.argv[2]); print(json.dumps({\"status\":r.status,\"validation_status\":r.validation_status,\"selection_mode\":r.selection_mode,\"source_paths\":r.source_paths,\"items\":[{\"data\":i.value,\"location\":asdict(i.location)} for i in r.items],\"sources\":[capture(s) for s in r.sources]},ensure_ascii=False)); sys.exit(0)\nexcept ReadFailure as e:\n print(json.dumps({\"status\":\"ERROR\",\"diagnostic\":asdict(e.diagnostic),\"sources\":[capture(s) for s in e.sources]},ensure_ascii=False)); sys.exit(2)",
+  "probes": [
+    {
+      "id": "reader-valid",
+      "started_at_utc": "2026-10-22T13:54:59.812Z",
+      "completed_at_utc": "2026-10-22T13:55:04.574Z",
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "args": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "-c",
+        "import base64,json,sys\nfrom dataclasses import asdict\nsys.path.insert(0,sys.argv[1])\nfrom loader import read_package\nfrom diagnostics import ReadFailure\ndef capture(s):\n return {\"path\":s.path,\"role\":s.role,\"raw_base64\":base64.b64encode(s.raw).decode(\"ascii\"),\"sha256\":s.sha256,\"complete\":s.complete,\"valid_utf8\":s.valid_utf8,\"text\":s.text}\ntry:\n r=read_package(sys.argv[2]); print(json.dumps({\"status\":r.status,\"validation_status\":r.validation_status,\"selection_mode\":r.selection_mode,\"source_paths\":r.source_paths,\"items\":[{\"data\":i.value,\"location\":asdict(i.location)} for i in r.items],\"sources\":[capture(s) for s in r.sources]},ensure_ascii=False)); sys.exit(0)\nexcept ReadFailure as e:\n print(json.dumps({\"status\":\"ERROR\",\"diagnostic\":asdict(e.diagnostic),\"sources\":[capture(s) for s in e.sources]},ensure_ascii=False)); sys.exit(2)",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools",
+        "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1b-20261022-01\\fixtures\\valid"
+      ],
+      "cwd": "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate",
+      "shell": false,
+      "exit_code": 0,
+      "outcome": "READ",
+      "diagnostic": null,
+      "stdout": "reader-probes/reader-valid.stdout.json",
+      "stderr": "reader-probes/reader-valid.stderr.txt",
+      "evidence_scope": "Synthetic fixture or metadata only; no real reference package or governance validation"
+    },
+    {
+      "id": "reader-duplicate-id",
+      "started_at_utc": "2026-10-22T13:55:04.574Z",
+      "completed_at_utc": "2026-10-22T13:55:08.310Z",
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "args": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "-c",
+        "import base64,json,sys\nfrom dataclasses import asdict\nsys.path.insert(0,sys.argv[1])\nfrom loader import read_package\nfrom diagnostics import ReadFailure\ndef capture(s):\n return {\"path\":s.path,\"role\":s.role,\"raw_base64\":base64.b64encode(s.raw).decode(\"ascii\"),\"sha256\":s.sha256,\"complete\":s.complete,\"valid_utf8\":s.valid_utf8,\"text\":s.text}\ntry:\n r=read_package(sys.argv[2]); print(json.dumps({\"status\":r.status,\"validation_status\":r.validation_status,\"selection_mode\":r.selection_mode,\"source_paths\":r.source_paths,\"items\":[{\"data\":i.value,\"location\":asdict(i.location)} for i in r.items],\"sources\":[capture(s) for s in r.sources]},ensure_ascii=False)); sys.exit(0)\nexcept ReadFailure as e:\n print(json.dumps({\"status\":\"ERROR\",\"diagnostic\":asdict(e.diagnostic),\"sources\":[capture(s) for s in e.sources]},ensure_ascii=False)); sys.exit(2)",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools",
+        "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1b-20261022-01\\fixtures\\duplicate-id"
+      ],
+      "cwd": "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate",
+      "shell": false,
+      "exit_code": 2,
+      "outcome": "ERROR",
+      "diagnostic": "DUPLICATE_ID",
+      "stdout": "reader-probes/reader-duplicate-id.stdout.json",
+      "stderr": "reader-probes/reader-duplicate-id.stderr.txt",
+      "evidence_scope": "Synthetic fixture or metadata only; no real reference package or governance validation"
+    },
+    {
+      "id": "reader-invalid-utf8",
+      "started_at_utc": "2026-10-22T13:55:08.310Z",
+      "completed_at_utc": "2026-10-22T13:55:11.615Z",
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "args": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "-c",
+        "import base64,json,sys\nfrom dataclasses import asdict\nsys.path.insert(0,sys.argv[1])\nfrom loader import read_package\nfrom diagnostics import ReadFailure\ndef capture(s):\n return {\"path\":s.path,\"role\":s.role,\"raw_base64\":base64.b64encode(s.raw).decode(\"ascii\"),\"sha256\":s.sha256,\"complete\":s.complete,\"valid_utf8\":s.valid_utf8,\"text\":s.text}\ntry:\n r=read_package(sys.argv[2]); print(json.dumps({\"status\":r.status,\"validation_status\":r.validation_status,\"selection_mode\":r.selection_mode,\"source_paths\":r.source_paths,\"items\":[{\"data\":i.value,\"location\":asdict(i.location)} for i in r.items],\"sources\":[capture(s) for s in r.sources]},ensure_ascii=False)); sys.exit(0)\nexcept ReadFailure as e:\n print(json.dumps({\"status\":\"ERROR\",\"diagnostic\":asdict(e.diagnostic),\"sources\":[capture(s) for s in e.sources]},ensure_ascii=False)); sys.exit(2)",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools",
+        "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1b-20261022-01\\fixtures\\invalid-utf8"
+      ],
+      "cwd": "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate",
+      "shell": false,
+      "exit_code": 2,
+      "outcome": "ERROR",
+      "diagnostic": "INVALID_UTF8",
+      "stdout": "reader-probes/reader-invalid-utf8.stdout.json",
+      "stderr": "reader-probes/reader-invalid-utf8.stderr.txt",
+      "evidence_scope": "Synthetic fixture or metadata only; no real reference package or governance validation"
+    },
+    {
+      "id": "cli-version",
+      "started_at_utc": "2026-10-22T13:55:11.615Z",
+      "completed_at_utc": "2026-10-22T13:55:16.471Z",
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "args": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "--version"
+      ],
+      "cwd": "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate",
+      "shell": false,
+      "exit_code": 0,
+      "outcome": "INFO",
+      "diagnostic": null,
+      "stdout": "reader-probes/cli-version.stdout.json",
+      "stderr": "reader-probes/cli-version.stderr.txt",
+      "evidence_scope": "Synthetic fixture or metadata only; no real reference package or governance validation"
+    },
+    {
+      "id": "cli-strict-blocked",
+      "started_at_utc": "2026-10-22T13:55:16.471Z",
+      "completed_at_utc": "2026-10-22T13:55:19.243Z",
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "args": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict"
+      ],
+      "cwd": "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate",
+      "shell": false,
+      "exit_code": 3,
+      "outcome": "BLOCKED",
+      "diagnostic": null,
+      "stdout": "reader-probes/cli-strict-blocked.stdout.json",
+      "stderr": "reader-probes/cli-strict-blocked.stderr.txt",
+      "evidence_scope": "Synthetic fixture or metadata only; no real reference package or governance validation"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "recorded_at_utc": "2026-10-22T16:55:33.958Z",
+  "source_hash": "f55c0c7f57340c890ee0ceff3025b1691d05dd9855482176c1abcb0415ccc55d",
+  "scope": "E1.d read/catalog/schema custody only; Path B; no E2 governing validation",
+  "candidate_tests": {
+    "passed": 63,
+    "total": 63,
+    "reader": 28,
+    "metadata_cli": 18,
+    "catalog": 17,
+    "failed": 0,
+    "skipped": 0,
+    "log": "candidate-tests.stderr.txt"
+  },
+  "npm_test": {
+    "tests": 41,
+    "pass": 41,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "npm-test.stdout.txt"
+  },
+  "real_catalog": {
+    "result": "READ",
+    "items": 1,
+    "raw_sources": 2,
+    "schemas": 16,
+    "main_fields": 17,
+    "kinds": 13,
+    "source_unchanged": true,
+    "log": "catalog-real.stdout.txt"
+  },
+  "integrity": {
+    "local_references": 564,
+    "all_schemas_byte_identical": true,
+    "closure_sha256": "56748ef28ef23b011f5aa4134ee3c2975a3c668e8cb0b32512b83f6f7c2e0ce8"
+  },
+  "zero_write": {
+    "status": "PASS_FOR_PYTHON_CLI_READ_BOUNDARY",
+    "evidence": "test_catalog.CatalogCliTests.test_audit_guard_blocks_all_filesystem_writes_and_subprocess_network + file/directory byte snapshots",
+    "whole_studio_SOURCE_01": "REQUIRED / NOT_RUN / NOT_WAIVED"
+  },
+  "runtime_honesty": "7 REQUIRED / NOT_RUN / NOT_WAIVED; read guards passed, runtime checks not executed",
+  "governance_validation": "NOT_RUN",
+  "native_host_qualification": "NOT_RUN",
+  "independent_review": "NOT_PERFORMED",
+  "release_acceptance": "NOT_GRANTED",
+  "context_health": {
+    "status": "PASS",
+    "exit_code": 0,
+    "errors": 0,
+    "warnings": 0,
+    "estimated_bootstrap_tokens": 4966,
+    "log": "context-health.log"
+  },
+  "git_diff_check": {
+    "exit_code": 0,
+    "log": "git-diff-check.log"
+  }
+}

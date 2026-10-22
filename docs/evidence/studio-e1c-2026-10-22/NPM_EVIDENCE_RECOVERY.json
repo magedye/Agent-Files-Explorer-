@@ -1,0 +1,53 @@
+{
+  "classification": [
+    "ENVIRONMENT_DEFECT",
+    "TEST_DEFECT_IN_EVIDENCE_HELPER"
+  ],
+  "initial_launch": {
+    "classification": "ENVIRONMENT_DEFECT",
+    "exit_code": 1,
+    "tests_started": false,
+    "raw": {
+      "name": "npm-test",
+      "started_at_utc": "2026-10-22T15:08:56.332Z",
+      "completed_at_utc": "2026-10-22T15:08:57.418Z",
+      "executable": "C:/Windows/System32/cmd.exe",
+      "args": [
+        "/d",
+        "/s",
+        "/c",
+        "npm test"
+      ],
+      "cwd": "D:/APP/Agent-Files-Explorer/",
+      "exit_code": 1,
+      "expected_exit_code": 0,
+      "stdout": "npm-test.stdout.txt",
+      "stderr": "npm-test.stderr.txt",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "6bf64187472dcd64b7055e5ee036702be3e6b457f7461defd9dc473d481b11ab",
+      "source_hash": "3c8c536b0c02c80173cb5e3758a90123f4c3bec5f32e44b2de822c2c26932955"
+    },
+    "observed": "cmd.exe rejected command syntax before npm started",
+    "root_cause_limit": "The custom cmd command-string launch failed. Native command-line bytes were not captured; the exact Windows quoting mechanism is not claimed."
+  },
+  "successful_test_run": {
+    "record": "NPM_LAUNCH_RECOVERY.json",
+    "exit_code": 0,
+    "summary": {
+      "tests": 41,
+      "pass": 41,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "stdout": "npm-test-retry.stdout.txt",
+    "stderr": "npm-test-retry.stderr.txt"
+  },
+  "helper_assertion": {
+    "classification": "TEST_DEFECT",
+    "observed": "Npm tests exited 0 with spec reporter; evidence helper expected TAP # pass/# fail lines and falsely rejected the successful test run",
+    "correction": "Parse the preserved actual spec/TAP summary, require actual count/zero failures/zero skips, and preserve original logs. No successful test rerun."
+  },
+  "product_source_changes": "NONE",
+  "tests_weakened": false
+}

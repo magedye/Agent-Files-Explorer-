@@ -1,0 +1,1451 @@
+{
+  "observed_at": "2026-10-21T23:11:08.195Z",
+  "branch": "main",
+  "head": "bb76a0b61617512f4cd6d0c6cea792e35d5ff4aa",
+  "status": " M .gitattributes\n M docs/INDEX.md\n M docs/status/CURRENT.md\n M docs/status/HANDOFF.md\n M governance_packages/README.md\n?? docs/evidence/last-app-adoption-2026-10-21/\n?? docs/evidence/studio-design-adoption-2026-10-21/\n?? docs/governance/LAST_APP_ADOPTION_2026_10_22.md\n?? docs/governance/STUDIO_DESIGN_ADOPTION_2026_10_21.md\n?? docs/plans/STUDIO_PRODUCT_AND_CONTRACTS_AR.md\n?? docs/reviews/\n?? docs/specs/aghr-rc3/\n?? governance_packages/archive/studio-designs-2026-10-21/\n?? tools/governance_inventory.mjs\n",
+  "scope": "Correct the product overview; begin Phase 0 draft contracts. No runtime implementation, migration or reference promotion.",
+  "acceptance": [
+    "C1-C12 with enforcement and acceptance mapping",
+    "current mode and SQL names verified against exact sources",
+    "contracts-first sequence replaces review-first sequence",
+    "bounded draft contracts with honest gaps",
+    "npm test and context health gates"
+  ],
+  "inputs": [
+    {
+      "path": "docs/specs/aghr-rc3/AGHR_REFERENCE.md",
+      "bytes": 60556,
+      "sha256": "064820539a90ffe51ccfd1e6dd4700e82bdd4a1d8edb32ea63e15e642c33ef6b"
+    },
+    {
+      "path": "docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md",
+      "bytes": 88515,
+      "sha256": "7061607b534bc1d8765521c4249089d14b344511bd770b618692f793b4c403ef"
+    },
+    {
+      "path": "docs/specs/aghr-rc3/ADOPTION.json",
+      "bytes": 2549,
+      "sha256": "d720bc331cff835bc4755c29ad94f325e5e197fa921e6b222366ad68a5ea2392"
+    },
+    {
+      "path": "src/App.jsx",
+      "bytes": 12711,
+      "sha256": "ad0e2b899672701fd09f319577a90d559aea859b7877f09cc99aa8233352d19e"
+    },
+    {
+      "path": "server/security.js",
+      "bytes": 9086,
+      "sha256": "5b59626a9af0b6d9524be7f331d66da28078b2c9ddc14520a62f6353973c5ba8"
+    },
+    {
+      "path": "package.json",
+      "bytes": 518,
+      "sha256": "c3e6a9b57cea62a390ed6655943cade4393ab0a96ebbae70a81287d78917ae8f"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/AGENTS.md",
+      "bytes": 3718,
+      "sha256": "51a3b2e589544b96d61930ebcaa8440c747ede9ac7e6e0e398941af0665976c5"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/AGENTS.md",
+      "bytes": 3484,
+      "sha256": "d021817e7fb188801baa30f564657a56831c7944e954b50f53f8d6458aac4a33"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/ARCHITECTURE.md",
+      "bytes": 5232,
+      "sha256": "e7645809057fab037b693e211d8d6d5117107c4e6473be3adfc60a7285d6dc9b"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/ARCHITECTURE.md",
+      "bytes": 5232,
+      "sha256": "e7645809057fab037b693e211d8d6d5117107c4e6473be3adfc60a7285d6dc9b"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/CHARTER.md",
+      "bytes": 3473,
+      "sha256": "a60d2251398e5cfdf498adb3751077d3f07fdcc36e38d367c64108c65dd37be6"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/CHARTER.md",
+      "bytes": 3473,
+      "sha256": "a60d2251398e5cfdf498adb3751077d3f07fdcc36e38d367c64108c65dd37be6"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/CONTEXT_GUIDE.md",
+      "bytes": 1402,
+      "sha256": "66705f7282343a7801f2d3becd68c8521361b75a4552c7fd34248066c72666e5"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/CONTEXT_GUIDE.md",
+      "bytes": 1402,
+      "sha256": "66705f7282343a7801f2d3becd68c8521361b75a4552c7fd34248066c72666e5"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/LICENSE.md",
+      "bytes": 1024,
+      "sha256": "7f75e60dba65417b72dea6e6bcae745a80bff8fb2fe93ec1b74278763dc6b77e"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/LICENSE.md",
+      "bytes": 1024,
+      "sha256": "7f75e60dba65417b72dea6e6bcae745a80bff8fb2fe93ec1b74278763dc6b77e"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/README.md",
+      "bytes": 2947,
+      "sha256": "8155f2b53fb91eb0ff7459109c7b31422387f8a00faae1fc3a535aa1cfd534db"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/README.md",
+      "bytes": 2634,
+      "sha256": "d34ec6f495cb161728ee8634bcf92249fcb9051ac15a562689449603b88382dd"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/SKILLS_CHANGE_PLAN.md",
+      "bytes": 11652,
+      "sha256": "e90601551ad86f0a356ae61523d593481a9e46d872b4b313095d1db3bf46db70"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/SKILLS_MIGRATION_1_2_TO_1_3.md",
+      "bytes": 2633,
+      "sha256": "9f630d4a3c101f483e92e149c0693bd0d953e94fba402f3d231450cf729c44e1"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/START_HERE.md",
+      "bytes": 5763,
+      "sha256": "1e5948c686024e068d340198cabda0ece5fcc79651eb8088cd21abed6a826c3c"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/START_HERE.md",
+      "bytes": 5521,
+      "sha256": "f07dcf65b9174ac6ad88134a611b0d690b24a67d53df200925ec026880e72ec5"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/START_HERE_AR.md",
+      "bytes": 3453,
+      "sha256": "695398c7c757312e99f8b33e4c2a1d28425bbef19bda0889882b74d34325a922"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/START_HERE_AR.md",
+      "bytes": 3224,
+      "sha256": "665a4fe0fbc11bccef8fd1ce8f33f406e9e10661803e7de5979d4c33940aab19"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/THIRD_PARTY_NOTICES.md",
+      "bytes": 2639,
+      "sha256": "0a28ae702079f897a62f2e4fd9536a2f16d25f1c61ceeac30b8c2bd04b0b21f8"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/THIRD_PARTY_NOTICES.md",
+      "bytes": 2639,
+      "sha256": "0a28ae702079f897a62f2e4fd9536a2f16d25f1c61ceeac30b8c2bd04b0b21f8"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/adapters/README.md",
+      "bytes": 2084,
+      "sha256": "acd0f96850913b2cbf96e08692d457fa1c69792162a017411c346c8cc60fee53"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/adapters/README.md",
+      "bytes": 2084,
+      "sha256": "acd0f96850913b2cbf96e08692d457fa1c69792162a017411c346c8cc60fee53"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/adapters/REGISTER.json",
+      "bytes": 3392,
+      "sha256": "0c6b905d66b01e835b8bdb893ea725b02a202fc75b1b441923c20e0a44262be8"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/adapters/REGISTER.json",
+      "bytes": 3392,
+      "sha256": "0c6b905d66b01e835b8bdb893ea725b02a202fc75b1b441923c20e0a44262be8"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/adapters/hosts/CLAUDE_CODE.md",
+      "bytes": 1762,
+      "sha256": "3d82675c3e64bf9a726a3a5c999bcc227ea9980e34d1461e2a129be05895870e"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/adapters/hosts/CLAUDE_CODE.md",
+      "bytes": 1762,
+      "sha256": "3d82675c3e64bf9a726a3a5c999bcc227ea9980e34d1461e2a129be05895870e"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/adapters/hosts/CODEX.md",
+      "bytes": 1911,
+      "sha256": "a50a47502d5f887d918310e6a2187b109d5205151381c1eb29f6de6f7dc30332"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/adapters/hosts/CODEX.md",
+      "bytes": 1911,
+      "sha256": "a50a47502d5f887d918310e6a2187b109d5205151381c1eb29f6de6f7dc30332"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/adapters/hosts/GEMINI_CLI.md",
+      "bytes": 1578,
+      "sha256": "d84b26662b47bff36338accf16cfa275219f3b86f3227ad78f155f558a172b35"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/adapters/hosts/GEMINI_CLI.md",
+      "bytes": 1578,
+      "sha256": "d84b26662b47bff36338accf16cfa275219f3b86f3227ad78f155f558a172b35"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/adapters/hosts/GENERIC_API.md",
+      "bytes": 1786,
+      "sha256": "ad2933abf55eb45e1be2334c22e5ab0586091920b87836ea1850e216d4b75a2d"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/adapters/hosts/GENERIC_API.md",
+      "bytes": 1786,
+      "sha256": "ad2933abf55eb45e1be2334c22e5ab0586091920b87836ea1850e216d4b75a2d"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/adapters/hosts/GITHUB_COPILOT.md",
+      "bytes": 1614,
+      "sha256": "ff2a5a9f3b9855d3d3817c3b3544d7fa7e2d48200a4942180a122bd7de35e20a"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/adapters/hosts/GITHUB_COPILOT.md",
+      "bytes": 1614,
+      "sha256": "ff2a5a9f3b9855d3d3817c3b3544d7fa7e2d48200a4942180a122bd7de35e20a"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/adapters/hosts/OPENCODE.md",
+      "bytes": 1647,
+      "sha256": "8ec4cb2a439a570bb2dd797bea22891ff7a3e7e3ba7a9a3b7bddd5d663748f5b"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/adapters/hosts/OPENCODE.md",
+      "bytes": 1647,
+      "sha256": "8ec4cb2a439a570bb2dd797bea22891ff7a3e7e3ba7a9a3b7bddd5d663748f5b"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/adapters/providers/ANTHROPIC.md",
+      "bytes": 1904,
+      "sha256": "703c2d4632492ff66b30808794454ff90edf2b2df4869740994c194cbd08076b"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/adapters/providers/ANTHROPIC.md",
+      "bytes": 1904,
+      "sha256": "703c2d4632492ff66b30808794454ff90edf2b2df4869740994c194cbd08076b"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/adapters/providers/DEEPSEEK.md",
+      "bytes": 1618,
+      "sha256": "e08a8abdcbec9e6e76a89dd0b2bb7c9b7cd7d8e62a8620b17aab3758170e7cb9"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/adapters/providers/DEEPSEEK.md",
+      "bytes": 1618,
+      "sha256": "e08a8abdcbec9e6e76a89dd0b2bb7c9b7cd7d8e62a8620b17aab3758170e7cb9"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/adapters/providers/GOOGLE.md",
+      "bytes": 1763,
+      "sha256": "6f5d5a637ccda914f85c0258b4faf6c14a2bf882121578f839cb51cef924ef6d"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/adapters/providers/GOOGLE.md",
+      "bytes": 1763,
+      "sha256": "6f5d5a637ccda914f85c0258b4faf6c14a2bf882121578f839cb51cef924ef6d"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/adapters/providers/MISTRAL.md",
+      "bytes": 1697,
+      "sha256": "dec2c603c679a1ad2f70d6e30967635b43b4b43e13f37402dce0a7375074014b"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/adapters/providers/MISTRAL.md",
+      "bytes": 1697,
+      "sha256": "dec2c603c679a1ad2f70d6e30967635b43b4b43e13f37402dce0a7375074014b"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/adapters/providers/OPENAI.md",
+      "bytes": 2337,
+      "sha256": "81b5f36a614ed0cb1dd0b06dbf913fc18f2b36093a458d9294eeb80dd8ffa969"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/adapters/providers/OPENAI.md",
+      "bytes": 2337,
+      "sha256": "81b5f36a614ed0cb1dd0b06dbf913fc18f2b36093a458d9294eeb80dd8ffa969"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/adapters/providers/QWEN.md",
+      "bytes": 1695,
+      "sha256": "08c5a719e8c415f38a1fd23ad740cc707ea876f366c9654d2dd213a330ec2194"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/adapters/providers/QWEN.md",
+      "bytes": 1695,
+      "sha256": "08c5a719e8c415f38a1fd23ad740cc707ea876f366c9654d2dd213a330ec2194"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/contracts/ENFORCEMENT.md",
+      "bytes": 3129,
+      "sha256": "69aeefbdae8c70f7bf95d2968163afe1c60ce8bf0b20b66e18a1d8cc2695fe8d"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/contracts/ENFORCEMENT.md",
+      "bytes": 3129,
+      "sha256": "69aeefbdae8c70f7bf95d2968163afe1c60ce8bf0b20b66e18a1d8cc2695fe8d"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/contracts/EVIDENCE.md",
+      "bytes": 3016,
+      "sha256": "926f5c33836df594f18e2b93c76106356a634fcddaff8345c55402cf222fbcae"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/contracts/EVIDENCE.md",
+      "bytes": 3016,
+      "sha256": "926f5c33836df594f18e2b93c76106356a634fcddaff8345c55402cf222fbcae"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/contracts/GOVERNANCE.md",
+      "bytes": 2976,
+      "sha256": "7d6b1507500c2e4637b4994ec7bc8d5004aba654e01ba140a53ef59ac1ca9c6e"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/contracts/GOVERNANCE.md",
+      "bytes": 2976,
+      "sha256": "7d6b1507500c2e4637b4994ec7bc8d5004aba654e01ba140a53ef59ac1ca9c6e"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/contracts/RUNTIME.md",
+      "bytes": 3672,
+      "sha256": "ccb0c00d598c446880bff25e5f58ad2518e45dbfd9d6e2236e8e4f0e1afab62b"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/contracts/RUNTIME.md",
+      "bytes": 3382,
+      "sha256": "4d4c3d06bb6d5cea1f412ea40925490cd2687c15d04bb4ed5569f975445a678d"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/evaluations/DELIVERY_EVAL_PLAN_AR.md",
+      "bytes": 7485,
+      "sha256": "f6ef5d1afb801915135cd4f1f49ca0d0c686ba5dedeb9fb69dbd4bf02e6ca9c8"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/evaluations/DELIVERY_EVAL_PLAN_AR.md",
+      "bytes": 7485,
+      "sha256": "f6ef5d1afb801915135cd4f1f49ca0d0c686ba5dedeb9fb69dbd4bf02e6ca9c8"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/evaluations/DELIVERY_SCENARIOS.json",
+      "bytes": 13387,
+      "sha256": "7e478c54c04f07d0941c9d4374ae452d609b2bf6c129887cc2222baf9882ac52"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/evaluations/DELIVERY_SCENARIOS.json",
+      "bytes": 13387,
+      "sha256": "7e478c54c04f07d0941c9d4374ae452d609b2bf6c129887cc2222baf9882ac52"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/evaluations/README.md",
+      "bytes": 2706,
+      "sha256": "97361b476c80393765644c28f19000ac42816c54fd9d06599d952928647ebec7"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/evaluations/README.md",
+      "bytes": 2706,
+      "sha256": "97361b476c80393765644c28f19000ac42816c54fd9d06599d952928647ebec7"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/evaluations/SCENARIOS.json",
+      "bytes": 26365,
+      "sha256": "ce0201ac97cb7c4800cb0d17a6a5d76f90471ac8c22cafab6bd4ca1bd838ccf5"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/evaluations/SCENARIOS.json",
+      "bytes": 26365,
+      "sha256": "ce0201ac97cb7c4800cb0d17a6a5d76f90471ac8c22cafab6bd4ca1bd838ccf5"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/evaluations/SKILL_HOST_QUALIFICATION.json",
+      "bytes": 1137,
+      "sha256": "5aa70e5893d649e6b3ae5b8d74b81ddcc1bc51c8c88306ef83a587b02648cae3"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/README.md",
+      "bytes": 1048,
+      "sha256": "7ac3948b728454139d5a5e4f874bff39ac2d2ee1659d4af787cb22a78535b663"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/optional_skills/README.md",
+      "bytes": 1048,
+      "sha256": "7ac3948b728454139d5a5e4f874bff39ac2d2ee1659d4af787cb22a78535b663"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/REGISTER.json",
+      "bytes": 12998,
+      "sha256": "5590ff11329dfe1c4d752ad8dbf9316b70ad0d1c1bc74c05efca3245c5ff19b4"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/optional_skills/REGISTER.json",
+      "bytes": 10647,
+      "sha256": "ccd696382bccd92f427e2d335e99cddfcf8bc2449353efa3fad2506522f07ec9"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/agent-tool-security/SKILL.md",
+      "bytes": 2795,
+      "sha256": "00fb742a08b84a0f260e94533145ca198d3b09b89d141a356d7e82f2c690d77b"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/optional_skills/agent-tool-security/SKILL.md",
+      "bytes": 2795,
+      "sha256": "00fb742a08b84a0f260e94533145ca198d3b09b89d141a356d7e82f2c690d77b"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/architecture-options/SKILL.md",
+      "bytes": 2787,
+      "sha256": "579f4573936ffa650aa4457a06670a00b4b2101adf6e45fe7a6ed2425c5d6704"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/optional_skills/architecture-options/SKILL.md",
+      "bytes": 2787,
+      "sha256": "579f4573936ffa650aa4457a06670a00b4b2101adf6e45fe7a6ed2425c5d6704"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/governed-learning/SKILL.md",
+      "bytes": 2838,
+      "sha256": "a851238d2936e9fa17ec10c21b56ac36e10744e176fc5079aa55a19ba1b0b28b"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/optional_skills/governed-learning/SKILL.md",
+      "bytes": 2838,
+      "sha256": "a851238d2936e9fa17ec10c21b56ac36e10744e176fc5079aa55a19ba1b0b28b"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/incremental-change/SKILL.md",
+      "bytes": 2704,
+      "sha256": "c681d722e01533a5e2be93b12a72f3ef9c0a6b5ef4512093250e073b027a5cc3"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/optional_skills/incremental-change/SKILL.md",
+      "bytes": 2704,
+      "sha256": "c681d722e01533a5e2be93b12a72f3ef9c0a6b5ef4512093250e073b027a5cc3"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/plan-drift-review/SKILL.md",
+      "bytes": 2741,
+      "sha256": "cf92548866c5300ef23982331d802071091f3560eee41bdcab5f14f4df803839"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/optional_skills/plan-drift-review/SKILL.md",
+      "bytes": 2741,
+      "sha256": "cf92548866c5300ef23982331d802071091f3560eee41bdcab5f14f4df803839"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/rag-data-quality/SKILL.md",
+      "bytes": 2724,
+      "sha256": "134e4399e2b0cf7b9194cc04488981967a60159261050d89ba63614b062b586c"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/optional_skills/rag-data-quality/SKILL.md",
+      "bytes": 2724,
+      "sha256": "134e4399e2b0cf7b9194cc04488981967a60159261050d89ba63614b062b586c"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/requirements-traceability/SKILL.md",
+      "bytes": 2740,
+      "sha256": "deefcbe720798dabaac939915970c5118b02411e81700fbb824edf3d901b847f"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/optional_skills/requirements-traceability/SKILL.md",
+      "bytes": 2740,
+      "sha256": "deefcbe720798dabaac939915970c5118b02411e81700fbb824edf3d901b847f"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/risk-based-verification/SKILL.md",
+      "bytes": 2641,
+      "sha256": "35fd3382c2af95442ca41feb4f1a339d70bee87fc5e632076f0e5e7d79fb1115"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/optional_skills/risk-based-verification/SKILL.md",
+      "bytes": 2641,
+      "sha256": "35fd3382c2af95442ca41feb4f1a339d70bee87fc5e632076f0e5e7d79fb1115"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/root-cause-debugging/SKILL.md",
+      "bytes": 2725,
+      "sha256": "8b02b4494bc0738fdb7187fc4e01eaa5d1824c8410409328f4fbe3e20b998efc"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/optional_skills/root-cause-debugging/SKILL.md",
+      "bytes": 2725,
+      "sha256": "8b02b4494bc0738fdb7187fc4e01eaa5d1824c8410409328f4fbe3e20b998efc"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/safe-git-closeout/SKILL.md",
+      "bytes": 2743,
+      "sha256": "c7b7a3f0e909b838c407060ea4ed5f5f5c42fdead9ba50b5de2f7bb2a2c5c89d"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/optional_skills/safe-git-closeout/SKILL.md",
+      "bytes": 2743,
+      "sha256": "c7b7a3f0e909b838c407060ea4ed5f5f5c42fdead9ba50b5de2f7bb2a2c5c89d"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/smart-clarification/SKILL.md",
+      "bytes": 2944,
+      "sha256": "ee9adb3e5f2ec02dd5c80db7b750fbf4d857d88a39254c09ecce0eacab6693ae"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/optional_skills/smart-clarification/SKILL.md",
+      "bytes": 2944,
+      "sha256": "ee9adb3e5f2ec02dd5c80db7b750fbf4d857d88a39254c09ecce0eacab6693ae"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/options/EXTERNAL_TOOLS_AR.md",
+      "bytes": 3460,
+      "sha256": "3363fa6cae3ca8f329093fa95ccdc495217e937633a44bfdd29395ce7dd5d2e6"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/options/EXTERNAL_TOOLS_AR.md",
+      "bytes": 3460,
+      "sha256": "3363fa6cae3ca8f329093fa95ccdc495217e937633a44bfdd29395ce7dd5d2e6"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/options/OPTIONAL_SKILLS_AR.md",
+      "bytes": 3428,
+      "sha256": "34c56073b2220c12ec029bd819ebcf2559bda9d5f5a788ed2919b7356de1fb05"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/options/OPTIONAL_SKILLS_AR.md",
+      "bytes": 3192,
+      "sha256": "38108b50fbef895069a948c6a2bcb09c880a0afd4ae21e992ba06cfb9eb52332"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/policies/CHANGE_CONTROL.md",
+      "bytes": 2769,
+      "sha256": "6fb5277d1d65ccd6118762ed36ae36742020d41e4acd95e3e518a67189a41788"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/policies/CHANGE_CONTROL.md",
+      "bytes": 2769,
+      "sha256": "6fb5277d1d65ccd6118762ed36ae36742020d41e4acd95e3e518a67189a41788"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/policies/CONTEXT_AND_MODELS.md",
+      "bytes": 3993,
+      "sha256": "5d56fef0176c7317e0964fe92228ecb3a6c869cadcfca6bcaeba9fdd0a175f95"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/policies/CONTEXT_AND_MODELS.md",
+      "bytes": 3571,
+      "sha256": "494734ffdc0fe3eb55e261027a7537f987f61d52ac885efb89091627b1b00b87"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/policies/ENGINEERING.md",
+      "bytes": 4448,
+      "sha256": "d5ccda7ef2375a69876ce03cef56ad6b338adeebac444610d5a5d34ef69e433c"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/policies/ENGINEERING.md",
+      "bytes": 4448,
+      "sha256": "d5ccda7ef2375a69876ce03cef56ad6b338adeebac444610d5a5d34ef69e433c"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/policies/INSTRUCTIONS.md",
+      "bytes": 3481,
+      "sha256": "ea2c2e63748a6d2c7499cd425675a8e58991c368c166cc2b5c65c5b60b0a978f"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/policies/INSTRUCTIONS.md",
+      "bytes": 3481,
+      "sha256": "ea2c2e63748a6d2c7499cd425675a8e58991c368c166cc2b5c65c5b60b0a978f"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/policies/SECURITY.md",
+      "bytes": 3228,
+      "sha256": "3bb328cc95cb5d54eecb13bf73eae851fc01950c6921014fabcd5c380658922d"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/policies/SECURITY.md",
+      "bytes": 3228,
+      "sha256": "3bb328cc95cb5d54eecb13bf73eae851fc01950c6921014fabcd5c380658922d"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/policies/STATE_AND_RECOVERY.md",
+      "bytes": 3343,
+      "sha256": "5751e3ca7f818107c302df0df24d2002f0cdc2e10181faeeff278c4832af7e09"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/policies/STATE_AND_RECOVERY.md",
+      "bytes": 3343,
+      "sha256": "5751e3ca7f818107c302df0df24d2002f0cdc2e10181faeeff278c4832af7e09"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/policies/VERIFICATION.md",
+      "bytes": 2757,
+      "sha256": "028a68a29dccb3972f0883f571c0ca5672061df730bfc9fc6b1f4a8ee5871520"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/policies/VERIFICATION.md",
+      "bytes": 2757,
+      "sha256": "028a68a29dccb3972f0883f571c0ca5672061df730bfc9fc6b1f4a8ee5871520"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/procedures/ADOPTION.md",
+      "bytes": 3560,
+      "sha256": "0e85c43b8173f013e280d0169f04b606f43e7ea5f466b2bca470d256c017e9cf"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/procedures/ADOPTION.md",
+      "bytes": 3560,
+      "sha256": "0e85c43b8173f013e280d0169f04b606f43e7ea5f466b2bca470d256c017e9cf"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/procedures/ALTERNATIVES_AND_IMPACT_AR.md",
+      "bytes": 3772,
+      "sha256": "f26d3f21218c3636a8ef37a5ac9561275901d0a69fcf305d27cdfb76e3e39c71"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/procedures/ALTERNATIVES_AND_IMPACT_AR.md",
+      "bytes": 3772,
+      "sha256": "f26d3f21218c3636a8ef37a5ac9561275901d0a69fcf305d27cdfb76e3e39c71"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/procedures/COMMUNICATION_AND_HANDOFF_AR.md",
+      "bytes": 3979,
+      "sha256": "f0cd82f7b73792bd681384b898c68483fcc823d3e240878b1b8b253664ad828c"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/procedures/COMMUNICATION_AND_HANDOFF_AR.md",
+      "bytes": 3979,
+      "sha256": "f0cd82f7b73792bd681384b898c68483fcc823d3e240878b1b8b253664ad828c"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/procedures/EXECUTION_AND_GIT_AR.md",
+      "bytes": 5314,
+      "sha256": "3d7a231d41f086d9875555d63972e0f176c26b5deafd0d8be8441772cd5f0968"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/procedures/EXECUTION_AND_GIT_AR.md",
+      "bytes": 5314,
+      "sha256": "3d7a231d41f086d9875555d63972e0f176c26b5deafd0d8be8441772cd5f0968"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/procedures/EXTERNAL_CAPABILITIES_AR.md",
+      "bytes": 11162,
+      "sha256": "6c22e3d628a68e7630da454def5caae6e01fa46a227b45f6493c160a251af2f9"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/procedures/EXTERNAL_CAPABILITIES_AR.md",
+      "bytes": 6896,
+      "sha256": "639b5eb348db9a87105d3b75e10c4725a378a9fa003c643c44c41ed00784df11"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/procedures/GOVERNED_LEARNING.md",
+      "bytes": 9210,
+      "sha256": "7349c61cf46aa6033546cf1e49634febdd0265a4b8ecd33a80b5f6cefc565bf3"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/procedures/GOVERNED_LEARNING.md",
+      "bytes": 8532,
+      "sha256": "cb3b5006c3568b8ada3184aff6a6f9a84becde1c830b8ed943ee9015690209ae"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/procedures/HOST_QUALIFICATION.md",
+      "bytes": 2357,
+      "sha256": "275c30a0f21c59fe9eddeec61744d957b1092d3af27ec517ef20642adaf6fb09"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/procedures/HOST_QUALIFICATION.md",
+      "bytes": 2357,
+      "sha256": "275c30a0f21c59fe9eddeec61744d957b1092d3af27ec517ef20642adaf6fb09"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/procedures/INCIDENT_RESPONSE.md",
+      "bytes": 1437,
+      "sha256": "22bac254290b4a9e74a91b8de32d49dc153cb123a1b78eb2c76f544486a8e453"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/procedures/INCIDENT_RESPONSE.md",
+      "bytes": 1437,
+      "sha256": "22bac254290b4a9e74a91b8de32d49dc153cb123a1b78eb2c76f544486a8e453"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/procedures/LIFECYCLE_AR.md",
+      "bytes": 6414,
+      "sha256": "000c2c9fcebee67d0c8d1c32ff8584ed2e8896d00f3398a604d240bba827de28"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/procedures/LIFECYCLE_AR.md",
+      "bytes": 6414,
+      "sha256": "000c2c9fcebee67d0c8d1c32ff8584ed2e8896d00f3398a604d240bba827de28"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/procedures/MAINTENANCE.md",
+      "bytes": 1228,
+      "sha256": "2c703c38e5be6c7194dfef81649e087b57208765b924b1818c293cb0d76fce28"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/procedures/MAINTENANCE.md",
+      "bytes": 1228,
+      "sha256": "2c703c38e5be6c7194dfef81649e087b57208765b924b1818c293cb0d76fce28"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/procedures/MIGRATION_1_0_TO_1_1.md",
+      "bytes": 1736,
+      "sha256": "d009c399e13138cf37b1d1d5060ec0ff4e0b569777e316f024ca10d8fbce7a58"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/procedures/MIGRATION_1_0_TO_1_1.md",
+      "bytes": 1736,
+      "sha256": "d009c399e13138cf37b1d1d5060ec0ff4e0b569777e316f024ca10d8fbce7a58"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/procedures/MIGRATION_1_1_TO_1_2.md",
+      "bytes": 1686,
+      "sha256": "6e559f7654762b3f88620f56db528e42f597443a2a87c963553c6f9a1c03431e"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/procedures/MIGRATION_1_1_TO_1_2.md",
+      "bytes": 1686,
+      "sha256": "6e559f7654762b3f88620f56db528e42f597443a2a87c963553c6f9a1c03431e"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/procedures/PROGRESS_AND_DRIFT_AR.md",
+      "bytes": 5452,
+      "sha256": "6de396a8c27c845027626c44a629bbdf5b9b7e5560aa4663f78aa9f71c01394a"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/procedures/PROGRESS_AND_DRIFT_AR.md",
+      "bytes": 5452,
+      "sha256": "6de396a8c27c845027626c44a629bbdf5b9b7e5560aa4663f78aa9f71c01394a"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/procedures/PROJECT_INBOX.md",
+      "bytes": 7179,
+      "sha256": "81bd85ac7053ac9bd0aa9bc23cb5a1d54516976ab8a41b9bfff81084cbb1fa24"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/procedures/PROJECT_INBOX.md",
+      "bytes": 7179,
+      "sha256": "81bd85ac7053ac9bd0aa9bc23cb5a1d54516976ab8a41b9bfff81084cbb1fa24"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/procedures/REQUEST_INTAKE.md",
+      "bytes": 3918,
+      "sha256": "2f5b10c516cdbffe10d374e84f015af5b8a5371cecdc0a2137495e653f7fc8f4"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/procedures/REQUEST_INTAKE.md",
+      "bytes": 3918,
+      "sha256": "2f5b10c516cdbffe10d374e84f015af5b8a5371cecdc0a2137495e653f7fc8f4"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/procedures/SMART_CLARIFICATION_AR.md",
+      "bytes": 7250,
+      "sha256": "b335e7e46718bcb2c3aaf4f0771865bfc74b317a71789a21efacc4f671d5e664"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/procedures/SMART_CLARIFICATION_AR.md",
+      "bytes": 7250,
+      "sha256": "b335e7e46718bcb2c3aaf4f0771865bfc74b317a71789a21efacc4f671d5e664"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/profiles/CONTROLLED.md",
+      "bytes": 911,
+      "sha256": "3829d4fa4ba26c197ab4e57e357dea13e13d4cf5028c834fc854b03c3f96af2e"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/profiles/CONTROLLED.md",
+      "bytes": 911,
+      "sha256": "3829d4fa4ba26c197ab4e57e357dea13e13d4cf5028c834fc854b03c3f96af2e"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/profiles/LITE.md",
+      "bytes": 819,
+      "sha256": "00971b57671b942c354c17eec7dcaa1e77702cf26d77f119e633789efa2d3622"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/profiles/LITE.md",
+      "bytes": 819,
+      "sha256": "00971b57671b942c354c17eec7dcaa1e77702cf26d77f119e633789efa2d3622"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/profiles/PROFILES.json",
+      "bytes": 622,
+      "sha256": "036bef586c902ead0d5d15560945dbf11976bb359b773c2a1446c54650d1de44"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/profiles/PROFILES.json",
+      "bytes": 622,
+      "sha256": "036bef586c902ead0d5d15560945dbf11976bb359b773c2a1446c54650d1de44"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/profiles/README.md",
+      "bytes": 1642,
+      "sha256": "35b08840db735a0db655c112840d9feed2b880e0009e50c8b8a4a3e6e8b0ea09"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/profiles/README.md",
+      "bytes": 1642,
+      "sha256": "35b08840db735a0db655c112840d9feed2b880e0009e50c8b8a4a3e6e8b0ea09"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/profiles/STANDARD.md",
+      "bytes": 819,
+      "sha256": "f34f1bb8aee190a4047e87758b6040ed01daa237cbd70a47967b484ab3c79a7b"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/profiles/STANDARD.md",
+      "bytes": 819,
+      "sha256": "f34f1bb8aee190a4047e87758b6040ed01daa237cbd70a47967b484ab3c79a7b"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/prompts/ADOPT.md",
+      "bytes": 2532,
+      "sha256": "28c9a4a45cb788f2739925a14d245a95d6ce81d9cde5cad217c018aecc4e1905"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/prompts/ADOPT.md",
+      "bytes": 2532,
+      "sha256": "28c9a4a45cb788f2739925a14d245a95d6ce81d9cde5cad217c018aecc4e1905"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/prompts/EDIT.md",
+      "bytes": 1003,
+      "sha256": "858a8a6176432eb3d4d5e5d284a92f3cba1614c11b48fc2c55cbd1a092c5dc2a"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/prompts/EDIT.md",
+      "bytes": 1003,
+      "sha256": "858a8a6176432eb3d4d5e5d284a92f3cba1614c11b48fc2c55cbd1a092c5dc2a"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/prompts/EXECUTE.md",
+      "bytes": 1691,
+      "sha256": "9269a76d62b60c2d7f2875d6cea117478f65b9051d8de8fd81d02a5959b50c3f"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/prompts/EXECUTE.md",
+      "bytes": 1691,
+      "sha256": "9269a76d62b60c2d7f2875d6cea117478f65b9051d8de8fd81d02a5959b50c3f"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/prompts/PLAN.md",
+      "bytes": 1629,
+      "sha256": "ded147599dac720775233a3eba033e435cd19eafc5b1597aeb0d09b9108940ea"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/prompts/PLAN.md",
+      "bytes": 1629,
+      "sha256": "ded147599dac720775233a3eba033e435cd19eafc5b1597aeb0d09b9108940ea"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/prompts/PROCESS_REQUEST.md",
+      "bytes": 1455,
+      "sha256": "de950354229cd02d3fa948928fcdc852429f7e8eb2e4b3b07e0b7df7848cdec2"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/prompts/PROCESS_REQUEST.md",
+      "bytes": 1455,
+      "sha256": "de950354229cd02d3fa948928fcdc852429f7e8eb2e4b3b07e0b7df7848cdec2"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/prompts/REVIEW.md",
+      "bytes": 1226,
+      "sha256": "256556fc6813d983ce9e521a64cbd561173b0a302ec1134cd3fe00692089acf8"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/prompts/REVIEW.md",
+      "bytes": 1226,
+      "sha256": "256556fc6813d983ce9e521a64cbd561173b0a302ec1134cd3fe00692089acf8"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/protocols/EXECUTION.md",
+      "bytes": 3467,
+      "sha256": "167937d492710ac0ef669c32e3120a1ed28febea5461d0e0101a166950400363"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/protocols/EXECUTION.md",
+      "bytes": 3467,
+      "sha256": "167937d492710ac0ef669c32e3120a1ed28febea5461d0e0101a166950400363"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/protocols/PLANNING.md",
+      "bytes": 2815,
+      "sha256": "0f56e113e02d2b0a35cead1046bfea170e0565d38b99b3637c8d6baa8d7ce114"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/protocols/PLANNING.md",
+      "bytes": 2815,
+      "sha256": "0f56e113e02d2b0a35cead1046bfea170e0565d38b99b3637c8d6baa8d7ce114"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/protocols/SURGICAL_EDITING.md",
+      "bytes": 1771,
+      "sha256": "e4e101289bb99bb9021c60d7adf3dd7fdaa79637f45038abc320bbf2a7bbf878"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/protocols/SURGICAL_EDITING.md",
+      "bytes": 1771,
+      "sha256": "e4e101289bb99bb9021c60d7adf3dd7fdaa79637f45038abc320bbf2a7bbf878"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/ENFORCEMENT_COVERAGE.json",
+      "bytes": 24502,
+      "sha256": "1212b8b9dde8f6846946f687e71d8ee0387d03a0bbeb03e0d78a8b5f7759167c"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/registry/ENFORCEMENT_COVERAGE.json",
+      "bytes": 24502,
+      "sha256": "1212b8b9dde8f6846946f687e71d8ee0387d03a0bbeb03e0d78a8b5f7759167c"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/RULES.json",
+      "bytes": 35907,
+      "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/registry/RULES.json",
+      "bytes": 35907,
+      "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/runtime/DELIVERY.md",
+      "bytes": 2016,
+      "sha256": "f30579ea4ddaf8356bcc7d08465d1f7d19d38ca98873c22e8c42f7c9be0d8f57"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/runtime/DELIVERY.md",
+      "bytes": 2016,
+      "sha256": "f30579ea4ddaf8356bcc7d08465d1f7d19d38ca98873c22e8c42f7c9be0d8f57"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/runtime/README.md",
+      "bytes": 5746,
+      "sha256": "ff6990fd478e835d6f7be0aba09920de207ae2f23e170bfcef0970735cf83afa"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/runtime/README.md",
+      "bytes": 5548,
+      "sha256": "cfcb7d0d25d14fa79dddde77e71f7436aa650d211c8fef7c6aec5e14e03f86f0"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/runtime/SKILLS.md",
+      "bytes": 6630,
+      "sha256": "8a967a7b94ca3ee5a9b8cdada5446fd05ea7933aafc028560c22fa4a50346bb2"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/schemas/EVIDENCE.schema.json",
+      "bytes": 2412,
+      "sha256": "3d89a181e072b0ebd398e5218599823a7de2179e4954136abdedcd6dc6105ad7"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/schemas/EVIDENCE.schema.json",
+      "bytes": 2412,
+      "sha256": "3d89a181e072b0ebd398e5218599823a7de2179e4954136abdedcd6dc6105ad7"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/schemas/LESSON.schema.json",
+      "bytes": 5982,
+      "sha256": "e8fe8b12ee0c32f288f5e209f893b54a5b116de2778a623d2d5418485824c91f"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/schemas/LESSON.schema.json",
+      "bytes": 5982,
+      "sha256": "e8fe8b12ee0c32f288f5e209f893b54a5b116de2778a623d2d5418485824c91f"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/schemas/PROJECT.schema.json",
+      "bytes": 7764,
+      "sha256": "e4b1b447fd92fc61fae75d6db5c59446a5ecdab4afe4b00d2d8f6c2e815ded08"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/schemas/PROJECT.schema.json",
+      "bytes": 7764,
+      "sha256": "e4b1b447fd92fc61fae75d6db5c59446a5ecdab4afe4b00d2d8f6c2e815ded08"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/schemas/README.md",
+      "bytes": 1446,
+      "sha256": "50e56cf1518741ce97c6026d4a80166241d4a174d00b34902ea9c7ca2f07fbf9"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/schemas/README.md",
+      "bytes": 1446,
+      "sha256": "50e56cf1518741ce97c6026d4a80166241d4a174d00b34902ea9c7ca2f07fbf9"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/schemas/REQUEST.schema.json",
+      "bytes": 8060,
+      "sha256": "8f7586df5c04a9663cdace6a2c42e9f1bf60b618152e0b515250f1a7d1d36d12"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/schemas/REQUEST.schema.json",
+      "bytes": 8060,
+      "sha256": "8f7586df5c04a9663cdace6a2c42e9f1bf60b618152e0b515250f1a7d1d36d12"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/schemas/RULE.schema.json",
+      "bytes": 2273,
+      "sha256": "c472ce3f64ed20ddf7e45b5f744a3c3eec42e18e75857a816f133ea6e588e1a1"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/schemas/RULE.schema.json",
+      "bytes": 2273,
+      "sha256": "c472ce3f64ed20ddf7e45b5f744a3c3eec42e18e75857a816f133ea6e588e1a1"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/schemas/STATE.schema.json",
+      "bytes": 14809,
+      "sha256": "55d53f2a083404cc91ec497e6a0ee62f66087e023316a5c155a946577ed9d447"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/schemas/STATE.schema.json",
+      "bytes": 14809,
+      "sha256": "55d53f2a083404cc91ec497e6a0ee62f66087e023316a5c155a946577ed9d447"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/sources/REFERENCE_POLICY.md",
+      "bytes": 2659,
+      "sha256": "a0175d57999ab9d9d34f5512566a64b3319d2b96eedb0cdf5855f3821790efe4"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/sources/REFERENCE_POLICY.md",
+      "bytes": 2659,
+      "sha256": "a0175d57999ab9d9d34f5512566a64b3319d2b96eedb0cdf5855f3821790efe4"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/sources/REGISTER.json",
+      "bytes": 47097,
+      "sha256": "b0783f5785ec8353761fda38e73b9b4df795d55cf8b83e91cdf0c2be16d4e38f"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/sources/REGISTER.json",
+      "bytes": 47097,
+      "sha256": "b0783f5785ec8353761fda38e73b9b4df795d55cf8b83e91cdf0c2be16d4e38f"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/01_ISO_5338.md",
+      "bytes": 3236,
+      "sha256": "609aaef4e5e50b8fcd213ddeeefdeaf07257a3d54a0e08200c4218ed78f11c60"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/standards/01_ISO_5338.md",
+      "bytes": 3236,
+      "sha256": "609aaef4e5e50b8fcd213ddeeefdeaf07257a3d54a0e08200c4218ed78f11c60"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/02_ISO_12207.md",
+      "bytes": 3175,
+      "sha256": "a9d5b269fdf6af8154d77e8310dff70cf9ce74daa4767c26f826ff83c43a35a2"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/standards/02_ISO_12207.md",
+      "bytes": 3175,
+      "sha256": "a9d5b269fdf6af8154d77e8310dff70cf9ce74daa4767c26f826ff83c43a35a2"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/03_ISO_42001.md",
+      "bytes": 3170,
+      "sha256": "1cbd349ec4d26b825ae6d96cc788ab6a4c063cb34593850315e3f239a8149129"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/standards/03_ISO_42001.md",
+      "bytes": 3170,
+      "sha256": "1cbd349ec4d26b825ae6d96cc788ab6a4c063cb34593850315e3f239a8149129"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/04_ISO_23894.md",
+      "bytes": 3005,
+      "sha256": "1dac757bf1a1c659f4c5599a1ce3343ab369fb9c20e13b45f07986d026cc050c"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/standards/04_ISO_23894.md",
+      "bytes": 3005,
+      "sha256": "1dac757bf1a1c659f4c5599a1ce3343ab369fb9c20e13b45f07986d026cc050c"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/05_NIST_AI_RMF.md",
+      "bytes": 3022,
+      "sha256": "48ab17aa7c8d78ab74145afec8dee6e9c8fb93c949e06270227bb7ffe3dd6902"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/standards/05_NIST_AI_RMF.md",
+      "bytes": 3022,
+      "sha256": "48ab17aa7c8d78ab74145afec8dee6e9c8fb93c949e06270227bb7ffe3dd6902"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/06_ISO_42005.md",
+      "bytes": 3029,
+      "sha256": "3864d7c1b4b1634b84d68e06844d79bd1845a96ad0a64dc6ffa89dd408312202"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/standards/06_ISO_42005.md",
+      "bytes": 3029,
+      "sha256": "3864d7c1b4b1634b84d68e06844d79bd1845a96ad0a64dc6ffa89dd408312202"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/07_NIST_AI_600_1.md",
+      "bytes": 3139,
+      "sha256": "c8227f7bfc9aa4ca653e1ebc0a0ed2f08c073e487fae590137d7710c8183fc16"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/standards/07_NIST_AI_600_1.md",
+      "bytes": 3139,
+      "sha256": "c8227f7bfc9aa4ca653e1ebc0a0ed2f08c073e487fae590137d7710c8183fc16"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/08_OWASP_AGENTIC.md",
+      "bytes": 3180,
+      "sha256": "aa48893f9aae5caabf25d94d3ac1b0d029859a56453ce677a1b3df2dbb351278"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/standards/08_OWASP_AGENTIC.md",
+      "bytes": 3180,
+      "sha256": "aa48893f9aae5caabf25d94d3ac1b0d029859a56453ce677a1b3df2dbb351278"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/09_OWASP_LLM.md",
+      "bytes": 3347,
+      "sha256": "1c6d4493bc9ee5631cd097881a44095a1c504c8aeb1b4b40b4dcde2921303371"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/standards/09_OWASP_LLM.md",
+      "bytes": 3347,
+      "sha256": "1c6d4493bc9ee5631cd097881a44095a1c504c8aeb1b4b40b4dcde2921303371"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/10_ISO_27001.md",
+      "bytes": 3449,
+      "sha256": "9e26f9d2e96455a9fafde6618843e6d4bc9210218380606f85d5c93f875c74cf"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/standards/10_ISO_27001.md",
+      "bytes": 3449,
+      "sha256": "9e26f9d2e96455a9fafde6618843e6d4bc9210218380606f85d5c93f875c74cf"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/11_ISO_25059.md",
+      "bytes": 3089,
+      "sha256": "1f2e78cc64b30cb9686b8668359d7d816e32e120a73201f219604862692b852d"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/standards/11_ISO_25059.md",
+      "bytes": 3089,
+      "sha256": "1f2e78cc64b30cb9686b8668359d7d816e32e120a73201f219604862692b852d"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/12_ISO_5259_SERIES.md",
+      "bytes": 3799,
+      "sha256": "5319c6c1ae8df9d485c516043c96942ad12666b327a0ec4b55850222b20a7edd"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/standards/12_ISO_5259_SERIES.md",
+      "bytes": 3799,
+      "sha256": "5319c6c1ae8df9d485c516043c96942ad12666b327a0ec4b55850222b20a7edd"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/13_IASC_DATA_RESPONSIBILITY.md",
+      "bytes": 3239,
+      "sha256": "b51809cacd5d87c516c97a872f0c1e404fc4b7857dc7eafd0af008fac98c1806"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/standards/13_IASC_DATA_RESPONSIBILITY.md",
+      "bytes": 3239,
+      "sha256": "b51809cacd5d87c516c97a872f0c1e404fc4b7857dc7eafd0af008fac98c1806"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/14_ICRC_DATA_PROTECTION.md",
+      "bytes": 3387,
+      "sha256": "81b659157021faa78497e694c62194fcfb1836ba99fbd6029fe449e8f0508878"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/standards/14_ICRC_DATA_PROTECTION.md",
+      "bytes": 3387,
+      "sha256": "81b659157021faa78497e694c62194fcfb1836ba99fbd6029fe449e8f0508878"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/15_SUPPLEMENT_ISO_25010.md",
+      "bytes": 2988,
+      "sha256": "4fb7b68bc5cee52ac197c062ab0992a0f1290bce34e852f58808f1c16f6aa264"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/standards/15_SUPPLEMENT_ISO_25010.md",
+      "bytes": 2988,
+      "sha256": "4fb7b68bc5cee52ac197c062ab0992a0f1290bce34e852f58808f1c16f6aa264"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/16_SUPPLEMENT_NIST_SSDF.md",
+      "bytes": 3065,
+      "sha256": "56f30e596a59aa1b3ceb5c456482a95d9e59c47ab4ed1182898d60b1f66e748b"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/standards/16_SUPPLEMENT_NIST_SSDF.md",
+      "bytes": 3065,
+      "sha256": "56f30e596a59aa1b3ceb5c456482a95d9e59c47ab4ed1182898d60b1f66e748b"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/CONTROL_CATALOG.json",
+      "bytes": 44266,
+      "sha256": "f8eefbc71ad97c8a31d9902d2fff1ad8b1182cc6d8a8b440e0657c1f4cced4ca"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/standards/CONTROL_CATALOG.json",
+      "bytes": 44266,
+      "sha256": "f8eefbc71ad97c8a31d9902d2fff1ad8b1182cc6d8a8b440e0657c1f4cced4ca"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/README_AR.md",
+      "bytes": 5579,
+      "sha256": "97241a803ad137c16e3d4ce2bf8ff3a22dc7d484414fc4e24e495158beea65b5"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/standards/README_AR.md",
+      "bytes": 5579,
+      "sha256": "97241a803ad137c16e3d4ce2bf8ff3a22dc7d484414fc4e24e495158beea65b5"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/templates/CAPABILITY_REVIEW.md",
+      "bytes": 642,
+      "sha256": "e901823c8b3b2d44a23ce888a2da30aae8de23200af7b857e525eed71868219e"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/templates/CAPABILITY_REVIEW.md",
+      "bytes": 642,
+      "sha256": "e901823c8b3b2d44a23ce888a2da30aae8de23200af7b857e525eed71868219e"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/templates/DECISION.md",
+      "bytes": 654,
+      "sha256": "5037af458dd2f2600b4534504b0df58cb2ca6eec6e1147eb260392f40400d80e"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/templates/DECISION.md",
+      "bytes": 654,
+      "sha256": "5037af458dd2f2600b4534504b0df58cb2ca6eec6e1147eb260392f40400d80e"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/templates/DELIVERY_HANDOFF_AR.md",
+      "bytes": 2377,
+      "sha256": "918c62ce98ac90d4d175d0781e3ab3954103845b68eb8b6c7b89b610cb1a8c4f"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/templates/DELIVERY_HANDOFF_AR.md",
+      "bytes": 2377,
+      "sha256": "918c62ce98ac90d4d175d0781e3ab3954103845b68eb8b6c7b89b610cb1a8c4f"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/templates/DELIVERY_RECORD_MAPPING.md",
+      "bytes": 1394,
+      "sha256": "7a3b02785a41c150c784280f2a5fb2658e779cb613bb2c164b1ac98f6978720c"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/templates/DELIVERY_RECORD_MAPPING.md",
+      "bytes": 1394,
+      "sha256": "7a3b02785a41c150c784280f2a5fb2658e779cb613bb2c164b1ac98f6978720c"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/templates/EVIDENCE.json",
+      "bytes": 532,
+      "sha256": "ead00ff444716a9b758e1174e765acfa4f3174de415d41e802ee6b947c1c84f9"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/templates/EVIDENCE.json",
+      "bytes": 532,
+      "sha256": "ead00ff444716a9b758e1174e765acfa4f3174de415d41e802ee6b947c1c84f9"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/templates/HANDOFF.md",
+      "bytes": 1292,
+      "sha256": "48db7d252284d1c887ad4f972c3f4941758e46bbae5ed043ca41493b48b9b5fd"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/templates/HANDOFF.md",
+      "bytes": 1292,
+      "sha256": "48db7d252284d1c887ad4f972c3f4941758e46bbae5ed043ca41493b48b9b5fd"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/templates/HOST_QUALIFICATION.md",
+      "bytes": 847,
+      "sha256": "5626064ee6256bff1e4b8af3f969f419cdf9c153a89dd33a32ecc0ccb7d89358"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/templates/HOST_QUALIFICATION.md",
+      "bytes": 847,
+      "sha256": "5626064ee6256bff1e4b8af3f969f419cdf9c153a89dd33a32ecc0ccb7d89358"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/templates/IMPACT_REVIEW.md",
+      "bytes": 468,
+      "sha256": "6c760ab989876e7bad6bc346960f45c08a4450755625d359c7a2d654b67370c0"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/templates/IMPACT_REVIEW.md",
+      "bytes": 468,
+      "sha256": "6c760ab989876e7bad6bc346960f45c08a4450755625d359c7a2d654b67370c0"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/templates/INBOX_DISPOSITION.md",
+      "bytes": 2070,
+      "sha256": "6c3b3b4bdcf177b82bd7e72955b0b50c6d35c47b10b0b5541398de5cd9cab9bd"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/templates/INBOX_DISPOSITION.md",
+      "bytes": 2070,
+      "sha256": "6c3b3b4bdcf177b82bd7e72955b0b50c6d35c47b10b0b5541398de5cd9cab9bd"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/templates/INCIDENT.md",
+      "bytes": 467,
+      "sha256": "308fbce5e23f8d7572b4bfd466d62ab14b3c72773dd21a9c5d916ef8a9019c69"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/templates/INCIDENT.md",
+      "bytes": 467,
+      "sha256": "308fbce5e23f8d7572b4bfd466d62ab14b3c72773dd21a9c5d916ef8a9019c69"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/templates/LESSON.json",
+      "bytes": 1672,
+      "sha256": "85bd21bd4fc55a40d6d33fe956a2dfa02fbeb7a86ea810eb97a985996daf77a8"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/templates/LESSON.json",
+      "bytes": 1672,
+      "sha256": "85bd21bd4fc55a40d6d33fe956a2dfa02fbeb7a86ea810eb97a985996daf77a8"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/templates/OPERATING_CONTRACT.md",
+      "bytes": 1896,
+      "sha256": "a3a9a3a34fd85816eff9ebfda164d3c4a8e1c28f225d5c268d12e07f054157e8"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/templates/OPERATING_CONTRACT.md",
+      "bytes": 1896,
+      "sha256": "a3a9a3a34fd85816eff9ebfda164d3c4a8e1c28f225d5c268d12e07f054157e8"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/templates/PLAN.md",
+      "bytes": 584,
+      "sha256": "ace8814fd87c8211c121e09306f6aa8a168e3975f9663fd0e7eed3d3831d581d"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/templates/PLAN.md",
+      "bytes": 584,
+      "sha256": "ace8814fd87c8211c121e09306f6aa8a168e3975f9663fd0e7eed3d3831d581d"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/templates/PROJECT.json",
+      "bytes": 983,
+      "sha256": "25ca196be5b11cb4d66a810cb9764b45a975a57a248ef068d9fc0a100c2568d0"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/templates/PROJECT.json",
+      "bytes": 983,
+      "sha256": "25ca196be5b11cb4d66a810cb9764b45a975a57a248ef068d9fc0a100c2568d0"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/templates/README.md",
+      "bytes": 1585,
+      "sha256": "f317c2b0cec21d5102992486bb013532c221b6a8ed1551fecf5dbb770b8b0269"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/templates/README.md",
+      "bytes": 1585,
+      "sha256": "f317c2b0cec21d5102992486bb013532c221b6a8ed1551fecf5dbb770b8b0269"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/templates/REQUEST.json",
+      "bytes": 742,
+      "sha256": "afaf6d262ed7fd0413ad7ed76894c5b4bfa34fce2753e795a91f643d588409dc"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/templates/REQUEST.json",
+      "bytes": 742,
+      "sha256": "afaf6d262ed7fd0413ad7ed76894c5b4bfa34fce2753e795a91f643d588409dc"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/templates/RULE.json",
+      "bytes": 612,
+      "sha256": "7214fb0ad3306191f20e7eff27d039c230165ddfa134e0ba3c6789e380e2190b"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/templates/RULE.json",
+      "bytes": 612,
+      "sha256": "7214fb0ad3306191f20e7eff27d039c230165ddfa134e0ba3c6789e380e2190b"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/templates/SHORT_REQUEST.md",
+      "bytes": 718,
+      "sha256": "a25495aefd6b3ad380fb57cf3d7b0edd30f69de04263ba69556b435b661df8e2"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/templates/SHORT_REQUEST.md",
+      "bytes": 718,
+      "sha256": "a25495aefd6b3ad380fb57cf3d7b0edd30f69de04263ba69556b435b661df8e2"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/templates/SKILL_SELECTION.json",
+      "bytes": 177,
+      "sha256": "a631cd67c343f0430e9084ec17e15ccd997a9c171fbc7645c7fc8662a327cffd"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/templates/STANDARDS_APPLICABILITY.md",
+      "bytes": 562,
+      "sha256": "95170b2980af20705efeff651ca29aeee9db726972f32c8e5c258406357109f3"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/templates/STANDARDS_APPLICABILITY.md",
+      "bytes": 562,
+      "sha256": "95170b2980af20705efeff651ca29aeee9db726972f32c8e5c258406357109f3"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/templates/STATE.json",
+      "bytes": 731,
+      "sha256": "f0f00fc811b02ee70dba87b78396e5aa76473b87d960031431b2c24e2fd95358"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/templates/STATE.json",
+      "bytes": 731,
+      "sha256": "f0f00fc811b02ee70dba87b78396e5aa76473b87d960031431b2c24e2fd95358"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/templates/STATUS_REPORT_AR.md",
+      "bytes": 1182,
+      "sha256": "4df83a95d21935d250eef88479c2a5f78b158396333ac1ee9bf246be9f321f67"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/templates/STATUS_REPORT_AR.md",
+      "bytes": 1182,
+      "sha256": "4df83a95d21935d250eef88479c2a5f78b158396333ac1ee9bf246be9f321f67"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/MANIFEST.json",
+      "bytes": 25875,
+      "sha256": "974a29e5f2950d2aeab1bb8cd03caf9f961a1da04c3205309b70601343c6433e"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/PACKAGE_STATUS.json",
+      "bytes": 1902,
+      "sha256": "a1cb811d3d46f009b2dc7d11d9b915b29fa63a1b991744fa5f3e4bf1bafdf5ba"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/MANIFEST.json",
+      "bytes": 24075,
+      "sha256": "001ab43869013e6446a77c18fa539b26a8f0fd844299efd006af815053169290"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/PACKAGE_STATUS.json",
+      "bytes": 1766,
+      "sha256": "6fb4851388c107eca5dd79b7122004f30dfa4e56d6f5624d7d2c9c74af561b0b"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0.zip",
+      "bytes": 1814319,
+      "sha256": "41dbd6df9de1e17b69d1aece08aadce104a338f7ed1450c1166263de2ca46829"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0.zip",
+      "bytes": 1709426,
+      "sha256": "29497b708bd41cb35453ba12d4ae8212662084be0d53c14135ea15a98f6ac5dc"
+    }
+  ]
+}

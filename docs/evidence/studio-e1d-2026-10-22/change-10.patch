@@ -1,0 +1,28 @@
+diff --git a/docs/evidence/studio-e1d-2026-10-22/before/10.snapshot b/governance_packages/candidates/AGHR_rc3_Core_Candidate/PACKAGE_STATUS.json
+index c2230c4..6f9a735 100644
+--- a/docs/evidence/studio-e1d-2026-10-22/before/10.snapshot
++++ b/governance_packages/candidates/AGHR_rc3_Core_Candidate/PACKAGE_STATUS.json
+@@ -1,7 +1,7 @@
+ {
+   "package_id": "aghr-rc3-core-candidate",
+   "status": "CANDIDATE_FOR_REVIEW",
+-  "stage": "E1.c",
++  "stage": "E1.d",
+   "target_spec_version": "1.0.0-rc.3",
+   "schema_version": "1.2",
+   "content_origin": "REAL_APPLICATION_SOURCE_OBSERVATION",
+@@ -38,9 +38,10 @@
+   "default_reference": "aghr_1_2_0",
+   "later_owner_license_changes": "Separate before/after and impact record; no automatic rebuild or promotion",
+   "remaining": [
+-    "E1.d portable catalog and schema closure",
++    "E1 owner acceptance after read/catalog/schema delivery",
+     "E2 governing strict/lint",
+-    "T01 re-entry",
+-    "Explicit owner signature before final owner/license acceptance"
+-  ]
++    "T01 aggregate re-entry only after E1 and E2 evaluation",
++    "Explicit owner signature before final licensing/promotion; provisional values permit E1 progress"
++  ],
++  "e1d_delivery": "PREPARED_FOR_OWNER_REVIEW"
+ }

@@ -1,0 +1,173 @@
+{
+  "completed_at_utc": "2026-10-22T11:43:08.955Z",
+  "scope": "Owner requested rc.3 source/package or E1/E2 scope based on gaps; E1/E2 scope defined",
+  "status": "SCOPE_DEFINED",
+  "branch": "main",
+  "head": "bb76a0b61617512f4cd6d0c6cea792e35d5ff4aa",
+  "source_choice": "Local scope definition; no upstream engine source asserted",
+  "scope_document": "docs/plans/STUDIO_E1_E2_CORE_SCOPE_AR.md",
+  "estimate": {
+    "e1_person_days": [
+      3,
+      5
+    ],
+    "e2_person_days": [
+      5,
+      8
+    ],
+    "t01_reentry_person_days": [
+      1,
+      2
+    ],
+    "total_person_days": [
+      9,
+      15
+    ],
+    "basis": "UNMEASURED_ENGINEERING_ESTIMATE",
+    "excludes": "E3-E6, T15, whole-project duration, external waiting, publication and native qualification"
+  },
+  "owner_decision": "OD-02 SCOPE_DEFINED_PENDING_IMPLEMENTATION_DECISION",
+  "engine_implementation": "NOT_STARTED",
+  "candidate_created": false,
+  "T01": "BLOCKED_NOT_CLOSED",
+  "T02": "NOT_STARTED",
+  "scope_checks": "SCOPE_CHECKS.json",
+  "validation": "VALIDATION.json",
+  "protected_inputs": {
+    "count": 111,
+    "status": "UNCHANGED"
+  },
+  "changes": [
+    {
+      "path": "docs/plans/STUDIO_FULL_PROJECT_UPGRADE_AR.md",
+      "before_sha256": "902075f060f2844745caf4c2d718b61ed4cfa54db109dcbf80d8f3dd8903b30d",
+      "after_sha256": "0fdcac1fa01e4abd527827bb6e8affdc9f87e2f233c650ff0991895d69c73f22",
+      "patch": "change-01.patch"
+    },
+    {
+      "path": "docs/plans/STUDIO_UPGRADE_TASKS_AR.md",
+      "before_sha256": "e34d199e3bd455c231bdf36f2eae466609a5ee659808e19a10553b93ff5ba001",
+      "after_sha256": "515f09147bffea552db94055c56ef44b0de1a2a3ef747320b7ca18ec31ca8e03",
+      "patch": "change-02.patch"
+    },
+    {
+      "path": "docs/status/CURRENT.md",
+      "before_sha256": "7e29de1ffb66235db9d3916196a27e73e83b71d9a50c67f5034df6709798316f",
+      "after_sha256": "de5dbaa2bb43aa79a9419e706303970bf6fc376b54c26b287ff1c4afc7d613c6",
+      "patch": "change-03.patch"
+    },
+    {
+      "path": "docs/status/HANDOFF.md",
+      "before_sha256": "e47bc93d0b64b429130cf98295a3684919d0f6e2f0212b17fea92bbb6e3223b5",
+      "after_sha256": "3f4770507f7fe42672f11b0f4b3a8e203a0d44dc6b80ea28ec3c26f025c4ca26",
+      "patch": "change-04.patch"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "docs/evidence/studio-e1-e2-scope-2026-10-22/PREFLIGHT.json",
+      "bytes": 21171,
+      "sha256": "5188695e612d57257e11a7c8fca8fb666b97da491ccdbb14263383477ecb2ee5"
+    },
+    {
+      "path": "docs/evidence/studio-e1-e2-scope-2026-10-22/README.md",
+      "bytes": 2551,
+      "sha256": "a02f84b98bfad2f0fa8ff4abff98854d50d6aacd3cf557e902506dd29a40b755"
+    },
+    {
+      "path": "docs/evidence/studio-e1-e2-scope-2026-10-22/SCOPE_CHECKS.json",
+      "bytes": 2770,
+      "sha256": "72c7aa944a44e83b8c8ae204d9c0bdf5deab1bcf812c88a2b795e95fb4b598a8"
+    },
+    {
+      "path": "docs/evidence/studio-e1-e2-scope-2026-10-22/VALIDATION.json",
+      "bytes": 1208,
+      "sha256": "3033cc6e0cf6f8081bad736f21d64377710115ced948eab6488a56ae8d86a907"
+    },
+    {
+      "path": "docs/evidence/studio-e1-e2-scope-2026-10-22/before/01.snapshot",
+      "bytes": 52413,
+      "sha256": "902075f060f2844745caf4c2d718b61ed4cfa54db109dcbf80d8f3dd8903b30d"
+    },
+    {
+      "path": "docs/evidence/studio-e1-e2-scope-2026-10-22/before/02.snapshot",
+      "bytes": 40610,
+      "sha256": "e34d199e3bd455c231bdf36f2eae466609a5ee659808e19a10553b93ff5ba001"
+    },
+    {
+      "path": "docs/evidence/studio-e1-e2-scope-2026-10-22/before/03.snapshot",
+      "bytes": 4546,
+      "sha256": "7e29de1ffb66235db9d3916196a27e73e83b71d9a50c67f5034df6709798316f"
+    },
+    {
+      "path": "docs/evidence/studio-e1-e2-scope-2026-10-22/before/04.snapshot",
+      "bytes": 6266,
+      "sha256": "e47bc93d0b64b429130cf98295a3684919d0f6e2f0212b17fea92bbb6e3223b5"
+    },
+    {
+      "path": "docs/evidence/studio-e1-e2-scope-2026-10-22/change-01.patch",
+      "bytes": 6097,
+      "sha256": "dc8ab66ba8af8678d0ee1b6c658acbf44fc034e1c2eadc08ca325199d1454c21"
+    },
+    {
+      "path": "docs/evidence/studio-e1-e2-scope-2026-10-22/change-02.patch",
+      "bytes": 2689,
+      "sha256": "db71e4518576411269f7df05148c5551c67c0276f58ffc9ee10287eb5e70e8a1"
+    },
+    {
+      "path": "docs/evidence/studio-e1-e2-scope-2026-10-22/change-03.patch",
+      "bytes": 1552,
+      "sha256": "332eaa02cccb484727a44451174cc8c7125fbb534fc1c691f9f1f36ed73f304b"
+    },
+    {
+      "path": "docs/evidence/studio-e1-e2-scope-2026-10-22/change-04.patch",
+      "bytes": 1523,
+      "sha256": "decd3fd30fecfc41ee4f37d3c050b2b3dd88876ad7a82727a91d22d0ca49ab3c"
+    },
+    {
+      "path": "docs/evidence/studio-e1-e2-scope-2026-10-22/context-health.log",
+      "bytes": 786,
+      "sha256": "6b31ec90670acb78fac09edbded778e9a0945e606cf42e3922eda3ab633eb51f"
+    },
+    {
+      "path": "docs/evidence/studio-e1-e2-scope-2026-10-22/git-diff-check.log",
+      "bytes": 447,
+      "sha256": "927241d90527787586b0802f684f7e26e806699d39b1b64f708df94ab0bba26e"
+    },
+    {
+      "path": "docs/evidence/studio-e1-e2-scope-2026-10-22/git-status-after.txt",
+      "bytes": 1040,
+      "sha256": "df9f4e2d259141d615ad4d93e0a3d4481437a9c8c715736e65e5fc84aca9e26d"
+    },
+    {
+      "path": "docs/evidence/studio-e1-e2-scope-2026-10-22/npm-test.log",
+      "bytes": 3759,
+      "sha256": "d67281fc02175427e2af7c66670bd710121ebb890379bb7774d28ebcbe3af7ec"
+    },
+    {
+      "path": "docs/plans/STUDIO_E1_E2_CORE_SCOPE_AR.md",
+      "bytes": 30520,
+      "sha256": "a119bd6331dcc68bd34885c282947d70535bd18f5ed2d4fc216da537702bb554"
+    },
+    {
+      "path": "docs/plans/STUDIO_FULL_PROJECT_UPGRADE_AR.md",
+      "bytes": 53131,
+      "sha256": "0fdcac1fa01e4abd527827bb6e8affdc9f87e2f233c650ff0991895d69c73f22"
+    },
+    {
+      "path": "docs/plans/STUDIO_UPGRADE_TASKS_AR.md",
+      "bytes": 41357,
+      "sha256": "515f09147bffea552db94055c56ef44b0de1a2a3ef747320b7ca18ec31ca8e03"
+    },
+    {
+      "path": "docs/status/CURRENT.md",
+      "bytes": 4538,
+      "sha256": "de5dbaa2bb43aa79a9419e706303970bf6fc376b54c26b287ff1c4afc7d613c6"
+    },
+    {
+      "path": "docs/status/HANDOFF.md",
+      "bytes": 6301,
+      "sha256": "3f4770507f7fe42672f11b0f4b3a8e203a0d44dc6b80ea28ec3c26f025c4ca26"
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+// Read-only contract integrity and in-memory SQL checks, not an AGHR policy engine.
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { DatabaseSync } from 'node:sqlite';
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const contracts = path.join(root, 'docs/contracts/aghr-rc3');
+const read = file => fs.readFileSync(file, 'utf8');
+const checks = [];
+const check = (name, action) => { action(); checks.push({ name, status: 'PASS' }); };
+const documents = new Map();
+for (const name of ['aghr.json', 'aghr.schema.json', 'item.schema.json', 'evidence.schema.json', 'openapi.readonly.draft.json']) {
+  documents.set(path.join(contracts, name), JSON.parse(read(path.join(contracts, name))));
+}
+check('json_documents_parse', () => assert.equal(documents.size, 5));
+
+check('all_local_json_references_resolve', () => {
+  let count = 0;
+  const walk = (value, owner) => {
+    if (!value || typeof value !== 'object') return;
+    if (typeof value.$ref === 'string') {
+      const [relative, fragment = ''] = value.$ref.split('#');
+      assert(!/^[a-z]+:/i.test(relative), 'No remote reference resolution during local verification');
+      const target = relative ? path.resolve(path.dirname(owner), relative) : owner;
+      assert(target.startsWith(contracts + path.sep), 'Reference outside contract root');
+      assert(documents.has(target), `Unknown reference file: ${value.$ref}`);
+      let selected = documents.get(target);
+      if (fragment) {
+        assert(fragment.startsWith('/'), 'Only JSON Pointer fragments supported');
+        for (const part of decodeURIComponent(fragment).slice(1).split('/')) {
+          const key = part.replace(/~1/g, '/').replace(/~0/g, '~');
+          assert(selected && Object.hasOwn(selected, key), `Unresolved reference: ${value.$ref}`);
+          selected = selected[key];
+        }
+      }
+      count++;
+    }
+    for (const member of Object.values(value)) walk(member, owner);
+  };
+  for (const [file, doc] of documents) walk(doc, file);
+  assert(count > 0);
+});
+
+const api = documents.get(path.join(contracts, 'openapi.readonly.draft.json'));
+check('api_is_explicitly_partial_read_only_and_authenticated', () => {
+  assert.equal(api['x-contract-status'], 'DRAFT_PARTIAL');
+  assert.equal(api.components.securitySchemes.StudioToken.name, 'X-Studio-Token');
+  assert.deepEqual(api.security, [{ StudioToken: [] }]);
+  assert.equal(Object.keys(api.paths).length, 4);
+  for (const item of Object.values(api.paths)) {
+    assert(item.get);
+    assert(!['put', 'patch', 'post', 'delete'].some(method => Object.hasOwn(item, method)));
+    assert(!Object.hasOwn(item.get, 'security'), 'No unauthenticated override');
+  }
+});
+check('instruction_query_contract_has_no_language_filter', () => {
+  const query = api.paths['/workspaces/{id}/instructions'].get.parameters;
+  assert.equal(api['x-unknown-query-parameters'], 'reject');
+  assert.deepEqual(query.map(p => p.name).sort(), ['kind', 'force', 'priority', 'authority_level', 'status', 'impact_evidence', 'is_review_due', 'host', 'path', 'q'].sort());
+});
+
+const source = read(path.join(root, 'docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md'));
+const blocks = [...source.matchAll(/```sql\r?\n([\s\S]*?)```/g)].map(m => m[1].replace(/\r\n/g, '\n').trimEnd());
+const sql = read(path.join(contracts, 'sqlite/001_initial.sql')).replace(/\r\n/g, '\n');
+check('sql_exactly_matches_six_source_blocks', () => {
+  assert.equal(blocks.length, 6);
+  const header = '-- DRAFT projection; extracted verbatim (LF normalized) from STUDIO_SPECIFICATION.md sections 5-10.\n-- Do not initialize a persistent database from this draft. Local checks use :memory: only.\n\n';
+  assert.equal(sql, header + blocks.join('\n\n') + '\n');
+});
+
+const db = new DatabaseSync(':memory:');
+try {
+  db.exec('PRAGMA foreign_keys = ON');
+  db.exec(sql);
+  check('twelve_tables_created_in_memory', () => {
+    const names = db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name").all().map(row => row.name);
+    assert.deepEqual(names, ['workspaces', 'target_projects', 'instruction_items_cache', 'capability_items_cache', 'skill_qualification_snapshot', 'change_packages', 'change_package_approvals', 'change_package_approval_history', 'runtime_evidence_events', 'verification_runs', 'metrics_snapshots', 'audit_events'].sort());
+    assert.equal(db.prepare('PRAGMA database_list').get().file, '');
+  });
+  db.prepare('INSERT INTO workspaces (id,name,package_path,package_version,schema_version,created_at) VALUES (?,?,?,?,?,?)').run('w', 'synthetic contract test', '/not-a-real-package', '0.0.0-test', '1.2', '2026-10-22');
+  check('qualification_primary_key_preserves_all_four_dimensions', () => {
+    const insert = db.prepare('INSERT INTO skill_qualification_snapshot (workspace_id,skill_id,host,host_version,scope,status,content_hash,read_at) VALUES (?,?,?,?,?,?,?,?)');
+    const base = ['w', 'synthetic-skill', 'synthetic-host', '0-test', 'test/**', 'NOT_RUN', 'synthetic-hash', '2026-10-22'];
+    insert.run(...base);
+    assert.throws(() => insert.run(...base), /UNIQUE constraint failed/);
+    for (const index of [2, 3, 4, 6]) {
+      const changed = [...base]; changed[index] += '-changed'; insert.run(...changed);
+    }
+    assert.equal(db.prepare('SELECT COUNT(*) AS n FROM skill_qualification_snapshot').get().n, 5);
+  });
+  db.prepare('INSERT INTO change_packages (id,workspace_id,title,kind,status_updated_at,base_package_version,proposed_yaml,proposal_version_hash,created_by,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?)').run('cp', 'w', 'synthetic', 'CONSTRAINT', '2026-10-22', '0-test', 'synthetic: true', 'hash-1', 'test-only', '2026-10-22', '2026-10-22');
+  check('approval_uniqueness_includes_exact_proposal_hash', () => {
+    const insert = db.prepare('INSERT INTO change_package_approvals (package_id,role,approver,decision,approved_version_hash,at) VALUES (?,?,?,?,?,?)');
+    const base = ['cp', 'governance-owner', 'synthetic-actor', 'approve', 'hash-1', '2026-10-22'];
+    insert.run(...base);
+    assert.throws(() => insert.run(...base), /UNIQUE constraint failed/);
+    const changed = [...base]; changed[4] = 'hash-2'; insert.run(...changed);
+    // Schema can retain both versions. Invalidating stale approvals is a separate runtime gate.
+    assert.equal(db.prepare('SELECT COUNT(*) AS n FROM change_package_approvals').get().n, 2);
+  });
+  check('evidence_source_line_cannot_be_silently_overwritten', () => {
+    const insert = db.prepare('INSERT INTO runtime_evidence_events (workspace_id,task_id,event_type,payload_json,recorded_at,source_file,source_line,ingested_at) VALUES (?,?,?,?,?,?,?,?)');
+    const base = ['w', 'test-task', 'discovery.outcome', '{}', '2026-10-22', 'test-task.jsonl', 1, '2026-10-22'];
+    insert.run(...base);
+    assert.throws(() => insert.run(...base), /UNIQUE constraint failed/);
+    const nextLine = [...base]; nextLine[6] = 2; insert.run(...nextLine);
+    assert.equal(db.prepare('SELECT COUNT(*) AS n FROM runtime_evidence_events').get().n, 2);
+  });
+} finally { db.close(); }
+
+console.log(JSON.stringify({ status: 'PASS', scope: 'LOCAL_CONTRACT_INTEGRITY_AND_SQL_ONLY', checks, runtime_engine: 'NOT_RUN', http_and_browser: 'NOT_RUN', phase_0_exit: 'NOT_RUN' }, null, 2));

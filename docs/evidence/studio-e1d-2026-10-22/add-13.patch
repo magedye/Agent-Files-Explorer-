@@ -1,0 +1,28 @@
+diff --git a/docs/evidence/studio-e1d-2026-10-22/before/empty.snapshot b/governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/qualification.schema.json
+index e69de29..12ddf15 100644
+--- a/docs/evidence/studio-e1d-2026-10-22/before/empty.snapshot
++++ b/governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/qualification.schema.json
+@@ -0,0 +1,23 @@
++{
++  "$schema": "https://json-schema.org/draft/2020-12/schema",
++  "$id": "https://aghr.invalid/contracts/rc3/qualification.schema.json",
++  "title": "Skill qualification record — four-key identity",
++  "$comment": "Reference 7.4; structure does not authenticate evidence or carry qualification across tuple changes.",
++  "type": "object", "additionalProperties": false,
++  "required": ["skillId", "host", "hostVersion", "scope", "contentHash", "status"],
++  "properties": {
++    "skillId": { "$ref": "common.schema.json#/$defs/Text" },
++    "host": { "$ref": "common.schema.json#/$defs/Text" },
++    "hostVersion": { "$ref": "common.schema.json#/$defs/Text" },
++    "scope": { "$ref": "common.schema.json#/$defs/Text" },
++    "contentHash": { "$ref": "common.schema.json#/$defs/Hash" },
++    "status": { "$ref": "common.schema.json#/$defs/QualificationStatus" },
++    "qualifiedAt": { "oneOf": [{ "$ref": "common.schema.json#/$defs/Date" }, { "type": "null" }] },
++    "evidence": { "$ref": "common.schema.json#/$defs/Texts" },
++    "reason": { "$ref": "common.schema.json#/$defs/Text" }
++  },
++  "allOf": [{
++    "if": { "properties": { "status": { "const": "QUALIFIED" } }, "required": ["status"] },
++    "then": { "required": ["qualifiedAt", "evidence"], "properties": { "qualifiedAt": { "type": "string" }, "evidence": { "minItems": 1 } } }
++  }]
++}

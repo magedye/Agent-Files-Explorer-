@@ -1,0 +1,65 @@
+{
+  "observed_at_utc": "2026-10-22T02:50:55.410Z",
+  "verdict": "blocked",
+  "scope": "T01 readiness audit only; not native-host qualification, release acceptance or an engine Binding.QUALIFIED assertion",
+  "audit_performed": true,
+  "T00": "COMPLETE",
+  "T01": "BLOCKED_NOT_CLOSED",
+  "T02": "NOT_STARTED",
+  "reason": "A working legacy Python runtime is present, but rc.3 strict engine/real package/validation evidence are missing",
+  "artifacts": [
+    {
+      "file": "01_ENGINE_PROVENANCE.json",
+      "acceptance": "PARTIAL"
+    },
+    {
+      "file": "02_CLI_SURFACE.json",
+      "acceptance": "PARTIAL"
+    },
+    {
+      "file": "03_COMPATIBILITY_MATRIX.json",
+      "acceptance": "RECORDED_UNKNOWN"
+    },
+    {
+      "file": "04_GAP_REPORT.json",
+      "acceptance": "RECORDED"
+    },
+    {
+      "file": "05_REFERENCE_PACKAGE.json",
+      "acceptance": "BLOCKED"
+    },
+    {
+      "file": "06_INVOCATION_TRANSCRIPT.json",
+      "acceptance": "NOT_RUN_FOR_RC3"
+    },
+    {
+      "file": "07_VERDICT.json",
+      "acceptance": "RECORDED"
+    }
+  ],
+  "artifact_file_count_is_not_acceptance": true,
+  "blocking_gaps": [
+    "G1",
+    "G2",
+    "G3"
+  ],
+  "future_gaps": [
+    "G4",
+    "G5",
+    "G6",
+    "G7"
+  ],
+  "remaining_required_gates": "REQUIRED / NOT_RUN / NOT_WAIVED",
+  "next_options": [
+    "Provide the real rc.3 engine source/distribution and reference package, then rerun only affected T01 probes",
+    "Review G1/G2/G3 and authorize a separately scoped E1/E2 core candidate with cost estimate; do not start T02 on unknown compatibility"
+  ],
+  "owner_decisions": {
+    "review_notes": "Accepted/resolved within current request",
+    "OD_01": "CLOSED_SCOPED_T00_T01",
+    "OD_02": "DUE_FOR_ENGINE_SOURCE_OR_CORE_SCOPE_DECISION",
+    "later_runtime_and_release_decisions": "OPEN_WHEN_DUE"
+  },
+  "reference_default": "1.2.0",
+  "candidate_1_3_0": "PRESERVED_NOT_PROMOTED"
+}

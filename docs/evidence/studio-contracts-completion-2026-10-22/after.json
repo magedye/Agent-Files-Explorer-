@@ -1,0 +1,407 @@
+{
+  "observed_at": "2026-10-22T00:33:58.840Z",
+  "status": "CONTRACT_DEFINITIONS_COMPLETE_FOR_IMPLEMENTATION_REVIEW",
+  "branch": "main",
+  "head": "bb76a0b61617512f4cd6d0c6cea792e35d5ff4aa",
+  "git_status": " M .gitattributes\n M docs/INDEX.md\n M docs/status/CURRENT.md\n M docs/status/HANDOFF.md\n M governance_packages/README.md\n?? docs/contracts/\n?? docs/evidence/last-app-adoption-2026-10-21/\n?? docs/evidence/studio-contracts-completion-2026-10-22/\n?? docs/evidence/studio-design-adoption-2026-10-21/\n?? docs/evidence/studio-phase0-2026-10-22/\n?? docs/governance/LAST_APP_ADOPTION_2026_10_22.md\n?? docs/governance/STUDIO_DESIGN_ADOPTION_2026_10_21.md\n?? docs/plans/STUDIO_PRODUCT_AND_CONTRACTS_AR.md\n?? docs/reviews/\n?? docs/specs/aghr-rc3/\n?? governance_packages/archive/studio-designs-2026-10-21/\n?? tests/studio_contract_serialization.test.mjs\n?? tools/check_studio_contracts.mjs\n?? tools/check_studio_contracts.ps1\n?? tools/contracts/\n?? tools/governance_inventory.mjs\n",
+  "scope": "Complete contracts before SEC-001; no runtime Studio implementation or reference promotion",
+  "contract_revision": "contract.1",
+  "contract_lock_sha256": "68dc22d168a3698eb7ee3a3e944a2341805816f4ba2695a1fc1403dc49867048",
+  "counts": {
+    "source_operations": 58,
+    "extension_operations": 1,
+    "total_operations": 59,
+    "schema_files": 16,
+    "sql_tables": 12,
+    "locked_artifacts": 31,
+    "engine_acceptance_cases": 21
+  },
+  "verification": {
+    "schema_examples": {
+      "status": "PASS",
+      "passed": 224,
+      "failed": 0,
+      "validator": {
+        "dialect": "2020-12",
+        "command": "Test-Json",
+        "powershell_version": "7.6.4"
+      },
+      "scope": "GENERIC_JSON_SCHEMA_AND_SYNTHETIC_TRANSPORT_EXAMPLES_ONLY"
+    },
+    "integrity_sql": {
+      "status": "PASS",
+      "passed": 13,
+      "checks": [
+        {
+          "name": "json_documents_parse",
+          "status": "PASS"
+        },
+        {
+          "name": "all_local_json_references_resolve",
+          "status": "PASS"
+        },
+        {
+          "name": "api_covers_every_canonical_operation_and_declared_extension",
+          "status": "PASS"
+        },
+        {
+          "name": "instruction_query_contract_has_no_language_filter",
+          "status": "PASS"
+        },
+        {
+          "name": "canonical_state_and_runtime_evidence_have_no_write_endpoint",
+          "status": "PASS"
+        },
+        {
+          "name": "evidence_profile_matches_bounded_reference_codec",
+          "status": "PASS"
+        },
+        {
+          "name": "contract_lock_matches_all_artifacts_and_canonical_sources",
+          "status": "PASS"
+        },
+        {
+          "name": "sql_exactly_matches_six_source_blocks",
+          "status": "PASS"
+        },
+        {
+          "name": "migration_version_and_foreign_keys_applied_in_memory",
+          "status": "PASS"
+        },
+        {
+          "name": "twelve_tables_created_in_memory",
+          "status": "PASS"
+        },
+        {
+          "name": "qualification_primary_key_preserves_all_four_dimensions",
+          "status": "PASS"
+        },
+        {
+          "name": "approval_uniqueness_includes_exact_proposal_hash",
+          "status": "PASS"
+        },
+        {
+          "name": "evidence_source_line_cannot_be_silently_overwritten",
+          "status": "PASS"
+        }
+      ],
+      "scope": "SOURCE_COVERAGE_LOCAL_REFERENCE_COMPILATION_LOCK_AND_IN_MEMORY_SQL"
+    },
+    "openapi_compilation": {
+      "status": "PASS",
+      "mode": "--check",
+      "operations": 59,
+      "source_operations": 58,
+      "extension_operations": 1
+    },
+    "npm_test": {
+      "status": "PASS",
+      "passed": 41,
+      "failed": 0,
+      "skipped": 0,
+      "includes_existing_tests": 30,
+      "includes_serialization_and_bundle_tests": 11
+    },
+    "context_health": {
+      "status": "PASS",
+      "errors": 0,
+      "warnings": 0,
+      "bootstrap_estimated_tokens": 4962
+    },
+    "git_diff_check": {
+      "status": "PASS",
+      "scope": "tracked diff; new output whitespace checked separately"
+    },
+    "new_output_whitespace": {
+      "status": "PASS",
+      "checked": 45
+    }
+  },
+  "preservation": {
+    "status": "PASS",
+    "protected_sources": 287,
+    "before_snapshots": 17,
+    "old_four_get_api_retained_at": "superseded/openapi.readonly.draft.json",
+    "reference_default": "1.2.0",
+    "candidate": "1.3.0 preserved"
+  },
+  "outputs": [
+    {
+      "path": ".gitattributes",
+      "bytes": 250,
+      "sha256": "56104197230e588601352130d736139ec906a4839ac75c2f23b15c35113b03e1"
+    },
+    {
+      "path": "docs/INDEX.md",
+      "bytes": 3954,
+      "sha256": "c37501c3a4c1011bd485f992ff91a85a85a7cfc58464710b4068947681789c6d"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/ACCEPTANCE.md",
+      "bytes": 4981,
+      "sha256": "bfc63014e8a58c1c1e651b5c2965b2e3ac3a31fc78fbf204eccfb2d886421c15"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/API_COVERAGE.md",
+      "bytes": 7988,
+      "sha256": "f3db7baaff1bb799d8186d6087633f628a6cac6e071f96913c93b9b1a36d2afa"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/API_OPERATIONS.json",
+      "bytes": 18487,
+      "sha256": "a7225099b76221d51042eece4ff541b23d025ddf8d7b3488800086a1157223bf"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/COMPLETION_PLAN.md",
+      "bytes": 3476,
+      "sha256": "34760dc32cd1cd5de4db75967cc08b11dc1fa947b436bc63165e363086eae4c9"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/CONTRACTS.lock.json",
+      "bytes": 6097,
+      "sha256": "68dc22d168a3698eb7ee3a3e944a2341805816f4ba2695a1fc1403dc49867048"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/DECISIONS.md",
+      "bytes": 7220,
+      "sha256": "d7a365a29bd37bfc01d0158b72da5532fc064d99d7c001eccd170a498c1bb004"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/ENGINE_ACCEPTANCE.json",
+      "bytes": 9507,
+      "sha256": "03fd45eec6075c78c42314d8d7fe9ca3ca750ede014446e20a07b3131bbb8c73"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/EVIDENCE_FORMAT.json",
+      "bytes": 723,
+      "sha256": "5bbb1873b97f637d7a1ad79489e6ad3e1c56882afeceb5127a4a9696c576697d"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/MIGRATIONS.json",
+      "bytes": 561,
+      "sha256": "8c6c78397b4a24b4b594a449a53702566c1ec6324ca3f2e5c76699cdbce47e94"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/PROTOCOL.md",
+      "bytes": 16825,
+      "sha256": "70bafb7f4f2e1f209eb40d04101fc8041085605124d4b6e66aac8a75d5bc7878"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/README.md",
+      "bytes": 7396,
+      "sha256": "b2572b91e0372d5f420c34ab2a38d7c1b32e78616a0617eb4cfc763a13f0a83d"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/SELF_REVIEW.md",
+      "bytes": 3861,
+      "sha256": "2331d6f91b59e5c35b130592111b4d529005ba43eb5b76d9153910220e3b1c0c"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/aghr.json",
+      "bytes": 1012,
+      "sha256": "5f900e39b500f1300593bba8651f4b63fc6e26e7f5d30c4ea98f645b79d35e48"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/aghr.schema.json",
+      "bytes": 2996,
+      "sha256": "2ebbc02ff25cbb659a37351e7c155f8e66e8cd1890dfe50af6e738b8b40f5a4f"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/api.change.schema.json",
+      "bytes": 9107,
+      "sha256": "b5cd5af00a5654de9c543d49c6777dcd52f7391a60d0a24bec27e59e1085e273"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/api.execution.schema.json",
+      "bytes": 8900,
+      "sha256": "3b7e36b0c0b5b0671be901b2a9f69c61bdcc9fa0010777848b22a9aeb883c764"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/api.read.schema.json",
+      "bytes": 18187,
+      "sha256": "3c9c364594343f9e5e0ea5f89cfd8065cb526b5a70e37a48845ecc66f12c155f"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/api.responses.schema.json",
+      "bytes": 27133,
+      "sha256": "aa6fb7f09d95e78479bd5b7a9cc5f12e682dc11dea2e310e65b594d4659acc5f"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/auth.schema.json",
+      "bytes": 1775,
+      "sha256": "a93e0d378b1df206f35d296674e070c505009c04d9128aa57f46a5d937b50a83"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/capability.schema.json",
+      "bytes": 2360,
+      "sha256": "15091b9ebb9e03fd5567d01e135bedc58cce5e76267c537642e8f47f1641a6c2"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/common.schema.json",
+      "bytes": 3197,
+      "sha256": "6015014ffaeb1bb42905b6d6ea426b36ad031091e804f6287d89622891646206"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/engine.schema.json",
+      "bytes": 4112,
+      "sha256": "e529dd10e3bd9cb68827b0a078047d4ef7b631b83d8009300e8f56fa39a72f21"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/evidence.schema.json",
+      "bytes": 7250,
+      "sha256": "958b99185490868ceb06cc9e2b8f6ea4f7d5a7ba40e5b24dc4334d78026d7722"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/item.schema.json",
+      "bytes": 9343,
+      "sha256": "e101feba90172939f007db9a41b456ce3297473477cb094c24549cc6d712d122"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/openapi.json",
+      "bytes": 152904,
+      "sha256": "a43092feb4dc7e6cb8d2ccb8c0f1a47b60d3b2ed8bf78604ca487a19a7c34a28"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/proposal.schema.json",
+      "bytes": 2273,
+      "sha256": "9bb4ec6b9f61a7f5af89ba410eefbf02ae6504695dce993fb93003bf59e34bcf"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/qualification.schema.json",
+      "bytes": 1335,
+      "sha256": "942184c6c5f9a21d8ea80345198929fbe0e7a2f77a89d178896a7133dfca5c24"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/settings.schema.json",
+      "bytes": 7087,
+      "sha256": "d12da8fe4c16dce87ed01eff98c51401d4229b37a4056c8fa6b9445367f5380a"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/settings.yaml",
+      "bytes": 1574,
+      "sha256": "ae87e7f92fa6d3c8357d89f9033187134184181a06a53eac21c592d15e2708c9"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/sqlite/001_initial.sql",
+      "bytes": 13902,
+      "sha256": "d5ab6a5fa8dc3be95927d3f9871ed393a3d7f7206e102dae6f2721492dde2159"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/state.schema.json",
+      "bytes": 2519,
+      "sha256": "11cb691cf0408fd723973809430affa8eacf34e79c36f212eba2e2a4d1f75449"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/transport.schema.json",
+      "bytes": 2889,
+      "sha256": "aec06b746298c92048d10d89f1763557aad7a781a5f6460743daa52092f0fc2b"
+    },
+    {
+      "path": "docs/evidence/studio-contracts-completion-2026-10-22/README.md",
+      "bytes": 4018,
+      "sha256": "2d1dc8457f7052dd7883550cff86068fa78496d2d9449296f4134b64d7c1b082"
+    },
+    {
+      "path": "docs/plans/STUDIO_PRODUCT_AND_CONTRACTS_AR.md",
+      "bytes": 14877,
+      "sha256": "c7a1ead46bc64282278c63350b69c7fc9ea2d84ec6541c19518dc8518db539f7"
+    },
+    {
+      "path": "docs/status/CURRENT.md",
+      "bytes": 4582,
+      "sha256": "594ae5ded5ae927bc96e882df856c52a1bc9084069a52141811726dee5202470"
+    },
+    {
+      "path": "docs/status/HANDOFF.md",
+      "bytes": 6240,
+      "sha256": "fceeec5c9f483940c2111e26325fd3c000856c758ae7a6c07508e20697e12263"
+    },
+    {
+      "path": "tests/studio_contract_serialization.test.mjs",
+      "bytes": 5826,
+      "sha256": "c49b8b7b3656dee0190da65e5cea2e12cb875cfae72d0d365dfc9b4484c76391"
+    },
+    {
+      "path": "tools/check_studio_contracts.mjs",
+      "bytes": 11236,
+      "sha256": "a077d0ce1f410abfda57a06dc1dc961e257c29b5df8f43ed033aaf275468a00a"
+    },
+    {
+      "path": "tools/check_studio_contracts.ps1",
+      "bytes": 11093,
+      "sha256": "144c6872d3ea6fec13f95db833e8704e393ec57306415112670c17a2496846a0"
+    },
+    {
+      "path": "tools/contracts/build_openapi.mjs",
+      "bytes": 7555,
+      "sha256": "6e425cccf130d250f5460cc27417c08913eb926b8fb0555b55a95659b85e4de7"
+    },
+    {
+      "path": "tools/contracts/evidence_jsonl.mjs",
+      "bytes": 4540,
+      "sha256": "e519aee6339cd934d3426f247cd3b990affecf868db2b13653cc85277607f89d"
+    },
+    {
+      "path": "tools/contracts/fixtures.mjs",
+      "bytes": 18411,
+      "sha256": "ea6c50bfc16cf3c3540de4e328203794ea95dfaaa0ff8723149444a8395801f4"
+    },
+    {
+      "path": "tools/contracts/schema_documents.mjs",
+      "bytes": 3138,
+      "sha256": "e0084a2f303964ec8e99dc5f2970cb6e52a4cf1f7a800592481f86a796b1ebe7"
+    }
+  ],
+  "evidence_files": [
+    {
+      "path": "docs/evidence/studio-contracts-completion-2026-10-22/contracts-final.log",
+      "bytes": 30007,
+      "sha256": "30cd22f18efafbdc4742083826a112c66bd93658f1456c43fa897be6214fa7eb"
+    },
+    {
+      "path": "docs/evidence/studio-contracts-completion-2026-10-22/openapi-check.log",
+      "bytes": 100,
+      "sha256": "501cb6baa458300ddaf1c4f9e49816ba600c340c8bd56e251b4b80b49a9c522f"
+    },
+    {
+      "path": "docs/evidence/studio-contracts-completion-2026-10-22/npm-test.log",
+      "bytes": 3765,
+      "sha256": "34dc3df73514049beba1bd332c189de440a24e4b3dfa6076bc7669db0782ef84"
+    },
+    {
+      "path": "docs/evidence/studio-contracts-completion-2026-10-22/context-health.log",
+      "bytes": 805,
+      "sha256": "b1bc9b2113583ea733f833c4f374f8524763952cef4f1da770877e29a58157dd"
+    },
+    {
+      "path": "docs/evidence/studio-contracts-completion-2026-10-22/git-diff-check.log",
+      "bytes": 447,
+      "sha256": "927241d90527787586b0802f684f7e26e806699d39b1b64f708df94ab0bba26e"
+    },
+    {
+      "path": "docs/evidence/studio-contracts-completion-2026-10-22/changes.json",
+      "bytes": 9543,
+      "sha256": "1cabd0623779a122d38dfcdd66d081f0c31533b99e32bf23ac6f02db19b5b922"
+    },
+    {
+      "path": "docs/evidence/studio-contracts-completion-2026-10-22/before-after.patch",
+      "bytes": 73242,
+      "sha256": "17b8f87dd71c65ee302bc2cfe23658c2a10795e4e4ee44a935a6b60fbbeb1259"
+    }
+  ],
+  "limits": {
+    "phase_0": "IN_PROGRESS",
+    "aghr_validate_strict": "REQUIRED / NOT_RUN / NOT_WAIVED",
+    "runtime_http_browser": "REQUIRED / NOT_RUN / NOT_WAIVED",
+    "read_only_demo_and_write_sentinel": "REQUIRED / NOT_RUN / NOT_WAIVED",
+    "platform_resource_adapter": "REQUIRED / NOT_RUN / NOT_WAIVED",
+    "native_codex_antigravity_qualification": "NOT_RUN",
+    "ci_parity": "REQUIRED / NOT_RUN / NOT_WAIVED",
+    "external_openapi_metaschema_validator": "NOT_RUN",
+    "independent_review": "NOT_PERFORMED",
+    "release_acceptance": "NOT_GRANTED",
+    "sec_001": "NOT_STARTED"
+  },
+  "review": "SCOPED_SELF_REVIEW",
+  "next_action": "Pin/qualify the actual Python rc.3 engine and read-only Studio demonstration with zero-write sentinel before SEC-001."
+}

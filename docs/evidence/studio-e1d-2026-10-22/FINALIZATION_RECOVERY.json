@@ -1,0 +1,17 @@
+{
+  "classification": "TEST_DEFECT_IN_EVIDENCE_HELPER",
+  "failure": "PRIOR_AGGREGATE",
+  "cause": "E1.c AFTER.outputs records changed/new delivered files, not the complete candidate inventory; helper treated its nine candidate entries as thirteen",
+  "correct_source": "Preserved E1.c SOURCE_PIN.json contains all thirteen entries and the prior aggregate",
+  "missing_from_partial_output": [
+    "requirements.lock",
+    "tests/test_loader.py",
+    "tools/diagnostics.py",
+    "tools/loader.py"
+  ],
+  "verified_prior_source_hash": "3c8c536b0c02c80173cb5e3758a90123f4c3bec5f32e44b2de822c2c26932955",
+  "correction": "Reconstruct all thirteen pinned before/preserved file bytes; require each digest and the full original aggregate",
+  "product_changes": "NONE",
+  "successful_tests_rerun": false,
+  "prior_evidence_modified": false
+}

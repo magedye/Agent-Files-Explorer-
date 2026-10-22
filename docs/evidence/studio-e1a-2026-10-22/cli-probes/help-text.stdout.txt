@@ -1,0 +1,16 @@
+usage: aghr [-h | --version] [--format {json,text}] [--strict]
+            [{validate,lint,generate,check,eval,qualify,doctor}]
+
+E1.a: help and source identity only. All governance commands are BLOCKED.
+
+positional arguments:
+  {validate,lint,generate,check,eval,qualify,doctor}
+
+options:
+  -h, --help
+  --version
+  --format {json,text}
+  --strict
+
+validate/lint: E2; generate/check/doctor: E3; eval/qualify: E4 and T15. No
+source, state, cache or log writes.

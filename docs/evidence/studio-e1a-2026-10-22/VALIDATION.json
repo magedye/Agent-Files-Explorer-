@@ -1,0 +1,52 @@
+{
+  "scope": "E1.a bootstrap only; not engine qualification",
+  "observed_at_utc": "2026-10-22T12:52:18.067Z",
+  "candidate_tests": {
+    "tests": 18,
+    "passed": 18,
+    "failed": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "candidate-tests.log",
+    "profile": "CPython 3.12.10 / Windows AMD64 / isolated locked dependencies"
+  },
+  "npm_test": {
+    "tests": 41,
+    "passed": 41,
+    "failed": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "npm-test.log"
+  },
+  "cli_probes": {
+    "count": 6,
+    "transcript": "CLI_TRANSCRIPT.json",
+    "metadata_exit": 0,
+    "blocked_exit": 3,
+    "error_exit": 2
+  },
+  "dependencies": {
+    "locked_distributions": 7,
+    "hash_verified": true,
+    "install": "OFFLINE_ISOLATED_WHEELHOUSE",
+    "pip_check": "PASS",
+    "global_environment": "UNCHANGED",
+    "other_platforms": "NOT_RUN"
+  },
+  "git_diff_check": {
+    "exit_code": 0,
+    "log": "git-diff-check.log"
+  },
+  "context_health": {
+    "status": "PASS",
+    "exit_code": 0,
+    "errors": 0,
+    "warnings": 0,
+    "estimated_bootstrap_tokens": 4941,
+    "log": "context-health.log"
+  },
+  "evidence_checks": "EVIDENCE_CHECKS.json",
+  "native_qualification": "NOT_RUN",
+  "independent_review": "NOT_PERFORMED",
+  "release_acceptance": "NOT_GRANTED"
+}

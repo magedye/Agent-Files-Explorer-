@@ -1,18 +1,24 @@
 # Active Project Execution State — Derived View
 
-> Updated: 2026-10-21. Git, source and exact check evidence take precedence over this snapshot.
+> Updated: 2026-10-22. Git, source and exact check evidence take precedence over this snapshot.
 
-## Latest owner delivery — skills candidate
+## Active scope — E1 technically complete; acceptance pending
 
-The owner authorized P0/P1/P2 skill-governance fixes in an independent candidate, preserving reference 1.2.0 and forbidding automatic promotion/publication. [Completed plan and acceptance matrix](../plans/SKILLS_GOVERNANCE_CANDIDATE_1_3_0.md) records that scope. Candidate: `governance_packages/candidates/AGHR_Candidate_1.3.0/`. [Before custody](../evidence/skills-candidate-1.3.0/before.json) records the byte-identical 278-file clone and reference/distribution hashes. INBOX receipt `2026-10-21-01` captures 21 original inputs without changing them.
+[E1.d](../evidence/studio-e1d-2026-10-22/README.md): Path B; portable catalog + 16 schemas/17 fields/13 kinds; candidate 63/63, Studio 41/41. Owner/license PROVISIONAL accepted for E1. E1 output acceptance pending; E2 NOT_STARTED.
 
-P0/P1/P2 candidate implementation is complete. Final frozen-payload suite passed 320/320 including eight scripted CLI/project scenarios; Studio passed 30/30 after its INBOX test was linked to the current receipt while preserving all eight prior originals. Package checks passed. ZIP and detached digest were produced and every archived file matched the candidate. [Delivery, exact hashes, before/after and limits](../governance/SKILLS_CANDIDATE_1_3_0.md).
+[T01](../evidence/studio-t00-t01-2026-10-22/README.md) BLOCKED; T02 NOT_STARTED. READ is not validation. Seven runtime honesty checks and whole Studio SOURCE-01 REQUIRED / NOT_RUN / NOT_WAIVED.
 
-Candidate work is complete; context/links passed without errors or warnings. Native qualification remains NOT_RUN, independent review NOT_PERFORMED and release acceptance NOT_GRANTED. Candidate work did not activate consumers, promote a reference or change the default. The owner authorized a Git checkpoint and push on 2026-10-21; Git establishes its revision and remote state. Receipt `2026-10-21-02` preserves the prior 21 originals plus newly received `agent-roadmap.md` and `.pdf` (23 files); these two await review. Optional independent review and native qualification are not automatically started.
+[Contracts](../contracts/aghr-rc3/README.md): contract.1 definitions complete; runtime qualification pending. T11a's five metrics specified, sample NOT_RUN.
+
+[Review workspace](../reviews/aghr-items-2026-10-22/README.md): 1,608 units/140 sources; PENDING_REVIEW, no import. Reference/default 1.2.0, candidate 1.3.0 and 23 INBOX originals preserved.
+
+## Completed skills candidate
+
+[Candidate 1.3.0 delivery](../governance/SKILLS_CANDIDATE_1_3_0.md): historical 320/320 (eight scripted scenarios), Studio 30/30; native NOT_RUN, independent NOT_PERFORMED, release NOT_GRANTED. INBOX receipt `2026-10-21-02`: 23 direct files. Reference/default 1.2.0 preserved.
 
 ## Completed owner scope
 
-English interface support is complete. A top-bar selector switches Arabic/English, saves the preference and updates language/direction. All six screens, graph/flow labels and local UI messages use the shared catalog. Mixed-language drafts and source documents retain their text. [Feature and evidence](../features/INTERFACE_LANGUAGES.md).
+English support: saved locale, RTL/LTR and localized chrome across six screens; source/user text stays original. [Feature/evidence](../features/INTERFACE_LANGUAGES.md).
 
 The owner requested careful review of all INBOX documents, priority to IMPOERTANT.md and classified lesson extraction, and conversion of the current candidate into an updated local reference. This scope is complete. [Delivery record](../governance/REFERENCE_UPDATE_1_2_0.md) links source custody, the 53-group reconciliation, exact before/after diff and ZIP digest.
 
@@ -25,14 +31,14 @@ The owner requested careful review of all INBOX documents, priority to IMPOERTAN
 
 ## Actual verification
 
-- Implementation verification used branch main at base HEAD 4b9b877d835450f119b09d28bdc70faaaf791f4b before the owner-requested Git checkpoint. Consult Git for the saved revision and working tree state; historical evidence retains its observed base revision.
+- Historical evidence retains its observed base revision. Git establishes the current revision and working tree state.
 - Package: 289/289 local tests passed, 0 failed/skipped; exact frozen payload and relocated package checks passed.
 - Scoped independent learning-skill review: three findings corrected; nine synthetic follow-up cases passed. Whole-package independent review remains NOT_PERFORMED.
-- Studio after localization: [30/30 tests passed](../evidence/english-ui-2026-10-20/verification.json), frontend build passed with the existing size advisory. Isolated Edge verified all six screens, persisted English, RTL/LTR, draft preservation, graph/flow and 320/768/1024/1440 layouts. No console errors/warnings in the checked final page. Reference 1.2.0 remains the default.
+- Studio localization: [30/30 tests, build and isolated Edge evidence](../evidence/english-ui-2026-10-20/verification.json); all six screens, persistence, RTL/LTR and responsive checks. Reference 1.2.0 remains default.
 - [Evidence summary](../evidence/reference-1.2.0-update/studio-verification.json) and [package verification](../../governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/VERIFICATION_REPORT.md) preserve results and limits.
 
 Native host/model qualification, independent release acceptance, external publication and consumer activation are not granted by these local checks. Antigravity's missing attachment, MARSAD-specific current facts and exact PDF/Markdown equivalence remain source questions; a new lesson-management UI is a separate deferred feature.
 
 ## Next action boundary
 
-No required action remains for the interface/reference/default updates. Consumer adoption requires a named target and explicit scope. Reopen the delivery receipt, actual Git/tree and relevant source before dependent work. The pre-existing static authorization fallback in server/staging.js remains a separate deferred security issue.
+Reopen contracts, canonical specs and actual Git/tree next. Consumer adoption requires a named target/scope. The static authorization fallback in server/staging.js remains deferred.

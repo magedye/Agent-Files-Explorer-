@@ -1,0 +1,22 @@
+{
+  "contract_revision": "contract.1",
+  "dialect": "sqlite3",
+  "migrations": [
+    {
+      "version": 1,
+      "file": "sqlite/001_initial.sql",
+      "sha256": "d5ab6a5fa8dc3be95927d3f9871ed393a3d7f7206e102dae6f2721492dde2159"
+    }
+  ],
+  "application": {
+    "transaction": "BEGIN IMMEDIATE / COMMIT",
+    "failure": "ROLLBACK",
+    "foreign_keys": true,
+    "ledger": "PRAGMA user_version"
+  },
+  "demonstration": {
+    "database": ":memory:",
+    "filesystem_writes": false
+  },
+  "persistent_mode": "REQUIRES_SEPARATE_AUTHORIZATION_AND_QUALIFICATION"
+}

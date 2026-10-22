@@ -1,0 +1,14 @@
+usage: cli.py lesson [-h] --project PROJECT --record RECORD
+                     [--action {review,capture}] [--candidate-id CANDIDATE_ID]
+                     [--against [AGAINST ...]]
+
+options:
+  -h, --help            show this help message and exit
+  --project PROJECT
+  --record RECORD
+  --action {review,capture}
+  --candidate-id CANDIDATE_ID
+                        Exact current candidate identity; required for review
+  --against [AGAINST ...]
+                        Explicit previous lesson records for exact overlap
+                        checks

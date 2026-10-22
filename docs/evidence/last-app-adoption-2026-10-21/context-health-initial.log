@@ -1,0 +1,57 @@
+=== Context Health & Budget Check ===
+
+1. Checking Bootstrap File Budgets:
+  ✔ [PASS] AGENTS.md                :   3.5 KB | ~ 981 est. tokens (Budget: 2500)
+  ✔ [PASS] docs/status/CURRENT.md   :   5.1 KB | ~1423 est. tokens (Budget: 3500)
+  ✔ [PASS] docs/status/HANDOFF.md   :   5.7 KB | ~1585 est. tokens (Budget: 2500)
+  ✔ [PASS] docs/INDEX.md            :   3.5 KB | ~ 960 est. tokens (Budget: 3000)
+
+  Total Bootstrap Context: ~4949 tokens (Target: < 5,000 tokens)
+
+2. Checking for Prohibited Crawl Patterns in Bootstrap Files:
+  ✔ Prohibited patterns check complete.
+
+3. Verifying Local Markdown Links in docs/:
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-01
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-02
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-04
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-06
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-07
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-27
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-09
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-28
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-12
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-13
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-14
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-14
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-11
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-15
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-16
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-17
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-18
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-29
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-22
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-23
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-24
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-25
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-05
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-19
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-20
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-21
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-21
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#nfa-01
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#nfa-02
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#nfa-03
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#nfa-04
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#nfa-05
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#fa-26
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#nfa-09
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#nfa-08
+  ❌ [BROKEN_LINK] In docs\evidence\last-app-adoption-2026-10-21\COVERAGE.md: link target not found: ../../specs/aghr-rc3/STUDIO_SPECIFICATION.md#nfa-10
+  ❌ [BROKEN_LINK] In docs\governance\LAST_APP_ADOPTION_2026_10_22.md: link target not found: ../evidence/last-app-adoption-2026-10-21/after.json
+  ❌ [BROKEN_LINK] In docs\governance\LAST_APP_ADOPTION_2026_10_22.md: link target not found: ../evidence/last-app-adoption-2026-10-21/verification.json
+  ✔ Markdown link verification complete.
+
+=== Summary ===
+Errors: 38, Warnings: 0
+❌ Context health check FAILED.

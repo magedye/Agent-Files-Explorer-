@@ -1,0 +1,506 @@
+{
+  "observed_at_utc": "2026-10-22T02:50:55.399Z",
+  "source_sha256": "064820539a90ffe51ccfd1e6dd4700e82bdd4a1d8edb32ea63e15e642c33ef6b",
+  "contract_schema_sha256": "e101feba90172939f007db9a41b456ce3297473477cb094c24549cc6d712d122",
+  "counts": {
+    "kinds": 13,
+    "canonical_fields": 17,
+    "honesty_checks": 7,
+    "cases": 37,
+    "ACCEPTS": 0,
+    "REJECTS": 0,
+    "UNKNOWN": 37
+  },
+  "corrections": [
+    "Section 3.2 has 17 top-level fields, not 12",
+    "Section 11.1 lists 7 honesty checks, not 7 eval types"
+  ],
+  "runtime_cases": [
+    {
+      "id": "KIND-01",
+      "category": "kind",
+      "name": "OBSERVATION",
+      "source": "Reference 4 / item.schema.json",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "KIND-02",
+      "category": "kind",
+      "name": "PRINCIPLE",
+      "source": "Reference 4 / item.schema.json",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "KIND-03",
+      "category": "kind",
+      "name": "CONSTRAINT",
+      "source": "Reference 4 / item.schema.json",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "KIND-04",
+      "category": "kind",
+      "name": "REQUIREMENT",
+      "source": "Reference 4 / item.schema.json",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "KIND-05",
+      "category": "kind",
+      "name": "PROCEDURE",
+      "source": "Reference 4 / item.schema.json",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "KIND-06",
+      "category": "kind",
+      "name": "GUIDELINE",
+      "source": "Reference 4 / item.schema.json",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "KIND-07",
+      "category": "kind",
+      "name": "POLICY",
+      "source": "Reference 4 / item.schema.json",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "KIND-08",
+      "category": "kind",
+      "name": "RULE",
+      "source": "Reference 4 / item.schema.json",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "KIND-09",
+      "category": "kind",
+      "name": "STANDARD",
+      "source": "Reference 4 / item.schema.json",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "KIND-10",
+      "category": "kind",
+      "name": "CONTROL",
+      "source": "Reference 4 / item.schema.json",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "KIND-11",
+      "category": "kind",
+      "name": "DECISION",
+      "source": "Reference 4 / item.schema.json",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "KIND-12",
+      "category": "kind",
+      "name": "EXCEPTION",
+      "source": "Reference 4 / item.schema.json",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "KIND-13",
+      "category": "kind",
+      "name": "CAPABILITY",
+      "source": "Reference 4 / item.schema.json",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "FIELD-01",
+      "category": "canonical_field",
+      "name": "id",
+      "source": "Reference 3.2",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "FIELD-02",
+      "category": "canonical_field",
+      "name": "title",
+      "source": "Reference 3.2",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "FIELD-03",
+      "category": "canonical_field",
+      "name": "kind",
+      "source": "Reference 3.2",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "FIELD-04",
+      "category": "canonical_field",
+      "name": "force",
+      "source": "Reference 3.2",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "FIELD-05",
+      "category": "canonical_field",
+      "name": "severity",
+      "source": "Reference 3.2",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "FIELD-06",
+      "category": "canonical_field",
+      "name": "rationale",
+      "source": "Reference 3.2",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "FIELD-07",
+      "category": "canonical_field",
+      "name": "authority",
+      "source": "Reference 3.2",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "FIELD-08",
+      "category": "canonical_field",
+      "name": "reviewCadence",
+      "source": "Reference 3.2",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "FIELD-09",
+      "category": "canonical_field",
+      "name": "nextReview",
+      "source": "Reference 3.2",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "FIELD-10",
+      "category": "canonical_field",
+      "name": "scope",
+      "source": "Reference 3.2",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "FIELD-11",
+      "category": "canonical_field",
+      "name": "rule",
+      "source": "Reference 3.2",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "FIELD-12",
+      "category": "canonical_field",
+      "name": "enforcement",
+      "source": "Reference 3.2",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "FIELD-13",
+      "category": "canonical_field",
+      "name": "verification",
+      "source": "Reference 3.2",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "FIELD-14",
+      "category": "canonical_field",
+      "name": "impact",
+      "source": "Reference 3.2",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "FIELD-15",
+      "category": "canonical_field",
+      "name": "conflictPolicy",
+      "source": "Reference 3.2",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "FIELD-16",
+      "category": "canonical_field",
+      "name": "exceptions",
+      "source": "Reference 3.2",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "FIELD-17",
+      "category": "canonical_field",
+      "name": "references",
+      "source": "Reference 3.2",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "HONESTY-01",
+      "category": "honesty_check",
+      "name": "No `VERIFIED` without execution evidence.",
+      "source": "Reference 11.1; honesty checks are not seven eval types",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "HONESTY-02",
+      "category": "honesty_check",
+      "name": "No `PASS` for `UNKNOWN_ID`.",
+      "source": "Reference 11.1; honesty checks are not seven eval types",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "HONESTY-03",
+      "category": "honesty_check",
+      "name": "No `PASS` for empty outputs.",
+      "source": "Reference 11.1; honesty checks are not seven eval types",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "HONESTY-04",
+      "category": "honesty_check",
+      "name": "`task_criteria` consumed, not merely accepted.",
+      "source": "Reference 11.1; honesty checks are not seven eval types",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "HONESTY-05",
+      "category": "honesty_check",
+      "name": "`BLOCKED` distinct from `NO_SKILL_MATCH`.",
+      "source": "Reference 11.1; honesty checks are not seven eval types",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "HONESTY-06",
+      "category": "honesty_check",
+      "name": "No `HOST_SIGNAL` without host signal.",
+      "source": "Reference 11.1; honesty checks are not seven eval types",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    },
+    {
+      "id": "HONESTY-07",
+      "category": "honesty_check",
+      "name": "Qualification resets on version change.",
+      "source": "Reference 11.1; honesty checks are not seven eval types",
+      "engine_verdict": "UNKNOWN",
+      "probe_status": "NOT_RUN",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "reason": "No pinned rc.3 engine plus real compatible reference package; legacy parser rejection is not kind/field-specific validation."
+    }
+  ],
+  "legacy_strict_parser": {
+    "probe_id": "legacy-strict-parser",
+    "exit_code": 2,
+    "scope": "Actual parser response only; not a successful rc.3 package validation"
+  }
+}

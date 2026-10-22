@@ -27,6 +27,9 @@ Layer 5: History & Archive  -->  /docs/archive/, /governance_packages/archive/
 - [HANDOFF.md](status/HANDOFF.md) — Multi-agent and cross-session handoff checkpoint.
 
 ### Architecture & Specification
+- [Full upgrade plan](plans/STUDIO_FULL_PROJECT_UPGRADE_AR.md) — phases, tasks and gates; [contracts](contracts/aghr-rc3/README.md); [C1–C12](plans/STUDIO_PRODUCT_AND_CONTRACTS_AR.md).
+- [Governance item review](reviews/aghr-items-2026-10-22/README.md) — complete extraction, editable tables, source custody and proposed migration fields.
+- [Owner-accepted AGHR rc.3 and Studio designs](specs/aghr-rc3/README.md) — last-app baseline with full prior-requirement coverage; [adoption and archive receipt](governance/LAST_APP_ADOPTION_2026_10_22.md).
 - [Arabic and English interface](features/INTERFACE_LANGUAGES.md) — language selector, saved preference, translation catalog and verification.
 - [PROJECT_MAP.md](../PROJECT_MAP.md) — Current file tree and service responsibilities.
 - [Skill Steward SACP proposal](specs/SKILL_STEWARD_SACP_PROPOSAL_AR.md) — separate proposed product and supplementary design source.

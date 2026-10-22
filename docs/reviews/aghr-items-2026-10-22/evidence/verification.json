@@ -1,0 +1,70 @@
+{
+  "status": "PASS_FOR_LOCAL_EXTRACTION",
+  "observed_at": "2026-10-21T22:35:24.381Z",
+  "branch": "main",
+  "head": "bb76a0b61617512f4cd6d0c6cea792e35d5ff4aa",
+  "extraction": {
+    "status": "PASS",
+    "command": "node tools/governance_inventory.mjs --verify",
+    "sources": 140,
+    "review_rows": 1608,
+    "counts": {
+      "CORE_RULE": 47,
+      "SKILL": 11,
+      "STANDARD_RECOMMENDATION": 80,
+      "DOCUMENT_CLAUSE": 1118,
+      "DOCUMENT_TABLE_ROW": 131,
+      "EXAMPLE_BLOCK": 18,
+      "PROFILE": 3,
+      "ADAPTER": 12,
+      "SCENARIO": 60,
+      "HOST_QUALIFICATION": 2,
+      "SOURCE_REFERENCE": 56,
+      "SCHEMA": 6,
+      "TEMPLATE": 7,
+      "ENFORCEMENT_RECORD": 47,
+      "CATALOG_METADATA": 10
+    },
+    "markdown_lines_accounted": 3291,
+    "preserved_input_files": 286,
+    "csv_rows": 1608,
+    "csv_columns": 24,
+    "source_dispositions": 245
+  },
+  "parser_self_check": {
+    "status": "PASS",
+    "scope": "CRLF, nested steps, table rows, examples, malformed fences, rule-ID ranges"
+  },
+  "project_tests": {
+    "status": "PASS",
+    "command": "npm test",
+    "passed": 30,
+    "failed": 0,
+    "skipped": 0,
+    "log": "npm-test.log"
+  },
+  "context_health": {
+    "status": "PASS",
+    "command": "node tools/check_context_health.mjs",
+    "errors": 0,
+    "warnings": 0,
+    "bootstrap_estimated_tokens": 4970,
+    "initial_advisory": "Initial 5023 estimate reduced by shortening derived status prose; initial log retained"
+  },
+  "schema": {
+    "syntax": "PASS",
+    "kind": "REVIEW_TRANSPORT_ONLY_NOT_CANONICAL_ITEM_SCHEMA",
+    "external_json_schema_engine": "NOT_RUN"
+  },
+  "review_decisions": "PENDING_REVIEW",
+  "independent_semantic_review": "NOT_PERFORMED",
+  "native_qualification": "NOT_RUN_BY_EXTRACTION",
+  "target_import": "NOT_EXECUTED",
+  "reference_or_candidate_updates": "NONE",
+  "app_default": "aghr_1_2_0",
+  "limits": [
+    "Counts prove extraction accounting, not semantic adequacy or policy approval.",
+    "Text overlap is exact normalized matching only.",
+    "External source links were not refreshed online."
+  ]
+}

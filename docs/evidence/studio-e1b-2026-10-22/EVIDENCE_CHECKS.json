@@ -1,0 +1,104 @@
+{
+  "observed_at_utc": "2026-10-22T14:11:03.290Z",
+  "status": "PASS",
+  "protected_inputs": {
+    "count": 185,
+    "status": "UNCHANGED"
+  },
+  "snapshots": {
+    "count": 9,
+    "status": "UNCHANGED"
+  },
+  "source_files": 8,
+  "current_hash": "7adb0e1aaa3a71bd1ed4814cd7d5b428a6a7895bed401c7953f00cc4f0fc5481",
+  "prior_hash_reconstructed_from_before_snapshots": "e28b5897b9c6e4a5e12d8fd43420e69b89c832c8355a64b954ad82f4d01f8fde",
+  "source_file_set": "EXACT_MATCH",
+  "captured_fixture_sources": {
+    "count": 9,
+    "status": "RAW_BYTES_AND_HASHES_MATCH_CURRENT_FIXTURE_FILES"
+  },
+  "global_python": "MATCHES_PRESERVED_E1A_BASELINE",
+  "requirements_lock": "UNCHANGED; reused isolated environment",
+  "master_task_definitions": {
+    "count": 57,
+    "ids_unchanged": true
+  },
+  "custody": {
+    "head": "bb76a0b61617512f4cd6d0c6cea792e35d5ff4aa",
+    "branch": "main"
+  },
+  "changes": [
+    {
+      "path": "docs/plans/STUDIO_E1_E2_CORE_SCOPE_AR.md",
+      "before_sha256": "e65ae1ec8404d0f9f8397f9c3247be6b2fccdadc321b1903f32d1835d3f17a93",
+      "after_sha256": "c59a084318dc502bf0bf77cb96f149163eb98d3c0e1a13439c45ef847c4d178e",
+      "patch": "change-01.patch"
+    },
+    {
+      "path": "docs/plans/STUDIO_FULL_PROJECT_UPGRADE_AR.md",
+      "before_sha256": "bedd6fe902b6a4e45ee325a2447c11fc636c499f184a8e3ad2563ca4d7686983",
+      "after_sha256": "7d61f0a368c9bf12c54e3b566149959c7c631f652f633fa3288e6cfe9cbb5d00",
+      "patch": "change-02.patch"
+    },
+    {
+      "path": "docs/plans/STUDIO_UPGRADE_TASKS_AR.md",
+      "before_sha256": "274d2d77d25fe01c2e13ebcfa951030885db2b0f11c72366a2989df945123502",
+      "after_sha256": "0f8528a433bff00c6c680c7b77fc833971aa1c3a8c1265dce1efed2213636e85",
+      "patch": "change-03.patch"
+    },
+    {
+      "path": "docs/status/CURRENT.md",
+      "before_sha256": "b980c1dc577d4b1cfee97cda1c5fb34f0d88905760adb6d2294f6d22b00d6643",
+      "after_sha256": "868d0bdcfd165e7958d0e7797ce6541b24db068b8295a2088f08997bac6f202d",
+      "patch": "change-04.patch"
+    },
+    {
+      "path": "docs/status/HANDOFF.md",
+      "before_sha256": "d5960171cf55369a051bc607c298079b30465ebd6c964b51e57efc41f3ed555c",
+      "after_sha256": "11c85f0240eeca6eb175dd020286500e1eccc591c15785e4820a5df775730c85",
+      "patch": "change-05.patch"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_rc3_Core_Candidate/PROVENANCE.json",
+      "before_sha256": "9bf6007dd2be6912b9b031e3e2a9bc1ba0e9bb706b2baa3dc1685b6cb11fa287",
+      "after_sha256": "fbc66f9cf27371915140b86e45ab86c10c16c2456a63e0ae98ca5d70119a2fe4",
+      "patch": "change-06.patch"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_rc3_Core_Candidate/CLI_CONTRACT.json",
+      "before_sha256": "04acd38ef206de4c570531370d4653902ca84bfbab0ddb116fc28c0faeba7c92",
+      "after_sha256": "ff841d01629b83089356ce5355a1bbcd0199790fbf843107e495374412df6a16",
+      "patch": "change-07.patch"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/cli.py",
+      "before_sha256": "d6883308899308ac5a7d2625daea8842c5178151628b0eeccd13e34600829ea1",
+      "after_sha256": "d5ed981577fb4fc70df5dc1e3bdcd3c6c449f887525b90344df007e3993f4134",
+      "patch": "change-08.patch"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_cli.py",
+      "before_sha256": "cd4cce649947114d4ad4b255acebd8e093a7616320216e0bc1c7730f669dbc6b",
+      "after_sha256": "95e32ad31ef717a48a829dbce24e7f50fdfc95ef3c2746174d70c12a4e684091",
+      "patch": "change-09.patch"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/loader.py",
+      "before": "ABSENT",
+      "after_sha256": "d735107b012bb63a6333f657ec224b03a551ebbcf5561dca74e78ed7e8164e9f",
+      "patch": "add-01.patch"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/diagnostics.py",
+      "before": "ABSENT",
+      "after_sha256": "9bd25cb497ec651c75b76089f95b929c307abf8eedadd14f1c8debd8ab64ad89",
+      "patch": "add-02.patch"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_loader.py",
+      "before": "ABSENT",
+      "after_sha256": "6355090819978ed317bd6fc4509abaa2973fc60574fb59b6fb057d00beb433b6",
+      "patch": "add-03.patch"
+    }
+  ]
+}

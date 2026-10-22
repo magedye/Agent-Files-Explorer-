@@ -1,0 +1,46 @@
+{
+  "package_id": "aghr-rc3-core-candidate",
+  "status": "CANDIDATE_FOR_REVIEW",
+  "stage": "E1.c",
+  "target_spec_version": "1.0.0-rc.3",
+  "schema_version": "1.2",
+  "content_origin": "REAL_APPLICATION_SOURCE_OBSERVATION",
+  "governance_items": 1,
+  "owner_license": {
+    "state": "PROVISIONAL_OWNER_LICENSE",
+    "owner": "Platform Governance Team",
+    "license": "MIT",
+    "text_path": "LICENSE",
+    "record_id": "E1.c(4)",
+    "source_of_truth": [
+      {
+        "path": "aghr.json",
+        "sha256": "ef25b809b529fc6898db46c0afcaafaffc6ac67fa52c5e54c0517b088fe972c6",
+        "bytes": 903
+      },
+      {
+        "path": "LICENSE",
+        "sha256": "dd92d820f1edbf814873bebe95f4e4e07452e1ae0f701f908e2fb1cb2b8018a9",
+        "bytes": 1407
+      }
+    ],
+    "signed_decision": "NOT_SUPPLIED",
+    "final_acceptance": "PENDING_EXPLICIT_OWNER_SIGNATURE"
+  },
+  "e1c_delivery": "PREPARED_PROVISIONAL",
+  "governing_validation": "NOT_RUN",
+  "native_host_qualification": "NOT_RUN",
+  "publisher_authentication": "UNKNOWN",
+  "independent_review": "NOT_PERFORMED",
+  "release_acceptance": "NOT_GRANTED",
+  "reference_promotion": "NOT_GRANTED",
+  "engine_binding": "NOT_CONFIGURED",
+  "default_reference": "aghr_1_2_0",
+  "later_owner_license_changes": "Separate before/after and impact record; no automatic rebuild or promotion",
+  "remaining": [
+    "E1.d portable catalog and schema closure",
+    "E2 governing strict/lint",
+    "T01 re-entry",
+    "Explicit owner signature before final owner/license acceptance"
+  ]
+}

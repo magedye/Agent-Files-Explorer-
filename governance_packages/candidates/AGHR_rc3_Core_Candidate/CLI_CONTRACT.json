@@ -1,0 +1,1034 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aghr.invalid/internal/cli/2",
+  "title": "Internal AGHR CLI protocol 2 — E1.d read catalog",
+  "$comment": "Version 2 adds explicit READ catalog transport without governing validation. Prior protocol 1 is preserved in E1.d before snapshots. Public Studio contract.1 and its copied schemas are unchanged. JSON stdout is one UTF-8 object plus newline; text catalog output is a summary.",
+  "x-cli": {
+    "protocol_version": "2",
+    "default_format": "json",
+    "formats": [
+      "json",
+      "text"
+    ],
+    "launch": {
+      "shell": false,
+      "python_flags": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8"
+      ],
+      "entrypoint": "tools/cli.py",
+      "package_root": "cwd selected by the caller; metadata commands do not read its package"
+    },
+    "syntax": [
+      "--help [--format json|text]",
+      "--version [--format json|text]",
+      "catalog [--format json|text]",
+      "validate [--strict] [--format json|text]",
+      "lint [--format json|text]"
+    ],
+    "implemented": [
+      "help",
+      "version",
+      "catalog"
+    ],
+    "reader_api": "tools/catalog.py build_catalog + serialize_catalog preserve raw sources/grouping/presence and a frozen model. catalog selects cwd. It performs read/integrity operations only; strict/lint remain E2.",
+    "blocked_until": {
+      "validate": "E2",
+      "lint": "E2",
+      "generate": "E3",
+      "check": "E3",
+      "doctor": "E3",
+      "eval": "E4 and T15",
+      "qualify": "E4 and T15"
+    },
+    "exit_codes": {
+      "0": "Metadata INFO or completed catalog READ; never governing validation",
+      "1": "Reserved for real INVALID governing results in E2",
+      "2": "Invalid invocation, unreadable/malformed input or schema integrity/transport error",
+      "3": "Required implementation/dependency/evidence unavailable"
+    },
+    "identity": "sha256-path-map-v1 as defined in PROVENANCE.json; source identity is not authenticated publisher identity, a distribution or Binding.QUALIFIED.",
+    "raw_streams": "Never mix text/help into JSON stdout. Error and blocked diagnostics are also written to stderr. No user argument values are echoed on syntax errors. The last valid --format selection also controls syntax-error rendering.",
+    "writes": "None: no package/state/evidence/cache/log writes, child processes or network calls in CLI execution.",
+    "compatibility": "Intentional internal protocol 1 -> 2 for READ/data shape; no configured consumer bridge. Old bytes and diff retained. No HTTP or locked Studio contract change."
+  },
+  "$ref": "#/$defs/Response",
+  "$defs": {
+    "Digest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "NullableDigest": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/Digest"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "Source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "implementation_id",
+        "stage",
+        "target_spec_version",
+        "schema_version",
+        "content_hash",
+        "hash_algorithm",
+        "artifacts",
+        "publisher_authentication",
+        "qualification",
+        "distribution"
+      ],
+      "properties": {
+        "implementation_id": {
+          "const": "aghr-rc3-core-candidate"
+        },
+        "stage": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_spec_version": {
+          "const": "1.0.0-rc.3"
+        },
+        "schema_version": {
+          "const": "1.2"
+        },
+        "content_hash": {
+          "$ref": "#/$defs/Digest"
+        },
+        "hash_algorithm": {
+          "const": "sha256-path-map-v1"
+        },
+        "artifacts": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "sha256"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Owned source inventory relative POSIX path; E1.d includes thirty-three pinned artifacts."
+              },
+              "sha256": {
+                "$ref": "#/$defs/Digest"
+              }
+            }
+          }
+        },
+        "publisher_authentication": {
+          "const": "UNKNOWN"
+        },
+        "qualification": {
+          "const": "NOT_RUN"
+        },
+        "distribution": {
+          "type": "null"
+        }
+      }
+    },
+    "Diagnostic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "message",
+        "stage"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stage": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "path": {
+          "type": "string"
+        },
+        "line": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "column": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "byte_offset": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        }
+      }
+    },
+    "Response": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "protocol_version",
+        "command",
+        "result",
+        "exit_code",
+        "source",
+        "inputs",
+        "checks",
+        "diagnostics",
+        "data"
+      ],
+      "properties": {
+        "protocol_version": {
+          "const": "2"
+        },
+        "command": {
+          "enum": [
+            null,
+            "help",
+            "version",
+            "validate",
+            "lint",
+            "generate",
+            "check",
+            "eval",
+            "qualify",
+            "doctor",
+            "catalog"
+          ]
+        },
+        "result": {
+          "enum": [
+            "INFO",
+            "VALID",
+            "INVALID",
+            "ERROR",
+            "BLOCKED",
+            "READ"
+          ]
+        },
+        "exit_code": {
+          "enum": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        "source": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/Source"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "candidate_hash",
+            "config_hash",
+            "inputs_hash",
+            "catalog"
+          ],
+          "properties": {
+            "candidate_hash": {
+              "$ref": "#/$defs/NullableDigest"
+            },
+            "config_hash": {
+              "$ref": "#/$defs/NullableDigest"
+            },
+            "inputs_hash": {
+              "$ref": "#/$defs/NullableDigest"
+            },
+            "catalog": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "checks": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "reason"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "NOT_RUN",
+                "BLOCKED",
+                "COMPLETE"
+              ]
+            },
+            "reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "diagnostics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Diagnostic"
+          }
+        },
+        "data": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "help"
+              ],
+              "properties": {
+                "help": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "catalog"
+              ],
+              "properties": {
+                "catalog": {
+                  "$ref": "#/$defs/Catalog"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "read_error"
+              ],
+              "properties": {
+                "read_error": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "sources"
+                  ],
+                  "properties": {
+                    "sources": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/SourceRecord"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "result": {
+                "const": "INFO"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "exit_code": {
+                "const": 0
+              },
+              "command": {
+                "enum": [
+                  "help",
+                  "version"
+                ]
+              },
+              "source": {
+                "$ref": "#/$defs/Source"
+              },
+              "checks": {
+                "properties": {
+                  "status": {
+                    "const": "NOT_RUN"
+                  }
+                }
+              },
+              "diagnostics": {
+                "maxItems": 0
+              },
+              "data": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "help"
+                    ],
+                    "properties": {
+                      "help": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "result": {
+                "const": "ERROR"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "exit_code": {
+                "const": 2
+              },
+              "diagnostics": {
+                "minItems": 1
+              },
+              "data": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "read_error"
+                    ],
+                    "properties": {
+                      "read_error": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "sources"
+                        ],
+                        "properties": {
+                          "sources": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/$defs/SourceRecord"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "checks": {
+                "properties": {
+                  "status": {
+                    "const": "NOT_RUN"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "result": {
+                "const": "BLOCKED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "exit_code": {
+                "const": 3
+              },
+              "source": {
+                "$ref": "#/$defs/Source"
+              },
+              "checks": {
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "NOT_RUN",
+                      "BLOCKED"
+                    ]
+                  }
+                }
+              },
+              "diagnostics": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "result": {
+                "enum": [
+                  "VALID",
+                  "INVALID"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "command": {
+                "enum": [
+                  "validate",
+                  "lint"
+                ]
+              },
+              "source": {
+                "$ref": "#/$defs/Source"
+              },
+              "checks": {
+                "properties": {
+                  "status": {
+                    "const": "COMPLETE"
+                  }
+                }
+              },
+              "inputs": {
+                "properties": {
+                  "candidate_hash": {
+                    "$ref": "#/$defs/Digest"
+                  },
+                  "config_hash": {
+                    "$ref": "#/$defs/Digest"
+                  },
+                  "inputs_hash": {
+                    "$ref": "#/$defs/Digest"
+                  },
+                  "catalog": {
+                    "type": "array"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "result": {
+                "const": "VALID"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "exit_code": {
+                "const": 0
+              },
+              "diagnostics": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "result": {
+                "const": "INVALID"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "exit_code": {
+                "const": 1
+              },
+              "diagnostics": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "result": {
+                "const": "READ"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "command": {
+                "const": "catalog"
+              },
+              "exit_code": {
+                "const": 0
+              },
+              "source": {
+                "$ref": "#/$defs/Source"
+              },
+              "checks": {
+                "properties": {
+                  "status": {
+                    "const": "NOT_RUN"
+                  }
+                }
+              },
+              "diagnostics": {
+                "maxItems": 0
+              },
+              "inputs": {
+                "properties": {
+                  "candidate_hash": {
+                    "type": "null"
+                  },
+                  "config_hash": {
+                    "type": "null"
+                  },
+                  "inputs_hash": {
+                    "type": "null"
+                  },
+                  "catalog": {
+                    "type": "null"
+                  }
+                }
+              },
+              "data": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "catalog"
+                ],
+                "properties": {
+                  "catalog": {
+                    "$ref": "#/$defs/Catalog"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "document",
+        "pointer",
+        "line",
+        "column",
+        "start_byte",
+        "end_byte"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "document": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "pointer": {
+          "type": "string"
+        },
+        "line": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "column": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "start_byte": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end_byte": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "SourceRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "role",
+        "sha256",
+        "raw_base64",
+        "text",
+        "complete",
+        "valid_utf8"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "manifest",
+            "item",
+            "profile",
+            "qualification",
+            "selection"
+          ]
+        },
+        "sha256": {
+          "$ref": "#/$defs/NullableDigest"
+        },
+        "raw_base64": {
+          "type": "string",
+          "contentEncoding": "base64"
+        },
+        "text": {
+          "type": "string"
+        },
+        "complete": {
+          "type": "boolean"
+        },
+        "valid_utf8": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Presence": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "presence"
+          ],
+          "properties": {
+            "presence": {
+              "const": "ABSENT"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "presence",
+            "value"
+          ],
+          "properties": {
+            "presence": {
+              "const": "PRESENT"
+            },
+            "value": {}
+          }
+        }
+      ]
+    },
+    "CatalogItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "location",
+        "fields",
+        "other_fields",
+        "kind_in_model",
+        "validation_status"
+      ],
+      "properties": {
+        "value": {
+          "type": "object"
+        },
+        "location": {
+          "$ref": "#/$defs/Location"
+        },
+        "fields": {
+          "type": "object",
+          "minProperties": 17,
+          "maxProperties": 17,
+          "additionalProperties": {
+            "$ref": "#/$defs/Presence"
+          }
+        },
+        "other_fields": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "known_to_model",
+              "value"
+            ],
+            "properties": {
+              "known_to_model": {
+                "type": "boolean"
+              },
+              "value": {}
+            }
+          }
+        },
+        "kind_in_model": {
+          "type": "boolean"
+        },
+        "validation_status": {
+          "const": "NOT_RUN"
+        }
+      }
+    },
+    "Catalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "catalog_version",
+        "status",
+        "validation_status",
+        "trust_status",
+        "qualification_status",
+        "read_set_hash",
+        "read_set_hash_algorithm",
+        "read_set_hash_scope",
+        "selection",
+        "manifest",
+        "schema_closure",
+        "model",
+        "sources",
+        "documents",
+        "items",
+        "auxiliary_paths"
+      ],
+      "properties": {
+        "catalog_version": {
+          "const": "1"
+        },
+        "status": {
+          "const": "READ"
+        },
+        "validation_status": {
+          "const": "NOT_RUN"
+        },
+        "trust_status": {
+          "const": "NOT_EVALUATED"
+        },
+        "qualification_status": {
+          "const": "NOT_RUN"
+        },
+        "read_set_hash": {
+          "$ref": "#/$defs/Digest"
+        },
+        "read_set_hash_algorithm": {
+          "const": "sha256-path-map-v1"
+        },
+        "read_set_hash_scope": {
+          "type": "string"
+        },
+        "selection": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode",
+            "source_paths"
+          ],
+          "properties": {
+            "mode": {
+              "enum": [
+                "DEFAULT_ROOTS",
+                "EXPLICIT_PATHS"
+              ]
+            },
+            "source_paths": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "manifest": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "location"
+          ],
+          "properties": {
+            "value": {
+              "type": "object"
+            },
+            "location": {
+              "$ref": "#/$defs/Location"
+            }
+          }
+        },
+        "schema_closure": {
+          "type": "object",
+          "required": [
+            "lock_sha256",
+            "closure_revision",
+            "files",
+            "model_index"
+          ],
+          "properties": {
+            "lock_sha256": {
+              "$ref": "#/$defs/Digest"
+            },
+            "closure_revision": {
+              "const": "rc3-contract.1-schemas.1"
+            },
+            "files": {
+              "type": "array",
+              "minItems": 16,
+              "maxItems": 16,
+              "items": {
+                "type": "object"
+              }
+            },
+            "model_index": {
+              "type": "object"
+            }
+          }
+        },
+        "model": {
+          "type": "object",
+          "required": [
+            "fields",
+            "kinds",
+            "honesty_checks"
+          ],
+          "properties": {
+            "fields": {
+              "type": "array",
+              "minItems": 17,
+              "maxItems": 17,
+              "items": {
+                "type": "object"
+              }
+            },
+            "kinds": {
+              "type": "array",
+              "minItems": 13,
+              "maxItems": 13,
+              "items": {
+                "type": "object"
+              }
+            },
+            "honesty_checks": {
+              "type": "array",
+              "minItems": 7,
+              "maxItems": 7,
+              "items": {
+                "type": "object",
+                "required": [
+                  "runtime_status"
+                ],
+                "properties": {
+                  "runtime_status": {
+                    "const": "REQUIRED / NOT_RUN / NOT_WAIVED"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/SourceRecord"
+          }
+        },
+        "documents": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "source_path",
+              "role",
+              "document",
+              "value",
+              "location"
+            ],
+            "properties": {
+              "source_path": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "document": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "value": {},
+              "location": {
+                "$ref": "#/$defs/Location"
+              }
+            }
+          }
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/CatalogItem"
+          }
+        },
+        "auxiliary_paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "record_id": "E1.c(4)",
+  "recorded_at_utc": "2026-10-22T14:59:52.967Z",
+  "status": "PROVISIONAL_OWNER_LICENSE",
+  "source": "Current explicit user reply to the E1.c owner/license question",
+  "instruction_text": "لا يوجد قرار موقّع مسجّل بعد. للاستمرار دون تعطيل E1، أعتمد القيم المؤقتة التالية استنادًا إلى بيانات الحزمة الحالية، مع وسمها PROVISIONAL حتى توقيع المالك:\n\n- owner: Platform Governance Team\n- license: MIT\n- license text path: LICENSE (في جذر الحزمة الجديدة)\n- source of truth: aghr.json الحالي + ملف LICENSE المرافق\n- traceability: حفظ sha256 لكل من aghr.json وLICENSE، وربطهما بسجل E1.c(4)\n- حالة القرار: PROVISIONAL_OWNER_LICENSE — غير صالح كاعتماد نهائي، ولا يُرقّى إلى مرجع قبل التوقيع الصريح\n\nالمحتوى الذي سأُعدّه الآن سيبقى مرهونًا بهذين المصدرين، وأي تغيير في owner أو license لاحقًا يُسجّل كفرق مستقل (before/after) مع أثره على الحزمة المرشحة، دون إعادة بناء تلقائية. أما إذا كان المالك يريد قيمة أو ترخيصًا مختلفًا، فيُستبدل الحقلان مع مسار نص الترخيص الجديد، ويُعاد وسم النسخة بـPROVISIONAL حتى التوقيع.",
+  "instruction_text_sha256": "84cd3f779635e2c4afedbc8730ef970da283d28f02c9dcebd5bfdb1d7fe05cd0",
+  "owner": "Platform Governance Team",
+  "license": "MIT",
+  "license_text_path": "LICENSE",
+  "source_of_truth": [
+    {
+      "path": "aghr.json",
+      "sha256": "ef25b809b529fc6898db46c0afcaafaffc6ac67fa52c5e54c0517b088fe972c6",
+      "bytes": 903
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "dd92d820f1edbf814873bebe95f4e4e07452e1ae0f701f908e2fb1cb2b8018a9",
+      "bytes": 1407
+    }
+  ],
+  "prior_files": {
+    "aghr.json": "ABSENT_AT_PREFLIGHT",
+    "LICENSE": "ABSENT_AT_PREFLIGHT"
+  },
+  "origin_note": "These files are newly authored from the current provisional instruction, not pre-existing authenticated inputs. The rc.3 manifest example was not evidence of ownership or licensing.",
+  "signed_decision": "NOT_SUPPLIED",
+  "identity_authentication": "UNKNOWN",
+  "final_acceptance": "PENDING_EXPLICIT_OWNER_SIGNATURE",
+  "license_template": {
+    "source_url": "https://raw.githubusercontent.com/spdx/license-list-data/main/text/MIT.txt",
+    "official_page": "https://spdx.org/licenses/MIT.html",
+    "fetched_at_utc": "2026-10-22T14:56:58.977Z",
+    "sha256": "b05785f9f18e6716bab63424b11454513b9943a222595b70411009202fc592b5",
+    "bytes": 1078,
+    "snapshot": "sources/MIT.spdx.txt",
+    "transformations": [
+      "Prefix explicit provisional notice",
+      "Replace standard copyright template with provisional owner label and current authoring year; attribution is not authenticated"
+    ]
+  },
+  "future_changes": {
+    "action": "Separate before/after receipt and impact assessment for owner/license/text changes",
+    "automatic_rebuild": false,
+    "automatic_promotion": false,
+    "signature_required_for_final_acceptance": true
+  },
+  "before_after": {
+    "before": {
+      "manifest": "ABSENT",
+      "license_file": "ABSENT",
+      "provenance_license": {
+        "status": "NOT_ASSIGNED",
+        "spdx": null,
+        "reason": "No owner license decision for this new source has been recorded. Dependency licenses do not license this implementation."
+      },
+      "source": {
+        "path": "governance_packages/candidates/AGHR_rc3_Core_Candidate/PROVENANCE.json",
+        "bytes": 5513,
+        "sha256": "fbc66f9cf27371915140b86e45ab86c10c16c2456a63e0ae98ca5d70119a2fe4",
+        "snapshot": "docs/evidence/studio-e1c-2026-10-22/before/06.snapshot"
+      }
+    },
+    "after": {
+      "status": "PROVISIONAL_OWNER_LICENSE",
+      "owner": "Platform Governance Team",
+      "license": "MIT",
+      "source_of_truth": [
+        {
+          "path": "aghr.json",
+          "sha256": "ef25b809b529fc6898db46c0afcaafaffc6ac67fa52c5e54c0517b088fe972c6",
+          "bytes": 903
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "dd92d820f1edbf814873bebe95f4e4e07452e1ae0f701f908e2fb1cb2b8018a9",
+          "bytes": 1407
+        }
+      ]
+    },
+    "impact": "Permits provisional E1 preparation and indexing under the explicit instruction. Does not authenticate rights-holder, sign or accept licensing, promote a reference, bind an engine, authorize a rebuild, or qualify a runtime."
+  }
+}

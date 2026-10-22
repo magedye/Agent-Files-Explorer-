@@ -1,0 +1,42 @@
+
+> aghr-governance-studio@1.0.0 test
+> node --test tests/*.test.mjs
+
+✔ M2 Reference Explorer: Default summary uses AGHR 1.2.0 with exact counts (12.4907ms)
+✔ M2 Reference Explorer: Rules search and filtering (2.1038ms)
+✔ M2 Reference Explorer: Rule details with basis sources and coverage (1.6048ms)
+✔ M2 Reference Explorer: Packages endpoint returns all registered governance packages (4.9089ms)
+✔ M2 Reference Explorer: Omitted package uses 1.2.0 while historical IDs stay explicit (272.2577ms)
+✔ M2 Reference Explorer: Compare AGHR 1.0.0 vs AGHR 1.1.0 returns typed structural delta (1.7071ms)
+✔ M2 Reference Explorer: Updated 1.2.0 is registered with scoped reference status (1.5258ms)
+✔ M2 Reference Explorer: Impact analysis for modified rule (1.111ms)
+✔ M3 Intake: Compound statement decomposition (1.8361ms)
+✔ M3 Intake: 2-Layer classification of domain concern and normative force (4.3468ms)
+✔ M3 Intake: Conflict detection against existing rules triggers REJECT proposal (4.6113ms)
+✔ M3 Intake: Submit intake request generates persistent ChangePacket (9.9419ms)
+✔ M4 Adoption: Empty discovery when data/ was removed (2.0403ms)
+✔ M4 Adoption: Prepares adoption plan without silent destruction (153.4529ms)
+✔ M6 Governed Staging & Apply: Staging, Precondition Drift, and Authorized Apply (133.3094ms)
+✔ UI locales: every message has Arabic/English copy and matching parameters (222.5361ms)
+✔ UI locales: stored preference chooses language and matching direction (1.225ms)
+✔ UI locales: absent, corrupt or unavailable storage preserves the Arabic default (1.0479ms)
+✔ UI locales: interpolation preserves mixed input, dollar signs and zero counts (26.9134ms)
+✔ INBOX custody receipt detects changed bytes or file set (3560.071ms)
+✔ M1 Security: Approved Roots Listing (71.9429ms)
+✔ M1 Security: Reject Path Traversal via rootId + rel (25.3478ms)
+✔ M1 Security: Reject Null Byte Injection (1.0852ms)
+✔ M1 Security: Reject Absolute Path in relPath (0.7392ms)
+✔ M1 Security: Reject Arbitrary Client Path outside Approved Roots (1.3032ms)
+✔ M1 Security: Reject Protected Files (.git, .env) (9.8803ms)
+✔ M1 API Endpoint: GET /api/roots returns approved roots safely (32.5945ms)
+✔ M1 API Endpoint: GET /api/tree with traversal attempt returns 403 (7.6629ms)
+✔ M1 API Endpoint: GET /api/file within approved root succeeds (35.6135ms)
+✔ M1 API Endpoint: GET /api/file requesting protected file returns 403 (2.7818ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6919.2758

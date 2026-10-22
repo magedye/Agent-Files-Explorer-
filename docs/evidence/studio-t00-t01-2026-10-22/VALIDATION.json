@@ -1,0 +1,74 @@
+{
+  "completed_at_utc": "2026-10-22T03:37:27.400Z",
+  "status": "PASS_FOR_LOCAL_EVIDENCE_AND_DOCUMENTATION_ONLY",
+  "T00": "COMPLETE",
+  "T01": "BLOCKED_NOT_CLOSED",
+  "T02": "NOT_STARTED",
+  "checks": {
+    "diagnostic_evidence": {
+      "status": "PASS",
+      "evidence": "EVIDENCE_CHECKS.json",
+      "summary": {
+        "status": "PASS",
+        "scope": "Custody, diagnostic evidence and plan consistency only; T01 readiness remains BLOCKED",
+        "protected_preflight_inputs": 86,
+        "protected_legacy_metadata_and_entrypoints": 18,
+        "contract_artifacts_unchanged": 31,
+        "canonical_sources_unchanged": 2,
+        "seven_artifacts_present": true,
+        "cli_commands": 10,
+        "captured_probes": 18,
+        "help_exit_0": 11,
+        "parser_exit_2": 7,
+        "strict_parser_exit_code": 2,
+        "rc3_validation": "NOT_RUN",
+        "matrix_cases_unknown": 37,
+        "task_definitions": 57,
+        "dependency_cycles": 0,
+        "functional_criteria_mapped": 31,
+        "nonfunctional_criteria_mapped": 13,
+        "sample_definition": {
+          "categories": 15,
+          "units": 50,
+          "execution": "NOT_RUN"
+        },
+        "review_units_unchanged": 1608,
+        "T01": "BLOCKED_NOT_CLOSED",
+        "T02": "NOT_STARTED"
+      }
+    },
+    "application_tests": {
+      "status": "PASS",
+      "command": "npm test",
+      "tests": 41,
+      "passed": 41,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "npm-test.log"
+    },
+    "context_health": {
+      "status": "PASS",
+      "command": "node tools/check_context_health.mjs",
+      "errors": 0,
+      "warnings": 0,
+      "bootstrap_tokens": 4955,
+      "evidence": "context-health.log"
+    },
+    "diff_check": {
+      "status": "PASS",
+      "command": "git diff --check",
+      "exit_code": 0,
+      "evidence": "git-diff-check.log"
+    }
+  },
+  "not_granted": {
+    "rc3_strict_validation": "NOT_RUN",
+    "phase0_readonly_demo": "NOT_RUN",
+    "T11_sample": "NOT_RUN",
+    "host_qualification": "NOT_RUN",
+    "resource_adapter_qualification": "NOT_RUN",
+    "CI_parity": "NOT_RUN",
+    "independent_release_review": "NOT_PERFORMED",
+    "release_acceptance": "NOT_GRANTED"
+  }
+}

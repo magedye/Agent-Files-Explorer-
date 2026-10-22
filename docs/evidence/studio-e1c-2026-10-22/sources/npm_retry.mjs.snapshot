@@ -1,0 +1,22 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import {execFile as callback} from 'node:child_process';
+import {promisify} from 'node:util';
+const execFile=promisify(callback);
+const root='D:/APP/Agent-Files-Explorer/';
+const ev='docs/evidence/studio-e1c-2026-10-22/';
+const npmCli=path.join(path.dirname(process.execPath),'node_modules','npm','bin','npm-cli.js');
+await fs.stat(npmCli);
+const start=new Date().toISOString();
+const args=[npmCli,'test'];
+let result,code=0;
+try{result=await execFile(process.execPath,args,{cwd:root,encoding:'buffer',timeout:90000,maxBuffer:4*1024*1024});}catch(e){result=e;code=e.code;}
+const out=Buffer.isBuffer(result.stdout)?result.stdout:Buffer.from(result.stdout||'');
+const err=Buffer.isBuffer(result.stderr)?result.stderr:Buffer.from(result.stderr||'');
+await fs.writeFile(root+ev+'npm-test-retry.stdout.txt',out,{flag:'wx'});
+await fs.writeFile(root+ev+'npm-test-retry.stderr.txt',err,{flag:'wx'});
+const record={classification:'ENVIRONMENT_DEFECT',cause:'Evidence harness passed a space-containing command through execFile/cmd.exe automatic quoting; cmd rejected syntax before npm or tests ran',original_attempt:{stdout:'npm-test.stdout.txt',stderr:'npm-test.stderr.txt',exit_code:1,test_execution:'NOT_STARTED'},fix:'Run the installed npm-cli.js with its installed Node executable and structured argv, without the custom cmd quoting layer',started_at_utc:start,completed_at_utc:new Date().toISOString(),executable:process.execPath,args,cwd:root,exit_code:code,stdout:'npm-test-retry.stdout.txt',stderr:'npm-test-retry.stderr.txt',npm_cli_sha256:crypto.createHash('sha256').update(await fs.readFile(npmCli)).digest('hex'),product_changes:'NONE'};
+await fs.writeFile(root+ev+'NPM_LAUNCH_RECOVERY.json',JSON.stringify(record,null,2),{flag:'wx'});
+console.log(JSON.stringify({npm_exit_code:code,stdout_bytes:out.length,stderr_bytes:err.length}));
+if(code!==0||!/# pass 41/.test(out.toString('utf8'))||!/# fail 0/.test(out.toString('utf8')))throw Error('NPM_RETRY_FAILED');

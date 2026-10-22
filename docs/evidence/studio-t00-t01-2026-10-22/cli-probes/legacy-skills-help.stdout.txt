@@ -1,0 +1,26 @@
+usage: cli.py skills [-h] [--task TASK] [--skill-id SKILL_ID]
+                     [--action {discover,check,load,lifecycle,verify,inventory}]
+                     [--task-record TASK_RECORD] [--context CONTEXT]
+                     [--host-inventory HOST_INVENTORY] [--selection SELECTION]
+                     [--result RESULT] [--criteria CRITERIA]
+                     [--evidence-root EVIDENCE_ROOT]
+
+options:
+  -h, --help            show this help message and exit
+  --task TASK           Task description or intent
+  --skill-id SKILL_ID   Target skill ID
+  --action {discover,check,load,lifecycle,verify,inventory}
+  --task-record TASK_RECORD
+                        Explicit task/phase/capability JSON record
+  --context CONTEXT     Observed tool/grant and expected evidence context; not
+                        an authority authenticator
+  --host-inventory HOST_INVENTORY
+                        Metadata exported or observed through native host
+                        facilities
+  --selection SELECTION
+                        Small project selection section; no parallel policy
+                        store
+  --result RESULT       Recorded execution result for verify
+  --criteria CRITERIA   Actual task acceptance criteria for verify
+  --evidence-root EVIDENCE_ROOT
+                        Bounded project artifact root for verify

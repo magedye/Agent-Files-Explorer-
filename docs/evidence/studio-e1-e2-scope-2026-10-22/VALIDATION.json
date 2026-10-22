@@ -1,0 +1,44 @@
+{
+  "checked_at_utc": "2026-10-22T11:43:08.950Z",
+  "scope": "Documentation, custody and scope consistency; not rc.3 engine implementation or native qualification",
+  "npm_test": {
+    "command": "npm test",
+    "exit_code": 0,
+    "tests": 41,
+    "passed": 41,
+    "failed": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "duration_ms": 5804.4034,
+    "log": "npm-test.log"
+  },
+  "context_health": {
+    "command": "node tools/check_context_health.mjs",
+    "exit_code": 0,
+    "errors": 0,
+    "warnings": 0,
+    "log": "context-health.log",
+    "estimated_bootstrap_tokens": 4960
+  },
+  "git_diff_check": {
+    "command": "git diff --check",
+    "exit_code": 0,
+    "log": "git-diff-check.log",
+    "line_ending_advisories": true,
+    "settings_changed": false
+  },
+  "scope_checks": {
+    "file": "SCOPE_CHECKS.json",
+    "status": "PASS",
+    "protected_inputs_unchanged": 111,
+    "master_task_definitions": 57,
+    "scope_slices": 10,
+    "acceptance_cases": 15
+  },
+  "python_rc3_tests": "NOT_RUN_ENGINE_NOT_IMPLEMENTED",
+  "T01": "BLOCKED_NOT_CLOSED",
+  "T02": "NOT_STARTED",
+  "native_host_qualification": "NOT_RUN",
+  "independent_review": "NOT_PERFORMED",
+  "release_acceptance": "NOT_GRANTED"
+}

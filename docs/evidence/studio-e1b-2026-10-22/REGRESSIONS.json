@@ -1,0 +1,25 @@
+{
+  "classification": "PRODUCT_DEFECT in intermediate E1.b implementation; fixed before completion",
+  "before_log": "regression-before-fix.log",
+  "after_log": "candidate-tests.log",
+  "after_source_hash": "7adb0e1aaa3a71bd1ed4814cd7d5b428a6a7895bed401c7953f00cc4f0fc5481",
+  "intermediate_source_pin": "NOT_CAPTURED; the failing transcript is actual historical evidence, not a pinned intermediate release",
+  "findings": [
+    {
+      "id": "E1B-R01",
+      "defect": "Valid JSON Unicode surrogate pair was rejected as invalid text",
+      "root_cause": "PyYAML node value retained UTF-16 surrogate code units; UTF-8 encoding rejected the valid pair",
+      "fix": "Combine valid pairs into the Unicode scalar and keep rejecting unpaired code units",
+      "test": "test_loader.ParserTests.test_unicode_escape_pairs_preserve_valid_json_text",
+      "after": "PASS"
+    },
+    {
+      "id": "E1B-R02",
+      "defect": "Explicit file selection could bypass nested-repository boundary checking",
+      "root_cause": "Nested markers were checked in directory discovery, not every intermediate parent of an explicit file path",
+      "fix": "Check marker metadata for every directory component, before reading the selected file",
+      "test": "test_loader.PackageTests.test_explicit_file_selection_cannot_cross_nested_repository",
+      "after": "PASS"
+    }
+  ]
+}

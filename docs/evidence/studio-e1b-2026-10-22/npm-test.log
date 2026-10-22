@@ -1,0 +1,53 @@
+
+> aghr-governance-studio@1.0.0 test
+> node --test tests/*.test.mjs
+
+✔ M2 Reference Explorer: Default summary uses AGHR 1.2.0 with exact counts (16.5822ms)
+✔ M2 Reference Explorer: Rules search and filtering (2.3577ms)
+✔ M2 Reference Explorer: Rule details with basis sources and coverage (1.6807ms)
+✔ M2 Reference Explorer: Packages endpoint returns all registered governance packages (4.2922ms)
+✔ M2 Reference Explorer: Omitted package uses 1.2.0 while historical IDs stay explicit (22.6054ms)
+✔ M2 Reference Explorer: Compare AGHR 1.0.0 vs AGHR 1.1.0 returns typed structural delta (1.724ms)
+✔ M2 Reference Explorer: Updated 1.2.0 is registered with scoped reference status (1.3558ms)
+✔ M2 Reference Explorer: Impact analysis for modified rule (0.9621ms)
+✔ M3 Intake: Compound statement decomposition (1.7906ms)
+✔ M3 Intake: 2-Layer classification of domain concern and normative force (7.0932ms)
+✔ M3 Intake: Conflict detection against existing rules triggers REJECT proposal (40.6949ms)
+✔ M3 Intake: Submit intake request generates persistent ChangePacket (15.152ms)
+✔ M4 Adoption: Empty discovery when data/ was removed (1.2015ms)
+✔ M4 Adoption: Prepares adoption plan without silent destruction (4.7866ms)
+✔ M6 Governed Staging & Apply: Staging, Precondition Drift, and Authorized Apply (128.4607ms)
+✔ UI locales: every message has Arabic/English copy and matching parameters (11.54ms)
+✔ UI locales: stored preference chooses language and matching direction (48.8563ms)
+✔ UI locales: absent, corrupt or unavailable storage preserves the Arabic default (1.0388ms)
+✔ UI locales: interpolation preserves mixed input, dollar signs and zero counts (0.7416ms)
+✔ INBOX custody receipt detects changed bytes or file set (747.6637ms)
+✔ M1 Security: Approved Roots Listing (7.4539ms)
+✔ M1 Security: Reject Path Traversal via rootId + rel (4.451ms)
+✔ M1 Security: Reject Null Byte Injection (0.9548ms)
+✔ M1 Security: Reject Absolute Path in relPath (0.9706ms)
+✔ M1 Security: Reject Arbitrary Client Path outside Approved Roots (21.6911ms)
+✔ M1 Security: Reject Protected Files (.git, .env) (1.7301ms)
+✔ M1 API Endpoint: GET /api/roots returns approved roots safely (4.2569ms)
+✔ M1 API Endpoint: GET /api/tree with traversal attempt returns 403 (1.6125ms)
+✔ M1 API Endpoint: GET /api/file within approved root succeeds (4.7053ms)
+✔ M1 API Endpoint: GET /api/file requesting protected file returns 403 (1.3032ms)
+✔ Contract JSONL: multiple lines round-trip without changing original bytes or granting trust (16.6396ms)
+✔ Contract JSONL: CRLF and optional final newline preserve source bytes and line locations (5.5875ms)
+✔ Contract JSONL: duplicate records are reported, never counted as extra successful use (48.0319ms)
+✔ Contract JSONL: duplicate JSON keys and noncanonical foreign JSON remain unsupported originals (112.1449ms)
+✔ Contract JSONL: task or immutable session mismatch blocks import of the entire file (1.6619ms)
+✔ Contract JSONL: a session can acquire an end time, but cannot rewrite it (11.4127ms)
+✔ Contract JSONL: malformed UTF-8, BOM, YAML and blank records keep their original bytes (99.4014ms)
+✔ Contract JSONL: multiple events on one line cannot overwrite the SQL source-line identity (1.1929ms)
+✔ Contract JSONL: byte, line and record-count limits reject bounded inputs explicitly (1.3226ms)
+✔ Contract canonical JSON: UTF-16 ordering, array order and Unicode text are stable (120.8729ms)
+✔ Contract schema bundling preserves literal dollar properties and opaque JSON instance values (3.5659ms)
+ℹ tests 41
+ℹ suites 0
+ℹ pass 41
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4084.208

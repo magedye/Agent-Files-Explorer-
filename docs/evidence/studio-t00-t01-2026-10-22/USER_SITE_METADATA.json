@@ -1,0 +1,18 @@
+{
+  "started_at_utc": "2026-10-22T03:15:39.718Z",
+  "finished_at_utc": "2026-10-22T03:15:44.036Z",
+  "executable": "C:/Users/Majed/AppData/Local/Programs/Python/Python312/python.exe",
+  "executable_sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+  "argv": [
+    "-I",
+    "-B",
+    "-X",
+    "utf8",
+    "-c",
+    "import json, site, os, importlib.metadata as m\np=site.getusersitepackages()\nrows=[]\nfor name in ('aghr','aghr-studio'):\n found=list(m.Distribution.discover(name=name,path=[p])) if os.path.isdir(p) else []\n rows.append({'name':name,'status':'INSTALLED' if found else 'NOT_FOUND','distributions':[{'version':d.version,'location':str(d.locate_file('')),'entry_points':[str(e) for e in d.entry_points]} for d in found]})\nprint(json.dumps({'user_site':p,'exists':os.path.isdir(p),'packages':rows,'scope':'Metadata-only lookup; user site not activated and no engine module imported'}))\n"
+  ],
+  "exit_code": 0,
+  "spawn_error": null,
+  "stdout": "{\"user_site\": \"C:\\\\Users\\\\Majed\\\\AppData\\\\Roaming\\\\Python\\\\Python312\\\\site-packages\", \"exists\": true, \"packages\": [{\"name\": \"aghr\", \"status\": \"NOT_FOUND\", \"distributions\": []}, {\"name\": \"aghr-studio\", \"status\": \"NOT_FOUND\", \"distributions\": []}], \"scope\": \"Metadata-only lookup; user site not activated and no engine module imported\"}\r\n",
+  "stderr": ""
+}

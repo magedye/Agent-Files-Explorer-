@@ -1,0 +1,21 @@
+diff --git a/docs/evidence/studio-t00-t01-2026-10-22/before/HANDOFF.md.snapshot b/docs/status/HANDOFF.md
+index 55b74ab..2ac8559 100644
+--- a/docs/evidence/studio-t00-t01-2026-10-22/before/HANDOFF.md.snapshot
++++ b/docs/status/HANDOFF.md
+@@ -11,13 +11,13 @@
+ When switching agent models or starting a new session:
+ 1. Read [AGENTS.md](../../AGENTS.md) first (determines constraints and scope).
+ 2. Read [docs/status/CURRENT.md](CURRENT.md) (restores current state and blockers).
+-3. Check `git status` to verify working tree cleanliness.
+-4. Execute the next immediate task specified in `CURRENT.md`.
++3. Check actual Git/dirty state and preserve owner work.
++4. Resume the next authorized action from CURRENT; retain blocked gates.
+ 
+ ---
+ 
+ ## 2. Recent Architectural Decisions
+-- **2026-10-22 (Contracts complete)**: [contract.1](../contracts/aghr-rc3/README.md), 58 source operations + submit and all data types. Pin engine and qualify read-only demo next; SEC-001 not started. Phase 0 runtime gates NOT_RUN; reference 1.2.0 preserved.
++- **2026-10-22 (T00/T01)**: [Run](../evidence/studio-t00-t01-2026-10-22/README.md): T00 COMPLETE, T01 BLOCKED; legacy --strict exits 2, no real rc.3 engine/package in scope. Next OD-02; review blocking decisions weekly. T02/SEC-001/sample NOT_RUN; reference 1.2.0 preserved.
+ - **2026-10-22 (Item review)**: [Register](../reviews/aghr-items-2026-10-22/README.md): 1,608 units; reviews pending, sources preserved, no import.
+ - **Decision 2026-10-22 (Owner-accepted last-app designs)**:
+   - [Designs](../specs/aghr-rc3/README.md) and [receipt](../governance/LAST_APP_ADOPTION_2026_10_22.md): prior-baseline coverage; originals/previous baseline archived. Runtime reference 1.2.0 and candidate 1.3.0 retain their states.

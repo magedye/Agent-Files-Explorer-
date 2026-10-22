@@ -1,0 +1,35 @@
+diff --git "a/D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e1b-2026-10-22\\before\\07.snapshot" "b/D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\CLI_CONTRACT.json"
+index 32081cb..1735197 100644
+--- "a/D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e1b-2026-10-22\\before\\07.snapshot"
++++ "b/D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\CLI_CONTRACT.json"
+@@ -1,8 +1,8 @@
+ {
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "https://aghr.invalid/internal/cli/1",
+-  "title": "Internal AGHR CLI protocol 1 — E1.a bootstrap",
+-  "$comment": "Local CLI contract, not a replacement for locked Studio contract.1. Only help/version are implemented. A JSON response is one UTF-8 object and one newline on stdout; stderr is retained separately. No success is claimed for unimplemented governance commands.",
++  "title": "Internal AGHR CLI protocol 1 — source metadata, E1.b",
++  "$comment": "Local CLI contract, not a replacement for locked Studio contract.1. Only help/version are exposed in CLI. The E1.b Python reader API is implemented; catalog serialization remains E1.d. A JSON response is one UTF-8 object and one newline on stdout; stderr is retained separately. No success is claimed for unimplemented governance commands.",
+   "x-cli": {
+     "protocol_version": "1",
+     "default_format": "json",
+@@ -10,8 +10,9 @@
+     "launch": { "shell": false, "python_flags": ["-I", "-B", "-X", "utf8"], "entrypoint": "tools/cli.py", "package_root": "cwd selected by the caller; not read in E1.a" },
+     "syntax": ["--help [--format json|text]", "--version [--format json|text]", "validate [--strict] [--format json|text]", "lint [--format json|text]"],
+     "implemented": ["help", "version"],
++    "reader_api": "tools/loader.py:read_package is callable from owned Python code; not a new CLI command or Node policy engine. Source tree E1.b has eight declared files.",
+     "blocked_until": { "validate": "E2", "lint": "E2", "generate": "E3", "check": "E3", "doctor": "E3", "eval": "E4 and T15", "qualify": "E4 and T15" },
+-    "exit_codes": { "0": "Completed requested operation; E1.a metadata only", "1": "INVALID governance result; reserved for E2, never emitted as a bootstrap success", "2": "Invalid invocation or unreadable source identity", "3": "Required implementation or evidence unavailable" },
++    "exit_codes": { "0": "Completed requested metadata operation; no governance execution", "1": "INVALID governance result; reserved for E2, never emitted as a bootstrap success", "2": "Invalid invocation or unreadable source identity", "3": "Required implementation or evidence unavailable" },
+     "identity": "sha256-path-map-v1 as defined in PROVENANCE.json; source identity is not authenticated publisher identity, a distribution or Binding.QUALIFIED.",
+     "raw_streams": "Never mix text/help into JSON stdout. Error and blocked diagnostics are also written to stderr. No user argument values are echoed on syntax errors. The last valid --format selection also controls syntax-error rendering.",
+     "writes": "None: no package/state/evidence/cache/log writes, child processes or network calls in CLI execution."
+@@ -26,7 +27,7 @@
+       "properties": {
+         "implementation_id": { "const": "aghr-rc3-core-candidate" }, "stage": { "type": "string", "minLength": 1 }, "target_spec_version": { "const": "1.0.0-rc.3" }, "schema_version": { "const": "1.2" },
+         "content_hash": { "$ref": "#/$defs/Digest" }, "hash_algorithm": { "const": "sha256-path-map-v1" },
+-        "artifacts": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": { "path": { "type": "string", "minLength": 1, "description": "Source-inventory relative POSIX path; E1.a uses the five PROVENANCE.json source_files." }, "sha256": { "$ref": "#/$defs/Digest" } } } },
++        "artifacts": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": { "path": { "type": "string", "minLength": 1, "description": "Source-inventory relative POSIX path; E1.b uses the eight PROVENANCE.json source_files." }, "sha256": { "$ref": "#/$defs/Digest" } } } },
+         "publisher_authentication": { "const": "UNKNOWN" }, "qualification": { "const": "NOT_RUN" }, "distribution": { "type": "null" }
+       }
+     },

@@ -1,0 +1,83 @@
+{
+  "status": "PRE_COMMIT_CUSTODY_CHECKPOINT",
+  "recorded_at_utc": "2026-10-22T17:45:44.499Z",
+  "authorization": "Current owner instruction: save and push the changes",
+  "branch": "main",
+  "base_head": "bb76a0b61617512f4cd6d0c6cea792e35d5ff4aa",
+  "remote": "https://github.com/magedye/Agent-Files-Explorer-",
+  "preflight": {
+    "upstream_ahead": 0,
+    "upstream_behind": 0,
+    "pending_files": 557,
+    "pending_bytes": 18143199,
+    "application_source_changes": [],
+    "credential_signature_findings": 0,
+    "credential_check_scope": "Bounded private-key, GitHub-token and OpenAI-token signature scan of explicitly selected pending files; not a security audit"
+  },
+  "integrity": {
+    "afterOutputs": 109,
+    "afterOutputsMismatch": 0,
+    "candidateFiles": 33,
+    "source_hash": "f55c0c7f57340c890ee0ceff3025b1691d05dd9855482176c1abcb0415ccc55d"
+  },
+  "publication_change": {
+    "file": ".gitattributes",
+    "reason": "core.autocrlf=true normalizes unprotected receipt-pinned files; preserve raw staged blobs and checkout bytes",
+    "before_sha256": "56104197230e588601352130d736139ec906a4839ac75c2f23b15c35113b03e1",
+    "after_sha256": "9e76c95a272154d6713e76accb106d493fbec86a596927d13aac72986707994a",
+    "demonstrated_current_md": {
+      "raw_git_blob_sha1": "6a5a5e3a211fbe71313766e69993c8f6c322a974",
+      "filtered_git_blob_sha1": "42e46c537e7e5cf669f2695c71fc2b7506a3bc10"
+    },
+    "added_raw_preservation_paths": [
+      ".gitattributes",
+      "docs/INDEX.md",
+      "docs/governance/LAST_APP_ADOPTION_2026_10_22.md",
+      "docs/governance/STUDIO_DESIGN_ADOPTION_2026_10_21.md",
+      "docs/plans/STUDIO_E1_E2_CORE_SCOPE_AR.md",
+      "docs/plans/STUDIO_FULL_PROJECT_UPGRADE_AR.md",
+      "docs/plans/STUDIO_PRODUCT_AND_CONTRACTS_AR.md",
+      "docs/plans/STUDIO_UPGRADE_TASKS_AR.md",
+      "docs/reviews/STUDIO_UPGRADE_PLAN_REVIEW_2026_10_22_AR.md",
+      "docs/status/CURRENT.md",
+      "docs/status/HANDOFF.md",
+      "tests/studio_contract_serialization.test.mjs",
+      "tools/check_studio_contracts.mjs",
+      "tools/check_studio_contracts.ps1",
+      "tools/contracts/build_openapi.mjs",
+      "tools/contracts/evidence_jsonl.mjs",
+      "tools/contracts/fixtures.mjs",
+      "tools/contracts/schema_documents.mjs",
+      "tools/governance_inventory.mjs"
+    ],
+    "prior_receipts": "Preserved unchanged; publication-only attribute delta recorded here"
+  },
+  "existing_verification": {
+    "source": "../studio-e1d-2026-10-22/VALIDATION.json",
+    "candidate_pass": 63,
+    "candidate_fail": 0,
+    "studio_pass": 41,
+    "studio_fail": 0,
+    "reexecution": "NOT_RUN; implementation and relevant test inputs unchanged; staged-byte fidelity and context integrity checked at publication"
+  },
+  "review": {
+    "kind": "Bounded same-context pre-push review",
+    "independent_review": "NOT_PERFORMED",
+    "scope": "Correctness/evidence status, scope separation, byte fidelity, credential signatures and repository size"
+  },
+  "boundaries": {
+    "E1": "TECHNICAL_WORK_COMPLETE_READY_FOR_OWNER_ACCEPTANCE",
+    "E1_owner_acceptance": "PENDING_REVIEW_OF_CURRENT_E1_OUTPUTS",
+    "E2": "NOT_STARTED",
+    "T01": "BLOCKED_NOT_CLOSED",
+    "T02": "NOT_STARTED",
+    "owner_license": "PROVISIONAL_OWNER_LICENSE",
+    "reference_default": "1.2.0",
+    "release_acceptance": "NOT_GRANTED"
+  },
+  "publication": {
+    "commit": "PENDING_AT_RECEIPT_CREATION",
+    "push": "PENDING_AT_RECEIPT_CREATION",
+    "authority": "Actual Git history and remote establish the resulting commit and push state"
+  }
+}

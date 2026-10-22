@@ -1,0 +1,46 @@
+import fs from 'node:fs/promises';
+import crypto from 'node:crypto';
+import {execFile as callback} from 'node:child_process';
+import {promisify} from 'node:util';
+const execFile=promisify(callback);
+const root='D:/APP/Agent-Files-Explorer/';
+const ev='docs/evidence/studio-e1c-2026-10-22/';
+const cand='governance_packages/candidates/AGHR_rc3_Core_Candidate/';
+const python=root+'temp/aghr-e1a-20261022-01/venv/Scripts/python.exe';
+const prefix=['-I','-B','-X','utf8'];
+const pin=JSON.parse(await fs.readFile(root+ev+'SOURCE_PIN.json','utf8'));
+const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
+async function run(name,exe,args,expected,timeout){
+  const start=new Date().toISOString(); let result; let code=0;
+  try{result=await execFile(exe,args,{cwd:root,encoding:'buffer',timeout,maxBuffer:4*1024*1024});}
+  catch(e){result=e;code=e.code;}
+  const out=Buffer.isBuffer(result.stdout)?result.stdout:Buffer.from(result.stdout||'');
+  const err=Buffer.isBuffer(result.stderr)?result.stderr:Buffer.from(result.stderr||'');
+  const stdout=name+'.stdout.txt',stderr=name+'.stderr.txt';
+  await fs.writeFile(root+ev+stdout,out,{flag:'wx'});await fs.writeFile(root+ev+stderr,err,{flag:'wx'});
+  const record={name,started_at_utc:start,completed_at_utc:new Date().toISOString(),executable:exe,args,cwd:root,exit_code:code,expected_exit_code:expected,stdout,stderr,stdout_sha256:hash(out),stderr_sha256:hash(err),source_hash:pin.source_hash};
+  console.log(JSON.stringify({name,exit_code:code,expected}));
+  return {record,out,err,pass:code===expected};
+}
+const jobs=await Promise.allSettled([
+ run('package-verification',python,[...prefix,root+ev+'verify_package.py'],0,90000),
+ run('cli-tests',python,[...prefix,'-m','unittest','discover','-s',root+cand+'tests','-p','test_cli.py','-v'],0,240000),
+ run('npm-test','C:/Windows/System32/cmd.exe',['/d','/s','/c','npm test'],0,90000),
+ run('cli-version',python,[...prefix,root+cand+'tools/cli.py','--version'],0,60000),
+ run('cli-strict-blocked',python,[...prefix,root+cand+'tools/cli.py','validate','--strict'],3,60000)
+]);
+const fulfilled=jobs.filter(x=>x.status==='fulfilled').map(x=>x.value);
+await fs.writeFile(root+ev+'RAW_TRANSCRIPT.json',JSON.stringify({recorded_at_utc:new Date().toISOString(),source_hash:pin.source_hash,invocations:fulfilled.map(x=>x.record),rejected:jobs.filter(x=>x.status==='rejected').map(x=>String(x.reason))},null,2),{flag:'wx'});
+if(jobs.some(x=>x.status==='rejected')||fulfilled.some(x=>!x.pass))throw Error('CHECK_FAILED: inspect raw transcript and streams');
+const byName=Object.fromEntries(fulfilled.map(x=>[x.record.name,x]));
+const packageResult=JSON.parse(byName['package-verification'].out.toString('utf8'));
+const version=JSON.parse(byName['cli-version'].out.toString('utf8'));
+const strict=JSON.parse(byName['cli-strict-blocked'].out.toString('utf8'));
+if(version.source.content_hash!==pin.source_hash||version.source.stage!=='E1.c'||version.source.artifacts.length!==13)throw Error('CLI_IDENTITY_MISMATCH');
+if(strict.result!=='BLOCKED'||strict.checks.status!=='NOT_RUN'||strict.exit_code!==3)throw Error('STRICT_SUCCESS_OR_STATE_MISMATCH');
+if(!/Ran 18 tests/.test(byName['cli-tests'].err.toString('utf8'))||!/\bOK\b/.test(byName['cli-tests'].err.toString('utf8')))throw Error('CLI_TEST_COUNT');
+if(!/# pass 41/.test(byName['npm-test'].out.toString('utf8'))||!/# fail 0/.test(byName['npm-test'].out.toString('utf8')))throw Error('NPM_TEST_COUNTS');
+for(const [name,expected] of Object.entries(pin.files))if(hash(await fs.readFile(root+cand+name))!==expected)throw Error('SOURCE_CHANGED '+name);
+const checks={scope:'E1.c provisional real package read, local structural schema and source trace; no governing validation',source_hash:pin.source_hash,real_package:{status:packageResult.status,items:packageResult.reader.items.length,raw_sources:packageResult.reader.sources.length,source_unchanged:true},structural_schema:packageResult.structural_schema,cli_tests:{passed:18,total:18,failed:0,skipped:0,log:'cli-tests.stderr.txt'},reader_engine_regressions:{status:'PRESERVED_E1B_EVIDENCE',passed:28,note:'Reader source and tests unchanged; not rerun as a new qualification'},npm_test:{passed:41,total:41,failed:0,skipped:0,log:'npm-test.stdout.txt'},cli_probes:{version:'INFO_0',strict:'BLOCKED_3'},owner_license:'PROVISIONAL_OWNER_LICENSE',governance_validation:'NOT_RUN',native_host_qualification:'NOT_RUN',independent_review:'NOT_PERFORMED',release_acceptance:'NOT_GRANTED',context_health:{status:'PENDING'}};
+await fs.writeFile(root+ev+'VALIDATION.json',JSON.stringify(checks,null,2),{flag:'wx'});
+console.log(JSON.stringify({status:'E1C_FOCUSED_CHECKS_PASS',source_hash:pin.source_hash,cli_tests:'18/18',studio_tests:'41/41',real_package:packageResult.status,owner_license:checks.owner_license}));

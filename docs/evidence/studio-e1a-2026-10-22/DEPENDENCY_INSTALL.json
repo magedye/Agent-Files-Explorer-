@@ -1,0 +1,66 @@
+{
+  "events": [
+    {
+      "exe": "C:/Users/Majed/AppData/Local/Programs/Python/Python312/python.exe",
+      "args": [
+        "-I",
+        "-B",
+        "-m",
+        "venv",
+        "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv"
+      ],
+      "started_at_utc": "2026-10-22T12:15:30.741Z",
+      "completed_at_utc": "2026-10-22T12:16:45.343Z",
+      "exit_code": 0,
+      "log": "venv-create.log"
+    },
+    {
+      "exe": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "args": [
+        "-I",
+        "-B",
+        "-m",
+        "pip",
+        "--isolated",
+        "--disable-pip-version-check",
+        "install",
+        "--no-input",
+        "--no-index",
+        "--find-links",
+        "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\wheels",
+        "--only-binary=:all:",
+        "--require-hashes",
+        "--no-compile",
+        "--report",
+        "D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e1a-2026-10-22\\pip-install-report.json",
+        "-r",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\requirements.lock"
+      ],
+      "started_at_utc": "2026-10-22T12:16:45.344Z",
+      "completed_at_utc": "2026-10-22T12:17:15.129Z",
+      "exit_code": 0,
+      "log": "dependency-install.log"
+    },
+    {
+      "exe": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "args": [
+        "-I",
+        "-B",
+        "-m",
+        "pip",
+        "--isolated",
+        "--disable-pip-version-check",
+        "check"
+      ],
+      "started_at_utc": "2026-10-22T12:17:15.129Z",
+      "completed_at_utc": "2026-10-22T12:17:31.465Z",
+      "exit_code": 0,
+      "log": "pip-check.log"
+    }
+  ],
+  "global_python_modified": false,
+  "environment": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv",
+  "wheel_hashes_verified": true,
+  "dependency_closure": "pip check passed",
+  "platform": "CPython 3.12 Windows AMD64"
+}

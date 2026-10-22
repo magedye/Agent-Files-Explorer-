@@ -1,0 +1,55 @@
+{
+  "schema": "aghr-last-app-local-verification-v1",
+  "observed_at": "2026-10-21T21:46:21.175Z",
+  "tests": {
+    "status": "PASS",
+    "command": "npm test",
+    "tests": 30,
+    "passed": 30,
+    "failed": 0,
+    "skipped": 0,
+    "started_at": "2026-10-21T21:31:59.4500865+00:00",
+    "finished_at": "2026-10-21T21:32:18.3163524+00:00",
+    "exit_code": 0,
+    "log": "docs/evidence/last-app-adoption-2026-10-21/npm-test.log"
+  },
+  "documents": {
+    "status": "PASS",
+    "report": "document-verification.json",
+    "prior_acceptance_mapped": 36,
+    "prior_sql_columns_preserved": 126,
+    "sql_tables": 12,
+    "sql_execution_profile": "IN_MEMORY_ONLY"
+  },
+  "inbox": {
+    "status": "PASS",
+    "entries": 23,
+    "receipt": "docs/evidence/inbox/2026-10-21-02-custody.json"
+  },
+  "context_health": {
+    "status": "PASS",
+    "command": "node tools/check_context_health.mjs",
+    "exit_code": 0,
+    "bootstrap_tokens": 4949,
+    "errors": 0,
+    "warnings": 0,
+    "log": "context-health.log",
+    "initial_log": "context-health-initial.log",
+    "resolved": "Document links adapted to the existing file-only checker; receipts completed; scanner/tests unchanged",
+    "finished_at": "2026-10-21T21:47:41.0842439+00:00"
+  },
+  "independent_review": "NOT_PERFORMED",
+  "native_qualification": "NOT_RUN",
+  "release_acceptance": "NOT_GRANTED",
+  "temporary_work_copies": {
+    "status": "PRESERVED_AS_NONAUTHORITATIVE_EVIDENCE",
+    "reason": "Automatic review rejected cleanup with blocked by policy; no alternate deletion attempted",
+    "directory": "work/"
+  },
+  "git_diff_check": {
+    "command": "git diff --check",
+    "status": "PASS",
+    "exit_code": 0,
+    "note": "Existing Git LF/CRLF conversion advisories remain; no whitespace errors under repository configuration."
+  }
+}

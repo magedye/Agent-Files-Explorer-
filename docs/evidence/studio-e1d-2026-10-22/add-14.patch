@@ -1,0 +1,79 @@
+diff --git a/docs/evidence/studio-e1d-2026-10-22/before/empty.snapshot b/governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/settings.schema.json
+index e69de29..33709fc 100644
+--- a/docs/evidence/studio-e1d-2026-10-22/before/empty.snapshot
++++ b/governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/settings.schema.json
+@@ -0,0 +1,74 @@
++{
++  "$schema": "https://json-schema.org/draft/2020-12/schema",
++  "$id": "https://aghr.invalid/contracts/rc3/settings.schema.json",
++  "title": "Settings YAML normalized JSON view and typed settings patches",
++  "type": "object", "additionalProperties": false,
++  "required": ["contract_revision", "listen", "authentication", "storage", "sources", "engine", "limits", "resource_controls", "authorization", "git", "hosts", "security", "intake"],
++  "properties": {
++    "contract_revision": { "const": "contract.1" },
++    "listen": { "type": "object", "additionalProperties": false, "required": ["host"], "properties": { "host": { "const": "127.0.0.1" } } },
++    "authentication": {
++      "type": "object", "additionalProperties": false, "required": ["credential", "header", "principal_bindings"],
++      "properties": { "credential": { "const": "ephemeral_per_startup" }, "header": { "const": "X-Studio-Token" }, "principal_bindings": { "type": "array", "items": { "$ref": "#/$defs/PrincipalBinding" } } }
++    },
++    "storage": {
++      "type": "object", "additionalProperties": false, "required": ["mode", "database", "filesystem_writes"],
++      "properties": { "mode": { "enum": ["memory", "persistent"] }, "database": { "$ref": "common.schema.json#/$defs/Text" }, "filesystem_writes": { "type": "boolean" }, "authorization_ref": { "$ref": "common.schema.json#/$defs/Artifact" } },
++      "allOf": [{ "if": { "properties": { "mode": { "const": "memory" } }, "required": ["mode"] }, "then": { "properties": { "database": { "const": ":memory:" }, "filesystem_writes": { "const": false } } }, "else": { "required": ["authorization_ref"], "properties": { "filesystem_writes": { "const": true } } } }]
++    },
++    "sources": {
++      "type": "object", "additionalProperties": false, "required": ["package", "canonical_state", "runtime_evidence"],
++      "properties": { "package": { "const": "read_only" }, "canonical_state": { "const": "read_only" }, "runtime_evidence": { "const": "read_only" } }
++    },
++    "engine": { "$ref": "engine.schema.json" },
++    "limits": { "$ref": "#/$defs/Limits" },
++    "resource_controls": {
++      "type": "object", "additionalProperties": false, "required": ["require_qualified_process_tree_adapter", "unavailable_adapter_action", "overflow_status"],
++      "properties": { "require_qualified_process_tree_adapter": { "const": true }, "unavailable_adapter_action": { "const": "block" }, "overflow_status": { "const": "resource_limit_exceeded" } }
++    },
++    "authorization": {
++      "type": "object", "additionalProperties": false, "required": ["simulated_role_grants_permissions", "approvals_invalidated_on_proposal_change"],
++      "properties": { "simulated_role_grants_permissions": { "const": false }, "approvals_invalidated_on_proposal_change": { "const": true } }
++    },
++    "git": { "$ref": "#/$defs/Git" }, "hosts": { "type": "array", "items": { "$ref": "#/$defs/Host" } }, "security": { "$ref": "#/$defs/Security" },
++    "intake": {
++      "type": "object", "additionalProperties": false, "required": ["watcher_enabled", "allowed_extensions", "result"],
++      "properties": { "watcher_enabled": { "type": "boolean" }, "allowed_extensions": { "type": "array", "minItems": 3, "maxItems": 3, "uniqueItems": true, "items": { "enum": [".md", ".yaml", ".json"] } }, "result": { "const": "draft_change_package_only" } }
++    }
++  },
++  "$defs": {
++    "PrincipalBinding": {
++      "type": "object", "additionalProperties": false, "required": ["principal", "roles"],
++      "properties": { "principal": { "$ref": "common.schema.json#/$defs/Text" }, "roles": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "common.schema.json#/$defs/Role" } } }
++    },
++    "RolesPatch": { "type": "object", "additionalProperties": false, "required": ["bindings"], "properties": { "bindings": { "type": "array", "items": { "$ref": "#/$defs/PrincipalBinding" } } } },
++    "Git": {
++      "type": "object", "additionalProperties": false, "required": ["gpg_key_id", "default_branch", "commit_message_template"],
++      "properties": { "gpg_key_id": { "type": ["string", "null"] }, "default_branch": { "$ref": "common.schema.json#/$defs/Text" }, "commit_message_template": { "$ref": "common.schema.json#/$defs/Text" } }
++    },
++    "GitPatch": {
++      "type": "object", "additionalProperties": false, "minProperties": 1,
++      "properties": { "gpg_key_id": { "type": ["string", "null"] }, "default_branch": { "$ref": "common.schema.json#/$defs/Text" }, "commit_message_template": { "$ref": "common.schema.json#/$defs/Text" } }
++    },
++    "Limits": { "type": "object", "additionalProperties": false, "required": ["eval", "qualify"], "properties": { "eval": { "$ref": "engine.schema.json#/$defs/Limits" }, "qualify": { "$ref": "engine.schema.json#/$defs/Limits" } } },
++    "LimitsPatch": { "type": "object", "additionalProperties": false, "minProperties": 1, "properties": { "eval": { "$ref": "engine.schema.json#/$defs/Limits" }, "qualify": { "$ref": "engine.schema.json#/$defs/Limits" } } },
++    "Host": {
++      "type": "object", "additionalProperties": false, "required": ["host", "binary_path", "version_detection", "budget_bytes"],
++      "properties": { "host": { "$ref": "common.schema.json#/$defs/Text" }, "binary_path": { "$ref": "common.schema.json#/$defs/Text" }, "version_detection": { "type": "object", "additionalProperties": false, "required": ["kind", "args"], "properties": { "kind": { "const": "argv" }, "args": { "$ref": "api.execution.schema.json#/$defs/VerifyRequest/properties/args" } } }, "budget_bytes": { "type": "integer", "minimum": 1 } }
++    },
++    "HostsPatch": { "type": "object", "additionalProperties": false, "required": ["hosts"], "properties": { "hosts": { "type": "array", "items": { "$ref": "#/$defs/Host" } } } },
++    "Security": {
++      "type": "object", "additionalProperties": false, "required": ["binding", "audit_retention_days", "token_rotation"],
++      "properties": { "binding": { "const": "127.0.0.1" }, "audit_retention_days": { "type": "integer", "minimum": 1 }, "token_rotation": { "const": "per_session" } }
++    },
++    "SecurityPatch": {
++      "type": "object", "additionalProperties": false, "minProperties": 1,
++      "properties": { "binding": { "const": "127.0.0.1" }, "audit_retention_days": { "type": "integer", "minimum": 1 }, "token_rotation": { "const": "per_session" } }
++    },
++    "SigningResult": {
++      "type": "object", "additionalProperties": false, "required": ["status", "key_id", "evidence", "repository_written"],
++      "properties": { "status": { "enum": ["PASS", "FAIL", "NOT_RUN", "NOT_OBSERVABLE"] }, "key_id": { "type": ["string", "null"] }, "evidence": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/Artifact" } }, "reason": { "$ref": "common.schema.json#/$defs/Text" }, "repository_written": { "const": false } },
++      "allOf": [{ "if": { "properties": { "status": { "const": "PASS" } }, "required": ["status"] }, "then": { "properties": { "key_id": { "$ref": "common.schema.json#/$defs/Text" }, "evidence": { "minItems": 1 } } }, "else": { "required": ["reason"] } }]
++    }
++  }
++}

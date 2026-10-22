@@ -1,0 +1,45 @@
+diff --git a/docs/evidence/studio-e1d-2026-10-22/before/empty.snapshot b/governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/capability.schema.json
+index e69de29..4e6f58e 100644
+--- a/docs/evidence/studio-e1d-2026-10-22/before/empty.snapshot
++++ b/governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/capability.schema.json
+@@ -0,0 +1,40 @@
++{
++  "$schema": "https://json-schema.org/draft/2020-12/schema",
++  "$id": "https://aghr.invalid/contracts/rc3/capability.schema.json",
++  "title": "CAPABILITY fields — Studio 15 and 39 / reference Appendix F",
++  "$ref": "#/$defs/Fields",
++  "unevaluatedProperties": false,
++  "$defs": {
++    "Port": {
++      "type": "object", "additionalProperties": false, "required": ["name", "schema"],
++      "properties": { "name": { "$ref": "common.schema.json#/$defs/Text" }, "schema": { "$ref": "common.schema.json#/$defs/SchemaDocument" }, "required": { "type": "boolean" }, "description": { "type": "string" } }
++    },
++    "Permissions": {
++      "description": "Declaration only; grants no host/tool permissions.",
++      "type": "object", "additionalProperties": false, "required": ["read", "write", "network", "secrets"],
++      "properties": {
++        "read": { "$ref": "common.schema.json#/$defs/Texts" }, "write": { "$ref": "common.schema.json#/$defs/Texts" },
++        "network": { "enum": ["allow", "deny"] }, "secrets": { "enum": ["allow", "deny"] }
++      }
++    },
++    "Fields": {
++      "type": "object", "required": ["skillId", "source", "function", "permissions", "inputs", "outputs"],
++      "properties": {
++        "skillId": { "$ref": "common.schema.json#/$defs/Text" },
++        "source": { "enum": ["system", "user", "project", "extension", "catalog", "aghr"] },
++        "function": { "enum": ["routing", "design", "implementation", "debugging", "security", "verification", "learning"] },
++        "instructionsPath": { "$ref": "common.schema.json#/$defs/Text" },
++        "permissions": { "$ref": "#/$defs/Permissions" },
++        "inputs": { "type": "array", "items": { "$ref": "#/$defs/Port" } },
++        "outputs": { "type": "array", "items": { "$ref": "#/$defs/Port" } },
++        "defaultTier": { "$ref": "common.schema.json#/$defs/Priority" },
++        "requiredApprovals": { "type": "array", "uniqueItems": true, "items": { "$ref": "common.schema.json#/$defs/ApprovalRole" } },
++        "conflictsWith": { "$ref": "common.schema.json#/$defs/Texts" },
++        "alternatives": { "$ref": "common.schema.json#/$defs/Texts" },
++        "minimumStatus": { "$ref": "common.schema.json#/$defs/QualificationStatus" },
++        "requiredOnHosts": { "$ref": "common.schema.json#/$defs/Texts" },
++        "maxAgeDays": { "type": "integer", "minimum": 1 }
++      }
++    }
++  }
++}

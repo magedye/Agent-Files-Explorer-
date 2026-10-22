@@ -1,0 +1,165 @@
+{
+  "scope": "Documentation-only review; no product implementation or reference adoption",
+  "status": "REVIEW_COMPLETE_DOCUMENTATION_CORRECTED",
+  "head": "bb76a0b61617512f4cd6d0c6cea792e35d5ff4aa",
+  "changes": [
+    {
+      "path": "docs/plans/STUDIO_FULL_PROJECT_UPGRADE_AR.md",
+      "before_sha256": "36433293b5a5b77230d3b7e6a912be4ee14bedd98072263d9c4c652876b6b439",
+      "after_sha256": "e0be51f7671c69110ed58344a55e6ff17b43c993a5b917e9ad5ee3b82564e4ea",
+      "diff": "change-1.patch"
+    },
+    {
+      "path": "docs/plans/STUDIO_UPGRADE_TASKS_AR.md",
+      "before_sha256": "f202d94ab4921d286d0d02ea38746111a36ea789e4a97049c2845078c6cc0363",
+      "after_sha256": "a7a1709bfbd18709ede7cf7a4f73b4ca31f8765489a815476e01b7a132bb9e33",
+      "diff": "change-2.patch"
+    },
+    {
+      "path": "docs/status/CURRENT.md",
+      "before_sha256": "b947fd28c76bea67298a1e42501b6c82fef3c2c4c5d76f6f6a235f924c30b7d2",
+      "after_sha256": "233c20b0f0b3470d1c0109f25cb4abc4adacef6cbd6d003aa43162b207232b48",
+      "diff": "change-3.patch"
+    }
+  ],
+  "protected_inputs": {
+    "count": 15,
+    "status": "UNCHANGED"
+  },
+  "locked_artifacts": {
+    "count": 31,
+    "status": "UNCHANGED"
+  },
+  "checks": {
+    "task_consistency": {
+      "status": "PASS",
+      "evidence": "plan-consistency.json",
+      "definitions": 57,
+      "dependency_cycles": 0,
+      "criteria": {
+        "FA": 31,
+        "NFA": 13
+      },
+      "screens": 16
+    },
+    "npm_test": {
+      "status": "PASS",
+      "command": "npm test",
+      "pass": 41,
+      "fail": 0,
+      "skipped": 0,
+      "evidence": "npm-test.log"
+    },
+    "context_health": {
+      "status": "PASS",
+      "command": "node tools/check_context_health.mjs",
+      "errors": 0,
+      "warnings": 0,
+      "bootstrap_tokens": 4969,
+      "evidence": "context-health.log"
+    },
+    "diff_check": {
+      "status": "PASS",
+      "command": "git diff --check",
+      "exit_code": 0,
+      "evidence": "git-diff-check.log"
+    },
+    "source_protection": {
+      "status": "PASS",
+      "protected_inputs": 15,
+      "locked_artifacts": 31,
+      "canonical_source_locks": 2
+    }
+  },
+  "runtime": {
+    "T00": "NOT_STARTED",
+    "SEC_001": "NOT_STARTED",
+    "engine_qualification": "NOT_RUN",
+    "native_hosts": "NOT_RUN",
+    "independent_release_review": "NOT_PERFORMED",
+    "release_acceptance": "NOT_GRANTED"
+  },
+  "outputs": [
+    {
+      "path": "docs/plans/STUDIO_FULL_PROJECT_UPGRADE_AR.md",
+      "sha256": "e0be51f7671c69110ed58344a55e6ff17b43c993a5b917e9ad5ee3b82564e4ea",
+      "bytes": 48283
+    },
+    {
+      "path": "docs/plans/STUDIO_UPGRADE_TASKS_AR.md",
+      "sha256": "a7a1709bfbd18709ede7cf7a4f73b4ca31f8765489a815476e01b7a132bb9e33",
+      "bytes": 34906
+    },
+    {
+      "path": "docs/status/CURRENT.md",
+      "sha256": "233c20b0f0b3470d1c0109f25cb4abc4adacef6cbd6d003aa43162b207232b48",
+      "bytes": 4630
+    },
+    {
+      "path": "docs/reviews/STUDIO_UPGRADE_PLAN_REVIEW_2026_10_22_AR.md",
+      "sha256": "aca7517f540a535337da57d70aff4adc90771994e13d0dcace7430a95839df1e",
+      "bytes": 9526
+    },
+    {
+      "path": "docs/evidence/studio-plan-review-2026-10-22/README.md",
+      "sha256": "f0ce10b6059faa430d4c18455be486e494a6b9abc67c50e8e4c896f7e37c79d1",
+      "bytes": 2603
+    },
+    {
+      "path": "docs/evidence/studio-plan-review-2026-10-22/before.json",
+      "sha256": "2fc5bfe12e132972f4b54f5105b34d7c326808f21ab8a3f122f536bfea9cd8d9",
+      "bytes": 3319
+    },
+    {
+      "path": "docs/evidence/studio-plan-review-2026-10-22/STUDIO_FULL_PROJECT_UPGRADE_AR.md.before.snapshot",
+      "sha256": "36433293b5a5b77230d3b7e6a912be4ee14bedd98072263d9c4c652876b6b439",
+      "bytes": 33665
+    },
+    {
+      "path": "docs/evidence/studio-plan-review-2026-10-22/STUDIO_UPGRADE_TASKS_AR.md.before.snapshot",
+      "sha256": "f202d94ab4921d286d0d02ea38746111a36ea789e4a97049c2845078c6cc0363",
+      "bytes": 27872
+    },
+    {
+      "path": "docs/evidence/studio-plan-review-2026-10-22/CURRENT.md.before.snapshot",
+      "sha256": "b947fd28c76bea67298a1e42501b6c82fef3c2c4c5d76f6f6a235f924c30b7d2",
+      "bytes": 4610
+    },
+    {
+      "path": "docs/evidence/studio-plan-review-2026-10-22/change-1.patch",
+      "sha256": "e2b67cd0d109e8342ae10c5a15d497f7d1b4c36c011122c3ee7b45bdf52e7b3f",
+      "bytes": 34361
+    },
+    {
+      "path": "docs/evidence/studio-plan-review-2026-10-22/change-2.patch",
+      "sha256": "4641cf3956548c46fdebe82ed35f424f9af208f15bd6fa9a74798b93ca62e24c",
+      "bytes": 25009
+    },
+    {
+      "path": "docs/evidence/studio-plan-review-2026-10-22/change-3.patch",
+      "sha256": "b2672425b3fc1e42fa5e1bb2a0c0c2e492b773eef70a5b226ee46bf38ba6069b",
+      "bytes": 1308
+    },
+    {
+      "path": "docs/evidence/studio-plan-review-2026-10-22/npm-test.log",
+      "sha256": "7480cb60f766cbeb3f018e8b659c9ac8718361a9768cd47aee549368138768f0",
+      "bytes": 3775
+    },
+    {
+      "path": "docs/evidence/studio-plan-review-2026-10-22/context-health.log",
+      "sha256": "86bd4f5a2a938f4d448f90677b374a2e94a55d56c2aefc70bbc0961919074d3f",
+      "bytes": 805
+    },
+    {
+      "path": "docs/evidence/studio-plan-review-2026-10-22/git-diff-check.log",
+      "sha256": "927241d90527787586b0802f684f7e26e806699d39b1b64f708df94ab0bba26e",
+      "bytes": 447
+    },
+    {
+      "path": "docs/evidence/studio-plan-review-2026-10-22/plan-consistency.json",
+      "sha256": "64bd36bd2ba36c96e8d14ecea693eb6bd728332df059d8a0e62a0b591da32a41",
+      "bytes": 474
+    }
+  ],
+  "completed_at_utc": "2026-10-22T02:06:13.262Z"
+}

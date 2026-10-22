@@ -1,0 +1,17 @@
+diff --git "a/D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e1b-2026-10-22\\before\\09.snapshot" "b/D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tests\\test_cli.py"
+index 7df840d..ffd7507 100644
+--- "a/D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e1b-2026-10-22\\before\\09.snapshot"
++++ "b/D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tests\\test_cli.py"
+@@ -100,7 +100,11 @@ class CliTests(unittest.TestCase):
+         expected = hashlib.sha256(json.dumps(mapping, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")).hexdigest()
+         self.assertEqual(report["source"]["content_hash"], expected)
+         self.assertEqual({item["path"]: item["sha256"] for item in report["source"]["artifacts"]}, mapping)
+-        self.assertEqual(len(mapping), 5)
++        self.assertEqual(set(mapping), {
++            "CLI_CONTRACT.json", "PROVENANCE.json", "requirements.lock",
++            "tests/test_cli.py", "tests/test_loader.py", "tools/cli.py",
++            "tools/diagnostics.py", "tools/loader.py",
++        })
+         self.assertTrue(all("\\" not in name for name in mapping))
+ 
+     def test_identity_is_stable_across_cwd_and_unicode_relocation(self):

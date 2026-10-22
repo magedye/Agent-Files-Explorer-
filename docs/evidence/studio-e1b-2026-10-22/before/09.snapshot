@@ -1,0 +1,220 @@
+"""Contract and subprocess tests; these do not qualify governance or native hosts."""
+
+from copy import deepcopy
+import hashlib
+import importlib.metadata
+import json
+import os
+from pathlib import Path
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+import unittest
+
+from jsonschema import Draft202012Validator, ValidationError
+import yaml
+
+
+ROOT = Path(__file__).resolve().parent.parent
+CONTRACT = json.loads((ROOT / "CLI_CONTRACT.json").read_text(encoding="utf-8"))
+PROVENANCE = json.loads((ROOT / "PROVENANCE.json").read_text(encoding="utf-8"))
+
+
+class CliTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        Draft202012Validator.check_schema(CONTRACT)
+        cls.validator = Draft202012Validator(CONTRACT)
+
+    def run_cli(self, *args, root=ROOT, cwd=None):
+        environment = {key: os.environ[key] for key in ("SYSTEMROOT", "WINDIR", "TEMP", "TMP") if key in os.environ}
+        return subprocess.run(
+            [sys.executable, "-I", "-B", "-X", "utf8", str(root / "tools/cli.py"), *args],
+            cwd=cwd or root, capture_output=True, timeout=20, shell=False, env=environment,
+        )
+
+    def invoke(self, *args, root=ROOT, cwd=None):
+        process = self.run_cli(*args, root=root, cwd=cwd)
+        report = json.loads(process.stdout.decode("utf-8"))
+        self.validator.validate(report)
+        self.assertEqual(process.returncode, report["exit_code"])
+        self.assertEqual(process.stdout.count(b"\n"), 1)
+        return process, report
+
+    def temporary(self):
+        owned = tempfile.TemporaryDirectory(prefix="aghr-e1a-")
+        self.assertEqual(Path(owned.name).resolve().parent, Path(tempfile.gettempdir()).resolve())
+        return owned
+
+    def copy_source(self, directory):
+        destination = Path(directory) / "نسخة مرشح"
+        for name in PROVENANCE["source_files"]:
+            target = destination / name
+            self.assertTrue(target.resolve().is_relative_to(Path(directory).resolve()))
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(ROOT / name, target)
+        return destination
+
+    def test_help_is_metadata(self):
+        process, report = self.invoke("--help")
+        self.assertEqual(process.returncode, 0)
+        self.assertEqual(report["result"], "INFO")
+        self.assertIn("BLOCKED", report["data"]["help"])
+        self.assertEqual(process.stderr, b"")
+
+    def test_version_is_source_not_qualification(self):
+        _, report = self.invoke("--version", "--format", "json")
+        self.assertEqual(report["source"]["qualification"], "NOT_RUN")
+        self.assertEqual(report["source"]["publisher_authentication"], "UNKNOWN")
+        self.assertIsNone(report["source"]["distribution"])
+        self.assertIsNone(report["inputs"]["candidate_hash"])
+        self.assertIsNone(report["inputs"]["catalog"])
+
+    def test_every_deferred_command_blocks(self):
+        for command in CONTRACT["x-cli"]["blocked_until"]:
+            with self.subTest(command=command):
+                process, report = self.invoke(command)
+                self.assertEqual(process.returncode, 3)
+                self.assertEqual(report["result"], "BLOCKED")
+                self.assertEqual(report["checks"]["status"], "NOT_RUN")
+                self.assertIn(b"IMPLEMENTATION_UNAVAILABLE", process.stderr)
+
+    def test_strict_does_not_report_success(self):
+        process, report = self.invoke("validate", "--strict", "--format=json")
+        self.assertEqual(process.returncode, 3)
+        self.assertEqual(report["diagnostics"][0]["stage"], "E2")
+
+    def test_invalid_invocations(self):
+        for args in [(), ("unknown",), ("--for", "json"), ("lint", "--strict"),
+                     ("--version", "lint"), ("--help", "--version"), ("--format", "yaml")]:
+            with self.subTest(args=args):
+                process, report = self.invoke(*args)
+                self.assertEqual(process.returncode, 2)
+                self.assertEqual(report["diagnostics"][0]["code"], "INVALID_ARGUMENTS")
+
+    def test_source_digest_matches_all_raw_artifacts(self):
+        _, report = self.invoke("--version")
+        mapping = {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in PROVENANCE["source_files"]}
+        expected = hashlib.sha256(json.dumps(mapping, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")).hexdigest()
+        self.assertEqual(report["source"]["content_hash"], expected)
+        self.assertEqual({item["path"]: item["sha256"] for item in report["source"]["artifacts"]}, mapping)
+        self.assertEqual(len(mapping), 5)
+        self.assertTrue(all("\\" not in name for name in mapping))
+
+    def test_identity_is_stable_across_cwd_and_unicode_relocation(self):
+        _, original = self.invoke("--version")
+        with self.temporary() as directory:
+            copied = self.copy_source(directory)
+            _, relocated = self.invoke("--version", root=copied, cwd=directory)
+            self.assertEqual(original["source"], relocated["source"])
+
+    def test_a_changed_source_artifact_changes_identity(self):
+        _, original = self.invoke("--version")
+        with self.temporary() as directory:
+            copied = self.copy_source(directory)
+            lock = copied / "requirements.lock"
+            lock.write_bytes(lock.read_bytes() + b"\n# changed fixture\n")
+            _, changed = self.invoke("--version", root=copied)
+            self.assertNotEqual(original["source"]["content_hash"], changed["source"]["content_hash"])
+            self.assertEqual(changed["source"]["publisher_authentication"], "UNKNOWN")
+
+    def test_missing_source_artifact_is_an_error(self):
+        with self.temporary() as directory:
+            copied = self.copy_source(directory)
+            (copied / "requirements.lock").unlink()
+            process, report = self.invoke("--version", root=copied)
+            self.assertEqual(process.returncode, 2)
+            self.assertIsNone(report["source"])
+            self.assertEqual(report["diagnostics"][0]["code"], "SOURCE_IDENTITY_UNAVAILABLE")
+
+    def test_oversized_identity_input_is_an_error(self):
+        with self.temporary() as directory:
+            copied = self.copy_source(directory)
+            (copied / "requirements.lock").write_bytes(b"x" * (2 * 1024 * 1024 + 1))
+            process, report = self.invoke("--help", root=copied)
+            self.assertEqual(process.returncode, 2)
+            self.assertIsNone(report["source"])
+
+    def test_text_format_keeps_diagnostics_separate(self):
+        help_process = self.run_cli("--help", "--format", "text")
+        self.assertEqual(help_process.returncode, 0)
+        self.assertTrue(help_process.stdout.startswith(b"usage: aghr"))
+        self.assertEqual(help_process.stderr, b"")
+        blocked = self.run_cli("lint", "--format=text")
+        self.assertEqual(blocked.returncode, 3)
+        self.assertIn(b"IMPLEMENTATION_UNAVAILABLE", blocked.stderr)
+
+    def test_last_format_controls_syntax_error(self):
+        process, report = self.invoke("--format", "text", "--format=json", "--unknown")
+        self.assertEqual(process.returncode, 2)
+        self.assertEqual(report["result"], "ERROR")
+
+    def test_arguments_are_not_shell_or_diagnostic_content(self):
+        with self.temporary() as directory:
+            marker = Path(directory) / "must-not-exist.txt"
+            payload = f"; echo injected > {marker}"
+            process, report = self.invoke("validate", "--token", payload, cwd=directory)
+            self.assertEqual(process.returncode, 2)
+            self.assertFalse(marker.exists())
+            self.assertNotIn(payload.encode("utf-8"), process.stdout + process.stderr)
+            self.assertEqual(report["diagnostics"][0]["code"], "INVALID_ARGUMENTS")
+
+    def test_cwd_python_module_cannot_shadow_stdlib(self):
+        with self.temporary() as directory:
+            marker = Path(directory) / "shadowed.txt"
+            (Path(directory) / "argparse.py").write_text(
+                "from pathlib import Path\nPath(" + repr(str(marker)) + ").write_text('executed')\n", encoding="utf-8",
+            )
+            process, _ = self.invoke("--version", cwd=directory)
+            self.assertEqual(process.returncode, 0)
+            self.assertFalse(marker.exists())
+
+    def test_cli_writes_nothing_to_source_or_project(self):
+        with self.temporary() as directory:
+            copied = self.copy_source(directory)
+            project = Path(directory) / "project"
+            (project / ".aghr/runtime_evidence").mkdir(parents=True)
+            (project / ".aghr/state.json").write_bytes(b'{"sentinel":true}')
+            (project / ".aghr/runtime_evidence/task.jsonl").write_bytes(b'{"sentinel":true}\n')
+            (project / "aghr.json").write_bytes(b"malformed source must not be read in E1.a")
+            def snapshot():
+                base = Path(directory)
+                return {p.relative_to(base).as_posix(): ("file", p.read_bytes()) if p.is_file() else ("directory", None) for p in base.rglob("*")}
+            before = snapshot()
+            for args in [("--help",), ("--version",), ("validate", "--strict"), ("lint",), ("--unknown",)]:
+                self.invoke(*args, root=copied, cwd=project)
+            self.assertEqual(before, snapshot())
+
+    def test_protocol_rejects_manufactured_success(self):
+        _, report = self.invoke("validate", "--strict")
+        invented = deepcopy(report)
+        invented.update(result="VALID", exit_code=0, diagnostics=[])
+        with self.assertRaises(ValidationError):
+            self.validator.validate(invented)
+        invented["checks"]["status"] = "COMPLETE"
+        with self.assertRaises(ValidationError):
+            self.validator.validate(invented)
+        invented = deepcopy(report)
+        invented["source"]["qualification"] = "QUALIFIED"
+        with self.assertRaises(ValidationError):
+            self.validator.validate(invented)
+
+    def test_locked_dependency_versions_are_installed(self):
+        lock = (ROOT / "requirements.lock").read_text(encoding="utf-8")
+        pinned = re.findall(r"^([A-Za-z0-9_-]+)==([^ ]+) --hash=sha256:([a-f0-9]{64})$", lock, re.MULTILINE)
+        self.assertEqual(len(pinned), 7)
+        self.assertIn("--require-hashes", lock)
+        self.assertIn("--only-binary=:all:", lock)
+        for name, version, _ in pinned:
+            self.assertEqual(importlib.metadata.version(name), version)
+
+    def test_yaml_dependency_exposes_safe_loading(self):
+        self.assertEqual(yaml.safe_load("key: value"), {"key": "value"})
+        with self.assertRaises(yaml.constructor.ConstructorError):
+            yaml.safe_load("!!python/object/apply:builtins.len [[1]]")
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)

@@ -1,0 +1,577 @@
+{
+  "observed_at_utc": "2026-10-22T02:50:55.393Z",
+  "requested_native_commands": [
+    "aghr --help",
+    "aghr validate --help"
+  ],
+  "native_executable_resolved": false,
+  "native_capture_status": "NOT_RUN_NO_PINNED_NATIVE_ENTRYPOINT",
+  "legacy_entrypoint": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0/runtime/cli.py",
+  "legacy_declared_commands": [
+    "init",
+    "validate",
+    "intake",
+    "lesson",
+    "inbox",
+    "skills",
+    "demo"
+  ],
+  "target_command_help": [
+    {
+      "command": "validate",
+      "probe_id": "legacy-validate-help",
+      "exit_code": 0
+    },
+    {
+      "command": "lint",
+      "probe_id": "legacy-lint-help",
+      "exit_code": 2
+    },
+    {
+      "command": "generate",
+      "probe_id": "legacy-generate-help",
+      "exit_code": 2
+    },
+    {
+      "command": "check",
+      "probe_id": "legacy-check-help",
+      "exit_code": 2
+    },
+    {
+      "command": "eval",
+      "probe_id": "legacy-eval-help",
+      "exit_code": 2
+    },
+    {
+      "command": "qualify",
+      "probe_id": "legacy-qualify-help",
+      "exit_code": 2
+    },
+    {
+      "command": "doctor",
+      "probe_id": "legacy-doctor-help",
+      "exit_code": 2
+    }
+  ],
+  "captures": [
+    {
+      "id": "legacy-root-help",
+      "executable": "C:/Users/Majed/AppData/Local/Programs/Python/Python312/python.exe",
+      "executable_sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+      "entrypoint": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0/runtime/cli.py",
+      "entrypoint_sha256": "5c8f0f330a7d75c5eda9108dc7d355641272871835fc8b2b0b009303487c8265",
+      "argv": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_Candidate_1.3.0\\runtime\\cli.py",
+        "--help"
+      ],
+      "cwd": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0",
+      "started_at_utc": "2026-10-22T02:48:50.081Z",
+      "finished_at_utc": "2026-10-22T02:49:03.772Z",
+      "exit_code": 0,
+      "signal": null,
+      "spawn_error": null,
+      "stdout": {
+        "path": "cli-probes/legacy-root-help.stdout.txt",
+        "sha256": "25bacce30219d677305f94f3f60d677c93ad9bbcd412791e2a3ac3eea84e4e8c",
+        "bytes": 392
+      },
+      "stderr": {
+        "path": "cli-probes/legacy-root-help.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "capture_complete": true,
+      "boundary": "Legacy help or parser rejection only; no eval/qualify/adoption/state-write operation invoked"
+    },
+    {
+      "id": "legacy-init-help",
+      "executable": "C:/Users/Majed/AppData/Local/Programs/Python/Python312/python.exe",
+      "executable_sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+      "entrypoint": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0/runtime/cli.py",
+      "entrypoint_sha256": "5c8f0f330a7d75c5eda9108dc7d355641272871835fc8b2b0b009303487c8265",
+      "argv": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_Candidate_1.3.0\\runtime\\cli.py",
+        "init",
+        "--help"
+      ],
+      "cwd": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0",
+      "started_at_utc": "2026-10-22T02:49:03.772Z",
+      "finished_at_utc": "2026-10-22T02:49:13.799Z",
+      "exit_code": 0,
+      "signal": null,
+      "spawn_error": null,
+      "stdout": {
+        "path": "cli-probes/legacy-init-help.stdout.txt",
+        "sha256": "3eaeff54ccc0831d05cbfa5808a85b53129eefca89a8fb0613575f30c0e26b35",
+        "bytes": 290
+      },
+      "stderr": {
+        "path": "cli-probes/legacy-init-help.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "capture_complete": true,
+      "boundary": "Legacy help or parser rejection only; no eval/qualify/adoption/state-write operation invoked"
+    },
+    {
+      "id": "legacy-validate-help",
+      "executable": "C:/Users/Majed/AppData/Local/Programs/Python/Python312/python.exe",
+      "executable_sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+      "entrypoint": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0/runtime/cli.py",
+      "entrypoint_sha256": "5c8f0f330a7d75c5eda9108dc7d355641272871835fc8b2b0b009303487c8265",
+      "argv": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_Candidate_1.3.0\\runtime\\cli.py",
+        "validate",
+        "--help"
+      ],
+      "cwd": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0",
+      "started_at_utc": "2026-10-22T02:49:13.800Z",
+      "finished_at_utc": "2026-10-22T02:49:19.412Z",
+      "exit_code": 0,
+      "signal": null,
+      "spawn_error": null,
+      "stdout": {
+        "path": "cli-probes/legacy-validate-help.stdout.txt",
+        "sha256": "be45c1af2095b5c0416f55d7884b0d2c85a64086449c432f06252174170b9044",
+        "bytes": 155
+      },
+      "stderr": {
+        "path": "cli-probes/legacy-validate-help.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "capture_complete": true,
+      "boundary": "Legacy help or parser rejection only; no eval/qualify/adoption/state-write operation invoked"
+    },
+    {
+      "id": "legacy-intake-help",
+      "executable": "C:/Users/Majed/AppData/Local/Programs/Python/Python312/python.exe",
+      "executable_sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+      "entrypoint": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0/runtime/cli.py",
+      "entrypoint_sha256": "5c8f0f330a7d75c5eda9108dc7d355641272871835fc8b2b0b009303487c8265",
+      "argv": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_Candidate_1.3.0\\runtime\\cli.py",
+        "intake",
+        "--help"
+      ],
+      "cwd": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0",
+      "started_at_utc": "2026-10-22T02:49:19.413Z",
+      "finished_at_utc": "2026-10-22T02:49:25.405Z",
+      "exit_code": 0,
+      "signal": null,
+      "spawn_error": null,
+      "stdout": {
+        "path": "cli-probes/legacy-intake-help.stdout.txt",
+        "sha256": "a05e6cd24ac6a8588017af5a3e7faf2f49dec7c350cc243aa6dc8c349921c982",
+        "bytes": 171
+      },
+      "stderr": {
+        "path": "cli-probes/legacy-intake-help.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "capture_complete": true,
+      "boundary": "Legacy help or parser rejection only; no eval/qualify/adoption/state-write operation invoked"
+    },
+    {
+      "id": "legacy-lesson-help",
+      "executable": "C:/Users/Majed/AppData/Local/Programs/Python/Python312/python.exe",
+      "executable_sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+      "entrypoint": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0/runtime/cli.py",
+      "entrypoint_sha256": "5c8f0f330a7d75c5eda9108dc7d355641272871835fc8b2b0b009303487c8265",
+      "argv": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_Candidate_1.3.0\\runtime\\cli.py",
+        "lesson",
+        "--help"
+      ],
+      "cwd": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0",
+      "started_at_utc": "2026-10-22T02:49:25.406Z",
+      "finished_at_utc": "2026-10-22T02:49:33.726Z",
+      "exit_code": 0,
+      "signal": null,
+      "spawn_error": null,
+      "stdout": {
+        "path": "cli-probes/legacy-lesson-help.stdout.txt",
+        "sha256": "fac9fca4ccbb5e6d85645ca92aa098a3c232957fa61c465de33cb4261096f975",
+        "bytes": 572
+      },
+      "stderr": {
+        "path": "cli-probes/legacy-lesson-help.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "capture_complete": true,
+      "boundary": "Legacy help or parser rejection only; no eval/qualify/adoption/state-write operation invoked"
+    },
+    {
+      "id": "legacy-inbox-help",
+      "executable": "C:/Users/Majed/AppData/Local/Programs/Python/Python312/python.exe",
+      "executable_sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+      "entrypoint": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0/runtime/cli.py",
+      "entrypoint_sha256": "5c8f0f330a7d75c5eda9108dc7d355641272871835fc8b2b0b009303487c8265",
+      "argv": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_Candidate_1.3.0\\runtime\\cli.py",
+        "inbox",
+        "--help"
+      ],
+      "cwd": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0",
+      "started_at_utc": "2026-10-22T02:49:33.733Z",
+      "finished_at_utc": "2026-10-22T02:49:42.289Z",
+      "exit_code": 0,
+      "signal": null,
+      "spawn_error": null,
+      "stdout": {
+        "path": "cli-probes/legacy-inbox-help.stdout.txt",
+        "sha256": "69e9e3cb28750a4c98a5dbda46bb1143567a4c0537810e17fc2196dee3dee0d2",
+        "bytes": 766
+      },
+      "stderr": {
+        "path": "cli-probes/legacy-inbox-help.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "capture_complete": true,
+      "boundary": "Legacy help or parser rejection only; no eval/qualify/adoption/state-write operation invoked"
+    },
+    {
+      "id": "legacy-skills-help",
+      "executable": "C:/Users/Majed/AppData/Local/Programs/Python/Python312/python.exe",
+      "executable_sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+      "entrypoint": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0/runtime/cli.py",
+      "entrypoint_sha256": "5c8f0f330a7d75c5eda9108dc7d355641272871835fc8b2b0b009303487c8265",
+      "argv": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_Candidate_1.3.0\\runtime\\cli.py",
+        "skills",
+        "--help"
+      ],
+      "cwd": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0",
+      "started_at_utc": "2026-10-22T02:49:42.290Z",
+      "finished_at_utc": "2026-10-22T02:49:47.908Z",
+      "exit_code": 0,
+      "signal": null,
+      "spawn_error": null,
+      "stdout": {
+        "path": "cli-probes/legacy-skills-help.stdout.txt",
+        "sha256": "2a840d1ad781b188b0f62f3c72b8c7c7084daa3f5fe113c6b19b2d2e66bebe46",
+        "bytes": 1371
+      },
+      "stderr": {
+        "path": "cli-probes/legacy-skills-help.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "capture_complete": true,
+      "boundary": "Legacy help or parser rejection only; no eval/qualify/adoption/state-write operation invoked"
+    },
+    {
+      "id": "legacy-demo-help",
+      "executable": "C:/Users/Majed/AppData/Local/Programs/Python/Python312/python.exe",
+      "executable_sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+      "entrypoint": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0/runtime/cli.py",
+      "entrypoint_sha256": "5c8f0f330a7d75c5eda9108dc7d355641272871835fc8b2b0b009303487c8265",
+      "argv": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_Candidate_1.3.0\\runtime\\cli.py",
+        "demo",
+        "--help"
+      ],
+      "cwd": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0",
+      "started_at_utc": "2026-10-22T02:49:47.909Z",
+      "finished_at_utc": "2026-10-22T02:49:52.002Z",
+      "exit_code": 0,
+      "signal": null,
+      "spawn_error": null,
+      "stdout": {
+        "path": "cli-probes/legacy-demo-help.stdout.txt",
+        "sha256": "93ab92fb8e66efa9f46f9574460aec35854bc7b09688e5b79488d77537543124",
+        "bytes": 124
+      },
+      "stderr": {
+        "path": "cli-probes/legacy-demo-help.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "capture_complete": true,
+      "boundary": "Legacy help or parser rejection only; no eval/qualify/adoption/state-write operation invoked"
+    },
+    {
+      "id": "legacy-lint-help",
+      "executable": "C:/Users/Majed/AppData/Local/Programs/Python/Python312/python.exe",
+      "executable_sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+      "entrypoint": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0/runtime/cli.py",
+      "entrypoint_sha256": "5c8f0f330a7d75c5eda9108dc7d355641272871835fc8b2b0b009303487c8265",
+      "argv": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_Candidate_1.3.0\\runtime\\cli.py",
+        "lint",
+        "--help"
+      ],
+      "cwd": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0",
+      "started_at_utc": "2026-10-22T02:49:52.004Z",
+      "finished_at_utc": "2026-10-22T02:50:00.797Z",
+      "exit_code": 2,
+      "signal": null,
+      "spawn_error": null,
+      "stdout": {
+        "path": "cli-probes/legacy-lint-help.stdout.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "cli-probes/legacy-lint-help.stderr.txt",
+        "sha256": "5e1c8827739c2e648e8da03637e7d149c8b506e4b0386972e84241c7aee1a2a4",
+        "bytes": 292
+      },
+      "capture_complete": true,
+      "boundary": "Legacy help or parser rejection only; no eval/qualify/adoption/state-write operation invoked"
+    },
+    {
+      "id": "legacy-generate-help",
+      "executable": "C:/Users/Majed/AppData/Local/Programs/Python/Python312/python.exe",
+      "executable_sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+      "entrypoint": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0/runtime/cli.py",
+      "entrypoint_sha256": "5c8f0f330a7d75c5eda9108dc7d355641272871835fc8b2b0b009303487c8265",
+      "argv": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_Candidate_1.3.0\\runtime\\cli.py",
+        "generate",
+        "--help"
+      ],
+      "cwd": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0",
+      "started_at_utc": "2026-10-22T02:50:00.800Z",
+      "finished_at_utc": "2026-10-22T02:50:06.570Z",
+      "exit_code": 2,
+      "signal": null,
+      "spawn_error": null,
+      "stdout": {
+        "path": "cli-probes/legacy-generate-help.stdout.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "cli-probes/legacy-generate-help.stderr.txt",
+        "sha256": "cbd3fa87f75ac62fad7823fd1d758f5734625cdc18af879d730343847a4c6cd1",
+        "bytes": 296
+      },
+      "capture_complete": true,
+      "boundary": "Legacy help or parser rejection only; no eval/qualify/adoption/state-write operation invoked"
+    },
+    {
+      "id": "legacy-check-help",
+      "executable": "C:/Users/Majed/AppData/Local/Programs/Python/Python312/python.exe",
+      "executable_sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+      "entrypoint": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0/runtime/cli.py",
+      "entrypoint_sha256": "5c8f0f330a7d75c5eda9108dc7d355641272871835fc8b2b0b009303487c8265",
+      "argv": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_Candidate_1.3.0\\runtime\\cli.py",
+        "check",
+        "--help"
+      ],
+      "cwd": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0",
+      "started_at_utc": "2026-10-22T02:50:06.570Z",
+      "finished_at_utc": "2026-10-22T02:50:09.511Z",
+      "exit_code": 2,
+      "signal": null,
+      "spawn_error": null,
+      "stdout": {
+        "path": "cli-probes/legacy-check-help.stdout.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "cli-probes/legacy-check-help.stderr.txt",
+        "sha256": "5bf06e24abfb7ff96284a4f110d4403f8fc4a13115ad44020a000395c0e8a218",
+        "bytes": 293
+      },
+      "capture_complete": true,
+      "boundary": "Legacy help or parser rejection only; no eval/qualify/adoption/state-write operation invoked"
+    },
+    {
+      "id": "legacy-eval-help",
+      "executable": "C:/Users/Majed/AppData/Local/Programs/Python/Python312/python.exe",
+      "executable_sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+      "entrypoint": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0/runtime/cli.py",
+      "entrypoint_sha256": "5c8f0f330a7d75c5eda9108dc7d355641272871835fc8b2b0b009303487c8265",
+      "argv": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_Candidate_1.3.0\\runtime\\cli.py",
+        "eval",
+        "--help"
+      ],
+      "cwd": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0",
+      "started_at_utc": "2026-10-22T02:50:09.511Z",
+      "finished_at_utc": "2026-10-22T02:50:12.511Z",
+      "exit_code": 2,
+      "signal": null,
+      "spawn_error": null,
+      "stdout": {
+        "path": "cli-probes/legacy-eval-help.stdout.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "cli-probes/legacy-eval-help.stderr.txt",
+        "sha256": "f9dca55b8db7486aefdf8a2ed6a97299daf0a540dab2032ffa48d5ff7339e9b8",
+        "bytes": 292
+      },
+      "capture_complete": true,
+      "boundary": "Legacy help or parser rejection only; no eval/qualify/adoption/state-write operation invoked"
+    },
+    {
+      "id": "legacy-qualify-help",
+      "executable": "C:/Users/Majed/AppData/Local/Programs/Python/Python312/python.exe",
+      "executable_sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+      "entrypoint": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0/runtime/cli.py",
+      "entrypoint_sha256": "5c8f0f330a7d75c5eda9108dc7d355641272871835fc8b2b0b009303487c8265",
+      "argv": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_Candidate_1.3.0\\runtime\\cli.py",
+        "qualify",
+        "--help"
+      ],
+      "cwd": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0",
+      "started_at_utc": "2026-10-22T02:50:12.512Z",
+      "finished_at_utc": "2026-10-22T02:50:15.236Z",
+      "exit_code": 2,
+      "signal": null,
+      "spawn_error": null,
+      "stdout": {
+        "path": "cli-probes/legacy-qualify-help.stdout.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "cli-probes/legacy-qualify-help.stderr.txt",
+        "sha256": "080bba53dbed384ebb0997b99b44e87eebe7d0816c530c7976934ded6ae2937d",
+        "bytes": 295
+      },
+      "capture_complete": true,
+      "boundary": "Legacy help or parser rejection only; no eval/qualify/adoption/state-write operation invoked"
+    },
+    {
+      "id": "legacy-doctor-help",
+      "executable": "C:/Users/Majed/AppData/Local/Programs/Python/Python312/python.exe",
+      "executable_sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+      "entrypoint": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0/runtime/cli.py",
+      "entrypoint_sha256": "5c8f0f330a7d75c5eda9108dc7d355641272871835fc8b2b0b009303487c8265",
+      "argv": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_Candidate_1.3.0\\runtime\\cli.py",
+        "doctor",
+        "--help"
+      ],
+      "cwd": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0",
+      "started_at_utc": "2026-10-22T02:50:15.236Z",
+      "finished_at_utc": "2026-10-22T02:50:18.394Z",
+      "exit_code": 2,
+      "signal": null,
+      "spawn_error": null,
+      "stdout": {
+        "path": "cli-probes/legacy-doctor-help.stdout.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "cli-probes/legacy-doctor-help.stderr.txt",
+        "sha256": "7f99a54ebee6fa65fdc6073a12da3dd98ace3f17a20a46755c12a7cbf19b5c58",
+        "bytes": 294
+      },
+      "capture_complete": true,
+      "boundary": "Legacy help or parser rejection only; no eval/qualify/adoption/state-write operation invoked"
+    },
+    {
+      "id": "legacy-strict-parser",
+      "executable": "C:/Users/Majed/AppData/Local/Programs/Python/Python312/python.exe",
+      "executable_sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+      "entrypoint": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0/runtime/cli.py",
+      "entrypoint_sha256": "5c8f0f330a7d75c5eda9108dc7d355641272871835fc8b2b0b009303487c8265",
+      "argv": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_Candidate_1.3.0\\runtime\\cli.py",
+        "validate",
+        "--project",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_Candidate_1.3.0",
+        "--strict"
+      ],
+      "cwd": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0",
+      "started_at_utc": "2026-10-22T02:50:18.396Z",
+      "finished_at_utc": "2026-10-22T02:50:21.013Z",
+      "exit_code": 2,
+      "signal": null,
+      "spawn_error": null,
+      "stdout": {
+        "path": "cli-probes/legacy-strict-parser.stdout.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "cli-probes/legacy-strict-parser.stderr.txt",
+        "sha256": "7f591eced523a721171b94e090aedf565b62a1484bfc17332e5a8d621e98fa1b",
+        "bytes": 183
+      },
+      "capture_complete": true,
+      "boundary": "Legacy help or parser rejection only; no eval/qualify/adoption/state-write operation invoked"
+    }
+  ],
+  "exit_code_scope": "Observed help/parser exit codes only, not all operational exit codes; no engine execution semantics inferred",
+  "constraints": [
+    "No installed aghr/aghr-studio distribution in the inspected Python interpreter",
+    "Existing validate uses --project/--ready, not rc.3 --strict",
+    "No eval or qualify body executed; platform resource adapters not qualified",
+    "Complete stdout/stderr retained in cli-probes; -B prevents Python bytecode writes"
+  ],
+  "acceptance": "PARTIAL_LEGACY_CLI_SURFACE_ONLY"
+}

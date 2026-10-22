@@ -1,0 +1,383 @@
+diff --git a/docs/evidence/studio-e1d-2026-10-22/before/empty.snapshot b/governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/MODEL_INDEX.json
+index e69de29..3f11d8b 100644
+--- a/docs/evidence/studio-e1d-2026-10-22/before/empty.snapshot
++++ b/governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/MODEL_INDEX.json
+@@ -0,0 +1,378 @@
++{
++  "model_revision": "rc3-contract.1-model.1",
++  "target_spec_version": "1.0.0-rc.3",
++  "schema_version": "1.2",
++  "reference": {
++    "repository_path": "docs/specs/aghr-rc3/AGHR_REFERENCE.md",
++    "sha256": "064820539a90ffe51ccfd1e6dd4700e82bdd4a1d8edb32ea63e15e642c33ef6b"
++  },
++  "fields": [
++    {
++      "name": "id",
++      "reference_line": 167,
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/id",
++      "required_unconditionally": true
++    },
++    {
++      "name": "title",
++      "reference_line": 168,
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/title",
++      "required_unconditionally": false
++    },
++    {
++      "name": "kind",
++      "reference_line": 169,
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/kind",
++      "required_unconditionally": true
++    },
++    {
++      "name": "force",
++      "reference_line": 170,
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/force",
++      "required_unconditionally": true
++    },
++    {
++      "name": "severity",
++      "reference_line": 171,
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/severity",
++      "required_unconditionally": true
++    },
++    {
++      "name": "rationale",
++      "reference_line": 172,
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/rationale",
++      "required_unconditionally": false
++    },
++    {
++      "name": "authority",
++      "reference_line": 175,
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/authority",
++      "required_unconditionally": false
++    },
++    {
++      "name": "reviewCadence",
++      "reference_line": 183,
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/reviewCadence",
++      "required_unconditionally": false
++    },
++    {
++      "name": "nextReview",
++      "reference_line": 184,
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/nextReview",
++      "required_unconditionally": false
++    },
++    {
++      "name": "scope",
++      "reference_line": 185,
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/scope",
++      "required_unconditionally": true
++    },
++    {
++      "name": "rule",
++      "reference_line": 192,
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/rule",
++      "required_unconditionally": true
++    },
++    {
++      "name": "enforcement",
++      "reference_line": 195,
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/enforcement",
++      "required_unconditionally": false
++    },
++    {
++      "name": "verification",
++      "reference_line": 203,
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/verification",
++      "required_unconditionally": false
++    },
++    {
++      "name": "impact",
++      "reference_line": 207,
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/impact",
++      "required_unconditionally": true
++    },
++    {
++      "name": "conflictPolicy",
++      "reference_line": 211,
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/conflictPolicy",
++      "required_unconditionally": false
++    },
++    {
++      "name": "exceptions",
++      "reference_line": 215,
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/exceptions",
++      "required_unconditionally": false
++    },
++    {
++      "name": "references",
++      "reference_line": 218,
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/references",
++      "required_unconditionally": false
++    }
++  ],
++  "specialized_fields": [
++    {
++      "name": "expiresOn",
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/expiresOn"
++    },
++    {
++      "name": "skillId",
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/skillId"
++    },
++    {
++      "name": "source",
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/source"
++    },
++    {
++      "name": "function",
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/function"
++    },
++    {
++      "name": "instructionsPath",
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/instructionsPath"
++    },
++    {
++      "name": "permissions",
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/permissions"
++    },
++    {
++      "name": "inputs",
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/inputs"
++    },
++    {
++      "name": "outputs",
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/outputs"
++    },
++    {
++      "name": "defaultTier",
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/defaultTier"
++    },
++    {
++      "name": "requiredApprovals",
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/requiredApprovals"
++    },
++    {
++      "name": "conflictsWith",
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/conflictsWith"
++    },
++    {
++      "name": "alternatives",
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/alternatives"
++    },
++    {
++      "name": "minimumStatus",
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/minimumStatus"
++    },
++    {
++      "name": "requiredOnHosts",
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/requiredOnHosts"
++    },
++    {
++      "name": "maxAgeDays",
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/maxAgeDays"
++    },
++    {
++      "name": "skillQualification",
++      "schema_path": "item.schema.json",
++      "schema_pointer": "/properties/skillQualification"
++    }
++  ],
++  "kinds": [
++    {
++      "name": "OBSERVATION",
++      "group": "core",
++      "synonyms": "Fact, State Anchor, Context Note",
++      "function": "A verified, falsifiable fact about the environment",
++      "typical_location": "`AGENTS.md` §Context",
++      "reference_line": 244
++    },
++    {
++      "name": "PRINCIPLE",
++      "group": "core",
++      "synonyms": "Tenet, Value, Operating Principle",
++      "function": "Shapes reasoning and default posture; not falsifiable",
++      "typical_location": "`AGENTS.md` §Identity",
++      "reference_line": 245
++    },
++    {
++      "name": "CONSTRAINT",
++      "group": "core",
++      "synonyms": "Hard Limit, Red Line, Prohibition, Guardrail",
++      "function": "Prohibits an action or sets an inviolable boundary",
++      "typical_location": "`AGENTS.md` §Hard Constraints; `policies/security/`",
++      "reference_line": 246
++    },
++    {
++      "name": "REQUIREMENT",
++      "group": "core",
++      "synonyms": "Acceptance Criterion, Mandate",
++      "function": "What must be achieved, with explicit acceptance condition",
++      "typical_location": "`policies/`",
++      "reference_line": 247
++    },
++    {
++      "name": "PROCEDURE",
++      "group": "core",
++      "synonyms": "Process, Step-by-Step, Playbook, Runbook",
++      "function": "Ordered steps to execute an obligation",
++      "typical_location": "`skills/`, `procedures/`",
++      "reference_line": 248
++    },
++    {
++      "name": "GUIDELINE",
++      "group": "core",
++      "synonyms": "Recommendation, Suggestion, Best Practice, Advisory",
++      "function": "Advises a practice that is **not binding by itself**",
++      "typical_location": "`AGENTS.md` §Guidelines",
++      "reference_line": 249
++    },
++    {
++      "name": "POLICY",
++      "group": "advanced",
++      "synonyms": "Directive, Mandate, Governance Policy",
++      "function": "Directional aggregate that may contain lower-level items",
++      "typical_location": "`policies/`",
++      "reference_line": 255
++    },
++    {
++      "name": "RULE",
++      "group": "advanced",
++      "synonyms": "Norm, Regulation, Binding Instruction",
++      "function": "Specific determinate obligation (use only when `REQUIREMENT`/`CONSTRAINT` don't fit)",
++      "typical_location": "`policies/`",
++      "reference_line": 256
++    },
++    {
++      "name": "STANDARD",
++      "group": "advanced",
++      "synonyms": "Convention, Code Standard, Normative Reference",
++      "function": "Accepted level of quality within a declared scope",
++      "typical_location": "`docs/agents/`, profiles",
++      "reference_line": 257
++    },
++    {
++      "name": "CONTROL",
++      "group": "advanced",
++      "synonyms": "Safeguard, Enforcement Mechanism, Gate",
++      "function": "Mechanism that prevents, detects, or remediates",
++      "typical_location": "`enforcement.technical`, CI",
++      "reference_line": 258
++    },
++    {
++      "name": "DECISION",
++      "group": "advanced",
++      "synonyms": "ADR, Ruling, Approved Choice",
++      "function": "Records an authoritative choice among alternatives",
++      "typical_location": "`decisions/`",
++      "reference_line": 259
++    },
++    {
++      "name": "EXCEPTION",
++      "group": "advanced",
++      "synonyms": "Waiver, Deviation, Exemption",
++      "function": "Bounded, authorized departure from another item",
++      "typical_location": "`decisions/exceptions/`",
++      "reference_line": 260
++    },
++    {
++      "name": "CAPABILITY",
++      "group": "advanced",
++      "synonyms": "Skill Reference, Tool Grant, MCP Capability",
++      "function": "Declares a governed capability with its selection, qualification, and execution constraints. **Does not grant permissions; documents them.**",
++      "typical_location": "`skills/`, `capabilities/`",
++      "reference_line": 261
++    }
++  ],
++  "forces": [
++    "MUST",
++    "MUST_NOT",
++    "SHOULD",
++    "SHOULD_NOT",
++    "MAY",
++    "INFORMATIVE"
++  ],
++  "severities": [
++    "critical",
++    "high",
++    "medium",
++    "low",
++    "info"
++  ],
++  "honesty_checks": [
++    {
++      "id": "HON-1",
++      "requirement": "No `VERIFIED` without execution evidence.",
++      "reference_line": 638,
++      "runtime_status": "REQUIRED / NOT_RUN / NOT_WAIVED"
++    },
++    {
++      "id": "HON-2",
++      "requirement": "No `PASS` for `UNKNOWN_ID`.",
++      "reference_line": 639,
++      "runtime_status": "REQUIRED / NOT_RUN / NOT_WAIVED"
++    },
++    {
++      "id": "HON-3",
++      "requirement": "No `PASS` for empty outputs.",
++      "reference_line": 640,
++      "runtime_status": "REQUIRED / NOT_RUN / NOT_WAIVED"
++    },
++    {
++      "id": "HON-4",
++      "requirement": "`task_criteria` consumed, not merely accepted.",
++      "reference_line": 641,
++      "runtime_status": "REQUIRED / NOT_RUN / NOT_WAIVED"
++    },
++    {
++      "id": "HON-5",
++      "requirement": "`BLOCKED` distinct from `NO_SKILL_MATCH`.",
++      "reference_line": 642,
++      "runtime_status": "REQUIRED / NOT_RUN / NOT_WAIVED"
++    },
++    {
++      "id": "HON-6",
++      "requirement": "No `HOST_SIGNAL` without host signal.",
++      "reference_line": 643,
++      "runtime_status": "REQUIRED / NOT_RUN / NOT_WAIVED"
++    },
++    {
++      "id": "HON-7",
++      "requirement": "Qualification resets on version change.",
++      "reference_line": 644,
++      "runtime_status": "REQUIRED / NOT_RUN / NOT_WAIVED"
++    }
++  ],
++  "semantics": "Inventory and source projection only. Conditions remain in the original schemas. No defaults or authority are inferred; validation and runtime qualification are NOT_RUN."
++}

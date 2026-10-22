@@ -1,0 +1,126 @@
+{
+  "observed_at_utc": "2026-10-22T11:37:55.382Z",
+  "status": "PASS",
+  "protected_inputs": {
+    "count": 111,
+    "status": "UNCHANGED"
+  },
+  "before_snapshots": {
+    "count": 4,
+    "status": "UNCHANGED"
+  },
+  "master_task_definitions": {
+    "count": 57,
+    "identifiers_unchanged": true
+  },
+  "scope_slices": {
+    "count": 10,
+    "ids": [
+      "E1.a",
+      "E1.b",
+      "E1.c",
+      "E1.d",
+      "E2.a",
+      "E2.b",
+      "E2.c",
+      "E2.d",
+      "E2.e",
+      "R1"
+    ],
+    "dependencies": {
+      "E1.a": [],
+      "E1.b": [
+        "E1.a"
+      ],
+      "E1.c": [
+        "E1.b"
+      ],
+      "E1.d": [
+        "E1.b",
+        "E1.c"
+      ],
+      "E2.a": [
+        "E1.d"
+      ],
+      "E2.b": [
+        "E2.a"
+      ],
+      "E2.c": [
+        "E2.b"
+      ],
+      "E2.d": [
+        "E2.a",
+        "E2.c"
+      ],
+      "E2.e": [
+        "E2.b",
+        "E2.c",
+        "E2.d"
+      ],
+      "R1": [
+        "E1.c",
+        "E2.e"
+      ]
+    },
+    "acyclic": true
+  },
+  "acceptance_cases": {
+    "count": 15,
+    "ids": [
+      "C01",
+      "C02",
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "C07",
+      "C08",
+      "C09",
+      "C10",
+      "C11",
+      "C12",
+      "C13",
+      "C14",
+      "C15"
+    ]
+  },
+  "candidate": {
+    "path": "governance_packages/candidates/AGHR_rc3_Core_Candidate",
+    "exists": false,
+    "implementation": "NOT_STARTED"
+  },
+  "custody": {
+    "head": "bb76a0b61617512f4cd6d0c6cea792e35d5ff4aa",
+    "branch": "main"
+  },
+  "changes": [
+    {
+      "path": "docs/plans/STUDIO_FULL_PROJECT_UPGRADE_AR.md",
+      "before_sha256": "902075f060f2844745caf4c2d718b61ed4cfa54db109dcbf80d8f3dd8903b30d",
+      "after_sha256": "0fdcac1fa01e4abd527827bb6e8affdc9f87e2f233c650ff0991895d69c73f22",
+      "patch": "change-01.patch"
+    },
+    {
+      "path": "docs/plans/STUDIO_UPGRADE_TASKS_AR.md",
+      "before_sha256": "e34d199e3bd455c231bdf36f2eae466609a5ee659808e19a10553b93ff5ba001",
+      "after_sha256": "515f09147bffea552db94055c56ef44b0de1a2a3ef747320b7ca18ec31ca8e03",
+      "patch": "change-02.patch"
+    },
+    {
+      "path": "docs/status/CURRENT.md",
+      "before_sha256": "7e29de1ffb66235db9d3916196a27e73e83b71d9a50c67f5034df6709798316f",
+      "after_sha256": "de5dbaa2bb43aa79a9419e706303970bf6fc376b54c26b287ff1c4afc7d613c6",
+      "patch": "change-03.patch"
+    },
+    {
+      "path": "docs/status/HANDOFF.md",
+      "before_sha256": "e47bc93d0b64b429130cf98295a3684919d0f6e2f0212b17fea92bbb6e3223b5",
+      "after_sha256": "3f4770507f7fe42672f11b0f4b3a8e203a0d44dc6b80ea28ec3c26f025c4ca26",
+      "patch": "change-04.patch"
+    }
+  ],
+  "T01": "BLOCKED_NOT_CLOSED",
+  "T02": "NOT_STARTED",
+  "independent_review": "NOT_PERFORMED",
+  "release_acceptance": "NOT_GRANTED"
+}

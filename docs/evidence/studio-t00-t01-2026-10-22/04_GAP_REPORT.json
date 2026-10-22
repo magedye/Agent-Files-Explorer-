@@ -1,0 +1,129 @@
+{
+  "observed_at_utc": "2026-10-22T02:50:55.403Z",
+  "gaps": [
+    {
+      "id": "G1",
+      "finding": "No pinned rc.3 engine distribution/entrypoint in active settings or inspected Python installation",
+      "classification": "REQUIRED_INPUT_UNAVAILABLE",
+      "evidence": [
+        "01_ENGINE_PROVENANCE.json",
+        "COMMAND_DISCOVERY.json"
+      ],
+      "routes": [
+        "E1",
+        "E2"
+      ],
+      "blocks": [
+        "T01_ACCEPTANCE",
+        "T02"
+      ],
+      "action": "Supply a verifiable compatible engine or authorize an isolated core candidate after reviewing this report"
+    },
+    {
+      "id": "G2",
+      "finding": "Legacy validate CLI does not accept --strict; other rc.3 command surfaces are not exposed by this parser",
+      "classification": "OBSERVED_COMPATIBILITY_GAP",
+      "evidence": [
+        "02_CLI_SURFACE.json",
+        "06_INVOCATION_TRANSCRIPT.json"
+      ],
+      "routes": [
+        "E2",
+        "E3"
+      ],
+      "blocks": [
+        "T02",
+        "T06",
+        "T17"
+      ],
+      "action": "Preserve legacy behavior; define rc.3 CLI compatibility in the selected engine"
+    },
+    {
+      "id": "G3",
+      "finding": "No real rc.3 reference package in the scoped active inputs; contracts/aghr.json explicitly identifies itself as an example",
+      "classification": "REQUIRED_INPUT_UNAVAILABLE",
+      "evidence": [
+        "05_REFERENCE_PACKAGE.json"
+      ],
+      "routes": [
+        "E1"
+      ],
+      "blocks": [
+        "T01_ACCEPTANCE",
+        "T03",
+        "T06"
+      ],
+      "action": "Provide an existing real package or separately prepare a sourced candidate; do not relabel 1.3.0 or the contract example"
+    },
+    {
+      "id": "G4",
+      "finding": "rc.3 lifecycle/evidence behavior not qualified; legacy skill-result guards are reuse candidates only",
+      "classification": "NOT_QUALIFIED",
+      "evidence": [
+        "03_COMPATIBILITY_MATRIX.json",
+        "docs/contracts/aghr-rc3/ENGINE_ACCEPTANCE.json"
+      ],
+      "routes": [
+        "E4"
+      ],
+      "blocks": [
+        "T22",
+        "T23"
+      ],
+      "action": "Compare legacy fixes against rc.3 evidence and host semantics before reuse"
+    },
+    {
+      "id": "G5",
+      "finding": "rc.3 CP hashing/calibration/approval behavior not demonstrated by the inspected runtime",
+      "classification": "NOT_DEMONSTRATED",
+      "evidence": [
+        "03_COMPATIBILITY_MATRIX.json"
+      ],
+      "routes": [
+        "E5"
+      ],
+      "blocks": [
+        "T16",
+        "T18",
+        "T29"
+      ],
+      "action": "Qualify the chosen engine against CP/CAL requirements; no duplicate Node policy engine"
+    },
+    {
+      "id": "G6",
+      "finding": "Legacy runtime exposes LOCAL_JSON state update, while rc.3 requires CI-only canonical publication; provenance and publication trust are unqualified",
+      "classification": "OBSERVED_ARCHITECTURAL_DIFFERENCE",
+      "evidence": [
+        "governance_packages/candidates/AGHR_Candidate_1.3.0/runtime/cli.py",
+        "docs/contracts/aghr-rc3/ENGINE_ACCEPTANCE.json"
+      ],
+      "routes": [
+        "E6"
+      ],
+      "blocks": [
+        "T24",
+        "T34",
+        "T35"
+      ],
+      "action": "Do not reuse legacy update_state as an rc.3 canonical-state writer; qualify trusted post-merge publisher"
+    },
+    {
+      "id": "G7",
+      "finding": "Required wall-clock, process-tree and memory adapter not qualified",
+      "classification": "NOT_QUALIFIED",
+      "evidence": [
+        "docs/contracts/aghr-rc3/settings.yaml"
+      ],
+      "routes": [
+        "T15"
+      ],
+      "blocks": [
+        "eval_BODY",
+        "qualify_BODY"
+      ],
+      "action": "No eval/qualify body ran during this audit; qualify actual platform controls at T15"
+    }
+  ],
+  "engine_work_scope": "E routes are conditional implementation options, not authorization or a finding that all legacy code must be rewritten",
+  "legacy_reuse": "Preserve existing 1.3.0 skill fixes as comparison inputs; 320 historical local tests do not qualify rc.3 or native hosts"
+}

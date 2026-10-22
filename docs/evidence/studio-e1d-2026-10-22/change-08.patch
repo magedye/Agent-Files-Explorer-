@@ -1,0 +1,141 @@
+diff --git a/docs/evidence/studio-e1d-2026-10-22/before/08.snapshot b/governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/cli.py
+index 50af818..8054018 100644
+--- a/docs/evidence/studio-e1d-2026-10-22/before/08.snapshot
++++ b/governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/cli.py
+@@ -1,6 +1,7 @@
+-"""Read-only source metadata CLI. Reader serialization waits for E1.d; E2+ is blocked."""
++"""Read-only metadata/catalog CLI. Governing E2+ commands remain blocked."""
+ 
+ import argparse
++from dataclasses import asdict
+ import hashlib
+ import json
+ from pathlib import Path
+@@ -9,11 +10,39 @@ import sys
+ 
+ ROOT = Path(__file__).resolve().parent.parent
+ SOURCE_FILES = (
+-    "CLI_CONTRACT.json", "LICENSE", "PACKAGE_STATUS.json", "PROVENANCE.json",
+-    "SOURCE_MAP.json", "aghr.json", "policies/observations/reference-state.json",
++    "CLI_CONTRACT.json",
++    "LICENSE",
++    "PACKAGE_STATUS.json",
++    "PROVENANCE.json",
++    "SOURCE_MAP.json",
++    "aghr.json",
++    "policies/observations/reference-state.json",
+     "requirements.lock",
+-    "tests/test_cli.py", "tests/test_loader.py", "tools/cli.py",
+-    "tools/diagnostics.py", "tools/loader.py",
++    "schemas/MODEL_INDEX.json",
++    "schemas/SCHEMAS.lock.json",
++    "schemas/aghr.schema.json",
++    "schemas/api.change.schema.json",
++    "schemas/api.execution.schema.json",
++    "schemas/api.read.schema.json",
++    "schemas/api.responses.schema.json",
++    "schemas/auth.schema.json",
++    "schemas/capability.schema.json",
++    "schemas/common.schema.json",
++    "schemas/engine.schema.json",
++    "schemas/evidence.schema.json",
++    "schemas/item.schema.json",
++    "schemas/proposal.schema.json",
++    "schemas/qualification.schema.json",
++    "schemas/settings.schema.json",
++    "schemas/state.schema.json",
++    "schemas/transport.schema.json",
++    "tests/test_catalog.py",
++    "tests/test_cli.py",
++    "tests/test_loader.py",
++    "tools/catalog.py",
++    "tools/cli.py",
++    "tools/diagnostics.py",
++    "tools/loader.py",
+ )
+ DEFERRED = {
+     "validate": "E2", "lint": "E2", "generate": "E3", "check": "E3",
+@@ -42,7 +71,7 @@ def source_identity():
+     mapping = {item["path"]: item["sha256"] for item in artifacts}
+     encoded = json.dumps(mapping, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+     return {
+-        "implementation_id": "aghr-rc3-core-candidate", "stage": "E1.c",
++        "implementation_id": "aghr-rc3-core-candidate", "stage": "E1.d",
+         "target_spec_version": "1.0.0-rc.3", "schema_version": "1.2",
+         "content_hash": hashlib.sha256(encoded.encode("utf-8")).hexdigest(),
+         "hash_algorithm": "sha256-path-map-v1", "artifacts": artifacts,
+@@ -53,10 +82,10 @@ def source_identity():
+ 
+ def response(command, result, exit_code, source=None, diagnostic=None, data=None):
+     return {
+-        "protocol_version": "1", "command": command, "result": result,
++        "protocol_version": "2", "command": command, "result": result,
+         "exit_code": exit_code, "source": source,
+         "inputs": {"candidate_hash": None, "config_hash": None, "inputs_hash": None, "catalog": None},
+-        "checks": {"status": "NOT_RUN", "reason": "Source metadata only; no governance check has executed."},
++        "checks": {"status": "NOT_RUN", "reason": "No governing check has executed."},
+         "diagnostics": [diagnostic] if diagnostic else [], "data": data,
+     }
+ 
+@@ -64,7 +93,9 @@ def response(command, result, exit_code, source=None, diagnostic=None, data=None
+ def emit(report, output_format):
+     if output_format == "json":
+         print(json.dumps(report, ensure_ascii=False, allow_nan=False, separators=(",", ":")))
+-    elif report["data"]:
++    elif report["result"] == "READ":
++        print(f"READ: {len(report['data']['catalog']['items'])} items (NOT_VALIDATED)")
++    elif report["data"] and "help" in report["data"]:
+         print(report["data"]["help"], end="")
+     elif report["result"] == "INFO":
+         print(f"AGHR rc.3 core candidate {report['source']['stage']} sha256:{report['source']['content_hash']} (NOT_QUALIFIED)")
+@@ -79,13 +110,13 @@ def main(argv=None):
+     # Disable option abbreviation and @file expansion: argv is data, never shell.
+     # https://docs.python.org/3.12/library/argparse.html
+     parser = Parser(prog="aghr", add_help=False, allow_abbrev=False)
+-    parser.add_argument("command", nargs="?", choices=tuple(DEFERRED))
++    parser.add_argument("command", nargs="?", choices=("catalog", *DEFERRED))
+     actions = parser.add_mutually_exclusive_group()
+     actions.add_argument("-h", "--help", action="store_true")
+     actions.add_argument("--version", action="store_true")
+     parser.add_argument("--format", choices=("json", "text"), default="json")
+     parser.add_argument("--strict", action="store_true")
+-    parser.description = "E1.c source: help and identity only in CLI. All governance commands are BLOCKED."
++    parser.description = "E1.d: catalog reads cwd without writes; governing commands remain BLOCKED."
+     parser.epilog = "validate/lint: E2; generate/check/doctor: E3; eval/qualify: E4 and T15. No source, state, cache or log writes."
+     args = list(sys.argv[1:] if argv is None else argv)
+     output_format = "json"
+@@ -116,11 +147,33 @@ def main(argv=None):
+         }), output_format)
+     except (OSError, ValueError):
+         return emit(response(command, "ERROR", 2, diagnostic={
+-            "code": "SOURCE_IDENTITY_UNAVAILABLE", "message": "Cannot read the complete candidate source identity.", "stage": "E1.c",
++            "code": "SOURCE_IDENTITY_UNAVAILABLE", "message": "Cannot read the complete candidate source identity.", "stage": "E1.d",
+         }), output_format)
+     if command in ("help", "version"):
+         data = {"help": parser.format_help()} if command == "help" else None
+         return emit(response(command, "INFO", 0, identity, data=data), output_format)
++    if command == "catalog":
++        # Imports always come from the owned source, never the selected package.
++        sys.path.insert(0, str(ROOT / "tools"))
++        from diagnostics import ReadFailure
++        package = None
++        try:
++            from catalog import build_catalog, serialize_catalog, source_record
++            from loader import read_package
++            package = read_package(Path.cwd())
++            payload = build_catalog(package)
++            serialize_catalog(payload)  # Bound output before writing to stdout.
++        except ImportError:
++            return emit(response(command, "BLOCKED", 3, identity, diagnostic={
++                "code": "READER_DEPENDENCY_UNAVAILABLE", "message": "Locked reader dependencies are unavailable.",
++                "stage": "E1.d",
++            }), output_format)
++        except ReadFailure as error:
++            diagnostic = {**asdict(error.diagnostic), "stage": "E1.d"}
++            captured = error.sources or (() if package is None else package.sources)
++            data = {"read_error": {"sources": [source_record(s) for s in captured]}}
++            return emit(response(command, "ERROR", 2, identity, diagnostic=diagnostic, data=data), output_format)
++        return emit(response(command, "READ", 0, identity, data={"catalog": payload}), output_format)
+     return emit(response(command, "BLOCKED", 3, identity, diagnostic={
+         "code": "IMPLEMENTATION_UNAVAILABLE", "message": "The requested governance command has not been implemented.",
+         "stage": DEFERRED[command],

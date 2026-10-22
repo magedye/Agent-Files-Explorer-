@@ -1,0 +1,603 @@
+diff --git "a/governance_packages/archive/studio-designs-2026-10-21/adopted-last-app-sources/AGHR Governance Studio \342\200\224 Complete Spec.md" b/docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md
+index e497239..bca22dd 100644
+--- "a/governance_packages/archive/studio-designs-2026-10-21/adopted-last-app-sources/AGHR Governance Studio \342\200\224 Complete Spec.md"	
++++ b/docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md
+@@ -2,6 +2,8 @@
+ 
+ **Version:** 1.0.0 · **Status:** Implementation Specification · **Alignment:** AGHR 1.0.0-rc.3 (Consolidated) · **Scope:** Local-first desktop-class web application
+ 
++**Design reconciliation revision:** last-app-integrated-2026-10-22. The selected last-app specification is extended with the previously accepted baseline requirements. Appendix G defines compatibility and the carried-forward acceptance obligations. Specification version 1.0.0 describes this design; implementation, host qualification and release acceptance require their own evidence.
++
+ ---
+ 
+ ## Part I — Foundation
+@@ -30,7 +32,7 @@ The following twelve commitments are **derived directly from rc.3** and are non-
+ 
+ | # | Commitment | rc.3 § | Enforcement mechanism |
+ |---:|---|---|---|
+-| C1 | Four-layer separation | §1.1 | Each screen declares its layer; cross-layer operations require explicit user confirmation |
++| C1 | Four-layer separation | §1.1 | Each screen declares its layer; mutations across authority boundaries require the applicable confirmation; navigation and read-only inspection remain ordinary view operations |
+ | C2 | CI is sole writer of `state.json` | §12.1 | File opened read-only by backend; regression test in CI blocks merge if any write path exists |
+ | C3 | Runtime evidence is separate | §12.1, §12.2 | Backend reads `.aghr/runtime_evidence/{task_id}.jsonl` in read-only mode; no write endpoint |
+ | C4 | Language does not filter rules | §5.3 | Filtering by `scope.language` is disabled at the query layer; UI shows `translation_unavailable` badge |
+@@ -40,8 +42,8 @@ The following twelve commitments are **derived directly from rc.3** and are non-
+ | C8 | Three discovery states distinct | §7.2 | `UNKNOWN_ID`, `NO_SKILL_MATCH`, `DISCOVERY_UNAVAILABLE` have distinct colors, icons, and copy |
+ | C9 | `PRIN-007` in every `AGENTS.md` at L1+ | §9.2, §14.2 | Generation pipeline fails if `PRIN-007` absent; Studio blocks export on failure |
+ | C10 | Qualification per `(host, version, scope, contentHash)` | §7.4 | All four keys required; change in any → `QUALIFIED` → `NOT_RUN` |
+-| C11 | 100% honesty vs ≥95% behavioral | §11.1 | Two separate gauges; never averaged; false-success rate must be 0% |
+-| C12 | Resource limits on `eval`/`qualify` | Operational | Timeout ≤ 10 min; memory ≤ 2 GiB; `resource_limit_exceeded` status |
++| C11 | 100% honesty vs fixture-specific behavioral tolerance | §11.1 | Separate gauges; general behavioral target ≥95%; P0-Safety permits zero violations; false-success rate must be 0% |
++| C12 | Resource limits on `eval`/`qualify` | Operational | Bounded per-command profiles: defaults eval 600s, qualify 3600s, memory 2 GiB; changes require configured authorization; `resource_limit_exceeded` status |
+ 
+ ### 4. The Change Package — Studio's Unit of Work
+ 
+@@ -49,11 +51,13 @@ The following twelve commitments are **derived directly from rc.3** and are non-
+ 
+ 1. **Version-bound approvals** — every approval carries `approved_version_hash`; if the proposal changes, all approvals are automatically invalidated.
+ 2. **Three-stage generation evidence** — records `full`/`compress`/`compact`/`fail` stage and proves P0 preservation.
+-3. **Cross-check against CI** — Studio's validation result is compared with CI's result; any divergence blocks export.
++3. **Cross-check against CI** — compare results for the same candidate and engine version when CI evidence exists. A known divergence blocks approved export/publication. Missing CI evidence is `NOT_RUN`; draft patch/PR preparation may proceed within authorization, while release and published-state claims remain gated by CI.
+ 4. **Runtime evidence attachment** — when the change originates from an agent session, the `task_id` is bound; CI merges evidence before adopting `state.json`.
+ 
+ These four additions do **not** modify rc.3; they make §16.1's abstract requirement concrete and auditable.
+ 
++`change_packages.kind` classifies the Studio workflow. Values such as `calibration`, `PROJECT_SELECTION` and `GENERATED_FILE` belong to that wrapper only. An instruction's `proposed_yaml.kind` remains one of the thirteen rc.3 item kinds and is validated by the appropriate package schema. A wrapper kind never creates a new governance kind.
++
+ ---
+ 
+ ## Part II — Data Model
+@@ -107,6 +111,7 @@ CREATE TABLE target_projects (
+ CREATE TABLE instruction_items_cache (
+   workspace_id TEXT NOT NULL,
+   item_id TEXT NOT NULL,
++  title TEXT,
+   kind TEXT NOT NULL,
+   force TEXT NOT NULL,
+   severity TEXT NOT NULL,
+@@ -159,6 +164,10 @@ CREATE TABLE instruction_items_cache (
+   -- Content
+   rationale TEXT,
+   rule_text TEXT,
++  verification_json TEXT,                 -- lossless projection of verification
++  exceptions_json TEXT,
++  references_json TEXT,
++  source_yaml TEXT NOT NULL,              -- immutable source snapshot for this source_hash
+   source_path TEXT NOT NULL,
+   source_hash TEXT NOT NULL,
+   indexed_at TEXT NOT NULL,
+@@ -302,6 +311,8 @@ CREATE TABLE change_package_approval_history (
+   approver TEXT NOT NULL,
+   decision TEXT NOT NULL,
+   approved_version_hash TEXT NOT NULL,
++  reason TEXT,                          -- original approval/rejection rationale
++  at TEXT NOT NULL,                     -- original decision timestamp
+   invalidated_at TEXT NOT NULL,
+   invalidation_reason TEXT NOT NULL       -- "proposal_changed" | "explicit_withdrawal"
+ );
+@@ -323,6 +334,7 @@ CREATE TABLE runtime_evidence_events (
+                                           -- skill.executed | skill.verified | discovery.outcome
+                                           -- authorization.request | authorization.denied
+   skill_id TEXT,
++  source TEXT,                           -- declared producer: agent | host | ci; not proof of trust
+   payload_json TEXT NOT NULL,
+   recorded_at TEXT NOT NULL,
+   source_file TEXT NOT NULL,              -- path to jsonl
+@@ -351,6 +363,7 @@ CREATE TABLE verification_runs (
+   summary_json TEXT,                      -- structured: {counts, errors, warnings, p0_issues}
+   raw_stdout TEXT,
+   raw_stderr TEXT,
++  raw_output TEXT,                       -- chronological combined capture retained for baseline compatibility
+   sarif_output TEXT,                      -- if applicable
+   triggered_by TEXT,                      -- user | scheduled | ci
+   triggered_by_user TEXT,
+@@ -369,6 +382,8 @@ CREATE TABLE metrics_snapshots (
+   id INTEGER PRIMARY KEY AUTOINCREMENT,
+   workspace_id TEXT NOT NULL,
+   captured_at TEXT NOT NULL,
++  instruction_metrics_json TEXT,          -- original grouped payload; scalars below are projections of this capture
++  skill_metrics_json TEXT,
+ 
+   -- §17.1 Instruction metrics
+   policy_coverage_pct REAL,
+@@ -396,7 +411,8 @@ CREATE TABLE audit_events (
+   id INTEGER PRIMARY KEY AUTOINCREMENT,
+   at TEXT NOT NULL,
+   actor TEXT NOT NULL,
+-  actor_role TEXT,                        -- simulated_role
++  actor_role TEXT,                        -- server-resolved authorization role
++  simulated_role TEXT,                    -- optional preview context; never grants permissions
+   event_type TEXT NOT NULL,               -- cp.create | cp.validate | cp.approve | cp.export
+                                           -- adoption.start | adoption.apply
+                                           -- workspace.add | workspace.scan
+@@ -438,7 +454,7 @@ Two side-by-side cards:
+ | Target: `L3` | Target: `L3` |
+ | Requirements met: 4/5 | Requirements met: 2/4 |
+ | Missing: branch protection gate | Missing: P0 skills qualified on codex |
+-| **Divergence warning** if `instruction_level ≠ skill_level` and both `≥ L2` |
++| **Divergence warning** whenever applicable `instruction_level ≠ skill_level`, including L2 vs L1; explain separate goals and show N/A explicitly |
+ 
+ Clicking either card opens a drill-down listing per §13 requirements.
+ 
+@@ -511,6 +527,18 @@ Review: annual · next due 2027-01-01 · [Due in 68 days]
+ 
+ #### 13.2 Tabs
+ 
++**Editor requirements (carried forward from the accepted baseline §5.1).** The editor exposes the complete rc.3 §3.2 schema. Required fields are conditional; a successful client-side schema check does not replace the governing Python engine's validation.
++
++| Force / reference | Required fields or evidence |
++|---|---|
++| `INFORMATIVE` / `MAY` | `id`, `kind`, `force`, `severity`, `scope`, `rule` |
++| `SHOULD` / `SHOULD_NOT` | Above + `authority.owner`, `rationale` |
++| `MUST` | Above + full `authority` including `level`, and `verification` |
++| `MUST_NOT` with `critical` or `high` severity | Above + `approvedBy`, technical/human enforcement, `evalFixtures`, `mergeEffect`, `gate` |
++| Any `CAPABILITY` reference | A qualification record applicable to `(host, version, scope, contentHash)` |
++
++`reviewCadence` and `nextReview` remain optional lifecycle fields. An active item's overdue `nextReview` triggers Review Due. Relations expose `conflictPolicy.precedence`, `overrides`, `overriddenBy` and `authority.supersedes`, and use `aghr lint` for conflict detection.
++
+ **Tab 1 — Rule & Rationale**
+ - Full `rule` text (syntax-highlighted YAML block)
+ - `rationale` (prose)
+@@ -626,7 +654,7 @@ Per-host table:
+ | gemini-cli | 2.1.0 | payments/** | NOT_RUN | — | — | — | — |
+ | antigravity | 2.0.1 | payments/** | NOT_OBSERVABLE | — | — | reason | — |
+ 
+-**Red badge "Qualification Expired"** if `content_hash` or `host_version` changed since `qualified_at`.
++**Red badge "Qualification Expired"** if any qualification key changes: `host`, `host_version`, `scope` or `content_hash`. Prior evidence remains historical; the new tuple is `NOT_RUN`, and P0 selection is blocked until qualified for that tuple.
+ 
+ #### 15.4 Axis 3 — Usage (rc.3 §7.1)
+ 
+@@ -724,6 +752,8 @@ Full syntax-highlighted `AGENTS.md` output with:
+ - **"Create Change Package"** → creates CP of `kind: GENERATED_FILE` that, when approved, exports the file as patch/commit
+ - **If stage = `fail`: export is disabled** with message "Cannot export: P0 items overflow"
+ 
++For every target, record `budgetBytes`, actual UTF-8 output bytes and P0-preservation evidence in all non-failing stages. `compress` requires an explicit acknowledgement of its summaries. `compact` additionally requires a version-bound governance-owner acknowledgement that all P0 obligations remain reachable and that the target's on-demand lookup is available and verified. A missing lookup, missing `PRIN-007`, lost P0 obligation or `fail` blocks export. Clipboard/download actions must not bypass these checks. Evidence previews may display a failed output without exporting it as an accepted `AGENTS.md`.
++
+ ### 18. Screen 8 — Verification & Evidence
+ 
+ **Layer:** 4 — Evidence
+@@ -734,17 +764,17 @@ Full syntax-highlighted `AGENTS.md` output with:
+ 
+ #### 18.1 Run Panel
+ 
+-Six command buttons:
++Seven command buttons, all invoking the pinned Python AGHR CLI through the same subprocess bridge:
+ 
+ | Command | Endpoint | Typical duration | Resource limits |
+ |---|---|---|---|
+-| `aghr validate --strict` | in-process | <2s | — |
+-| `aghr lint` | in-process | <2s | — |
+-| `aghr generate --check` | in-process | <2s | — |
+-| `aghr check --skill-states` | in-process | <2s | — |
++| `aghr validate --strict` | Python subprocess | <2s target | bounded fast-command profile |
++| `aghr lint` | Python subprocess | <2s target | bounded fast-command profile |
++| `aghr generate --check` | Python subprocess | <2s target | bounded fast-command profile |
++| `aghr check --skill-states` | Python subprocess | <2s target | bounded fast-command profile |
+ | `aghr eval --priority P0-*` | subprocess | minutes | 10 min / 2 GiB |
+-| `aghr qualify --all-p0-skills` | subprocess | minutes-hours | 10 min / 2 GiB |
+-| `aghr doctor` | in-process | <2s | — |
++| `aghr qualify --all-p0-skills` | subprocess | minutes-hours | 60 min / 2 GiB |
++| `aghr doctor` | Python subprocess | <2s target | bounded fast-command profile |
+ 
+ Each button opens a modal: select profile, args, and confirm.
+ 
+@@ -761,6 +791,8 @@ Each button opens a modal: select profile, args, and confirm.
+ - **SARIF download** if applicable
+ - **"Suspicious" detector:** if `command=eval` returns `passed` but `raw_stdout` contains no `PASS` string, mark `suspicious` with alert
+ 
++The textual detector is a diagnostic heuristic, never proof of success. `VERIFIED`/`PASS` requires a known skill ID, a successful explicit execution state, non-empty valid outputs and evidence, and application of the actual `task_criteria` to the content. Record each criterion, its observed result and evidence link; reject missing criteria, `UNKNOWN` execution, empty artifacts, fabricated host signals and unsupported success claims. Loading, selecting or acknowledging a skill is insufficient. A missing runtime observation remains `NOT_RUN` or `NOT_OBSERVABLE` as applicable.
++
+ #### 18.4 History
+ 
+ Table of all runs with: command, status, duration, timestamp, triggered_by, linked CP.
+@@ -779,7 +811,7 @@ Click row → opens result view. Diff between two runs available.
+ 
+ Columns: `task_id` · `agent` · `agent_version` · `started_at` · `ended_at` · `events_count` · `attention_flags` (badges for `BLOCKED`, `DISCOVERY_UNAVAILABLE`, `UNKNOWN_ID`, `EXECUTED_FAILED`)
+ 
+-**Default filter:** sort by `attention_flags` count descending, then by `started_at` descending.
++**Default ordering:** highest-priority flag first: `BLOCKED` → `DISCOVERY_UNAVAILABLE` → `UNKNOWN_ID` → `EXECUTED_FAILED` → others; within the same priority, sort by attention-flag count descending, then `started_at` descending. All flags remain visible.
+ 
+ #### 19.2 Task Detail (Timeline)
+ 
+@@ -803,13 +835,15 @@ Chronological vertical timeline, one entry per event:
+ 
+ #### 19.3 Halt Semantics (rc.3 §7.2)
+ 
+-When a task contains `DISCOVERY_UNAVAILABLE` or `BLOCKED`, the task detail shows a **prominent warning panel**:
++When a task contains `DISCOVERY_UNAVAILABLE` or `BLOCKED`, the task detail shows a **prominent warning panel** specific to its cause:
+ 
+ > **Halt Required**
+ > This session recorded a `DISCOVERY_UNAVAILABLE` event at 18:45. Per rc.3 §7.2, the session's execution is **not trusted** without re-discovery. Before treating any subsequent `VERIFIED` events as valid, re-run discovery with a healthy registry and record the outcome as a new task.
+ 
+ This prevents the Studio from ever presenting a poisoned session as successful.
+ 
++For `BLOCKED`, display the denied permission and the missing authorization; discovery alone does not clear it. There is no fallback to direct execution or `NO_SKILL_MATCH`. `NO_SKILL_MATCH` is a valid selection outcome when no skill fits; it is not an authorization waiver. The host discovers/loads/invokes actual available skills, AGHR governs trust/authority/evidence, the project supplies context, and the agent chooses the smallest effective set for each phase.
++
+ #### 19.4 Actions
+ 
+ - **"Submit to CI"** — generates a PR draft including the evidence file, linked to a Change Package
+@@ -887,7 +921,7 @@ Table of required roles:
+ | security-owner | ⏳ pending | — | — | — | Approve / Reject |
+ 
+ **Approve button** only enabled if:
+-1. All checks passed (or generate in `compress` with explicit ack)
++1. All required checks passed; `compress` has explicit acknowledgement, and `compact` additionally has the governance-owner acknowledgement and verified lookup required by §17.4. `fail` always blocks approval/export.
+ 2. Proposal version hash matches current
+ 3. User role matches required role
+ 4. No previous rejection at current version
+@@ -927,7 +961,7 @@ After export → status becomes `exported`; the patch path or commit SHA is reco
+ #### 22.1 Tab — §16.1 Instruction-Item Changes
+ 
+ Same as Change Package, but with additional requirements:
+-- `kind` restricted to `policies/**` items
++- Route changes touching `policies/**`, `schemas/**` or `tools/**` into this workflow based on their affected paths; this is independent of the thirteen normative item kinds or the Studio wrapper kind
+ - Requires governance-owner + at least one additional reviewer
+ - **All existing behavioral evals must pass** in the checks panel
+ - `aghr generate --check` must return `passed` after regeneration
+@@ -938,7 +972,7 @@ Same as Change Package, but with additional requirements:
+ 
+ 1. **Classify** — source (system/user/project/extension/catalog) × function (routing/design/implementation/debugging/security/verification/learning)
+ 2. **Duplicate check** — compares against existing capabilities; if duplicate → must record preferred + alternative
+-3. **Add to project selections** — updates `capabilities/project-selections/` (creates CP)
++3. **Add to project selections** — stages proposed updates to `capabilities/project-selections/` in a draft CP
+ 4. **Create/update CAPABILITY item** — wizard for full capability YAML
+ 5. **Run qualification** — opens Verification screen pre-configured with `aghr qualify --skill {id} --host {host} --version {v} --scope {s}`
+ 6. **Add eval fixtures** — if P0, must create fixtures covering all 8 scenarios from §11.2
+@@ -1007,6 +1041,8 @@ Each report has a "Generate" button → produces a run, viewable and downloadabl
+ 
+ **Purpose:** Persistent view of rc.3 §17 metrics.
+ 
++All values below are illustrative UI examples, not measured project results. Each real value links to its candidate/version, source run, numerator/denominator and observation period. No observations means `NOT_RUN`, never a fabricated 0% success/failure rate. Discovery reporting accuracy (truthfulness of reported states) and multilingual discovery recall (retrieval quality) have separate denominators and displays.
++
+ **Layout — two sections:**
+ 
+ #### 25.1 Instruction Metrics (§17.1)
+@@ -1035,7 +1071,7 @@ Each with a sparkline. Clicking opens a detail view with per-item breakdown.
+ 
+ **Separate panels for honesty vs behavioral:** below the tables, two large gauges:
+ - Left gauge: **Honesty checks** — must be 100% (7 checks × N items)
+-- Right gauge: **Behavioral tolerance** — must be ≥95%
++- Right gauge: **Behavioral tolerance** — general target ≥95%, using each fixture's acceptance threshold; P0-Safety permits zero violations
+ 
+ These are **never averaged**. A commit is blocked if honesty <100%.
+ 
+@@ -1051,7 +1087,7 @@ Add / remove / re-scan. For each: path, version, signature status, last scan dur
+ 
+ #### 26.2 Roles & Users
+ 
+-Local simulated roles. Each user (OS username) can be assigned one role. Roles map to `can` permissions (see §27).
++Owner-controlled local role assignments map authenticated principals to permissions (see §44). Simulated roles are a separate preview-only feature; changing the preview role never changes the server-resolved principal or grants approval/write authority.
+ 
+ #### 26.3 Git Integration
+ 
+@@ -1083,7 +1119,7 @@ For each host (codex, gemini-cli, antigravity, claude-code, cursor):
+ 
+ ## Part IV — API Specification
+ 
+-All endpoints under `/api/v1/`. All require `X-Studio-Token` header (from `settings.yaml`). All responses are JSON with `{data, meta}` shape.
++All endpoints under `/api/v1/`. All require `X-Studio-Token`, an ephemeral session credential rotated at startup. `settings.yaml` configures authentication policy, not a fixed reusable token. All responses are JSON with `{data, meta}` shape. The backend resolves identity and scope independently of request-body role claims. A requested approval `role` identifies the approval slot, not the caller's authority.
+ 
+ ### 27. Endpoints — Workspaces & Projects
+ 
+@@ -1277,7 +1313,7 @@ POST   /settings/test-signing
+ 3. Step 2: duplicate check — Studio queries capability_items_cache for same function
+    - If match found → user must select preferred vs alternative
+ 4. Step 3: add to project selections
+-   - Creates or updates capabilities/project-selections/{project}.yaml
++   - Stages a draft of capabilities/project-selections/{project}.yaml; no canonical source write
+ 5. Step 4: create CAPABILITY item
+    - Editor with full capability schema
+    - Requires: skillId, source, function, permissions, inputs, outputs
+@@ -1286,12 +1322,12 @@ POST   /settings/test-signing
+      `aghr qualify --skill {id} --host {host} --version {v} --scope {s}`
+    - On completion, evidence link recorded
+ 7. Step 6: add eval fixtures (mandatory if P0)
+-   - Studio creates scaffolding in evals/fixtures/skill/{id}/
++   - Studio stages scaffolding for evals/fixtures/skill/{id}/ in the CP draft, outside canonical sources
+    - User fills in scenarios (8 mandatory)
+ 8. Step 7: submit as CP
+    - All steps' outputs are bundled into the CP's base_item_ids and checks
+    - Full CP approval flow applies
+-9. On approval + export → package contains the new skill + qualification evidence
++9. On approval + export → a reviewed patch/branch contains the proposed skill + qualification evidence; publication/merge remains separately authorized
+ 10. CI adopts state.json with new skillQualification entry
+ ```
+ 
+@@ -1315,21 +1351,25 @@ POST   /settings/test-signing
+ 
+ ### 41. Stack
+ 
++**Reuse the existing application foundation.** At reconciliation, the repository uses React 19 / Vite 7, JSX, a Node API, the shared `I18nProvider`, and the existing graph implementation. Do not downgrade React or Node, replace localization, or split the repository merely to match a proposed library name. The table below is a target capability map. TypeScript, Fastify, Zustand/TanStack Query, Radix/Tailwind, Monaco, React Flow, `ws` and i18next are implementation options subject to a Phase 0 ADR and a demonstrated gap; no dependency installation or rewrite is authorized by design adoption.
++
+ | Layer | Technology | Justification |
+ |---|---|---|
+-| Frontend | React 18 + TypeScript + Vite | Existing foundation |
+-| State | Zustand + TanStack Query | Client state + server cache |
+-| UI | Radix UI + Tailwind | Accessible primitives + fast styling |
+-| Editor | Monaco | Schema validation + YAML syntax |
+-| Graph | React Flow | Relations + dependency graphs |
+-| Backend | Node.js 20 LTS + Fastify | High-performance, typed routes |
++| Frontend | Existing React + Vite; TypeScript optional | Preserve working routes/components |
++| State | Existing state; Zustand + TanStack Query optional | Client state + server cache |
++| UI | Existing accessible components; Radix UI + Tailwind optional | Accessible primitives and consistent styling |
++| Editor | Schema-aware editor; Monaco optional | Schema feedback + YAML syntax |
++| Graph | Existing graph; React Flow optional | Relations + dependency graphs |
++| Backend | Existing Node API on a supported runtime; Fastify optional | Preserve server contracts/security |
+ | AGHR bridge | Python subprocess | Reuses `aghr` directly, no logic duplication |
+ | Storage | SQLite 3.40+ | Single file, no service |
+ | WebSocket | ws library | Streaming eval/qualify output |
+-| i18n | i18next | ar + en |
++| i18n | Existing shared catalog/provider; i18next optional | Complete ar + en chrome, preserve source text |
+ 
+ ### 42. Directory Structure
+ 
++This is a logical module map, not a mandatory repository relocation. Map frontend features to the existing `src/features/` and Studio backend services to `server/studio/` unless an approved ADR justifies a split. Keep the shared i18n and server security boundaries. Mirror `evidence.schema.json` for read-side validation; package validation, lint, generation and qualification remain in the pinned Python engine.
++
+ ```text
+ aghr-studio/
+ ├── backend/
+@@ -1362,7 +1402,7 @@ aghr-studio/
+ │   │   │   └── metrics.ts
+ │   │   ├── aghr/
+ │   │   │   ├── job-runner.ts       # subprocess with limits
+-│   │   │   ├── in-process.ts       # validate/lint/generate direct import
++│   │   │   ├── cli-bridge.ts       # all commands through pinned Python CLI
+ │   │   │   ├── schema-loader.ts
+ │   │   │   └── evidence-reader.ts  # reads runtime_evidence/ (read-only)
+ │   │   ├── integrations/
+@@ -1422,29 +1462,28 @@ aghr-studio/
+ 
+ ### 43. Subprocess Runner — Resource Limits
+ 
++The sketch below defines required behavior, not evidence that the current application enforces it. A platform adapter must demonstrate wall-clock cancellation, process-tree termination and the configured memory cap. On Windows, qualify the Job Object adapter in isolated tests; on POSIX, qualify the selected process-group/resource-limit wrapper. If a required control is unavailable, report `NOT_SUPPORTED`/`NOT_RUN` and block the corresponding controlled execution rather than claim enforcement.
++
+ ```typescript
+-// backend/src/aghr/job-runner.ts (pseudocode)
++// Platform-neutral design pseudocode; adapter implementation is a Phase 3 deliverable.
+ const limits = {
+   eval:     { timeoutMs: 600_000,  memoryMb: 2048 },
+   qualify:  { timeoutMs: 3_600_000, memoryMb: 2048 },
+ };
+ 
+ async function runAghr(cmd: string, args: string[], opts) {
+-  const child = spawn('aghr', [cmd, ...args], {
+-    cwd: opts.cwd,
+-    env: { ...process.env, AGHR_STUDIO: '1' },
+-    // on Linux/macOS: use setrlimit via wrapper
+-    // on Windows: use job objects via wrapper
++  const request = validateAllowlistedCommandAndStructuredArgs(cmd, args, opts);
++  const adapter = await requireQualifiedPlatformControls(request);
++  const child = await adapter.spawnPinnedPythonCli(request, {
++    cwd: request.authorizedWorkspace,
++    env: buildMinimalAllowedEnvironment(request),
++    limits: resolveAuthorizedLimits(cmd, limits),
++    shell: false,
+   });
+-
+-  const timer = setTimeout(() => {
+-    child.kill('SIGTERM');
+-    setTimeout(() => child.kill('SIGKILL'), 5000);
+-    status = 'resource_limit_exceeded';
+-  }, limits[cmd].timeoutMs);
+-
+-  // stream stdout/stderr via WS to client
+-  // on exit → capture, parse, store in verification_runs
++  // Adapter enforces limits and terminates the full process tree on cancel/timeout.
++  // Stream ordered stdout/stderr and retain raw_output plus separate channel captures.
++  // On exit: preserve partial output, parse evidence, store the actual result;
++  // resource_limit_exceeded is not PASS. Always release adapter resources.
+ }
+ ```
+ 
+@@ -1452,7 +1491,7 @@ async function runAghr(cmd: string, args: string[], opts) {
+ 
+ ### 44. Authorization Model
+ 
+-Every request is checked against `(actor_role, action, resource)`:
++Every request is checked against `(authenticated_actor, server_resolved_role, target_project, action, resource/change_package, proposal_version_hash)` where applicable. Write approval is bound to the specific project, action, change and exact proposal hash, never a global enable-writes switch. A role in a request body or simulated preview does not grant authority:
+ 
+ ```yaml
+ roles:
+@@ -1472,6 +1511,7 @@ roles:
+ - All mutations log to `audit_events`
+ - Frontend hides unauthorized actions (defense in depth)
+ - **Backend rejects unauthorized requests regardless of frontend state**
++- Authorization and proposal-version checks are repeated immediately before export/apply; role simulation is recorded separately from `actor_role` in audit events
+ 
+ ---
+ 
+@@ -1488,8 +1528,9 @@ roles:
+ - `evidence.schema.json` mirrored from rc.3 §12.2
+ - Decisions documented for the 7 open questions (§46)
+ - `settings.yaml` template
++- A read-only first-week demonstration: Registry + Skill Card + `nextReview` + Meta-Governance routing stub, backed by SQLite `:memory:` and in-memory logs. Register/scan existing sources read-only; this demonstration makes no Studio filesystem writes (including settings, logs, cache, drafts or database files). Persistent SQLite/migrations are a separately authorized execution mode, not a prerequisite for this demonstration.
+ 
+-**Exit criterion:** All SQL tables created; workspace can register a real `aghr/` package and scan it; `/api/v1/workspaces/{id}/instructions` returns non-empty results.
++**Exit criterion:** All SQL tables can be created in memory; workspace can register a real `aghr/` package and scan it read-only; `/api/v1/workspaces/{id}/instructions` returns non-empty results; the read-only demonstration shows the four views above and a filesystem-write sentinel confirms zero Studio writes.
+ 
+ #### Phase 1 — Specialized Browsing (Weeks 2–3)
+ 
+@@ -1518,6 +1559,8 @@ roles:
+ 
+ **Exit criterion:** `CAPABILITY` created → qualified on codex → usage recorded → `NOT_OBSERVABLE` displayed correctly → `DISCOVERY_UNAVAILABLE` flagged as halt → `BLOCKED` ≠ `NO_SKILL_MATCH`.
+ 
++The exit gate covers all eight rc.3 §11.2 scenarios (multi-phase feature, no skill needed, overlap, installed but unavailable, permission denial, loaded then failed, Arabic discovery, lesson without automatic policy) and all seven honesty checks. Run engine/unit scenarios separately from native host trials. Codex and Antigravity receive distinct qualification records; unavailable host evidence remains `NOT_RUN` or `NOT_OBSERVABLE`, never inferred from local unit tests.
++
+ #### Phase 4 — Governed Change (Weeks 8–9)
+ 
+ **Deliverables:**
+@@ -1526,7 +1569,7 @@ roles:
+ - Backend: meta-governance routing, adoption wizard, intake processing
+ - Frontend: 7-step skill adoption wizard, §16.1 proposal flow
+ 
+-**Exit criterion:** A §16.1 change (modifying `policies/`) goes through full CP flow with all evals required; a §16.2 skill adoption goes through all 7 steps.
++**Exit criterion:** §16.1 changes touching each of `policies/`, `schemas/` and `tools/` go through full CP flow with all evals required; a §16.2 skill adoption goes through all 7 steps.
+ 
+ #### Phase 5 — Pilot Project (Weeks 10–11)
+ 
+@@ -1545,7 +1588,7 @@ roles:
+ - Packaging: `pipx install aghr-studio`
+ - Documentation: README, Quickstart, API reference
+ 
+-**Exit criterion:** `pipx install aghr-studio && aghr-studio` works; all §48 acceptance criteria pass; documentation complete.
++**Exit criterion:** `pipx install aghr-studio && aghr-studio` works; all §47 and §48 acceptance criteria pass; documentation complete. This remains a future packaging/qualification gate, not a current distribution claim.
+ 
+ ### 46. The Seven Open Decisions (Resolved)
+ 
+@@ -1565,48 +1608,53 @@ roles:
+ 
+ ### 47. Functional Acceptance
+ 
+-- [ ] Every instruction and capability is traceable to its source file + version
+-- [ ] `authority.level` is visible, sortable, filterable on every `MUST`/`MUST_NOT`
+-- [ ] Editor blocks save when `force=MUST/MUST_NOT` and `authority.level` is missing
+-- [ ] `impact.evidence` is visible on every item with distinct color per class (`assumed`=gray, `benchmark`=blue, `repo-measured`=green)
+-- [ ] `nextReview` past today triggers `[Review Due]` badge in Registry and Dashboard
+-- [ ] Language **never** hides an item; `translation_unavailable` shown as a badge, not a hide reason
+-- [ ] Validation in Studio is byte-identical to `aghr validate --strict` (tested via 100 random items)
+-- [ ] Generation shows stage (`full`/`compress`/`compact`/`fail`); `fail` blocks export
+-- [ ] `PRIN-007` presence check displayed; absence blocks export
+-- [ ] Skill Card shows 3 axes with per-state evidence link
+-- [ ] `contentHash` or `hostVersion` change → `[Qualification Expired]` red badge → P0 selection blocked
+-- [ ] `BLOCKED`, `NO_SKILL_MATCH`, `UNKNOWN_ID`, `DISCOVERY_UNAVAILABLE` have distinct colors + icons + copy
+-- [ ] `DISCOVERY_UNAVAILABLE` triggers halt warning panel; session marked untrusted
+-- [ ] `NOT_OBSERVABLE` displayed as valid (gray); `HOST_SIGNAL` never fabricated (verified by 5 negative tests)
+-- [ ] CP approvals tied to `proposal_version_hash`; any proposal change invalidates all approvals (tested)
+-- [ ] `state.json` never modified by any Studio action (regression test with file watcher on `state.json`)
+-- [ ] `runtime_evidence/` never modified by any Studio action
+-- [ ] `mergeEffect=blocking` requires existing `gate.required=true` (verified via `aghr doctor` before export)
+-- [ ] Calibration workflow: `assumed` → `repo-measured` requires a linked **passed** eval run; `lastCalibrated` and `measuredDelta` populated correctly
+-- [ ] Meta-Governance screen routes §16.1 and §16.2 changes correctly with all required approvals
+-- [ ] All 10 §17 metrics visible in Metrics screen; false-success rate must be 0% (red alert if >0)
+-- [ ] UI works in Arabic and English; both fully usable
+-- [ ] Local test results separated from host qualification, independent review, release acceptance
+-- [ ] 100% honesty checks and ≥95% behavioral tolerance displayed as two distinct gauges; never averaged
+-- [ ] `eval`/`qualify` respect timeout + memory limits; `resource_limit_exceeded` status recorded on overflow
+-- [ ] Every write action (patch, commit, adoption apply) preceded by diff preview
++- [ ] <a id="fa-01"></a> Every instruction and capability is traceable to its source file + version
++- [ ] <a id="fa-02"></a> `authority.level` is visible, sortable, filterable on every `MUST`/`MUST_NOT`
++- [ ] <a id="fa-03"></a> Editor blocks save when `force=MUST/MUST_NOT` and `authority.level` is missing
++- [ ] <a id="fa-04"></a> `impact.evidence` is visible on every item with distinct color per class (`assumed`=gray, `benchmark`=blue, `repo-measured`=green)
++- [ ] <a id="fa-05"></a> `nextReview` past today triggers `[Review Due]` badge in Registry and Dashboard
++- [ ] <a id="fa-06"></a> Language **never** hides an item; `translation_unavailable` shown as a badge, not a hide reason
++- [ ] <a id="fa-07"></a> Validation in Studio is byte-identical to `aghr validate --strict` (tested via 100 random items)
++- [ ] <a id="fa-08"></a> Generation shows stage (`full`/`compress`/`compact`/`fail`); `fail` blocks export
++- [ ] <a id="fa-09"></a> `PRIN-007` presence check displayed; absence blocks export
++- [ ] <a id="fa-10"></a> Skill Card shows 3 axes with per-state evidence link
++- [ ] <a id="fa-11"></a> Any change to `host`, `hostVersion`, `scope` or `contentHash` → `[Qualification Expired]` → qualification `NOT_RUN` for the new tuple → P0 selection blocked
++- [ ] <a id="fa-12"></a> `BLOCKED`, `NO_SKILL_MATCH`, `UNKNOWN_ID`, `DISCOVERY_UNAVAILABLE` have distinct colors + icons + copy
++- [ ] <a id="fa-13"></a> `DISCOVERY_UNAVAILABLE` triggers halt warning panel; session marked untrusted
++- [ ] <a id="fa-14"></a> `NOT_OBSERVABLE` displayed as valid (gray); `HOST_SIGNAL` never fabricated (verified by 5 negative tests)
++- [ ] <a id="fa-15"></a> CP approvals tied to `proposal_version_hash`; any proposal change invalidates all approvals (tested)
++- [ ] <a id="fa-16"></a> `state.json` never modified by any Studio action (regression test with file watcher on `state.json`)
++- [ ] <a id="fa-17"></a> `runtime_evidence/` never modified by any Studio action
++- [ ] <a id="fa-18"></a> `mergeEffect=blocking` requires existing `gate.required=true` (verified via `aghr doctor` before export)
++- [ ] <a id="fa-19"></a> Calibration workflow: `assumed` → `repo-measured` requires a linked **passed** eval run; `lastCalibrated` and `measuredDelta` populated correctly
++- [ ] <a id="fa-20"></a> Meta-Governance screen routes §16.1 and §16.2 changes correctly with all required approvals
++- [ ] <a id="fa-21"></a> All 10 §17 metrics visible in Metrics screen; false-success rate must be 0% (red alert if >0)
++- [ ] <a id="fa-22"></a> UI works in Arabic and English in isolated Microsoft Edge; both fully usable, RTL/LTR chrome localized while source/user text and identifiers retain their original language
++- [ ] <a id="fa-23"></a> Local test results separated from host qualification, independent review, release acceptance
++- [ ] <a id="fa-24"></a> 100% honesty checks and fixture-specific behavioral tolerance (general target ≥95%, P0-Safety zero violations) displayed as distinct gauges; never averaged
++- [ ] <a id="fa-25"></a> `eval`/`qualify` respect timeout + memory limits; `resource_limit_exceeded` status recorded on overflow
++- [ ] <a id="fa-26"></a> Every write action (patch, commit, adoption apply) preceded by diff preview
++- [ ] <a id="fa-27"></a> Generated output respects each target's `budgetBytes`; every non-failing stage has P0-preservation evidence; `compact` requires a hash-bound governance-owner acknowledgement and verified rule lookup
++- [ ] <a id="fa-28"></a> `task_criteria` is applied to output content with per-criterion evidence; unknown IDs, UNKNOWN execution, empty outputs or failed execution cannot receive PASS
++- [ ] <a id="fa-29"></a> Declared adoption controls have measured enforcement evidence; unsupported or unobserved controls remain `NOT_SUPPORTED`/`NOT_RUN`, with no false enforcement claims
++- [ ] <a id="fa-30"></a> Phase 3 covers all eight §11.2 scenarios and seven §11.1 honesty checks, separating unit results from native Codex/Antigravity qualification
++- [ ] <a id="fa-31"></a> Phase 0 read-only demonstration includes Registry, Skill Card, nextReview and Meta-Governance routing with zero Studio filesystem writes
+ 
+ ### 48. Non-Functional Acceptance
+ 
+-- [ ] Cold start < 3s
+-- [ ] Indexing 500 items < 5s
+-- [ ] In-process `validate` < 2s
+-- [ ] File watcher constrained: debounce 500ms + extension filter (`*.yaml`, `*.md`, `*.json`) + exclude `node_modules`, `.git`, `__pycache__`, `.venv`
+-- [ ] GPG signing optional with fallback + visible warning in UI
+-- [ ] Server binds to `127.0.0.1` only
+-- [ ] Session token rotates per startup
+-- [ ] No command injection via job-runner (fixed allowlist, structured args)
+-- [ ] Every API request authorized server-side; unauthorized → 403
+-- [ ] E2E tests (Playwright) cover all 16 screens
+-- [ ] Unit test coverage ≥ 80% on backend
+-- [ ] Load test: 50 concurrent CP validations in <30s
+-- [ ] `pipx install aghr-studio && aghr-studio` works on Linux, macOS, Windows
++- [ ] <a id="nfa-01"></a> Cold start < 3s
++- [ ] <a id="nfa-02"></a> Indexing 500 items < 5s
++- [ ] <a id="nfa-03"></a> End-to-end `validate` < 2s through the same pinned Python CLI; no duplicate Node governance engine
++- [ ] <a id="nfa-04"></a> File watcher constrained: debounce 500ms + extension filter (`*.yaml`, `*.md`, `*.json`) + exclude `node_modules`, `.git`, `__pycache__`, `.venv`
++- [ ] <a id="nfa-05"></a> GPG signing optional with fallback + visible warning in UI
++- [ ] <a id="nfa-06"></a> Server binds to `127.0.0.1` only
++- [ ] <a id="nfa-07"></a> Session token rotates per startup
++- [ ] <a id="nfa-08"></a> No command injection via job-runner (fixed allowlist, structured args)
++- [ ] <a id="nfa-09"></a> Every API request authorized server-side and bound to project + action + change/hash; unauthorized → 403; simulated roles never grant authority
++- [ ] <a id="nfa-10"></a> E2E tests (Playwright) cover critical paths and all 16 screens using isolated Microsoft Edge on Windows, bound to 127.0.0.1 with no owner browser profile
++- [ ] <a id="nfa-11"></a> Unit test coverage ≥ 80% on backend
++- [ ] <a id="nfa-12"></a> Load test: 50 concurrent CP validations in <30s
++- [ ] <a id="nfa-13"></a> `pipx install aghr-studio && aghr-studio` works on Linux, macOS, Windows
+ 
+ ---
+ 
+@@ -1709,11 +1757,61 @@ Studio declares supported rc.3 schema version `1.2`. On workspace add:
+ 
+ 1. Read `aghr.json.schemaVersion`
+ 2. If `1.2` → supported
+-3. If `1.1` (rc.2) → warning "Partial support; upgrade to rc.3 recommended"; fallback mode with `NOT_OBSERVABLE` disabled
++3. If `1.1` (rc.2) → warning "Partial read-only support; upgrade to rc.3 recommended". Preserve original/unknown statuses including `NOT_OBSERVABLE`; do not invent qualification or suppress missing observations. Generation and mutation stay disabled until a version-specific adapter is qualified.
+ 4. If `< 1.1` or `> 1.2` → error "Unsupported schema version; please upgrade AGHR or Studio"
+ 
+ ---
+ 
+-**End of AGHR Governance Studio Specification v1.0.0.**
++### Appendix G — Baseline Continuity and Reconciliation
++
++#### G.1 Authority, custody and scope
++
++This design adopts the owner's selected `INBOX/last-app` pair and carries forward all requirements of the immediately preceding `docs/specs/aghr-rc3` baseline. The reference governs normative package rules; this Studio specification adds implementation requirements without granting host permissions or changing that reference. The machine-readable adoption record and coverage matrix are linked from this directory's README. Prior accepted files and incoming originals are archived byte-for-byte; semantic reconciliation is confined to this Studio document.
++
++Adoption is design acceptance. Implementation is `NOT_STARTED` for this design, native qualification is `NOT_RUN`, independent review is `NOT_PERFORMED`, and runtime/release acceptance is not granted. The existing deployed reference/default 1.2.0 and isolated candidate 1.3.0 retain their separate lifecycle states.
++
++#### G.2 Data compatibility
++
++The preceding baseline defines eleven SQL tables; its prose saying thirteen was a counting error. All eleven survive. The selected complete specification adds `change_package_approval_history`, giving twelve tables. Indexes/views and examples are not additional tables.
++
++| Prior table.field | Current representation | Compatibility obligation |
++|---|---|---|
++| `instruction_items_cache.content_hash` | `source_hash` | Same digest of the immutable upstream content; read alias during migration |
++| `capability_items_cache.permissions_read`, `permissions_write` | `permissions_read_json`, `permissions_write_json` | Preserve permission lists; encode/decode JSON without widening rights |
++| `capability_items_cache.conflicts_with`, `alternatives` | `conflicts_with_json`, `alternatives_json` | Preserve ordered IDs and choice rationale |
++| `change_packages.base_version` | `base_package_version` | Preserve exact base version, distinct from proposed version |
++| `change_packages.version_hash` | `proposal_version_hash` | Same approval-binding purpose; a proposal mutation invalidates approvals |
++| `runtime_evidence_events.source` | `source` retained | Preserve declared producer `agent`/`host`/`ci` separately from source-file custody; a declaration alone establishes no trust |
++| `verification_runs.raw_output` | `raw_output` plus `raw_stdout`, `raw_stderr` | Preserve chronological combined capture and the separate channels |
++| `metrics_snapshots.instruction_metrics_json`, `skill_metrics_json` | Both retained plus scalar projections | Preserve original metric payloads, version and observation interval; projections are derived |
++| `audit_events.simulated_role` | `simulated_role` plus actual `actor_role` | Preserve preview context separately; only the server-resolved principal/role can authorize |
++| CP example `generate_check` | Checks entry `generate` | API read alias for the same check result, stage, byte delta and P0 evidence; no dropped approval conditions |
++
++All other prior columns retain their names. The extra cached `title`, verification, exceptions, references and immutable `source_yaml` make the detail, traceability and review displays reconstructible. Any future physical migration must preserve source hashes and original evidence and qualify these mappings; this adoption performs no database migration.
++
++The approval table replaces its composite primary key with a surrogate `id` while retaining `UNIQUE(package_id, role, approver, approved_version_hash)`, preserving the prior identity constraint. Invalidation copies the original decision, reason and timestamp into history before changing the active set. Tighter `NOT NULL` constraints and new required fields require an explicit Phase 0 import/backfill policy: unresolved legacy data remains a diagnosed import gap, never guessed authority, qualification, version, scope or execution evidence. Preserve the original row/payload until a lossless migration is verified.
++
++#### G.3 Preserved interaction and metric obligations
++
++The sixteen screens retain their identities and layer separation. `NO_SKILL_MATCH` may use the new neutral gray instead of the prior green; it remains a valid non-error outcome. Both language and original document text remain visible. Approval and publication, task selection and authorization, installed/discovered/qualified/loaded/executed/verified states stay distinct.
++
++The prior ten metric-to-screen routes remain available as shared projections (not separate metric implementations): policy coverage on Dashboard; eval pass rate on Verification and Metrics; exception half-life on Dashboard; drift rate on Verification; calibration coverage on Dashboard and Instruction Detail; skill qualification coverage on Capabilities and Dashboard; skill eval pass rate on Metrics; false-success rate on Dashboard; multilingual discovery recall on Metrics; qualification drift on Capabilities. The dedicated Metrics screen additionally presents all ten.
++
++Calibration only records measured evidence and a justified delta from a linked passed eval. It never automatically lowers P0 priority. Lesson extraction yields classified proposed instructions routed through `governed-learning`, source/evidence links, duplicate/conflict review and a Change Package; only authorized approval can change governing policy. Skill evaluation results use this same learning path. `using-agent-skills` may help route work; it is optional guidance under host/project authority, with no new mandatory router skill or parallel governance service.
++
++#### G.4 Phase 0 contract questions and acceptance evidence
++
++The seven design decisions in §46 are carried forward as proposed resolutions. Phase 0 still validates their contracts against the pinned reference. Inherited reference questions are recorded without silently rewriting the governing text:
++
++1. §7.1 makes host activation optional, while §14.2's wording can imply execution evidence for `HOST_SIGNAL`. Define an acknowledgement-specific evidence contract; never manufacture an activation or execution event to satisfy it.
++2. Runtime evidence is named JSONL, but the reference contains a YAML-shaped example. Set the actual JSONL serialization/schema contract and preserve imported source bytes separately; examples are not proof that a parser exists.
++3. Distinguish an item's declared `authority.level` from verified issuer trust and the caller's permissions. Resolve principal/role bindings server-side and record unknown trust explicitly.
++4. Qualify schema adapters, target lookup availability, resource-control adapters and distribution commands on their actual platforms. Missing capability is an explicit gap, not a completed gate.
++
++These are inherited contract clarifications, not missing-baseline requirements. Design checks, SQL syntax checks and coverage review are local document evidence only. Benchmark numbers, dates, paths, host versions and statuses in UI examples are illustrative. Unit tests, native host qualification, independent review and release acceptance each require separate scoped evidence. All acceptance checkboxes remain unchecked until their own implementation evidence exists.
++
++---
++
++**End of AGHR Governance Studio Specification v1.0.0 (last-app reconciliation).**
+ 
+-This specification is complete and ready for implementation. It contains 50 sections, 13 SQL tables, 16 screens, ~60 API endpoints, 5 workflows, 3 state diagrams, and full acceptance criteria. It strictly adheres to AGHR 1.0.0-rc.3 (Consolidated) and makes no governance claims beyond what that reference defines.
++This design contains 49 numbered main sections, 12 SQL tables, 16 screens, 4 workflow walkthroughs and 2 explicit state-transition appendices, plus the continuity appendix. Implementation begins with Phase 0 contract clarification and the read-only demonstration; design acceptance itself is not evidence that these features or controls are implemented.

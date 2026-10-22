@@ -1,0 +1,163 @@
+{
+  "recorded_at_utc": "2026-10-22T15:20:43.910Z",
+  "protected_inputs": {
+    "count": 238,
+    "status": "UNCHANGED"
+  },
+  "before_snapshots": {
+    "count": 9,
+    "status": "UNCHANGED"
+  },
+  "candidate": {
+    "files": [
+      "CLI_CONTRACT.json",
+      "LICENSE",
+      "PACKAGE_STATUS.json",
+      "PROVENANCE.json",
+      "SOURCE_MAP.json",
+      "aghr.json",
+      "policies/observations/reference-state.json",
+      "requirements.lock",
+      "tests/test_cli.py",
+      "tests/test_loader.py",
+      "tools/cli.py",
+      "tools/diagnostics.py",
+      "tools/loader.py"
+    ],
+    "source_hash": "3c8c536b0c02c80173cb5e3758a90123f4c3bec5f32e44b2de822c2c26932955",
+    "status": "MATCHES_FINAL_PIN"
+  },
+  "prior_candidate": {
+    "files": 8,
+    "source_hash": "7adb0e1aaa3a71bd1ed4814cd7d5b428a6a7895bed401c7953f00cc4f0fc5481",
+    "status": "RECONSTRUCTED_FROM_BEFORE_AND_PRESERVED_BYTES"
+  },
+  "owner_license": {
+    "status": "PROVISIONAL_OWNER_LICENSE",
+    "record_id": "E1.c(4)",
+    "bindings": [
+      {
+        "path": "aghr.json",
+        "sha256": "ef25b809b529fc6898db46c0afcaafaffc6ac67fa52c5e54c0517b088fe972c6",
+        "bytes": 903
+      },
+      {
+        "path": "LICENSE",
+        "sha256": "dd92d820f1edbf814873bebe95f4e4e07452e1ae0f701f908e2fb1cb2b8018a9",
+        "bytes": 1407
+      }
+    ],
+    "signed_decision": "NOT_SUPPLIED",
+    "final_acceptance": "PENDING_EXPLICIT_OWNER_SIGNATURE"
+  },
+  "raw_reader_captures": 2,
+  "main_task_ids": {
+    "count": 57,
+    "status": "UNCHANGED"
+  },
+  "git": {
+    "branch": "main",
+    "head": "bb76a0b61617512f4cd6d0c6cea792e35d5ff4aa",
+    "git_diff_check_exit_code": 0
+  },
+  "changes": [
+    {
+      "before": "docs/evidence/studio-e1c-2026-10-22/before/01.snapshot",
+      "after": "docs/plans/STUDIO_E1_E2_CORE_SCOPE_AR.md",
+      "patch": "change-01.patch",
+      "exit_code": 1,
+      "sha256": "7d58910735ff5ac311151af94835d4c54de0fa41d4fcb987e9846c0e1241306b"
+    },
+    {
+      "before": "docs/evidence/studio-e1c-2026-10-22/before/02.snapshot",
+      "after": "docs/plans/STUDIO_FULL_PROJECT_UPGRADE_AR.md",
+      "patch": "change-02.patch",
+      "exit_code": 1,
+      "sha256": "f3daedfabe502fb7f0b4e271db6e5c43bae6c3906d8e3ac890fbca1e52cca336"
+    },
+    {
+      "before": "docs/evidence/studio-e1c-2026-10-22/before/03.snapshot",
+      "after": "docs/plans/STUDIO_UPGRADE_TASKS_AR.md",
+      "patch": "change-03.patch",
+      "exit_code": 1,
+      "sha256": "0bf37a0b1147e238d6c61b19289deadfd26efd2cb81858c1ea5ab84f2d77d768"
+    },
+    {
+      "before": "docs/evidence/studio-e1c-2026-10-22/before/04.snapshot",
+      "after": "docs/status/CURRENT.md",
+      "patch": "change-04.patch",
+      "exit_code": 1,
+      "sha256": "fefb6887c97b714ae7eaa7ef9cad97240c0dcc1f36976e797b4bf66ce7171a01"
+    },
+    {
+      "before": "docs/evidence/studio-e1c-2026-10-22/before/05.snapshot",
+      "after": "docs/status/HANDOFF.md",
+      "patch": "change-05.patch",
+      "exit_code": 1,
+      "sha256": "613a326bf22102bd1eab0f3c4cfb464425941bed9d5c620f844874a7fab3cabc"
+    },
+    {
+      "before": "docs/evidence/studio-e1c-2026-10-22/before/06.snapshot",
+      "after": "governance_packages/candidates/AGHR_rc3_Core_Candidate/PROVENANCE.json",
+      "patch": "change-06.patch",
+      "exit_code": 1,
+      "sha256": "e3c90f42f95bd84b37d77a7ba10fc6c23d37c0e0742155562bd3f6aff99047aa"
+    },
+    {
+      "before": "docs/evidence/studio-e1c-2026-10-22/before/07.snapshot",
+      "after": "governance_packages/candidates/AGHR_rc3_Core_Candidate/CLI_CONTRACT.json",
+      "patch": "change-07.patch",
+      "exit_code": 1,
+      "sha256": "5b3d972945cc06ac5e97b095345d31201c1b9f1e9e9bfb25ad4cfe6c31dda21d"
+    },
+    {
+      "before": "docs/evidence/studio-e1c-2026-10-22/before/08.snapshot",
+      "after": "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/cli.py",
+      "patch": "change-08.patch",
+      "exit_code": 1,
+      "sha256": "b348a4d06c6b563fbddec37b39f6f5ebcd0bf49d289d6bed1624cc5a8fb7277e"
+    },
+    {
+      "before": "docs/evidence/studio-e1c-2026-10-22/before/09.snapshot",
+      "after": "governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_cli.py",
+      "patch": "change-09.patch",
+      "exit_code": 1,
+      "sha256": "54e8c2dcd6dcd5b6a9422c34c4e94296b35a3f8df4a53bf226898464155853b2"
+    },
+    {
+      "before": "docs/evidence/studio-e1c-2026-10-22/before/empty.snapshot",
+      "after": "governance_packages/candidates/AGHR_rc3_Core_Candidate/aghr.json",
+      "patch": "add-01.patch",
+      "exit_code": 1,
+      "sha256": "a8ee29b57e67a27ea3a7cba499f331501df62d6b99020ab32cf781a7b695ec61"
+    },
+    {
+      "before": "docs/evidence/studio-e1c-2026-10-22/before/empty.snapshot",
+      "after": "governance_packages/candidates/AGHR_rc3_Core_Candidate/PACKAGE_STATUS.json",
+      "patch": "add-02.patch",
+      "exit_code": 1,
+      "sha256": "7f244d98c9643a4cd27ed4574bc84bf89b0a899577ce94b7eeff7c511461a7a7"
+    },
+    {
+      "before": "docs/evidence/studio-e1c-2026-10-22/before/empty.snapshot",
+      "after": "governance_packages/candidates/AGHR_rc3_Core_Candidate/LICENSE",
+      "patch": "add-03.patch",
+      "exit_code": 1,
+      "sha256": "5971e63f533e114a58cd6303dc137513df3580b37706484b7e9864dd2b964173"
+    },
+    {
+      "before": "docs/evidence/studio-e1c-2026-10-22/before/empty.snapshot",
+      "after": "governance_packages/candidates/AGHR_rc3_Core_Candidate/SOURCE_MAP.json",
+      "patch": "add-04.patch",
+      "exit_code": 1,
+      "sha256": "950f40712fa62f6e66c3798cad2733ce2dac0fd8eccee5b68ad310edaf3b13bc"
+    },
+    {
+      "before": "docs/evidence/studio-e1c-2026-10-22/before/empty.snapshot",
+      "after": "governance_packages/candidates/AGHR_rc3_Core_Candidate/policies/observations/reference-state.json",
+      "patch": "add-05.patch",
+      "exit_code": 1,
+      "sha256": "5b1bd99c25ac21cc26fa04624c866b27e3d4d0c247506344d8c4a66cd01ca10f"
+    }
+  ]
+}

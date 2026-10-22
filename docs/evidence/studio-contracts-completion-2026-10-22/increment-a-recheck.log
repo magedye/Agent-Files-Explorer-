@@ -1,0 +1,261 @@
+{
+  "status": "PASS",
+  "scope": "LOCAL_DRAFT_CONTRACTS_ONLY",
+  "observed_at": "2026-10-21T23:43:32.0745097Z",
+  "validator": {
+    "dialect": "2020-12",
+    "powershell_version": "7.6.4",
+    "command": "Test-Json"
+  },
+  "schema_case_count": 40,
+  "schema_cases": [
+    {
+      "name": "manifest_v1_2_example",
+      "expected_valid": true,
+      "status": "PASS"
+    },
+    {
+      "name": "reject_old_manifest_schema_version",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "reject_disabling_authority_enforcement",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "light_informative_item",
+      "expected_valid": true,
+      "status": "PASS"
+    },
+    {
+      "name": "light_may_item",
+      "expected_valid": true,
+      "status": "PASS"
+    },
+    {
+      "name": "should_requires_owner_and_rationale",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "should_does_not_require_full_mandatory_authority",
+      "expected_valid": true,
+      "status": "PASS"
+    },
+    {
+      "name": "complete_must_structure",
+      "expected_valid": true,
+      "status": "PASS"
+    },
+    {
+      "name": "MUST_reject_missing_authority_level",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "MUST_reject_unknown_authority_level",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "MUST_NOT_reject_missing_authority_level",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "MUST_NOT_reject_unknown_authority_level",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "legacy_unresolved_is_not_a_target_force",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "every_item_requires_impact_evidence",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "reject_unknown_impact_evidence_class",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "critical_must_not_structure_only",
+      "expected_valid": true,
+      "status": "PASS"
+    },
+    {
+      "name": "critical_prohibition_requires_gate",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "critical_prohibition_requires_nonempty_eval_fixture_refs",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "capability_requires_qualification_record",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "not_run_qualification_is_valid_structure",
+      "expected_valid": true,
+      "status": "PASS"
+    },
+    {
+      "name": "qualification_requires_host",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "qualification_requires_hostVersion",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "qualification_requires_scope",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "qualification_requires_contentHash",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "qualified_needs_date_and_evidence_refs",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "discovery_report_structure_UNKNOWN_ID",
+      "expected_valid": true,
+      "status": "PASS"
+    },
+    {
+      "name": "discovery_report_structure_NO_SKILL_MATCH",
+      "expected_valid": true,
+      "status": "PASS"
+    },
+    {
+      "name": "discovery_report_structure_DISCOVERY_UNAVAILABLE",
+      "expected_valid": true,
+      "status": "PASS"
+    },
+    {
+      "name": "reject_collapsed_discovery_outcome",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "draft_jsonl_one_event_per_line",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "unobservable_host_signal_is_valid",
+      "expected_valid": true,
+      "status": "PASS"
+    },
+    {
+      "name": "host_signal_requires_acknowledgement",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "acknowledgement_structure_is_not_execution_proof",
+      "expected_valid": true,
+      "status": "PASS"
+    },
+    {
+      "name": "loaded_instructions_structure",
+      "expected_valid": true,
+      "status": "PASS"
+    },
+    {
+      "name": "loaded_event_cannot_contain_verification_pass",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "successful_execution_requires_output_refs",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "failure_without_outputs_can_be_reported_honestly",
+      "expected_valid": true,
+      "status": "PASS"
+    },
+    {
+      "name": "unknown_execution_status_rejected",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "verification_requires_actual_task_criteria_field",
+      "expected_valid": false,
+      "status": "PASS"
+    },
+    {
+      "name": "verification_structure_is_not_actual_task_success",
+      "expected_valid": true,
+      "status": "PASS"
+    }
+  ],
+  "integrity": {
+    "status": "PASS",
+    "scope": "LOCAL_CONTRACT_INTEGRITY_AND_SQL_ONLY",
+    "checks": [
+      {
+        "name": "json_documents_parse",
+        "status": "PASS"
+      },
+      {
+        "name": "all_local_json_references_resolve",
+        "status": "PASS"
+      },
+      {
+        "name": "api_is_explicitly_partial_read_only_and_authenticated",
+        "status": "PASS"
+      },
+      {
+        "name": "instruction_query_contract_has_no_language_filter",
+        "status": "PASS"
+      },
+      {
+        "name": "sql_exactly_matches_six_source_blocks",
+        "status": "PASS"
+      },
+      {
+        "name": "twelve_tables_created_in_memory",
+        "status": "PASS"
+      },
+      {
+        "name": "qualification_primary_key_preserves_all_four_dimensions",
+        "status": "PASS"
+      },
+      {
+        "name": "approval_uniqueness_includes_exact_proposal_hash",
+        "status": "PASS"
+      },
+      {
+        "name": "evidence_source_line_cannot_be_silently_overwritten",
+        "status": "PASS"
+      }
+    ],
+    "runtime_engine": "NOT_RUN",
+    "http_and_browser": "NOT_RUN",
+    "phase_0_exit": "NOT_RUN"
+  },
+  "aghr_validate_strict": "NOT_RUN",
+  "native_host_qualification": "NOT_RUN",
+  "phase_0_exit": "NOT_RUN"
+}

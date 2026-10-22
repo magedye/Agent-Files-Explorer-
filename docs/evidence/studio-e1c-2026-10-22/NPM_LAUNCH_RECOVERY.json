@@ -1,0 +1,24 @@
+{
+  "classification": "ENVIRONMENT_DEFECT",
+  "cause": "The custom cmd command-string launch was rejected before npm started. Native command-line bytes were not captured; the exact Windows quoting mechanism is not claimed.",
+  "original_attempt": {
+    "stdout": "npm-test.stdout.txt",
+    "stderr": "npm-test.stderr.txt",
+    "exit_code": 1,
+    "test_execution": "NOT_STARTED"
+  },
+  "fix": "Run the installed npm-cli.js with its installed Node executable and structured argv, without the custom cmd quoting layer",
+  "started_at_utc": "2026-10-22T15:10:24.771Z",
+  "completed_at_utc": "2026-10-22T15:10:39.101Z",
+  "executable": "C:\\Program Files\\nodejs\\node.exe",
+  "args": [
+    "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+    "test"
+  ],
+  "cwd": "D:/APP/Agent-Files-Explorer/",
+  "exit_code": 0,
+  "stdout": "npm-test-retry.stdout.txt",
+  "stderr": "npm-test-retry.stderr.txt",
+  "npm_cli_sha256": "3ce7cba6f5128dd5f54c98b6a5036b0f850496878cc2e21044b675fe3c594e3e",
+  "product_changes": "NONE"
+}

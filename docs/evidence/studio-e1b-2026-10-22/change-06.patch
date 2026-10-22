@@ -1,0 +1,79 @@
+diff --git "a/D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e1b-2026-10-22\\before\\06.snapshot" "b/D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\PROVENANCE.json"
+index cc36235..f17b11c 100644
+--- "a/D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e1b-2026-10-22\\before\\06.snapshot"
++++ "b/D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\PROVENANCE.json"
+@@ -1,6 +1,6 @@
+ {
+   "implementation_id": "aghr-rc3-core-candidate",
+-  "stage": "E1.a",
++  "stage": "E1.b",
+   "status": "LOCAL_SOURCE_CANDIDATE",
+   "target_spec_version": "1.0.0-rc.3",
+   "schema_version": "1.2",
+@@ -13,7 +13,7 @@
+     "upstream_repository": null,
+     "upstream_release": null,
+     "legacy_source_copied": false,
+-    "authority": "Owner explicitly requested E1.a implementation on 2026-10-22; no release or reference promotion granted."
++    "authority": "Owner explicitly requested E1.a, then E1.b implementation on 2026-10-22; no release or reference promotion granted."
+   },
+   "license": {
+     "status": "NOT_ASSIGNED",
+@@ -25,11 +25,14 @@
+     "PROVENANCE.json",
+     "requirements.lock",
+     "tests/test_cli.py",
+-    "tools/cli.py"
++    "tests/test_loader.py",
++    "tools/cli.py",
++    "tools/diagnostics.py",
++    "tools/loader.py"
+   ],
+   "identity": {
+     "algorithm": "sha256-path-map-v1",
+-    "definition": "SHA-256 of UTF-8 JSON mapping the five source_files POSIX paths to their raw-byte SHA-256 digests; keys sorted, no whitespace, no BOM or trailing newline. Not CP/JCS hashing.",
++    "definition": "SHA-256 of UTF-8 JSON mapping the listed source_files POSIX paths to their raw-byte SHA-256 digests; keys sorted, no whitespace, no BOM or trailing newline. Not CP/JCS hashing.",
+     "publisher_authentication": "UNKNOWN",
+     "signature_verification": "NOT_RUN",
+     "qualification": "NOT_RUN",
+@@ -43,19 +46,38 @@
+   "runtime": {
+     "python_profile": "CPython 3.12 Windows AMD64",
+     "bootstrap_dependencies": "Python standard library only",
++    "reader_dependencies": "PyYAML 6.0.3 from the unchanged locked dependency closure; no new libraries or global installation.",
+     "locked_libraries": "requirements.lock includes YAML, JSON Schema and their complete CPython 3.12 dependency closure; no optional format extras.",
+     "installed_location": "Not a global install or application engine binding; see the scoped evidence receipt for the isolated test environment."
+   },
++  "reader_profile": {
++    "api": "tools/loader.py:read_package",
++    "source_roots": ["capabilities", "decisions", "policies", "profiles"],
++    "auxiliary_roles": { "profiles": "profile", "capabilities/qualifications": "qualification", "capabilities/project-selections": "selection" },
++    "formats": ["json", "yaml", "yml"],
++    "manifest": "Strict JSON object with schemaVersion 1.2; full manifest/item schema and governance validation are NOT_RUN until E2.",
++    "data": "Raw bytes/hash/UTF-8 text and original document/list grouping are retained. Dates and yes/no/on/off stay strings; decimal JSON numbers and true/false are typed. Valid Unicode escape pairs are preserved; lone surrogates reject.",
++    "locations": "Zero-based document index, JSON pointer, one-based line/column, zero-based UTF-8 byte spans with exclusive end.",
++    "limits": "ReaderLimits in tools/loader.py is the source of default byte/file/entry/depth/node/document/item bounds; integer scalar limit is 256 digits. Limits are caller-owned, not read from the input manifest.",
++    "unsupported": ["aliases and cycles", "merge keys", "explicit YAML tags", "non-string mapping keys", "symlinks/junctions/reparse points even within the root", "nested repositories/packages", "arbitrary top-level source roots"],
++    "selection": "Optional source_paths restrict the read to explicit canonical paths; PackageRead preserves selection_mode and source_paths. Partial reads are not full-package verification.",
++    "errors": "ReadFailure retains captured SourceRecords and a located diagnostic; incomplete capture has no full-file hash. Invalid UTF-8 replacement text is display only. No successful empty index on failure.",
++    "consistency": "Link/path and descriptor identity checks plus final file/directory metadata checks detect changes; callers must keep sources stable. This is not an OS-atomic snapshot or full platform qualification.",
++    "writes": "None. No imports, code execution, network, state or runtime evidence writes from input. CLI catalog exposure remains E1.d."
++  },
+   "documentation_sources": [
+     "https://docs.python.org/3.12/library/argparse.html",
+     "https://docs.python.org/3.12/library/venv.html",
+     "https://pip.pypa.io/en/stable/topics/secure-installs/",
+     "https://pyyaml.org/wiki/PyYAMLDocumentation",
+-    "https://python-jsonschema.readthedocs.io/en/v4.26.0/validate/"
++    "https://python-jsonschema.readthedocs.io/en/v4.26.0/validate/",
++    "https://github.com/yaml/pyyaml/blob/6.0.3/lib/yaml/composer.py",
++    "https://docs.python.org/3.12/library/pathlib.html#pathlib.Path.is_junction",
++    "https://docs.python.org/3.12/library/json.html#standard-compliance-and-interoperability"
+   ],
+   "remaining": [
+-    "E1.b loader and source indexing NOT_STARTED",
+     "E1.c real governance package, owner and license inputs NOT_STARTED",
++    "E1.d portable catalog/CLI serialization and schema closure NOT_STARTED",
+     "E2 strict validation and lint NOT_IMPLEMENTED",
+     "T01 BLOCKED_NOT_CLOSED; T02 NOT_STARTED",
+     "Native host qualification NOT_RUN; independent review NOT_PERFORMED; release acceptance NOT_GRANTED"

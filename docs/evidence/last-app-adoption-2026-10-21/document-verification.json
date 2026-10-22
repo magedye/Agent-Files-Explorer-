@@ -1,0 +1,731 @@
+{
+  "status": "PASS",
+  "observed_at": "2026-10-21T21:32:00.226Z",
+  "mode": "ADOPTED_DOCUMENTS",
+  "reference_sections": 24,
+  "studio_prior_sections": 12,
+  "studio_main_sections": 49,
+  "incoming_headings_preserved": 120,
+  "commitments": 12,
+  "screens": 16,
+  "metrics": 10,
+  "prior_acceptance_mapped": 36,
+  "current_acceptance": {
+    "functional": 31,
+    "non_functional": 13
+  },
+  "previous_sql_tables": 11,
+  "current_sql_tables": 12,
+  "sql": [
+    {
+      "table": "workspaces",
+      "prior_columns": 8,
+      "current_columns": 12,
+      "columns": [
+        {
+          "previous": "id",
+          "current": "id"
+        },
+        {
+          "previous": "name",
+          "current": "name"
+        },
+        {
+          "previous": "package_path",
+          "current": "package_path"
+        },
+        {
+          "previous": "package_version",
+          "current": "package_version"
+        },
+        {
+          "previous": "schema_version",
+          "current": "schema_version"
+        },
+        {
+          "previous": "package_signature_verified",
+          "current": "package_signature_verified"
+        },
+        {
+          "previous": "created_at",
+          "current": "created_at"
+        },
+        {
+          "previous": "last_scanned_at",
+          "current": "last_scanned_at"
+        }
+      ]
+    },
+    {
+      "table": "target_projects",
+      "prior_columns": 12,
+      "current_columns": 14,
+      "columns": [
+        {
+          "previous": "id",
+          "current": "id"
+        },
+        {
+          "previous": "workspace_id",
+          "current": "workspace_id"
+        },
+        {
+          "previous": "name",
+          "current": "name"
+        },
+        {
+          "previous": "path",
+          "current": "path"
+        },
+        {
+          "previous": "detected_profile",
+          "current": "detected_profile"
+        },
+        {
+          "previous": "instruction_level",
+          "current": "instruction_level"
+        },
+        {
+          "previous": "skill_level",
+          "current": "skill_level"
+        },
+        {
+          "previous": "git_remote",
+          "current": "git_remote"
+        },
+        {
+          "previous": "git_branch",
+          "current": "git_branch"
+        },
+        {
+          "previous": "host",
+          "current": "host"
+        },
+        {
+          "previous": "host_version",
+          "current": "host_version"
+        },
+        {
+          "previous": "last_scanned_at",
+          "current": "last_scanned_at"
+        }
+      ]
+    },
+    {
+      "table": "instruction_items_cache",
+      "prior_columns": 23,
+      "current_columns": 48,
+      "columns": [
+        {
+          "previous": "workspace_id",
+          "current": "workspace_id"
+        },
+        {
+          "previous": "item_id",
+          "current": "item_id"
+        },
+        {
+          "previous": "kind",
+          "current": "kind"
+        },
+        {
+          "previous": "force",
+          "current": "force"
+        },
+        {
+          "previous": "severity",
+          "current": "severity"
+        },
+        {
+          "previous": "authority_level",
+          "current": "authority_level"
+        },
+        {
+          "previous": "authority_source",
+          "current": "authority_source"
+        },
+        {
+          "previous": "authority_owner",
+          "current": "authority_owner"
+        },
+        {
+          "previous": "authority_status",
+          "current": "authority_status"
+        },
+        {
+          "previous": "authority_supersedes",
+          "current": "authority_supersedes"
+        },
+        {
+          "previous": "priority_tier",
+          "current": "priority_tier"
+        },
+        {
+          "previous": "impact_band",
+          "current": "impact_band"
+        },
+        {
+          "previous": "impact_evidence",
+          "current": "impact_evidence"
+        },
+        {
+          "previous": "rationale",
+          "current": "rationale"
+        },
+        {
+          "previous": "review_cadence",
+          "current": "review_cadence"
+        },
+        {
+          "previous": "next_review",
+          "current": "next_review"
+        },
+        {
+          "previous": "conflict_policy_precedence",
+          "current": "conflict_policy_precedence"
+        },
+        {
+          "previous": "merge_effect",
+          "current": "merge_effect"
+        },
+        {
+          "previous": "gate_type",
+          "current": "gate_type"
+        },
+        {
+          "previous": "gate_required",
+          "current": "gate_required"
+        },
+        {
+          "previous": "source_path",
+          "current": "source_path"
+        },
+        {
+          "previous": "content_hash",
+          "current": "source_hash"
+        },
+        {
+          "previous": "indexed_at",
+          "current": "indexed_at"
+        }
+      ]
+    },
+    {
+      "table": "capability_items_cache",
+      "prior_columns": 13,
+      "current_columns": 21,
+      "columns": [
+        {
+          "previous": "workspace_id",
+          "current": "workspace_id"
+        },
+        {
+          "previous": "item_id",
+          "current": "item_id"
+        },
+        {
+          "previous": "skill_id",
+          "current": "skill_id"
+        },
+        {
+          "previous": "source",
+          "current": "source"
+        },
+        {
+          "previous": "function",
+          "current": "function"
+        },
+        {
+          "previous": "permissions_read",
+          "current": "permissions_read_json"
+        },
+        {
+          "previous": "permissions_write",
+          "current": "permissions_write_json"
+        },
+        {
+          "previous": "permissions_network",
+          "current": "permissions_network"
+        },
+        {
+          "previous": "permissions_secrets",
+          "current": "permissions_secrets"
+        },
+        {
+          "previous": "conflicts_with",
+          "current": "conflicts_with_json"
+        },
+        {
+          "previous": "alternatives",
+          "current": "alternatives_json"
+        },
+        {
+          "previous": "content_hash",
+          "current": "content_hash"
+        },
+        {
+          "previous": "indexed_at",
+          "current": "indexed_at"
+        }
+      ]
+    },
+    {
+      "table": "skill_qualification_snapshot",
+      "prior_columns": 10,
+      "current_columns": 10,
+      "columns": [
+        {
+          "previous": "workspace_id",
+          "current": "workspace_id"
+        },
+        {
+          "previous": "skill_id",
+          "current": "skill_id"
+        },
+        {
+          "previous": "host",
+          "current": "host"
+        },
+        {
+          "previous": "host_version",
+          "current": "host_version"
+        },
+        {
+          "previous": "scope",
+          "current": "scope"
+        },
+        {
+          "previous": "status",
+          "current": "status"
+        },
+        {
+          "previous": "qualified_at",
+          "current": "qualified_at"
+        },
+        {
+          "previous": "content_hash",
+          "current": "content_hash"
+        },
+        {
+          "previous": "evidence_json",
+          "current": "evidence_json"
+        },
+        {
+          "previous": "read_at",
+          "current": "read_at"
+        }
+      ]
+    },
+    {
+      "table": "change_packages",
+      "prior_columns": 21,
+      "current_columns": 30,
+      "columns": [
+        {
+          "previous": "id",
+          "current": "id"
+        },
+        {
+          "previous": "workspace_id",
+          "current": "workspace_id"
+        },
+        {
+          "previous": "title",
+          "current": "title"
+        },
+        {
+          "previous": "kind",
+          "current": "kind"
+        },
+        {
+          "previous": "target_item_id",
+          "current": "target_item_id"
+        },
+        {
+          "previous": "status",
+          "current": "status"
+        },
+        {
+          "previous": "source_ref",
+          "current": "source_ref"
+        },
+        {
+          "previous": "source_hash",
+          "current": "source_hash"
+        },
+        {
+          "previous": "base_version",
+          "current": "base_package_version"
+        },
+        {
+          "previous": "proposed_yaml",
+          "current": "proposed_yaml"
+        },
+        {
+          "previous": "validation_result_json",
+          "current": "validation_result_json"
+        },
+        {
+          "previous": "lint_result_json",
+          "current": "lint_result_json"
+        },
+        {
+          "previous": "skill_state_result_json",
+          "current": "skill_state_result_json"
+        },
+        {
+          "previous": "generation_result_json",
+          "current": "generation_result_json"
+        },
+        {
+          "previous": "preview_diff",
+          "current": "preview_diff"
+        },
+        {
+          "previous": "impact_summary_json",
+          "current": "impact_summary_json"
+        },
+        {
+          "previous": "required_approvals_json",
+          "current": "required_approvals_json"
+        },
+        {
+          "previous": "version_hash",
+          "current": "proposal_version_hash"
+        },
+        {
+          "previous": "created_by",
+          "current": "created_by"
+        },
+        {
+          "previous": "created_at",
+          "current": "created_at"
+        },
+        {
+          "previous": "updated_at",
+          "current": "updated_at"
+        }
+      ]
+    },
+    {
+      "table": "change_package_approvals",
+      "prior_columns": 7,
+      "current_columns": 8,
+      "columns": [
+        {
+          "previous": "package_id",
+          "current": "package_id"
+        },
+        {
+          "previous": "role",
+          "current": "role"
+        },
+        {
+          "previous": "approver",
+          "current": "approver"
+        },
+        {
+          "previous": "decision",
+          "current": "decision"
+        },
+        {
+          "previous": "approved_version_hash",
+          "current": "approved_version_hash"
+        },
+        {
+          "previous": "reason",
+          "current": "reason"
+        },
+        {
+          "previous": "at",
+          "current": "at"
+        }
+      ]
+    },
+    {
+      "table": "runtime_evidence_events",
+      "prior_columns": 9,
+      "current_columns": 15,
+      "columns": [
+        {
+          "previous": "id",
+          "current": "id"
+        },
+        {
+          "previous": "workspace_id",
+          "current": "workspace_id"
+        },
+        {
+          "previous": "target_project_id",
+          "current": "target_project_id"
+        },
+        {
+          "previous": "task_id",
+          "current": "task_id"
+        },
+        {
+          "previous": "event_type",
+          "current": "event_type"
+        },
+        {
+          "previous": "skill_id",
+          "current": "skill_id"
+        },
+        {
+          "previous": "payload_json",
+          "current": "payload_json"
+        },
+        {
+          "previous": "recorded_at",
+          "current": "recorded_at"
+        },
+        {
+          "previous": "source",
+          "current": "source"
+        }
+      ]
+    },
+    {
+      "table": "verification_runs",
+      "prior_columns": 11,
+      "current_columns": 19,
+      "columns": [
+        {
+          "previous": "id",
+          "current": "id"
+        },
+        {
+          "previous": "workspace_id",
+          "current": "workspace_id"
+        },
+        {
+          "previous": "command",
+          "current": "command"
+        },
+        {
+          "previous": "args_json",
+          "current": "args_json"
+        },
+        {
+          "previous": "status",
+          "current": "status"
+        },
+        {
+          "previous": "exit_code",
+          "current": "exit_code"
+        },
+        {
+          "previous": "started_at",
+          "current": "started_at"
+        },
+        {
+          "previous": "finished_at",
+          "current": "finished_at"
+        },
+        {
+          "previous": "duration_ms",
+          "current": "duration_ms"
+        },
+        {
+          "previous": "summary_json",
+          "current": "summary_json"
+        },
+        {
+          "previous": "raw_output",
+          "current": "raw_output"
+        }
+      ]
+    },
+    {
+      "table": "metrics_snapshots",
+      "prior_columns": 5,
+      "current_columns": 17,
+      "columns": [
+        {
+          "previous": "id",
+          "current": "id"
+        },
+        {
+          "previous": "workspace_id",
+          "current": "workspace_id"
+        },
+        {
+          "previous": "captured_at",
+          "current": "captured_at"
+        },
+        {
+          "previous": "instruction_metrics_json",
+          "current": "instruction_metrics_json"
+        },
+        {
+          "previous": "skill_metrics_json",
+          "current": "skill_metrics_json"
+        }
+      ]
+    },
+    {
+      "table": "audit_events",
+      "prior_columns": 7,
+      "current_columns": 12,
+      "columns": [
+        {
+          "previous": "id",
+          "current": "id"
+        },
+        {
+          "previous": "at",
+          "current": "at"
+        },
+        {
+          "previous": "actor",
+          "current": "actor"
+        },
+        {
+          "previous": "simulated_role",
+          "current": "simulated_role"
+        },
+        {
+          "previous": "event_type",
+          "current": "event_type"
+        },
+        {
+          "previous": "workspace_id",
+          "current": "workspace_id"
+        },
+        {
+          "previous": "payload_json",
+          "current": "payload_json"
+        }
+      ]
+    }
+  ],
+  "prior_baseline_archives": [
+    {
+      "path": "governance_packages/archive/studio-designs-2026-10-21/pre-last-app-baseline/AGHR_REFERENCE.md",
+      "bytes": 60534,
+      "sha256": "6591522156b6b163d248b455e92a646dd1beb4500d98ed8b0f9c770db63b73c6"
+    },
+    {
+      "path": "governance_packages/archive/studio-designs-2026-10-21/pre-last-app-baseline/STUDIO_SPECIFICATION.md",
+      "bytes": 26543,
+      "sha256": "de6e048d0151f03780185a957f19872d38258262ba369300c673ff3e3ab6fc2b"
+    },
+    {
+      "path": "governance_packages/archive/studio-designs-2026-10-21/pre-last-app-baseline/README.md",
+      "bytes": 2227,
+      "sha256": "650e341d1b0b4c8e47b646acc088a6501a7a9bc919771fa35e9447b72b4e5185"
+    },
+    {
+      "path": "governance_packages/archive/studio-designs-2026-10-21/pre-last-app-baseline/ADOPTION.json",
+      "bytes": 1514,
+      "sha256": "f66adfcf2a36d94543c690b091debd744305163d9b9008bfebca10371a3d0c23"
+    }
+  ],
+  "selected_sources": [
+    {
+      "path": "governance_packages/archive/studio-designs-2026-10-21/adopted-last-app-sources/AGHR — Agent Governance & Harness Refe final.md",
+      "bytes": 60556,
+      "sha256": "064820539a90ffe51ccfd1e6dd4700e82bdd4a1d8edb32ea63e15e642c33ef6b"
+    },
+    {
+      "path": "governance_packages/archive/studio-designs-2026-10-21/adopted-last-app-sources/AGHR Governance Studio — Complete Spec.md",
+      "bytes": 70180,
+      "sha256": "dc0008fa548f4f57d17682dc3d64b4a50dec2a953904e0c4d18fa4ce407d2428"
+    }
+  ],
+  "prior_archives": [
+    {
+      "path": "governance_packages/archive/studio-designs-2026-10-21/new-app/# مقترح تنفيذي لتصميم AGHR Governance St.md",
+      "bytes": 16158,
+      "sha256": "a918143311846f3a75f2691938a7fc1a71b8c7a014528b2c1bb52ab07e9d41e9"
+    },
+    {
+      "path": "governance_packages/archive/studio-designs-2026-10-21/new-app/AGHR — Agent Governance & Harness Refe-v3.md",
+      "bytes": 37993,
+      "sha256": "1bf8300303de6f25d95bf164d75a9e22737cc1b2eb27bd60aa578dae1ec11120"
+    },
+    {
+      "path": "governance_packages/archive/studio-designs-2026-10-21/new-app/AGHR — Agent Governance & Harness Refe.md",
+      "bytes": 85696,
+      "sha256": "791a224b7c4ffb334b463cc3752fe994dbc85dce873c861df6068c19b275db5e"
+    },
+    {
+      "path": "governance_packages/archive/studio-designs-2026-10-21/new-app/AGHR — Agent Governance & Harness Refev2.md",
+      "bytes": 60639,
+      "sha256": "b36bf1c8b551abba84ef8c34a8df2945b71d22708a5ca66ff52f888d77173373"
+    },
+    {
+      "path": "governance_packages/archive/studio-designs-2026-10-21/new-app/AGHR Governance Studio v3.md",
+      "bytes": 29867,
+      "sha256": "dd1633786e1d76cc5894ed8c74aca65415f1652aa0caeb77efe9aeaa6923b1c3"
+    },
+    {
+      "path": "governance_packages/archive/studio-designs-2026-10-21/last-app/AGHR — Agent Governance & Harness Reference.md",
+      "bytes": 60527,
+      "sha256": "7aa1799c0b339d5d3964aba14831cf9f9d0310c7a41573ffd3d85fdd90972a83"
+    },
+    {
+      "path": "governance_packages/archive/studio-designs-2026-10-21/last-app/AGHR Governance Studio.md",
+      "bytes": 26547,
+      "sha256": "8b71ee0b031436578d80c98332d9df0c3b7280cf5e03542f1cf103b3d4949007"
+    },
+    {
+      "path": "governance_packages/archive/studio-designs-2026-10-21/inbox-root/AGHR — Agent Governance & Harness Refe.md",
+      "bytes": 85696,
+      "sha256": "791a224b7c4ffb334b463cc3752fe994dbc85dce873c861df6068c19b275db5e"
+    }
+  ],
+  "preserved_runtime_artifacts": [
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/MANIFEST.json",
+      "bytes": 24075,
+      "sha256": "001ab43869013e6446a77c18fa539b26a8f0fd844299efd006af815053169290"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0.zip",
+      "bytes": 1709426,
+      "sha256": "29497b708bd41cb35453ba12d4ae8212662084be0d53c14135ea15a98f6ac5dc"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/MANIFEST.json",
+      "bytes": 25875,
+      "sha256": "974a29e5f2950d2aeab1bb8cd03caf9f961a1da04c3205309b70601343c6433e"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0.zip",
+      "bytes": 1814319,
+      "sha256": "41dbd6df9de1e17b69d1aece08aadce104a338f7ed1450c1166263de2ca46829"
+    },
+    {
+      "path": "server/security.js",
+      "bytes": 9086,
+      "sha256": "5b59626a9af0b6d9524be7f331d66da28078b2c9ddc14520a62f6353973c5ba8"
+    },
+    {
+      "path": "tools/inbox_custody.mjs",
+      "bytes": 3363,
+      "sha256": "d9d01be7758f53ecc2bbfff75835051b5e9fbfe9701f6dfa875155468abe96fc"
+    },
+    {
+      "path": "tests/inbox_custody.test.mjs",
+      "bytes": 1308,
+      "sha256": "f68da933623ce96173f98e0815fd8a95e2c66631a9e915c4e5f9b71dc62b15d7"
+    },
+    {
+      "path": "package.json",
+      "bytes": 518,
+      "sha256": "c3e6a9b57cea62a390ed6655943cade4393ab0a96ebbae70a81287d78917ae8f"
+    },
+    {
+      "path": "src/i18n/I18nProvider.jsx",
+      "bytes": 1235,
+      "sha256": "4e228cca40ee6eb8da7a1a6105b64bf03c1c4d32a117cd068cc209b232a2aecc"
+    }
+  ],
+  "coverage_gaps": [],
+  "limitations": [
+    "Semantic coverage was manually reviewed by the implementer, not independently reviewed.",
+    "SQL syntax was exercised only in memory; no application database or runtime was qualified.",
+    "Acceptance checkboxes remain unexecuted implementation requirements."
+  ]
+}

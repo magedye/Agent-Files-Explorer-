@@ -2,7 +2,7 @@
 
 > **Document ID**: HANDOFF-CHECKPOINT-01  
 > **Status**: STABLE  
-> **Updated**: 2026-10-21  
+> **Updated**: 2026-10-22
 > **Purpose**: Seamless handoff between Codex, Claude, Gemini, or Antigravity agents.
 
 ---
@@ -11,19 +11,23 @@
 When switching agent models or starting a new session:
 1. Read [AGENTS.md](../../AGENTS.md) first (determines constraints and scope).
 2. Read [docs/status/CURRENT.md](CURRENT.md) (restores current state and blockers).
-3. Check `git status` to verify working tree cleanliness.
-4. Execute the next immediate task specified in `CURRENT.md`.
+3. Check actual Git/dirty state and preserve owner work.
+4. Resume the next authorized action from CURRENT; retain blocked gates.
 
 ---
 
 ## 2. Recent Architectural Decisions
+- **2026-10-22 (E1.d)**: [Delivery](../evidence/studio-e1d-2026-10-22/README.md): 63/63 candidate, 41/41 Studio; Path B, E1 technically complete. Owner acceptance precedes E2 (NOT_STARTED); T01 BLOCKED. PROVISIONAL license permits E1; signature later; default 1.2.0 preserved.
+- **2026-10-22 (Item review)**: [Register](../reviews/aghr-items-2026-10-22/README.md): 1,608 units; reviews pending, sources preserved, no import.
+- **Decision 2026-10-22 (Owner-accepted last-app designs)**:
+  - [Designs](../specs/aghr-rc3/README.md) and [receipt](../governance/LAST_APP_ADOPTION_2026_10_22.md): prior-baseline coverage; originals/previous baseline archived. Runtime reference 1.2.0 and candidate 1.3.0 retain their states.
 - **Decision 2026-10-21 (Repository checkpoint)**:
   - Owner authorized committing and pushing the accumulated project, reference, interface and candidate changes. Git determines the saved revision and remote state. This authorization does not promote candidate 1.3.0 or grant release acceptance.
   - Git attributes preserve exact package/evidence bytes across Windows checkouts; recorded verification logs are included while runtime logs remain ignored.
 - **Decision 2026-10-21 (Isolated skills candidate)**:
   - Owner authorized P0/P1/P2 in `candidates/AGHR_Candidate_1.3.0/`, preserving reference 1.2.0, native host responsibilities and global skills/settings. No promotion/publication or new governing AGHR-038 obligation.
   - [Plan and acceptance matrix](../plans/SKILLS_GOVERNANCE_CANDIDATE_1_3_0.md); final suite passed 320/320 and Studio 30/30 after preserving the eight originals and updating the INBOX test's receipt. Frozen manifest/package check and ZIP-byte comparison passed. [Delivery and exact hashes](../governance/SKILLS_CANDIDATE_1_3_0.md); CURRENT identifies any final closeout action.
-  - Native Codex/Antigravity qualification NOT_RUN; some attribution NOT_OBSERVABLE; independent review NOT_PERFORMED; release acceptance NOT_GRANTED. Resume only unfinished candidate work, not reference promotion.
+  - Native Codex/Antigravity qualification NOT_RUN; some attribution NOT_OBSERVABLE; independent review NOT_PERFORMED; release acceptance NOT_GRANTED. Candidate implementation is complete; reference promotion remains a separate decision.
 - **Decision 2026-10-20 (English interface)**:
   - Shared Arabic/English catalog and top-bar selector; saved preference controls document language, direction, UI copy and dates. Source/user text and governance IDs keep their original values.
   - [Feature and evidence](../features/INTERFACE_LANGUAGES.md): 30/30 Studio tests, successful build and isolated Edge checks of all six screens, persistence, draft preservation, graph/flow and responsive layouts. The existing 1.2.0 default and consumer authority are unchanged.

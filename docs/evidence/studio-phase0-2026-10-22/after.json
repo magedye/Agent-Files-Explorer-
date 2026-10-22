@@ -1,0 +1,160 @@
+{
+  "observed_at": "2026-10-21T23:23:43.133Z",
+  "branch": "main",
+  "head": "bb76a0b61617512f4cd6d0c6cea792e35d5ff4aa",
+  "scope": "PRODUCT_DOCUMENT_CORRECTED_AND_PHASE_0_DRAFT_CONTRACTS_STARTED",
+  "source_preservation": {
+    "status": "PASS",
+    "checked": 287,
+    "mismatches": []
+  },
+  "output_files": [
+    {
+      "path": "docs/plans/STUDIO_PRODUCT_AND_CONTRACTS_AR.md",
+      "bytes": 14795,
+      "sha256": "5295fbf2ffadf77ce6b805f42240d7e5b6cbabfb8e3366028bdc352253c0a0b6"
+    },
+    {
+      "path": "docs/status/CURRENT.md",
+      "bytes": 4637,
+      "sha256": "076a57d4af9e5406e07295e85ee99967c799000c866292b182d3b1fa96c4c179"
+    },
+    {
+      "path": "docs/status/HANDOFF.md",
+      "bytes": 6279,
+      "sha256": "e955eb04bd96fcb3906c353693a5270277a4f152cb4a0b1d26e87ce12b5dfce6"
+    },
+    {
+      "path": "docs/INDEX.md",
+      "bytes": 3937,
+      "sha256": "9e234fc3508c51c3dcdc1544e44da9c2c4e3e50e61fc937bdd815046af2da3bf"
+    },
+    {
+      "path": "tools/check_studio_contracts.mjs",
+      "bytes": 7377,
+      "sha256": "1be43f04791c97eb81a54a1563fc6142690546d3be5d8a0d1ec0f8c8ad394c2f"
+    },
+    {
+      "path": "tools/check_studio_contracts.ps1",
+      "bytes": 9232,
+      "sha256": "d7bdd55c6eb7081c524d73db98a632b7a7caf8ff3d3c5e6ca6c2f862f4fd5a38"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/ACCEPTANCE.md",
+      "bytes": 4792,
+      "sha256": "2ebc6bbbf2cf1936e4a406226cfa72f329be9113f485fe69f4e66c485339bfb7"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/aghr.json",
+      "bytes": 1012,
+      "sha256": "5f900e39b500f1300593bba8651f4b63fc6e26e7f5d30c4ea98f645b79d35e48"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/aghr.schema.json",
+      "bytes": 2996,
+      "sha256": "2ebbc02ff25cbb659a37351e7c155f8e66e8cd1890dfe50af6e738b8b40f5a4f"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/DECISIONS.md",
+      "bytes": 6996,
+      "sha256": "e39dffbe2f3c4ed5a90242491494ce6a1922c6293857e6eb9e0552fe7ea0605e"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/evidence.schema.json",
+      "bytes": 6418,
+      "sha256": "71292d39918c90ef1e7cad7446324d4a14f467dda4a144ab7e1093d39b985327"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/item.schema.json",
+      "bytes": 7381,
+      "sha256": "b80f15cd27320c52ddee8f1d4360b0cbf8a20320a3ee11d9a8150908302d76c5"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/openapi.readonly.draft.json",
+      "bytes": 8184,
+      "sha256": "7f7de5a7da9c71a76b650d0a3fad0ea63e9344eee47d4744f4bed5a15ae2f272"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/README.md",
+      "bytes": 5219,
+      "sha256": "d41f53019ea14866eb35f8da04dd6a2c09056055d6236c892a93808c373acd87"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/settings.yaml",
+      "bytes": 1713,
+      "sha256": "121cd0fa4ba8d3f20f28784edeac0af313fbe6f53e27ff53383f929d835f3524"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/sqlite/001_initial.sql",
+      "bytes": 13902,
+      "sha256": "d5ab6a5fa8dc3be95927d3f9871ed393a3d7f7206e102dae6f2721492dde2159"
+    },
+    {
+      "path": "docs/evidence/studio-phase0-2026-10-22/README.md",
+      "bytes": 2717,
+      "sha256": "d683d41b4ed4b5c918d2020f67bb725db3fdec97e386fe358a14193fc33037e5"
+    }
+  ],
+  "verification": {
+    "contract_schema_cases": {
+      "status": "PASS",
+      "passed": 40,
+      "profile": "LOCAL_DRAFT_CONTRACTS_ONLY",
+      "log": "contracts-check.log"
+    },
+    "contract_integrity_sql": {
+      "status": "PASS",
+      "passed": 9,
+      "profile": "LOCAL_CONTRACT_INTEGRITY_AND_SQL_ONLY"
+    },
+    "npm_test": {
+      "status": "PASS",
+      "passed": 30,
+      "failed": 0,
+      "skipped": 0,
+      "log": "npm-test.log"
+    },
+    "context_health": {
+      "status": "PASS",
+      "errors": 0,
+      "warnings": 0,
+      "bootstrap_estimated_tokens": 4982,
+      "log": "context-health.log",
+      "attempts": [
+        {
+          "status": "FAIL",
+          "classification": "TEST_DEFECT",
+          "log": "context-health-initial.log",
+          "cause": "Receipt linked its context log before the first invocation had created that log. Source and product were unchanged."
+        },
+        {
+          "status": "PASS",
+          "cause": "Repeat after the log exists; no rule or budget changed."
+        }
+      ]
+    },
+    "git_diff_check": {
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "git-diff-check.log",
+      "scope": "tracked working-tree diff; new output files checked separately for trailing whitespace"
+    },
+    "new_output_whitespace": {
+      "status": "PASS",
+      "checked": 17
+    }
+  },
+  "acceptance": {
+    "phase_0": "IN_PROGRESS",
+    "phase_0_exit": "REQUIRED / NOT_RUN / NOT_WAIVED",
+    "aghr_validate_strict": "REQUIRED / NOT_RUN / NOT_WAIVED",
+    "all_api_types": "INCOMPLETE",
+    "read_only_studio_demo": "REQUIRED / NOT_RUN / NOT_WAIVED",
+    "filesystem_write_sentinel": "REQUIRED / NOT_RUN / NOT_WAIVED",
+    "ci_parity": "REQUIRED / NOT_RUN / NOT_WAIVED",
+    "native_host_qualification": "NOT_RUN",
+    "reference_promotion": "NOT_PERFORMED",
+    "release_acceptance": "NOT_GRANTED"
+  },
+  "next_action": "Complete API types and unresolved Phase 0 decisions, pin the actual Python engine and qualify the read-only demonstration; then validate one SEC-001 template before bulk migration."
+}

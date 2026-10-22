@@ -1,0 +1,174 @@
+{
+  "contract_revision": "contract.1",
+  "scope": "Acceptance criteria, not an executable policy engine; not satisfied by local schema tests",
+  "cases": [
+    {
+      "id": "AUTH-01",
+      "source": "Studio 44 / G.4",
+      "requirement": "Server resolves the principal/role and exact scoped grant; body/simulated roles never elevate it.",
+      "acceptance": "forged request identity is rejected; an authenticated, scoped actor can perform its allowed action",
+      "executor": "pinned_python_engine_and_qualified_host_integration",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED"
+    },
+    {
+      "id": "AUTH-02",
+      "source": "Reference 3.1 / 5.2 / Studio G.4",
+      "requirement": "Declared authority level is not authenticated issuer trust; unknown provenance stays UNKNOWN.",
+      "acceptance": "enterprise text from an untrusted file does not grant higher authority",
+      "executor": "pinned_python_engine_and_qualified_host_integration",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED"
+    },
+    {
+      "id": "STATE-01",
+      "source": "Reference 12.1 / 14.3",
+      "requirement": "Only trusted post-merge CI publishes canonical state after evidence verification.",
+      "acceptance": "schema-valid publisher=ci from an agent cannot publish",
+      "executor": "pinned_python_engine_and_qualified_host_integration",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED"
+    },
+    {
+      "id": "DISC-01",
+      "source": "Reference 7.2",
+      "requirement": "UNKNOWN_ID rejects verification; NO_SKILL_MATCH is valid discovery; DISCOVERY_UNAVAILABLE halts the affected path.",
+      "acceptance": "all three outcomes remain distinct and permission denial cannot become direct execution",
+      "executor": "pinned_python_engine_and_qualified_host_integration",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED"
+    },
+    {
+      "id": "LIFE-01",
+      "source": "Reference 7.1 / 14.2",
+      "requirement": "SELECTED/LOADED/acknowledged do not imply execution or verification. HOST_SIGNAL also satisfies the stricter current-task execution requirement.",
+      "acceptance": "loaded-only, raw-ack-only and missing-current-task references cannot report execution success",
+      "executor": "pinned_python_engine_and_qualified_host_integration",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED"
+    },
+    {
+      "id": "VERIFY-01",
+      "source": "Reference 14.2",
+      "requirement": "Consume task_criteria against actual nonempty outputs and valid execution evidence; reject unknown IDs and UNKNOWN execution.",
+      "acceptance": "empty/missing/wrong-content outputs, stale evidence and ignored criteria cannot PASS",
+      "executor": "pinned_python_engine_and_qualified_host_integration",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED"
+    },
+    {
+      "id": "QUAL-01",
+      "source": "Reference 7.4 / Studio 15",
+      "requirement": "Qualification matches skill plus all four tuple keys; changed tuple is NOT_RUN and cannot select P0.",
+      "acceptance": "change each key separately, preserve historical records, reject partial match",
+      "executor": "pinned_python_engine_and_qualified_host_integration",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED"
+    },
+    {
+      "id": "QUAL-02",
+      "source": "Reference 3.3 / 7.4",
+      "requirement": "Qualification records cover every referenced skill and do not conflict for the same tuple.",
+      "acceptance": "a valid single record does not cover two distinct scope.skillIds",
+      "executor": "pinned_python_engine_and_qualified_host_integration",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED"
+    },
+    {
+      "id": "LANG-01",
+      "source": "Reference 5.3 / Studio 3",
+      "requirement": "Language changes rendering only; missing translations stay visible.",
+      "acceptance": "Arabic/English yield the same applicable set including all pages; unsupported language query is rejected",
+      "executor": "pinned_python_engine_and_qualified_host_integration",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED"
+    },
+    {
+      "id": "CAL-01",
+      "source": "Studio 38 / Reference 6.1",
+      "requirement": "repo-measured is linked to a successful candidate-bound eval, measured delta and authorized CP approval.",
+      "acceptance": "failed/unrelated eval and self-claimed measurement cannot calibrate or demote P0",
+      "executor": "pinned_python_engine_and_qualified_host_integration",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED"
+    },
+    {
+      "id": "GEN-01",
+      "source": "Reference 9.2 / Studio 17",
+      "requirement": "L1+ exports include PRIN-007, stay within UTF-8 byte budget and preserve every P0.",
+      "acceptance": "missing principle, overflow, stage=fail or lost P0 prevents every export mode",
+      "executor": "pinned_python_engine_and_qualified_host_integration",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED"
+    },
+    {
+      "id": "GEN-02",
+      "source": "Studio 17.4 / 21.5",
+      "requirement": "compress requires explicit acknowledgement; compact additionally needs a version-bound governance-owner acknowledgement and qualified lookup.",
+      "acceptance": "body role injection, stale acknowledgement and missing lookup prevent export",
+      "executor": "pinned_python_engine_and_qualified_host_integration",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED"
+    },
+    {
+      "id": "CP-01",
+      "source": "Studio 4 / 21 / 37",
+      "requirement": "Proposal hashing uses the defined JCS artifact; a proposal change atomically invalidates bound checks, preview and approvals.",
+      "acceptance": "stale If-Match is rejected before mutation/export; invalidated decision timestamps/reasons survive",
+      "executor": "pinned_python_engine_and_qualified_host_integration",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED"
+    },
+    {
+      "id": "CP-02",
+      "source": "Studio 37 / Appendix B",
+      "requirement": "submit changes validated to in_review only; approval/export/close honor the documented state transition and current proof.",
+      "acceptance": "cannot submit a failed draft, approve own role claim, export rejected content or close without trusted merge",
+      "executor": "pinned_python_engine_and_qualified_host_integration",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED"
+    },
+    {
+      "id": "META-01",
+      "source": "Reference 4.2 / 16 / Studio 39",
+      "requirement": "Advanced item paths, governance-owner review and skill adoption follow existing CP governance.",
+      "acceptance": "wrapper kinds never become governance item kinds; a lesson remains a proposal until approved",
+      "executor": "pinned_python_engine_and_qualified_host_integration",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED"
+    },
+    {
+      "id": "PARITY-01",
+      "source": "Studio 4",
+      "requirement": "Compare actual judgments for the same candidate/engine/input/config hashes; known divergence blocks accepted export and publication.",
+      "acceptance": "NOT_RUN CI evidence remains missing; a later unrelated pass cannot overwrite a mismatch",
+      "executor": "pinned_python_engine_and_qualified_host_integration",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED"
+    },
+    {
+      "id": "RESOURCE-01",
+      "source": "Studio 43",
+      "requirement": "Qualified platform adapter actually enforces wall time, memory and process-tree termination, retaining partial output.",
+      "acceptance": "timeout/memory overflow are explicit; absent adapter blocks; user cancellation is not measured overflow",
+      "executor": "pinned_python_engine_and_qualified_host_integration",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED"
+    },
+    {
+      "id": "EVAL-01",
+      "source": "Reference 11.1 / 11.2",
+      "requirement": "Seven honesty checks and eight skill scenarios are run distinctly from native host qualification.",
+      "acceptance": "unit success does not qualify Codex/Antigravity; unavailable observations remain NOT_RUN/NOT_OBSERVABLE",
+      "executor": "pinned_python_engine_and_qualified_host_integration",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED"
+    },
+    {
+      "id": "SOURCE-01",
+      "source": "Studio 3 / 45",
+      "requirement": "Scanning, viewing and attaching evidence preserve canonical source bytes; state and evidence have no Studio write endpoint.",
+      "acceptance": "read-only demonstration has zero Studio filesystem writes, including logs and cache",
+      "executor": "pinned_python_engine_and_qualified_host_integration",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED"
+    },
+    {
+      "id": "MODEL-01",
+      "source": "Studio 5-10 / 25",
+      "requirement": "Projections preserve original grouped metrics/source YAML/raw stdout/stderr/output; absent measurements are null/NOT_RUN.",
+      "acceptance": "no fabricated zero metrics, no stale qualification reuse and no data loss during indexing",
+      "executor": "pinned_python_engine_and_qualified_host_integration",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED"
+    },
+    {
+      "id": "SIGNATURE-01",
+      "source": "Reference 2.1 / 12.5 / 14.1",
+      "requirement": "Verify package signature, locked engine distribution and consumer CI provenance before accepted generation/publication.",
+      "acceptance": "Unsigned or unverified declared identity is not a verified installation; unavailable signing remains an explicit gap.",
+      "executor": "pinned_python_engine_and_qualified_host_integration",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED"
+    }
+  ]
+}

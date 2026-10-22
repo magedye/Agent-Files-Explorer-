@@ -1,0 +1,535 @@
+# AGHR Governance Studio — Final Specification (Aligned with AGHR 1.0.0-rc.3 Consolidated)
+
+## 1. Identity and Mandatory Commitments
+
+**AGHR Governance Studio** is a local-first environment for managing the complete agent governance lifecycle, strictly compliant with **AGHR 1.0.0-rc.3 (Consolidated)**.
+
+### 1.1 Mandatory Architectural Commitments
+
+| Commitment | Source in rc.3 | Studio implementation |
+|---|---|---|
+| Four-layer separation | §1.1 | Each screen declares its layer; authority never mixes with execution |
+| CI is sole writer of `state.json` | §12.1 | Studio **never** writes `state.json` (regression-tested) |
+| Runtime evidence is separate | §12.1, §12.2 | `.aghr/runtime_evidence/{task_id}.jsonl` managed read/format only |
+| Language does not filter rules | §5.3 | Items always displayed; translation optional with badge |
+| `authority.level` mandatory for MUST/MUST_NOT | §3.1, §5.2 | Required field; validation error if omitted |
+| `impact.evidence` visible | §6.1 | Badge per item: `assumed` / `benchmark` / `repo-measured` |
+| `HOST_SIGNAL` optional | §7.1 | Optional column in Skill Card |
+| Three distinct discovery states | §7.2 | `UNKNOWN_ID` / `NO_SKILL_MATCH` / `DISCOVERY_UNAVAILABLE` with distinct colors |
+| `PRIN-007` in every AGENTS.md at L1+ | §9.2, §14.2 | Mandatory check in Generation & Preview |
+| Qualification per `(host, version, scope, contentHash)` | §7.4 | Four keys displayed; invalidated on any change |
+| 100% honesty checks separate from ≥95% behavioral | §11.1 | Two distinct metrics in Metrics screen |
+| Strict resource limits on `eval`/`qualify` | Operational necessity | Timeout + memory limits + `resource_limit_exceeded` state |
+
+### 1.2 The "Change Package" — Studio Innovation
+
+The Studio introduces **Change Packages** as the central unit of work. This is **not** in rc.3, but is fully compatible with it: it wraps §16.1's "Change Request process" and §12's "state vs. evidence" separation into a single trackable artifact with `version_hash`-bound approvals. rc.3 remains the normative source; the Change Package is the Studio's implementation of §16.1.
+
+---
+
+## 2. Product Model
+
+| Element | rc.3 Layer | Manages | rc.3 Fields exposed |
+|---|---|---|---|
+| **Instructions** | Layer 1 — Governance Authority | kind, force, severity, **authority (with level)**, scope, enforcement, exceptions, **rationale, reviewCadence, conflictPolicy, supersedes** | Full §3.2 schema |
+| **Capabilities & Skills** | Layer 2 — Guidance | source, function, permissions, conflicts, qualification, usage | `skillQualification` with 4 keys |
+| **Project & Host** | Layer 3 — Execution Controls | tech stack, config, dual adoption level, host, host version | §13 levels for both domains |
+| **Changes & Evidence** | Layer 4 — Evidence | previous state, proposed, diff, checks, approvals, next state | `runtime_evidence/` separated from `state.json` |
+
+### 2.1 Workflow
+
+```mermaid
+flowchart LR
+    A["Source: Document / Lesson / Request"] --> B["Classify + Reference Match<br/>(authority.level, force, severity)"]
+    B --> C["Proposal in Isolated Space<br/>(draft + proposed YAML + version_hash)"]
+    C --> D["Checks: validate + lint + skill-states<br/>+ generate (compress→compact→fail) + diff"]
+    D --> E["Review + Authorized Decision<br/>(tied to version_hash)"]
+    E --> F["Export: patch / signed commit<br/>(never writes state.json)"]
+    F --> G["CI: Publishes approved state<br/>+ merges runtime_evidence"]
+    G --> H["Studio: Displays published state<br/>+ operational evidence + calibration"]
+```
+
+---
+
+## 3. Data Model (SQLite — Updated for rc.3 Consolidated)
+
+```sql
+-- Workspaces
+CREATE TABLE workspaces (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  package_path TEXT NOT NULL,
+  package_version TEXT,                 -- from aghr.json
+  schema_version TEXT,                  -- rc.3 = "1.2"
+  package_signature_verified INTEGER,   -- from cosign
+  created_at TEXT NOT NULL,
+  last_scanned_at TEXT
+);
+
+-- Target projects
+CREATE TABLE target_projects (
+  id TEXT PRIMARY KEY,
+  workspace_id TEXT REFERENCES workspaces(id),
+  name TEXT NOT NULL,
+  path TEXT NOT NULL,
+  detected_profile TEXT,
+  instruction_level TEXT,                -- L0..L4 (§13)
+  skill_level TEXT,                      -- L0..L4 (§13)
+  git_remote TEXT,
+  git_branch TEXT,
+  host TEXT,
+  host_version TEXT,
+  last_scanned_at TEXT
+);
+
+-- Instruction items cache (READ-ONLY derivation)
+CREATE TABLE instruction_items_cache (
+  workspace_id TEXT,
+  item_id TEXT,
+  kind TEXT,
+  force TEXT,
+  severity TEXT,
+  authority_level TEXT,                  -- enterprise|organization|project|component
+  authority_source TEXT,                 -- NEW: §5.2 conflict resolution
+  authority_owner TEXT,
+  authority_status TEXT,
+  authority_supersedes TEXT,             -- NEW: §5.2 explicit supersession
+  priority_tier TEXT,                    -- P0-Safety|P0-Integrity|P1-Reasoning|P2-Quality|P3-Presentation
+  impact_band TEXT,                      -- critical|high|medium|low|info
+  impact_evidence TEXT,                  -- assumed|benchmark|repo-measured
+  rationale TEXT,                        -- NEW: §3.2
+  review_cadence TEXT,                   -- NEW: §3.2
+  next_review TEXT,                      -- NEW: §3.2 (drives "Review Due" badge)
+  conflict_policy_precedence TEXT,       -- NEW: auto|explicit
+  merge_effect TEXT,                     -- NEW: blocking|advisory|none
+  gate_type TEXT,                        -- NEW: github-branch-protection|required-check
+  gate_required INTEGER,                 -- NEW: 0/1
+  source_path TEXT,
+  content_hash TEXT,
+  indexed_at TEXT,
+  PRIMARY KEY (workspace_id, item_id, content_hash)
+);
+
+-- Capability items cache
+CREATE TABLE capability_items_cache (
+  workspace_id TEXT,
+  item_id TEXT,
+  skill_id TEXT,
+  source TEXT,                           -- system|user|project|extension|catalog|aghr
+  function TEXT,                         -- routing|design|implementation|security|verification|learning
+  permissions_read TEXT,
+  permissions_write TEXT,
+  permissions_network TEXT,
+  permissions_secrets TEXT,
+  conflicts_with TEXT,
+  alternatives TEXT,
+  content_hash TEXT,
+  indexed_at TEXT,
+  PRIMARY KEY (workspace_id, item_id, content_hash)
+);
+
+-- Skill qualification snapshot (READ-ONLY from state.json + evidence)
+CREATE TABLE skill_qualification_snapshot (
+  workspace_id TEXT,
+  skill_id TEXT,
+  host TEXT,
+  host_version TEXT,
+  scope TEXT,
+  status TEXT,                           -- QUALIFIED|NOT_RUN|NOT_OBSERVABLE|UNKNOWN|FAILED
+  qualified_at TEXT,
+  content_hash TEXT,
+  evidence_json TEXT,
+  read_at TEXT,
+  PRIMARY KEY (workspace_id, skill_id, host, host_version, scope, content_hash)
+);
+
+-- Change packages (Studio's implementation of §16.1)
+CREATE TABLE change_packages (
+  id TEXT PRIMARY KEY,
+  workspace_id TEXT REFERENCES workspaces(id),
+  title TEXT NOT NULL,
+  kind TEXT NOT NULL,
+  target_item_id TEXT,
+  status TEXT NOT NULL,                  -- draft|validating|validated|in_review|approved|exported|closed
+  source_ref TEXT,
+  source_hash TEXT,
+  base_version TEXT,
+  proposed_yaml TEXT NOT NULL,
+  validation_result_json TEXT,
+  lint_result_json TEXT,
+  skill_state_result_json TEXT,
+  generation_result_json TEXT,           -- NEW: compress/compact/fail stages + P0 preservation
+  preview_diff TEXT,
+  impact_summary_json TEXT,
+  required_approvals_json TEXT,
+  version_hash TEXT,
+  created_by TEXT,
+  created_at TEXT,
+  updated_at TEXT
+);
+
+-- Approvals (tied to version_hash)
+CREATE TABLE change_package_approvals (
+  package_id TEXT REFERENCES change_packages(id),
+  role TEXT NOT NULL,
+  approver TEXT NOT NULL,
+  decision TEXT NOT NULL,
+  approved_version_hash TEXT NOT NULL,
+  reason TEXT,
+  at TEXT NOT NULL,
+  PRIMARY KEY (package_id, role, approver, approved_version_hash)
+);
+
+-- Runtime evidence (READ-ONLY from .aghr/runtime_evidence/)
+CREATE TABLE runtime_evidence_events (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  workspace_id TEXT,
+  target_project_id TEXT,
+  task_id TEXT NOT NULL,
+  event_type TEXT NOT NULL,              -- selected|loaded|host.signal|executed|verified|blocked|discovery.outcome
+  skill_id TEXT,
+  payload_json TEXT NOT NULL,
+  recorded_at TEXT NOT NULL,
+  source TEXT
+);
+
+-- Verification runs
+CREATE TABLE verification_runs (
+  id TEXT PRIMARY KEY,
+  workspace_id TEXT,
+  command TEXT NOT NULL,                 -- validate|generate-check|lint|skill-states|eval|qualify|doctor
+  args_json TEXT,
+  status TEXT NOT NULL,                  -- running|passed|failed|suspicious|errored|resource_limit_exceeded
+  exit_code INTEGER,
+  started_at TEXT NOT NULL,
+  finished_at TEXT,
+  duration_ms INTEGER,
+  summary_json TEXT,
+  raw_output TEXT
+);
+
+-- Metrics snapshots (NEW: §17 tracking over time)
+CREATE TABLE metrics_snapshots (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  workspace_id TEXT,
+  captured_at TEXT NOT NULL,
+  instruction_metrics_json TEXT,         -- §17.1 five metrics
+  skill_metrics_json TEXT                -- §17.2 five metrics
+);
+
+-- Audit log
+CREATE TABLE audit_events (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  at TEXT NOT NULL,
+  actor TEXT NOT NULL,
+  simulated_role TEXT,
+  event_type TEXT NOT NULL,
+  workspace_id TEXT,
+  payload_json TEXT
+);
+```
+
+**Governing rule:** Any table ending in `_cache`, `_snapshot`, or `_events` (runtime) is **derived and read-only**. It is never written to by the Studio. Source of truth remains files on disk + `state.json` (written by CI).
+
+---
+
+## 4. Screens (Updated — 16 Screens)
+
+| # | Screen | rc.3 Layer | Function | rc.3 Features displayed |
+|---|---|---|---|---|
+| 1 | **Project Dashboard** | 1 + 3 | Dual adoption levels + top risks | Separate `instruction_level` + `skill_level` (§13); Review Due count; Calibration coverage; False-success rate |
+| 2 | **Instructions Registry** | 1 | Search/filter/edit | `authority.level`, `impact.evidence`, `mergeEffect`, `gate`, `nextReview` |
+| 3 | **Instruction Detail** | 1 | Full item card | 8 dimensions + relations + verification history + **"Calibrate" action** (assumed→repo-measured) + Review Due status |
+| 4 | **Capabilities & Hosts** | 2 | Skill inventory + qualification | `skillQualification` 4 keys + `contentHash` |
+| 5 | **Skill Detail** | 2 | Full skill card | 3 axes (Availability / Qualification / Usage) + evidence link per state |
+| 6 | **Profiles & Scope** | 2 | Project selections | `scope.paths`, `scope.environments`, `scope.stages`, `scope.taskTypes`, `scope.languages` (display-only), `scope.appliesToAgents`, `scope.skillIds` |
+| 7 | **Generation & Preview** | 2 | Preview `AGENTS.md` | Byte budget + **compress/compact/fail stage indicator** + P0 preservation proof + `PRIN-007` check |
+| 8 | **Verification & Evidence** | 4 | Run checks + results | validate / generate-check / lint / skill-states / eval / qualify / **doctor** + SARIF |
+| 9 | **Runtime Evidence** | 4 | View `.aghr/runtime_evidence/` | 11 state types incl. `DISCOVERY_UNAVAILABLE` (halt-flagged) |
+| 10 | **Change Packages** | 4 | List/edit/review | `version_hash` + approval binding |
+| 11 | **Change Package Detail** | 4 | diff + checks + approvals + export | "Proposed" vs "Published" separation |
+| 12 | **Meta-Governance** *(NEW)* | 1 + 4 | Govern AGHR itself (§16) | §16.1 Instruction-item changes + §16.2 Skill adoption procedures |
+| 13 | **Intake & Learning** | 4 | Ingest documents/lessons | Route to `governed-learning`; convert to Change Package |
+| 14 | **Audit & Reports** | 4 | Full log + export | SARIF / JSON / MD |
+| 15 | **Metrics** | 4 | §17.1 + §17.2 indicators | 100% honesty vs ≥95% behavioral (separated); all 10 metrics from §17 |
+| 16 | **Settings** | 3 | Workspaces, roles, signing, host config | GPG fallback + resource limits + host qualification registry |
+
+**Design principle:** Every screen declares its layer in the header. Screen 12 (Meta-Governance) is new — it makes §16 a first-class workflow rather than an implicit capability.
+
+---
+
+## 5. Key Interaction Details
+
+### 5.1 Instruction Editor — Enforces Full rc.3 §3.2 Schema
+
+| Level | Required fields (rc.3 §3.3) |
+|---|---|
+| `INFORMATIVE` / `MAY` | `id`, `kind`, `force`, `severity`, `scope`, `rule` |
+| `SHOULD` / `SHOULD_NOT` | + `authority.owner`, `rationale` |
+| `MUST` | + full `authority` (**including `level`**), `verification` |
+| `MUST_NOT` + `critical\|high` | + `approvedBy`, technical/human enforcement, `evalFixtures`, `mergeEffect`, `gate` |
+| Any `CAPABILITY` reference | + `skillQualification` record |
+
+**Lifecycle fields** (`reviewCadence`, `nextReview`) are optional but trigger a **"Review Due"** badge in the Registry when `nextReview < today` and `authority.status = active`.
+
+**Conflict fields** (`conflictPolicy.precedence`, `overrides`, `overriddenBy`, `authority.supersedes`) are shown in the Relations panel and participate in `aghr lint` conflict detection.
+
+### 5.2 Skill Card — 3 Axes + 4 Keys + Evidence per State
+
+Each axis displays its evidence column:
+
+| Axis | States | Evidence shown |
+|---|---|---|
+| **Availability** | `EXISTS` → `DISCOVERED` → `QUALIFIED` | Path+hash / host list / qualification record |
+| **Qualification** | `status` + `qualifiedAt` + `evidence` + `contentHash` + `hostVersion` + `scope` | Link to eval result JSON |
+| **Task Usage** | `SELECTED` → `LOADED` → `EXECUTED` → `VERIFIED` + (`HOST_SIGNAL` \| `NOT_OBSERVABLE`) | Link to `runtime_evidence/{task_id}.jsonl#event` |
+
+**Mandatory behaviors:**
+- If `contentHash` or `hostVersion` changes → red "Qualification Expired" badge; P0 selection blocked.
+- If `NOT_OBSERVABLE` → gray informational badge, **not** an error.
+- If `BLOCKED` → red terminal badge; **no** fallback suggestion unless authorization is re-checked in runtime evidence.
+
+### 5.3 Runtime Evidence Screen — Halt-Aware
+
+Events from `.aghr/runtime_evidence/{task_id}.jsonl` (rc.3 §12.2), sorted chronologically, with:
+
+- **Default filter order:** `BLOCKED` → `DISCOVERY_UNAVAILABLE` → `UNKNOWN_ID` → `EXECUTED_FAILED` → others.
+- **`DISCOVERY_UNAVAILABLE`** is flagged as **halt-required** (per §7.2): the UI displays a warning that the session's execution is not trusted without re-discovery.
+- **`NO_SKILL_MATCH`** is flagged as **valid** (green), not an error.
+- **"Submit to CI"** button generates a PR draft with the evidence file.
+- **No writing** — read and format only.
+
+### 5.4 Project Dashboard — Dual Levels + Lifecycle
+
+Displays:
+
+- **Instruction Governance Level** (L0–L4) and **Skill Governance Level** (L0–L4) separately, with divergence warning.
+- **Clickable indicators:**
+  - "N P0 capabilities need qualification on current host"
+  - "N items past `nextReview`" (Review Due)
+  - "N P0 items with `impact.evidence: assumed` for >60 days" (Calibration Gap)
+  - "N exceptions expiring in ≤14 days"
+  - "Drift detected in `AGENTS.md`"
+  - "False-success rate: N%" (should be 0)
+
+### 5.5 Generation & Preview — Graceful Degradation Visible
+
+Displays the **three-stage generation pipeline** (rc.3 §9.4):
+
+| Stage | Trigger | UI indicator |
+|---|---|---|
+| **Full** | Under `budgetBytes` | Green; no compression |
+| **Compress** | Approaching limit | Yellow; shows P3/P2 collapsed to summary table |
+| **Compact P0/P1** | Over limit after compress | Orange; shows compact directives (`aghr_get_rule`) |
+| **Fail** | P0 cannot be represented | Red; lists specific overflowing P0 items |
+
+**`PRIN-007` presence check** runs here. Absence blocks export.
+
+### 5.6 Impact Calibration Workflow (New)
+
+The Instruction Detail screen includes a **"Calibrate"** action (available to `governance-owner`):
+
+1. Opens a Change Package that updates `impact.evidence` from `assumed` → `repo-measured`.
+2. Requires a link to a completed eval run (`verification_runs.id` with `command=eval` and `status=passed`).
+3. Sets `impact.lastCalibrated` to the run's `finished_at` and `impact.measuredDelta` from the run summary.
+4. Goes through normal Change Package approval (security-owner may not be required if severity unchanged).
+
+This operationalizes rc.3 §6.1's rule: "only `repo-measured` may inform priority demotion."
+
+### 5.7 Meta-Governance Screen (New — Maps §16)
+
+This screen implements rc.3 §16 as a first-class workflow:
+
+**Tab 1 — §16.1 Instruction-Item Changes:**
+- Routes any Change Package whose target is `policies/**`, `schemas/**`, or `tools/**`.
+- Requires `governance-owner` approval + all existing behavioral evals passing.
+- Enforces `aghr generate --check` on regeneration.
+
+**Tab 2 — §16.2 Skill Adoption:**
+- Step-by-step wizard mirroring rc.3 §16.2's 7-step procedure.
+- Records the classification (source × function), conflict check, CAPABILITY creation, qualification run, and eval fixtures addition.
+- Ties into the Skill Card screen for evidence viewing.
+
+---
+
+## 6. Change and Approval Path
+
+The **Change Package** remains the central unit:
+
+```yaml
+change_package:
+  id: CP-2026-0042
+  title: "Add SEC-008: no shell expansion in agent commands"
+  kind: CONSTRAINT
+  source:
+    type: document | lesson | request
+    ref: "INBOX/security-review-2026-10.md"
+    hash: "sha256:..."
+  base:
+    package_version: "1.0.0-rc.3"
+  proposal:
+    yaml: |
+      id: SEC-008
+      # ... full §3.2 schema including rationale, reviewCadence, conflictPolicy
+    version_hash: "sha256:..."
+  checks:
+    validate: { status: passed, at: "..." }
+    lint: { status: passed, at: "..." }
+    generate_check:
+      status: passed
+      byte_delta: "+142B"
+      stage: full  # full | compress | compact | fail
+      p0_preserved: true
+    skill_states: { status: not_applicable }
+    eval: { status: pending, fixtures_required: ["evals/fixtures/instruction/SEC-008/"] }
+  impact:
+    on_authority: "adds enterprise-level constraint"
+    on_compatibility: "no conflict with existing items"
+    on_consumers: ["services/payments/**", "services/auth/**"]
+  approvals:
+    - role: governance-owner
+      approver: "alice"
+      decision: approve
+      approved_version_hash: "sha256:..."  # MUST equal proposal.version_hash
+      at: "2026-10-21T18:30:00Z"
+  export:
+    format: patch | commit_signed | commit_unsigned
+    patch_path: ".governance/studio/drafts/CP-2026-0042.patch"
+```
+
+**Core rules (unchanged + one addition):**
+
+1. Approval is tied to `version_hash`. Any change invalidates approvals.
+2. `state.json` is never written by the Studio.
+3. `runtime_evidence` is attached to the PR when relevant; CI evaluates before adopting `state.json`.
+4. `mergeEffect: blocking` requires `gate.required: true` to exist — verified via `aghr doctor` before export.
+5. **NEW:** `generate_check.stage` must be `full` or `compress` to export. `compact` requires explicit governance-owner acknowledgement that P0 items are preserved via compact directives. `fail` blocks export entirely.
+
+---
+
+## 7. Technical Architecture
+
+Same as v3, with one addition:
+
+```text
+server/studio/
+  ...
+  evidence-reader/                # reads .aghr/runtime_evidence/ (read-only)
+  calibration/                    # NEW: impact evidence transition workflow
+  meta-governance/                # NEW: §16.1 + §16.2 routing
+```
+
+**`evidence.schema.json`** from rc.3 §2 must be mirrored in `contracts/` for validation on read.
+
+---
+
+## 8. Metrics Mapping (§17 → Screens)
+
+| §17 metric | Screen | How displayed |
+|---|---|---|
+| **Policy coverage** (§17.1) | Dashboard | % with clickable filter |
+| **Eval pass rate** (§17.1) | Verification + Metrics | Trend chart |
+| **Exception half-life** (§17.1) | Dashboard | Median days + expiring list |
+| **Drift rate** (§17.1) | Verification | Count + PR trend |
+| **Calibration coverage** (§17.1) | Dashboard + Instruction Detail | % of P0 with `repo-measured` |
+| **Skill qualification coverage** (§17.2) | Capabilities + Dashboard | % per host |
+| **Skill eval pass rate** (§17.2) | Metrics | Trend chart |
+| **False-success rate** (§17.2) | Dashboard | Must be 0%; red if >0 |
+| **Discovery recall (multilingual)** (§17.2) | Metrics | % of non-English tasks with non-empty outcome |
+| **Qualification drift** (§17.2) | Capabilities | Count + list |
+
+`metrics_snapshots` table stores periodic captures for trend charts.
+
+---
+
+## 9. Execution Plan (7 Phases — Updated)
+
+| Phase | Duration | Deliverable | Exit criterion |
+|---|---:|---|---|
+| **0 — Contract Finalization** | 1 week | `aghr.json` v1.2 + §6 decisions resolved + `contracts/` (incl. `evidence.schema.json`) + SQLite schema | All ambiguities documented; `state.json` unwritable |
+| **1 — Specialized Browsing** | 2 weeks | Screens 2, 3, 4, 5 (with Calibrate + Review Due + evidence per state) | `authority.level` + `impact.evidence` + lifecycle visible |
+| **2 — Single Instruction Cycle** | 2 weeks | SEC-001 authoring → validate → generate (with 3-stage indicator) → diff (Screens 2, 3, 7, 10, 11) | Reject invalid YAML; `PRIN-007` present; `version_hash` invalidates approvals; stage visible |
+| **3 — Single Capability Cycle** | 2 weeks | CAPABILITY + qualification + usage (Screens 4, 5, 8, 9) | 8 scenarios + 7 honesty checks; `DISCOVERY_UNAVAILABLE` flagged as halt |
+| **4 — Governed Change** | 2 weeks | Draft → review → approval → export (Screens 10, 11, 13, **12**) | Reject stale approvals; Meta-Governance routes §16.1/§16.2 correctly |
+| **5 — Pilot Project** | 2 weeks | L2 + L3 on two projects + evidence + calibration | Actual evidence linked to versions; `runtime_evidence` attached |
+| **6 — Operational Refinement** | 1 week | Metrics dashboard (Screen 15) + calibration loop + reports | All 10 §17 metrics visible; false-success = 0% |
+
+**Total:** 12 weeks.
+
+**First deliverable:** Instruction Registry + Skill Card connected to a complete `SEC-001` + `CAPABILITY` cycle. **Agreed.**
+
+---
+
+## 10. Acceptance Criteria (Fixed Numbering)
+
+**Functional:**
+
+- [ ] Every instruction and capability traceable to source + version
+- [ ] `authority.level` visible + filterable on every MUST/MUST_NOT
+- [ ] `impact.evidence` visible with distinct colors per class
+- [ ] Language never hides an item; translation optional with badge
+- [ ] Validation consistent between editor and `aghr` (no discrepancies)
+- [ ] Generation ≤ `budgetBytes`; stage (`full`/`compress`/`compact`/`fail`) visible; P0 preserved in every stage except `fail`
+- [ ] `PRIN-007` present in every `AGENTS.md` at L1+
+- [ ] `task_criteria` consumed in verification (not merely accepted)
+- [ ] `BLOCKED`, `NO_SKILL_MATCH`, `UNKNOWN_ID`, `DISCOVERY_UNAVAILABLE` visually + semantically distinct
+- [ ] `DISCOVERY_UNAVAILABLE` triggers halt recommendation, not silent fallback
+- [ ] `NOT_OBSERVABLE` displayed as valid (gray), not error
+- [ ] `HOST_SIGNAL` never fabricated
+- [ ] Qualification invalidated on change to: `host`, `hostVersion`, `scope`, `contentHash`
+- [ ] Approval tied to `version_hash`; any proposal change invalidates it
+- [ ] `state.json` unwritable by Studio (regression test)
+- [ ] `runtime_evidence` displayed + attachable to PR, never directly merged into `state.json`
+- [ ] `mergeEffect: blocking` requires existing `gate.required: true` (verified via `aghr doctor`)
+- [ ] Declared adoption controls actually enforced (no false claims)
+- [ ] UI works in Arabic and English in isolated Microsoft Edge
+- [ ] Local test results separated from host qualification, independent review, and release acceptance
+- [ ] 100% honesty checks separated from ≥95% behavioral tolerance
+- [ ] `eval`/`qualify` governed by timeout + memory limits; `resource_limit_exceeded` state exists
+- [ ] **NEW:** "Review Due" badge visible for items past `nextReview`
+- [ ] **NEW:** Impact Calibration workflow available; requires linked passed eval run
+- [ ] **NEW:** Meta-Governance screen routes §16.1 and §16.2 changes correctly
+- [ ] **NEW:** All 10 §17 metrics visible in Metrics screen
+- [ ] **NEW:** False-success rate = 0% enforced as P0 indicator
+
+**Non-functional:** (unchanged from v3)
+
+- [ ] Cold start < 3 seconds
+- [ ] Indexing 500 items < 5 seconds
+- [ ] In-process `validate` < 2 seconds
+- [ ] File watcher constrained (debounce + extension filter + exclude `node_modules`, `.git`, `__pycache__`)
+- [ ] GPG signing optional with fallback + visible warning
+- [ ] Every write preceded by diff preview
+- [ ] Server-side authorization on every request, bound to project + action + change
+- [ ] No command injection via job-runner (fixed allowlist)
+- [ ] E2E tests (Playwright) cover critical paths
+
+---
+
+## 11. Risks and Mitigation (Unchanged from v3)
+
+Same seven risks with same mitigations. One addition:
+
+| Risk | Probability | Impact | Mitigation |
+|---|---|---|---|
+| Calibration workflow misused to demote P0 without sufficient evidence | Low | High | Calibration requires a linked passed eval run + governance-owner approval; eval result must show measurable behavioral difference |
+
+---
+
+## 12. Final Decision
+
+| Dimension | Verdict |
+|---|---|
+| Submitted v3 proposal | Adopted with 12 refinements (all listed in the opening review) |
+| Technical architecture | Adopted |
+| Change Package model | Adopted (Studio's implementation of §16.1) |
+| 16 screens (added Meta-Governance) | Adopted |
+| `authority.level` mandatory | Enforced |
+| Impact Calibration workflow | **Added** — operationalizes §6.1 |
+| Meta-Governance screen | **Added** — surfaces §16 |
+| `DISCOVERY_UNAVAILABLE` halt-aware | **Added** — enforces §7.2 |
+| 3-stage generation visibility | **Added** — surfaces §9.4 |
+
+**Immediate next step:** Phase 0 (1 week) — finalize contracts (including `evidence.schema.json`), resolve the 7 §6 decisions, initialize the 13 SQLite tables. Then Phase 1 validates the architecture via Instruction Registry + Skill Card on a real `SEC-001` + `CAPABILITY`.
+
+**Success criterion for Week 1:** `aghr-studio` opens, displays all rc.3 items with `authority.level` + `impact.evidence` + `nextReview` visible; Skill Card shows 3 axes with 4 keys and per-state evidence; Meta-Governance tab routes §16 changes; **no file written to disk.**

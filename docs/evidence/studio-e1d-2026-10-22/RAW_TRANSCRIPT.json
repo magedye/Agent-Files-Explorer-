@@ -1,0 +1,141 @@
+{
+  "source_hash": "f55c0c7f57340c890ee0ceff3025b1691d05dd9855482176c1abcb0415ccc55d",
+  "invocations": [
+    {
+      "name": "candidate-tests",
+      "executable": "D:/APP/Agent-Files-Explorer/temp/aghr-e1a-20261022-01/venv/Scripts/python.exe",
+      "args": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_rc3_Core_Candidate/tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "D:/APP/Agent-Files-Explorer/",
+      "started_at_utc": "2026-10-22T16:53:26.568Z",
+      "completed_at_utc": "2026-10-22T16:55:33.305Z",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout": "candidate-tests.stdout.txt",
+      "stderr": "candidate-tests.stderr.txt",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "b3a7eff28fa54030881d9d43de9b871e9c6c48d27505b8c6ef34bc6af04dff79",
+      "source_hash": "f55c0c7f57340c890ee0ceff3025b1691d05dd9855482176c1abcb0415ccc55d"
+    },
+    {
+      "name": "npm-test",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "test"
+      ],
+      "cwd": "D:/APP/Agent-Files-Explorer/",
+      "started_at_utc": "2026-10-22T16:53:26.626Z",
+      "completed_at_utc": "2026-10-22T16:53:38.942Z",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout": "npm-test.stdout.txt",
+      "stderr": "npm-test.stderr.txt",
+      "stdout_sha256": "e0fa21cf3e89eae72202fec2a6744795d77e65592d000518606bf243f987a13c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_hash": "f55c0c7f57340c890ee0ceff3025b1691d05dd9855482176c1abcb0415ccc55d"
+    },
+    {
+      "name": "catalog-real",
+      "executable": "D:/APP/Agent-Files-Explorer/temp/aghr-e1a-20261022-01/venv/Scripts/python.exe",
+      "args": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/cli.py",
+        "catalog"
+      ],
+      "cwd": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_rc3_Core_Candidate/",
+      "started_at_utc": "2026-10-22T16:53:26.804Z",
+      "completed_at_utc": "2026-10-22T16:53:30.381Z",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout": "catalog-real.stdout.txt",
+      "stderr": "catalog-real.stderr.txt",
+      "stdout_sha256": "cb01ba910e3d4bd89812a52f3bb54301e3ec814964388d7cde21d6daeb8a9dfe",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_hash": "f55c0c7f57340c890ee0ceff3025b1691d05dd9855482176c1abcb0415ccc55d"
+    },
+    {
+      "name": "cli-version",
+      "executable": "D:/APP/Agent-Files-Explorer/temp/aghr-e1a-20261022-01/venv/Scripts/python.exe",
+      "args": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/cli.py",
+        "--version"
+      ],
+      "cwd": "D:/APP/Agent-Files-Explorer/",
+      "started_at_utc": "2026-10-22T16:53:26.837Z",
+      "completed_at_utc": "2026-10-22T16:53:29.693Z",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout": "cli-version.stdout.txt",
+      "stderr": "cli-version.stderr.txt",
+      "stdout_sha256": "c9794eae0af9a444ad4b9d7d4cfe806bd4214132bd5b187f39dd0e7701370ad0",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_hash": "f55c0c7f57340c890ee0ceff3025b1691d05dd9855482176c1abcb0415ccc55d"
+    },
+    {
+      "name": "strict-blocked",
+      "executable": "D:/APP/Agent-Files-Explorer/temp/aghr-e1a-20261022-01/venv/Scripts/python.exe",
+      "args": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/cli.py",
+        "validate",
+        "--strict"
+      ],
+      "cwd": "D:/APP/Agent-Files-Explorer/",
+      "started_at_utc": "2026-10-22T16:53:26.876Z",
+      "completed_at_utc": "2026-10-22T16:53:29.513Z",
+      "exit_code": 3,
+      "expected_exit_code": 3,
+      "stdout": "strict-blocked.stdout.txt",
+      "stderr": "strict-blocked.stderr.txt",
+      "stdout_sha256": "50a74f5e1837aa704349db9b8b22cbb979b07e959ec562292f7577dc830faa47",
+      "stderr_sha256": "9a7bcf7bd30a0aa1161e179f2fcf4a4510546354ff502c7d06a3126c2635c964",
+      "source_hash": "f55c0c7f57340c890ee0ceff3025b1691d05dd9855482176c1abcb0415ccc55d"
+    },
+    {
+      "name": "qualify-blocked",
+      "executable": "D:/APP/Agent-Files-Explorer/temp/aghr-e1a-20261022-01/venv/Scripts/python.exe",
+      "args": [
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/cli.py",
+        "qualify"
+      ],
+      "cwd": "D:/APP/Agent-Files-Explorer/",
+      "started_at_utc": "2026-10-22T16:53:26.985Z",
+      "completed_at_utc": "2026-10-22T16:53:29.524Z",
+      "exit_code": 3,
+      "expected_exit_code": 3,
+      "stdout": "qualify-blocked.stdout.txt",
+      "stderr": "qualify-blocked.stderr.txt",
+      "stdout_sha256": "8eb4434a3fd738b5cf78e4cd022294a43f6ca9102d8dbfd99885b1d43792ad77",
+      "stderr_sha256": "9a7bcf7bd30a0aa1161e179f2fcf4a4510546354ff502c7d06a3126c2635c964",
+      "source_hash": "f55c0c7f57340c890ee0ceff3025b1691d05dd9855482176c1abcb0415ccc55d"
+    }
+  ],
+  "rejected": []
+}

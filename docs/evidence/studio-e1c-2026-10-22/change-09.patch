@@ -1,0 +1,15 @@
+diff --git a/docs/evidence/studio-e1c-2026-10-22/before/09.snapshot b/governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_cli.py
+index ffd7507..6b8f258 100644
+--- a/docs/evidence/studio-e1c-2026-10-22/before/09.snapshot
++++ b/governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_cli.py
+@@ -101,7 +101,9 @@ class CliTests(unittest.TestCase):
+         self.assertEqual(report["source"]["content_hash"], expected)
+         self.assertEqual({item["path"]: item["sha256"] for item in report["source"]["artifacts"]}, mapping)
+         self.assertEqual(set(mapping), {
+-            "CLI_CONTRACT.json", "PROVENANCE.json", "requirements.lock",
++            "CLI_CONTRACT.json", "LICENSE", "PACKAGE_STATUS.json", "PROVENANCE.json",
++            "SOURCE_MAP.json", "aghr.json", "policies/observations/reference-state.json",
++            "requirements.lock",
+             "tests/test_cli.py", "tests/test_loader.py", "tools/cli.py",
+             "tools/diagnostics.py", "tools/loader.py",
+         })

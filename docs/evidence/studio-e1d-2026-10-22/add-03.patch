@@ -1,0 +1,85 @@
+diff --git a/docs/evidence/studio-e1d-2026-10-22/before/empty.snapshot b/governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/api.execution.schema.json
+index e69de29..8d77559 100644
+--- a/docs/evidence/studio-e1d-2026-10-22/before/empty.snapshot
++++ b/governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/api.execution.schema.json
+@@ -0,0 +1,80 @@
++{
++  "$schema": "https://json-schema.org/draft/2020-12/schema",
++  "$id": "https://aghr.invalid/contracts/rc3/api.execution.schema.json",
++  "title": "Generation, verification and stream transport types",
++  "$defs": {
++    "GeneratePreviewRequest": {
++      "type": "object", "additionalProperties": false, "required": ["agent", "profile", "dry_run"],
++      "properties": { "agent": { "$ref": "common.schema.json#/$defs/Text" }, "profile": { "$ref": "common.schema.json#/$defs/Text" }, "dry_run": { "const": true } }
++    },
++    "Generation": {
++      "type": "object", "additionalProperties": false,
++      "required": ["content", "content_hash", "stage", "byte_size", "byte_delta", "budget_bytes", "p0_preserved", "prin_007_present", "adoption_level", "p0_evidence", "overflow_items", "acknowledgements", "lookup", "run_id"],
++      "properties": {
++        "content": { "type": "string" }, "content_hash": { "$ref": "common.schema.json#/$defs/Hash" },
++        "stage": { "enum": ["full", "compress", "compact", "fail"] }, "byte_size": { "type": "integer", "minimum": 0 }, "byte_delta": { "type": "integer" }, "budget_bytes": { "type": "integer", "minimum": 1 },
++        "p0_preserved": { "type": "boolean" }, "prin_007_present": { "type": "boolean" }, "adoption_level": { "$ref": "common.schema.json#/$defs/Level" },
++        "p0_evidence": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/Artifact" } }, "overflow_items": { "$ref": "common.schema.json#/$defs/Texts" },
++        "acknowledgements": { "type": "array", "items": { "$ref": "#/$defs/GenerationAcknowledgement" } },
++        "lookup": { "$ref": "common.schema.json#/$defs/Check" }, "run_id": { "$ref": "common.schema.json#/$defs/Text" }
++      }
++    },
++    "GenerationAcknowledgement": {
++      "type": "object", "additionalProperties": false, "required": ["actor", "role", "stage", "content_hash", "at", "reason"],
++      "properties": { "actor": { "$ref": "common.schema.json#/$defs/Text" }, "role": { "$ref": "common.schema.json#/$defs/Role" }, "stage": { "enum": ["compress", "compact"] }, "content_hash": { "$ref": "common.schema.json#/$defs/Hash" }, "at": { "$ref": "common.schema.json#/$defs/Time" }, "reason": { "$ref": "common.schema.json#/$defs/Text" } }
++    },
++    "GenerateExportRequest": {
++      "type": "object", "additionalProperties": false, "required": ["agent", "profile", "mode"],
++      "properties": { "agent": { "$ref": "common.schema.json#/$defs/Text" }, "profile": { "$ref": "common.schema.json#/$defs/Text" }, "mode": { "enum": ["clipboard", "file"] }, "acknowledgements": { "type": "array", "items": { "$ref": "#/$defs/AcknowledgementInput" } } }
++    },
++    "AcknowledgementInput": {
++      "type": "object", "additionalProperties": false, "required": ["stage", "reason"],
++      "properties": { "stage": { "enum": ["compress", "compact"] }, "reason": { "$ref": "common.schema.json#/$defs/Text" } }
++    },
++    "GeneratedDownload": {
++      "type": "object", "additionalProperties": false, "required": ["content", "content_hash", "filename", "repository_written"],
++      "properties": { "content": { "type": "string" }, "content_hash": { "$ref": "common.schema.json#/$defs/Hash" }, "filename": { "$ref": "common.schema.json#/$defs/Text" }, "repository_written": { "const": false }, "path": { "type": "string", "description": "Suggested download filename only, never proof that a file was written." } }
++    },
++    "VerifyRequest": {
++      "type": "object", "additionalProperties": false, "required": ["command", "args"],
++      "properties": { "command": { "$ref": "common.schema.json#/$defs/Command" }, "args": { "type": "array", "maxItems": 256, "items": { "type": "string", "maxLength": 4096, "pattern": "^[^\\u0000]*$" } } }
++    },
++    "StartedRun": { "type": "object", "additionalProperties": false, "required": ["run_id"], "properties": { "run_id": { "$ref": "common.schema.json#/$defs/Text" } } },
++    "VerificationRun": {
++      "type": "object", "additionalProperties": false,
++      "required": ["id", "workspace_id", "command", "args", "status", "exit_code", "started_at", "finished_at", "duration_ms", "resource_peak_mib", "limits", "engine", "control_adapter", "termination_reason", "raw_stdout", "raw_stderr", "raw_output", "summary", "linked_package_id", "candidate_hash", "inputs_hash", "config_hash", "evidence"],
++      "properties": {
++        "id": { "$ref": "common.schema.json#/$defs/Text" }, "workspace_id": { "$ref": "common.schema.json#/$defs/Text" }, "command": { "$ref": "common.schema.json#/$defs/Command" }, "args": { "$ref": "#/$defs/VerifyRequest/properties/args" },
++        "cwd": { "$ref": "common.schema.json#/$defs/Text" }, "status": { "$ref": "common.schema.json#/$defs/RunStatus" }, "exit_code": { "type": ["integer", "null"] },
++        "started_at": { "$ref": "common.schema.json#/$defs/Time" }, "finished_at": { "oneOf": [{ "$ref": "common.schema.json#/$defs/Time" }, { "type": "null" }] },
++        "duration_ms": { "type": ["integer", "null"], "minimum": 0 }, "resource_peak_mib": { "type": ["number", "null"], "minimum": 0 },
++        "limits": { "oneOf": [{ "$ref": "engine.schema.json#/$defs/Limits" }, { "type": "null" }] },
++        "engine": { "$ref": "engine.schema.json#/$defs/Binding" }, "control_adapter": { "oneOf": [{ "$ref": "engine.schema.json#/$defs/ControlAdapter" }, { "type": "null" }] },
++        "termination_reason": { "enum": [null, "completed", "engine_error", "user_cancelled", "timeout", "memory_limit", "controls_unavailable"] },
++        "raw_stdout": { "type": "string" }, "raw_stderr": { "type": "string" }, "raw_output": { "type": "string" },
++        "summary": { "type": "object", "additionalProperties": false, "required": ["errors", "warnings", "p0_issues"], "properties": { "errors": { "type": "array", "items": { "$ref": "transport.schema.json#/$defs/Issue" } }, "warnings": { "type": "array", "items": { "$ref": "transport.schema.json#/$defs/Issue" } }, "p0_issues": { "type": "integer", "minimum": 0 } } },
++        "linked_package_id": { "type": ["string", "null"] }, "triggered_by": { "enum": ["user", "scheduled", "ci"] },
++        "candidate_hash": { "$ref": "common.schema.json#/$defs/Hash" }, "inputs_hash": { "$ref": "common.schema.json#/$defs/Hash" }, "config_hash": { "$ref": "common.schema.json#/$defs/Hash" }, "evidence": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/Artifact" } }
++      },
++      "allOf": [
++        { "if": { "properties": { "status": { "const": "resource_limit_exceeded" } }, "required": ["status"] }, "then": { "properties": { "termination_reason": { "enum": ["timeout", "memory_limit"] }, "limits": { "type": "object" }, "finished_at": { "type": "string" } } } },
++        { "if": { "properties": { "status": { "const": "passed" } }, "required": ["status"] }, "then": { "properties": { "exit_code": { "const": 0 }, "finished_at": { "type": "string" }, "duration_ms": { "type": "integer" }, "termination_reason": { "const": "completed" }, "engine": { "properties": { "status": { "const": "QUALIFIED" } } }, "evidence": { "minItems": 1 } } } },
++        { "if": { "properties": { "status": { "enum": ["passed", "running"] }, "command": { "enum": ["eval", "qualify"] } }, "required": ["status", "command"] }, "then": { "properties": { "limits": { "type": "object" }, "control_adapter": { "type": "object", "properties": { "status": { "const": "QUALIFIED" } } } } } }
++      ]
++    },
++    "VerificationRuns": { "type": "array", "items": { "$ref": "#/$defs/VerificationRun" } },
++    "Sarif": {
++      "description": "Lossless SARIF JSON payload with required SARIF identity; full SARIF schema qualification is an engine adapter gate.",
++      "type": "object", "required": ["version", "runs"], "properties": { "$schema": { "type": "string" }, "version": { "const": "2.1.0" }, "runs": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/JsonObject" } } }, "additionalProperties": { "$ref": "common.schema.json#/$defs/JsonValue" }
++    },
++    "StreamFrame": {
++      "type": "object", "additionalProperties": false, "required": ["run_id", "sequence", "at", "type"],
++      "properties": { "run_id": { "$ref": "common.schema.json#/$defs/Text" }, "sequence": { "type": "integer", "minimum": 0 }, "at": { "$ref": "common.schema.json#/$defs/Time" }, "type": { "enum": ["stdout", "stderr", "status", "error", "heartbeat"] }, "text": { "type": "string" }, "status": { "$ref": "common.schema.json#/$defs/RunStatus" }, "error": { "$ref": "transport.schema.json#/$defs/Error" } },
++      "allOf": [
++        { "if": { "properties": { "type": { "enum": ["stdout", "stderr"] } }, "required": ["type"] }, "then": { "required": ["text"] } },
++        { "if": { "properties": { "type": { "const": "status" } }, "required": ["type"] }, "then": { "required": ["status"] } },
++        { "if": { "properties": { "type": { "const": "error" } }, "required": ["type"] }, "then": { "required": ["error"] } }
++      ]
++    }
++  }
++}

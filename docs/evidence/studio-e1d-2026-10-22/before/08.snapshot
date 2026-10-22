@@ -1,0 +1,133 @@
+"""Read-only source metadata CLI. Reader serialization waits for E1.d; E2+ is blocked."""
+
+import argparse
+import hashlib
+import json
+from pathlib import Path
+import sys
+
+
+ROOT = Path(__file__).resolve().parent.parent
+SOURCE_FILES = (
+    "CLI_CONTRACT.json", "LICENSE", "PACKAGE_STATUS.json", "PROVENANCE.json",
+    "SOURCE_MAP.json", "aghr.json", "policies/observations/reference-state.json",
+    "requirements.lock",
+    "tests/test_cli.py", "tests/test_loader.py", "tools/cli.py",
+    "tools/diagnostics.py", "tools/loader.py",
+)
+DEFERRED = {
+    "validate": "E2", "lint": "E2", "generate": "E3", "check": "E3",
+    "eval": "E4 and T15", "qualify": "E4 and T15", "doctor": "E3",
+}
+
+
+class UsageError(Exception):
+    """Do not echo caller-supplied argument values into diagnostics."""
+
+
+class Parser(argparse.ArgumentParser):
+    def error(self, message):
+        raise UsageError("Invalid command or arguments; use --help.")
+
+
+def source_identity():
+    artifacts = []
+    for name in SOURCE_FILES:
+        source = (ROOT / name).resolve(strict=True)
+        if not source.is_relative_to(ROOT) or not source.is_file():
+            raise ValueError("Source artifact escapes the candidate or is not a file.")
+        if source.stat().st_size > 2 * 1024 * 1024:
+            raise ValueError("Source artifact exceeds the identity limit.")
+        artifacts.append({"path": name, "sha256": hashlib.sha256(source.read_bytes()).hexdigest()})
+    mapping = {item["path"]: item["sha256"] for item in artifacts}
+    encoded = json.dumps(mapping, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    return {
+        "implementation_id": "aghr-rc3-core-candidate", "stage": "E1.c",
+        "target_spec_version": "1.0.0-rc.3", "schema_version": "1.2",
+        "content_hash": hashlib.sha256(encoded.encode("utf-8")).hexdigest(),
+        "hash_algorithm": "sha256-path-map-v1", "artifacts": artifacts,
+        "publisher_authentication": "UNKNOWN", "qualification": "NOT_RUN",
+        "distribution": None,
+    }
+
+
+def response(command, result, exit_code, source=None, diagnostic=None, data=None):
+    return {
+        "protocol_version": "1", "command": command, "result": result,
+        "exit_code": exit_code, "source": source,
+        "inputs": {"candidate_hash": None, "config_hash": None, "inputs_hash": None, "catalog": None},
+        "checks": {"status": "NOT_RUN", "reason": "Source metadata only; no governance check has executed."},
+        "diagnostics": [diagnostic] if diagnostic else [], "data": data,
+    }
+
+
+def emit(report, output_format):
+    if output_format == "json":
+        print(json.dumps(report, ensure_ascii=False, allow_nan=False, separators=(",", ":")))
+    elif report["data"]:
+        print(report["data"]["help"], end="")
+    elif report["result"] == "INFO":
+        print(f"AGHR rc.3 core candidate {report['source']['stage']} sha256:{report['source']['content_hash']} (NOT_QUALIFIED)")
+    else:
+        print(f"{report['result']}: {report['diagnostics'][0]['code']}")
+    for diagnostic in report["diagnostics"]:
+        print(f"{diagnostic['code']}: {diagnostic['message']}", file=sys.stderr)
+    return report["exit_code"]
+
+
+def main(argv=None):
+    # Disable option abbreviation and @file expansion: argv is data, never shell.
+    # https://docs.python.org/3.12/library/argparse.html
+    parser = Parser(prog="aghr", add_help=False, allow_abbrev=False)
+    parser.add_argument("command", nargs="?", choices=tuple(DEFERRED))
+    actions = parser.add_mutually_exclusive_group()
+    actions.add_argument("-h", "--help", action="store_true")
+    actions.add_argument("--version", action="store_true")
+    parser.add_argument("--format", choices=("json", "text"), default="json")
+    parser.add_argument("--strict", action="store_true")
+    parser.description = "E1.c source: help and identity only in CLI. All governance commands are BLOCKED."
+    parser.epilog = "validate/lint: E2; generate/check/doctor: E3; eval/qualify: E4 and T15. No source, state, cache or log writes."
+    args = list(sys.argv[1:] if argv is None else argv)
+    output_format = "json"
+    for index, arg in enumerate(args):
+        if arg == "--format" and index + 1 < len(args):
+            value = args[index + 1]
+        elif arg.startswith("--format="):
+            value = arg.removeprefix("--format=")
+        else:
+            continue
+        if value in ("json", "text"):
+            output_format = value
+    command = None
+    try:
+        options = parser.parse_args(args)
+        if options.strict and (options.command != "validate" or options.version):
+            raise UsageError("--strict is only valid with validate.")
+        if options.version and options.command:
+            raise UsageError("--version cannot execute a governance command.")
+        if not options.command and not (options.help or options.version):
+            raise UsageError("A command, --help or --version is required.")
+        output_format = options.format
+        command = "help" if options.help else "version" if options.version else options.command
+        identity = source_identity()
+    except UsageError as error:
+        return emit(response(None, "ERROR", 2, diagnostic={
+            "code": "INVALID_ARGUMENTS", "message": str(error), "stage": None,
+        }), output_format)
+    except (OSError, ValueError):
+        return emit(response(command, "ERROR", 2, diagnostic={
+            "code": "SOURCE_IDENTITY_UNAVAILABLE", "message": "Cannot read the complete candidate source identity.", "stage": "E1.c",
+        }), output_format)
+    if command in ("help", "version"):
+        data = {"help": parser.format_help()} if command == "help" else None
+        return emit(response(command, "INFO", 0, identity, data=data), output_format)
+    return emit(response(command, "BLOCKED", 3, identity, diagnostic={
+        "code": "IMPLEMENTATION_UNAVAILABLE", "message": "The requested governance command has not been implemented.",
+        "stage": DEFERRED[command],
+    }), output_format)
+
+
+if __name__ == "__main__":
+    sys.stdout.reconfigure(encoding="utf-8", errors="strict")
+    sys.stderr.reconfigure(encoding="utf-8", errors="strict")
+    raise SystemExit(main())

@@ -1,0 +1,51 @@
+{
+  "schema": "aghr-accepted-design-baseline-v2",
+  "status": "OWNER_ACCEPTED_DESIGN_BASELINE",
+  "accepted_at": "2026-10-21T21:22:03.077Z",
+  "accepted_local_date": "2026-10-22",
+  "revision": "last-app-integrated-2026-10-22",
+  "authority": {
+    "actor": "CURRENT_OWNER_USER",
+    "instruction": "اريد منك اعتماد النسخة داخل governance_packages/INBOX/last-app وعليك ضمان ان تكون هذه النسخة شاملة لما ورد في docs/specs/aghr-rc3",
+    "scope": "DESIGN_ADOPTION_AND_COMPLETE_BASELINE_REQUIREMENT_RECONCILIATION"
+  },
+  "package_design_version": "1.0.0-rc.3 (Consolidated)",
+  "studio_design_version": "1.0.0",
+  "documents": [
+    {
+      "role": "reference",
+      "path": "AGHR_REFERENCE.md",
+      "sha256": "064820539a90ffe51ccfd1e6dd4700e82bdd4a1d8edb32ea63e15e642c33ef6b",
+      "source_archive": "governance_packages/archive/studio-designs-2026-10-21/adopted-last-app-sources/AGHR — Agent Governance & Harness Refe final.md",
+      "source_sha256": "064820539a90ffe51ccfd1e6dd4700e82bdd4a1d8edb32ea63e15e642c33ef6b",
+      "transformation": "BYTE_IDENTICAL_SELECTED_INPUT"
+    },
+    {
+      "role": "studio",
+      "path": "STUDIO_SPECIFICATION.md",
+      "sha256": "7061607b534bc1d8765521c4249089d14b344511bd770b618692f793b4c403ef",
+      "source_archive": "governance_packages/archive/studio-designs-2026-10-21/adopted-last-app-sources/AGHR Governance Studio — Complete Spec.md",
+      "source_sha256": "dc0008fa548f4f57d17682dc3d64b4a50dec2a953904e0c4d18fa4ce407d2428",
+      "transformation": "SELECTED_INPUT_WITH_PREVIOUS_BASELINE_REQUIREMENT_RECONCILIATION"
+    }
+  ],
+  "normative_order": [
+    "AGHR_REFERENCE.md",
+    "STUDIO_SPECIFICATION.md"
+  ],
+  "scope": "NEW_PACKAGE_AND_STUDIO_DESIGN_REQUIREMENTS",
+  "implementation": "NOT_STARTED",
+  "runtime_default": "aghr_1_2_0",
+  "candidate_1_3_0": "CANDIDATE_FOR_REVIEW",
+  "native_qualification": "NOT_GRANTED_BY_DESIGN_ACCEPTANCE",
+  "independent_review": "NOT_PERFORMED",
+  "release_acceptance": "NOT_GRANTED_BY_DESIGN_ACCEPTANCE",
+  "supersedes": {
+    "baseline": "governance_packages/archive/studio-designs-2026-10-21/pre-last-app-baseline/ADOPTION.json",
+    "receipt": "../../governance/STUDIO_DESIGN_ADOPTION_2026_10_21.md"
+  },
+  "receipt": "../../governance/LAST_APP_ADOPTION_2026_10_22.md",
+  "coverage": "../../evidence/last-app-adoption-2026-10-21/coverage.json",
+  "before": "../../evidence/last-app-adoption-2026-10-21/before.json",
+  "after": "../../evidence/last-app-adoption-2026-10-21/after.json"
+}

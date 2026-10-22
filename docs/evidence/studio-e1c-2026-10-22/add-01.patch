@@ -1,0 +1,47 @@
+diff --git a/docs/evidence/studio-e1c-2026-10-22/before/empty.snapshot b/governance_packages/candidates/AGHR_rc3_Core_Candidate/aghr.json
+index e69de29..f8d8ad7 100644
+--- a/docs/evidence/studio-e1c-2026-10-22/before/empty.snapshot
++++ b/governance_packages/candidates/AGHR_rc3_Core_Candidate/aghr.json
+@@ -0,0 +1,42 @@
++{
++  "id": "aghr-rc3-core-candidate",
++  "name": "AGHR rc.3 Core — Local Source Candidate",
++  "version": "1.0.0-rc.3",
++  "schemaVersion": "1.2",
++  "owner": "Platform Governance Team",
++  "license": "MIT",
++  "compatibility": {
++    "agents": [
++      "codex",
++      "antigravity"
++    ],
++    "targets": {
++      "codex": {
++        "file": "AGENTS.md",
++        "budgetBytes": 32768
++      },
++      "antigravity": {
++        "dir": ".agents/rules",
++        "budgetBytes": 65536
++      }
++    }
++  },
++  "validation": {
++    "strict": true,
++    "coreKindsOnly": true,
++    "requireEvalForPriority": [
++      "P0-Safety",
++      "P0-Integrity"
++    ],
++    "requireTechnicalEnforcementFor": [
++      "MUST_NOT"
++    ],
++    "requireSkillQualificationFor": [
++      "P0-Safety",
++      "P0-Integrity"
++    ],
++    "enforceSkillStateHonesty": true,
++    "enforceDocumentationConsistency": true,
++    "enforceAuthorityLevel": true
++  }
++}

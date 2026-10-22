@@ -1,0 +1,845 @@
+diff --git a/docs/evidence/studio-contracts-completion-2026-10-22/before/docs/plans/STUDIO_PRODUCT_AND_CONTRACTS_AR.md.snapshot b/docs/plans/STUDIO_PRODUCT_AND_CONTRACTS_AR.md
+index affa6d5..04fae01 100644
+--- a/docs/evidence/studio-contracts-completion-2026-10-22/before/docs/plans/STUDIO_PRODUCT_AND_CONTRACTS_AR.md.snapshot
++++ b/docs/plans/STUDIO_PRODUCT_AND_CONTRACTS_AR.md
+@@ -87,6 +87,6 @@
+ 
+ ## 6. بدء المرحلة 0
+ 
+-مدخل المرحلة: [حزمة العقود](../contracts/aghr-rc3/README.md). صيغ العقود الناتجة تبدأ **DRAFT**، ويُفصل ما اختُبر محليًا عما لم ينفذ في المحرك أو CI أو المضيف. لا إعادة تنفيذ لمنطق AGHR في Node، ولا ترحيل جماعي أو ترقية مرجع بهذا البدء.
++مدخل المرحلة: [حزمة العقود](../contracts/aghr-rc3/README.md)، اكتمل تعريفها في `contract.1` للمراجعة والتنفيذ. فحوص البنية والتسلسل محلية؛ ربط المحرك وHTTP والعرض وCI والمضيف تبقى بوابات فعلية لم تنفذ. لا إعادة تنفيذ لمنطق AGHR في Node، ولا ترحيل جماعي أو ترقية مرجع بهذا الاستكمال.
+ 
+ تُبنى الإمكانات بتوسعة React/Vite/Node الحالية، مع جسر Python واحد للتحقق. المكتبات الإضافية خيارات قرار تقني؛ المصدر والنطاق ومعايير القبول تسبق الاختيار.
+diff --git a/docs/evidence/studio-contracts-completion-2026-10-22/before/docs/status/CURRENT.md.snapshot b/docs/status/CURRENT.md
+index 5192c97..6a2b9bc 100644
+--- a/docs/evidence/studio-contracts-completion-2026-10-22/before/docs/status/CURRENT.md.snapshot
++++ b/docs/status/CURRENT.md
+@@ -1,42 +1,42 @@
+-# Active Project Execution State — Derived View
+-
++# Active Project Execution State — Derived View
++
+ > Updated: 2026-10-22. Git, source and exact check evidence take precedence over this snapshot.
+ 
+ ## Active owner scope — contracts first
+ 
+-[Product correction](../plans/STUDIO_PRODUCT_AND_CONTRACTS_AR.md): C1–C12 explicit. [Phase 0 drafts](../contracts/aghr-rc3/README.md): manifest/item/evidence/SQL, partial read API and decisions. No new runtime or baseline promotion.
++[Contracts](../contracts/aghr-rc3/README.md): contract.1 complete for implementation review; 58 source operations + submit, all payloads. [Receipt](../evidence/studio-contracts-completion-2026-10-22/README.md).
+ 
+-Next: finish contracts and G.4 decisions, qualify the engine and read-only demo, then SEC-001 template, then bulk review/migration. Phase 0 exit and native qualification remain REQUIRED / NOT_RUN / NOT_WAIVED.
++Next: pin/qualify Python engine and read-only Studio demo, including write sentinel; then SEC-001, then bulk review. Phase 0 runtime gates remain REQUIRED / NOT_RUN / NOT_WAIVED.
+ 
+ [Review workspace](../reviews/aghr-items-2026-10-22/README.md): 1,608 units/140 sources; PENDING_REVIEW, no import. Reference/default 1.2.0, candidate 1.3.0 and 23 INBOX originals preserved.
+ 
+ ## Completed skills candidate
+ 
+ P0/P1/P2 in `candidates/AGHR_Candidate_1.3.0/` is complete under the [accepted plan](../plans/SKILLS_GOVERNANCE_CANDIDATE_1_3_0.md). Frozen suite: 320/320, including eight scripted scenarios; Studio at delivery: 30/30. [Delivery and hashes](../governance/SKILLS_CANDIDATE_1_3_0.md) preserve evidence. Native qualification NOT_RUN; independent review NOT_PERFORMED; release acceptance NOT_GRANTED. Git establishes the saved revision; INBOX receipt `2026-10-21-02` covers 23 direct files.
+-
++
+ ## Completed owner scope
+ 
+ English support: saved locale, RTL/LTR and localized chrome across six screens; source/user text stays original. [Feature/evidence](../features/INTERFACE_LANGUAGES.md).
+-
+-The owner requested careful review of all INBOX documents, priority to IMPOERTANT.md and classified lesson extraction, and conversion of the current candidate into an updated local reference. This scope is complete. [Delivery record](../governance/REFERENCE_UPDATE_1_2_0.md) links source custody, the 53-group reconciliation, exact before/after diff and ZIP digest.
+-
++
++The owner requested careful review of all INBOX documents, priority to IMPOERTANT.md and classified lesson extraction, and conversion of the current candidate into an updated local reference. This scope is complete. [Delivery record](../governance/REFERENCE_UPDATE_1_2_0.md) links source custody, the 53-group reconciliation, exact before/after diff and ZIP digest.
++
+ - Updated reference: governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/; registered read-only as aghr_1_2_0.
+ - Owner's follow-up default selection is complete: 1.2.0 is the Studio default for Explorer, Reference Manager, unqualified governance queries, comparison targets, evaluation and new adoption headers. Historical IDs retain their versions. [Before/after and checks](../evidence/default-reference-1.2.0/after.json).
+ - Latest-only layout correction: references/ contains only the 1.2.0 folder, ZIP and SHA-256 file. Full/minimal 1.1.0 folders and ZIPs moved to archive/ with every recorded digest preserved; the 1.2.0 payload/distribution stayed unchanged. [Relocation custody](../evidence/reference-layout-2026-10-20/after.json).
+-- Original candidate and ZIP: governance_packages/archive/AGHR_Candidate_1.2.0_pre_update_20261020/ and adjacent ZIP; all 260 original files preserved and matched the original archive.
++- Original candidate and ZIP: governance_packages/archive/AGHR_Candidate_1.2.0_pre_update_20261020/ and adjacent ZIP; all 260 original files preserved and matched the original archive.
+ - The eight INBOX originals from the reference update and all 21 from candidate intake retain their hashes; checkpoint receipt above covers 23 current files. data/ remains deleted under the earlier owner instruction.
+ - Selecting the Studio default does not activate governance in a consumer project or overwrite existing adoption records.
+-
+-## Actual verification
+-
++
++## Actual verification
++
+ - Historical evidence retains its observed base revision. Git establishes the current revision and working tree state.
+-- Package: 289/289 local tests passed, 0 failed/skipped; exact frozen payload and relocated package checks passed.
+-- Scoped independent learning-skill review: three findings corrected; nine synthetic follow-up cases passed. Whole-package independent review remains NOT_PERFORMED.
++- Package: 289/289 local tests passed, 0 failed/skipped; exact frozen payload and relocated package checks passed.
++- Scoped independent learning-skill review: three findings corrected; nine synthetic follow-up cases passed. Whole-package independent review remains NOT_PERFORMED.
+ - Studio localization: [30/30 tests, build and isolated Edge evidence](../evidence/english-ui-2026-10-20/verification.json); all six screens, persistence, RTL/LTR and responsive checks. Reference 1.2.0 remains default.
+-- [Evidence summary](../evidence/reference-1.2.0-update/studio-verification.json) and [package verification](../../governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/VERIFICATION_REPORT.md) preserve results and limits.
+-
+-Native host/model qualification, independent release acceptance, external publication and consumer activation are not granted by these local checks. Antigravity's missing attachment, MARSAD-specific current facts and exact PDF/Markdown equivalence remain source questions; a new lesson-management UI is a separate deferred feature.
+-
+-## Next action boundary
+-
++- [Evidence summary](../evidence/reference-1.2.0-update/studio-verification.json) and [package verification](../../governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/VERIFICATION_REPORT.md) preserve results and limits.
++
++Native host/model qualification, independent release acceptance, external publication and consumer activation are not granted by these local checks. Antigravity's missing attachment, MARSAD-specific current facts and exact PDF/Markdown equivalence remain source questions; a new lesson-management UI is a separate deferred feature.
++
++## Next action boundary
++
+ Reopen contracts, canonical specs and actual Git/tree next. Consumer adoption requires a named target/scope. The static authorization fallback in server/staging.js remains deferred.
+diff --git a/docs/evidence/studio-contracts-completion-2026-10-22/before/docs/status/HANDOFF.md.snapshot b/docs/status/HANDOFF.md
+index 778de08..55b74ab 100644
+--- a/docs/evidence/studio-contracts-completion-2026-10-22/before/docs/status/HANDOFF.md.snapshot
++++ b/docs/status/HANDOFF.md
+@@ -17,7 +17,7 @@ When switching agent models or starting a new session:
+ ---
+ 
+ ## 2. Recent Architectural Decisions
+-- **2026-10-22 (Contracts first)**: [Product/C1–C12](../plans/STUDIO_PRODUCT_AND_CONTRACTS_AR.md), [Phase 0 drafts and gates](../contracts/aghr-rc3/README.md). Finish contracts/read-only demo before SEC-001 and bulk review. No runtime implementation or reference promotion; Phase 0 exit NOT_RUN.
++- **2026-10-22 (Contracts complete)**: [contract.1](../contracts/aghr-rc3/README.md), 58 source operations + submit and all data types. Pin engine and qualify read-only demo next; SEC-001 not started. Phase 0 runtime gates NOT_RUN; reference 1.2.0 preserved.
+ - **2026-10-22 (Item review)**: [Register](../reviews/aghr-items-2026-10-22/README.md): 1,608 units; reviews pending, sources preserved, no import.
+ - **Decision 2026-10-22 (Owner-accepted last-app designs)**:
+   - [Designs](../specs/aghr-rc3/README.md) and [receipt](../governance/LAST_APP_ADOPTION_2026_10_22.md): prior-baseline coverage; originals/previous baseline archived. Runtime reference 1.2.0 and candidate 1.3.0 retain their states.
+diff --git a/docs/evidence/studio-contracts-completion-2026-10-22/before/docs/INDEX.md.snapshot b/docs/INDEX.md
+index c67b59d..696aa5c 100644
+--- a/docs/evidence/studio-contracts-completion-2026-10-22/before/docs/INDEX.md.snapshot
++++ b/docs/INDEX.md
+@@ -1,56 +1,56 @@
+-# Documentation Index (Layer 2 & 3 Index)
+-
+-> **Authority**: Canonical Navigation Index  
+-> **Status**: APPROVED  
+-> **Version**: 1.2.0
+-
+-This index directs AI agents and engineers to authoritative project documents without loading unnecessary data into context.
+-
+----
+-
+-## 1. Five-Layer Documentation Hierarchy
+-
+-```
+-Layer 1: Agent Instructions  -->  /AGENTS.md (Root Router)
+-Layer 2: Canonical Knowledge -->  /docs/INDEX.md, /PROJECT_MAP.md, /docs/contracts/, /governance_packages/references/
+-Layer 3: Execution State    -->  /docs/status/CURRENT.md, /docs/status/HANDOFF.md
+-Layer 4: Evidence & Verif   -->  /tests/*.test.mjs, /docs/evidence/
+-Layer 5: History & Archive  -->  /docs/archive/, /governance_packages/archive/
+-```
+-
+----
+-
+-## 2. Fast Navigation Links
+-
+-### Operational State & Progress
+-- [CURRENT.md](status/CURRENT.md) — Active objectives, blockers, and next steps.
+-- [HANDOFF.md](status/HANDOFF.md) — Multi-agent and cross-session handoff checkpoint.
+-
++# Documentation Index (Layer 2 & 3 Index)
++
++> **Authority**: Canonical Navigation Index  
++> **Status**: APPROVED  
++> **Version**: 1.2.0
++
++This index directs AI agents and engineers to authoritative project documents without loading unnecessary data into context.
++
++---
++
++## 1. Five-Layer Documentation Hierarchy
++
++```
++Layer 1: Agent Instructions  -->  /AGENTS.md (Root Router)
++Layer 2: Canonical Knowledge -->  /docs/INDEX.md, /PROJECT_MAP.md, /docs/contracts/, /governance_packages/references/
++Layer 3: Execution State    -->  /docs/status/CURRENT.md, /docs/status/HANDOFF.md
++Layer 4: Evidence & Verif   -->  /tests/*.test.mjs, /docs/evidence/
++Layer 5: History & Archive  -->  /docs/archive/, /governance_packages/archive/
++```
++
++---
++
++## 2. Fast Navigation Links
++
++### Operational State & Progress
++- [CURRENT.md](status/CURRENT.md) — Active objectives, blockers, and next steps.
++- [HANDOFF.md](status/HANDOFF.md) — Multi-agent and cross-session handoff checkpoint.
++
+ ### Architecture & Specification
+-- [Product and mandatory commitments](plans/STUDIO_PRODUCT_AND_CONTRACTS_AR.md) — C1–C12, current modes, tables and contracts-first sequence; [Phase 0 drafts](contracts/aghr-rc3/README.md).
++- [Product and mandatory commitments](plans/STUDIO_PRODUCT_AND_CONTRACTS_AR.md) — C1–C12, current modes and tables; [complete contract definitions](contracts/aghr-rc3/README.md), with runtime gates pending.
+ - [Governance item review](reviews/aghr-items-2026-10-22/README.md) — complete extraction, editable tables, source custody and proposed migration fields.
+ - [Owner-accepted AGHR rc.3 and Studio designs](specs/aghr-rc3/README.md) — last-app baseline with full prior-requirement coverage; [adoption and archive receipt](governance/LAST_APP_ADOPTION_2026_10_22.md).
+ - [Arabic and English interface](features/INTERFACE_LANGUAGES.md) — language selector, saved preference, translation catalog and verification.
+-- [PROJECT_MAP.md](../PROJECT_MAP.md) — Current file tree and service responsibilities.
+-- [Skill Steward SACP proposal](specs/SKILL_STEWARD_SACP_PROPOSAL_AR.md) — separate proposed product and supplementary design source.
+-- [Governance package layout](../governance_packages/README.md) — references, candidates, historical copies, and incoming proposals.
+-- [Version inventory](governance/VERSION_INVENTORY.md) — registered package identities and storage paths.
+-- [INBOX procedure](governance/INBOX_PROCEDURE.md) — custody, review, dispositions, and reference-change comparison gate.
+-- [INBOX review, 2026-10-20](governance/INBOX_REVIEW_2026-10-20.md) — eight registered inputs and their proposed dispositions.
++- [PROJECT_MAP.md](../PROJECT_MAP.md) — Current file tree and service responsibilities.
++- [Skill Steward SACP proposal](specs/SKILL_STEWARD_SACP_PROPOSAL_AR.md) — separate proposed product and supplementary design source.
++- [Governance package layout](../governance_packages/README.md) — references, candidates, historical copies, and incoming proposals.
++- [Version inventory](governance/VERSION_INVENTORY.md) — registered package identities and storage paths.
++- [INBOX procedure](governance/INBOX_PROCEDURE.md) — custody, review, dispositions, and reference-change comparison gate.
++- [INBOX review, 2026-10-20](governance/INBOX_REVIEW_2026-10-20.md) — eight registered inputs and their proposed dispositions.
+ - [Updated 1.2.0 reference delivery](governance/REFERENCE_UPDATE_1_2_0.md) — source reconciliation, before/after state, exact diff, local checks and preserved candidate.
+ - [Skill governance 1.3.0 candidate plan](plans/SKILLS_GOVERNANCE_CANDIDATE_1_3_0.md) — authorized P0/P1/P2, defect/acceptance/compatibility matrix and isolated verification; reference 1.2.0 remains current.
+ - [Skill governance 1.3.0 candidate delivery](governance/SKILLS_CANDIDATE_1_3_0.md) — frozen ZIP, before/after diff, 320 package tests, 30 Studio tests, preservation and explicit native qualification gaps.
+-
+-### Governance References (On-Demand Only)
+-- [AGHR 1.2.0 updated reference](../governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/README.md) — owner-directed reference with governed learning and classified instruction records.
+-- [AGHR 1.2.0 Rules Registry](../governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/registry/RULES.json) — 47 registered governance rules.
+-- [AGHR 1.2.0 Sources](../governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/sources/REGISTER.json) — 56 registered foundation sources.
+-- [AGHR Minimal 1.1.0 CORE](../governance_packages/archive/AGHR_Minimal_1.1.0/CORE.md) — Archived distilled specification for historical comparison.
+-
+----
+-
+-## 3. Context Health & Maintenance
+-Run the health verifier before and after modifying documentation:
+-```sh
+-node tools/check_context_health.mjs
+-```
++
++### Governance References (On-Demand Only)
++- [AGHR 1.2.0 updated reference](../governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/README.md) — owner-directed reference with governed learning and classified instruction records.
++- [AGHR 1.2.0 Rules Registry](../governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/registry/RULES.json) — 47 registered governance rules.
++- [AGHR 1.2.0 Sources](../governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/sources/REGISTER.json) — 56 registered foundation sources.
++- [AGHR Minimal 1.1.0 CORE](../governance_packages/archive/AGHR_Minimal_1.1.0/CORE.md) — Archived distilled specification for historical comparison.
++
++---
++
++## 3. Context Health & Maintenance
++Run the health verifier before and after modifying documentation:
++```sh
++node tools/check_context_health.mjs
++```
+diff --git a/docs/evidence/studio-contracts-completion-2026-10-22/before/tools/check_studio_contracts.mjs.snapshot b/tools/check_studio_contracts.mjs
+index 91bf103..7d5c18a 100644
+--- a/docs/evidence/studio-contracts-completion-2026-10-22/before/tools/check_studio_contracts.mjs.snapshot
++++ b/tools/check_studio_contracts.mjs
+@@ -4,61 +4,105 @@ import fs from 'node:fs';
+ import path from 'node:path';
+ import { fileURLToPath } from 'node:url';
+ import { DatabaseSync } from 'node:sqlite';
++import { createHash } from 'node:crypto';
++import { loadDocuments, visitReferences, bundleSchema } from './contracts/schema_documents.mjs';
++import { contractVectors } from './contracts/fixtures.mjs';
++import { EVIDENCE_LIMITS } from './contracts/evidence_jsonl.mjs';
+ 
+ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+ const contracts = path.join(root, 'docs/contracts/aghr-rc3');
+ const read = file => fs.readFileSync(file, 'utf8');
+ const checks = [];
+ const check = (name, action) => { action(); checks.push({ name, status: 'PASS' }); };
+-const documents = new Map();
+-for (const name of ['aghr.json', 'aghr.schema.json', 'item.schema.json', 'evidence.schema.json', 'openapi.readonly.draft.json']) {
+-  documents.set(path.join(contracts, name), JSON.parse(read(path.join(contracts, name))));
++const documents = loadDocuments(contracts);
++if (process.argv.includes('--schema-bundles')) {
++  console.log(JSON.stringify(Object.fromEntries([...documents.keys()].filter(name => name.endsWith('.schema.json')).map(name => [name, bundleSchema(documents, name)]))));
++  process.exit(0);
+ }
+-check('json_documents_parse', () => assert.equal(documents.size, 5));
++if (process.argv.includes('--contract-vectors')) {
++  console.log(JSON.stringify(contractVectors(documents.get('API_OPERATIONS.json'), JSON.parse(read(path.join(contracts, 'settings.yaml'))))));
++  process.exit(0);
++}
++check('json_documents_parse', () => assert(documents.size >= 5));
+ 
+ check('all_local_json_references_resolve', () => {
+   let count = 0;
+-  const walk = (value, owner) => {
+-    if (!value || typeof value !== 'object') return;
+-    if (typeof value.$ref === 'string') {
+-      const [relative, fragment = ''] = value.$ref.split('#');
+-      assert(!/^[a-z]+:/i.test(relative), 'No remote reference resolution during local verification');
+-      const target = relative ? path.resolve(path.dirname(owner), relative) : owner;
+-      assert(target.startsWith(contracts + path.sep), 'Reference outside contract root');
+-      assert(documents.has(target), `Unknown reference file: ${value.$ref}`);
+-      let selected = documents.get(target);
+-      if (fragment) {
+-        assert(fragment.startsWith('/'), 'Only JSON Pointer fragments supported');
+-        for (const part of decodeURIComponent(fragment).slice(1).split('/')) {
+-          const key = part.replace(/~1/g, '/').replace(/~0/g, '~');
+-          assert(selected && Object.hasOwn(selected, key), `Unresolved reference: ${value.$ref}`);
+-          selected = selected[key];
+-        }
+-      }
+-      count++;
+-    }
+-    for (const member of Object.values(value)) walk(member, owner);
+-  };
+-  for (const [file, doc] of documents) walk(doc, file);
++  visitReferences(documents, () => count++);
+   assert(count > 0);
+ });
+ 
+-const api = documents.get(path.join(contracts, 'openapi.readonly.draft.json'));
+-check('api_is_explicitly_partial_read_only_and_authenticated', () => {
+-  assert.equal(api['x-contract-status'], 'DRAFT_PARTIAL');
++const api = documents.get('openapi.json');
++const catalog = documents.get('API_OPERATIONS.json');
++check('api_covers_every_canonical_operation_and_declared_extension', () => {
++  assert.equal(api['x-contract-status'], 'COMPLETE_FOR_IMPLEMENTATION_REVIEW');
+   assert.equal(api.components.securitySchemes.StudioToken.name, 'X-Studio-Token');
+   assert.deepEqual(api.security, [{ StudioToken: [] }]);
+-  assert.equal(Object.keys(api.paths).length, 4);
+-  for (const item of Object.values(api.paths)) {
+-    assert(item.get);
+-    assert(!['put', 'patch', 'post', 'delete'].some(method => Object.hasOwn(item, method)));
+-    assert(!Object.hasOwn(item.get, 'security'), 'No unauthenticated override');
++  const source = read(path.join(root, 'docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md'));
++  const section = source.slice(source.indexOf('### 27.'), source.indexOf('## Part V'));
++  const expected = [...section.matchAll(/^(GET|POST|PATCH|DELETE|WS)\s+(\/\S+)/gm)].map(m => `${m[1]} ${m[2].split('?')[0]}`).sort();
++  assert.equal(expected.length, 58);
++  assert.deepEqual(catalog.operations.filter(op => !op.extension).map(op => `${op.method} ${op.path}`).sort(), expected);
++  assert.deepEqual(catalog.operations.filter(op => op.extension).map(op => `${op.method} ${op.path}`), ['POST /workspaces/{id}/cps/{cp_id}/submit']);
++  let count = 0;
++  for (const [route, item] of Object.entries(api.paths)) for (const [method, operation] of Object.entries(item)) {
++    const declared = catalog.operations.find(op => op.path === route && (op.method === 'WS' ? 'get' : op.method.toLowerCase()) === method);
++    assert(declared, `Undeclared operation: ${method} ${route}`);
++    assert(!Object.hasOwn(operation, 'security'), 'No unauthenticated override');
++    assert.equal(operation['x-request-body'], declared.request ? 'typed' : 'forbidden');
++    assert.equal(operation.requestBody?.content['application/json'].schema.$ref || null, declared.request);
++    assert(operation.responses['401'] && operation.responses['403']);
++    const success = operation.responses[String(declared.method === 'WS' ? 101 : (declared.status || 200))];
++    assert(success);
++    if (declared.method === 'WS') assert.equal(operation['x-transport'], 'websocket');
++    else assert(success.content['application/json'].schema.$ref);
++    if (declared.if_match) assert(operation.parameters.some(p => p.in === 'header' && p.name === 'If-Match' && p.required));
++    count++;
+   }
++  assert.equal(count, 59);
+ });
+ check('instruction_query_contract_has_no_language_filter', () => {
+   const query = api.paths['/workspaces/{id}/instructions'].get.parameters;
+   assert.equal(api['x-unknown-query-parameters'], 'reject');
+-  assert.deepEqual(query.map(p => p.name).sort(), ['kind', 'force', 'priority', 'authority_level', 'status', 'impact_evidence', 'is_review_due', 'host', 'path', 'q'].sort());
++  assert.deepEqual(query.filter(p => p.in === 'query').map(p => p.name).sort(), ['kind', 'force', 'priority', 'authority_level', 'status', 'impact_evidence', 'is_review_due', 'host', 'path', 'q', 'limit', 'cursor'].sort());
++});
++check('canonical_state_and_runtime_evidence_have_no_write_endpoint', () => {
++  for (const op of catalog.operations) {
++    assert(!op.path.includes('state.json'));
++    if (op.path.includes('/evidence/') && !['GET', 'WS'].includes(op.method)) assert(op.method === 'POST' && op.path.endsWith('/submit-to-ci'));
++    if (op.path.includes('/instructions')) assert.equal(op.method, 'GET');
++  }
++});
++check('evidence_profile_matches_bounded_reference_codec', () => {
++  const profile = documents.get('EVIDENCE_FORMAT.json');
++  assert.equal(profile.max_bytes, EVIDENCE_LIMITS.maxBytes);
++  assert.equal(profile.max_line_bytes, EVIDENCE_LIMITS.maxLineBytes);
++  assert.equal(profile.max_records, EVIDENCE_LIMITS.maxRecords);
++  assert.equal(profile.schema_validity_is_execution_proof, false);
++});
++check('contract_lock_matches_all_artifacts_and_canonical_sources', () => {
++  const lock = documents.get('CONTRACTS.lock.json');
++  assert.equal(lock.contract_revision, 'contract.1');
++  assert.equal(lock.status, 'COMPLETE_FOR_IMPLEMENTATION_REVIEW');
++  const actualFiles = [];
++  const collect = directory => {
++    for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
++      assert(!entry.isSymbolicLink(), 'Contract artifacts cannot follow symbolic links');
++      const file = path.join(directory, entry.name);
++      if (entry.isDirectory()) collect(file);
++      else if (entry.name !== 'CONTRACTS.lock.json') actualFiles.push(path.relative(root, file).split(path.sep).join('/'));
++    }
++  };
++  collect(contracts);
++  assert.deepEqual(lock.files.map(file => file.path).sort(), actualFiles.sort());
++  for (const artifact of lock.files) {
++    const target = path.resolve(root, artifact.path);
++    assert(target.startsWith(contracts + path.sep));
++    const bytes = fs.readFileSync(target);
++    assert.equal(bytes.length, artifact.bytes, artifact.path);
++    assert.equal(createHash('sha256').update(bytes).digest('hex'), artifact.sha256, artifact.path);
++  }
++  assert.deepEqual(lock.canonical_sources.map(source => source.path).sort(), ['docs/specs/aghr-rc3/AGHR_REFERENCE.md', 'docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md']);
++  for (const source of lock.canonical_sources) assert.equal(createHash('sha256').update(fs.readFileSync(path.join(root, source.path))).digest('hex'), source.sha256);
+ });
+ 
+ const source = read(path.join(root, 'docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md'));
+@@ -73,7 +117,16 @@ check('sql_exactly_matches_six_source_blocks', () => {
+ const db = new DatabaseSync(':memory:');
+ try {
+   db.exec('PRAGMA foreign_keys = ON');
+-  db.exec(sql);
++  const migration = documents.get('MIGRATIONS.json').migrations[0];
++  assert.equal(migration.sha256, createHash('sha256').update(fs.readFileSync(path.join(contracts, migration.file))).digest('hex'));
++  db.exec('BEGIN IMMEDIATE');
++  try { db.exec(sql); db.exec('PRAGMA user_version = 1'); db.exec('COMMIT'); }
++  catch (error) { db.exec('ROLLBACK'); throw error; }
++  check('migration_version_and_foreign_keys_applied_in_memory', () => {
++    assert.equal(migration.version, 1);
++    assert.equal(db.prepare('PRAGMA user_version').get().user_version, 1);
++    assert.equal(db.prepare('PRAGMA foreign_keys').get().foreign_keys, 1);
++  });
+   check('twelve_tables_created_in_memory', () => {
+     const names = db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name").all().map(row => row.name);
+     assert.deepEqual(names, ['workspaces', 'target_projects', 'instruction_items_cache', 'capability_items_cache', 'skill_qualification_snapshot', 'change_packages', 'change_package_approvals', 'change_package_approval_history', 'runtime_evidence_events', 'verification_runs', 'metrics_snapshots', 'audit_events'].sort());
+diff --git a/docs/evidence/studio-contracts-completion-2026-10-22/before/tools/check_studio_contracts.ps1.snapshot b/tools/check_studio_contracts.ps1
+index ecdfeb6..3b00203 100644
+--- a/docs/evidence/studio-contracts-completion-2026-10-22/before/tools/check_studio_contracts.ps1.snapshot
++++ b/tools/check_studio_contracts.ps1
+@@ -7,14 +7,24 @@ $ErrorActionPreference = 'Stop'
+ $contractProject = Split-Path -Parent $PSScriptRoot
+ $contractRoot = Join-Path $contractProject 'docs/contracts/aghr-rc3'
+ $contractResults = [System.Collections.Generic.List[object]]::new()
++$contractBundleText = & node --disable-warning=ExperimentalWarning (Join-Path $PSScriptRoot 'check_studio_contracts.mjs') --schema-bundles
++if ($LASTEXITCODE -ne 0) { throw 'Cannot resolve local contract schemas' }
++$contractBundles = ($contractBundleText -join "`n") | ConvertFrom-Json -AsHashtable -Depth 100
+ 
+ function Copy-ContractFixture($Value) {
+     return ($Value | ConvertTo-Json -Depth 100 | ConvertFrom-Json -AsHashtable -Depth 100)
+ }
+ function Assert-ContractCase([string]$Name, [string]$Schema, $Value, [bool]$Expected) {
+-    $schemaPath = Join-Path $contractRoot $Schema
++    $schemaParts = $Schema.Split('#', 2)
++    $schemaName = $schemaParts[0]
++    $schemaFragment = if ($schemaParts.Length -eq 2) { $schemaParts[1] } else { '' }
++    $schemaProbe = @{'$schema'='https://json-schema.org/draft/2020-12/schema'; '$ref'=('#/$defs/' + $schemaName + $schemaFragment); '$defs'=$contractBundles[$schemaName]['$defs']}
+     $json = $Value | ConvertTo-Json -Depth 100 -Compress
+-    $actual = Test-Json -Json $json -SchemaFile $schemaPath -ErrorAction SilentlyContinue
++    $schemaErrors = @()
++    $actual = Test-Json -Json $json -Schema ($schemaProbe | ConvertTo-Json -Depth 100 -Compress) -ErrorAction SilentlyContinue -ErrorVariable schemaErrors
++    foreach ($schemaError in $schemaErrors) {
++        if (-not $schemaError.FullyQualifiedErrorId.StartsWith('InvalidJsonAgainstSchema')) { throw "Schema adapter error in ${Name}: $($schemaError.Exception.Message)" }
++    }
+     if ([bool]$actual -ne $Expected) { throw "Contract case failed: $Name (expected $Expected, observed $actual)" }
+     $contractResults.Add(@{name=$Name; expected_valid=$Expected; status='PASS'})
+ }
+@@ -65,6 +75,9 @@ $sample = Copy-ContractFixture $prohibition; $sample.verification.evalFixtures =
+ Assert-ContractCase 'critical_prohibition_requires_nonempty_eval_fixture_refs' 'item.schema.json' $sample $false
+ 
+ $capability = Copy-ContractFixture $light; $capability.kind = 'CAPABILITY'
++$capability.skillId='synthetic-skill'; $capability.source='project'; $capability.function='verification'
++$capability.permissions=@{read=@('synthetic/**');write=@();network='deny';secrets='deny'}
++$capability.inputs=@(); $capability.outputs=@()
+ Assert-ContractCase 'capability_requires_qualification_record' 'item.schema.json' $capability $false
+ $capability.skillQualification = @{skillId='synthetic-skill'; host='synthetic-host'; hostVersion='0-test'; scope='synthetic/**'; contentHash=('sha256:' + ('0' * 64)); status='NOT_RUN'}
+ Assert-ContractCase 'not_run_qualification_is_valid_structure' 'item.schema.json' $capability $true
+@@ -90,6 +103,8 @@ Assert-ContractCase 'unobservable_host_signal_is_valid' 'evidence.schema.json' $
+ $sample.events[0].status = 'HOST_SIGNAL'; $sample.events[0].skill_id = 'synthetic-skill'
+ Assert-ContractCase 'host_signal_requires_acknowledgement' 'evidence.schema.json' $sample $false
+ $sample.events[0].acknowledgement = @{fixture_only=$true}
++Assert-ContractCase 'host_signal_still_requires_current_task_execution_ref' 'evidence.schema.json' $sample $false
++$sample.events[0].execution_ref = @{path='synthetic://not-a-real-execution';content_hash=('sha256:' + ('0' * 64))}
+ Assert-ContractCase 'acknowledgement_structure_is_not_execution_proof' 'evidence.schema.json' $sample $true
+ 
+ $sample = Copy-ContractFixture $line; $sample.events = @(@{at='2026-10-22T00:00:01Z'; type='skill.loaded'; skill_id='synthetic-skill'; instruction_hash=('sha256:' + ('0' * 64))})
+@@ -109,6 +124,13 @@ Assert-ContractCase 'verification_requires_actual_task_criteria_field' 'evidence
+ $sample.events[0].task_criteria = 'Synthetic criteria; never executed.'
+ Assert-ContractCase 'verification_structure_is_not_actual_task_success' 'evidence.schema.json' $sample $true
+ 
++$contractVectorText = & node --disable-warning=ExperimentalWarning (Join-Path $PSScriptRoot 'check_studio_contracts.mjs') --contract-vectors
++if ($LASTEXITCODE -ne 0) { throw 'Cannot load independent contract examples' }
++$contractVectors = ($contractVectorText -join "`n") | ConvertFrom-Json -AsHashtable -Depth 100
++foreach ($contractVector in $contractVectors) {
++    Assert-ContractCase $contractVector.name $contractVector.schema $contractVector.value $contractVector.valid
++}
++
+ $integrityText = & node --disable-warning=ExperimentalWarning (Join-Path $PSScriptRoot 'check_studio_contracts.mjs')
+ if ($LASTEXITCODE -ne 0) { throw 'Contract integrity/SQL checker failed' }
+ $integrity = ($integrityText -join "`n") | ConvertFrom-Json -AsHashtable
+diff --git a/docs/evidence/studio-contracts-completion-2026-10-22/before/docs/contracts/aghr-rc3/ACCEPTANCE.md.snapshot b/docs/contracts/aghr-rc3/ACCEPTANCE.md
+index dc953a0..465015b 100644
+--- a/docs/evidence/studio-contracts-completion-2026-10-22/before/docs/contracts/aghr-rc3/ACCEPTANCE.md.snapshot
++++ b/docs/contracts/aghr-rc3/ACCEPTANCE.md
+@@ -1,15 +1,15 @@
+ # بوابات المرحلة 0 وما يليها
+ 
+-**التاريخ:** 2026-10-22. التقديرات الزمنية في [خطة المنتج](../../plans/STUDIO_PRODUCT_AND_CONTRACTS_AR.md) أولية. الحالة العامة `PHASE_0_IN_PROGRESS`؛ لا تعني اكتمال تثبيت العقود.
++**التاريخ:** 2026-10-22. تعريف العقود `COMPLETE_FOR_IMPLEMENTATION_REVIEW`، والمرحلة العامة `PHASE_0_IN_PROGRESS`. التقديرات في خطة المنتج أولية. اكتمال التعريف لا يمنح بوابات التشغيل حالة نجاح.
+ 
+ ## تسلسل العمل ومعيار الانتقال
+ 
+-| البوابة | المخرج | معيار القبول | الوضع عند بدء هذه الدفعة |
++| البوابة | المخرج | معيار القبول | الوضع بعد استكمال التعريف |
+ | --- | --- | --- | --- |
+-| P0-A | manifest وitem وevidence | مخططات 2020-12 موجبة/سالبة، تعقب إلى المصدر، اتفاق على القرارات D8–D11، فحص المحرك نفسه | المسودات أُنشئت؛ التجميد وتطابق المحرك `REQUIRED / NOT_RUN / NOT_WAIVED` |
+-| P0-B | API كامل | OpenAPI وأنواع جميع العمليات §§27–36، رفض الحقول/المرشحات غير المدعومة، تفويض خادمي | 4 GET مسودة؛ استكمال الأنواع والواجهات `REQUIRED / NOT_RUN / NOT_WAIVED` |
+-| P0-C | SQL | تطابق الكتل الست، إنشاء 12 جدولًا في الذاكرة، قيود بصمة الموافقة ومفاتيح التأهيل | فحص محلي، نتيجته في الإيصال؛ لا قاعدة دائمة |
+-| P0-D | إعدادات ومحرك | قالب بلا أسرار؛ مصدر/إصدار/بصمة CLI مثبتة؛ عدم تكرار منطق AGHR في Node | القالب أُنشئ؛ ربط وتأهيل CLI `REQUIRED / NOT_RUN / NOT_WAIVED` |
++| P0-A | manifest والبنود والمهارات والتأهيل والحالة والثقة والأدلة | مخططات 2020-12 وأمثلة مستقلة موجبة/سالبة وقرارات D8–D15 محددة | التعريف مكتمل وفحوص محلية؛ تطابق المحرك وتأهيل محولاته `REQUIRED / NOT_RUN / NOT_WAIVED` |
++| P0-B | API كامل | 58 عملية أصلية وsubmit موثق، أنواع كل الطلبات والأجوبة والأخطاء وWS، رفض مرشح اللغة والهوية المزورة | تغطية وتعريف مكتملان؛ إنفاذ HTTP/التفويض `REQUIRED / NOT_RUN / NOT_WAIVED` |
++| P0-C | SQL | تطابق الكتل الست، إنشاء 12 جدولًا في الذاكرة، قيود الموافقة والتأهيل | PASS محلي في الذاكرة؛ لا قاعدة دائمة |
++| P0-D | إعدادات وعقد المحرك | قالب بلا أسرار، statuses صادقة، حدود وحالات غياب، مصدر واحد للتحقق | تعريف مكتمل؛ ربط وتأهيل CLI `REQUIRED / NOT_RUN / NOT_WAIVED` |
+ | P0-E | عرض القراءة فقط | حزمة AGHR فعلية تسجل وتفهرس؛ GET instructions غير فارغ؛ Registry وSkill Card وnextReview وMetaGov stub؛ sentinel يرصد صفر كتابة Studio إلى القرص | `REQUIRED / NOT_RUN / NOT_WAIVED`؛ لا يُستعاض عنه بفحص SQL أو أمثلة البيانات |
+ | T1 | قالب SEC-001 | اكتمال الحقول؛ `aghr validate --strict` فعلي ورفض النواقص؛ حفظ المصدر والنتائج | بعد تثبيت P0؛ `REQUIRED / NOT_RUN / NOT_WAIVED` |
+ | M1 | مراجعة بنود المرجع | تطبيق القالب الموحد، تصنيف ومصادر وتعارضات وقرارات مراجعة، دون دمج الأمثلة بالسياسات | بعد T1؛ جدول 1,608 وحدة الحالي نقطة انطلاق لا قائمة سياسات معتمدة |
+@@ -30,4 +30,4 @@
+ | C11 | رفض بنيوي لبعض تقارير النجاح الناقصة | سبعة فحوص صدق وثمانية سيناريوهات فعلية منفصلة عن تأهيل Codex وAntigravity |
+ | C12 | حدود موثقة في القالب | فرض فعلي على الزمن والذاكرة وشجرة العمليات، مخرجات جزئية وحالة تجاوز صادقة |
+ 
+-فحص العقد المحلي ليس اختبار محرك، ولا اختبار API أو متصفح، ولا تأهيل مضيف، ولا مراجعة مستقلة. تبقى جميع البوابات التنفيذية غير المنفذة مطلوبة وغير متنازل عنها؛ الأرقام 90% و85% في رأي المراجعة تقديرات وليست مقاييس قبول.
++تفصل [معايير المحرك](ENGINE_ACCEPTANCE.json) الفحوص غير البنيوية. فحص العقد المحلي ليس اختبار محرك، ولا اختبار API أو متصفح، ولا تأهيل مضيف، ولا مراجعة مستقلة. تبقى البوابات التنفيذية غير المنفذة مطلوبة وغير متنازل عنها؛ الأرقام 90% و85% في رأي المراجعة تقديرات وليست مقاييس قبول.
+diff --git a/docs/evidence/studio-contracts-completion-2026-10-22/before/docs/contracts/aghr-rc3/DECISIONS.md.snapshot b/docs/contracts/aghr-rc3/DECISIONS.md
+index 2150e86..24f2dec 100644
+--- a/docs/evidence/studio-contracts-completion-2026-10-22/before/docs/contracts/aghr-rc3/DECISIONS.md.snapshot
++++ b/docs/contracts/aghr-rc3/DECISIONS.md
+@@ -1,6 +1,6 @@
+-# سجل قرارات العقود — مسودة المرحلة 0
++# سجل قرارات العقود — contract.1
+ 
+-**السلطة:** تفسير تنفيذي مقترح تابع للمصدر، وليس تعديلًا له. قرار تصميم مثبت في [Studio §46](../../specs/aghr-rc3/STUDIO_SPECIFICATION.md) لا يساوي تحققًا من تطبيقه. جميع الصفوف أدناه تحتاج دليل تطبيق قبل إغلاق بوابتها.
++**السلطة:** قرارات لتعريف التنفيذ ضمن طلب استكمال العقود؛ تابعة للمصدر ولا تعدّل بايتاته. حالة التعريف `DEFINED_FOR_IMPLEMENTATION`؛ دليل التطبيق والتأهيل مستقل. يشرح [PROTOCOL.md](PROTOCOL.md) الصيغ والحدود.
+ 
+ ## القرارات السبعة المحمولة من المواصفة
+ 
+@@ -14,22 +14,26 @@
+ | D6 | استقبال المجلدات ينتج مسودات تغيير | امتدادات `.md/.yaml/.json`، مسار موثوق وحدود للحجم والتداخل، ولا مسح مناطق الحظر أو اتباع روابط خارج النطاق. الـwatcher معطل في هذه الدفعة |
+ | D7 | لا مفتاح كتابة عام | تفويض خادمي للفاعل والمشروع والفعل والمقترح وبصمته، يعاد فحصه قبل الأثر، وتبطل الموافقات عند تغير البصمة |
+ 
+-## أسئلة G.4 — مقترحات لم تُجمد بعد
++## أسئلة G.4 — تعريفات التنفيذ المحددة
+ 
+-| ID | المسألة والحل المقترح | بوابة التثبيت |
++| ID | القرار | دليل التعريف وحد التنفيذ |
+ | --- | --- | --- |
+-| D8 | مثال المرجع §12.2 منطقي متعدد الأحداث وموسوم JSONL. تقترح المسودة تكرار غلاف `task_id/session/events/submit_to_ci` في كل سطر JSON مع **حدث واحد** في `events`. يجمع قارئ العرض الأحداث، ويحفظ البايتات الأصلية وموقع السطر. هذا يحافظ على `UNIQUE(workspace_id, task_id, source_file, source_line)` في SQL دون إسقاط أحداث متعددة في سطر واحد. | `PROPOSED`؛ اختبار round-trip وتعدد الأسطر والتكرار وتعارض بيانات الجلسة والمدخلات الأجنبية قبل تثبيته. مصدر متعدد الأحداث بالسطر لا يفجّر إلى صفوف تُكتب فوق بعضها؛ يبقى الأصل محفوظًا وتظهر `UNSUPPORTED_SERIALIZATION` حتى اعتماد محوله. |
+-| D9 | §7.1 يقبل إقرار المضيف بينما صياغة §14.2 قد توحي بأنه تنفيذ. تقترح المسودة حقل `acknowledgement` مستقلًا عند `HOST_SIGNAL`؛ `NOT_OBSERVABLE` يحتاج سببًا ولا يحمل إقرارًا مختلقًا. لا تسمح هذه البيانات بنجاح التنفيذ. | `PROPOSED`؛ قارئ مخرجات مضيف حقيقي وربط بالمهمة والمضيف والإصدار؛ عند الغياب تسجل الملاحظة بصدق. الحكم على تناقض المرجع يحتاج قرارًا صريحًا قبل التجميد. |
+-| D10 | `authority.level` إعلان للسلطة، لا هوية مصدّقة. يتحقق الخادم من مصدر السياسة وفاعل الطلب والدور والنطاق؛ البيانات المستوردة غير المصدقة تبقى `UNKNOWN` ولا تمنح صلاحية. | نموذج مصادقة وربط principal/role وتوقيع مثبت؛ اختبارات رفض انتحال الجسم ودور المعاينة. غلاف API لا يتضمن صلاحيات مشتقة من النص. |
+-| D11 | المحولات والإنفاذ والتوزيع | تثبيت Python CLI والبصمة ومصدر المخططات؛ تأهيل lookup في compact؛ تأهيل timeout/ذاكرة/شجرة عمليات على Windows والمنصات المستهدفة؛ اختبار أمر التوزيع الفعلي. كلها `REQUIRED / NOT_RUN / NOT_WAIVED`. |
++| D8 | غلاف task/session بحدث واحد في السطر، JSON حتمي UTF-8، وحفظ البايتات الأصلية. لا تعديل في مفتاح SQLite. | مخطط وصيغة ومحوّل مرجعي واختبارات تعدد السطور/التكرار/التعارض/الأصل. القارئ لا يمنح ثقة أو نجاحًا، ودعم المصدر الأجنبي غير المطابق لا يغير الأصل. |
++| D9 | يحتفظ `host.acknowledged` بالإقرار الخام دون رفع الحالة. `HOST_SIGNAL` يحتاج الإقرار ومرجع تنفيذ حالي، فيجمع اختيارية §7.1 مع الشرط الأشد في §14.2. | قبول/رفض بنيويان؛ إثبات المضيف والتنفيذ الحقيقي ما زال NOT_RUN. لا تغيير صامت لصياغة المرجع. |
++| D10 | token مؤقت مربوط بفاعل من تهيئة موثوقة؛ دور وسياق التفويض ينشئهما الخادم؛ ثقة المُصدر مستقلة. | مخطط auth، طلبات ترفض actor المزور، ودور الموافقة خانة فقط؛ تأهيل المصادقة الفعلية NOT_RUN. |
++| D11 | عقد ربط المحرك والتوزيع والمحول وضوابط العمليات وحالات غيابها محدد. قالب المحرك NOT_CONFIGURED يمنع ادعاء الربط. | البنية مكتملة؛ تشغيل Python/lookup/Windows adapter/التوزيع وتأهيل المضيف REQUIRED / NOT_RUN / NOT_WAIVED. |
++| D12 | إضافة submit الوحيدة تنفذ انتقال validated إلى in_review في §37؛ لا يغيرها طلب موافقة ذاتي. | الفهرس يميز 58 عملية أصلية وإضافة واحدة؛ فحص التغطية يمنع إخفاء الفرق. |
++| D13 | If-Match وبصمة JCS للمقترح، وإقرارات الاختزال من stage/reason دون هوية من العميل. | أخطاء 428/412؛ الجسر يعيد الفحص قبل الأثر. حساب البصمة داخل المحرك وتأهيل CI لم ينفذا. |
++| D14 | WS يحتفظ بمصادقة الرأس. المتصفح الذي لا يستطيعها يستخدم GET للمراقبة، ولا يرسل التوكن في URL. | نوع الرسالة محدد؛ ترقية WS وتأهيل العميل NOT_RUN، ولا تستنتج من مثال JSON. |
++| D15 | الحقول اليومية CAPABILITY مسطحة كما في متطلبات §39؛ qualification يقبل السجل الواحد أو قائمة؛ غلاف CP مستقل عن kind. | جميع payloads لها أمثلة قبول/رفض؛ المحرك يتحقق من تغطية كل مهارة وtuple لا من مجرد وجود قائمة. |
+ 
+-## تفاصيل لازمة قبل تجميد البنية
++## تفسير الحقول والتوافق
+ 
+ 1. يطلب §6.1 `impact.evidence` لكل بند حتى لو لم يذكره جدول الحد الأدنى §3.3؛ المخطط يطبّق الطلب الصريح. لا تُستنتج أولوية من حقل `severity` وحده ولا يثبت `repo-measured` دون مسار Calibration.
+-2. يفرض §5.2 المستوى على `MUST_NOT` بكل درجاته؛ بقية تدرج §3.3 محمول في المسودة. طريقة تمثيل الإنفاذ البشري المقترحة `gate.type: human-approval` تحتاج فحص المحول، وليست إثبات بوابة فعلية.
+-3. سجل `skillQualification` الواحد في المثال لا يحسم تمثيل بند يشير إلى عدة مهارات. يمنع التجميد حتى يثبت المحرك العقد المناسب، ولا تُدّعى تغطية هذه الحالة بالمخطط الحالي.
++2. يفرض §5.2 المستوى على `MUST_NOT` بكل درجاته. تمثيل الإنفاذ البشري `gate.type: human-approval` يعرّف التصريح؛ وجود البوابة الفعلي يحتاج doctor.
++3. السجل الواحد محفوظ للتوافق مع المثال، والقائمة تمثل عدة مهارات أو عدة تركيبات تأهيل. لا تعمم qualified من سجل إلى بقية المراجع.
+ 4. `coreKindsOnly` لا يعني حذف الأنواع التنظيمية السبعة من القاموس؛ يقيّد التأليف اليومي والمسارات والمراجعات وفق §4.2. تنفيذ هذا القرار في المحرك، وليس إعادة سياسة في Node.
+ 5. صيغ التاريخ وفحص hash بنيويان؛ لا يثبت التطابق مع ملف أو أمر أو host. مخرجات التأهيل والتقييم تحتاج دليل تشغيل متطابقًا مع المفاتيح الأربعة، وتغير أي منها لا يرث النجاح السابق.
+ 6. حدود الموارد الافتراضية 2048 MiB = 2 GiB. الإلغاء بطلب المستخدم يحتاج سببًا مستقلًا عن التجاوز؛ لا تُختلق حالة `resource_limit_exceeded` إذا لم تُقَس مخالفة.
+ 
+-لا تُعدّل ملفات المصدر المعتمدة لحسم هذه الأسئلة دون قرار موثق وفرق قبل/بعد. هذه المسودة تعرض الأسئلة وتمنع إعلان اكتمال المرحلة بوجودها.
++تسمح الإضافات بتعريف تنفيذ متسق دون تعديل الحزمة المرجعية. يحفظ إيصال الاستكمال النسخة السابقة والفرق، ويظل إغلاق المرحلة 0 مشروطًا بدليل تشغيل بواباتها، لا باكتمال هذا السجل.
+diff --git a/docs/evidence/studio-contracts-completion-2026-10-22/before/docs/contracts/aghr-rc3/evidence.schema.json.snapshot b/docs/contracts/aghr-rc3/evidence.schema.json
+index fa72f6d..399d04b 100644
+--- a/docs/evidence/studio-contracts-completion-2026-10-22/before/docs/contracts/aghr-rc3/evidence.schema.json.snapshot
++++ b/docs/contracts/aghr-rc3/evidence.schema.json
+@@ -1,8 +1,8 @@
+ {
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "https://aghr.invalid/contracts/rc3/evidence.schema.json",
+-  "title": "DRAFT — one rc.3 runtime evidence record per JSONL line",
+-  "$comment": "Proposed serialization of reference section 12.2: repeat task/session envelope with exactly one event per line. See DECISIONS.md D8. Preserve original bytes separately. Schema validity does not prove execution, trust, authorization, result content or lifecycle order.",
++  "title": "rc.3 runtime evidence — one event per JSONL line, contract.1",
++  "$comment": "Reference 12.2 logical task view serialized as one event per line. Raw host.acknowledged is observational only; reporting HOST_SIGNAL additionally requires current-task execution evidence, preserving the stricter 14.2 requirement. Original bytes are retained. Structure proves neither execution nor trust.",
+   "type": "object",
+   "additionalProperties": false,
+   "required": ["task_id", "session", "events", "submit_to_ci"],
+@@ -32,14 +32,15 @@
+       "required": ["at", "type"],
+       "properties": {
+         "at": { "type": "string", "format": "date-time" },
+-        "type": { "enum": ["skill.selected", "skill.loaded", "host.signal", "skill.executed", "skill.verified", "skill.blocked", "discovery.outcome", "authorization.request", "authorization.denied"] },
++        "type": { "enum": ["skill.selected", "skill.loaded", "host.acknowledged", "host.signal", "skill.executed", "skill.verified", "skill.blocked", "discovery.outcome", "authorization.request", "authorization.denied"] },
+         "skill_id": { "$ref": "#/$defs/text" },
+         "source": { "enum": ["agent", "host", "ci"], "description": "Declared producer only; never an authenticated role or trust proof." },
+         "reason": { "$ref": "#/$defs/text" },
+         "qualification_ref": { "$ref": "#/$defs/text" },
+-        "instruction_hash": { "type": "string", "pattern": "^sha256:[a-fA-F0-9]{64}$" },
++        "instruction_hash": { "$ref": "common.schema.json#/$defs/Hash" },
+         "status": { "enum": ["HOST_SIGNAL", "NOT_OBSERVABLE", "BLOCKED"] },
+         "acknowledgement": { "type": "object", "minProperties": 1, "description": "Host adapter response retained as data; must be attributed and validated outside JSON Schema." },
++        "execution_ref": { "$ref": "common.schema.json#/$defs/Artifact" },
+         "inputs": { "$ref": "#/$defs/artifacts" },
+         "outputs": { "$ref": "#/$defs/artifacts" },
+         "exit_status": { "enum": ["success", "failed", "errored", "cancelled"] },
+@@ -68,7 +69,7 @@
+             "properties": { "status": { "enum": ["HOST_SIGNAL", "NOT_OBSERVABLE"] } },
+             "allOf": [{
+               "if": { "properties": { "status": { "const": "HOST_SIGNAL" } }, "required": ["status"] },
+-              "then": { "required": ["skill_id", "acknowledgement"] },
++              "then": { "required": ["skill_id", "acknowledgement", "execution_ref"] },
+               "else": { "required": ["reason"], "not": { "required": ["acknowledgement"] } }
+             }]
+           }
+@@ -113,11 +114,23 @@
+         },
+         {
+           "if": { "required": ["acknowledgement"] },
+-          "then": { "properties": { "type": { "const": "host.signal" } } }
++          "then": { "properties": { "type": { "enum": ["host.acknowledged", "host.signal"] } } }
+         },
+         {
+           "if": { "required": ["outcome"] },
+           "then": { "properties": { "type": { "const": "discovery.outcome" } } }
++        },
++        {
++          "if": { "properties": { "type": { "const": "host.acknowledged" } }, "required": ["type"] },
++          "then": { "required": ["skill_id", "acknowledgement"], "not": { "anyOf": [{ "required": ["status"] }, { "required": ["execution_ref"] }, { "required": ["result"] }] } }
++        },
++        {
++          "if": { "required": ["execution_ref"] },
++          "then": { "properties": { "type": { "const": "host.signal" }, "status": { "const": "HOST_SIGNAL" } }, "required": ["status"] }
++        },
++        {
++          "if": { "required": ["status"] },
++          "then": { "properties": { "type": { "enum": ["host.signal", "skill.blocked"] } } }
+         }
+       ]
+     }
+diff --git a/docs/evidence/studio-contracts-completion-2026-10-22/before/docs/contracts/aghr-rc3/item.schema.json.snapshot b/docs/contracts/aghr-rc3/item.schema.json
+index 7a3afb5..e958cbe 100644
+--- a/docs/evidence/studio-contracts-completion-2026-10-22/before/docs/contracts/aghr-rc3/item.schema.json.snapshot
++++ b/docs/contracts/aghr-rc3/item.schema.json
+@@ -1,8 +1,8 @@
+ {
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "https://aghr.invalid/contracts/rc3/item.schema.json",
+-  "title": "DRAFT — rc.3 governance item",
+-  "$comment": "Structural proposal from reference sections 3, 5.2, 6.1 and 7.4; not an AGHR runtime validator. The pinned engine must check trust, applicability, gate existence, eval results and qualification. Additional capability payloads require a reviewed adapter before contract freeze.",
++  "title": "rc.3 governance item — contract.1",
++  "$comment": "Reference sections 3, 5.2, 6.1, 7.4 and Studio 39. Structural contract, not an AGHR runtime validator. Qualification accepts the canonical single record or a nonempty list for multiple skills/host tuples; source bytes and original shape are preserved. Trust, reference coverage, gate existence and eval results remain pinned-engine checks.",
+   "type": "object",
+   "additionalProperties": false,
+   "required": ["id", "kind", "force", "severity", "scope", "rule", "impact"],
+@@ -95,24 +95,26 @@
+       "properties": { "allowed": { "type": "boolean" }, "approval": { "$ref": "#/$defs/text" } }
+     },
+     "references": { "$ref": "#/$defs/texts" },
++    "expiresOn": { "$ref": "common.schema.json#/$defs/Date" },
++    "skillId": { "$ref": "capability.schema.json#/$defs/Fields/properties/skillId" },
++    "source": { "$ref": "capability.schema.json#/$defs/Fields/properties/source" },
++    "function": { "$ref": "capability.schema.json#/$defs/Fields/properties/function" },
++    "instructionsPath": { "$ref": "capability.schema.json#/$defs/Fields/properties/instructionsPath" },
++    "permissions": { "$ref": "capability.schema.json#/$defs/Fields/properties/permissions" },
++    "inputs": { "$ref": "capability.schema.json#/$defs/Fields/properties/inputs" },
++    "outputs": { "$ref": "capability.schema.json#/$defs/Fields/properties/outputs" },
++    "defaultTier": { "$ref": "capability.schema.json#/$defs/Fields/properties/defaultTier" },
++    "requiredApprovals": { "$ref": "capability.schema.json#/$defs/Fields/properties/requiredApprovals" },
++    "conflictsWith": { "$ref": "capability.schema.json#/$defs/Fields/properties/conflictsWith" },
++    "alternatives": { "$ref": "capability.schema.json#/$defs/Fields/properties/alternatives" },
++    "minimumStatus": { "$ref": "capability.schema.json#/$defs/Fields/properties/minimumStatus" },
++    "requiredOnHosts": { "$ref": "capability.schema.json#/$defs/Fields/properties/requiredOnHosts" },
++    "maxAgeDays": { "$ref": "capability.schema.json#/$defs/Fields/properties/maxAgeDays" },
+     "skillQualification": {
+-      "type": "object",
+-      "additionalProperties": false,
+-      "required": ["skillId", "host", "hostVersion", "scope", "contentHash", "status"],
+-      "properties": {
+-        "skillId": { "$ref": "#/$defs/text" },
+-        "host": { "$ref": "#/$defs/text" },
+-        "hostVersion": { "$ref": "#/$defs/text" },
+-        "scope": { "$ref": "#/$defs/text" },
+-        "contentHash": { "type": "string", "pattern": "^sha256:[a-fA-F0-9]{64}$" },
+-        "status": { "enum": ["QUALIFIED", "NOT_RUN", "NOT_OBSERVABLE", "UNKNOWN", "FAILED"] },
+-        "qualifiedAt": { "type": ["string", "null"], "format": "date" },
+-        "evidence": { "$ref": "#/$defs/texts" }
+-      },
+-      "allOf": [{
+-        "if": { "properties": { "status": { "const": "QUALIFIED" } }, "required": ["status"] },
+-        "then": { "required": ["qualifiedAt", "evidence"], "properties": { "qualifiedAt": { "type": "string" }, "evidence": { "minItems": 1 } } }
+-      }]
++      "oneOf": [
++        { "$ref": "qualification.schema.json" },
++        { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "qualification.schema.json" } }
++      ]
+     }
+   },
+   "allOf": [
+@@ -151,6 +153,23 @@
+         { "properties": { "scope": { "properties": { "skillIds": { "minItems": 1 } }, "required": ["skillIds"] } }, "required": ["scope"] }
+       ] },
+       "then": { "required": ["skillQualification"] }
++    },
++    {
++      "if": { "properties": { "kind": { "const": "CAPABILITY" } }, "required": ["kind"] },
++      "then": { "$ref": "capability.schema.json#/$defs/Fields" },
++      "else": { "not": { "anyOf": [{ "required": ["skillId"] }, { "required": ["permissions"] }, { "required": ["inputs"] }, { "required": ["outputs"] }] } }
++    },
++    {
++      "if": { "properties": { "kind": { "const": "EXCEPTION" } }, "required": ["kind"] },
++      "then": { "required": ["expiresOn", "references"], "properties": { "references": { "minItems": 1 } } }
++    },
++    {
++      "if": { "properties": { "impact": { "properties": { "evidence": { "const": "repo-measured" } }, "required": ["evidence"] } }, "required": ["impact"] },
++      "then": { "properties": { "impact": { "required": ["lastCalibrated", "measuredDelta"], "properties": { "lastCalibrated": { "$ref": "common.schema.json#/$defs/Date" }, "measuredDelta": { "type": "number" } } } } }
++    },
++    {
++      "if": { "properties": { "enforcement": { "properties": { "mergeEffect": { "const": "blocking" } }, "required": ["mergeEffect"] } }, "required": ["enforcement"] },
++      "then": { "properties": { "enforcement": { "required": ["gate"], "properties": { "gate": { "properties": { "required": { "const": true } } } } } } }
+     }
+   ],
+   "$defs": {
+diff --git a/docs/evidence/studio-contracts-completion-2026-10-22/before/docs/contracts/aghr-rc3/README.md.snapshot b/docs/contracts/aghr-rc3/README.md
+index c626b0e..4cffe79 100644
+--- a/docs/evidence/studio-contracts-completion-2026-10-22/before/docs/contracts/aghr-rc3/README.md.snapshot
++++ b/docs/contracts/aghr-rc3/README.md
+@@ -1,20 +1,24 @@
+-# المرحلة 0 — مسودات عقود Studio rc.3
++# المرحلة 0 — عقود Studio rc.3
+ 
+-**الحالة:** `DRAFT / PHASE_0_IN_PROGRESS`، 2026-10-22. هذه مخرجات أولية قابلة للمراجعة، وليست حزمة حوكمة معتمدة أو واجهات مطبقة. المرجع الفعلي داخل التطبيق ما زال 1.2.0.
++**الحالة:** `COMPLETE_FOR_IMPLEMENTATION_REVIEW`، `contract.1`، 2026-10-22. اكتمل تعريف العقود وفحوصها المحلية؛ المرحلة 0 التنفيذية ما زالت `IN_PROGRESS`. لا يمثل ذلك اعتماد إصدار أو تشغيل واجهات جديدة. مرجع التطبيق 1.2.0 محفوظ.
+ 
+ ## المرجعية والنطاق
+ 
+ [مرجع rc.3](../../specs/aghr-rc3/AGHR_REFERENCE.md) يحدد الحوكمة؛ [مواصفة Studio](../../specs/aghr-rc3/STUDIO_SPECIFICATION.md) تحدد المنتج والعقود والقبول. [وصف المنتج المصحح](../../plans/STUDIO_PRODUCT_AND_CONTRACTS_AR.md) يربط الالتزامات C1–C12 بآلية ومعيار قبول. عند الاختلاف تُراجع المسودة؛ لا تعدّل المرجع ضمنيًا.
+ 
+-| المخرج الأولي | المصدر | الحالة والحدود |
++| العقد | المصدر | التغطية |
+ | --- | --- | --- |
+-| [aghr.schema.json](aghr.schema.json)، [aghr.json](aghr.json) | المرجع §2.1 | نموذج manifest بـ`schemaVersion: 1.2` ومثال غير مسجل؛ حقول المالك والتوقيع بيانات معلنة، لا إثبات ثقة |
+-| [item.schema.json](item.schema.json) | المرجع §§3،5.2،6.1،7.4 | 13 نوعًا، 6 قوى، مستويات السلطة الأربعة، دليل الأثر، والتدرج الشرطي؛ ليس بديلًا عن حكم محرك Python |
+-| [evidence.schema.json](evidence.schema.json) | المرجع §12.2 وStudio G.4 | اقتراح تسلسل JSONL: سجل مهمة/جلسة بحدث واحد في كل سطر؛ يحتاج تثبيت قرار D8 قبل اعتماد المنتج عليه |
+-| [001_initial.sql](sqlite/001_initial.sql) | Studio §§5–10 | نسخ آلي لكتل SQL الست، 12 جدولًا؛ فحص في `:memory:` فقط، دون تشغيل هجرة دائمة |
+-| [openapi.readonly.draft.json](openapi.readonly.draft.json) | Studio §§27–29 | بداية عقد التصفح: 4 عمليات GET فقط؛ بقية الأنواع والعمليات لم تستكمل، ولا خادم جديد يعمل بهذا الملف |
+-| [settings.yaml](settings.yaml) | Studio §§26،43،44،46 | قالب غير متصل بالتطبيق، ذاكرة فقط، بلا أسرار أو حسابات أو مسار محرك مخمّن |
+-| [DECISIONS.md](DECISIONS.md) | Studio §46 وG.4 | القرارات السبعة وأسئلة التثبيت، مع فصل المقترح عن القرار المعتمد |
++| [aghr.schema.json](aghr.schema.json)، [aghr.json](aghr.json) | المرجع §2.1 | manifest بـ`schemaVersion: 1.2` ومثال غير مسجل؛ إعلان المالك والتوقيع لا يثبت الثقة |
++| [item.schema.json](item.schema.json)، [capability.schema.json](capability.schema.json)، [qualification.schema.json](qualification.schema.json) | المرجع §§3،5،6،7 وStudio §39 | الأنواع والقوى والسلطة والأثر والتدرج، payload المهارة، والتأهيل الواحد/المتعدد بمفاتيحه الأربعة |
++| [state.schema.json](state.schema.json)، [auth.schema.json](auth.schema.json) | المرجع §12 وStudio §44 وG.4 | الحالة المنشورة من CI، والثقة وسياق التفويض المملوك للخادم |
++| [evidence.schema.json](evidence.schema.json)، [EVIDENCE_FORMAT.json](EVIDENCE_FORMAT.json) | المرجع §12.2 وStudio G.4 | تسلسل JSONL محدد، حدث واحد في السطر، حفظ الأصل، وإقرار خام مستقل عن حالة التنفيذ |
++| [001_initial.sql](sqlite/001_initial.sql)، [MIGRATIONS.json](MIGRATIONS.json) | Studio §§5–10 | كتل SQL الست، 12 جدولًا، checksum ومعاملة ذرية وuser_version؛ فحص في الذاكرة فقط |
++| [openapi.json](openapi.json)، [API_OPERATIONS.json](API_OPERATIONS.json)، [تغطية العمليات](API_COVERAGE.md) | Studio §§27–36 و§37 | 58 عملية أصلية، وإضافة submit موثقة؛ مداخل وأجوبة وأخطاء ومصادقة، مع قناة WS |
++| [أنواع القراءة](api.read.schema.json)، [أنواع التغيير](api.change.schema.json)، [أنواع التنفيذ](api.execution.schema.json)، [الأجوبة المولدة](api.responses.schema.json) | Studio §§5–10 و§§27–36 | أنواع جميع العمليات وأغلفتها، وسجلات الأدلة والمقاييس دون قيم نجاح مصطنعة |
++| [proposal.schema.json](proposal.schema.json)، [transport.schema.json](transport.schema.json)، [common.schema.json](common.schema.json) | Studio §§4،21،37–39 | الغلاف المنظم للمقترحات، وتشخيص الأخطاء وأنواع النقل المشتركة |
++| [settings.schema.json](settings.schema.json)، [settings.yaml](settings.yaml)، [engine.schema.json](engine.schema.json) | Studio §§26،43،44 | إعدادات ذاكرة بلا أسرار، محرك NOT_CONFIGURED وضوابط موارد محددة لا تدعي التأهيل |
++| [DECISIONS.md](DECISIONS.md)، [PROTOCOL.md](PROTOCOL.md) | Studio §46 وG.4 | قرارات التنفيذ وتسلسل الأدلة والثقة والبصمات والتوافق، مع فصل التعريف عن دليل التطبيق |
++| [ENGINE_ACCEPTANCE.json](ENGINE_ACCEPTANCE.json) | المرجع وStudio C1–C12 | معايير المحرك والمضيف التي لا تثبتها فحوص JSON؛ تظل REQUIRED / NOT_RUN / NOT_WAIVED |
+ | [ACCEPTANCE.md](ACCEPTANCE.md) | Studio §§3،45 | تبعيات وقبول المرحلة، مع `REQUIRED / NOT_RUN / NOT_WAIVED` للفحوص التي لم تنفذ |
+ 
+ ## حدود العقود
+@@ -22,7 +26,7 @@
+ - تُحمّل مخططات JSON العامة لفحص البنية؛ لا يكتب Node نسخة ثانية من منطق AGHR. الحكم النهائي على البنود والتعارض والتوليد والأدلة يتم بمحرك Python واحد مثبت الإصدار والبصمة في Studio وCI.
+ - تحقق JSON Schema لا يثبت أن بوابة حماية موجودة أو أن مصدرًا موثوقًا أو أن ملف المخرجات غير فارغ. قياس المحتوى، وتسلسل التنفيذ، ومعايير المهمة، وتطابق التأهيل، ومعايرة الأثر فحوص محرك منفصلة.
+ - `scope.language` لا يغير مجموعة القواعد المنطبقة. يحافظ API على جميع البنود، ويعرض العميل شارة `translation_unavailable` بدل إخفائها.
+-- عقود `state.json` وpayload المهارة الموسع، والتحقق من تعدد المراجع إلى مهارات، وJSON Schemas لبقية أنواع API لم تُثبت بعد. لا تُملأ بفروض من سجل 1.2.0 القديم.
++- الصيغ المنفذة في العقود لا تعتمد تسجيلات 1.2.0 القديمة بوصفها بيانات rc.3. تبقى محولات المحرك وصدق الأدلة وتغطية المهارات المتعددة فحوصًا تنفيذية مطلوبة؛ عقودها محددة في البروتوكول ومعايير القبول.
+ - `settings.yaml` ليس تفويضًا. لا watcher فعلي ولا اعتماد تلقائي لمدخلات INBOX. يظل الحفظ الدائم وعملية التصدير والتنفيذ تحت مسار التفويض والقبول الخاص بهما.
+ 
+ ## التحقق المحلي
+@@ -31,12 +35,17 @@
+ 
+ ```powershell
+ pwsh -NoProfile -File tools/check_studio_contracts.ps1
++node tools/contracts/build_openapi.mjs --check
+ npm test
+ node tools/check_context_health.mjs
+ ```
+ 
+-الفحص الأول يختبر أمثلة بنيوية موجبة وسالبة بواسطة `Test-Json`، ثم تطابق SQL مع المصدر وإنشاء الجداول والقيود في الذاكرة. لا يشغل `aghr validate --strict`، ولا يختبر واجهات HTTP أو المتصفح أو CI أو تأهيل المضيف. يحفظ [إيصال هذه الدفعة](../../evidence/studio-phase0-2026-10-22/README.md) النتائج الفعلية وحدودها.
++يفحص المدقق أمثلة مستقلة لكل نوع طلب ولكل جواب عملية، بما فيه رفض انتحال الهوية والنجاح غير المطابق. يجمع المراجع محليًا دون تحميل شبكة، ويقارن API بالنص المعتمد، وSQL بمصدره، ويختبر قيوده في الذاكرة. يضم npm اختبارات تسلسل الأدلة. هذا ليس `aghr validate --strict` أو تأهيل HTTP/متصفح/CI/مضيف.
++
++[إيصال الاستكمال](../../evidence/studio-contracts-completion-2026-10-22/README.md) يحفظ النتائج والنسخ السابقة والفرق. [إيصال البدء](../../evidence/studio-phase0-2026-10-22/README.md) يبقى سجلًا تاريخيًا. يحفظ [CONTRACTS.lock.json](CONTRACTS.lock.json) بصمات هذه النسخة؛ القفل تقني ولا يمنح قبولًا أو تفويضًا.
+ 
+ ## التسلسل التالي
+ 
+-إكمال أنواع API وقرارات JSONL/الثقة وتثبيت المحرك → العرض المطلوب للقراءة فقط وبوابة عدم الكتابة → تحقق قالب SEC-001 عبر المحرك → مراجعة بنود الحزمة الحالية بالقالب الموحد → الترحيل والدورة التنفيذية في مرحلتي التصفح والنواة. لا ترقية مرجع تلقائية.
++راجع [التقييم الذاتي وحدوده](SELF_REVIEW.md) عند الاستلام؛ لا يثبت مراجعة مستقلة.
++
++ربط المحرك المثبت وتأهيل محولاته → العرض المطلوب للقراءة فقط وبوابة عدم الكتابة → تحقق قالب SEC-001 عبر المحرك → مراجعة بنود الحزمة الحالية بالقالب الموحد → الترحيل والدورة التنفيذية. لم يبدأ القالب ضمن مهمة استكمال العقود.
+diff --git a/docs/evidence/studio-contracts-completion-2026-10-22/before/docs/contracts/aghr-rc3/settings.yaml.snapshot b/docs/contracts/aghr-rc3/settings.yaml
+index a71a1b6..867f893 100644
+--- a/docs/evidence/studio-contracts-completion-2026-10-22/before/docs/contracts/aghr-rc3/settings.yaml.snapshot
++++ b/docs/contracts/aghr-rc3/settings.yaml
+@@ -1,43 +1,68 @@
+-# DRAFT configuration contract — not read by the running application.
+-# No credential, actor assignment, signing identity or executable is supplied.
+-contract_status: DRAFT
+-listen:
+-  host: 127.0.0.1
+-authentication:
+-  credential: ephemeral_per_startup
+-  header: X-Studio-Token
+-  principal_bindings: []  # server-resolved; default deny until configured
+-storage:
+-  mode: memory
+-  database: ':memory:'
+-  filesystem_writes: false
+-sources:
+-  package: read_only
+-  canonical_state: read_only
+-  runtime_evidence: read_only
+-engine:
+-  implementation: pinned_python_aghr
+-  executable: null  # REQUIRED/NOT_RUN: resolve and qualify the actual binary
+-  version: null
+-  content_hash: null
+-  shell: false
+-  allowlisted_commands: [validate, lint, generate, check, eval, qualify, doctor]
+-limits:
+-  eval: {timeout_ms: 600000, memory_mib: 2048}
+-  qualify: {timeout_ms: 3600000, memory_mib: 2048}
+-  require_qualified_process_tree_adapter: true
+-  unavailable_adapter_action: block
+-  overflow_status: resource_limit_exceeded
+-authorization:
+-  scope: [authenticated_actor, server_resolved_role, target_project, action, change_package, proposal_version_hash]
+-  simulated_role_grants_permissions: false
+-  approvals_invalidated_on_proposal_change: true
+-  roles:
+-    developer: [read:*, cp.create, cp.edit_own, adoption.preview, verify.run.fast]
+-    governance-owner: [read:*, cp.create, cp.edit_any, cp.approve.governance, adoption.apply, verify.run.*, calibrate.*, meta.change.propose]
+-    security-owner: [read:*, cp.approve.security, verify.run.*]
+-    architecture-board: [read:*, cp.approve.architecture, exceptions.approve]
+-intake:
+-  watcher_enabled: false
+-  allowed_extensions: [.md, .yaml, .json]
+-  result: draft_change_package_only
++{
++  "contract_revision": "contract.1",
++  "listen": {
++    "host": "127.0.0.1"
++  },
++  "authentication": {
++    "credential": "ephemeral_per_startup",
++    "header": "X-Studio-Token",
++    "principal_bindings": []
++  },
++  "storage": {
++    "mode": "memory",
++    "database": ":memory:",
++    "filesystem_writes": false
++  },
++  "sources": {
++    "package": "read_only",
++    "canonical_state": "read_only",
++    "runtime_evidence": "read_only"
++  },
++  "engine": {
++    "implementation": "pinned_python_aghr",
++    "status": "NOT_CONFIGURED",
++    "executable": null,
++    "identity": null,
++    "shell": false,
++    "reason": "No rc.3 engine binary/version/hash has been qualified for this workspace."
++  },
++  "limits": {
++    "eval": {
++      "timeout_ms": 600000,
++      "memory_mib": 2048
++    },
++    "qualify": {
++      "timeout_ms": 3600000,
++      "memory_mib": 2048
++    }
++  },
++  "resource_controls": {
++    "require_qualified_process_tree_adapter": true,
++    "unavailable_adapter_action": "block",
++    "overflow_status": "resource_limit_exceeded"
++  },
++  "authorization": {
++    "simulated_role_grants_permissions": false,
++    "approvals_invalidated_on_proposal_change": true
++  },
++  "git": {
++    "gpg_key_id": null,
++    "default_branch": "main",
++    "commit_message_template": "aghr: {title}"
++  },
++  "hosts": [],
++  "security": {
++    "binding": "127.0.0.1",
++    "audit_retention_days": 90,
++    "token_rotation": "per_session"
++  },
++  "intake": {
++    "watcher_enabled": false,
++    "allowed_extensions": [
++      ".md",
++      ".yaml",
++      ".json"
++    ],
++    "result": "draft_change_package_only"
++  }
++}

@@ -1,0 +1,48 @@
+diff --git a/docs/evidence/studio-e1d-2026-10-22/before/09.snapshot b/governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_cli.py
+index 6b8f258..a1a1516 100644
+--- a/docs/evidence/studio-e1d-2026-10-22/before/09.snapshot
++++ b/governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_cli.py
+@@ -101,11 +101,39 @@ class CliTests(unittest.TestCase):
+         self.assertEqual(report["source"]["content_hash"], expected)
+         self.assertEqual({item["path"]: item["sha256"] for item in report["source"]["artifacts"]}, mapping)
+         self.assertEqual(set(mapping), {
+-            "CLI_CONTRACT.json", "LICENSE", "PACKAGE_STATUS.json", "PROVENANCE.json",
+-            "SOURCE_MAP.json", "aghr.json", "policies/observations/reference-state.json",
++            "CLI_CONTRACT.json",
++            "LICENSE",
++            "PACKAGE_STATUS.json",
++            "PROVENANCE.json",
++            "SOURCE_MAP.json",
++            "aghr.json",
++            "policies/observations/reference-state.json",
+             "requirements.lock",
+-            "tests/test_cli.py", "tests/test_loader.py", "tools/cli.py",
+-            "tools/diagnostics.py", "tools/loader.py",
++            "schemas/MODEL_INDEX.json",
++            "schemas/SCHEMAS.lock.json",
++            "schemas/aghr.schema.json",
++            "schemas/api.change.schema.json",
++            "schemas/api.execution.schema.json",
++            "schemas/api.read.schema.json",
++            "schemas/api.responses.schema.json",
++            "schemas/auth.schema.json",
++            "schemas/capability.schema.json",
++            "schemas/common.schema.json",
++            "schemas/engine.schema.json",
++            "schemas/evidence.schema.json",
++            "schemas/item.schema.json",
++            "schemas/proposal.schema.json",
++            "schemas/qualification.schema.json",
++            "schemas/settings.schema.json",
++            "schemas/state.schema.json",
++            "schemas/transport.schema.json",
++            "tests/test_catalog.py",
++            "tests/test_cli.py",
++            "tests/test_loader.py",
++            "tools/catalog.py",
++            "tools/cli.py",
++            "tools/diagnostics.py",
++            "tools/loader.py",
+         })
+         self.assertTrue(all("\\" not in name for name in mapping))
+ 

@@ -1,0 +1,1251 @@
+diff --git a/docs/evidence/studio-e1d-2026-10-22/before/empty.snapshot b/governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/api.responses.schema.json
+index e69de29..945e717 100644
+--- a/docs/evidence/studio-e1d-2026-10-22/before/empty.snapshot
++++ b/governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/api.responses.schema.json
+@@ -0,0 +1,1246 @@
++{
++  "$schema": "https://json-schema.org/draft/2020-12/schema",
++  "$id": "https://aghr.invalid/contracts/rc3/api.responses.schema.json",
++  "title": "Generated API response envelopes — do not edit directly",
++  "$defs": {
++    "listWorkspacesResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/Workspaces"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "registerWorkspaceResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/Workspace"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "removeWorkspaceRegistrationResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "transport.schema.json#/$defs/RemovedRegistration"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "scanWorkspaceResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/Scan"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "listProjectsResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/Projects"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "registerProjectResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/Project"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "removeProjectRegistrationResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "transport.schema.json#/$defs/RemovedRegistration"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "scanProjectResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/Scan"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "getProjectConfigResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/ProjectConfig"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "listInstructionsResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/Items"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "getInstructionResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/ItemView"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "getInstructionRelationsResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/Relations"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "getInstructionHistoryResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/History"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "getInstructionEvalsResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.execution.schema.json#/$defs/VerificationRuns"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "getInstructionCalibrationsResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/Calibrations"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "listCapabilitiesResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/Capabilities"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "getCapabilityResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/CapabilityView"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "getCapabilityQualificationResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/Qualifications"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "getCapabilityUsageResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/Usages"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "getQualificationMatrixResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/Matrix"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "previewGenerationResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.execution.schema.json#/$defs/Generation"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "downloadGenerationResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.execution.schema.json#/$defs/GeneratedDownload"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "startVerificationResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.execution.schema.json#/$defs/StartedRun"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "listVerificationRunsResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.execution.schema.json#/$defs/VerificationRuns"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "getVerificationRunResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.execution.schema.json#/$defs/VerificationRun"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "getRunSarifResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.execution.schema.json#/$defs/Sarif"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "streamVerificationResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.execution.schema.json#/$defs/StreamFrame"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "cancelVerificationResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "transport.schema.json#/$defs/Ack"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "listEvidenceTasksResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/EvidenceTasks"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "getEvidenceTaskResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/EvidenceDetail"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "getEvidenceEventsResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/EvidenceEvents"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "prepareEvidencePrResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/EvidenceSubmission"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "listChangePackagesResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.change.schema.json#/$defs/Packages"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "createChangePackageResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.change.schema.json#/$defs/Package"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "getChangePackageResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.change.schema.json#/$defs/Package"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "editChangePackageResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.change.schema.json#/$defs/Package"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "validateChangePackageResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.change.schema.json#/$defs/Package"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "previewChangePackageResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.change.schema.json#/$defs/Preview"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "submitChangePackageResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.change.schema.json#/$defs/Package"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "decideChangePackageResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.change.schema.json#/$defs/Package"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "exportChangePackageResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.change.schema.json#/$defs/Export"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "closeMergedChangePackageResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.change.schema.json#/$defs/Package"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "createAdoptionDraftResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.change.schema.json#/$defs/Adoption"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "getAdoptionResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.change.schema.json#/$defs/Adoption"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "previewAdoptionResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.change.schema.json#/$defs/Preview"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "exportAdoptionResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.change.schema.json#/$defs/Export"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "getAdoptionDiffResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.change.schema.json#/$defs/Preview"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "getMetricsResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/Metrics"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "getMetricsHistoryResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/MetricsHistory"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "captureMetricsResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/Metrics"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "listAuditEventsResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/AuditEvents"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "getAuditEventResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "api.read.schema.json#/$defs/AuditEvent"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "getSettingsResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "settings.schema.json"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "configureRolesResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "settings.schema.json"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "configureGitResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "settings.schema.json"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "configureLimitsResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "settings.schema.json"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "configureHostsResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "settings.schema.json"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "configureSecurityResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "settings.schema.json"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    },
++    "testSigningResponse": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "data",
++        "meta"
++      ],
++      "properties": {
++        "data": {
++          "$ref": "settings.schema.json#/$defs/SigningResult"
++        },
++        "meta": {
++          "$ref": "transport.schema.json#/$defs/Meta",
++          "not": {
++            "required": [
++              "error"
++            ]
++          }
++        }
++      }
++    }
++  }
++}

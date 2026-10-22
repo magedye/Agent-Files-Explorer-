@@ -1,0 +1,70 @@
+{
+  "observed_at_utc": "2026-10-22T02:50:55.405Z",
+  "required": {
+    "format": "AGHR rc.3 with manifest schemaVersion 1.2",
+    "path": null,
+    "content_hash": null,
+    "acquired_at_utc": null,
+    "status": "NOT_FOUND_IN_SCOPED_LOCATIONS"
+  },
+  "checked_locations": [
+    {
+      "path": "governance_packages/references",
+      "scope": "Top-level catalog names and 1.2.0 metadata"
+    },
+    {
+      "path": "governance_packages/candidates",
+      "scope": "Top-level catalog names and 1.3.0 metadata"
+    },
+    {
+      "path": "governance_packages/INBOX/last-app",
+      "exists": false
+    },
+    {
+      "path": "docs/specs/aghr-rc3",
+      "scope": "Adopted design documents, not an installed engine package"
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/aghr.json",
+      "scope": "Explicit EXAMPLE_ONLY_NOT_AN_AUTHENTICATED_OWNER; not a registered installation"
+    }
+  ],
+  "legacy_packages": [
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0",
+      "version": "1.2.0",
+      "manifest": {
+        "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/MANIFEST.json",
+        "sha256": "001ab43869013e6446a77c18fa539b26a8f0fd844299efd006af815053169290",
+        "frozen_at": "2026-10-20T07:39:25.852363+00:00",
+        "version": "1.2.0"
+      },
+      "distribution": {
+        "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0.zip",
+        "sha256": "29497b708bd41cb35453ba12d4ae8212662084be0d53c14135ea15a98f6ac5dc",
+        "declared_digest": "29497b708bd41cb35453ba12d4ae8212662084be0d53c14135ea15a98f6ac5dc",
+        "digest_matches": true,
+        "byte_count": 1709426
+      }
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_Candidate_1.3.0",
+      "version": "1.3.0",
+      "manifest": {
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/MANIFEST.json",
+        "sha256": "974a29e5f2950d2aeab1bb8cd03caf9f961a1da04c3205309b70601343c6433e",
+        "frozen_at": "2026-10-21T14:43:27.805675+00:00",
+        "version": "1.3.0"
+      },
+      "distribution": {
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0.zip",
+        "sha256": "41dbd6df9de1e17b69d1aece08aadce104a338f7ed1450c1166263de2ca46829",
+        "declared_digest": "41dbd6df9de1e17b69d1aece08aadce104a338f7ed1450c1166263de2ca46829",
+        "digest_matches": true,
+        "byte_count": 1814319
+      }
+    }
+  ],
+  "limits": "No whole-drive or governance archive crawl; finding is scoped, not a claim that no compatible engine exists elsewhere",
+  "acceptance": "BLOCKED_REAL_RC3_PACKAGE_REQUIRED"
+}

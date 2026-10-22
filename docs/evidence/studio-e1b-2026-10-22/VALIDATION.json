@@ -1,0 +1,48 @@
+{
+  "observed_at_utc": "2026-10-22T14:11:09.162Z",
+  "scope": "E1.b reader + CLI metadata; synthetic fixtures and scoped Windows junction test only",
+  "candidate_tests": {
+    "total": 46,
+    "reader": 28,
+    "cli": 18,
+    "failed": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "candidate-tests.log"
+  },
+  "npm_test": {
+    "total": 41,
+    "passed": 41,
+    "failed": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "npm-test.log"
+  },
+  "probes": {
+    "reader": 3,
+    "cli": 2,
+    "transcript": "READER_TRANSCRIPT.json",
+    "real_reference_package": false
+  },
+  "regressions": {
+    "file": "REGRESSIONS.json",
+    "fixed": 2
+  },
+  "global_python": "MATCHES_PRESERVED_E1A_BASELINE",
+  "context_health": {
+    "status": "PASS",
+    "exit_code": 0,
+    "errors": 0,
+    "warnings": 0,
+    "estimated_bootstrap_tokens": 4942,
+    "log": "context-health.log"
+  },
+  "git_diff_check": {
+    "exit_code": 0,
+    "log": "git-diff-check.log"
+  },
+  "governance_validation": "NOT_RUN",
+  "native_host_qualification": "NOT_RUN",
+  "independent_review": "NOT_PERFORMED",
+  "release_acceptance": "NOT_GRANTED"
+}

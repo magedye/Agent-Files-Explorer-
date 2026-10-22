@@ -1,0 +1,18 @@
+{
+  "started_at_utc": "2026-10-22T02:40:30.576Z",
+  "finished_at_utc": "2026-10-22T02:40:32.356Z",
+  "executable": "C:/Users/Majed/AppData/Local/Programs/Python/Python312/python.exe",
+  "executable_sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+  "args": [
+    "-I",
+    "-B",
+    "-c",
+    "import sys, json, importlib.metadata as m\nitems=[]\nfor name in ('aghr','aghr-studio'):\n try:\n  d=m.distribution(name)\n  items.append({'name':name,'status':'INSTALLED','version':d.version,'location':str(d.locate_file('')),'entry_points':[str(e) for e in d.entry_points]})\n except m.PackageNotFoundError:\n  items.append({'name':name,'status':'NOT_INSTALLED'})\nprint(json.dumps({'python':sys.version,'executable':sys.executable,'packages':items}))\n"
+  ],
+  "exit_code": 0,
+  "signal": null,
+  "spawn_error": null,
+  "stdout": "{\"python\": \"3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]\", \"executable\": \"C:\\\\Users\\\\Majed\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python312\\\\python.exe\", \"packages\": [{\"name\": \"aghr\", \"status\": \"NOT_INSTALLED\"}, {\"name\": \"aghr-studio\", \"status\": \"NOT_INSTALLED\"}]}\r\n",
+  "stderr": "",
+  "scope": "Interpreter identity and two installed-distribution metadata lookups; no engine import or installation"
+}

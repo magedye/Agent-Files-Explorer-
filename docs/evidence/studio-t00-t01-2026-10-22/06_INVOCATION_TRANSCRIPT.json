@@ -1,0 +1,70 @@
+{
+  "observed_at_utc": "2026-10-22T02:50:55.408Z",
+  "required_invocation": {
+    "logical_argv": [
+      "aghr",
+      "validate",
+      "--strict"
+    ],
+    "reference_package": null,
+    "started_at_utc": null,
+    "finished_at_utc": null,
+    "process_started": false,
+    "exit_code": null,
+    "stdout": "",
+    "stderr": "",
+    "status": "NOT_RUN",
+    "reason": "No pinned rc.3 executable and no real compatible reference package; no command output fabricated"
+  },
+  "actual_legacy_diagnostic": {
+    "id": "legacy-strict-parser",
+    "executable": "C:/Users/Majed/AppData/Local/Programs/Python/Python312/python.exe",
+    "executable_sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+    "entrypoint": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0/runtime/cli.py",
+    "entrypoint_sha256": "5c8f0f330a7d75c5eda9108dc7d355641272871835fc8b2b0b009303487c8265",
+    "argv": [
+      "-I",
+      "-B",
+      "-X",
+      "utf8",
+      "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_Candidate_1.3.0\\runtime\\cli.py",
+      "validate",
+      "--project",
+      "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_Candidate_1.3.0",
+      "--strict"
+    ],
+    "cwd": "D:/APP/Agent-Files-Explorer/governance_packages/candidates/AGHR_Candidate_1.3.0",
+    "started_at_utc": "2026-10-22T02:50:18.396Z",
+    "finished_at_utc": "2026-10-22T02:50:21.013Z",
+    "exit_code": 2,
+    "signal": null,
+    "spawn_error": null,
+    "stdout": {
+      "path": "cli-probes/legacy-strict-parser.stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "stderr": {
+      "path": "cli-probes/legacy-strict-parser.stderr.txt",
+      "sha256": "7f591eced523a721171b94e090aedf565b62a1484bfc17332e5a8d621e98fa1b",
+      "bytes": 183
+    },
+    "capture_complete": true,
+    "boundary": "Legacy help or parser rejection only; no eval/qualify/adoption/state-write operation invoked"
+  },
+  "machine": {
+    "os": "win32",
+    "release": "10.0.26200",
+    "architecture": "x64",
+    "hostname_sha256": "1fb72ece80dd2a48c732c3be51e0e4a9b17d5cd165d169e9cf00a61d9c688886",
+    "cpu_model": "Intel(R) Core(TM) i7-8565U CPU @ 1.80GHz",
+    "logical_cpu_count": 8,
+    "memory_bytes": 34199511040,
+    "node": "v24.11.0"
+  },
+  "interpreter": {
+    "path": "C:/Users/Majed/AppData/Local/Programs/Python/Python312/python.exe",
+    "sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a"
+  },
+  "acceptance": "BLOCKED_RC3_VALIDATION_NOT_RUN; legacy parser failure is actual diagnostic evidence only"
+}

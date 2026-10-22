@@ -1,0 +1,81 @@
+diff --git a/docs/evidence/studio-e1d-2026-10-22/before/empty.snapshot b/governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/api.change.schema.json
+index e69de29..6b09fe1 100644
+--- a/docs/evidence/studio-e1d-2026-10-22/before/empty.snapshot
++++ b/governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/api.change.schema.json
+@@ -0,0 +1,76 @@
++{
++  "$schema": "https://json-schema.org/draft/2020-12/schema",
++  "$id": "https://aghr.invalid/contracts/rc3/api.change.schema.json",
++  "title": "Change Package and adoption workflow types — not governance-kind extensions",
++  "$defs": {
++    "Kind": { "oneOf": [{ "$ref": "item.schema.json#/properties/kind" }, { "enum": ["calibration", "PROJECT_SELECTION", "GENERATED_FILE"] }] },
++    "Status": { "enum": ["draft", "validating", "validated", "in_review", "approved", "rejected", "exported", "closed"] },
++    "Origin": {
++      "type": "object", "additionalProperties": false, "required": ["type", "ref"],
++      "properties": { "type": { "enum": ["document", "lesson", "request", "calibration"] }, "ref": { "$ref": "common.schema.json#/$defs/Text" }, "hash": { "$ref": "common.schema.json#/$defs/Hash" }, "task_id": { "$ref": "common.schema.json#/$defs/Text" }, "eval_run_id": { "$ref": "common.schema.json#/$defs/Text" }, "measured_delta": { "type": "number" }, "reason": { "$ref": "common.schema.json#/$defs/Text" } },
++      "allOf": [{ "if": { "properties": { "type": { "const": "calibration" } }, "required": ["type"] }, "then": { "required": ["eval_run_id", "measured_delta", "reason"] } }]
++    },
++    "Create": {
++      "type": "object", "additionalProperties": false, "required": ["title", "kind", "proposed_yaml"],
++      "properties": { "title": { "$ref": "common.schema.json#/$defs/Text" }, "kind": { "$ref": "#/$defs/Kind" }, "target_item_id": { "$ref": "common.schema.json#/$defs/Text" }, "source": { "$ref": "#/$defs/Origin" }, "proposed_yaml": { "$ref": "common.schema.json#/$defs/Text" } }
++    },
++    "Edit": { "type": "object", "additionalProperties": false, "required": ["proposed_yaml"], "properties": { "proposed_yaml": { "$ref": "common.schema.json#/$defs/Text" } } },
++    "ApprovalRequest": {
++      "type": "object", "additionalProperties": false, "required": ["role", "decision", "reason"],
++      "properties": { "role": { "$ref": "common.schema.json#/$defs/ApprovalRole" }, "decision": { "enum": ["approve", "reject"] }, "reason": { "$ref": "common.schema.json#/$defs/Text" }, "acknowledgements": { "type": "array", "items": { "$ref": "api.execution.schema.json#/$defs/AcknowledgementInput" } } }
++    },
++    "Approval": {
++      "type": "object", "additionalProperties": false, "required": ["id", "package_id", "role", "approver", "decision", "approved_version_hash", "reason", "at"],
++      "properties": { "id": { "type": "integer", "minimum": 1 }, "package_id": { "$ref": "common.schema.json#/$defs/Text" }, "role": { "$ref": "common.schema.json#/$defs/ApprovalRole" }, "approver": { "$ref": "common.schema.json#/$defs/Text" }, "decision": { "enum": ["approve", "reject"] }, "approved_version_hash": { "$ref": "common.schema.json#/$defs/Hash" }, "reason": { "$ref": "common.schema.json#/$defs/Text" }, "at": { "$ref": "common.schema.json#/$defs/Time" } }
++    },
++    "InvalidatedApproval": {
++      "type": "object", "additionalProperties": false, "required": ["decision", "invalidated_at", "invalidation_reason"],
++      "properties": { "decision": { "$ref": "#/$defs/Approval" }, "invalidated_at": { "$ref": "common.schema.json#/$defs/Time" }, "invalidation_reason": { "enum": ["proposal_changed", "explicit_withdrawal"] } }
++    },
++    "Checks": {
++      "type": "object", "additionalProperties": false, "required": ["validate", "lint", "skill_states", "generate", "doctor", "eval"],
++      "properties": { "validate": { "$ref": "common.schema.json#/$defs/Check" }, "lint": { "$ref": "common.schema.json#/$defs/Check" }, "skill_states": { "$ref": "common.schema.json#/$defs/Check" }, "generate": { "$ref": "common.schema.json#/$defs/Check" }, "doctor": { "$ref": "common.schema.json#/$defs/Check" }, "eval": { "$ref": "common.schema.json#/$defs/Check" } }
++    },
++    "Impact": {
++      "type": "object", "additionalProperties": false, "required": ["on_authority", "on_compatibility", "on_consumers", "budget_deltas"],
++      "properties": { "on_authority": { "type": "string" }, "on_compatibility": { "type": "string" }, "on_consumers": { "$ref": "common.schema.json#/$defs/Texts" }, "budget_deltas": { "type": "object", "additionalProperties": { "type": "integer" } } }
++    },
++    "Preview": {
++      "type": "object", "additionalProperties": false, "required": ["proposal_version_hash", "diff", "files", "source_written", "state_written"],
++      "properties": {
++        "proposal_version_hash": { "$ref": "common.schema.json#/$defs/Hash" }, "diff": { "type": "string" },
++        "files": { "type": "array", "items": { "type": "object", "additionalProperties": false, "required": ["path", "action", "size"], "properties": { "path": { "$ref": "common.schema.json#/$defs/Text" }, "action": { "enum": ["add", "modify", "delete"] }, "size": { "type": "integer", "minimum": 0 } } } },
++        "source_written": { "const": false }, "state_written": { "const": false }
++      }
++    },
++    "Package": {
++      "type": "object", "additionalProperties": false,
++      "required": ["id", "workspace_id", "title", "kind", "target_item_id", "status", "source", "base_package_version", "base_candidate_hash", "proposed_yaml", "proposal_version_hash", "checks", "generation", "ci_comparison", "required_approvals", "approvals", "approval_history", "blockers", "created_by", "created_at", "updated_at"],
++      "properties": {
++        "id": { "$ref": "common.schema.json#/$defs/Text" }, "workspace_id": { "$ref": "common.schema.json#/$defs/Text" }, "title": { "$ref": "common.schema.json#/$defs/Text" }, "kind": { "$ref": "#/$defs/Kind" },
++        "target_item_id": { "type": ["string", "null"] }, "status": { "$ref": "#/$defs/Status" }, "source": { "oneOf": [{ "$ref": "#/$defs/Origin" }, { "type": "null" }] },
++        "base_package_version": { "$ref": "common.schema.json#/$defs/Text" }, "base_candidate_hash": { "$ref": "common.schema.json#/$defs/Hash" }, "proposed_yaml": { "$ref": "common.schema.json#/$defs/Text" }, "proposal_version_hash": { "$ref": "common.schema.json#/$defs/Hash" },
++        "checks": { "$ref": "#/$defs/Checks" }, "generation": { "oneOf": [{ "$ref": "api.execution.schema.json#/$defs/Generation" }, { "type": "null" }] }, "ci_comparison": { "oneOf": [{ "$ref": "engine.schema.json#/$defs/Comparison" }, { "type": "null" }] },
++        "required_approvals": { "type": "array", "uniqueItems": true, "items": { "$ref": "common.schema.json#/$defs/ApprovalRole" } }, "approvals": { "type": "array", "items": { "$ref": "#/$defs/Approval" } }, "approval_history": { "type": "array", "items": { "$ref": "#/$defs/InvalidatedApproval" } },
++        "blockers": { "type": "array", "items": { "$ref": "transport.schema.json#/$defs/Issue" } }, "impact": { "$ref": "#/$defs/Impact" }, "preview": { "$ref": "#/$defs/Preview" },
++        "created_by": { "$ref": "common.schema.json#/$defs/Text" }, "created_at": { "$ref": "common.schema.json#/$defs/Time" }, "updated_at": { "$ref": "common.schema.json#/$defs/Time" },
++        "export": { "$ref": "#/$defs/Export" }
++      }
++    },
++    "Packages": { "type": "array", "items": { "$ref": "#/$defs/Package" } },
++    "ExportRequest": { "type": "object", "additionalProperties": false, "required": ["format"], "properties": { "format": { "enum": ["patch", "commit_signed", "commit_unsigned"] } } },
++    "Export": {
++      "type": "object", "additionalProperties": false, "required": ["package_id", "proposal_version_hash", "format", "artifact", "commit_sha", "signed", "warnings", "state_written", "publication"],
++      "properties": { "package_id": { "$ref": "common.schema.json#/$defs/Text" }, "proposal_version_hash": { "$ref": "common.schema.json#/$defs/Hash" }, "format": { "enum": ["patch", "commit_signed", "commit_unsigned"] }, "artifact": { "$ref": "common.schema.json#/$defs/Artifact" }, "commit_sha": { "type": ["string", "null"] }, "signed": { "type": "boolean" }, "warnings": { "$ref": "common.schema.json#/$defs/Texts" }, "state_written": { "const": false }, "publication": { "const": "NOT_PERFORMED" } }
++    },
++    "AdoptionCreate": {
++      "type": "object", "additionalProperties": false, "required": ["target_project_id", "level", "profile"],
++      "properties": { "target_project_id": { "$ref": "common.schema.json#/$defs/Text" }, "level": { "$ref": "common.schema.json#/$defs/Level" }, "profile": { "$ref": "common.schema.json#/$defs/Text" } }
++    },
++    "Adoption": {
++      "type": "object", "additionalProperties": false, "required": ["id", "change_package_id", "target_project_id", "level", "profile", "proposal_version_hash", "status"],
++      "properties": { "id": { "$ref": "common.schema.json#/$defs/Text" }, "change_package_id": { "$ref": "common.schema.json#/$defs/Text" }, "target_project_id": { "$ref": "common.schema.json#/$defs/Text" }, "level": { "$ref": "common.schema.json#/$defs/Level" }, "profile": { "$ref": "common.schema.json#/$defs/Text" }, "proposal_version_hash": { "$ref": "common.schema.json#/$defs/Hash" }, "status": { "$ref": "#/$defs/Status" } }
++    },
++    "AdoptionApply": { "type": "object", "additionalProperties": false, "required": ["mode"], "properties": { "mode": { "enum": ["patch", "commit"] } } }
++  }
++}

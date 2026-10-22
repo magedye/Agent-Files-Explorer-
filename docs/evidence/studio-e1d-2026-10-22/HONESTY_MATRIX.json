@@ -1,0 +1,80 @@
+{
+  "source": "AGHR_REFERENCE.md section 11.1",
+  "runtime_checks": [
+    {
+      "id": "HON-1",
+      "requirement": "No `VERIFIED` without execution evidence.",
+      "reference_line": 638,
+      "runtime_status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "read_guard": "test_catalog.CatalogTests.test_seven_declared_claim_vectors_remain_unverified_source_data",
+      "read_guard_scope": "Raw claim preservation plus READ/NOT_RUN/NOT_EVALUATED; does not implement or pass the runtime verifier",
+      "future_executor": "E4 + qualified native host; E2 must also preserve evidence boundaries"
+    },
+    {
+      "id": "HON-2",
+      "requirement": "No `PASS` for `UNKNOWN_ID`.",
+      "reference_line": 639,
+      "runtime_status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "read_guard": "test_catalog.CatalogTests.test_seven_declared_claim_vectors_remain_unverified_source_data",
+      "read_guard_scope": "Raw claim preservation plus READ/NOT_RUN/NOT_EVALUATED; does not implement or pass the runtime verifier",
+      "future_executor": "E4 + qualified native host; E2 must also preserve evidence boundaries"
+    },
+    {
+      "id": "HON-3",
+      "requirement": "No `PASS` for empty outputs.",
+      "reference_line": 640,
+      "runtime_status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "read_guard": "test_catalog.CatalogTests.test_seven_declared_claim_vectors_remain_unverified_source_data",
+      "read_guard_scope": "Raw claim preservation plus READ/NOT_RUN/NOT_EVALUATED; does not implement or pass the runtime verifier",
+      "future_executor": "E4 + qualified native host; E2 must also preserve evidence boundaries"
+    },
+    {
+      "id": "HON-4",
+      "requirement": "`task_criteria` consumed, not merely accepted.",
+      "reference_line": 641,
+      "runtime_status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "read_guard": "test_catalog.CatalogTests.test_seven_declared_claim_vectors_remain_unverified_source_data",
+      "read_guard_scope": "Raw claim preservation plus READ/NOT_RUN/NOT_EVALUATED; does not implement or pass the runtime verifier",
+      "future_executor": "E4 + qualified native host; E2 must also preserve evidence boundaries"
+    },
+    {
+      "id": "HON-5",
+      "requirement": "`BLOCKED` distinct from `NO_SKILL_MATCH`.",
+      "reference_line": 642,
+      "runtime_status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "read_guard": "test_catalog.CatalogTests.test_seven_declared_claim_vectors_remain_unverified_source_data",
+      "read_guard_scope": "Raw claim preservation plus READ/NOT_RUN/NOT_EVALUATED; does not implement or pass the runtime verifier",
+      "future_executor": "E4 + qualified native host; E2 must also preserve evidence boundaries"
+    },
+    {
+      "id": "HON-6",
+      "requirement": "No `HOST_SIGNAL` without host signal.",
+      "reference_line": 643,
+      "runtime_status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "read_guard": "test_catalog.CatalogTests.test_seven_declared_claim_vectors_remain_unverified_source_data",
+      "read_guard_scope": "Raw claim preservation plus READ/NOT_RUN/NOT_EVALUATED; does not implement or pass the runtime verifier",
+      "future_executor": "E4 + qualified native host; E2 must also preserve evidence boundaries"
+    },
+    {
+      "id": "HON-7",
+      "requirement": "Qualification resets on version change.",
+      "reference_line": 644,
+      "runtime_status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "status": "REQUIRED / NOT_RUN / NOT_WAIVED",
+      "read_guard": "test_catalog.CatalogTests.test_seven_declared_claim_vectors_remain_unverified_source_data",
+      "read_guard_scope": "Raw claim preservation plus READ/NOT_RUN/NOT_EVALUATED; does not implement or pass the runtime verifier",
+      "future_executor": "E4 + qualified native host; E2 must also preserve evidence boundaries"
+    }
+  ],
+  "runtime_pass_claim": false,
+  "zero_write": {
+    "implemented_scope": "CLI/read projection; subprocess Python audit hook blocks writes/process/network and source/fixture snapshots remain unchanged",
+    "app_scope": "No app/server/interface changes or new write endpoint. Full Studio runtime SOURCE-01 remains REQUIRED / NOT_RUN / NOT_WAIVED."
+  }
+}

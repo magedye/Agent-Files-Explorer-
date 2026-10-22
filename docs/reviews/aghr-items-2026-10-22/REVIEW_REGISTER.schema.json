@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aghr:review-register:1.0",
+  "title": "AGHR review workspace transport, not an active governance package",
+  "type": "object",
+  "required": ["schema_version", "status", "candidate_version", "reference_version", "items"],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "status": { "const": "REVIEW_WORKSPACE_NOT_ADOPTED_POLICY" },
+    "candidate_version": { "type": "string" },
+    "reference_version": { "type": "string" },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "record_type", "title", "original_text", "original_payload", "source", "migration", "review"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "record_type": { "enum": ["CORE_RULE", "SKILL", "STANDARD_RECOMMENDATION", "DOCUMENT_CLAUSE", "DOCUMENT_TABLE_ROW", "EXAMPLE_BLOCK", "PROFILE", "ADAPTER", "SCENARIO", "HOST_QUALIFICATION", "SOURCE_REFERENCE", "SCHEMA", "TEMPLATE", "ENFORCEMENT_RECORD", "CATALOG_METADATA"] },
+          "title": { "type": "string", "minLength": 1 },
+          "original_text": { "type": "string" },
+          "original_payload": { "type": ["object", "null"] },
+          "source": {
+            "type": "object",
+            "required": ["path", "sha256", "package_version", "package_status"],
+            "properties": {
+              "path": { "type": "string", "minLength": 1 },
+              "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+              "package_version": { "type": "string" },
+              "package_status": { "const": "CANDIDATE_FOR_REVIEW" },
+              "json_pointer": { "type": "string" },
+              "line_start": { "type": "integer", "minimum": 1 },
+              "line_end": { "type": "integer", "minimum": 1 }
+            }
+          },
+          "migration": {
+            "type": "object",
+            "required": ["status", "route", "missing_details"],
+            "properties": {
+              "status": { "const": "NOT_READY_FOR_GOVERNING_IMPORT" },
+              "route": { "type": "string" },
+              "proposed_kind": { "enum": [null, "OBSERVATION", "PRINCIPLE", "CONSTRAINT", "REQUIREMENT", "PROCEDURE", "GUIDELINE", "POLICY", "RULE", "STANDARD", "CONTROL", "DECISION", "EXCEPTION", "CAPABILITY"] },
+              "missing_details": { "type": "array", "items": { "type": "string" } }
+            }
+          },
+          "review": {
+            "type": "object",
+            "required": ["status", "disposition", "proposed_text", "change_reason", "reviewer", "decision_ref"],
+            "properties": {
+              "status": { "enum": ["PENDING_REVIEW", "IN_REVIEW", "CHANGES_REQUESTED", "REVIEWED"] },
+              "disposition": { "enum": [null, "ADOPT", "RECONCILE", "REJECT", "DEFER", "HOLD", "REFERENCE_ONLY"] },
+              "proposed_text": { "type": ["string", "null"] },
+              "change_reason": { "type": ["string", "null"] },
+              "reviewer": { "type": ["string", "null"] },
+              "decision_ref": { "type": ["string", "null"] },
+              "reviewed_at": { "type": ["string", "null"] },
+              "acceptance_criteria": { "type": "array" },
+              "evidence_refs": { "type": "array" },
+              "target_item_ids": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        }
+      }
+    }
+  }
+}

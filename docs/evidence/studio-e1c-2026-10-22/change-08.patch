@@ -1,0 +1,42 @@
+diff --git a/docs/evidence/studio-e1c-2026-10-22/before/08.snapshot b/governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/cli.py
+index 452d8d6..50af818 100644
+--- a/docs/evidence/studio-e1c-2026-10-22/before/08.snapshot
++++ b/governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/cli.py
+@@ -9,7 +9,9 @@ import sys
+ 
+ ROOT = Path(__file__).resolve().parent.parent
+ SOURCE_FILES = (
+-    "CLI_CONTRACT.json", "PROVENANCE.json", "requirements.lock",
++    "CLI_CONTRACT.json", "LICENSE", "PACKAGE_STATUS.json", "PROVENANCE.json",
++    "SOURCE_MAP.json", "aghr.json", "policies/observations/reference-state.json",
++    "requirements.lock",
+     "tests/test_cli.py", "tests/test_loader.py", "tools/cli.py",
+     "tools/diagnostics.py", "tools/loader.py",
+ )
+@@ -40,7 +42,7 @@ def source_identity():
+     mapping = {item["path"]: item["sha256"] for item in artifacts}
+     encoded = json.dumps(mapping, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+     return {
+-        "implementation_id": "aghr-rc3-core-candidate", "stage": "E1.b",
++        "implementation_id": "aghr-rc3-core-candidate", "stage": "E1.c",
+         "target_spec_version": "1.0.0-rc.3", "schema_version": "1.2",
+         "content_hash": hashlib.sha256(encoded.encode("utf-8")).hexdigest(),
+         "hash_algorithm": "sha256-path-map-v1", "artifacts": artifacts,
+@@ -83,7 +85,7 @@ def main(argv=None):
+     actions.add_argument("--version", action="store_true")
+     parser.add_argument("--format", choices=("json", "text"), default="json")
+     parser.add_argument("--strict", action="store_true")
+-    parser.description = "E1.b source: help and identity only in CLI. All governance commands are BLOCKED."
++    parser.description = "E1.c source: help and identity only in CLI. All governance commands are BLOCKED."
+     parser.epilog = "validate/lint: E2; generate/check/doctor: E3; eval/qualify: E4 and T15. No source, state, cache or log writes."
+     args = list(sys.argv[1:] if argv is None else argv)
+     output_format = "json"
+@@ -114,7 +116,7 @@ def main(argv=None):
+         }), output_format)
+     except (OSError, ValueError):
+         return emit(response(command, "ERROR", 2, diagnostic={
+-            "code": "SOURCE_IDENTITY_UNAVAILABLE", "message": "Cannot read the complete candidate source identity.", "stage": "E1.b",
++            "code": "SOURCE_IDENTITY_UNAVAILABLE", "message": "Cannot read the complete candidate source identity.", "stage": "E1.c",
+         }), output_format)
+     if command in ("help", "version"):
+         data = {"help": parser.format_help()} if command == "help" else None

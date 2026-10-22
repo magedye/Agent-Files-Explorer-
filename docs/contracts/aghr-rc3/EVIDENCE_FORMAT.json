@@ -1,0 +1,22 @@
+{
+  "profile": "aghr-jsonl-jcs-1",
+  "encoding": "UTF-8",
+  "bom": "unsupported_preserve_original",
+  "record": "task_session_envelope_with_exactly_one_event",
+  "canonicalization": "RFC8785",
+  "new_record_separator": "LF",
+  "accepted_record_separators": [
+    "LF",
+    "CRLF"
+  ],
+  "final_newline": "optional_on_read_required_on_write",
+  "max_bytes": 16777216,
+  "max_line_bytes": 1048576,
+  "max_records": 10000,
+  "source_bytes": "immutable_original_retained",
+  "foreign_noncanonical": "UNSUPPORTED_SERIALIZATION",
+  "schema_validation": "evidence.schema.json",
+  "parsed_prefix_on_error": "diagnostic_only_never_import_as_accepted",
+  "duplicate_record": "reject",
+  "schema_validity_is_execution_proof": false
+}

@@ -1,0 +1,133 @@
+{
+  "source": "docs/plans/STUDIO_FULL_PROJECT_UPGRADE_AR.md",
+  "source_sha256": "902075f060f2844745caf4c2d718b61ed4cfa54db109dcbf80d8f3dd8903b30d",
+  "authority": "Derived point-in-time projection of the plan; not an approval register",
+  "last_reviewed_at_utc": "2026-10-22T03:18:31.343Z",
+  "next_review_due_utc": "2026-10-29T03:18:31.343Z",
+  "cadence": "Weekly while active and whenever the next task/blocker changes; no scheduler or external notifications created",
+  "current_gate": "T01 readiness BLOCKED",
+  "next_implementation": "T02 NOT_STARTED; provide rc.3 inputs or decide scoped core work first",
+  "technical_blockers": [
+    "G1",
+    "G2",
+    "G3"
+  ],
+  "blocking_owner_decisions": [
+    "OD-02"
+  ],
+  "age_definition": "Observed calendar days since this run first recorded the blocker; not a historical reconstruction, business-day effort, or predicted waiting time",
+  "decisions": [
+    {
+      "id": "OD-01",
+      "status": "CLOSED_SCOPED_T00_T01",
+      "blocks_next_action": false,
+      "blocked_since_utc": null,
+      "blocked_days_observed": 0,
+      "estimated_future_delay_days": null,
+      "evidence": "T00_PREFLIGHT.json"
+    },
+    {
+      "id": "OD-02",
+      "status": "DUE_ENGINE_SOURCE_OR_CORE_SCOPE_DECISION",
+      "blocks_next_action": true,
+      "blocked_since_utc": "2026-10-22T02:50:55.410Z",
+      "blocked_days_observed": 0.019166,
+      "estimated_future_delay_days": null,
+      "evidence": "07_VERDICT.json"
+    },
+    {
+      "id": "OD-03",
+      "status": "OPEN_NOT_DUE",
+      "blocks_next_action": false,
+      "blocked_since_utc": null,
+      "blocked_days_observed": null,
+      "estimated_future_delay_days": null,
+      "evidence": "docs/plans/STUDIO_FULL_PROJECT_UPGRADE_AR.md"
+    },
+    {
+      "id": "OD-04",
+      "status": "OPEN_NOT_DUE",
+      "blocks_next_action": false,
+      "blocked_since_utc": null,
+      "blocked_days_observed": null,
+      "estimated_future_delay_days": null,
+      "evidence": "docs/plans/STUDIO_FULL_PROJECT_UPGRADE_AR.md"
+    },
+    {
+      "id": "OD-05",
+      "status": "OPEN_NOT_DUE",
+      "blocks_next_action": false,
+      "blocked_since_utc": null,
+      "blocked_days_observed": null,
+      "estimated_future_delay_days": null,
+      "evidence": "docs/plans/STUDIO_FULL_PROJECT_UPGRADE_AR.md"
+    },
+    {
+      "id": "OD-06",
+      "status": "OPEN_NOT_DUE",
+      "blocks_next_action": false,
+      "blocked_since_utc": null,
+      "blocked_days_observed": null,
+      "estimated_future_delay_days": null,
+      "evidence": "docs/plans/STUDIO_FULL_PROJECT_UPGRADE_AR.md"
+    },
+    {
+      "id": "OD-07",
+      "status": "OPEN_NOT_DUE",
+      "blocks_next_action": false,
+      "blocked_since_utc": null,
+      "blocked_days_observed": null,
+      "estimated_future_delay_days": null,
+      "evidence": "docs/plans/STUDIO_FULL_PROJECT_UPGRADE_AR.md"
+    },
+    {
+      "id": "OD-08",
+      "status": "OPEN_NOT_DUE",
+      "blocks_next_action": false,
+      "blocked_since_utc": null,
+      "blocked_days_observed": null,
+      "estimated_future_delay_days": null,
+      "evidence": "docs/plans/STUDIO_FULL_PROJECT_UPGRADE_AR.md"
+    },
+    {
+      "id": "OD-09",
+      "status": "OPEN_NOT_DUE",
+      "blocks_next_action": false,
+      "blocked_since_utc": null,
+      "blocked_days_observed": null,
+      "estimated_future_delay_days": null,
+      "evidence": "docs/plans/STUDIO_FULL_PROJECT_UPGRADE_AR.md"
+    },
+    {
+      "id": "OD-10",
+      "status": "OPEN_NOT_DUE",
+      "blocks_next_action": false,
+      "blocked_since_utc": null,
+      "blocked_days_observed": null,
+      "estimated_future_delay_days": null,
+      "evidence": "docs/plans/STUDIO_FULL_PROJECT_UPGRADE_AR.md"
+    },
+    {
+      "id": "OD-11",
+      "status": "OPEN_NOT_DUE",
+      "blocks_next_action": false,
+      "blocked_since_utc": null,
+      "blocked_days_observed": null,
+      "estimated_future_delay_days": null,
+      "evidence": "docs/plans/STUDIO_FULL_PROJECT_UPGRADE_AR.md"
+    }
+  ],
+  "alert_proposals": {
+    "engine_working_days": {
+      "value": 20,
+      "status": "PROPOSED_NUMERIC_THRESHOLD",
+      "owner_decision_mechanism": "ACCEPTED",
+      "automatic_stop": false
+    },
+    "T00_T12_calendar_weeks_without_phase1": {
+      "value": 20,
+      "status": "EXAMPLE_PROPOSED_NOT_BASELINE",
+      "automatic_stop": false
+    }
+  }
+}

@@ -1,0 +1,20 @@
+=== Context Health & Budget Check ===
+
+1. Checking Bootstrap File Budgets:
+  ✔ [PASS] AGENTS.md                :   3.5 KB | ~ 981 est. tokens (Budget: 2500)
+  ✔ [PASS] docs/status/CURRENT.md   :   4.5 KB | ~1252 est. tokens (Budget: 3500)
+  ✔ [PASS] docs/status/HANDOFF.md   :   6.1 KB | ~1696 est. tokens (Budget: 2500)
+  ✔ [PASS] docs/INDEX.md            :   3.8 KB | ~1053 est. tokens (Budget: 3000)
+
+  Total Bootstrap Context: ~4982 tokens (Target: < 5,000 tokens)
+
+2. Checking for Prohibited Crawl Patterns in Bootstrap Files:
+  ✔ Prohibited patterns check complete.
+
+3. Verifying Local Markdown Links in docs/:
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase0-2026-10-22\README.md: link target not found: context-health.log
+  ✔ Markdown link verification complete.
+
+=== Summary ===
+Errors: 1, Warnings: 0
+❌ Context health check FAILED.

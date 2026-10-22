@@ -1,0 +1,1270 @@
+{
+  "status": "PASS_EXTRACTION_ACCOUNTING",
+  "counts": {
+    "CORE_RULE": 47,
+    "SKILL": 11,
+    "STANDARD_RECOMMENDATION": 80,
+    "DOCUMENT_CLAUSE": 1118,
+    "DOCUMENT_TABLE_ROW": 131,
+    "EXAMPLE_BLOCK": 18,
+    "PROFILE": 3,
+    "ADAPTER": 12,
+    "SCENARIO": 60,
+    "HOST_QUALIFICATION": 2,
+    "SOURCE_REFERENCE": 56,
+    "SCHEMA": 6,
+    "TEMPLATE": 7,
+    "ENFORCEMENT_RECORD": 47,
+    "CATALOG_METADATA": 10
+  },
+  "total_review_rows": 1608,
+  "package_manifest_files": 245,
+  "extracted_files": 140,
+  "omitted_file_dispositions": [
+    {
+      "relative": "BASELINE_AND_GAP_MATRIX.md",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "CHANGELOG.md",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "compatibility/ACADEMIC_INTEGRATION_MAP.json",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "compatibility/ADDITIONS_CONTROL_MAPPING.json",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "compatibility/ADDITIONS_FILE_DISPOSITION.json",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "compatibility/AGHR_1_0_FILE_DISPOSITION.json",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "compatibility/AGHR_1_0_INPUTS.json",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "compatibility/MERGE_REQUEST_COVERAGE.json",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "compatibility/MERGE_REVIEW_AR.md",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "compatibility/SUPPLEMENTARY_DECISIONS.json",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "compatibility/V4_CONTROL_MAPPING.json",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "compatibility/V4_FILE_DISPOSITION.json",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "compatibility/V4_HISTORICAL_598.json",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "compatibility/V4_INHERITED_441.json",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "compatibility/V4_INHERITED_88.json",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "compatibility/V4_INVENTORY.json",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "compatibility/V4_RECONCILIATION.md",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "CONTENTS.md",
+      "disposition": "SUPPORTING_ARTIFACT_NOT_ACTIVE_INSTRUCTION_SOURCE"
+    },
+    {
+      "relative": "CONTEXT_ROUTING_AND_BUDGET_REPORT.md",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "DELIVERY_REPORT_AR.md",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "design/BASELINE.json",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "design/BASELINE.md",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "design/frozen/ARCHITECTURE.md",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "design/frozen/CHARTER.md",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "design/frozen/contracts/ENFORCEMENT.md",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "design/frozen/contracts/EVIDENCE.md",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "design/frozen/contracts/GOVERNANCE.md",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "design/frozen/contracts/RUNTIME.md",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "design/frozen/registry/RULES.json",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "design/frozen/sources/REFERENCE_POLICY.md",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "design/frozen/sources/REGISTER.json",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "design/INBOX_RECONCILIATION.json",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "design/INBOX_RECONCILIATION.md",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "design/INBOX_SOURCES.json",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "design/LEARNING_FORWARD_RESULTS.json",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "design/LEARNING_FORWARD_REVIEW.md",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "design/LEARNING_SOURCE_REVIEW.json",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "design/MERGE_BASELINE.json",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "design/REFERENCE_DECISION.md",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "design/SKILLS_INPUT_RECONCILIATION.json",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "design/USER_REQUIREMENTS_COVERAGE.json",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "evaluations/__init__.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "evaluations/grade.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "examples/README.md",
+      "disposition": "SUPPORTING_ARTIFACT_NOT_ACTIVE_INSTRUCTION_SOURCE"
+    },
+    {
+      "relative": "examples/REQUEST_WITH_CLARIFICATION.json",
+      "disposition": "SUPPORTING_ARTIFACT_NOT_ACTIVE_INSTRUCTION_SOURCE"
+    },
+    {
+      "relative": "examples/skills/CONTEXT.json",
+      "disposition": "SUPPORTING_ARTIFACT_NOT_ACTIVE_INSTRUCTION_SOURCE"
+    },
+    {
+      "relative": "examples/skills/HOST_INVENTORY.json",
+      "disposition": "SUPPORTING_ARTIFACT_NOT_ACTIVE_INSTRUCTION_SOURCE"
+    },
+    {
+      "relative": "examples/skills/README.md",
+      "disposition": "SUPPORTING_ARTIFACT_NOT_ACTIVE_INSTRUCTION_SOURCE"
+    },
+    {
+      "relative": "examples/skills/TASK.json",
+      "disposition": "SUPPORTING_ARTIFACT_NOT_ACTIVE_INSTRUCTION_SOURCE"
+    },
+    {
+      "relative": "guide/DIAGRAMS.json",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "guide/GUIDE_AR.html",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "guide/GUIDE_AR.md",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "guide/LEARNING_AND_REPORTS_AR.md",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "guide/README.md",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "guide/RENDERING.md",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "HANDOFF.md",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "IMPACT_AND_COMPATIBILITY.md",
+      "disposition": "SUPPORTING_ARTIFACT_NOT_ACTIVE_INSTRUCTION_SOURCE"
+    },
+    {
+      "relative": "PACKAGE_STATUS.json",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "REFERENCE_UPDATE_REPORT_AR.md",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "runtime/__init__.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "runtime/cli.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "runtime/common.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "runtime/delivery.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "runtime/inbox.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "runtime/learning.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "runtime/policy.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "runtime/skill_catalog.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "runtime/skill_evidence.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "runtime/skills.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "SKILLS_UPDATE_REPORT_AR.md",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "sources/ADDITION_SOURCE_ALIASES.json",
+      "disposition": "SUPPORTING_ARTIFACT_NOT_ACTIVE_INSTRUCTION_SOURCE"
+    },
+    {
+      "relative": "sources/PRIOR_STUDY_RECONCILIATION.md",
+      "disposition": "SUPPORTING_ARTIFACT_NOT_ACTIVE_INSTRUCTION_SOURCE"
+    },
+    {
+      "relative": "sources/REGISTER_AR.md",
+      "disposition": "SUPPORTING_ARTIFACT_NOT_ACTIVE_INSTRUCTION_SOURCE"
+    },
+    {
+      "relative": "sources/REVALIDATION_1.1.0.json",
+      "disposition": "SUPPORTING_ARTIFACT_NOT_ACTIVE_INSTRUCTION_SOURCE"
+    },
+    {
+      "relative": "tests/__init__.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tests/skill_fixtures.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tests/test_decision_support.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tests/test_delivery_records.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tests/test_evaluations.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tests/test_inbox.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tests/test_integration.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tests/test_learning.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tests/test_learning_integration.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tests/test_metrics.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tests/test_package.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tests/test_records.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tests/test_runtime.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tests/test_skill_evidence.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tests/test_skill_scenarios.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tests/test_skill_selection.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tests/test_skills.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tools/__init__.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tools/check_integration.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tools/check_learning.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tools/check_package.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tools/decision_support.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tools/metrics.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tools/render_guide.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "tools/run_tests.py",
+      "disposition": "IMPLEMENTATION_NOT_GOVERNANCE_ITEMS"
+    },
+    {
+      "relative": "verification/HISTORICAL_1_0_LIMITATIONS.md",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "verification/HISTORICAL_1_0_REPORT.md",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "verification/LIMITATIONS.md",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "verification/REPORT.md",
+      "disposition": "NO_CRAWL_HISTORY_NOT_LOADED"
+    },
+    {
+      "relative": "VERIFICATION_REPORT.md",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    },
+    {
+      "relative": "VERSION",
+      "disposition": "STATUS_HISTORY_OR_DERIVED_VIEW"
+    }
+  ],
+  "markdown_line_accounting": [
+    {
+      "relative": "AGENTS.md",
+      "lines": 35,
+      "structural_lines": 11,
+      "covered_lines": 35,
+      "blocks": 24
+    },
+    {
+      "relative": "ARCHITECTURE.md",
+      "lines": 47,
+      "structural_lines": 29,
+      "covered_lines": 47,
+      "blocks": 18
+    },
+    {
+      "relative": "CHARTER.md",
+      "lines": 33,
+      "structural_lines": 14,
+      "covered_lines": 33,
+      "blocks": 19
+    },
+    {
+      "relative": "CONTEXT_GUIDE.md",
+      "lines": 12,
+      "structural_lines": 7,
+      "covered_lines": 12,
+      "blocks": 5
+    },
+    {
+      "relative": "LICENSE.md",
+      "lines": 8,
+      "structural_lines": 5,
+      "covered_lines": 8,
+      "blocks": 3
+    },
+    {
+      "relative": "README.md",
+      "lines": 32,
+      "structural_lines": 15,
+      "covered_lines": 32,
+      "blocks": 15
+    },
+    {
+      "relative": "SKILLS_CHANGE_PLAN.md",
+      "lines": 63,
+      "structural_lines": 25,
+      "covered_lines": 63,
+      "blocks": 38
+    },
+    {
+      "relative": "SKILLS_MIGRATION_1_2_TO_1_3.md",
+      "lines": 19,
+      "structural_lines": 8,
+      "covered_lines": 19,
+      "blocks": 11
+    },
+    {
+      "relative": "START_HERE.md",
+      "lines": 57,
+      "structural_lines": 33,
+      "covered_lines": 57,
+      "blocks": 19
+    },
+    {
+      "relative": "START_HERE_AR.md",
+      "lines": 26,
+      "structural_lines": 15,
+      "covered_lines": 26,
+      "blocks": 9
+    },
+    {
+      "relative": "THIRD_PARTY_NOTICES.md",
+      "lines": 15,
+      "structural_lines": 9,
+      "covered_lines": 15,
+      "blocks": 6
+    },
+    {
+      "relative": "adapters/README.md",
+      "lines": 20,
+      "structural_lines": 13,
+      "covered_lines": 20,
+      "blocks": 7
+    },
+    {
+      "relative": "adapters/hosts/CLAUDE_CODE.md",
+      "lines": 16,
+      "structural_lines": 10,
+      "covered_lines": 16,
+      "blocks": 5
+    },
+    {
+      "relative": "adapters/hosts/CODEX.md",
+      "lines": 16,
+      "structural_lines": 10,
+      "covered_lines": 16,
+      "blocks": 5
+    },
+    {
+      "relative": "adapters/hosts/GEMINI_CLI.md",
+      "lines": 16,
+      "structural_lines": 10,
+      "covered_lines": 16,
+      "blocks": 5
+    },
+    {
+      "relative": "adapters/hosts/GENERIC_API.md",
+      "lines": 16,
+      "structural_lines": 10,
+      "covered_lines": 16,
+      "blocks": 5
+    },
+    {
+      "relative": "adapters/hosts/GITHUB_COPILOT.md",
+      "lines": 16,
+      "structural_lines": 10,
+      "covered_lines": 16,
+      "blocks": 5
+    },
+    {
+      "relative": "adapters/hosts/OPENCODE.md",
+      "lines": 16,
+      "structural_lines": 10,
+      "covered_lines": 16,
+      "blocks": 5
+    },
+    {
+      "relative": "adapters/providers/ANTHROPIC.md",
+      "lines": 16,
+      "structural_lines": 10,
+      "covered_lines": 16,
+      "blocks": 5
+    },
+    {
+      "relative": "adapters/providers/DEEPSEEK.md",
+      "lines": 16,
+      "structural_lines": 10,
+      "covered_lines": 16,
+      "blocks": 5
+    },
+    {
+      "relative": "adapters/providers/GOOGLE.md",
+      "lines": 16,
+      "structural_lines": 10,
+      "covered_lines": 16,
+      "blocks": 5
+    },
+    {
+      "relative": "adapters/providers/MISTRAL.md",
+      "lines": 16,
+      "structural_lines": 10,
+      "covered_lines": 16,
+      "blocks": 5
+    },
+    {
+      "relative": "adapters/providers/OPENAI.md",
+      "lines": 16,
+      "structural_lines": 10,
+      "covered_lines": 16,
+      "blocks": 5
+    },
+    {
+      "relative": "adapters/providers/QWEN.md",
+      "lines": 16,
+      "structural_lines": 10,
+      "covered_lines": 16,
+      "blocks": 5
+    },
+    {
+      "relative": "contracts/ENFORCEMENT.md",
+      "lines": 24,
+      "structural_lines": 16,
+      "covered_lines": 24,
+      "blocks": 8
+    },
+    {
+      "relative": "contracts/EVIDENCE.md",
+      "lines": 24,
+      "structural_lines": 16,
+      "covered_lines": 24,
+      "blocks": 8
+    },
+    {
+      "relative": "contracts/GOVERNANCE.md",
+      "lines": 25,
+      "structural_lines": 17,
+      "covered_lines": 25,
+      "blocks": 8
+    },
+    {
+      "relative": "contracts/RUNTIME.md",
+      "lines": 29,
+      "structural_lines": 19,
+      "covered_lines": 29,
+      "blocks": 10
+    },
+    {
+      "relative": "evaluations/DELIVERY_EVAL_PLAN_AR.md",
+      "lines": 42,
+      "structural_lines": 14,
+      "covered_lines": 42,
+      "blocks": 28
+    },
+    {
+      "relative": "evaluations/README.md",
+      "lines": 24,
+      "structural_lines": 12,
+      "covered_lines": 24,
+      "blocks": 9
+    },
+    {
+      "relative": "optional_skills/README.md",
+      "lines": 8,
+      "structural_lines": 5,
+      "covered_lines": 8,
+      "blocks": 3
+    },
+    {
+      "relative": "optional_skills/agent-tool-security/SKILL.md",
+      "lines": 38,
+      "structural_lines": 24,
+      "covered_lines": 38,
+      "blocks": 14
+    },
+    {
+      "relative": "optional_skills/architecture-options/SKILL.md",
+      "lines": 38,
+      "structural_lines": 24,
+      "covered_lines": 38,
+      "blocks": 14
+    },
+    {
+      "relative": "optional_skills/governed-learning/SKILL.md",
+      "lines": 17,
+      "structural_lines": 12,
+      "covered_lines": 17,
+      "blocks": 5
+    },
+    {
+      "relative": "optional_skills/incremental-change/SKILL.md",
+      "lines": 38,
+      "structural_lines": 24,
+      "covered_lines": 38,
+      "blocks": 14
+    },
+    {
+      "relative": "optional_skills/plan-drift-review/SKILL.md",
+      "lines": 38,
+      "structural_lines": 24,
+      "covered_lines": 38,
+      "blocks": 14
+    },
+    {
+      "relative": "optional_skills/rag-data-quality/SKILL.md",
+      "lines": 38,
+      "structural_lines": 24,
+      "covered_lines": 38,
+      "blocks": 14
+    },
+    {
+      "relative": "optional_skills/requirements-traceability/SKILL.md",
+      "lines": 38,
+      "structural_lines": 24,
+      "covered_lines": 38,
+      "blocks": 14
+    },
+    {
+      "relative": "optional_skills/risk-based-verification/SKILL.md",
+      "lines": 38,
+      "structural_lines": 24,
+      "covered_lines": 38,
+      "blocks": 14
+    },
+    {
+      "relative": "optional_skills/root-cause-debugging/SKILL.md",
+      "lines": 38,
+      "structural_lines": 24,
+      "covered_lines": 38,
+      "blocks": 14
+    },
+    {
+      "relative": "optional_skills/safe-git-closeout/SKILL.md",
+      "lines": 38,
+      "structural_lines": 24,
+      "covered_lines": 38,
+      "blocks": 14
+    },
+    {
+      "relative": "optional_skills/smart-clarification/SKILL.md",
+      "lines": 38,
+      "structural_lines": 24,
+      "covered_lines": 38,
+      "blocks": 14
+    },
+    {
+      "relative": "options/EXTERNAL_TOOLS_AR.md",
+      "lines": 21,
+      "structural_lines": 12,
+      "covered_lines": 21,
+      "blocks": 9
+    },
+    {
+      "relative": "options/OPTIONAL_SKILLS_AR.md",
+      "lines": 23,
+      "structural_lines": 9,
+      "covered_lines": 23,
+      "blocks": 14
+    },
+    {
+      "relative": "policies/CHANGE_CONTROL.md",
+      "lines": 21,
+      "structural_lines": 14,
+      "covered_lines": 21,
+      "blocks": 6
+    },
+    {
+      "relative": "policies/CONTEXT_AND_MODELS.md",
+      "lines": 29,
+      "structural_lines": 18,
+      "covered_lines": 29,
+      "blocks": 9
+    },
+    {
+      "relative": "policies/ENGINEERING.md",
+      "lines": 32,
+      "structural_lines": 20,
+      "covered_lines": 32,
+      "blocks": 10
+    },
+    {
+      "relative": "policies/INSTRUCTIONS.md",
+      "lines": 29,
+      "structural_lines": 19,
+      "covered_lines": 29,
+      "blocks": 10
+    },
+    {
+      "relative": "policies/SECURITY.md",
+      "lines": 25,
+      "structural_lines": 17,
+      "covered_lines": 25,
+      "blocks": 8
+    },
+    {
+      "relative": "policies/STATE_AND_RECOVERY.md",
+      "lines": 28,
+      "structural_lines": 18,
+      "covered_lines": 28,
+      "blocks": 10
+    },
+    {
+      "relative": "policies/VERIFICATION.md",
+      "lines": 22,
+      "structural_lines": 15,
+      "covered_lines": 22,
+      "blocks": 7
+    },
+    {
+      "relative": "procedures/ADOPTION.md",
+      "lines": 22,
+      "structural_lines": 10,
+      "covered_lines": 22,
+      "blocks": 12
+    },
+    {
+      "relative": "procedures/ALTERNATIVES_AND_IMPACT_AR.md",
+      "lines": 23,
+      "structural_lines": 14,
+      "covered_lines": 23,
+      "blocks": 9
+    },
+    {
+      "relative": "procedures/COMMUNICATION_AND_HANDOFF_AR.md",
+      "lines": 23,
+      "structural_lines": 14,
+      "covered_lines": 23,
+      "blocks": 9
+    },
+    {
+      "relative": "procedures/EXECUTION_AND_GIT_AR.md",
+      "lines": 30,
+      "structural_lines": 18,
+      "covered_lines": 30,
+      "blocks": 12
+    },
+    {
+      "relative": "procedures/EXTERNAL_CAPABILITIES_AR.md",
+      "lines": 56,
+      "structural_lines": 25,
+      "covered_lines": 56,
+      "blocks": 30
+    },
+    {
+      "relative": "procedures/GOVERNED_LEARNING.md",
+      "lines": 54,
+      "structural_lines": 28,
+      "covered_lines": 54,
+      "blocks": 23
+    },
+    {
+      "relative": "procedures/HOST_QUALIFICATION.md",
+      "lines": 21,
+      "structural_lines": 14,
+      "covered_lines": 21,
+      "blocks": 7
+    },
+    {
+      "relative": "procedures/INCIDENT_RESPONSE.md",
+      "lines": 13,
+      "structural_lines": 5,
+      "covered_lines": 13,
+      "blocks": 8
+    },
+    {
+      "relative": "procedures/LIFECYCLE_AR.md",
+      "lines": 36,
+      "structural_lines": 17,
+      "covered_lines": 36,
+      "blocks": 18
+    },
+    {
+      "relative": "procedures/MAINTENANCE.md",
+      "lines": 10,
+      "structural_lines": 6,
+      "covered_lines": 10,
+      "blocks": 4
+    },
+    {
+      "relative": "procedures/MIGRATION_1_0_TO_1_1.md",
+      "lines": 14,
+      "structural_lines": 5,
+      "covered_lines": 14,
+      "blocks": 9
+    },
+    {
+      "relative": "procedures/MIGRATION_1_1_TO_1_2.md",
+      "lines": 10,
+      "structural_lines": 6,
+      "covered_lines": 10,
+      "blocks": 4
+    },
+    {
+      "relative": "procedures/PROGRESS_AND_DRIFT_AR.md",
+      "lines": 37,
+      "structural_lines": 20,
+      "covered_lines": 37,
+      "blocks": 17
+    },
+    {
+      "relative": "procedures/PROJECT_INBOX.md",
+      "lines": 113,
+      "structural_lines": 45,
+      "covered_lines": 113,
+      "blocks": 46
+    },
+    {
+      "relative": "procedures/REQUEST_INTAKE.md",
+      "lines": 32,
+      "structural_lines": 17,
+      "covered_lines": 32,
+      "blocks": 14
+    },
+    {
+      "relative": "procedures/SMART_CLARIFICATION_AR.md",
+      "lines": 48,
+      "structural_lines": 26,
+      "covered_lines": 48,
+      "blocks": 21
+    },
+    {
+      "relative": "profiles/CONTROLLED.md",
+      "lines": 8,
+      "structural_lines": 5,
+      "covered_lines": 8,
+      "blocks": 3
+    },
+    {
+      "relative": "profiles/LITE.md",
+      "lines": 8,
+      "structural_lines": 5,
+      "covered_lines": 8,
+      "blocks": 3
+    },
+    {
+      "relative": "profiles/README.md",
+      "lines": 14,
+      "structural_lines": 8,
+      "covered_lines": 14,
+      "blocks": 6
+    },
+    {
+      "relative": "profiles/STANDARD.md",
+      "lines": 8,
+      "structural_lines": 5,
+      "covered_lines": 8,
+      "blocks": 3
+    },
+    {
+      "relative": "prompts/ADOPT.md",
+      "lines": 21,
+      "structural_lines": 6,
+      "covered_lines": 21,
+      "blocks": 3
+    },
+    {
+      "relative": "prompts/EDIT.md",
+      "lines": 8,
+      "structural_lines": 3,
+      "covered_lines": 8,
+      "blocks": 1
+    },
+    {
+      "relative": "prompts/EXECUTE.md",
+      "lines": 12,
+      "structural_lines": 5,
+      "covered_lines": 12,
+      "blocks": 2
+    },
+    {
+      "relative": "prompts/PLAN.md",
+      "lines": 11,
+      "structural_lines": 5,
+      "covered_lines": 11,
+      "blocks": 2
+    },
+    {
+      "relative": "prompts/PROCESS_REQUEST.md",
+      "lines": 11,
+      "structural_lines": 5,
+      "covered_lines": 11,
+      "blocks": 2
+    },
+    {
+      "relative": "prompts/REVIEW.md",
+      "lines": 10,
+      "structural_lines": 5,
+      "covered_lines": 10,
+      "blocks": 2
+    },
+    {
+      "relative": "protocols/EXECUTION.md",
+      "lines": 29,
+      "structural_lines": 16,
+      "covered_lines": 29,
+      "blocks": 12
+    },
+    {
+      "relative": "protocols/PLANNING.md",
+      "lines": 22,
+      "structural_lines": 11,
+      "covered_lines": 22,
+      "blocks": 10
+    },
+    {
+      "relative": "protocols/SURGICAL_EDITING.md",
+      "lines": 12,
+      "structural_lines": 5,
+      "covered_lines": 12,
+      "blocks": 7
+    },
+    {
+      "relative": "runtime/DELIVERY.md",
+      "lines": 14,
+      "structural_lines": 8,
+      "covered_lines": 14,
+      "blocks": 6
+    },
+    {
+      "relative": "runtime/README.md",
+      "lines": 50,
+      "structural_lines": 24,
+      "covered_lines": 50,
+      "blocks": 15
+    },
+    {
+      "relative": "runtime/SKILLS.md",
+      "lines": 57,
+      "structural_lines": 27,
+      "covered_lines": 57,
+      "blocks": 25
+    },
+    {
+      "relative": "schemas/README.md",
+      "lines": 10,
+      "structural_lines": 6,
+      "covered_lines": 10,
+      "blocks": 4
+    },
+    {
+      "relative": "sources/REFERENCE_POLICY.md",
+      "lines": 20,
+      "structural_lines": 14,
+      "covered_lines": 20,
+      "blocks": 6
+    },
+    {
+      "relative": "standards/01_ISO_5338.md",
+      "lines": 45,
+      "structural_lines": 29,
+      "covered_lines": 45,
+      "blocks": 16
+    },
+    {
+      "relative": "standards/02_ISO_12207.md",
+      "lines": 45,
+      "structural_lines": 29,
+      "covered_lines": 45,
+      "blocks": 16
+    },
+    {
+      "relative": "standards/03_ISO_42001.md",
+      "lines": 45,
+      "structural_lines": 29,
+      "covered_lines": 45,
+      "blocks": 16
+    },
+    {
+      "relative": "standards/04_ISO_23894.md",
+      "lines": 45,
+      "structural_lines": 29,
+      "covered_lines": 45,
+      "blocks": 16
+    },
+    {
+      "relative": "standards/05_NIST_AI_RMF.md",
+      "lines": 45,
+      "structural_lines": 29,
+      "covered_lines": 45,
+      "blocks": 16
+    },
+    {
+      "relative": "standards/06_ISO_42005.md",
+      "lines": 45,
+      "structural_lines": 29,
+      "covered_lines": 45,
+      "blocks": 16
+    },
+    {
+      "relative": "standards/07_NIST_AI_600_1.md",
+      "lines": 45,
+      "structural_lines": 29,
+      "covered_lines": 45,
+      "blocks": 16
+    },
+    {
+      "relative": "standards/08_OWASP_AGENTIC.md",
+      "lines": 45,
+      "structural_lines": 29,
+      "covered_lines": 45,
+      "blocks": 16
+    },
+    {
+      "relative": "standards/09_OWASP_LLM.md",
+      "lines": 45,
+      "structural_lines": 29,
+      "covered_lines": 45,
+      "blocks": 16
+    },
+    {
+      "relative": "standards/10_ISO_27001.md",
+      "lines": 48,
+      "structural_lines": 31,
+      "covered_lines": 48,
+      "blocks": 17
+    },
+    {
+      "relative": "standards/11_ISO_25059.md",
+      "lines": 45,
+      "structural_lines": 29,
+      "covered_lines": 45,
+      "blocks": 16
+    },
+    {
+      "relative": "standards/12_ISO_5259_SERIES.md",
+      "lines": 55,
+      "structural_lines": 34,
+      "covered_lines": 55,
+      "blocks": 21
+    },
+    {
+      "relative": "standards/13_IASC_DATA_RESPONSIBILITY.md",
+      "lines": 45,
+      "structural_lines": 29,
+      "covered_lines": 45,
+      "blocks": 16
+    },
+    {
+      "relative": "standards/14_ICRC_DATA_PROTECTION.md",
+      "lines": 45,
+      "structural_lines": 29,
+      "covered_lines": 45,
+      "blocks": 16
+    },
+    {
+      "relative": "standards/15_SUPPLEMENT_ISO_25010.md",
+      "lines": 45,
+      "structural_lines": 29,
+      "covered_lines": 45,
+      "blocks": 16
+    },
+    {
+      "relative": "standards/16_SUPPLEMENT_NIST_SSDF.md",
+      "lines": 45,
+      "structural_lines": 29,
+      "covered_lines": 45,
+      "blocks": 16
+    },
+    {
+      "relative": "standards/README_AR.md",
+      "lines": 43,
+      "structural_lines": 16,
+      "covered_lines": 43,
+      "blocks": 27
+    },
+    {
+      "relative": "templates/CAPABILITY_REVIEW.md",
+      "lines": 14,
+      "structural_lines": 4,
+      "covered_lines": 14,
+      "blocks": 2
+    },
+    {
+      "relative": "templates/DECISION.md",
+      "lines": 15,
+      "structural_lines": 4,
+      "covered_lines": 15,
+      "blocks": 2
+    },
+    {
+      "relative": "templates/DELIVERY_HANDOFF_AR.md",
+      "lines": 20,
+      "structural_lines": 7,
+      "covered_lines": 20,
+      "blocks": 5
+    },
+    {
+      "relative": "templates/DELIVERY_RECORD_MAPPING.md",
+      "lines": 14,
+      "structural_lines": 6,
+      "covered_lines": 14,
+      "blocks": 8
+    },
+    {
+      "relative": "templates/HANDOFF.md",
+      "lines": 38,
+      "structural_lines": 17,
+      "covered_lines": 38,
+      "blocks": 21
+    },
+    {
+      "relative": "templates/HOST_QUALIFICATION.md",
+      "lines": 17,
+      "structural_lines": 4,
+      "covered_lines": 17,
+      "blocks": 2
+    },
+    {
+      "relative": "templates/IMPACT_REVIEW.md",
+      "lines": 12,
+      "structural_lines": 3,
+      "covered_lines": 12,
+      "blocks": 1
+    },
+    {
+      "relative": "templates/INBOX_DISPOSITION.md",
+      "lines": 40,
+      "structural_lines": 17,
+      "covered_lines": 40,
+      "blocks": 22
+    },
+    {
+      "relative": "templates/INCIDENT.md",
+      "lines": 12,
+      "structural_lines": 3,
+      "covered_lines": 12,
+      "blocks": 1
+    },
+    {
+      "relative": "templates/OPERATING_CONTRACT.md",
+      "lines": 34,
+      "structural_lines": 13,
+      "covered_lines": 34,
+      "blocks": 6
+    },
+    {
+      "relative": "templates/PLAN.md",
+      "lines": 14,
+      "structural_lines": 3,
+      "covered_lines": 14,
+      "blocks": 1
+    },
+    {
+      "relative": "templates/README.md",
+      "lines": 12,
+      "structural_lines": 7,
+      "covered_lines": 12,
+      "blocks": 5
+    },
+    {
+      "relative": "templates/SHORT_REQUEST.md",
+      "lines": 15,
+      "structural_lines": 4,
+      "covered_lines": 15,
+      "blocks": 2
+    },
+    {
+      "relative": "templates/STANDARDS_APPLICABILITY.md",
+      "lines": 13,
+      "structural_lines": 4,
+      "covered_lines": 13,
+      "blocks": 2
+    },
+    {
+      "relative": "templates/STATUS_REPORT_AR.md",
+      "lines": 16,
+      "structural_lines": 9,
+      "covered_lines": 16,
+      "blocks": 7
+    }
+  ],
+  "coverage_gaps": [],
+  "independent_semantic_review": "NOT_PERFORMED",
+  "native_qualification": "NOT_RUN_BY_THIS_EXTRACTION",
+  "target_import": "NOT_EXECUTED"
+}
