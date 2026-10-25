@@ -1,0 +1,113 @@
+انتقل إلى المحتوى
+AGHR · GOVERNANCE STUDIO
+حزم التغيير
+
+مسودات محفوظة، وصلاحية محددة لكل عملية.
+
+لغة الواجهة 
+العربية
+English
+DRAFT · مسودات فقط المرجع 1.2.0 محفوظ. الحفظ لا يعتمد قاعدة أو ينشر حزمة.
+Majed · governance-owner
+SQLite دائمة · 12 جدولًا
+المسودات
+سجل التدقيق
+التحقق
+الأدلة التشغيلية
+المهارات
+دورة حياة المهارات
+
+اختيار وتحميل وتنفيذ وتحقق منفصلة. المضيف المحلي لا يمثل Codex أو Antigravity.
+
+اختيارات المهمة
+معرف المهمة
+المضيف
+aghr-local-process
+codex
+antigravity
+المهارة المسجلة
+اختيار بالاستعلام
+json-audit
+المهمة بالعربية أو الإنجليزية
+المرحلة المطلوبة
+اختيار
+تحميل
+تنفيذ
+تحقق النتيجة
+تغيير المرحلة
+رصد المضيف
+تقييم
+تأهيل محلي
+مرحلة المهمة
+إعداد العملية للتفويض
+بطاقة المهارة
+studio-task · json-audit
+LOADED
+١ · التوفر
+available
+
+مثبتة: true · متاحة للجلسة: true
+
+sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f
+٢ · التأهيل
+NOT_RUN
+
+aghr-local-process · v24.11.0 · implementation
+
+تغير المضيف أو نسخته أو النطاق أو المحتوى يبطل المطابقة؛ التاريخ ليس تأهيلًا حيًا.
+
+٣ · الاستخدام
+
+اختيار · SELECTED
+
+تحميل · LOADED
+
+تنفيذ · NOT_RUN
+
+تحقق · NOT_RUN
+
+إشارة المضيف · NOT_OBSERVABLE
+
+studio-task
+سجل العمليات؛ للعرض فقط (2)
+السيناريوهات الثمانية وفحوص الصدق السبعة
+
+النتائج المحلية من دليل مثبت لنفس المحرك؛ فحوص المضيفين الأصلية ما زالت مطلوبة ولم تُنفذ.
+
+الفحص	النواة المحلية	Codex	Antigravity
+مهمة لا تحتاج مهارة
+S2_SIMPLE_TASK	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+صلاحيات غير ممنوحة
+S5_PERMISSION_DENIED	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+مهارات متداخلة
+S3_OVERLAP	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+مثبتة وغير متاحة
+S4_INSTALLED_UNAVAILABLE	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+فشل التنفيذ بعد التحميل
+S6_EXECUTION_FAILED	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+طلب عربي ومحفزات إنجليزية
+S7_ARABIC_ENGLISH_ONLY_TRIGGERS	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+مهارات متتابعة لميزة جديدة
+S1_SEQUENTIAL_FEATURE_SKILLS	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+درس دون ترقية تلقائية للسياسة
+S8_GOVERNED_LEARNING_NO_PROMOTION	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+لا تحقق دون تنفيذ
+H1	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+تطبيق معايير قبول المهمة
+H4	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+رفض المعرف المجهول
+H2	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+رفض المخرجات الفارغة
+H3	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+فصل الحجب عن عدم الحاجة
+H5	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+لا إشارة مضيف مخترعة
+H6	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+إبطال التأهيل عند تغير الهوية
+H7	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+تجهيز الأدلة للمراجعة وCI
+
+يحفظ الأصل والبصمة ونتيجة المحرك. تنزيل محلي فقط؛ لا ينشئ PR ولا ينشر الحالة. CI الموثوق وحده ينشر بعد الدمج.
+
+معرف دليل المهمة المسجل
+إعداد التفويض

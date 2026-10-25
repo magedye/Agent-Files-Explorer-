@@ -1,0 +1,23 @@
+{
+  "status": "FAIL",
+  "custody": {
+    "path": "docs/evidence/studio-e3-t19-2026-10-24/CUSTODY.lock.json",
+    "sha256": "2869e66bf9ada6b7471bfbdb2060ae12ed9890c76057be8898678610a1251c9a"
+  },
+  "immutable_files_verified": 1916,
+  "mismatches": [
+    "server/studio/db/persistent.js",
+    "server/studio/draft-runtime.js",
+    "server/studio/serve-draft.mjs",
+    "src/features/changes/DraftStudio.jsx"
+  ],
+  "derived_document_exceptions": [
+    "docs/status/CURRENT.md",
+    "docs/status/HANDOFF.md",
+    "docs/plans/STUDIO_UPGRADE_TASKS_AR.md",
+    "docs/INDEX.md"
+  ],
+  "e4_source_unchanged": true,
+  "reference_120": "unchanged within accepted transitive custody",
+  "note": "Explicit sealed file lists only; no governance package crawl."
+}

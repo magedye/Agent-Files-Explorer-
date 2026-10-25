@@ -1,0 +1,84 @@
+# T19_OWNER_APPROVED_MOCK; MOCK ONLY; NOT FOR MERGE OR RELEASE
+# T19_MOCK_EVAL_EVIDENCE; REAL E4 NOT_RUN
+diff --git a/policies/drafts/SEC-001.yaml b/policies/drafts/SEC-001.yaml
+new file mode 100644
+--- /dev/null
++++ b/policies/drafts/SEC-001.yaml
+@@ -0,0 +1,77 @@
++{
++  "id": "SEC-001",
++  "title": "No secrets in source code",
++  "kind": "CONSTRAINT",
++  "force": "MUST_NOT",
++  "severity": "critical",
++  "rationale": "Secrets committed to source control are difficult to revoke reliably and may be exposed through logs, package artifacts, or forked repositories.",
++  "authority": {
++    "source": "policies/security/secrets.json",
++    "level": "enterprise",
++    "owner": "security-owner",
++    "approvedBy": "governance-board",
++    "status": "active",
++    "effectiveFrom": "2026-01-01",
++    "supersedes": null
++  },
++  "reviewCadence": "annual",
++  "nextReview": "2027-01-01",
++  "scope": {
++    "paths": [
++      "**/*"
++    ],
++    "appliesToAgents": [
++      "codex",
++      "gemini-cli",
++      "antigravity",
++      "claude-code"
++    ],
++    "language": [
++      "en",
++      "ar"
++    ]
++  },
++  "rule": "The agent MUST NOT create, commit, log, print, or transmit secrets, API keys, passwords, tokens, private keys, or connection strings.",
++  "enforcement": {
++    "textual": true,
++    "technical": [
++      "secret-scanning",
++      "pre-commit-hook",
++      "ci-policy-gate"
++    ],
++    "failureAction": "block",
++    "mergeEffect": "blocking",
++    "gate": {
++      "type": "github-branch-protection",
++      "required": true
++    }
++  },
++  "verification": {
++    "commands": [
++      "gitleaks detect --no-git --redact"
++    ],
++    "evidence": [
++      "clean secret scan result"
++    ],
++    "evalFixtures": [
++      "evals/fixtures/instruction/SEC-001/"
++    ]
++  },
++  "impact": {
++    "band": "high",
++    "evidence": "assumed",
++    "lastCalibrated": null
++  },
++  "conflictPolicy": {
++    "precedence": "auto",
++    "overrides": [],
++    "overriddenBy": []
++  },
++  "exceptions": {
++    "allowed": false,
++    "approval": "security-owner"
++  },
++  "references": [
++    "docs/security/secrets-management.md"
++  ]
++}

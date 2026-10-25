@@ -1,0 +1,640 @@
+{
+  "package": {
+    "id": "CP-7e1c101e-adef-4551-a504-e25834f336bf",
+    "workspace_id": "pilot-app-l2",
+    "title": "Adopt L2 on pilot-app-l2",
+    "kind": "GENERATED_FILE",
+    "target_item_id": null,
+    "status": "exported",
+    "source": {
+      "type": "request",
+      "ref": "OWNER_T34_T35_20261025"
+    },
+    "base_package_version": "1.0.0-rc.3",
+    "base_candidate_hash": "sha256:56254a46e4a84206d86bc4790d8140a29009251d0e0e76ab857e629c83092e23",
+    "proposed_yaml": "{\n    \"kind\": \"GENERATED_FILE\",\n    \"target_project_id\": \"pilot-app-l2\",\n    \"files\": [\n        {\n            \"path\": \".aghr/package/aghr.json\",\n            \"content\": \"{\\n  \\\"id\\\": \\\"pilot-app-l2\\\",\\n  \\\"name\\\": \\\"pilot-app-l2 scoped sandbox package\\\",\\n  \\\"version\\\": \\\"1.0.0-rc.3\\\",\\n  \\\"schemaVersion\\\": \\\"1.2\\\",\\n  \\\"owner\\\": \\\"Platform Governance Team\\\",\\n  \\\"license\\\": \\\"MIT\\\",\\n  \\\"compatibility\\\": {\\n    \\\"agents\\\": [\\n      \\\"aghr-local-process\\\"\\n    ],\\n    \\\"targets\\\": {\\n      \\\"aghr-local-process\\\": {\\n        \\\"file\\\": \\\"AGENTS.md\\\",\\n        \\\"budgetBytes\\\": 32768\\n      }\\n    }\\n  },\\n  \\\"validation\\\": {\\n    \\\"strict\\\": true,\\n    \\\"coreKindsOnly\\\": true,\\n    \\\"requireEvalForPriority\\\": [\\n      \\\"P0-Safety\\\",\\n      \\\"P0-Integrity\\\"\\n    ],\\n    \\\"requireTechnicalEnforcementFor\\\": [\\n      \\\"MUST_NOT\\\"\\n    ],\\n    \\\"requireSkillQualificationFor\\\": [\\n      \\\"P0-Safety\\\",\\n      \\\"P0-Integrity\\\"\\n    ],\\n    \\\"enforceSkillStateHonesty\\\": true,\\n    \\\"enforceDocumentationConsistency\\\": true,\\n    \\\"enforceAuthorityLevel\\\": true\\n  }\\n}\\n\",\n            \"content_hash\": \"sha256:ffd1914b442e1436e62277b3b6e6c2f9fc557ac7d7369b6d81f497520d176db5\"\n        },\n        {\n            \"path\": \".aghr/package/CHANGELOG.md\",\n            \"content\": \"# Sandbox package\\n\\n1.0.0-rc.3 — local pilot only; not a release.\\n\",\n            \"content_hash\": \"sha256:6b37f7a1d95a4778471f8a1ee5d70c762bc9cf7d73950d05a747f6c4ae792b81\"\n        },\n        {\n            \"path\": \".aghr/package/policies/identity.json\",\n            \"content\": \"{\\n  \\\"kind\\\": \\\"CONSTRAINT\\\",\\n  \\\"force\\\": \\\"MUST\\\",\\n  \\\"severity\\\": \\\"medium\\\",\\n  \\\"scope\\\": {\\n    \\\"paths\\\": [\\n      \\\"**/*\\\"\\n    ]\\n  },\\n  \\\"rationale\\\": \\\"Owner-authorized sandbox adoption; no authority outside this project.\\\",\\n  \\\"authority\\\": {\\n    \\\"source\\\": \\\"owner://T34-T35/2026-10-25/pilot-app-l2\\\",\\n    \\\"level\\\": \\\"project\\\",\\n    \\\"owner\\\": \\\"Sandbox Project Owner\\\",\\n    \\\"approvedBy\\\": \\\"OWNER_T34_T35_20261025\\\",\\n    \\\"status\\\": \\\"active\\\",\\n    \\\"effectiveFrom\\\": \\\"2026-10-25\\\"\\n  },\\n  \\\"impact\\\": {\\n    \\\"band\\\": \\\"medium\\\",\\n    \\\"evidence\\\": \\\"assumed\\\"\\n  },\\n  \\\"verification\\\": {\\n    \\\"commands\\\": [\\n      \\\"node --test app.test.mjs\\\"\\n    ]\\n  },\\n  \\\"id\\\": \\\"PILOT-IDENTITY-001\\\",\\n  \\\"title\\\": \\\"Project identity in public read responses\\\",\\n  \\\"rule\\\": \\\"Read API responses MUST identify this sandbox project. Do not claim authority over another project.\\\"\\n}\\n\",\n            \"content_hash\": \"sha256:5ac0bbb24b853d8e347d23892562cb47149f3d09af52afdef77d0904db11a947\"\n        },\n        {\n            \"path\": \".aghr/package/policies/principle.json\",\n            \"content\": \"{\\n  \\\"kind\\\": \\\"PRINCIPLE\\\",\\n  \\\"force\\\": \\\"MUST\\\",\\n  \\\"severity\\\": \\\"medium\\\",\\n  \\\"scope\\\": {\\n    \\\"paths\\\": [\\n      \\\"**/*\\\"\\n    ]\\n  },\\n  \\\"rationale\\\": \\\"Owner-authorized sandbox adoption; no authority outside this project.\\\",\\n  \\\"authority\\\": {\\n    \\\"source\\\": \\\"owner://T34-T35/2026-10-25/pilot-app-l2\\\",\\n    \\\"level\\\": \\\"project\\\",\\n    \\\"owner\\\": \\\"Sandbox Project Owner\\\",\\n    \\\"approvedBy\\\": \\\"OWNER_T34_T35_20261025\\\",\\n    \\\"status\\\": \\\"active\\\",\\n    \\\"effectiveFrom\\\": \\\"2026-10-25\\\"\\n  },\\n  \\\"impact\\\": {\\n    \\\"band\\\": \\\"medium\\\",\\n    \\\"evidence\\\": \\\"assumed\\\"\\n  },\\n  \\\"verification\\\": {\\n    \\\"commands\\\": [\\n      \\\"node --test app.test.mjs\\\"\\n    ]\\n  },\\n  \\\"id\\\": \\\"PRIN-007\\\",\\n  \\\"title\\\": \\\"Truthful skill-state reporting\\\",\\n  \\\"rule\\\": \\\"When receiving a software task or crossing a substantive phase boundary,\\\\nthe agent MUST evaluate the fitness of the capabilities actually available\\\\nin the execution environment, and select the minimal effective set for\\\\nthe current phase. Priority is given to native capabilities compatible with\\\\nthe host and project. Repetition, conflict, and authorization bypass MUST\\\\nbe prevented. The agent is NOT obligated to use a skill when direct\\\\nexecution is better, and MUST NOT treat discovery or loading as evidence\\\\nof execution or success. Adoption of new skills, modification of governing\\\\ninstructions, and promotion of lessons into persistent memory remain\\\\nsubject to the approved authority and procedure.\\\\n\\\"\\n}\\n\",\n            \"content_hash\": \"sha256:5ef814c7371ec1aff4202acec66a535c5c73159961847d051ddfe425da59142b\"\n        },\n        {\n            \"path\": \"AGENTS.md\",\n            \"content\": \"# AGENTS.md\\n\\n<!-- Candidate output; approval/export require current CP gates. -->\\n\\n## PILOT-IDENTITY-001\\nMUST\\nRead API responses MUST identify this sandbox project. Do not claim authority over another project.\\n\\n## PRIN-007\\nMUST\\nWhen receiving a software task or crossing a substantive phase boundary,\\nthe agent MUST evaluate the fitness of the capabilities actually available\\nin the execution environment, and select the minimal effective set for\\nthe current phase. Priority is given to native capabilities compatible with\\nthe host and project. Repetition, conflict, and authorization bypass MUST\\nbe prevented. The agent is NOT obligated to use a skill when direct\\nexecution is better, and MUST NOT treat discovery or loading as evidence\\nof execution or success. Adoption of new skills, modification of governing\\ninstructions, and promotion of lessons into persistent memory remain\\nsubject to the approved authority and procedure.\\n\\n\\n\",\n            \"content_hash\": \"sha256:4d264947a44a0f8f7000438cb81b694045f3a5c78936d363914e7e56a8aab913\"\n        }\n    ]\n}",
+    "proposal_version_hash": "sha256:dfd497d91000fed68d342992f5b37c9a7e03daf9ccb4266f7003aae9ef454a50",
+    "checks": {
+      "validate": {
+        "status": "PASS",
+        "at": "2026-10-25T11:45:19.224Z",
+        "run_id": "VR-615538d3-254f-431b-b9d3-9481aaced1fa",
+        "evidence": [
+          {
+            "path": "sqlite:verification_runs/VR-615538d3-254f-431b-b9d3-9481aaced1fa",
+            "content_hash": "sha256:4d20b24beba46f7b58a5c9032822844dc541fb3da38bf99350cc1a52e6a56bd0",
+            "bytes": 9032
+          }
+        ]
+      },
+      "lint": {
+        "status": "PASS",
+        "at": "2026-10-25T11:45:19.224Z",
+        "run_id": "VR-615538d3-254f-431b-b9d3-9481aaced1fa",
+        "evidence": [
+          {
+            "path": "sqlite:verification_runs/VR-615538d3-254f-431b-b9d3-9481aaced1fa",
+            "content_hash": "sha256:4d20b24beba46f7b58a5c9032822844dc541fb3da38bf99350cc1a52e6a56bd0",
+            "bytes": 9032
+          }
+        ]
+      },
+      "skill_states": {
+        "status": "NOT_RUN",
+        "evidence": [],
+        "reason": "Required check has not run for this proposal version."
+      },
+      "generate": {
+        "status": "PASS",
+        "at": "2026-10-25T11:45:19.244Z",
+        "run_id": "VR-db696526-9937-4418-b9b5-0af064b58df6",
+        "evidence": [
+          {
+            "path": "sqlite:verification_runs/VR-db696526-9937-4418-b9b5-0af064b58df6",
+            "content_hash": "sha256:59bb733baa674d725001c014a0d9da36d9be20dd1749aefaefd7376d68a547fc",
+            "bytes": 4095
+          }
+        ]
+      },
+      "doctor": {
+        "status": "PASS",
+        "at": "2026-10-25T11:45:19.224Z",
+        "run_id": "VR-615538d3-254f-431b-b9d3-9481aaced1fa",
+        "evidence": [
+          {
+            "path": "sqlite:verification_runs/VR-615538d3-254f-431b-b9d3-9481aaced1fa",
+            "content_hash": "sha256:4d20b24beba46f7b58a5c9032822844dc541fb3da38bf99350cc1a52e6a56bd0",
+            "bytes": 9032
+          }
+        ]
+      },
+      "eval": {
+        "status": "NOT_RUN",
+        "evidence": [],
+        "reason": "Required check has not run for this proposal version."
+      }
+    },
+    "generation": {
+      "content": "# AGENTS.md\n\n<!-- Candidate output; approval/export require current CP gates. -->\n\n## PILOT-IDENTITY-001\nMUST\nRead API responses MUST identify this sandbox project. Do not claim authority over another project.\n\n## PRIN-007\nMUST\nWhen receiving a software task or crossing a substantive phase boundary,\nthe agent MUST evaluate the fitness of the capabilities actually available\nin the execution environment, and select the minimal effective set for\nthe current phase. Priority is given to native capabilities compatible with\nthe host and project. Repetition, conflict, and authorization bypass MUST\nbe prevented. The agent is NOT obligated to use a skill when direct\nexecution is better, and MUST NOT treat discovery or loading as evidence\nof execution or success. Adoption of new skills, modification of governing\ninstructions, and promotion of lessons into persistent memory remain\nsubject to the approved authority and procedure.\n\n\n",
+      "content_hash": "sha256:4d264947a44a0f8f7000438cb81b694045f3a5c78936d363914e7e56a8aab913",
+      "stage": "full",
+      "byte_size": 933,
+      "byte_delta": -31835,
+      "budget_bytes": 32768,
+      "p0_preserved": true,
+      "prin_007_present": true,
+      "adoption_level": "L2",
+      "p0_evidence": [
+        {
+          "path": "preview-item:PILOT-IDENTITY-001",
+          "content_hash": "sha256:1645dfdbea2e3bedf7b3f4c3a892598380b53ccf60b004f2e25f583c7bb983d8",
+          "bytes": 99
+        },
+        {
+          "path": "preview-item:PRIN-007",
+          "content_hash": "sha256:a152a42a5d6f4f6c30eed76401bc88878a41948a7c5a35fee9bd9eb79463250f",
+          "bytes": 703
+        }
+      ],
+      "overflow_items": [],
+      "acknowledgements": [],
+      "lookup": {
+        "status": "NOT_RUN",
+        "evidence": [],
+        "reason": "On-demand lookup has no qualified host evidence. Compact/export blocked."
+      },
+      "run_id": "GEN-6010fd9d-316a-44aa-b4cf-294ee62e5ecb"
+    },
+    "ci_comparison": null,
+    "required_approvals": [
+      "governance-owner"
+    ],
+    "approvals": [
+      {
+        "id": 4,
+        "package_id": "CP-7e1c101e-adef-4551-a504-e25834f336bf",
+        "role": "governance-owner",
+        "approver": "owner-delegated-sandbox-operator:pilot-app-l2",
+        "decision": "approve",
+        "approved_version_hash": "sha256:dfd497d91000fed68d342992f5b37c9a7e03daf9ccb4266f7003aae9ef454a50",
+        "reason": "Owner-delegated sandbox adoption only; not independent review or release acceptance",
+        "at": "2026-10-25T11:45:36.146Z"
+      }
+    ],
+    "approval_history": [
+      {
+        "decision": {
+          "id": 3,
+          "package_id": "CP-7e1c101e-adef-4551-a504-e25834f336bf",
+          "role": "governance-owner",
+          "approver": "owner-delegated-sandbox-operator:pilot-app-l2",
+          "decision": "approve",
+          "approved_version_hash": "sha256:bcec65a2fdeee14b07974b19f3f04efbb6bc26feea24b625eea597cc0a6f2903",
+          "reason": "Owner-delegated sandbox adoption only; not independent review or release acceptance",
+          "at": "2026-10-25T11:44:59.888Z"
+        },
+        "invalidated_at": "2026-10-25T11:45:10.681Z",
+        "invalidation_reason": "proposal_changed"
+      }
+    ],
+    "blockers": [],
+    "preview": {
+      "proposal_version_hash": "sha256:dfd497d91000fed68d342992f5b37c9a7e03daf9ccb4266f7003aae9ef454a50",
+      "diff": "diff --git a/.aghr/package/aghr.json b/.aghr/package/aghr.json\nnew file mode 100644\n--- /dev/null\n+++ b/.aghr/package/aghr.json\n@@ -0,0 +1,37 @@\n+{\n+  \"id\": \"pilot-app-l2\",\n+  \"name\": \"pilot-app-l2 scoped sandbox package\",\n+  \"version\": \"1.0.0-rc.3\",\n+  \"schemaVersion\": \"1.2\",\n+  \"owner\": \"Platform Governance Team\",\n+  \"license\": \"MIT\",\n+  \"compatibility\": {\n+    \"agents\": [\n+      \"aghr-local-process\"\n+    ],\n+    \"targets\": {\n+      \"aghr-local-process\": {\n+        \"file\": \"AGENTS.md\",\n+        \"budgetBytes\": 32768\n+      }\n+    }\n+  },\n+  \"validation\": {\n+    \"strict\": true,\n+    \"coreKindsOnly\": true,\n+    \"requireEvalForPriority\": [\n+      \"P0-Safety\",\n+      \"P0-Integrity\"\n+    ],\n+    \"requireTechnicalEnforcementFor\": [\n+      \"MUST_NOT\"\n+    ],\n+    \"requireSkillQualificationFor\": [\n+      \"P0-Safety\",\n+      \"P0-Integrity\"\n+    ],\n+    \"enforceSkillStateHonesty\": true,\n+    \"enforceDocumentationConsistency\": true,\n+    \"enforceAuthorityLevel\": true\n+  }\n+}\ndiff --git a/.aghr/package/CHANGELOG.md b/.aghr/package/CHANGELOG.md\nnew file mode 100644\n--- /dev/null\n+++ b/.aghr/package/CHANGELOG.md\n@@ -0,0 +1,3 @@\n+# Sandbox package\n+\n+1.0.0-rc.3 — local pilot only; not a release.\ndiff --git a/.aghr/package/policies/identity.json b/.aghr/package/policies/identity.json\nnew file mode 100644\n--- /dev/null\n+++ b/.aghr/package/policies/identity.json\n@@ -0,0 +1,31 @@\n+{\n+  \"kind\": \"CONSTRAINT\",\n+  \"force\": \"MUST\",\n+  \"severity\": \"medium\",\n+  \"scope\": {\n+    \"paths\": [\n+      \"**/*\"\n+    ]\n+  },\n+  \"rationale\": \"Owner-authorized sandbox adoption; no authority outside this project.\",\n+  \"authority\": {\n+    \"source\": \"owner://T34-T35/2026-10-25/pilot-app-l2\",\n+    \"level\": \"project\",\n+    \"owner\": \"Sandbox Project Owner\",\n+    \"approvedBy\": \"OWNER_T34_T35_20261025\",\n+    \"status\": \"active\",\n+    \"effectiveFrom\": \"2026-10-25\"\n+  },\n+  \"impact\": {\n+    \"band\": \"medium\",\n+    \"evidence\": \"assumed\"\n+  },\n+  \"verification\": {\n+    \"commands\": [\n+      \"node --test app.test.mjs\"\n+    ]\n+  },\n+  \"id\": \"PILOT-IDENTITY-001\",\n+  \"title\": \"Project identity in public read responses\",\n+  \"rule\": \"Read API responses MUST identify this sandbox project. Do not claim authority over another project.\"\n+}\ndiff --git a/.aghr/package/policies/principle.json b/.aghr/package/policies/principle.json\nnew file mode 100644\n--- /dev/null\n+++ b/.aghr/package/policies/principle.json\n@@ -0,0 +1,31 @@\n+{\n+  \"kind\": \"PRINCIPLE\",\n+  \"force\": \"MUST\",\n+  \"severity\": \"medium\",\n+  \"scope\": {\n+    \"paths\": [\n+      \"**/*\"\n+    ]\n+  },\n+  \"rationale\": \"Owner-authorized sandbox adoption; no authority outside this project.\",\n+  \"authority\": {\n+    \"source\": \"owner://T34-T35/2026-10-25/pilot-app-l2\",\n+    \"level\": \"project\",\n+    \"owner\": \"Sandbox Project Owner\",\n+    \"approvedBy\": \"OWNER_T34_T35_20261025\",\n+    \"status\": \"active\",\n+    \"effectiveFrom\": \"2026-10-25\"\n+  },\n+  \"impact\": {\n+    \"band\": \"medium\",\n+    \"evidence\": \"assumed\"\n+  },\n+  \"verification\": {\n+    \"commands\": [\n+      \"node --test app.test.mjs\"\n+    ]\n+  },\n+  \"id\": \"PRIN-007\",\n+  \"title\": \"Truthful skill-state reporting\",\n+  \"rule\": \"When receiving a software task or crossing a substantive phase boundary,\\nthe agent MUST evaluate the fitness of the capabilities actually available\\nin the execution environment, and select the minimal effective set for\\nthe current phase. Priority is given to native capabilities compatible with\\nthe host and project. Repetition, conflict, and authorization bypass MUST\\nbe prevented. The agent is NOT obligated to use a skill when direct\\nexecution is better, and MUST NOT treat discovery or loading as evidence\\nof execution or success. Adoption of new skills, modification of governing\\ninstructions, and promotion of lessons into persistent memory remain\\nsubject to the approved authority and procedure.\\n\"\n+}\ndiff --git a/AGENTS.md b/AGENTS.md\nnew file mode 100644\n--- /dev/null\n+++ b/AGENTS.md\n@@ -0,0 +1,22 @@\n+# AGENTS.md\n+\n+<!-- Candidate output; approval/export require current CP gates. -->\n+\n+## PILOT-IDENTITY-001\n+MUST\n+Read API responses MUST identify this sandbox project. Do not claim authority over another project.\n+\n+## PRIN-007\n+MUST\n+When receiving a software task or crossing a substantive phase boundary,\n+the agent MUST evaluate the fitness of the capabilities actually available\n+in the execution environment, and select the minimal effective set for\n+the current phase. Priority is given to native capabilities compatible with\n+the host and project. Repetition, conflict, and authorization bypass MUST\n+be prevented. The agent is NOT obligated to use a skill when direct\n+execution is better, and MUST NOT treat discovery or loading as evidence\n+of execution or success. Adoption of new skills, modification of governing\n+instructions, and promotion of lessons into persistent memory remain\n+subject to the approved authority and procedure.\n+\n+\n",
+      "files": [
+        {
+          "path": ".aghr/package/aghr.json",
+          "content_hash": "sha256:ffd1914b442e1436e62277b3b6e6c2f9fc557ac7d7369b6d81f497520d176db5",
+          "bytes": 798
+        },
+        {
+          "path": ".aghr/package/CHANGELOG.md",
+          "content_hash": "sha256:6b37f7a1d95a4778471f8a1ee5d70c762bc9cf7d73950d05a747f6c4ae792b81",
+          "bytes": 67
+        },
+        {
+          "path": ".aghr/package/policies/identity.json",
+          "content_hash": "sha256:5ac0bbb24b853d8e347d23892562cb47149f3d09af52afdef77d0904db11a947",
+          "bytes": 801
+        },
+        {
+          "path": ".aghr/package/policies/principle.json",
+          "content_hash": "sha256:5ef814c7371ec1aff4202acec66a535c5c73159961847d051ddfe425da59142b",
+          "bytes": 1393
+        },
+        {
+          "path": "AGENTS.md",
+          "content_hash": "sha256:4d264947a44a0f8f7000438cb81b694045f3a5c78936d363914e7e56a8aab913",
+          "bytes": 933
+        }
+      ],
+      "source_written": false,
+      "state_written": false
+    },
+    "created_by": "owner-delegated-sandbox-operator:pilot-app-l2",
+    "created_at": "2026-10-25T11:44:29.966Z",
+    "updated_at": "2026-10-25T11:45:36.309Z"
+  },
+  "tables": 12,
+  "grant_required": true,
+  "ungranted_rejected": 403,
+  "stale_rejected": 412,
+  "invalidated_hash": "sha256:bcec65a2fdeee14b07974b19f3f04efbb6bc26feea24b625eea597cc0a6f2903",
+  "patch": "D:\\APP\\Agent-Files-Explorer\\pilot-app-l2\\.aghr\\drafts\\artifacts\\CP-7e1c101e-adef-4551-a504-e25834f336bf-approved-dfd497d91000fed68d342992f5b37c9a7e03daf9ccb4266f7003aae9ef454a50.patch",
+  "patch_sha256": "c51b3118a2a83ebbee439e8c242538b01c0600b0f2d3f554308e8cf1f5d3eb50",
+  "rendered": {
+    "content": "# AGENTS.md\n\n<!-- Candidate output; approval/export require current CP gates. -->\n\n## PILOT-IDENTITY-001\nMUST\nRead API responses MUST identify this sandbox project. Do not claim authority over another project.\n\n## PRIN-007\nMUST\nWhen receiving a software task or crossing a substantive phase boundary,\nthe agent MUST evaluate the fitness of the capabilities actually available\nin the execution environment, and select the minimal effective set for\nthe current phase. Priority is given to native capabilities compatible with\nthe host and project. Repetition, conflict, and authorization bypass MUST\nbe prevented. The agent is NOT obligated to use a skill when direct\nexecution is better, and MUST NOT treat discovery or loading as evidence\nof execution or success. Adoption of new skills, modification of governing\ninstructions, and promotion of lessons into persistent memory remain\nsubject to the approved authority and procedure.\n\n\n",
+    "content_hash": "sha256:4d264947a44a0f8f7000438cb81b694045f3a5c78936d363914e7e56a8aab913",
+    "stage": "full",
+    "byte_size": 933,
+    "byte_delta": -31835,
+    "budget_bytes": 32768,
+    "p0_preserved": true,
+    "prin_007_present": true,
+    "adoption_level": "L2",
+    "p0_evidence": [
+      {
+        "path": "preview-item:PILOT-IDENTITY-001",
+        "content_hash": "sha256:1645dfdbea2e3bedf7b3f4c3a892598380b53ccf60b004f2e25f583c7bb983d8",
+        "bytes": 99
+      },
+      {
+        "path": "preview-item:PRIN-007",
+        "content_hash": "sha256:a152a42a5d6f4f6c30eed76401bc88878a41948a7c5a35fee9bd9eb79463250f",
+        "bytes": 703
+      }
+    ],
+    "overflow_items": [],
+    "acknowledgements": [],
+    "lookup": {
+      "status": "NOT_RUN",
+      "evidence": [],
+      "reason": "On-demand lookup has no qualified host evidence. Compact/export blocked."
+    },
+    "run_id": "GEN-6010fd9d-316a-44aa-b4cf-294ee62e5ecb"
+  },
+  "audit": [
+    {
+      "id": 1,
+      "at": "2026-10-25T11:34:39.186Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "storage.initialize",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "storage",
+      "resource_id": "D:\\APP\\Agent-Files-Explorer\\pilot-app-l2\\.aghr\\drafts\\studio.sqlite",
+      "payload_json": "{\"migrationHash\":\"d5ab6a5fa8dc3be95927d3f9871ed393a3d7f7206e102dae6f2721492dde2159\",\"version\":1}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 2,
+      "at": "2026-10-25T11:34:39.208Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "draft.workspace.initialize",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "workspace",
+      "resource_id": "pilot-app-l2",
+      "payload_json": "{\"result\":\"SUCCESS\",\"read_only\":true}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 3,
+      "at": "2026-10-25T11:34:57.672Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.create",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-cf729e82-abbb-43c7-8561-bb37cccabb10",
+      "payload_json": "{\"result\":\"SUCCESS\",\"base_candidate_hash\":\"sha256:56254a46e4a84206d86bc4790d8140a29009251d0e0e76ab857e629c83092e23\",\"source\":{\"type\":\"request\",\"ref\":\"OWNER_T34_T35_20261025\"},\"structural_check\":\"PASS\",\"strict_check\":\"NOT_RUN\",\"request_id\":\"14ce597d-d49a-4187-b7fb-e503c1ab2b9f\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 4,
+      "at": "2026-10-25T11:34:57.687Z",
+      "actor": "unauthenticated",
+      "actor_role": null,
+      "simulated_role": null,
+      "event_type": "cp.submit",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "draft",
+      "resource_id": "CP-cf729e82-abbb-43c7-8561-bb37cccabb10",
+      "payload_json": "{\"result\":\"DENY\",\"status\":403,\"reason\":\"No scoped capability\",\"request_id\":\"6cd0cc0b-df54-4591-8a5a-7c36bd6f818e\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 5,
+      "at": "2026-10-25T11:35:07.392Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.validate",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-cf729e82-abbb-43c7-8561-bb37cccabb10",
+      "payload_json": "{\"result\":\"SUCCESS\",\"validation_result\":\"VALID\",\"run_id\":\"VR-339bc122-821a-4213-bbc1-6bad331ae306\",\"proposal_version_hash\":\"sha256:bcec65a2fdeee14b07974b19f3f04efbb6bc26feea24b625eea597cc0a6f2903\",\"report_hash\":\"sha256:13578aea3d2b9a1e0e9f2e4f140f4c1f65189d72fc00b4fdc1ff4144cfab1b1e\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 6,
+      "at": "2026-10-25T11:35:07.409Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.generate.preview",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-cf729e82-abbb-43c7-8561-bb37cccabb10",
+      "payload_json": "{\"result\":\"SUCCESS\",\"proposal_version_hash\":\"sha256:bcec65a2fdeee14b07974b19f3f04efbb6bc26feea24b625eea597cc0a6f2903\",\"content_hash\":\"sha256:4d264947a44a0f8f7000438cb81b694045f3a5c78936d363914e7e56a8aab913\",\"stage\":\"full\",\"source_written\":false,\"exported\":false}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 7,
+      "at": "2026-10-25T11:35:07.423Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.submit",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-cf729e82-abbb-43c7-8561-bb37cccabb10",
+      "payload_json": "{\"result\":\"SUCCESS\",\"proposal_version_hash\":\"sha256:bcec65a2fdeee14b07974b19f3f04efbb6bc26feea24b625eea597cc0a6f2903\",\"approval\":\"NOT_GRANTED\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 8,
+      "at": "2026-10-25T11:35:25.463Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.approve.governance",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-cf729e82-abbb-43c7-8561-bb37cccabb10",
+      "payload_json": "{\"result\":\"SUCCESS\",\"proposal_version_hash\":\"sha256:bcec65a2fdeee14b07974b19f3f04efbb6bc26feea24b625eea597cc0a6f2903\",\"decision\":\"approve\",\"next_status\":\"approved\",\"engine\":\"1fd12c0efcf6eaafddb8965697efdd0036a3d575d9decd74f83cb4e4759f655a\",\"input_hash\":\"61dcffc879cbac0449206e8a48b08d14cfe5d2a119b1e004c54eb222db101dad\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 9,
+      "at": "2026-10-25T11:35:33.927Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.edit_any",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-cf729e82-abbb-43c7-8561-bb37cccabb10",
+      "payload_json": "{\"result\":\"SUCCESS\",\"before_hash\":\"sha256:bcec65a2fdeee14b07974b19f3f04efbb6bc26feea24b625eea597cc0a6f2903\",\"after_hash\":\"sha256:dfd497d91000fed68d342992f5b37c9a7e03daf9ccb4266f7003aae9ef454a50\",\"invalidated\":true}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 10,
+      "at": "2026-10-25T11:35:42.685Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.validate",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-cf729e82-abbb-43c7-8561-bb37cccabb10",
+      "payload_json": "{\"result\":\"SUCCESS\",\"validation_result\":\"VALID\",\"run_id\":\"VR-5f5d9d18-8835-413f-9ba3-4ddb95d9310e\",\"proposal_version_hash\":\"sha256:dfd497d91000fed68d342992f5b37c9a7e03daf9ccb4266f7003aae9ef454a50\",\"report_hash\":\"sha256:fb2c17167c493f391cf1750a5019cbcb6025e8b53661b0b9fea11e485a5a455c\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 11,
+      "at": "2026-10-25T11:35:42.697Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.generate.preview",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-cf729e82-abbb-43c7-8561-bb37cccabb10",
+      "payload_json": "{\"result\":\"SUCCESS\",\"proposal_version_hash\":\"sha256:dfd497d91000fed68d342992f5b37c9a7e03daf9ccb4266f7003aae9ef454a50\",\"content_hash\":\"sha256:4d264947a44a0f8f7000438cb81b694045f3a5c78936d363914e7e56a8aab913\",\"stage\":\"full\",\"source_written\":false,\"exported\":false}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 12,
+      "at": "2026-10-25T11:35:42.707Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.submit",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-cf729e82-abbb-43c7-8561-bb37cccabb10",
+      "payload_json": "{\"result\":\"SUCCESS\",\"proposal_version_hash\":\"sha256:dfd497d91000fed68d342992f5b37c9a7e03daf9ccb4266f7003aae9ef454a50\",\"approval\":\"NOT_GRANTED\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 13,
+      "at": "2026-10-25T11:36:01.131Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.approve.governance",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-cf729e82-abbb-43c7-8561-bb37cccabb10",
+      "payload_json": "{\"result\":\"SUCCESS\",\"proposal_version_hash\":\"sha256:dfd497d91000fed68d342992f5b37c9a7e03daf9ccb4266f7003aae9ef454a50\",\"decision\":\"approve\",\"next_status\":\"approved\",\"engine\":\"1fd12c0efcf6eaafddb8965697efdd0036a3d575d9decd74f83cb4e4759f655a\",\"input_hash\":\"061f6ccf4989103f6eb0ca685fb6bda369600845b26c47a5fffeb8089382f199\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 14,
+      "at": "2026-10-25T11:36:01.161Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.preview",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-cf729e82-abbb-43c7-8561-bb37cccabb10",
+      "payload_json": "{\"result\":\"SUCCESS\",\"proposal_version_hash\":\"sha256:dfd497d91000fed68d342992f5b37c9a7e03daf9ccb4266f7003aae9ef454a50\",\"engine\":\"c51b3118a2a83ebbee439e8c242538b01c0600b0f2d3f554308e8cf1f5d3eb50\",\"diff_hash\":\"sha256:c51b3118a2a83ebbee439e8c242538b01c0600b0f2d3f554308e8cf1f5d3eb50\",\"source_written\":false}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 15,
+      "at": "2026-10-25T11:36:01.197Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.export.patch",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-cf729e82-abbb-43c7-8561-bb37cccabb10",
+      "payload_json": "{\"result\":\"SUCCESS\",\"proposal_version_hash\":\"sha256:dfd497d91000fed68d342992f5b37c9a7e03daf9ccb4266f7003aae9ef454a50\",\"artifact\":{\"path\":\"D:\\\\APP\\\\Agent-Files-Explorer\\\\pilot-app-l2\\\\.aghr\\\\drafts\\\\artifacts\\\\CP-cf729e82-abbb-43c7-8561-bb37cccabb10-approved-dfd497d91000fed68d342992f5b37c9a7e03daf9ccb4266f7003aae9ef454a50.patch\",\"content_hash\":\"sha256:c51b3118a2a83ebbee439e8c242538b01c0600b0f2d3f554308e8cf1f5d3eb50\",\"bytes\":4888},\"draft_only\":false,\"engine\":\"c51b3118a2a83ebbee439e8c242538b01c0600b0f2d3f554308e8cf1f5d3eb50\",\"source_written\":false,\"state_written\":false,\"publication\":\"NOT_PERFORMED\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 16,
+      "at": "2026-10-25T11:44:13.154Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "storage.initialize",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "storage",
+      "resource_id": "D:\\APP\\Agent-Files-Explorer\\pilot-app-l2\\.aghr\\drafts\\studio.sqlite",
+      "payload_json": "{\"migrationHash\":\"d5ab6a5fa8dc3be95927d3f9871ed393a3d7f7206e102dae6f2721492dde2159\",\"version\":1}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 17,
+      "at": "2026-10-25T11:44:13.170Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "draft.workspace.initialize",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "workspace",
+      "resource_id": "pilot-app-l2",
+      "payload_json": "{\"result\":\"SUCCESS\",\"read_only\":true}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 18,
+      "at": "2026-10-25T11:44:29.977Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.create",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-7e1c101e-adef-4551-a504-e25834f336bf",
+      "payload_json": "{\"result\":\"SUCCESS\",\"base_candidate_hash\":\"sha256:56254a46e4a84206d86bc4790d8140a29009251d0e0e76ab857e629c83092e23\",\"source\":{\"type\":\"request\",\"ref\":\"OWNER_T34_T35_20261025\"},\"structural_check\":\"PASS\",\"strict_check\":\"NOT_RUN\",\"request_id\":\"7bf40c8a-52bd-4c50-91a2-d0b251e9a22f\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 19,
+      "at": "2026-10-25T11:44:30.248Z",
+      "actor": "unauthenticated",
+      "actor_role": null,
+      "simulated_role": null,
+      "event_type": "cp.submit",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "draft",
+      "resource_id": "CP-7e1c101e-adef-4551-a504-e25834f336bf",
+      "payload_json": "{\"result\":\"DENY\",\"status\":403,\"reason\":\"No scoped capability\",\"request_id\":\"bd2a0a5d-5509-4c21-ab9f-7e6e2de1b871\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 20,
+      "at": "2026-10-25T11:44:39.004Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.validate",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-7e1c101e-adef-4551-a504-e25834f336bf",
+      "payload_json": "{\"result\":\"SUCCESS\",\"validation_result\":\"VALID\",\"run_id\":\"VR-45dd2ef2-ce15-45dd-bab7-43aec30b4cf8\",\"proposal_version_hash\":\"sha256:bcec65a2fdeee14b07974b19f3f04efbb6bc26feea24b625eea597cc0a6f2903\",\"report_hash\":\"sha256:d304f245c673b672af8e4069bfb57073d2b03ad158932ab5595240175026413e\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 21,
+      "at": "2026-10-25T11:44:39.024Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.generate.preview",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-7e1c101e-adef-4551-a504-e25834f336bf",
+      "payload_json": "{\"result\":\"SUCCESS\",\"proposal_version_hash\":\"sha256:bcec65a2fdeee14b07974b19f3f04efbb6bc26feea24b625eea597cc0a6f2903\",\"content_hash\":\"sha256:4d264947a44a0f8f7000438cb81b694045f3a5c78936d363914e7e56a8aab913\",\"stage\":\"full\",\"source_written\":false,\"exported\":false}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 22,
+      "at": "2026-10-25T11:44:39.041Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.submit",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-7e1c101e-adef-4551-a504-e25834f336bf",
+      "payload_json": "{\"result\":\"SUCCESS\",\"proposal_version_hash\":\"sha256:bcec65a2fdeee14b07974b19f3f04efbb6bc26feea24b625eea597cc0a6f2903\",\"approval\":\"NOT_GRANTED\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 23,
+      "at": "2026-10-25T11:44:59.892Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.approve.governance",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-7e1c101e-adef-4551-a504-e25834f336bf",
+      "payload_json": "{\"result\":\"SUCCESS\",\"proposal_version_hash\":\"sha256:bcec65a2fdeee14b07974b19f3f04efbb6bc26feea24b625eea597cc0a6f2903\",\"decision\":\"approve\",\"next_status\":\"approved\",\"engine\":\"1fd12c0efcf6eaafddb8965697efdd0036a3d575d9decd74f83cb4e4759f655a\",\"input_hash\":\"2eec56e394cac5f46914b1645e81274cbdf5a2c0c9afaad7f4bf866c80858716\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 24,
+      "at": "2026-10-25T11:45:10.684Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.edit_any",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-7e1c101e-adef-4551-a504-e25834f336bf",
+      "payload_json": "{\"result\":\"SUCCESS\",\"before_hash\":\"sha256:bcec65a2fdeee14b07974b19f3f04efbb6bc26feea24b625eea597cc0a6f2903\",\"after_hash\":\"sha256:dfd497d91000fed68d342992f5b37c9a7e03daf9ccb4266f7003aae9ef454a50\",\"invalidated\":true}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 25,
+      "at": "2026-10-25T11:45:19.226Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.validate",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-7e1c101e-adef-4551-a504-e25834f336bf",
+      "payload_json": "{\"result\":\"SUCCESS\",\"validation_result\":\"VALID\",\"run_id\":\"VR-615538d3-254f-431b-b9d3-9481aaced1fa\",\"proposal_version_hash\":\"sha256:dfd497d91000fed68d342992f5b37c9a7e03daf9ccb4266f7003aae9ef454a50\",\"report_hash\":\"sha256:4d20b24beba46f7b58a5c9032822844dc541fb3da38bf99350cc1a52e6a56bd0\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 26,
+      "at": "2026-10-25T11:45:19.247Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.generate.preview",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-7e1c101e-adef-4551-a504-e25834f336bf",
+      "payload_json": "{\"result\":\"SUCCESS\",\"proposal_version_hash\":\"sha256:dfd497d91000fed68d342992f5b37c9a7e03daf9ccb4266f7003aae9ef454a50\",\"content_hash\":\"sha256:4d264947a44a0f8f7000438cb81b694045f3a5c78936d363914e7e56a8aab913\",\"stage\":\"full\",\"source_written\":false,\"exported\":false}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 27,
+      "at": "2026-10-25T11:45:19.258Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.submit",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-7e1c101e-adef-4551-a504-e25834f336bf",
+      "payload_json": "{\"result\":\"SUCCESS\",\"proposal_version_hash\":\"sha256:dfd497d91000fed68d342992f5b37c9a7e03daf9ccb4266f7003aae9ef454a50\",\"approval\":\"NOT_GRANTED\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 28,
+      "at": "2026-10-25T11:45:36.151Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.approve.governance",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-7e1c101e-adef-4551-a504-e25834f336bf",
+      "payload_json": "{\"result\":\"SUCCESS\",\"proposal_version_hash\":\"sha256:dfd497d91000fed68d342992f5b37c9a7e03daf9ccb4266f7003aae9ef454a50\",\"decision\":\"approve\",\"next_status\":\"approved\",\"engine\":\"1fd12c0efcf6eaafddb8965697efdd0036a3d575d9decd74f83cb4e4759f655a\",\"input_hash\":\"cfe5b1d6ec048fff594680c36f728f3878c97080b127a68ad15115512f8ae89d\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 29,
+      "at": "2026-10-25T11:45:36.242Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.preview",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-7e1c101e-adef-4551-a504-e25834f336bf",
+      "payload_json": "{\"result\":\"SUCCESS\",\"proposal_version_hash\":\"sha256:dfd497d91000fed68d342992f5b37c9a7e03daf9ccb4266f7003aae9ef454a50\",\"engine\":\"c51b3118a2a83ebbee439e8c242538b01c0600b0f2d3f554308e8cf1f5d3eb50\",\"diff_hash\":\"sha256:c51b3118a2a83ebbee439e8c242538b01c0600b0f2d3f554308e8cf1f5d3eb50\",\"source_written\":false}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 30,
+      "at": "2026-10-25T11:45:36.323Z",
+      "actor": "owner-delegated-sandbox-operator:pilot-app-l2",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.export.patch",
+      "workspace_id": "pilot-app-l2",
+      "resource_type": "package",
+      "resource_id": "CP-7e1c101e-adef-4551-a504-e25834f336bf",
+      "payload_json": "{\"result\":\"SUCCESS\",\"proposal_version_hash\":\"sha256:dfd497d91000fed68d342992f5b37c9a7e03daf9ccb4266f7003aae9ef454a50\",\"artifact\":{\"path\":\"D:\\\\APP\\\\Agent-Files-Explorer\\\\pilot-app-l2\\\\.aghr\\\\drafts\\\\artifacts\\\\CP-7e1c101e-adef-4551-a504-e25834f336bf-approved-dfd497d91000fed68d342992f5b37c9a7e03daf9ccb4266f7003aae9ef454a50.patch\",\"content_hash\":\"sha256:c51b3118a2a83ebbee439e8c242538b01c0600b0f2d3f554308e8cf1f5d3eb50\",\"bytes\":4888},\"draft_only\":false,\"engine\":\"c51b3118a2a83ebbee439e8c242538b01c0600b0f2d3f554308e8cf1f5d3eb50\",\"source_written\":false,\"state_written\":false,\"publication\":\"NOT_PERFORMED\"}",
+      "ip_address": null,
+      "user_agent": null
+    }
+  ],
+  "actor_profile": "delegated sandbox automation; no independent human approval claimed",
+  "gpg": "UNSIGNED_OWNER_ACCEPTED_WARNING"
+}

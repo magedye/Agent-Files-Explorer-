@@ -1,0 +1,16 @@
+{
+  "AGHR-016": {
+    "status": "NOT_RUN",
+    "qualification": "NOT_RUN",
+    "criterion_ar": "ربط كل ادعاء بمخرج فعلي ونطاقه وإظهار NOT_RUN لما لم ينفذ.",
+    "positive_case": {
+      "input": "Observable project record satisfying the stated criterion",
+      "expected": "Criterion observed within the exact authorized scope"
+    },
+    "negative_case": {
+      "input": "NOT_RUN or missing evidence is reported as PASS.",
+      "expected": "Refuse success/promotion and preserve the unmet criterion"
+    },
+    "scope": "Prospective verification data, never a claimed execution or an E4 honesty run"
+  }
+}

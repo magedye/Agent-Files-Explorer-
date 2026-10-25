@@ -1,0 +1,28 @@
+{
+  "event": "finished",
+  "status": "failed",
+  "reason": null,
+  "exit_code": 1,
+  "resource_peak_mb": 28.48046875,
+  "duration_ms": 4594,
+  "active_processes_after": 0,
+  "observed_pids": [
+    142696,
+    134212,
+    142852
+  ],
+  "memory_events": [],
+  "started": {
+    "event": "started",
+    "pid": 142696,
+    "adapter": "windows-job-list",
+    "hard_memory_bytes": 2147483648,
+    "limit_flags": 8704
+  },
+  "stdout": "{\"valid\": false, \"checked\": 22, \"issues\": [{\"index\": 17, \"operation\": \"getCapability\", \"case\": \"positive\", \"issues\": [{\"pointer\": \"/data\", \"message\": \"Additional properties are not allowed ('cells', 'hosts', 'skills' were unexpected)\"}, {\"pointer\": \"/data\", \"message\": \"'item_id' is a required property\"}, {\"pointer\": \"/data\", \"message\": \"'capability' is a required property\"}, {\"pointer\": \"/data\", \"message\": \"'qualifications' is a required property\"}, {\"pointer\": \"/data\", \"message\": \"'availability' is a required property\"}, {\"pointer\": \"/data\", \"message\": \"'source_path' is a required property\"}, {\"pointer\": \"/data\", \"message\": \"'content_hash' is a required property\"}, {\"pointer\": \"/data\", \"message\": \"'issuer_trust' is a required property\"}]}]}\r\n",
+  "stderr": "",
+  "limits": {
+    "timeoutMs": 30000,
+    "memoryBytes": 2147483648
+  }
+}

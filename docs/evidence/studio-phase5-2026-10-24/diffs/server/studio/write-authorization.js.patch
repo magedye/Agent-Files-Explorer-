@@ -1,0 +1,32 @@
+diff --git a/docs/evidence/studio-phase5-2026-10-24/before/server/studio/write-authorization.js.raw b/server/studio/write-authorization.js
+index cd3497d..3cce55f 100644
+--- a/docs/evidence/studio-phase5-2026-10-24/before/server/studio/write-authorization.js.raw
++++ b/server/studio/write-authorization.js
+@@ -9,7 +9,7 @@ const tupleKeys=['workspace_id','target_project','action','resource_id','proposa
+ const markers=/T12_OWNER_APPROVED_MOCK|OWNER_GRANTED_T12|OWNER_T12_OVERRIDE|T06_MOCK_ONLY|AUTHORIZED_BY_PROJECT_OWNER/;
+ const permissions={
+  developer:['cp.create','cp.edit_own','adoption.preview','verify.run.fast'],
+- 'governance-owner':['cp.create','cp.edit_any','cp.validate','cp.submit','cp.generate.preview','cp.preview','cp.export.patch','cp.export.draft','cp.doctor','cp.approve.governance','adoption.apply','adoption.rollback','verify.run.*','calibrate.*','meta.change.propose','storage.initialize','draft.workspace.initialize','staging.create','staging.authorize'],
++ 'governance-owner':['cp.create','cp.edit_any','cp.validate','cp.submit','cp.generate.preview','cp.preview','cp.export.patch','cp.export.draft','cp.doctor','cp.approve.governance','adoption.apply','adoption.rollback','verify.run.*','calibrate.*','meta.change.propose','storage.initialize','draft.workspace.initialize','staging.create','staging.authorize','settings.update','settings.test-signing','metrics.snapshot','reports.generate'],
+  'security-owner':['cp.approve.security','verify.run.*'],
+  'architecture-board':['cp.approve.architecture','exceptions.approve'],
+ };
+@@ -28,7 +28,8 @@ export function consumeAuthorization(receipt,expected){
+ }
+ export function createWriteAuthority({clock=Date.now,onDecision=()=>{}}={}){
+  const principals=new WeakMap(),sessions=new Map(),grants=new Map();
+- const known=p=>{const v=principals.get(p);if(!v||clock()>=v.expires)throw deny();return v;};
++ const roleBindings=new Map();
++ const known=p=>{const v=principals.get(p);if(!v||clock()>=v.expires)throw deny();return {...v,role:roleBindings.get(v.actor)??v.role};};
+  const allowed=(role,action)=>permissions[role].some(p=>p===action||p.endsWith('.*')&&action.startsWith(p.slice(0,-1)));
+  const liveGrant=(principal,token)=>{
+   const actor=known(principal),grant=grants.get(token);
+@@ -36,6 +37,8 @@ export function createWriteAuthority({clock=Date.now,onDecision=()=>{}}={}){
+   return grant;
+  };
+  return {
++  // Trusted settings service only; no HTTP session/principal minting.
++  applyRoleBindings(bindings){for(const [actor,role]of Object.entries(bindings)){if(!actor.trim()||!Object.hasOwn(permissions,role))throw deny();}roleBindings.clear();for(const entry of Object.entries(bindings))roleBindings.set(...entry);for(const grant of grants.values())grant.revoked=true;},
+   // Trusted operator bootstrap only. No endpoint exposes principal/grant minting.
+   createPrincipal(spec){
+    if(!spec||Object.keys(spec).some(k=>!['actor','role','installationOwnerVerified','ttlMs'].includes(k)))throw deny();

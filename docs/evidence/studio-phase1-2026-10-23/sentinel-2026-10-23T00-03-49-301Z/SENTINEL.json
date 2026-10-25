@@ -1,0 +1,299 @@
+{
+  "status": "PASS",
+  "started_at": "2026-10-23T00:03:49.301Z",
+  "finished_at": "2026-10-23T00:04:11.738Z",
+  "scope": "Phase 1 standalone Studio startup, actual Edge UI, all API requests and pinned Python subprocesses; application/API audit boundary, not kernel-wide tracing",
+  "build_outside_window": true,
+  "ready": {
+    "event": "ready",
+    "port": 18206,
+    "tables": [
+      "audit_events",
+      "capability_items_cache",
+      "change_package_approval_history",
+      "change_package_approvals",
+      "change_packages",
+      "instruction_items_cache",
+      "metrics_snapshots",
+      "runtime_evidence_events",
+      "skill_qualification_snapshot",
+      "target_projects",
+      "verification_runs",
+      "workspaces"
+    ],
+    "scan": "VALID",
+    "binding": {
+      "status": "PINNED",
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "protocol_version": "3",
+      "publisher_authentication": "UNKNOWN",
+      "qualification": "NOT_RUN"
+    },
+    "selfTest": {
+      "nodeWrite": {
+        "blocked": true,
+        "code": "STUDIO_ZERO_WRITE"
+      },
+      "sqliteAttach": {
+        "blocked": true,
+        "code": "ERR_SQLITE_ERROR"
+      },
+      "sqlitePragma": {
+        "blocked": true,
+        "code": "ERR_SQLITE_ERROR"
+      }
+    },
+    "baselineAttempts": 1
+  },
+  "report": {
+    "event": "report",
+    "writeAttempts": [],
+    "selfTest": {
+      "nodeWrite": {
+        "blocked": true,
+        "code": "STUDIO_ZERO_WRITE"
+      },
+      "sqliteAttach": {
+        "blocked": true,
+        "code": "ERR_SQLITE_ERROR"
+      },
+      "sqlitePragma": {
+        "blocked": true,
+        "code": "ERR_SQLITE_ERROR"
+      }
+    },
+    "tables": [
+      "audit_events",
+      "capability_items_cache",
+      "change_package_approval_history",
+      "change_package_approvals",
+      "change_packages",
+      "instruction_items_cache",
+      "metrics_snapshots",
+      "runtime_evidence_events",
+      "skill_qualification_snapshot",
+      "target_projects",
+      "verification_runs",
+      "workspaces"
+    ],
+    "scan": "VALID"
+  },
+  "watcher_events": [
+    {
+      "type": "change",
+      "path": "dist",
+      "at": "2026-10-23T00:03:50.020Z"
+    },
+    {
+      "type": "change",
+      "path": "dist/assets",
+      "at": "2026-10-23T00:03:50.022Z"
+    }
+  ],
+  "mutation_events": [],
+  "directory_before": {
+    "tools": {
+      "mtimeMs": 1792713364409.9485,
+      "birthtimeMs": 1792077521186.0122
+    },
+    "dist": {
+      "mtimeMs": 1792713817089.5193,
+      "birthtimeMs": 1792074093451.3271
+    },
+    "dist/assets": {
+      "mtimeMs": 1792713817093.517,
+      "birthtimeMs": 1792713817073.521
+    },
+    "temp": {
+      "mtimeMs": 1792713468212.614,
+      "birthtimeMs": 1792670792817.674
+    },
+    "temp/phase1-runtime-20261023": {
+      "mtimeMs": 1792713468320.148,
+      "birthtimeMs": 1792713468212.614
+    }
+  },
+  "directory_after": {
+    "tools": {
+      "mtimeMs": 1792713364409.9485,
+      "birthtimeMs": 1792077521186.0122
+    },
+    "dist": {
+      "mtimeMs": 1792713817089.5193,
+      "birthtimeMs": 1792074093451.3271
+    },
+    "dist/assets": {
+      "mtimeMs": 1792713817093.517,
+      "birthtimeMs": 1792713817073.521
+    },
+    "temp": {
+      "mtimeMs": 1792713468212.614,
+      "birthtimeMs": 1792670792817.674
+    },
+    "temp/phase1-runtime-20261023": {
+      "mtimeMs": 1792713468320.148,
+      "birthtimeMs": 1792713468212.614
+    }
+  },
+  "notification_classification": "Windows directory notifications with identical birthtime and last-write-time are retained but not classified as a content mutation; file/unclassified events fail",
+  "protected_before": {
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/CLI_CONTRACT.json": "2a8698cf40167717085d13270b9f955e31164254b704addb75fc6476b05c562b",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/E2_PROFILE.md": "66b7f3e8dd4767954d9a5927c1c46416712b8b8f5891e199a2a018de38352f40",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/LICENSE": "dd92d820f1edbf814873bebe95f4e4e07452e1ae0f701f908e2fb1cb2b8018a9",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/PACKAGE_STATUS.json": "797a97a94044ade15709cbad0d0c4168d33f5d449daf5f18be8e4df15202b373",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/PROVENANCE.json": "c3a7742eb0b338494d96704af5c89314d1d7e3da33da4b88dc28b6a2708987dd",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/SOURCE_MAP.json": "9f38fbe759fe88882495d8e94e3f358231a15c37254cfeccc03f94c0896fdddb",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/aghr.json": "ef25b809b529fc6898db46c0afcaafaffc6ac67fa52c5e54c0517b088fe972c6",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/policies/observations/reference-state.json": "f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/requirements.lock": "2001bc63e085258483625f7ac6528c906da92e7fd20ece0a8d996edd9e18a0e2",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/MODEL_INDEX.json": "613ae2a7ddf5e64b5e6d1e0d39f899e9909088d99b2739f91a55c9afdab50b2f",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/SCHEMAS.lock.json": "56748ef28ef23b011f5aa4134ee3c2975a3c668e8cb0b32512b83f6f7c2e0ce8",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/aghr.schema.json": "2ebbc02ff25cbb659a37351e7c155f8e66e8cd1890dfe50af6e738b8b40f5a4f",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/api.change.schema.json": "b5cd5af00a5654de9c543d49c6777dcd52f7391a60d0a24bec27e59e1085e273",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/api.execution.schema.json": "3b7e36b0c0b5b0671be901b2a9f69c61bdcc9fa0010777848b22a9aeb883c764",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/api.read.schema.json": "3c9c364594343f9e5e0ea5f89cfd8065cb526b5a70e37a48845ecc66f12c155f",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/api.responses.schema.json": "aa6fb7f09d95e78479bd5b7a9cc5f12e682dc11dea2e310e65b594d4659acc5f",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/auth.schema.json": "a93e0d378b1df206f35d296674e070c505009c04d9128aa57f46a5d937b50a83",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/capability.schema.json": "15091b9ebb9e03fd5567d01e135bedc58cce5e76267c537642e8f47f1641a6c2",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/common.schema.json": "6015014ffaeb1bb42905b6d6ea426b36ad031091e804f6287d89622891646206",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/engine.schema.json": "e529dd10e3bd9cb68827b0a078047d4ef7b631b83d8009300e8f56fa39a72f21",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/evidence.schema.json": "958b99185490868ceb06cc9e2b8f6ea4f7d5a7ba40e5b24dc4334d78026d7722",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/item.schema.json": "e101feba90172939f007db9a41b456ce3297473477cb094c24549cc6d712d122",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/proposal.schema.json": "9bb4ec6b9f61a7f5af89ba410eefbf02ae6504695dce993fb93003bf59e34bcf",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/qualification.schema.json": "942184c6c5f9a21d8ea80345198929fbe0e7a2f77a89d178896a7133dfca5c24",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/settings.schema.json": "d12da8fe4c16dce87ed01eff98c51401d4229b37a4056c8fa6b9445367f5380a",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/state.schema.json": "11cb691cf0408fd723973809430affa8eacf34e79c36f212eba2e2a4d1f75449",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/transport.schema.json": "aec06b746298c92048d10d89f1763557aad7a781a5f6460743daa52092f0fc2b",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/e2_support.py": "dd8f677ab1f7b550aa03a41d337bee4af589d41b8bd99a393a34fa8e655fbf42",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_authority.py": "7ceccd5a8ece622f5bf204dff03b22c29a8aaebbbac2342bfca365a0a7f82643",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_catalog.py": "1d9171d4d3e38a4e15d2d1a763ed649419592723f0b2bf18114efce2881d262c",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_cli.py": "6d43ee78399a30bccd6eaf3fcc9413afcd2b77a56981e076ac8424b08f6768bc",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_e2_cli.py": "9b5c6f3b7295c4e14b9eca69bac5449eac3d9d657217fe99245a14ca65f00b64",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_evidence.py": "073c29593cf097a75f09e7805e1e170a57908c688e9779a3c3763a242dfdee2e",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_loader.py": "6355090819978ed317bd6fc4509abaa2973fc60574fb59b6fb057d00beb433b6",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_scope.py": "b92bfedf84fee8308eb42f3316bc90ea82247c232f6d3ee710225591f322b37f",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_validate.py": "a3a0a32441cca3c58cd873a3c3a4837d99e0480ff15149353b7bea74fb6492df",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/authority.py": "7b3a936ae6c50b2580acd29b348baad21d14f6a7157ee7478a2c09250d64fe26",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/catalog.py": "611ce5f4efd99deb69932dd503e360825276b336900b3d2b44526c0d48cef627",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/cli.py": "96231d8e1f6ccf19c6aeddfa55039c46d50ed8ce104b3c890ccafaba1fd9875e",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/conflicts.py": "d2f3d7231541f619e0959d1272b864946c70b95be592867f17232a77d77894f3",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/diagnostics.py": "9bd25cb497ec651c75b76089f95b929c307abf8eedadd14f1c8debd8ab64ad89",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/evidence.py": "7f405ea7bdbba9fcab0ea6080a1cee0f8d4546de11e15c70aea36a8048cee4fd",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/lint.py": "a4ccaaf3ec735b4b52ae0cdb196fc0f71e9502c56f7deda205fe3d0c43aa20ef",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/loader.py": "5940147209c9c5dd277d3820eca8c8f27e8cbf046e01b0583bc78d6331fac5c1",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/scope.py": "53863debee197e3a1e9cce630a7724c962d0607bfad5d240179963ffc32c9d4e",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/validate.py": "a4eb6c43bc33bb707410224a86516302cfb3b8b1ffec6438491d8f06f2d71665",
+    "docs/contracts/aghr-rc3/sqlite/001_initial.sql": "d5ab6a5fa8dc3be95927d3f9871ed393a3d7f7206e102dae6f2721492dde2159",
+    "docs/contracts/aghr-rc3/CONTRACTS.lock.json": "68dc22d168a3698eb7ee3a3e944a2341805816f4ba2695a1fc1403dc49867048",
+    "server/studio/serve.mjs": "283032ec0b11f4eb2dad4a8cfd4ae48b225b797dfd11fe86effaea9ddf1f1200",
+    "server/studio/db/catalog.js": "f5c8162350a02b9d81c5a3293f3eb19b1c716769879a64cfd5f91018e600b62e",
+    "server/studio/aghr/cli-bridge.js": "0df8a90c714501a30d0fde7e07e833fe921a2b6c76b12243767fdcdda1031fc5",
+    "server/studio/aghr/read-only-launcher.py": "7b0e3c6e92a3d08f4bb804e60c90d633ba4ee8518ee5f2bc2024e9d8f247b236",
+    "server/studio/auth.js": "0757ded9d4e493d421146688114889eaf5def13deeb312df6462010ebf5d6d50",
+    "server/studio/routes.js": "c9c253c123496b32b2b48c37289604d3ab82407f8a80e51c8b003b1846ddc89d",
+    "server/studio/runtime.js": "12384aa7bf8d87d794fdb074dfae7576b7806b4eaf66648fccd05609f035e0ac",
+    "server/studio/zero-write.js": "b777e1ec1d75ac7ce5a0b4313e2d7d74877166f8488364b97ba35b18fcfd3c65",
+    "src/features/phase0/PhaseZero.jsx": "facdfd6056f00819b799ee71bf5a455625f8b4b17104bbc3ffe373489783ad9f",
+    "src/features/phase0/main.jsx": "9200396b55c430ab9d2586de034a60762405bee51de7a2bad08ef2802948360a",
+    "src/features/phase0/phase0.css": "18ff9f6515aff78bfc330808489b04de62959b9deb1edcea4c7fca69233bf506",
+    "src/i18n/I18nProvider.jsx": "ca0d9f226b76105a86af52af3d0968f1025de309d1686bdce16927643ab661fc",
+    "vite.config.mjs": "fd22d1bf36b8ba29ef1f1fbdcfcd50b947eb2ee02171550f3eb07a59b350baf9",
+    "phase0.html": "b5ec1df5d26d45c2ffe7ae58805f4282dac9cd2fa9e9de99a6c28dc7107de2c3",
+    "package.json": "840627e02b720fcca056f3ab0c3a33123cf6b1aa6dcdb3ab26bad1ddc11e6b48",
+    "src/features/instructions/InstructionDetail.jsx": "72a2302fd47d737c487810d934222d8a3b17d822a476e21d26c51601f25c2e12",
+    "src/features/instructions/InstructionsRegistry.jsx": "9150f7dc10aa92aa693908b3165a5973f6c1da1d23e1ae732939726d3d119bd4",
+    "src/features/capabilities/Capabilities.jsx": "aec7d7045528e298c078924ae9c38a1ad402157ad896ba8aeecacc6bc1edaacc",
+    "src/features/capabilities/SkillDetail.jsx": "cfd9550fd237d71095ccd040f66d933dccb35a74adbba70f300ca385c41daeed",
+    "server/studio/qualification-view.js": "b6d1b79d5c800531d65d624082f88196f359d122e099a1b356eaf93e377719a6",
+    "src/features/phase0/common.jsx": "ccd3cdcea9a9b69c75bb3f0335279e4b07e84811bb91e0ddc839a6ffa1113c68",
+    "src/features/phase0/read-view.js": "833e8ff49fa7856645cb15d9d76d5cce8c3da23e53d614e315c563682ae68bd3",
+    "server/studio/review-source.js": "e3aa88908f53bdb2ecf46f6b87c6989034bf68d5832cfe935f08ee2726451960",
+    "docs/evidence/studio-phase1-2026-10-23/SAMPLE_MANIFEST.json": "e846624d832be8101a1ce81b68fdcd83ac68301646ecdfb433d23589ccabb981",
+    "docs/reviews/aghr-items-2026-10-22/REVIEW_REGISTER.json": "179d9f3602afc2a8b3d2da9f8241d6edc158bc9bed1c3298dcc1feaca6c8ce5f",
+    "temp/phase1-runtime-20261023/protected/.aghr/state.json": "77fab08fd17460b8600c5b9c3ae13344cc3abd2a23b0b7f76edf25d693b065f7",
+    "temp/phase1-runtime-20261023/protected/.aghr/runtime_evidence/task.jsonl": "b1bbdb92bab750012606f4914df80eb74578f673387d4a65ae104b6b26268b13"
+  },
+  "protected_after": {
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/CLI_CONTRACT.json": "2a8698cf40167717085d13270b9f955e31164254b704addb75fc6476b05c562b",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/E2_PROFILE.md": "66b7f3e8dd4767954d9a5927c1c46416712b8b8f5891e199a2a018de38352f40",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/LICENSE": "dd92d820f1edbf814873bebe95f4e4e07452e1ae0f701f908e2fb1cb2b8018a9",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/PACKAGE_STATUS.json": "797a97a94044ade15709cbad0d0c4168d33f5d449daf5f18be8e4df15202b373",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/PROVENANCE.json": "c3a7742eb0b338494d96704af5c89314d1d7e3da33da4b88dc28b6a2708987dd",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/SOURCE_MAP.json": "9f38fbe759fe88882495d8e94e3f358231a15c37254cfeccc03f94c0896fdddb",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/aghr.json": "ef25b809b529fc6898db46c0afcaafaffc6ac67fa52c5e54c0517b088fe972c6",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/policies/observations/reference-state.json": "f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/requirements.lock": "2001bc63e085258483625f7ac6528c906da92e7fd20ece0a8d996edd9e18a0e2",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/MODEL_INDEX.json": "613ae2a7ddf5e64b5e6d1e0d39f899e9909088d99b2739f91a55c9afdab50b2f",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/SCHEMAS.lock.json": "56748ef28ef23b011f5aa4134ee3c2975a3c668e8cb0b32512b83f6f7c2e0ce8",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/aghr.schema.json": "2ebbc02ff25cbb659a37351e7c155f8e66e8cd1890dfe50af6e738b8b40f5a4f",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/api.change.schema.json": "b5cd5af00a5654de9c543d49c6777dcd52f7391a60d0a24bec27e59e1085e273",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/api.execution.schema.json": "3b7e36b0c0b5b0671be901b2a9f69c61bdcc9fa0010777848b22a9aeb883c764",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/api.read.schema.json": "3c9c364594343f9e5e0ea5f89cfd8065cb526b5a70e37a48845ecc66f12c155f",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/api.responses.schema.json": "aa6fb7f09d95e78479bd5b7a9cc5f12e682dc11dea2e310e65b594d4659acc5f",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/auth.schema.json": "a93e0d378b1df206f35d296674e070c505009c04d9128aa57f46a5d937b50a83",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/capability.schema.json": "15091b9ebb9e03fd5567d01e135bedc58cce5e76267c537642e8f47f1641a6c2",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/common.schema.json": "6015014ffaeb1bb42905b6d6ea426b36ad031091e804f6287d89622891646206",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/engine.schema.json": "e529dd10e3bd9cb68827b0a078047d4ef7b631b83d8009300e8f56fa39a72f21",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/evidence.schema.json": "958b99185490868ceb06cc9e2b8f6ea4f7d5a7ba40e5b24dc4334d78026d7722",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/item.schema.json": "e101feba90172939f007db9a41b456ce3297473477cb094c24549cc6d712d122",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/proposal.schema.json": "9bb4ec6b9f61a7f5af89ba410eefbf02ae6504695dce993fb93003bf59e34bcf",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/qualification.schema.json": "942184c6c5f9a21d8ea80345198929fbe0e7a2f77a89d178896a7133dfca5c24",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/settings.schema.json": "d12da8fe4c16dce87ed01eff98c51401d4229b37a4056c8fa6b9445367f5380a",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/state.schema.json": "11cb691cf0408fd723973809430affa8eacf34e79c36f212eba2e2a4d1f75449",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/transport.schema.json": "aec06b746298c92048d10d89f1763557aad7a781a5f6460743daa52092f0fc2b",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/e2_support.py": "dd8f677ab1f7b550aa03a41d337bee4af589d41b8bd99a393a34fa8e655fbf42",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_authority.py": "7ceccd5a8ece622f5bf204dff03b22c29a8aaebbbac2342bfca365a0a7f82643",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_catalog.py": "1d9171d4d3e38a4e15d2d1a763ed649419592723f0b2bf18114efce2881d262c",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_cli.py": "6d43ee78399a30bccd6eaf3fcc9413afcd2b77a56981e076ac8424b08f6768bc",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_e2_cli.py": "9b5c6f3b7295c4e14b9eca69bac5449eac3d9d657217fe99245a14ca65f00b64",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_evidence.py": "073c29593cf097a75f09e7805e1e170a57908c688e9779a3c3763a242dfdee2e",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_loader.py": "6355090819978ed317bd6fc4509abaa2973fc60574fb59b6fb057d00beb433b6",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_scope.py": "b92bfedf84fee8308eb42f3316bc90ea82247c232f6d3ee710225591f322b37f",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tests/test_validate.py": "a3a0a32441cca3c58cd873a3c3a4837d99e0480ff15149353b7bea74fb6492df",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/authority.py": "7b3a936ae6c50b2580acd29b348baad21d14f6a7157ee7478a2c09250d64fe26",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/catalog.py": "611ce5f4efd99deb69932dd503e360825276b336900b3d2b44526c0d48cef627",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/cli.py": "96231d8e1f6ccf19c6aeddfa55039c46d50ed8ce104b3c890ccafaba1fd9875e",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/conflicts.py": "d2f3d7231541f619e0959d1272b864946c70b95be592867f17232a77d77894f3",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/diagnostics.py": "9bd25cb497ec651c75b76089f95b929c307abf8eedadd14f1c8debd8ab64ad89",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/evidence.py": "7f405ea7bdbba9fcab0ea6080a1cee0f8d4546de11e15c70aea36a8048cee4fd",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/lint.py": "a4ccaaf3ec735b4b52ae0cdb196fc0f71e9502c56f7deda205fe3d0c43aa20ef",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/loader.py": "5940147209c9c5dd277d3820eca8c8f27e8cbf046e01b0583bc78d6331fac5c1",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/scope.py": "53863debee197e3a1e9cce630a7724c962d0607bfad5d240179963ffc32c9d4e",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/validate.py": "a4eb6c43bc33bb707410224a86516302cfb3b8b1ffec6438491d8f06f2d71665",
+    "docs/contracts/aghr-rc3/sqlite/001_initial.sql": "d5ab6a5fa8dc3be95927d3f9871ed393a3d7f7206e102dae6f2721492dde2159",
+    "docs/contracts/aghr-rc3/CONTRACTS.lock.json": "68dc22d168a3698eb7ee3a3e944a2341805816f4ba2695a1fc1403dc49867048",
+    "server/studio/serve.mjs": "283032ec0b11f4eb2dad4a8cfd4ae48b225b797dfd11fe86effaea9ddf1f1200",
+    "server/studio/db/catalog.js": "f5c8162350a02b9d81c5a3293f3eb19b1c716769879a64cfd5f91018e600b62e",
+    "server/studio/aghr/cli-bridge.js": "0df8a90c714501a30d0fde7e07e833fe921a2b6c76b12243767fdcdda1031fc5",
+    "server/studio/aghr/read-only-launcher.py": "7b0e3c6e92a3d08f4bb804e60c90d633ba4ee8518ee5f2bc2024e9d8f247b236",
+    "server/studio/auth.js": "0757ded9d4e493d421146688114889eaf5def13deeb312df6462010ebf5d6d50",
+    "server/studio/routes.js": "c9c253c123496b32b2b48c37289604d3ab82407f8a80e51c8b003b1846ddc89d",
+    "server/studio/runtime.js": "12384aa7bf8d87d794fdb074dfae7576b7806b4eaf66648fccd05609f035e0ac",
+    "server/studio/zero-write.js": "b777e1ec1d75ac7ce5a0b4313e2d7d74877166f8488364b97ba35b18fcfd3c65",
+    "src/features/phase0/PhaseZero.jsx": "facdfd6056f00819b799ee71bf5a455625f8b4b17104bbc3ffe373489783ad9f",
+    "src/features/phase0/main.jsx": "9200396b55c430ab9d2586de034a60762405bee51de7a2bad08ef2802948360a",
+    "src/features/phase0/phase0.css": "18ff9f6515aff78bfc330808489b04de62959b9deb1edcea4c7fca69233bf506",
+    "src/i18n/I18nProvider.jsx": "ca0d9f226b76105a86af52af3d0968f1025de309d1686bdce16927643ab661fc",
+    "vite.config.mjs": "fd22d1bf36b8ba29ef1f1fbdcfcd50b947eb2ee02171550f3eb07a59b350baf9",
+    "phase0.html": "b5ec1df5d26d45c2ffe7ae58805f4282dac9cd2fa9e9de99a6c28dc7107de2c3",
+    "package.json": "840627e02b720fcca056f3ab0c3a33123cf6b1aa6dcdb3ab26bad1ddc11e6b48",
+    "src/features/instructions/InstructionDetail.jsx": "72a2302fd47d737c487810d934222d8a3b17d822a476e21d26c51601f25c2e12",
+    "src/features/instructions/InstructionsRegistry.jsx": "9150f7dc10aa92aa693908b3165a5973f6c1da1d23e1ae732939726d3d119bd4",
+    "src/features/capabilities/Capabilities.jsx": "aec7d7045528e298c078924ae9c38a1ad402157ad896ba8aeecacc6bc1edaacc",
+    "src/features/capabilities/SkillDetail.jsx": "cfd9550fd237d71095ccd040f66d933dccb35a74adbba70f300ca385c41daeed",
+    "server/studio/qualification-view.js": "b6d1b79d5c800531d65d624082f88196f359d122e099a1b356eaf93e377719a6",
+    "src/features/phase0/common.jsx": "ccd3cdcea9a9b69c75bb3f0335279e4b07e84811bb91e0ddc839a6ffa1113c68",
+    "src/features/phase0/read-view.js": "833e8ff49fa7856645cb15d9d76d5cce8c3da23e53d614e315c563682ae68bd3",
+    "server/studio/review-source.js": "e3aa88908f53bdb2ecf46f6b87c6989034bf68d5832cfe935f08ee2726451960",
+    "docs/evidence/studio-phase1-2026-10-23/SAMPLE_MANIFEST.json": "e846624d832be8101a1ce81b68fdcd83ac68301646ecdfb433d23589ccabb981",
+    "docs/reviews/aghr-items-2026-10-22/REVIEW_REGISTER.json": "179d9f3602afc2a8b3d2da9f8241d6edc158bc9bed1c3298dcc1feaca6c8ce5f",
+    "temp/phase1-runtime-20261023/protected/.aghr/state.json": "77fab08fd17460b8600c5b9c3ae13344cc3abd2a23b0b7f76edf25d693b065f7",
+    "temp/phase1-runtime-20261023/protected/.aghr/runtime_evidence/task.jsonl": "b1bbdb92bab750012606f4914df80eb74578f673387d4a65ae104b6b26268b13"
+  },
+  "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+  "seven_runtime_honesty": "REQUIRED / NOT_RUN / NOT_WAIVED; E4",
+  "harness_exclusions": [
+    "isolated Edge profile/cache",
+    "parent evidence writes after observer closes"
+  ]
+}

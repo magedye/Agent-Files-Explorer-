@@ -1,0 +1,66 @@
+Skip to content
+AGHR · GOVERNANCE STUDIO
+Change packages
+
+Saved drafts, with scoped authorization for each change.
+
+Interface language 
+العربية
+English
+DRAFT · Drafts only Reference 1.2.0 is preserved. Saving neither adopts a rule nor publishes a package.
+Majed · governance-owner
+Persistent SQLite · 12 tables
+Drafts
+Audit log
+Verification
+Runtime evidence
+Runtime evidence
+
+Read only from the registered project’s .aghr/runtime_evidence/. Source and state.json stay unchanged.
+
+Imported events are source claims. Valid structure proves neither execution nor producer identity; qualification is separate.
+
+Refresh evidence
+Tasks
+bad
+INVALID
+UNKNOWN · 0 events
+INVALID_EVIDENCE
+ui-halt
+VALID
+UI_SOURCE_CLAIM_ONLY · 2 events
+BLOCKED
+ui-halt · VALID
+
+Halt or invalid evidence · BLOCKED
+
+Selected: 0
+Loaded: 1
+Executed: 0
+Verified: 0
+
+Counts of declared events in the first 500, not a success certificate. NOT_OBSERVABLE
+
+Source
+.aghr/runtime_evidence/ui-halt.jsonl
+Hash
+sha256:d277398d73686dc18f9f910f13808a4ed3716d8b5600fd1baa3f96f69d44b9c3
+Bytes
+677
+Timeline: first 500 events
+2026-10-24T12:39:10.169Z · skill.loaded Line 1
+{
+  "at": "2026-10-24T12:39:10.169Z",
+  "instruction_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "skill_id": "example",
+  "type": "skill.loaded"
+}
+2026-10-24T12:39:10.169Z · skill.blocked Line 2
+{
+  "at": "2026-10-24T12:39:10.169Z",
+  "reason": "UI fixture only; execution was not observed.",
+  "skill_id": "example",
+  "status": "BLOCKED",
+  "type": "skill.blocked"
+}
+Original text

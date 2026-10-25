@@ -1,0 +1,44 @@
+{
+  "id": "AGHR-006",
+  "title": "اقتصاد التعليمات والسياق",
+  "kind": "GUIDELINE",
+  "force": "SHOULD",
+  "severity": "low",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: During instruction assembly.\nUse a small entry router and task-relevant context instead of loading the entire reference library or repeating instructions.",
+  "authority": {
+    "source": ".t12/SourceGrant.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "PROVISIONAL_OWNER_REVIEW",
+    "status": "draft",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "تحميل مراجع غير لازمة يهدر السياق ويضعف الاسترجاع. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "review",
+    "mergeEffect": "advisory"
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-006"
+    ]
+  },
+  "impact": {
+    "band": "low",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2027-01-21",
+  "exceptions": {
+    "allowed": true
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

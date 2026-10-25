@@ -3,10 +3,10 @@ import { directionFor, LOCALE_STORAGE_KEY, normalizeLocale, readLocale, translat
 
 const I18nContext = createContext(null);
 
-export function I18nProvider({ children }) {
+export function I18nProvider({ children, persist = true }) {
   const [locale, setLocaleState] = useState(() => {
     try {
-      return readLocale(window.localStorage);
+      return persist ? readLocale(window.localStorage) : "ar";
     } catch {
       return "ar";
     }
@@ -23,11 +23,11 @@ export function I18nProvider({ children }) {
     document.documentElement.dir = directionFor(locale);
     document.title = translate(locale, "app.title");
     try {
-      window.localStorage.setItem(LOCALE_STORAGE_KEY, locale);
+      if (persist) window.localStorage.setItem(LOCALE_STORAGE_KEY, locale);
     } catch {
       // The selector still works when browser storage is unavailable.
     }
-  }, [locale]);
+  }, [locale, persist]);
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
 }

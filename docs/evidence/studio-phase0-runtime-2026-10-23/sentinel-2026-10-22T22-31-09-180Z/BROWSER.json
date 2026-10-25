@@ -1,0 +1,111 @@
+{
+  "browser": "Edg/155.0.4283.62",
+  "profile": "isolated harness profile",
+  "cdp": "127.0.0.1:9224",
+  "cdp_fallback": "9223 occupied by another workspace; preserved; DevTools MCP unavailable, raw CDP to isolated Edge on 9224",
+  "url": "http://127.0.0.1:48425",
+  "observed_ids": [
+    "OBS-REFERENCE-STATE-001"
+  ],
+  "ar_en_ids_identical": true,
+  "source_detail": true,
+  "skill_card": "EMPTY_ACTUAL_PACKAGE_NO_FABRICATION",
+  "meta": "ROUTING_STUB",
+  "mobile": {
+    "width": 390,
+    "height": 844
+  },
+  "storage_writes": [],
+  "rejected": [
+    {
+      "route": "/api/v1/workspaces",
+      "method": "POST",
+      "status": 403
+    },
+    {
+      "route": "/api/v1/workspaces/rc3-local/generate/export",
+      "method": "POST",
+      "status": 403
+    },
+    {
+      "route": "/api/staging",
+      "method": "POST",
+      "status": 403
+    },
+    {
+      "route": "/api/v1/workspaces/rc3-local/instructions?language=ar",
+      "method": "GET",
+      "status": 400
+    }
+  ],
+  "network": [
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:48425/"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:48425/assets/phase0-Bq_EZg_k.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:48425/assets/I18nProvider-B8JCg0pZ.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:48425/assets/phase0-BnGG-O3p.css"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:48425/favicon.ico"
+    },
+    {
+      "method": "GET",
+      "url": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0xLjI2IDkuNkE2Ljk3IDYuOTcgMCAwMTggNGMzLjIgMCA2LjA2IDIuMzMgNi43NCA1LjZhLjUuNSAwIDAwLjk4LS4yQTcuOTcgNy45NyAwIDAwOCAzIDcuOTcgNy45NyAwIDAwLjI4IDkuNGEuNS41IDAgMDAuOTguMnoiIGZpbGw9IldpbmRvd1RleHQiLz48cGF0aCBkPSJNOCA2YTMuNSAzLjUgMCAxMDAgNyAzLjUgMy41IDAgMDAwLTd6TTUuNSA5LjVhMi41IDIuNSAwIDExNSAwIDIuNSAyLjUgMCAwMS01IDB6IiBmaWxsPSJXaW5kb3dUZXh0Ii8+DQo8L3N2Zz4="
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:48425/api/v1/session"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:48425/api/v1/workspaces"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:48425/api/v1/workspaces/rc3-local/instructions"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:48425/api/v1/workspaces/rc3-local/capabilities"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:48425/api/v1/workspaces/rc3-local/capabilities/matrix"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:48425/api/v1/workspaces"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:48425/api/v1/workspaces/rc3-local/generate/export"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:48425/api/staging"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:48425/api/v1/workspaces/rc3-local/instructions"
+    }
+  ],
+  "console_errors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+    "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+    "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+    "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+  ],
+  "unexpected_errors": []
+}

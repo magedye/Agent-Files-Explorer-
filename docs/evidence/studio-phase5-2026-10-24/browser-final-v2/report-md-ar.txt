@@ -1,0 +1,141 @@
+انتقل إلى المحتوى
+AGHR · GOVERNANCE STUDIO
+حزم التغيير
+
+مسودات محفوظة، وصلاحية محددة لكل عملية.
+
+لغة الواجهة 
+العربية
+English
+DRAFT · مسودات فقط المرجع 1.2.0 محفوظ. الحفظ لا يعتمد قاعدة أو ينشر حزمة.
+Majed · governance-owner
+SQLite دائمة · 12 جدولًا
+المسودات
+سجل التدقيق
+التحقق
+الأدلة التشغيلية
+المهارات
+الحوكمة والتعلمالقياس والإعدادات
+القياس والإعدادات
+
+بيئة Draft · كل قيمة مرتبطة بمصدرها · غياب الدليل يظهر NOT_RUN
+
+لوحة المشروع
+المقاييس العشرة
+التدقيق والتقارير
+الإعدادات
+تحديث
+تقرير قابل للتنزيل
+نوع التقرير
+الامتثال
+تاريخ التغييرات
+تأهيل المهارات
+المقاييس
+التدقيق
+الصيغة
+json
+md
+sarif
+إعداد التقريرتنزيل aghr-compliance.mdsha256:79d3d23d2ae41f21fb193090dd44558ab38b7a1f1a1bfbfab26668b35d9e851a
+# AGHR compliance
+
+DRAFT_REPORT_ONLY
+
+Project: agent-files-explorer
+
+Candidate: sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2
+
+| ID | Status | Source |
+| --- | --- | --- |
+| OBS-REFERENCE-STATE-001 | NOT_RUN | policies/observations/reference-state.json |
+
+## Full records
+
+~~~json
+[
+  {
+    "id": "OBS-REFERENCE-STATE-001",
+    "authority": null,
+    "impact": {
+      "band": "info",
+      "evidence": "assumed"
+    },
+    "source_path": "policies/observations/reference-state.json",
+    "source_hash": "sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0",
+    "status": "NOT_RUN",
+    "reason": "Source indexing is not runtime compliance verification.",
+    "evidence": []
+  }
+]
+~~~
+
+## Evidence and limits
+
+```json
+{
+  "evidence": [],
+  "limitations": [
+    "Draft only; reference1.2.0 and canonical state unchanged.",
+    "Imported/historical evidence cannot grant live qualification.",
+    "Native and hosted CI qualification NOT_RUN."
+  ]
+}
+```
+
+سجل التدقيق
+الفاعل
+الحدث
+الوقت	الفاعل والدور الفعلي	الحدث	النتيجة والمصدر
+2026-10-24T20:35:58.672Z	Majed · governance-owner	reports.generate	
+SUCCESS
+
+2026-10-24T20:35:58.636Z	Majed · governance-owner	phase5.write.request	
+ATTEMPT
+
+2026-10-24T20:35:58.432Z	Majed · governance-owner	authorization.grant	
+GRANT_ISSUED
+
+2026-10-24T20:35:58.260Z	Majed · governance-owner	phase5.write.request	
+ATTEMPT
+
+2026-10-24T20:35:57.689Z	Majed · governance-owner	reports.generate	
+SUCCESS
+
+2026-10-24T20:35:57.622Z	Majed · governance-owner	phase5.write.request	
+ATTEMPT
+
+2026-10-24T20:35:57.594Z	Majed · governance-owner	authorization.grant	
+GRANT_ISSUED
+
+2026-10-24T20:35:57.429Z	Majed · governance-owner	phase5.write.request	
+ATTEMPT
+
+2026-10-24T20:35:53.933Z	Majed · governance-owner	reports.generate	
+SUCCESS
+
+2026-10-24T20:35:53.848Z	Majed · governance-owner	phase5.write.request	
+ATTEMPT
+
+2026-10-24T20:35:53.817Z	Majed · governance-owner	authorization.grant	
+GRANT_ISSUED
+
+2026-10-24T20:35:53.649Z	Majed · governance-owner	phase5.write.request	
+ATTEMPT
+
+2026-10-24T20:35:53.182Z	Majed · governance-owner	metrics.snapshot	
+SUCCESS
+
+2026-10-24T20:35:53.141Z	Majed · governance-owner	phase5.write.request	
+ATTEMPT
+
+2026-10-24T20:35:53.107Z	Majed · governance-owner	authorization.grant	
+GRANT_ISSUED
+
+2026-10-24T20:35:52.940Z	Majed · governance-owner	phase5.write.request	
+ATTEMPT
+
+2026-10-24T20:35:50.177Z	Majed · governance-owner	draft.workspace.initialize	
+SUCCESS
+
+2026-10-24T20:35:50.150Z	Majed · governance-owner	storage.initialize	
+SUCCESS

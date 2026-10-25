@@ -1,0 +1,65 @@
+{
+  "kind": "CONSTRAINT",
+  "force": "MUST_NOT",
+  "severity": "critical",
+  "scope": {
+    "paths": [
+      "pilot-app-l3/app/**",
+      "pilot-app-l3/data/**"
+    ],
+    "skillIds": [
+      "pilot-sql-readonly"
+    ]
+  },
+  "rationale": "Owner-authorized sandbox adoption; no authority outside this project.",
+  "authority": {
+    "source": "owner://T34-T35/2026-10-25/pilot-app-l3",
+    "level": "project",
+    "owner": "Sandbox Project Owner",
+    "approvedBy": "OWNER_T34_T35_20261025",
+    "status": "active",
+    "effectiveFrom": "2026-10-25"
+  },
+  "impact": {
+    "band": "medium",
+    "evidence": "assumed"
+  },
+  "verification": {
+    "commands": [
+      "python -B checks.py"
+    ],
+    "evalFixtures": [
+      "procedures/sql-readonly/worker.py"
+    ]
+  },
+  "id": "PILOT-SQL-001",
+  "title": "Read-only inventory boundary",
+  "rule": "The inventory inspection procedure MUST_NOT execute mutating, multiple, extension-loading or metadata SQL. Enforce both SQL authorization and SQLite read-only permissions.",
+  "defaultTier": "P0-Safety",
+  "enforcement": {
+    "textual": true,
+    "technical": [
+      "pilot-sql-readonly-v1"
+    ],
+    "failureAction": "block",
+    "mergeEffect": "blocking",
+    "gate": {
+      "type": "pilot-sql-readonly-v1",
+      "required": true
+    }
+  },
+  "skillQualification": {
+    "skillId": "pilot-sql-readonly",
+    "host": "aghr-local-process",
+    "hostVersion": "v24.11.0",
+    "scope": "pilot-app-l3/**",
+    "contentHash": "sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e",
+    "status": "QUALIFIED",
+    "qualifiedAt": "2026-10-25",
+    "evidence": [
+      "e4:execution/E4-56fa7c5d-2c87-470c-958c-6720c5f44a13#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a",
+      "e4:execution/E4-a9715e9a-ae63-4a99-9506-403a3cb8bddf#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a",
+      "e4:execution/E4-dd9827cc-914a-4b44-9372-85d0c8320cba#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a"
+    ]
+  }
+}

@@ -184,10 +184,6 @@ export function reconcileWithRules(statement, classification) {
  * Intake and Change Management Service.
  */
 class IntakeService {
-  constructor() {
-    ensureStorageDir();
-  }
-
   submitIntake({ rawText, author = "USER", source = "UI_INTAKE", metadata = {} }) {
     if (!rawText || !rawText.trim()) {
       throw new Error("Intake text cannot be empty");
@@ -239,6 +235,7 @@ class IntakeService {
     };
 
     // Save to disk
+    ensureStorageDir();
     const filePath = path.join(INTAKE_STORAGE_DIR, `${packetId}.json`);
     fs.writeFileSync(filePath, JSON.stringify(packet, null, 2), "utf8");
 
@@ -246,7 +243,7 @@ class IntakeService {
   }
 
   listPackets() {
-    ensureStorageDir();
+    if (!fs.existsSync(INTAKE_STORAGE_DIR)) return [];
     const files = fs.readdirSync(INTAKE_STORAGE_DIR).filter((f) => f.endsWith(".json"));
     const packets = [];
     for (const f of files) {
@@ -260,7 +257,7 @@ class IntakeService {
   }
 
   getPacket(packetId) {
-    ensureStorageDir();
+    if (!fs.existsSync(INTAKE_STORAGE_DIR)) return null;
     const filePath = path.join(INTAKE_STORAGE_DIR, `${packetId}.json`);
     if (!fs.existsSync(filePath)) return null;
     try {

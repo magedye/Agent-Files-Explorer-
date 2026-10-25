@@ -1,0 +1,38 @@
+(node:59208) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+▶ T13/T14/T16 real HTTP draft grants, denial audit, atomic persistence and restart
+  ✖ No identity, forged role, no grant and all unsupported writes return403 and persist denial identity (641.3069ms)
+  ✔ Pinned Python rejects missing authority.level, scope, wrapper mismatch, YAML aliases and owner claims (23585.2103ms)
+  ✔ Preview grants no write; another actor/intent, expiry, revoke, mismatch and replay cannot write (20355.8355ms)
+  ✔ Failure inserting audit rolls back CP row in the same transaction (4579.087ms)
+✖ T13/T14/T16 real HTTP draft grants, denial audit, atomic persistence and restart (60712.4991ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 3
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 61513.989
+
+✖ failing tests:
+
+test at tests\studio_draft_runtime.test.mjs:29:11
+✖ No identity, forged role, no grant and all unsupported writes return403 and persist denial identity (641.3069ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  400 !== 403
+  
+      at TestContext.<anonymous> (file:///D:/APP/Agent-Files-Explorer/tests/studio_draft_runtime.test.mjs:33:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async TestContext.<anonymous> (file:///D:/APP/Agent-Files-Explorer/tests/studio_draft_runtime.test.mjs:29:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 400,
+    expected: 403,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

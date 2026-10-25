@@ -1,0 +1,1012 @@
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/server/studio/draft-runtime.js.raw b/server/studio/draft-runtime.js
+index b0036aa..d67ab1d 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/server/studio/draft-runtime.js.raw
++++ b/server/studio/draft-runtime.js
+@@ -12,8 +12,11 @@ import {createExecutionRoutes} from './execution-routes.js';
+ import {createSkillLifecycle} from './skills/lifecycle-service.js';
+ import {createSkillRoutes} from './skills/routes.js';
+ import {createSubmissionService} from './ci/submission-service.mjs';
++import {createPhase4Service} from './phase4/service.mjs';
++import {createPhase4Routes} from './phase4/routes.mjs';
++import {createIntakeWatcher} from './phase4/watcher.mjs';
+ 
+-export async function createDraftStudio({python,storageRoot,actor,clock=Date.now,evidenceProjectRoot=null,e4Config}={}){
++export async function createDraftStudio({python,storageRoot,actor,clock=Date.now,evidenceProjectRoot=null,e4Config,phase4Options={}}={}){
+  if(typeof actor!=='string'||!actor.trim())throw Error('TRUSTED_OPERATOR_REQUIRED');
+  const read=await createStudio({python,actor,bounded:true});let store,validator;
+  try{
+@@ -46,12 +49,16 @@ export async function createDraftStudio({python,storageRoot,actor,clock=Date.now
+   const revokeIntent=id=>{const intent=intents.get(id);if(!intent)throw Error('INTENT_UNAVAILABLE');if(intent.grant)authority.revoke({issuer:owner.principal,token:intent.grant});intent.revoked=true;store.recordAttempt({actor,role:'governance-owner',action:'authorization.revoke',resourceId:intent.prepared.id,result:'DENY',status:403,reason:'Trusted operator revoked draft intent',requestId:id});};
+   const schema=createSchemaReader({python}),evidence=createEvidenceReader({projectRoot:evidenceProjectRoot,schema});
+   const verification=createVerificationService({python,workspace,store,validator,schema,e4Config});
+-  const fallback=createDraftRoutes({authority,store,intents,validate,validator,workspace,clock,audit,read:read.handle});
+   const skills=createSkillLifecycle({python,workspace,store,config:e4Config});
+   const submission=createSubmissionService({python,evidence,store});
++  const phase4=createPhase4Service({python,store,base:{base_package_version:workspace.package_version,base_candidate_hash:'sha256:'+snapshot.readSetHash},catalog:snapshot,evidence,e4Config,options:phase4Options});
++  const guardedValidator={...validator,prepare:async(...args)=>{const prepared=await validator.prepare(...args);await phase4.guard(prepared);return prepared;}};
++  const fallback=createDraftRoutes({authority,store,intents,validate:guardedValidator.prepare,validator:guardedValidator,workspace,clock,audit,read:read.handle});
++  const watcher=createIntakeWatcher({root:phase4Options.intakeRoot,service:phase4,store,authorize:binding=>{const scope={workspace_id:workspace.id,target_project:'studio-drafts',action:'meta.change.propose',resource_id:'CP-'+crypto.randomUUID(),proposal_version_hash:binding};return {scope,receipt:permit(scope)};},audit:event=>store.recordAttempt({actor,role:'governance-owner',action:'meta.change.propose',result:'ERROR',status:422,reason:JSON.stringify(event),requestId:crypto.randomUUID()})});
+   const execution=createExecutionRoutes({workspace,authority,store,intents,verification,evidence,clock,audit,fallback});
+-  return {session:{token:owner.token},workspace,authority,store,intents,approveIntent,revokeIntent,attestSource,verification,skills,
+-   handle:createSkillRoutes({service:skills,submission,workspace,authority,intents,clock,audit,fallback:execution}),
+-   close(){const pSkills=skills.close(),pSubmission=submission.close(),finish=()=>{validator.close();store.close();read.close();},pVerify=verification.close();if(pSkills||pVerify||pSubmission)return Promise.all([pSkills,pVerify,pSubmission]).then(finish);finish();}};
++  const previous=createSkillRoutes({service:skills,submission,workspace,authority,intents,clock,audit,fallback:execution});
++  return {session:{token:owner.token},workspace,authority,store,intents,approveIntent,revokeIntent,attestSource,verification,skills,phase4,watcher,
++   handle:createPhase4Routes({service:phase4,watcher,workspace,authority,intents,clock,audit,fallback:previous}),
++   close(){const pending=[watcher.close(),phase4.close(),skills.close(),submission.close(),verification.close()],finish=()=>{validator.close();store.close();read.close();};if(pending.some(Boolean))return Promise.all(pending).then(finish);finish();}};
+  }catch(error){validator?.close();store?.close();read.close();throw error;}
+ }
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/server/studio/serve-draft.mjs.raw b/server/studio/serve-draft.mjs
+index 9e71d12..98acb9d 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/server/studio/serve-draft.mjs.raw
++++ b/server/studio/serve-draft.mjs
+@@ -8,7 +8,7 @@ import {repository} from './aghr/cli-bridge.js';
+ import {createJobRunner,resourceProfiles} from './aghr/job-runner.js';
+ 
+ const args=new Map(process.argv.slice(2).map(arg=>{const i=arg.indexOf('=');if(i<0)throw Error('Use --name=value');return [arg.slice(0,i),arg.slice(i+1)];}));
+-if([...args.keys()].some(k=>!['--python','--port','--storage-root','--evidence-project','--skill-config'].includes(k)))throw Error('Unknown Draft startup option');
++if([...args.keys()].some(k=>!['--python','--port','--storage-root','--evidence-project','--skill-config','--phase4-config'].includes(k)))throw Error('Unknown Draft startup option');
+ const python=args.get('--python')||process.env.AGHR_STUDIO_PYTHON;
+ const port=Number(args.get('--port')||5182);if(!Number.isInteger(port)||port<0||port>65535)throw Error('Invalid port');
+ // Bootstrap is an explicit local operator action. No HTTP identity/role/grant
+@@ -31,7 +31,8 @@ if(args.has('--skill-config')){
+  e4Config=JSON.parse(fs.readFileSync(selected,'utf8'));
+  if(!e4Config||!Array.isArray(e4Config.skills)||!Array.isArray(e4Config.permissions)||Object.keys(e4Config).some(k=>!['skills','permissions','scope','hostSignals'].includes(k)))throw Error('SKILL_CONFIG_INVALID');
+ }
+-const studio=await createDraftStudio({python,storageRoot,actor,evidenceProjectRoot:args.get('--evidence-project')||null,e4Config});
++let phase4Options={};if(args.has('--phase4-config')){const p=args.get('--phase4-config');if(!path.isAbsolute(p)||fs.lstatSync(p).isSymbolicLink()||fs.statSync(p).size>65536)throw Error('PHASE4_CONFIG_UNSAFE');phase4Options=JSON.parse(fs.readFileSync(p,'utf8'));if(Object.keys(phase4Options).some(k=>!['intakeRoot','measurementSkillId','metaSkillId','requiredBehavioralEvals'].includes(k)))throw Error('PHASE4_CONFIG_INVALID');}
++const studio=await createDraftStudio({python,storageRoot,actor,evidenceProjectRoot:args.get('--evidence-project')||null,e4Config,phase4Options});
+ const server=http.createServer((req,res)=>{
+  if(req.url?.startsWith('/api/'))return studio.handle(req,res);
+  if(req.method!=='GET'||!['127.0.0.1','::ffff:127.0.0.1'].includes(req.socket.remoteAddress)||!/^127\.0\.0\.1:\d+$/.test(req.headers.host||'')){res.writeHead(403);return res.end();}
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/server/studio/db/persistent.js.raw b/server/studio/db/persistent.js
+index 04c4b6a..3736b8d 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/server/studio/db/persistent.js.raw
++++ b/server/studio/db/persistent.js
+@@ -54,10 +54,11 @@ export function openPersistentStore(config,authorization){
+  };
+  try{append(details,{event_type:'storage.initialize',resource_type:'storage',payload:{migrationHash,version:info.version}});}catch(e){db.close();throw e;}
+  const loggedReceipts=new WeakSet([authorization]);
++ const phase4Pending=new WeakSet();
+  const transaction=run=>{db.exec('BEGIN IMMEDIATE');try{const value=run();db.exec('COMMIT');return value;}catch(error){db.exec('ROLLBACK');throw error;}};
+  const cpView=row=>{
+   if(!row)return null;
+-  const origin=db.prepare("SELECT payload_json FROM audit_events WHERE event_type='cp.create' AND resource_id=? AND json_extract(payload_json,'$.result')='SUCCESS' ORDER BY id LIMIT 1").get(row.id);
++  const origin=db.prepare("SELECT payload_json FROM audit_events WHERE event_type IN ('cp.create','meta.change.propose') AND resource_id=? AND json_extract(payload_json,'$.result')='SUCCESS' AND json_extract(payload_json,'$.base_candidate_hash') IS NOT NULL ORDER BY id LIMIT 1").get(row.id);
+   const frozen=origin?JSON.parse(origin.payload_json):null;
+   if(!frozen?.base_candidate_hash)throw Error('CP_PROVENANCE_UNAVAILABLE');
+   const notRun={status:'NOT_RUN',evidence:[],reason:'Required check has not run for this proposal version.'};
+@@ -69,6 +70,7 @@ export function openPersistentStore(config,authorization){
+   return {id:row.id,workspace_id:row.workspace_id,title:row.title,kind:row.kind,target_item_id:row.target_item_id,status:row.status,
+    source:frozen.source,base_package_version:row.base_package_version,base_candidate_hash:frozen.base_candidate_hash,
+    proposed_yaml:row.proposed_yaml,proposal_version_hash:row.proposal_version_hash,
++   ...(JSON.parse(row.impact_summary_json||'null')?.phase4?{phase4:JSON.parse(row.impact_summary_json).phase4}:{}),
+    checks,generation:generated?.generation??null,ci_comparison:null,required_approvals:Array.isArray(JSON.parse(row.required_approvals_json||'null'))?JSON.parse(row.required_approvals_json):['governance-owner'],approvals,approval_history:history,
+    blockers:Object.entries(checks).filter(([k,c])=>['validate','lint','generate','doctor'].includes(k)&&c.status!=='PASS').map(([k,c])=>({code:'CHECK_'+k.toUpperCase(),message:c.reason||k+' has not passed.',severity:'warning'})),
+    ...(row.preview_diff?{preview:{proposal_version_hash:row.proposal_version_hash,diff:row.preview_diff,files:JSON.parse(row.preview_files_json),source_written:false,state_written:false}}:{}),
+@@ -275,6 +277,42 @@ export function openPersistentStore(config,authorization){
+    let finished=false;return value=>{if(finished)throw Error('SKILL_COMPLETION_REPLAY');transaction(()=>{db.prepare('UPDATE verification_runs SET status=?,exit_code=?,finished_at=?,duration_ms=?,raw_stdout=?,raw_output=?,summary_json=? WHERE id=? AND workspace_id=?').run(value.status,value.exit_code,value.finished_at,value.duration_ms,value.raw,value.raw,JSON.stringify({studio_skill:{run_id:run.id,task_id:run.task_id,operation:run.request.operation,status:value.status,view:value.view,source_hash:'sha256:'+sha(value.raw),trust:'HISTORICAL_ONLY; cannot restore live E4 proofs'}}),run.id,scope.workspace_id);append(actor,{event_type:actor.action,resource_type:'skill-task',payload:{result:'SUCCESS',run_id:run.id,status:value.status,inputs_hash:run.inputs_hash,source_hash:'sha256:'+sha(value.raw)}});});finished=true;};
+   },
+   skillRuns(){return db.prepare('SELECT summary_json FROM verification_runs WHERE workspace_id=? ORDER BY started_at DESC LIMIT 200').all(scope.workspace_id).map(r=>{try{return JSON.parse(r.summary_json||'{}').studio_skill;}catch{return null;}}).filter(Boolean);},
++  phase4Begin(receipt,bound){const actor=consumeAuthorization(receipt,{...scope,action:bound.action,resource_id:bound.resource_id,proposal_version_hash:bound.proposal_version_hash});append(actor,{event_type:actor.action,resource_type:'phase4',payload:{result:'STARTED',inputs_hash:bound.proposal_version_hash}});phase4Pending.add(receipt);},
++  phase4Complete(receipt,bound,{id,status,raw}){if(!phase4Pending.has(receipt))throw Error('PHASE4_COMPLETION_REPLAY');const actor=authorizationDetails(receipt);transaction(()=>{const at=new Date().toISOString();db.prepare('INSERT INTO verification_runs(id,workspace_id,command,status,exit_code,started_at,finished_at,raw_output) VALUES(?,?,?,?,?,?,?,?)').run(id,scope.workspace_id,bound.action==='verify.run.eval'?'eval':'check',status,status==='passed'?0:1,at,at,raw);append(actor,{event_type:actor.action,resource_type:'phase4',payload:{result:status,run_id:id,raw_hash:'sha256:'+sha(raw)}});});phase4Pending.delete(receipt);},
++  phase4Commit(receipt,bound,{id,previousHash=null,prepared=null,status=null,review=null,raw=null}){
++   if(!phase4Pending.has(receipt))throw Error('PHASE4_BEGIN_REQUIRED');const actor=authorizationDetails(receipt);
++   if(actor.resource_id!==id||actor.proposal_version_hash!==bound.proposal_version_hash)throw Error('PHASE4_SCOPE_MISMATCH');
++   return transaction(()=>{
++    const prior=db.prepare('SELECT * FROM change_packages WHERE id=? AND workspace_id=?').get(id,scope.workspace_id),at=new Date().toISOString();
++    if(prior&&prior.proposal_version_hash!==previousHash||!prior&&previousHash)throw new StudioError(412,'STALE_PROPOSAL','Phase4 proposal changed.');
++    if(prior&&!JSON.parse(prior.impact_summary_json||'null')?.phase4)throw new StudioError(409,'CONFLICT','Not a Phase4 change package.');
++    if(prepared){
++     const p=prepared.payload,m=JSON.stringify({phase4:prepared.phase4});
++     if(!prior){
++      db.prepare(`INSERT INTO change_packages(id,workspace_id,title,kind,target_item_id,status,status_updated_at,source_type,source_ref,source_hash,base_package_version,base_item_ids_json,proposed_yaml,proposal_version_hash,required_approvals_json,impact_summary_json,created_by,created_at,updated_at) VALUES(?,?,?,?,?,'draft',?,?,?,?,?,?,?,?,?,?,?,?,?)`).run(id,scope.workspace_id,p.title,p.kind,p.target_item_id??null,at,p.source.type,p.source.ref,p.source.hash??null,prepared.base_package_version,JSON.stringify(p.target_item_id?[p.target_item_id]:[]),p.proposed_yaml,prepared.proposal_version_hash,JSON.stringify(prepared.phase4.required_approvals),m,actor.authenticated_actor,at,at);
++     }else{
++      if(prior.proposal_version_hash!==prepared.proposal_version_hash){
++       db.prepare(`INSERT INTO change_package_approval_history(id,package_id,role,approver,decision,approved_version_hash,reason,at,invalidated_at,invalidation_reason) SELECT id,package_id,role,approver,decision,approved_version_hash,reason,at,?,'proposal_changed' FROM change_package_approvals WHERE package_id=?`).run(at,id);
++       db.prepare('DELETE FROM change_package_approvals WHERE package_id=?').run(id);
++      }
++      db.prepare(`UPDATE change_packages SET title=?,kind=?,proposed_yaml=?,proposal_version_hash=?,impact_summary_json=?,required_approvals_json=?,status='draft',status_updated_at=?,updated_at=?,validation_result_json=NULL,lint_result_json=NULL,skill_state_result_json=NULL,generation_result_json=NULL,doctor_result_json=NULL,preview_diff=NULL,preview_files_json=NULL WHERE id=?`).run(p.title,p.kind,p.proposed_yaml,prepared.proposal_version_hash,m,JSON.stringify(prepared.phase4.required_approvals),at,at,id);
++     }
++    }
++    if(status)db.prepare('UPDATE change_packages SET status=?,status_updated_at=?,updated_at=? WHERE id=?').run(status,at,at,id);
++    if(review){
++     const role=actor.server_resolved_role,approvals=db.prepare('SELECT * FROM change_package_approvals WHERE package_id=?').all(id);
++     if(approvals.some(a=>a.role===role||a.approver===actor.authenticated_actor))throw new StudioError(409,'CONFLICT','One decision per role; different required reviewers need distinct actors.');
++     db.prepare('INSERT INTO change_package_approvals(package_id,role,approver,decision,approved_version_hash,reason,at) VALUES(?,?,?,?,?,?,?)').run(id,role,actor.authenticated_actor,review.decision,previousHash,review.reason,at);
++     const required=JSON.parse(db.prepare('SELECT required_approvals_json FROM change_packages WHERE id=?').get(id).required_approvals_json),all=[...approvals,{role,decision:review.decision}];
++     const next=all.some(a=>a.decision==='reject')?'rejected':required.every(r=>all.some(a=>a.role===r&&a.decision==='approve'))?'approved':'in_review';db.prepare('UPDATE change_packages SET status=?,updated_at=? WHERE id=?').run(next,at,id);
++    }
++    if(raw){const run='VR-'+crypto.randomUUID();db.prepare("INSERT INTO verification_runs(id,workspace_id,command,status,exit_code,started_at,finished_at,raw_output,linked_package_id) VALUES(?,?,'check','passed',0,?,?,?,?)").run(run,scope.workspace_id,at,at,raw,id);}
++    append(actor,{event_type:actor.action,resource_type:'package',payload:{result:'SUCCESS',...(prepared&&!prior?{base_candidate_hash:prepared.base_candidate_hash,source:prepared.payload.source}:{}),before_hash:previousHash,after_hash:prepared?.proposal_version_hash||previousHash,review:review?.decision??null,policy_promotion:false,source_written:false}});
++    phase4Pending.delete(receipt);return cpView(db.prepare('SELECT * FROM change_packages WHERE id=?').get(id));
++   });
++  },
++  phase4Packages(){return db.prepare("SELECT * FROM change_packages WHERE workspace_id=? AND json_extract(impact_summary_json,'$.phase4') IS NOT NULL ORDER BY created_at DESC LIMIT 1000").all(scope.workspace_id).map(cpView);},
++  phase4Evidence(id){const row=db.prepare('SELECT impact_summary_json FROM change_packages WHERE id=? AND workspace_id=?').get(id,scope.workspace_id),evalId=JSON.parse(row?.impact_summary_json||'{}').phase4?.body?.eval_run_id??null;return db.prepare('SELECT id,command,status,exit_code,raw_output FROM verification_runs WHERE workspace_id=? AND (linked_package_id=? OR id=?) ORDER BY started_at DESC LIMIT 30').all(scope.workspace_id,id,evalId);},
+   verificationRuns(){return db.prepare('SELECT summary_json FROM verification_runs WHERE workspace_id=? ORDER BY started_at DESC,id DESC LIMIT 500').all(scope.workspace_id).map(r=>{try{return JSON.parse(r.summary_json||'{}').studio_t20;}catch{return null;}}).filter(Boolean);},
+   drafts(){return db.prepare('SELECT * FROM change_packages WHERE workspace_id=? ORDER BY created_at DESC,id LIMIT 100').all(scope.workspace_id).map(cpView);},
+   draft(id){return cpView(db.prepare('SELECT * FROM change_packages WHERE workspace_id=? AND id=?').get(scope.workspace_id,id));},
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/server/studio/draft-routes.js.raw b/server/studio/draft-routes.js
+index cf901d9..d73497b 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/server/studio/draft-routes.js.raw
++++ b/server/studio/draft-routes.js
+@@ -3,6 +3,9 @@ import {isDeepStrictEqual} from 'node:util';
+ import {StudioError} from './auth.js';
+ 
+ const deny=()=>new StudioError(403,'FORBIDDEN','A valid scoped draft grant is required.');
++// Phase4 metadata is exposed by its explicit extension profile. Preserve the
++// frozen contract.1 Package shape on the existing read endpoints.
++const compatible=value=>Array.isArray(value)?value.map(compatible):value?.phase4&&typeof value.id==='string'?Object.fromEntries(Object.entries(value).filter(([key])=>key!=='phase4')):value;
+ async function readJSON(req){
+  if(!/^application\/json(?:;|$)/i.test(req.headers['content-type']||''))throw new StudioError(415,'INVALID_REQUEST','JSON required.');
+  const parts=[];let bytes=0;for await(const b of req){bytes+=b.length;if(bytes>262144)throw new StudioError(413,'PAYLOAD_TOO_LARGE','Request exceeds limit.');parts.push(b);}
+@@ -16,11 +19,12 @@ export function createDraftRoutes({authority,store,intents,validate,validator,wo
+  return async(req,res)=>{
+   const requestId=crypto.randomUUID(),mutation=!['GET','HEAD','OPTIONS'].includes(req.method);
+   let action='write.unsupported',resourceId=null,identity;
+-  const send=(status,data,error)=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(JSON.stringify({data,meta:{request_id:requestId,contract_revision:'contract.1',recorded_at:new Date().toISOString(),...(error?{error:{code:error.code,message:error.message,halted:true,issues:[]}}:{})}}));};
++  const send=(status,data,error)=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(JSON.stringify({data:compatible(data),meta:{request_id:requestId,contract_revision:'contract.1',recorded_at:new Date().toISOString(),...(error?{error:{code:error.code,message:error.message,halted:true,issues:[]}}:{})}}));};
+   const record=(result,status,reason)=>audit(req,{action,resourceId,result,status,reason,requestId});
+   try{
+    if(req.url.length>8192)throw new StudioError(400,'INVALID_REQUEST','URL exceeds limit.');
+    const url=new URL(req.url,'http://127.0.0.1');
++   const phase4Id=url.pathname.match(/\/cps\/(CP-[\w-]+)/)?.[1];
+    if(mutation){
+     if(url.pathname===base)action='cp.create';
+     else if(url.pathname==='/api/v1/draft-intents')action='draft.preview';
+@@ -32,6 +36,7 @@ export function createDraftRoutes({authority,store,intents,validate,validator,wo
+     record('ATTEMPT',null,'Request received; authorization not yet established');
+    }
+    try{identity=authority.authenticate(req);}catch{throw deny();}
++   if(mutation&&phase4Id&&store.draft(phase4Id)?.phase4)throw new StudioError(403,'FORBIDDEN','Use the scoped Phase4 workflow for this change package.');
+    if(url.search)throw new StudioError(400,'INVALID_REQUEST','Queries are not supported by this draft profile.');
+    const principal=authority.describe(identity);
+    if(req.method==='GET'&&url.pathname==='/api/v1/session')return send(200,{...principal,action:'read',workspace_id:workspace.id,target_project:'studio-drafts',resource_id:null,proposal_version_hash:null});
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/src/features/changes/DraftStudio.jsx.raw b/src/features/changes/DraftStudio.jsx
+index bc5744b..705b163 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/src/features/changes/DraftStudio.jsx.raw
++++ b/src/features/changes/DraftStudio.jsx
+@@ -6,6 +6,7 @@ import Verification from '../verification/Verification.jsx';
+ import RuntimeEvidence from '../runtime/RuntimeEvidence.jsx';
+ import '../verification/execution.css';
+ import SkillStudio from '../skills/SkillStudio.jsx';
++import Phase4Studio from '../governed/Phase4Studio.jsx';
+ 
+ const kinds=['OBSERVATION','PRINCIPLE','CONSTRAINT','REQUIREMENT','PROCEDURE','GUIDELINE','POLICY','RULE','STANDARD','CONTROL','DECISION','EXCEPTION','CAPABILITY'];
+ export default function DraftStudio(){
+@@ -41,7 +42,8 @@ export default function DraftStudio(){
+  <div className="p0-banner"><Badge code="DRAFT">{t('مسودات فقط','Drafts only')}</Badge> {t('المرجع 1.2.0 محفوظ. الحفظ لا يعتمد قاعدة أو ينشر حزمة.','Reference 1.2.0 is preserved. Saving neither adopts a rule nor publishes a package.')}</div>
+  {!session?<main id="draft-main" className="p0-login"><h2>{t('جلسة المشغل المحلي','Local operator session')}</h2><form onSubmit={connect}><label htmlFor="draft-token">{t('رمز الجلسة من الخادم','Session credential from server')}</label><input id="draft-token" type="password" autoComplete="off" required value={credential} onChange={e=>setCredential(e.target.value)}/><button disabled={busy}>{t('اتصال','Connect')}</button></form></main>:<main id="draft-main" className="p0-content draft-content">
+  <div className="draft-toolbar"><span><bdi>{session.authenticated_actor}</bdi> · <Badge code={session.server_resolved_role}/></span><span>{t('SQLite دائمة · 12 جدولًا','Persistent SQLite · 12 tables')}</span><nav aria-label={t('عرض المسودات والتدقيق','Draft and audit views')}><button aria-pressed={tab==='drafts'} onClick={()=>setTab('drafts')}>{t('المسودات','Drafts')}</button><button aria-pressed={tab==='audit'} onClick={openAudit} disabled={busy}>{t('سجل التدقيق','Audit log')}</button><button data-testid="verification-nav" aria-pressed={tab==='verification'} onClick={()=>setTab('verification')}>{t('التحقق','Verification')}</button><button data-testid="runtime-nav" aria-pressed={tab==='runtime'} onClick={()=>setTab('runtime')}>{t('الأدلة التشغيلية','Runtime evidence')}</button><button data-testid="skills-nav" aria-pressed={tab==='skills'} onClick={()=>setTab('skills')}>{t('المهارات','Skills')}</button></nav></div>
+- {tab==='skills'?<SkillStudio api={api} workspace={status.workspace.id}/>:tab==='verification'?<Verification api={api} workspace={status.workspace.id}/>:tab==='runtime'?<RuntimeEvidence api={api} workspace={status.workspace.id}/>:tab==='audit'?<section><h2>{t('محاولات الكتابة وقراراتها','Write attempts and outcomes')}</h2><div className="p0-table-wrap"><table><thead><tr>{[t('الوقت','Time'),t('الفاعل','Actor'),t('العملية','Action'),t('النتيجة','Outcome')].map(v=><th key={v}>{v}</th>)}</tr></thead><tbody>{audit.slice().reverse().map(e=><tr key={e.id}><td><bdi>{e.at}</bdi></td><td>{e.actor}</td><td><bdi>{e.event_type}</bdi></td><td><bdi>{JSON.parse(e.payload_json||'{}')?.result||'SUCCESS'}</bdi></td></tr>)}</tbody></table></div></section>:<div className="draft-grid">
++ <button data-testid="phase4-nav" aria-pressed={tab==='phase4'} onClick={()=>setTab('phase4')}>{t('الحوكمة والتعلم','Governance and learning')}</button>
++ {tab==='phase4'?<Phase4Studio api={api} workspace={status.workspace.id}/>:tab==='skills'?<SkillStudio api={api} workspace={status.workspace.id}/>:tab==='verification'?<Verification api={api} workspace={status.workspace.id}/>:tab==='runtime'?<RuntimeEvidence api={api} workspace={status.workspace.id}/>:tab==='audit'?<section><h2>{t('محاولات الكتابة وقراراتها','Write attempts and outcomes')}</h2><div className="p0-table-wrap"><table><thead><tr>{[t('الوقت','Time'),t('الفاعل','Actor'),t('العملية','Action'),t('النتيجة','Outcome')].map(v=><th key={v}>{v}</th>)}</tr></thead><tbody>{audit.slice().reverse().map(e=><tr key={e.id}><td><bdi>{e.at}</bdi></td><td>{e.actor}</td><td><bdi>{e.event_type}</bdi></td><td><bdi>{JSON.parse(e.payload_json||'{}')?.result||'SUCCESS'}</bdi></td></tr>)}</tbody></table></div></section>:<div className="draft-grid">
+  <section><h2>{t('مسودة جديدة','New draft')}</h2><p className="p0-hint">{t('يعالج E5 المقترح وبصمته في Python. الحفظ يفحص البنية؛ زر التحقق يشغّل سياسات E2 دون منح سلطة للمقترح.','Python E5 processes the proposal and hash. Save checks structure; validation runs E2 policy without granting authority to the proposal.')}</p>
+  <form onSubmit={prepare} className="draft-form"><label htmlFor="cp-title">{t('العنوان','Title')}</label><input id="cp-title" disabled={busy} required value={title} onChange={changed(setTitle)} maxLength={500}/><label htmlFor="cp-kind">{t('نوع البند','Item kind')}</label><select id="cp-kind" disabled={busy} value={kind} onChange={changed(setKind)}>{kinds.map(k=><option key={k}>{k}</option>)}</select><label htmlFor="cp-origin">{t('مرجع الطلب','Request reference')}</label><input id="cp-origin" disabled={busy} required value={origin} onChange={changed(setOrigin)} maxLength={1000}/><label htmlFor="cp-yaml">{t('مقترح البند · YAML أو JSON','Item proposal · YAML or JSON')}</label><textarea id="cp-yaml" disabled={busy} dir="ltr" rows={16} required spellCheck="false" value={yaml} onChange={changed(setYaml)} aria-describedby="cp-limit"/><small id="cp-limit">{t('بند واحد، حتى 64 KiB مع بيانات الطلب. لا تعديلات على المصدر.','One item, up to 64 KiB including request metadata. Source files stay unchanged.')}</small><button disabled={busy} data-testid="prepare-draft">{t('فحص المسودة وإعدادها','Check and prepare draft')}</button></form>
+  {intent&&<div className="draft-intent" role="status"><Badge code={intent.status}/><p><bdi>{intent.scope.action}</bdi></p><p>{t('راجع العملية، ثم فوّضها من طرفية الخادم على هذه البصمة:','Review the action, then authorize this hash from the server terminal:')}</p><code className="draft-hash">{intent.scope.proposal_version_hash}</code><pre dir="ltr">approve {intent.id}</pre><p>{t('تفويض عملية واحدة لمدة دقيقتين؛ ليس موافقة حوكمة على الحزمة.','One action, two minutes. This is not governance approval of the package.')}</p><div className="draft-actions"><button onClick={check} disabled={busy}>{t('التحقق من التفويض','Check authorization')}</button><button onClick={save} data-testid="save-draft" disabled={busy||!grant}>{intent.operation?t('تنفيذ العملية المفوضة','Run authorized action'):t('حفظ المسودة','Save draft')}</button></div></div>}
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/docs/status/CURRENT.md.raw b/docs/status/CURRENT.md
+index 76e49f1..43c2688 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/docs/status/CURRENT.md.raw
++++ b/docs/status/CURRENT.md
+@@ -1,21 +1,23 @@
+ # Active Project Execution State — Derived View
+ 
+-> Updated2026-10-24. Reopen Git, source and exact custody; prose is not authority.
++> Updated2026-10-24. Git, source and exact custody take precedence over this snapshot.
+ 
+ ## Accepted position
+ 
+-E1/E2, T01–T05/T07–T10 and E4 local core accepted by owner. T06/T12/T19 accepted only within explicit MOCK scopes; original SEC-001 remains BLOCKED/3 without real authority/gates/P0 evidence. T11 inventory accepted, no automatic Active adoption. T13–T18 Draft storage, grants,12 tables, hash-bound approvals, bounded local E3 generation and patch workflow accepted. Reference1.2.0, contracts and E1–E4 remain preserved.
++Owner accepted E1/E2, T01–T05/T07–T10, E4 local core and T13–T18 Draft workflows. T06/T12/T19 accepted only in their explicit MOCK scopes. Original SEC-001 stays BLOCKED/3 without its real authority/gates/P0 evidence. T11 inventory accepted; no automatic Active adoption. Reference1.2.0 and E1–E4 source/contracts preserved.
+ 
+-T20/T21 now formally ACCEPTED_BY_OWNER: bounded verification, authenticated polling and original runtime-evidence reader. [Accepted delivery](../evidence/studio-native-t20-t21-2026-10-24/README.md).
++Owner now formally accepts T22/T23/T24 and closure of Phase3 within [its documented NOT_RUN limits](../evidence/studio-phase3-2026-10-24/README.md). Codex's single extra attempt timed out before initialize; agy unavailable. Native checks REQUIRED / NOT_RUN / NOT_WAIVED; hosted CI publication NOT_RUN. No fresh diagnosis or publishing was attempted.
+ 
+-## Current authorized delivery
++## Phase4 delivery — local Draft
+ 
+-[T22/T23/T24](../evidence/studio-phase3-2026-10-24/README.md): T22 real lifecycle HTTP/UI, three independent axes, actual criteria and3-run local qualification; scoped grants and durable history cannot restore live E4 proofs. T23 UI links the pinned8 scenarios and7 honesty results for the unchanged local core; every native column remains REQUIRED / NOT_RUN / NOT_WAIVED.
++[T25–T29 delivery](../evidence/studio-phase4-2026-10-24/README.md): separate Python proposal/hash/policy extension, shared CP identities and12-table SQLite, scoped one-use grants and audit. Meta changes route policies/schemas/tools through review; approval stays blocked until all registered behavioral evals/generation checks pass and distinct roles approve. No production meta evaluator registered/qualified yet.
+ 
+-One additional owner-bounded Codex stdio diagnosis completed: no initialize response in20s, no diagnostic stderr, T15 tree reaped; ENVIRONMENT_BLOCKED, deeper cause UNPROVEN. agy absence is inherited from accepted observation; no second attempt/install. No native qualification claimed.
++Seven-step adoption was exercised through real3-run local qualification and owner Draft review; no skill installation/apply. Watcher is explicitly grant-activated on a trusted registered root,500ms debounce, md/yaml/json, bounded reads/exclusions/raw byte custody/dedup; no initial crawl or content execution. Lessons bind error/task/source hash and classifications, with UNPROVEN cause and proposed CP only. Unsupported causal claims and exact duplicates reject.
+ 
+-T24 provides scoped local PR-bundle preparation, exact original bytes/hashes, real E2/E4 inspection,100 seeded parity units, signed GitHub OIDC publisher and post-merge workflow. Only L0/NOT_RUN state is supported; existing qualified state cannot be downgraded. Matching JSON/producer labels never grant execution trust. Hosted PR/post-merge publication NOT_RUN; no state was written. Full suite120/120, final CI3/3, final Edge AR/EN/RTL and Sentinel passed. No independent/release acceptance.
++Calibration requires actual E4 eval,3 executions, measured before/after metrics + repo byte hash, target/source/reason/delta binding, then hash-bound owner approval. Ordinary create/edit cannot bypass this gate. Proposals and fixture evidence remain separate from canonical sources. Positive measurement evidence is confined to an isolated test repository; no production impact claim.
+ 
+-## Preserved boundaries and next action
++Verification: full129/129, final contract guard1/1, actual Edge AR/EN four widths/Sentinel and source preservation passed. First regression's SOURCE_DRIFT rejection retained; final run and custody are authoritative for this local delivery. No independent/release/Phase4 owner acceptance self-granted.
+ 
+-App writes only authorized disposable/Draft storage; no reference/source apply, owner default DB use, runtime_evidence rewrite, local state writer, push or merge. Owner permitted proceeding to publisher despite native blockers; this does not waive them or close Phase3 operational qualification. Reopen new custody before resuming. Next unfinished gates: owner review/deployment of the publisher followed by a genuine merged evidence PR; native trials require a working isolated channel and fresh authorization after the one-attempt limit. No automatic Phase4.
++## Boundaries and next action
++
++No reference/policy/state writes, owner default DB use, push/merge, native retry or T30/Phase5. Writing remains Draft-only. Reopen new custody and live Git before resuming. Next: owner review of Phase4 delivery and registration of project-specific trusted measurement/meta evaluators before operational use; absent configuration fails closed. Native/hosted gates remain separate.
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/docs/status/HANDOFF.md.raw b/docs/status/HANDOFF.md
+index 6f8c878..a964e6a 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/docs/status/HANDOFF.md.raw
++++ b/docs/status/HANDOFF.md
+@@ -1,11 +1,11 @@
+ # Studio handoff —2026-10-24, derived position
+ 
+-Branch main, base133746a0ad99d10568a44c8d225219df8454271c; prior dirty work preserved. No commit/push/merge. Owner accepted T20/T21, authorized one bounded host diagnosis and T22–T24 regardless of its result. Reopen CURRENT, live Git and [delivery/custody](../evidence/studio-phase3-2026-10-24/README.md).
++Branch main, base133746a0ad99d10568a44c8d225219df8454271c; prior dirty/untracked owner work preserved. No commit/push/merge. Owner accepted Phase3 within native/hosted NOT_RUN limits and authorized T25–T29. Reopen CURRENT, live Git and [Phase4 delivery/custody](../evidence/studio-phase4-2026-10-24/README.md).
+ 
+-Native attempt: Codex stdio initialize timed out at20s with empty stderr; total controller22.641s, tree reaped under30s/2GiB. Further cause UNPROVEN. No agy installation/retry; accepted absence retained. Both hosts'7 checks/8 scenarios REQUIRED / NOT_RUN / NOT_WAIVED.
++Phase4 implemented/tested locally: meta CP routes, same-ID7-step adoption, real read-only qualification, explicitly authorized watcher, classified lesson proposals and actual-eval calibration. Python owns parse/JCS/hash/policy; original E1–E4/E5/E3 remain unchanged. SQLite stays12 tables, append-only audit, atomic Draft commits, hash-bound reviews/history. Legacy CP edits cannot bypass calibration or alter Phase4 CPs; frozen API reads keep contract.1 shape while extension uses phase4-local.1.
+ 
+-T22 real HTTP/UI handles select/load/execute/verify/eval/qualify/phase with mandatory one-use exact grants. Qualification uses actual3-run local evidence and host/version/scope/content/driver/engine tuple; imported/history JSON cannot restore proofs. T23 bilingual matrix separates pinned local conformance from native NOT_RUN. T24 prepares exact PR attachments locally, checks E2 strict and E4 imported-evidence trust, verifies signed GitHub identity/repo IDs/workflow/SHA/merged PR and non-force head update. Single remote state path, L0/NOT_RUN profile only; qualified-state update remains unavailable. No Studio state writer or PR creation.
++Tests: final full129/129, contract guard1/1, actual isolated Edge five workflows + bilingual/responsive/Sentinel, context and preservation receipts. First full run rejected changed Phase4 source; actual SQLite SOURCE_DRIFT is retained and final frozen regression supersedes it. Aggregate deadlines use immutable T15 profiles in addition to per-process600s eval/3600s qualify/2GiB. Runtime evidence/imported PASS cannot mint live proofs.
+ 
+-Verification: full120/120; CI final3/3 (includes E4 mock-evidence rejection);100 seeded valid/invalid parity units; final Edge AR/EN four widths, keyboard and source/state sentinel; context/custody recorded in delivery. Full regression began before the final additive E4-inspection/UI metadata changes; final focused CI and rebuilt Edge checks cover those exact changes. Not an exact-source hosted CI run or independent review.
++Operational gaps: owner must register actual project measurement/meta evaluators through trusted startup config. Without them calibration and meta approval block. Positive measurement evidence is an isolated repository fixture, not production improvement. Native Codex/Antigravity and hosted CI publication remain NOT_RUN; no further host attempt authorized. approved Phase4 CP means Draft review only, not export/apply/publication. Original SEC-001 unchanged/BLOCKED outside old MOCK scope.
+ 
+-Next: review/deploy the workflow, then real merged evidence PR under GitHub OIDC. Hosted publication NOT_RUN. Native channel availability remains an environmental prerequisite, not waived. Do not retry native diagnosis automatically; owner authorized one attempt only. No Phase4, reference promotion, source apply or release acceptance. Original SEC-001 stays BLOCKED/3 outside prior authorized MOCK scope.
++Next: owner review of this delivery, then trusted project-specific evaluator registration and bounded operational trials. No automatic Phase5/T30, reference promotion, source apply, independent or release acceptance. Preserve source/evidence pins and backups.
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/docs/plans/STUDIO_UPGRADE_TASKS_AR.md.raw b/docs/plans/STUDIO_UPGRADE_TASKS_AR.md
+index 05b10d3..f0a2591 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/docs/plans/STUDIO_UPGRADE_TASKS_AR.md.raw
++++ b/docs/plans/STUDIO_UPGRADE_TASKS_AR.md
+@@ -133,8 +133,8 @@
+ | [x] T20 — إدارة تشغيل التحقق | ACCEPTED_BY_OWNER؛ T15 وT19؛ M | verify routes/service وشاشة 8 واختبارات queue/stream | validate/lint/generate/check/eval/qualify/doctor عبر الجسر؛ raw stdout/stderr/output وSARIF وتاريخ؛ cancel وتجاوز الموارد صادقان. اختبار تشغيل وفشل وتزامن وبث موثق أو polling وفق العقد دون URL token |
+ | [x] T21 — قراءة الأدلة التشغيلية | ACCEPTED_BY_OWNER؛ T20؛ M | evidence-reader/service وشاشة 9 واختبار JSONL | قراءة أصل `.aghr/runtime_evidence/` فقط وفق البروتوكول والحدود؛ hash ومهمة وجلسة وخط زمني؛ malformed/foreign evidence لا تصبح نجاحًا. اختبار البايتات وsentinel وحالات halt/NOT_OBSERVABLE |
+ | [x] T22 — دورة اختيار وتأهيل المهارة | IMPLEMENTED_TESTED_LOCAL؛ T08–T09،T20–T21 وE4 إن لزم؛ M | bridge discovery/qualification وعرض الحالة واختبارات المحتوى | حالات الاختيار/التحميل/الملاحظة/التنفيذ/التحقق مستقلة؛ task_criteria والمخرجات الفعلية والأدلة مستخدمة؛ UNKNOWN_ID وNO_SKILL_MATCH وDISCOVERY_UNAVAILABLE وBLOCKED منفصلة. اختبارات عربية/إنجليزية وصلاحيات ومحتوى فارغ أو خاطئ ومفاتيح التأهيل |
+-| [ ] T23 — سيناريوهات الصدق وتجارب المضيف | UI_LOCAL_MATRIX_TESTED؛ NATIVE_ENVIRONMENT_BLOCKED؛ T22؛ M لكل مضيف | eval fixtures وتجارب Codex وAntigravity وسجلات تأهيل منفصلة | سيناريوهات rc.3 §11.2 الثمانية، و7 honesty checks، وHS-01..HS-05 المفصلة في §9 من الخطة؛ host/version/scope/contentHash وqualifiedAt وأدلة تاريخية قابلة للمراجعة؛ لا اختراع تاريخ أو HOST_SIGNAL عند الغياب. نتائج الوحدة لا ترقى إلى native، وتأهيل مضيف لا ينتقل لآخر |
+-| [ ] T24 — الأدلة وناشر CI والتطابق | CODE_LOCAL_TESTED؛ HOSTED_NOT_RUN؛ T18،T21–T23 وE6 إن لزم؛ M | evidence submit integration وCI workflow وpublisher/tests | PR يرفق الأصل؛ post-merge CI موثوق وحده ينشر state بعد التحقق؛ نفس المحرك والمدخلات والأحكام. اختبار تزوير publisher والتوقيع/مصدر CI، و100 بند ببذرة محفوظة؛ divergence يمنع القبول والنشر |
++| [x] T23 — سيناريوهات الصدق وتجارب المضيف | ACCEPTED_BY_OWNER_WITH_NATIVE_NOT_RUN؛ T22؛ M لكل مضيف | eval fixtures وتجارب Codex وAntigravity وسجلات تأهيل منفصلة | سيناريوهات rc.3 §11.2 الثمانية، و7 honesty checks، وHS-01..HS-05 المفصلة في §9 من الخطة؛ host/version/scope/contentHash وqualifiedAt وأدلة تاريخية قابلة للمراجعة؛ لا اختراع تاريخ أو HOST_SIGNAL عند الغياب. نتائج الوحدة لا ترقى إلى native، وتأهيل مضيف لا ينتقل لآخر |
++| [x] T24 — الأدلة وناشر CI والتطابق | ACCEPTED_BY_OWNER_WITH_HOSTED_NOT_RUN؛ T18،T21–T23 وE6 إن لزم؛ M | evidence submit integration وCI workflow وpublisher/tests | PR يرفق الأصل؛ post-merge CI موثوق وحده ينشر state بعد التحقق؛ نفس المحرك والمدخلات والأحكام. اختبار تزوير publisher والتوقيع/مصدر CI، و100 بند ببذرة محفوظة؛ divergence يمنع القبول والنشر |
+ 
+ **نقاط فحص D:** بعد T20–T21 تثبت حدود التنفيذ والقراءة؛ بعد T22–T23 تثبت دلالات المهارات في نطاقها؛ بعد T24 يفصل سجل اختبارات المحرك عن سجل كل مضيف وعن CI والمراجعة المستقلة.
+ 
+@@ -142,11 +142,11 @@
+ 
+ | المهمة | التبعيات والحجم | المخرج والملفات المتوقعة | القبول والتحقق |
+ | --- | --- | --- | --- |
+-| [ ] T25 — Meta-Governance | T19 وT24؛ M | meta-governance service وشاشة 12 واختبارات المسار | تغيير policies/schemas/tools يمر بـCP وتقييمات وموافقات النوع؛ wrapper ليس نوع بند حوكمة. تجربة مستقلة لكل مجال مع رفض تجاوز المراجعات |
+-| [ ] T26 — تبني المهارات والمشروعات | T23–T25؛ M | adoption service/wizard وتوسعة AdoptionView واختباراته | المهارة تمر بالخطوات السبع؛ adoption إسقاط CP بنفس الهوية؛ معاينة وفرق ومنحة خاصة قبل apply. اختبار رفض تأهيل قديم أو دور معاينة ومنع التثبيت/التطبيق غير المفوض |
+-| [ ] T27 — استقبال INBOX والفهرسة | T25؛ M | intake service/watcher وشاشة 13 واختبارات الحدود | حفظ الأصل والبصمة وdisposition؛ md/yaml/json مع debounce 500ms واستثناءات المواصفة؛ folder drop ينشئ draft فقط. اختبار إعادة الإسقاط والتكرار والملف غير الموثوق وعدم تنفيذ المحتوى |
+-| [ ] T28 — استخراج الدروس وتصنيفها | T21 وT27؛ M | lessons service وعرض الدرس وربط CP واختبارات | مهمة/دليل/سبب مثبت أو UNPROVEN؛ نوع معرفة ونوع تعليمات ونطاق وسلطة وتصرف منفصلة؛ dedup/conflict ومراجعة مخولة. سيناريو خطأ→درس→اختبار/CP دون ترقية سياسة تلقائية |
+-| [ ] T29 — Calibration | T20 وT24–T25؛ M | calibration service/عرض impact واختباراته | انتقال إلى repo-measured بـCP وeval ناجح مرتبط ودلتا ومالك؛ lastCalibrated محفوظ؛ لا تخفيض تلقائي لـP0. رفض eval فاشل/غير متعلق وقياس مزعوم |
++| [x] T25 — Meta-Governance | T19 وT24؛ M | meta-governance service وشاشة 12 واختبارات المسار | تغيير policies/schemas/tools يمر بـCP وتقييمات وموافقات النوع؛ wrapper ليس نوع بند حوكمة. تجربة مستقلة لكل مجال مع رفض تجاوز المراجعات |
++| [x] T26 — تبني المهارات والمشروعات | T23–T25؛ M | adoption service/wizard وتوسعة AdoptionView واختباراته | المهارة تمر بالخطوات السبع؛ adoption إسقاط CP بنفس الهوية؛ معاينة وفرق ومنحة خاصة قبل apply. اختبار رفض تأهيل قديم أو دور معاينة ومنع التثبيت/التطبيق غير المفوض |
++| [x] T27 — استقبال INBOX والفهرسة | T25؛ M | intake service/watcher وشاشة 13 واختبارات الحدود | حفظ الأصل والبصمة وdisposition؛ md/yaml/json مع debounce 500ms واستثناءات المواصفة؛ folder drop ينشئ draft فقط. اختبار إعادة الإسقاط والتكرار والملف غير الموثوق وعدم تنفيذ المحتوى |
++| [x] T28 — استخراج الدروس وتصنيفها | T21 وT27؛ M | lessons service وعرض الدرس وربط CP واختبارات | مهمة/دليل/سبب مثبت أو UNPROVEN؛ نوع معرفة ونوع تعليمات ونطاق وسلطة وتصرف منفصلة؛ dedup/conflict ومراجعة مخولة. سيناريو خطأ→درس→اختبار/CP دون ترقية سياسة تلقائية |
++| [x] T29 — Calibration | T20 وT24–T25؛ M | calibration service/عرض impact واختباراته | انتقال إلى repo-measured بـCP وeval ناجح مرتبط ودلتا ومالك؛ lastCalibrated محفوظ؛ لا تخفيض تلقائي لـP0. رفض eval فاشل/غير متعلق وقياس مزعوم |
+ 
+ **نقاط فحص E:** بعد T25–T26 دورة تغيير الحزمة والتبني؛ بعد T27–T29 قبول المدخلات والتعلم والمعايرة دون كتابة مرجع تلقائية.
+ 
+@@ -242,3 +242,7 @@
+ ### تسليم T22–T24 بتفويض المالك
+ 
+ اعتمد المالك T20/T21 وسمح ببدء الناشر رغم العائق الأصلي. [التسليم والأدلة](../evidence/studio-phase3-2026-10-24/README.md): محاولة Codex واحدة انتهت دون initialize؛ لا إعادة محاولة. T22 مرتبط فعليًا بالواجهة، T23 يعرض8+7 محليًا دون نقل التأهيل إلى المضيفين. T24 جهز مرفقات PR الأصلية وناشر OIDC وworkflow بعد الدمج، مع مقارنة100 بند. الملف المدعوم L0/NOT_RUN فقط؛ النشر المستضاف وتأهيل المضيفين NOT_RUN، لذلك لا إغلاق شامل للمرحلة الثالثة ولا بدء تلقائي للرابعة.
++
++### تسليم المرحلة الرابعة في Draft
++
++اعتمد المالك إغلاق Phase3 ضمن حدود NOT_RUN وفوض T25–T29. [تسليم Phase4](../evidence/studio-phase4-2026-10-24/README.md): المسارات الخمسة منفذة ومختبرة محليًا؛ لا ترقية تلقائية للسياسة، ولا تبنٍ فعلي أو كتابة مرجع. نجاح CP معايرة في مستودع اختبار معزول لا يعاير المشروع الإنتاجي. تشغيل مقيّم الحزمة الإنتاجي وتسجيل مقاييس مشروع المالك لم ينفذا؛ عند غيابهما تستمر البوابات في الحجب. العلامات هنا IMPLEMENTED_TESTED_LOCAL_DRAFT؛ قبول المالك للمرحلة الرابعة أو الإصدار ليس ممنوحًا تلقائيًا.
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/docs/INDEX.md.raw b/docs/INDEX.md
+index 3d907f2..660cd95 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/docs/INDEX.md.raw
++++ b/docs/INDEX.md
+@@ -67,3 +67,5 @@ node tools/check_context_health.mjs
+ - [Native adapters and T20/T21 Draft delivery](evidence/studio-native-t20-t21-2026-10-24/README.md):105 tests, authenticated run polling, runtime evidence, native NOT_RUN boundaries.
+ 
+ - [T22–T24 local delivery](evidence/studio-phase3-2026-10-24/README.md) — real skill lifecycle, native environmental blocker, PR-byte bundles and signed post-merge CI publisher; hosted publication NOT_RUN.
++
++- [Phase4 Draft governance and learning](evidence/studio-phase4-2026-10-24/README.md) — T25–T29, same-CP adoption, safe intake, lesson proposals and live-eval calibration; no canonical promotion.
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw b/tests/studio_phase4.test.mjs
+index e69de29..bbc3a69 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw
++++ b/tests/studio_phase4.test.mjs
+@@ -0,0 +1,78 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import fs from 'node:fs';
++import path from 'node:path';
++import os from 'node:os';
++import http from 'node:http';
++import crypto from 'node:crypto';
++import {createDraftStudio} from '../server/studio/draft-runtime.js';
++import {encodeJsonl} from '../tools/contracts/evidence_jsonl.mjs';
++const python=path.resolve('temp/aghr-e1a-20261022-01/venv/Scripts/python.exe');
++import {fixtureConfiguration} from './helpers/phase4-fixture.mjs';
++
++test('Phase4 real HTTP Draft CP,7-step adoption, watcher, lessons and measured calibration forbid automatic policy writes',async t=>{
++ const root=fs.mkdtempSync(path.join(os.tmpdir(),'aghr-phase4-test-')),config=fixtureConfiguration(root);fs.mkdirSync(root+'/inbox');const evidenceRoot=root+'/project/.aghr/runtime_evidence';fs.mkdirSync(evidenceRoot,{recursive:true});
++ const at=new Date().toISOString(),original=encodeJsonl([{task_id:'lesson-error',session:{agent:'UNAUTHENTICATED_SOURCE',agent_version:'1',host_os:'windows',started_at:at},events:[{at,type:'skill.blocked',skill_id:'json-audit',status:'BLOCKED',reason:'Permission was absent; causality requires review.'}],submit_to_ci:false}]);fs.writeFileSync(evidenceRoot+'/lesson-error.jsonl',original);
++ const studio=await createDraftStudio({python,storageRoot:root,actor:'actual-owner-test',evidenceProjectRoot:root+'/project',...config}),server=http.createServer(studio.handle);await new Promise(r=>server.listen(0,'127.0.0.1',r));
++ const prefix='/api/v1/workspaces/rc3-local/phase4',origin='http://127.0.0.1:'+server.address().port,records=[],failures=[];
++ const request=async(method,url,data,headers={},token=studio.session.token)=>{const r=await fetch(origin+url,{method,headers:{'X-Studio-Token':token,'Content-Type':'application/json',...headers},...(data===undefined?{}:{body:JSON.stringify(data)})});return {status:r.status,...await r.json()};};
++ const prepare=async(payload,token)=>{const r=await request('POST',prefix+'/intents',payload,{},token);assert.equal(r.status,200,JSON.stringify(r));studio.approveIntent(r.data.id);const grant=(await request('GET','/api/v1/draft-intents/'+r.data.id,undefined,{},token)).data.grant;return {payload,...r.data,grant};};
++ const apply=async(intent,token)=>{const r=await request('POST',prefix+'/run',intent.payload,{'X-Write-Grant':intent.grant,'If-Match':JSON.stringify(intent.scope.proposal_version_hash)},token);records.push(r);return r;};
++ const op=async(operation,data,cp_id,token)=>apply(await prepare({operation,...(cp_id?{cp_id}:{}),data},token),token);
++ const scenario=(name,fn)=>t.test(name,async()=>{try{await fn();}catch(e){failures.push({name,message:e.message});throw e;}});
++ const originalPolicy=fs.readFileSync('governance_packages/candidates/AGHR_rc3_Core_Candidate/policies/observations/reference-state.json'),item=JSON.parse(originalPolicy);let meta,adoption,calibration,evalResult;
++ try{
++  await scenario('Auth denies every ungranted Phase4 write and never accepts client PASS or role fields',async()=>{
++   assert.equal((await request('POST',prefix+'/run',{operation:'meta.create',data:{}})).status,403);
++   assert.equal((await op('calibration.create',{item_id:item.id,eval_run_id:'VR-forged',measured_delta:1,reason:'claimed'})).status,422);
++   assert.equal((await op('calibration.eval',{item_id:item.id,reason:'measured',passed:true})).status,422);
++  });
++  await scenario('T25 policies/schemas/tools route to CP with two actual reviewer roles; missing behavioral/generation gates block approval',async()=>{
++   for(const file of [{path:'policies/draft.json',content:JSON.stringify({...item,id:'OBS-NEW'})},{path:'schemas/sample.json',content:'{"type":"string"}'},{path:'tools/proposed.py',content:'raise RuntimeError("MUST_NOT_EXECUTE")\n'}]){const r=await op('meta.create',{title:'Change '+file.path,files:[file]});assert.equal(r.status,200,JSON.stringify(r));assert.equal(r.data.kind,'GENERATED_FILE');assert.equal(r.data.phase4.lane,'meta');assert.deepEqual(r.data.required_approvals,['governance-owner','architecture-board']);meta=r.data;}
++   assert.equal((await op('submit',{},meta.id)).data.status,'in_review');assert.equal((await op('review',{decision:'approve',reason:'owner'},meta.id)).status,422);
++   assert.equal((await op('review',{decision:'reject',reason:'Need actual gates'},meta.id)).data.status,'rejected');
++   const stale=await prepare({operation:'submit',cp_id:meta.id,data:{}});
++   const edited=await op('edit',{...meta.phase4.body,title:'Edited after review'},meta.id);assert.equal(edited.status,200,JSON.stringify(edited));assert.equal(edited.data.approvals.length,0);assert.equal(edited.data.approval_history.length,1);assert.equal((await apply(stale)).status,412);meta=edited.data;
++   assert.equal((await request('POST','/api/v1/workspaces/rc3-local/cps/'+meta.id+'/submit')).status,403);
++   const bad=await op('meta.create',{title:'Mandatory without authority',files:[{path:'policies/bad.json',content:JSON.stringify({...item,kind:'RULE',force:'MUST'})}]});assert.equal(bad.status,422);
++   assert.equal((await op('meta.create',{title:'Escape',files:[{path:'schemas/../../state.json',content:'{}'}]})).status,422);
++  });
++  await scenario('T26 steps cannot be skipped; real local qualification is required before step7; adoption is the same CP',async()=>{
++   let r=await op('adoption.create',{title:'Adopt actual JSON procedure',skill_id:'json-audit',project_id:'test-project',source:'project',function:'verification'});assert.equal(r.status,200,JSON.stringify(r));adoption=r.data;const cpId=adoption.id;
++   assert.equal((await op('adoption.step',{step:7,output:{}},cpId)).status,422);
++   const cap={...item,id:'CAP-JSON-AUDIT',kind:'CAPABILITY',skillId:'json-audit',source:'project',function:'verification',permissions:{read:[],write:[],network:'deny',secrets:'deny'},inputs:[],outputs:[],skillQualification:{skillId:'json-audit',host:'aghr-local-process',hostVersion:process.version,scope:'**/*',contentHash:'sha256:'+crypto.createHash('sha256').update(fs.readFileSync(root+'/SKILL.md')).digest('hex'),status:'NOT_RUN'}};
++   for(const [step,output]of [[2,{preferred:true,alternatives:[],rationale:'Only selected registered procedure'}],[3,{kind:'PROJECT_SELECTION',project_id:'test-project',selections:[{skill_id:'json-audit',preferred:true,alternatives:[],rationale:'Scoped local test'}]}],[4,cap],[5,{input:{document:{name:'real'},required:['name']},task_criteria:'{"all":[{"pointer":"/valid","op":"equals","value":true}]}'}],[6,[]],[7,{}]]){r=await op('adoption.step',{step,output},cpId);assert.equal(r.status,200,JSON.stringify(r));assert.equal(r.data.id,cpId);adoption=r.data;}
++   assert.equal(adoption.phase4.steps.length,7);assert.equal(JSON.parse(adoption.proposed_yaml).skillQualification.status,'QUALIFIED');assert.equal(adoption.phase4.installed,false);assert.equal((await op('submit',{},cpId)).data.status,'in_review');assert.equal((await op('review',{decision:'approve',reason:'Actual owner approves draft only'},cpId)).data.status,'approved');
++  });
++  await scenario('T27 actual fs.watch receives md/yaml/json, preserves raw bytes, deduplicates and never executes content',async()=>{
++   const intent=await prepare({operation:'watch.start'});assert.equal((await apply(intent)).status,200);
++   const bytes={'note.md':'# UNTRUSTED\nNever execute this input.','unsafe.yaml':'!!python/object/apply:os.system ["calc.exe"]','idea.json':'{"execute":"MUST_NOT_RUN"}'};
++   for(const [name,content]of Object.entries(bytes))fs.writeFileSync(root+'/inbox/'+name,content);
++   fs.mkdirSync(root+'/inbox/node_modules');fs.writeFileSync(root+'/inbox/node_modules/excluded.json','{}');fs.writeFileSync(root+'/inbox/ignored.exe','not executable');
++   const end=Date.now()+60000;while(Date.now()<end&&studio.phase4.packages().filter(x=>x.phase4.lane==='intake').length<3)await new Promise(r=>setTimeout(r,300));
++   const rows=studio.phase4.packages().filter(x=>x.phase4.lane==='intake');assert.equal(rows.length,3,JSON.stringify(studio.watcher.status()));for(const c of rows){assert.equal(c.status,'draft');assert.equal(c.phase4.automatic_execution,false);assert.deepEqual(Buffer.from(c.phase4.body.raw_base64,'base64'),fs.readFileSync(root+'/inbox/'+c.phase4.body.path));}
++   fs.writeFileSync(root+'/inbox/note.md',bytes['note.md']);await new Promise(r=>setTimeout(r,1200));assert.equal(studio.phase4.packages().filter(x=>x.phase4.lane==='intake').length,3);assert.equal((await op('submit',{},rows[0].id)).status,422);
++  });
++  await scenario('T28 error→evidence→classified lesson creates only a CP; duplicate and foreign source reject',async()=>{
++   const source=(await request('GET','/api/v1/workspaces/rc3-local/evidence/tasks/lesson-error')).data;
++   const d={title:'Lesson from blocked procedure',task_id:'lesson-error',source_hash:source.source_hash,error:'Permission absent',pattern:'Check actual permission before execution',cause:'UNPROVEN',knowledge_type:'lesson',instruction_kind:'UNRESOLVED',scope:'project',authority_level:'UNRESOLVED',disposition:'propose',duplicates:[],conflicts:[]};
++   const r=await op('lesson.create',d);assert.equal(r.status,200,JSON.stringify(r));assert.equal(r.data.phase4.policy_promotion,false);assert.equal(r.data.status,'draft');assert.equal((await op('lesson.create',d)).status,409);assert.equal((await op('lesson.create',{...d,pattern:'Other',source_hash:'sha256:'+'f'.repeat(64)})).status,422);
++  });
++  await scenario('T29 actual3-run eval measures repository bytes; calibration needs exact target/delta and owner approval',async()=>{
++   let r=await op('calibration.eval',{item_id:item.id,reason:'Measure documented default-package compliance'});assert.equal(r.status,200,JSON.stringify(r));evalResult=r.data;assert.equal(evalResult.status,'PASS');assert.equal(evalResult.measured_delta,1);
++   assert.equal((await op('calibration.create',{item_id:item.id,eval_run_id:evalResult.eval_run_id,reason:'Measure documented default-package compliance',measured_delta:99})).status,422);
++   r=await op('calibration.create',{item_id:item.id,eval_run_id:evalResult.eval_run_id,reason:'Measure documented default-package compliance',measured_delta:1});assert.equal(r.status,200,JSON.stringify(r));calibration=r.data;
++   const proposed=JSON.parse(calibration.proposed_yaml);assert.equal(proposed.proposed_item.impact.evidence,'repo-measured');assert.equal(proposed.proposed_item.severity,item.severity);assert.equal(proposed.proposed_item.rule,item.rule);assert.equal(calibration.status,'draft');
++   assert.equal((await op('review',{decision:'approve',reason:'Not submitted yet'},calibration.id)).status,422);
++   assert.equal((await op('submit',{},calibration.id)).data.status,'in_review');assert.equal((await op('review',{decision:'approve',reason:'Owner approves measured Draft proposal only'},calibration.id)).data.status,'approved');
++   const proof=await request('GET',prefix+'/packages/'+calibration.id+'/evidence');assert.equal(proof.status,200);assert(proof.data.some(r=>r.command==='eval'&&r.status==='passed'&&JSON.parse(r.raw_output).records.some(x=>x.operation==='execute'&&x.resource_profile==='eval')));
++  });
++  await scenario('Failed/unrelated eval cannot calibrate, source and state Sentinel remain unchanged',async()=>{
++   fs.writeFileSync(config.repo+'/after.json','{"default_package":"legacy"}');assert.equal((await op('calibration.eval',{item_id:item.id,reason:'Failure must not pass'})).status,422);
++   assert.equal((await op('calibration.create',{item_id:'wrong',eval_run_id:evalResult.eval_run_id,reason:'other',measured_delta:1})).status,404);
++   fs.appendFileSync(root+'/SKILL.md','\nChanged after qualification.\n');assert.equal((await op('submit',{},adoption.id)).status,422);assert.equal((await op('submit',{},calibration.id)).status,422);
++   assert.deepEqual(fs.readFileSync('governance_packages/candidates/AGHR_rc3_Core_Candidate/policies/observations/reference-state.json'),originalPolicy);assert.deepEqual(fs.readFileSync(evidenceRoot+'/lesson-error.jsonl'),original);assert(!fs.existsSync(root+'/project/.aghr/state.json'));assert.equal(studio.store.tables.length,12);
++  });
++  if(process.env.AGHR_PHASE4_OUT)fs.writeFileSync(path.join(process.env.AGHR_PHASE4_OUT,'HTTP_ACCEPTANCE.json'),JSON.stringify({status:failures.length?'FAIL':'PASS',failures,records,packages:studio.phase4.packages(),audit:studio.store.auditEvents(1000),watcher:studio.watcher.status(),source_written:false,state_written:false,profile:'Actual local process and isolated measurement-repository fixture; no native or release claim.'},null,2),{flag:'wx'});
++ }finally{await new Promise(r=>server.close(r));await studio.close();}
++});
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw b/tests/studio_phase4_contracts.test.mjs
+index e69de29..4ebf606 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw
++++ b/tests/studio_phase4_contracts.test.mjs
+@@ -0,0 +1,27 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import fs from 'node:fs';
++import path from 'node:path';
++import os from 'node:os';
++import http from 'node:http';
++import {createDraftStudio} from '../server/studio/draft-runtime.js';
++import {createSchemaReader} from '../server/studio/schema-reader.js';
++import {encodeJsonl} from '../tools/contracts/evidence_jsonl.mjs';
++test('Phase4 preserves frozen CP reads and cannot turn an asserted causal explanation into proven knowledge',async()=>{
++ const root=fs.mkdtempSync(path.join(os.tmpdir(),'aghr-p4-contract-')),python=path.resolve('temp/aghr-e1a-20261022-01/venv/Scripts/python.exe'),dir=root+'/.aghr/runtime_evidence';fs.mkdirSync(dir,{recursive:true});
++ const at=new Date().toISOString(),raw=encodeJsonl([{task_id:'causal-test',session:{agent:'UNAUTHENTICATED',agent_version:'1',host_os:'windows',started_at:at},events:[{at,type:'skill.blocked',skill_id:'example',status:'BLOCKED',reason:'Declared observation only'}],submit_to_ci:false}]);fs.writeFileSync(dir+'/causal-test.jsonl',raw);
++ const studio=await createDraftStudio({python,storageRoot:root,actor:'contract-owner',evidenceProjectRoot:root}),server=http.createServer(studio.handle);await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port,prefix='/api/v1/workspaces/rc3-local/phase4';
++ const request=async(method,url,body,headers={})=>{const r=await fetch(origin+url,{method,headers:{'X-Studio-Token':studio.session.token,'Content-Type':'application/json',...headers},...(body?{body:JSON.stringify(body)}:{})});return {status:r.status,...await r.json()};};
++ const run=async data=>{const payload={operation:'lesson.create',data},intent=(await request('POST',prefix+'/intents',payload)).data;studio.approveIntent(intent.id);const grant=(await request('GET','/api/v1/draft-intents/'+intent.id)).data.grant;return request('POST',prefix+'/run',payload,{'X-Write-Grant':grant,'If-Match':JSON.stringify(intent.scope.proposal_version_hash)});};
++ try{
++  const source=(await request('GET','/api/v1/workspaces/rc3-local/evidence/tasks/causal-test')).data,d={title:'Causal review',task_id:'causal-test',source_hash:source.source_hash,error:'Unproven failure',pattern:'Review before claiming causality',cause:'UNPROVEN',knowledge_type:'lesson',instruction_kind:'UNRESOLVED',scope:'project',authority_level:'UNRESOLVED',disposition:'propose',duplicates:[],conflicts:[]};
++  const supported=await run({...d,cause:'SUPPORTED',cause_evidence:'Client claims this string proves the cause'});assert.equal(supported.status,422);assert.match(supported.meta.error.message,/CAUSE_EVIDENCE_UNVERIFIED/);
++  const created=await run(d);assert.equal(created.status,200,JSON.stringify(created));const legacy=await request('GET','/api/v1/workspaces/rc3-local/change-packages/'+created.data.id);assert.equal(legacy.status,200);assert.equal(legacy.data.phase4,undefined);
++  const schema=await createSchemaReader({python})('api.change.schema.json','Package',[legacy.data]);assert.equal(schema.valid,true,JSON.stringify(schema));
++  const extended=await request('GET',prefix+'/packages/'+created.data.id);assert.equal(extended.data.phase4.body.cause,'UNPROVEN');assert.equal(extended.meta.contract_revision,'phase4-local.1');assert.deepEqual(fs.readFileSync(dir+'/causal-test.jsonl'),raw);assert.equal(fs.existsSync(root+'/.aghr/state.json'),false);
++  const writeUrl='/api/v1/workspaces/rc3-local/cps/'+created.data.id+'/submit';assert.equal((await request('POST',writeUrl,{})).status,403);assert.equal((await fetch(origin+writeUrl,{method:'POST'})).status,403);
++  const item=JSON.parse(fs.readFileSync('governance_packages/candidates/AGHR_rc3_Core_Candidate/policies/observations/reference-state.json','utf8'));
++  const bypass=await request('POST','/api/v1/draft-intents',{title:'Bypass calibration through ordinary editing',kind:item.kind,target_item_id:item.id,proposed_yaml:JSON.stringify({...item,impact:{...item.impact,evidence:'repo-measured',lastCalibrated:'2026-10-24',measuredDelta:999}})});assert.equal(bypass.status,422,JSON.stringify(bypass));assert.match(bypass.meta.error.message,/USE_LIVE_CALIBRATION_WORKFLOW/);
++  if(process.env.AGHR_PHASE4_CONTRACT_OUT)fs.writeFileSync(process.env.AGHR_PHASE4_CONTRACT_OUT,JSON.stringify({status:'PASS',unsupported_causality:supported,contract_validation:schema,legacy:legacy.data,extended:extended.data,source_written:false,state_written:false},null,2),{flag:'wx'});
++ }finally{await new Promise(r=>server.close(r));await studio.close();}
++});
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw b/tests/helpers/phase4-fixture.mjs
+index e69de29..1d207e5 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw
++++ b/tests/helpers/phase4-fixture.mjs
+@@ -0,0 +1,7 @@
++import fs from 'node:fs';
++import path from 'node:path';
++export function fixtureConfiguration(temp){
++ const repo=path.join(temp,'measurement-repo');fs.mkdirSync(repo);fs.writeFileSync(repo+'/before.json','{"default_package":"legacy"}');fs.writeFileSync(repo+'/after.json','{"default_package":"aghr_1_2_0"}');
++ const driver=temp+'/measurement.py';fs.writeFileSync(driver,`import json,hashlib,sys\nfrom pathlib import Path\nr=json.loads(Path(sys.argv[1]).read_text(encoding='utf-8'))\nroot=Path(${JSON.stringify(repo.replaceAll('\\','/'))})\nb=(root/'before.json').read_bytes();a=(root/'after.json').read_bytes()\nbefore=int(json.loads(b).get('default_package')=='aghr_1_2_0');after=int(json.loads(a).get('default_package')=='aghr_1_2_0')\nprint(json.dumps({'binding':r['binding'],'valid':after>before,'before_metric':before,'after_metric':after,'repo_hash':'sha256:'+hashlib.sha256(b+a).hexdigest()}))\n`);
++ const root=path.resolve('tests/fixtures/studio-e4/json-audit');fs.copyFileSync(root+'/SKILL.md',temp+'/SKILL.md');return {repo,e4Config:{skills:[{id:'measurement',source:'project',skillPath:temp+'/SKILL.md',entry:driver,triggers:['measure']},{id:'json-audit',source:'project',skillPath:temp+'/SKILL.md',entry:root+'/worker.py',triggers:['review']}],permissions:[]},phase4Options:{measurementSkillId:'measurement',intakeRoot:temp+'/inbox'}};
++}
+\ No newline at end of file
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw b/server/studio/phase4/bridge.mjs
+index e69de29..4b0f624 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw
++++ b/server/studio/phase4/bridge.mjs
+@@ -0,0 +1,23 @@
++import fs from 'node:fs';
++import path from 'node:path';
++import os from 'node:os';
++import crypto from 'node:crypto';
++import {createJobRunner} from '../aghr/job-runner.js';
++import {repository} from '../aghr/cli-bridge.js';
++import {verifyE4} from '../aghr/e4-bridge.js';
++import {StudioError} from '../auth.js';
++export const hash=b=>'sha256:'+crypto.createHash('sha256').update(b).digest('hex');
++export function createPhase4Bridge({python,base}){
++ const runner=createJobRunner({python}),entry=path.join(repository,'server/studio/phase4/engine.py'),pin=hash(fs.readFileSync(entry));let closed=false;const controllers=new Set();
++ return {async run(operation,data,context={}){
++  verifyE4();if(closed||hash(fs.readFileSync(entry))!==pin)throw Error('PHASE4_SOURCE_DRIFT');
++  const raw=Buffer.from(JSON.stringify({operation,data,context,base}));if(raw.length>1024**2)throw new StudioError(413,'PAYLOAD_TOO_LARGE','Phase4 input exceeds1MiB.');
++  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'aghr-phase4-')),file=path.join(dir,'request.json'),controller=new AbortController();controllers.add(controller);
++  try{fs.writeFileSync(file,raw,{flag:'wx'});const job=await runner.run('check',{executable:python,args:['-I','-B','-S','-X','utf8',path.join(repository,'server/studio/aghr/read-only-launcher.py'),entry,file],cwd:repository,signal:controller.signal});
++   if(!['passed','failed'].includes(job.status)||job.active_processes_after!==0||job.started.hard_memory_bytes!==2*1024**3)throw Error('RESOURCE_GATE_FAILED');
++   const report=JSON.parse(job.stdout);if(report.protocol_version!=='3'||report.exit_code!==job.exit_code)throw Error('PHASE4_PROTOCOL_FAILED');
++   if(job.exit_code!==0){const e=new StudioError(422,'VALIDATION_FAILED',report.reason||'Phase4 rejected.');e.receipt=job;throw e;}
++   return {data:report.data,receipt:job};
++  }finally{controllers.delete(controller);fs.unlinkSync(file);fs.rmdirSync(dir);}
++ },close(){closed=true;for(const c of controllers)c.abort();}};
++}
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw b/server/studio/phase4/engine.py
+index e69de29..6d0c655 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw
++++ b/server/studio/phase4/engine.py
+@@ -0,0 +1,149 @@
++"""Draft-only Phase4 extension. Python owns proposal parsing/hash and policy decisions.
++Existing E1–E5 sources are imported unchanged. No input is executed or written.
++"""
++import ast
++import base64
++import copy
++import difflib
++from dataclasses import replace
++import hashlib
++import json
++from pathlib import Path, PurePosixPath
++import sys
++from jsonschema import Draft202012Validator
++
++REPO = Path(__file__).resolve().parents[3]
++sys.path[:0] = [str(REPO/'server/studio/aghr/e5'), str(REPO/'governance_packages/candidates/AGHR_rc3_Core_Candidate/tools')]
++from core import schema, canonical, digest, parse_proposal
++from loader import parse_source
++
++KINDS = ['OBSERVATION','PRINCIPLE','CONSTRAINT','REQUIREMENT','PROCEDURE','GUIDELINE','POLICY','RULE','STANDARD','CONTROL','DECISION','EXCEPTION','CAPABILITY']
++SCENARIOS = ['S'+str(i) for i in range(1,9)]
++def need(test, message):
++    if not test:
++        raise ValueError(message)
++def text(value):
++    return isinstance(value,str) and bool(value.strip()) and len(value)<=65536
++def fields(value, allowed, required=()):
++    need(isinstance(value,dict) and not set(value)-set(allowed) and set(required)<=set(value),'INVALID_FIELDS')
++def path(value):
++    need(isinstance(value,str) and len(value)<512 and '\\' not in value and ':' not in value and all(x not in ('','.','..') for x in value.split('/')) and not PurePosixPath(value).is_absolute(),'UNSAFE_PATH')
++    return value
++def parsed(content):
++    value=parse_source('policies/proposed.yaml',content.encode('utf-8'))
++    need(len(value.documents)==1 and len(value.documents[0].members)==1,'ONE_DOCUMENT_REQUIRED')
++    return value.documents[0].members[0].value
++def generated(files):
++    return {'kind':'GENERATED_FILE','target_project_id':'studio-drafts','files':[{'path':path(f['path']),'content':f['content'],'content_hash':digest(f['content'].encode('utf-8'))} for f in files]}
++def meta(body):
++    fields(body,['title','files'],['title','files']);need(text(body['title']) and isinstance(body['files'],list) and 1<=len(body['files'])<=20,'META_FILES_REQUIRED')
++    seen=set()
++    for f in body['files']:
++        fields(f,['path','content'],['path','content']);p=path(f['path']);need(p not in seen,'DUPLICATE_PATH');seen.add(p)
++        need(p.split('/')[0] in ['policies','schemas','tools'] and text(f['content']),'META_PATH_REQUIRED')
++        if p.startswith('policies/'):
++            schema('item.schema.json',None,parsed(f['content']))
++        elif p.startswith('schemas/'):
++            document=json.loads(f['content']);Draft202012Validator.check_schema(document)
++        elif p.endswith('.py'):
++            ast.parse(f['content'])  # Syntax only; NEVER import/execute proposed tools.
++    return generated(body['files'])
++def pack(payload, metadata, base):
++    schema('api.change.schema.json','Create',payload)
++    schema('proposal.schema.json',None,parsed(payload['proposed_yaml']))
++    bound={**base,**payload,'phase4':metadata};raw=canonical(bound)
++    return {'payload':payload,'phase4':metadata,**base,'proposal_version_hash':digest(raw),'canonical_base64':base64.b64encode(raw).decode('ascii')}
++def payload(title,item,source):
++    return {'title':title,'kind':item['kind'],'proposed_yaml':json.dumps(item,ensure_ascii=False,sort_keys=True),'source':source}
++def main(r):
++    op,data,context=r['operation'],r['data'],r.get('context',{});base=r['base']
++    if op=='legacy.guard':
++        _, member=parse_proposal(data);value=member.value
++        need(value['kind']!='calibration' and value.get('impact',{}).get('evidence')!='repo-measured','USE_LIVE_CALIBRATION_WORKFLOW')
++        return {'status':'ALLOWED', 'policy_promotion':False}
++    if op=='meta.create':
++        item=meta(data);before=context.get('before',[]);diff=''.join(''.join(difflib.unified_diff((next((v['content'] for v in before if v['path']==f['path']),None) or '').splitlines(True),f['content'].splitlines(True),fromfile='a/'+f['path'],tofile='b/'+f['path'])) for f in data['files'])
++        return pack(payload(data['title'],item,{'type':'request','ref':'phase4-meta'}),{'lane':'meta','body':data,'before':before,'diff':diff,'required_approvals':['governance-owner','architecture-board'],'checks':{'structure':'PASS','behavioral_evals':'NOT_RUN','generation_check':'NOT_RUN'}},base)
++    if op=='intake.create':
++        fields(data,['title','path','content','raw_base64','source_hash','bytes'],['title','path','content','raw_base64','source_hash','bytes'])
++        raw=base64.b64decode(data['raw_base64'],validate=True);need(digest(raw)==data['source_hash'] and len(raw)==data['bytes'],'SOURCE_HASH_MISMATCH')
++        return pack(payload(data['title'],generated([{'path':'intake/'+path(data['path']),'content':data['content']}]),{'type':'document','ref':data['path'],'hash':data['source_hash']}),{'lane':'intake','body':data,'disposition':'new','trust':'UNTRUSTED_INPUT','automatic_execution':False,'required_approvals':['governance-owner']},base)
++    if op=='lesson.create':
++        fields(data,['title','task_id','source_hash','error','pattern','cause','cause_evidence','knowledge_type','instruction_kind','scope','authority_level','disposition','duplicates','conflicts'],['title','task_id','source_hash','error','pattern','cause','knowledge_type','instruction_kind','scope','authority_level','disposition','duplicates','conflicts'])
++        need(all(text(data[k]) for k in ['title','task_id','error','pattern','knowledge_type','scope']),'LESSON_CONTEXT_REQUIRED')
++        need(data['cause'] in ['UNPROVEN','SUPPORTED'] and (data['cause']=='UNPROVEN' or text(data.get('cause_evidence'))),'CAUSE_EVIDENCE_REQUIRED')
++        need(data['cause']=='UNPROVEN' or context.get('cause_supported') is True,'CAUSE_EVIDENCE_UNVERIFIED')
++        need(data['instruction_kind'] in KINDS+['UNRESOLVED'] and data['authority_level'] in ['enterprise','organization','project','component','UNRESOLVED'] and data['disposition'] in ['propose','fixture','dismiss'],'INVALID_CLASSIFICATION')
++        need(isinstance(data['duplicates'],list) and isinstance(data['conflicts'],list),'REVIEW_LINKS_REQUIRED')
++        body=copy.deepcopy(data)
++        return pack(payload(data['title'],generated([{'path':'lessons/'+data['task_id']+'.json','content':json.dumps(body,ensure_ascii=False)}]),{'type':'lesson','ref':'runtime:'+data['task_id'],'task_id':data['task_id'],'hash':data['source_hash']}),{'lane':'lesson','body':body,'policy_promotion':False,'required_approvals':['governance-owner'],'review_required':True},base)
++    if op=='adoption.create':
++        fields(data,['title','skill_id','project_id','source','function'],['title','skill_id','project_id','source','function'])
++        need(data['source'] in ['system','user','project','extension','catalog','aghr'] and data['function'] in ['routing','design','implementation','debugging','security','verification','learning'],'INVALID_CLASSIFICATION')
++        need(all(text(data[k]) for k in ['title','skill_id','project_id']),'ADOPTION_CONTEXT_REQUIRED')
++        return pack(payload(data['title'],generated([{'path':'capabilities/project-selections/'+data['project_id']+'.json','content':'{}'}]),{'type':'request','ref':'phase4-adoption'}),{'lane':'adoption','body':data,'step':1,'steps':[{'step':1,'output':data}],'required_approvals':['governance-owner'],'installed':False},base)
++    if op=='adoption.step':
++        cp=context['cp'];m=copy.deepcopy(cp['phase4']);fields(data,['step','output'],['step','output']);step=data['step'];need(m['lane']=='adoption' and step==m['step']+1 and step<=7,'STEP_ORDER_REQUIRED');v=data['output'];body=m['body']
++        if step==2:
++            fields(v,['preferred','alternatives','rationale'],['preferred','alternatives','rationale']);need(isinstance(v['preferred'],bool) and isinstance(v['alternatives'],list) and text(v['rationale']),'DUPLICATE_DECISION_REQUIRED')
++            need(not context.get('duplicates') or (v['preferred'] or v['alternatives']) and set(context['duplicates'])<=set(v['alternatives'])|{body['skill_id']},'OVERLAP_RESOLUTION_REQUIRED')
++        elif step==3:
++            schema('proposal.schema.json','ProjectSelection',v);need(v['project_id']==body['project_id'] and any(s['skill_id']==body['skill_id'] for s in v['selections']),'SELECTION_MISMATCH')
++        elif step==4:
++            schema('item.schema.json',None,v);need(v['kind']=='CAPABILITY' and v['skillId']==body['skill_id'] and v['source']==body['source'] and v['function']==body['function'],'CAPABILITY_MISMATCH');m['capability']=v
++        elif step==5:
++            need(context.get('qualification_current') is True,'LIVE_QUALIFICATION_REQUIRED');v=context['qualification']
++            q={k:v[k] for k in ['skillId','host','hostVersion','scope','contentHash','status']}
++            q.update(qualifiedAt=v['qualifiedAt'][:10],evidence=['e4:execution/'+x['run_id']+'#'+x['content_hash'] for x in v['evidence']])
++            m['capability']['skillQualification']=q
++        elif step==6:
++            need(isinstance(v,list),'FIXTURES_REQUIRED');p0=m['capability'].get('defaultTier','').startswith('P0')
++            if p0: need(sorted(x.get('scenario') for x in v)==SCENARIOS,'EIGHT_SCENARIOS_REQUIRED')
++            for f in v:fields(f,['scenario','input','task_criteria'],['scenario','input','task_criteria']);need(text(f['task_criteria']),'FIXTURE_CRITERIA_REQUIRED')
++        else: need(context.get('qualification_current') is True,'STALE_QUALIFICATION')
++        m['step']=step;m['steps'].append({'step':step,'output':v});item=m.get('capability')
++        if item is None:item=generated([{'path':'capabilities/project-selections/'+body['project_id']+'.json','content':json.dumps(m['steps'],ensure_ascii=False)}])
++        return pack(payload(cp['title'],item,cp['source']),m,base)
++    if op=='calibration.create':
++        need(context.get('live_eval') is True,'LIVE_PASSED_EVAL_REQUIRED');old=context['item'];run=context['eval'];need(old['impact']['evidence']=='assumed','ASSUMED_SOURCE_REQUIRED')
++        fields(data,['item_id','eval_run_id','reason','measured_delta'],['item_id','eval_run_id','reason','measured_delta']);need(data['item_id']==old['id'] and text(data['reason']),'CALIBRATION_TARGET_REQUIRED')
++        need(isinstance(data['measured_delta'],(float,int)) and not isinstance(data['measured_delta'],bool) and data['measured_delta']==run['measured_delta'],'MEASURED_DELTA_MISMATCH')
++        item=copy.deepcopy(old);item['impact'].update(evidence='repo-measured',lastCalibrated=run['finished_at'][:10],measuredDelta=run['measured_delta'])
++        schema('item.schema.json',None,item)
++        wrapper={'kind':'calibration','target_item_id':old['id'],'eval_run_id':data['eval_run_id'],'measured_delta':data['measured_delta'],'reason':data['reason'],'proposed_item':item}
++        return pack(payload('Calibration '+old['id'],wrapper,{'type':'calibration','ref':'phase4-measurement','eval_run_id':data['eval_run_id'],'measured_delta':data['measured_delta'],'reason':data['reason']}),{'lane':'calibration','body':data,'eval':run,'source_hash':context['source_hash'],'required_approvals':['governance-owner'],'source_written':False},base)
++    if op=='edit':
++        cp=context['cp'];m=copy.deepcopy(cp['phase4']);need(m['lane'] in ['meta','lesson'],'EDIT_REQUIRES_NEW_WORKFLOW')
++        return main({**r,'operation':m['lane']+'.create'})
++    if op=='review':
++        fields(data,['decision','reason'],['decision','reason'])
++        cp=context['cp'];need(context.get('actor',{}).get('server_resolved_role') in cp['phase4']['required_approvals'],'REVIEW_ROLE_REQUIRED');need(text(data.get('reason')),'REVIEW_REASON_REQUIRED')
++        if data.get('decision')=='approve':
++            need(cp['status']=='in_review','SUBMIT_BEFORE_APPROVAL')
++            if cp['phase4']['lane']=='meta':
++                # A registered evaluator cannot override E2 authority/source rules.
++                from loader import read_package
++                from validate import validate_package
++                from scope import ScopeContext
++                root=REPO/'governance_packages/candidates/AGHR_rc3_Core_Candidate'
++                package=read_package(root);members=list(package.items)
++                for f in cp['phase4']['body']['files']:
++                    if f['path'].startswith('policies/'):
++                        parsed_file=parse_source(f['path'],f['content'].encode('utf-8'))
++                        members=[m for m in members if m.location.path!=f['path']]+list(parsed_file.documents[0].members)
++                need(len({m.value['id'] for m in members})==len(members),'DUPLICATE_ITEM_ID')
++                result,_=validate_package(replace(package,items=tuple(members)),root,ScopeContext())
++                need(result['result']=='VALID','META_STRICT_POLICY_REJECTED')
++                need(context.get('all_behavioral_evals') is True and context.get('generation_check') is True,'META_EVAL_AND_GENERATION_REQUIRED')
++            if cp['phase4']['lane']=='calibration':need(context.get('live_eval') is True,'LIVE_PASSED_EVAL_REQUIRED')
++            if cp['phase4']['lane']=='adoption':need(cp['phase4']['step']==7 and context.get('qualification_current') is True,'LIVE_QUALIFICATION_REQUIRED')
++        else:need(data.get('decision')=='reject','INVALID_DECISION')
++        return {'decision':data['decision'],'required_approvals':cp['phase4']['required_approvals']}
++    raise ValueError('PHASE4_OPERATION_UNSUPPORTED')
++
++if __name__=='__main__':
++    try:
++        raw=Path(sys.argv[1]).read_bytes();need(len(raw)<=1024**2,'INPUT_LIMIT');request=json.loads(raw)
++        result=main(request);print(json.dumps({'protocol_version':'3','result':'VALID','exit_code':0,'data':result},ensure_ascii=False,allow_nan=False));sys.exit(0)
++    except Exception as error:
++        print(json.dumps({'protocol_version':'3','result':'INVALID','exit_code':1,'data':None,'reason':str(error)[:3000]},ensure_ascii=False));sys.exit(1)
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw b/server/studio/phase4/routes.mjs
+index e69de29..acb43a0 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw
++++ b/server/studio/phase4/routes.mjs
+@@ -0,0 +1,40 @@
++import crypto from 'node:crypto';
++import {isDeepStrictEqual} from 'node:util';
++import {StudioError} from '../auth.js';
++async function body(req){if(!/^application\/json(?:;|$)/i.test(req.headers['content-type']||''))throw new StudioError(400,'INVALID_REQUEST','JSON required.');let n=0;const a=[];for await(const b of req){n+=b.length;if(n>262144)throw new StudioError(413,'PAYLOAD_TOO_LARGE','Request exceeds256KiB.');a.push(b);}try{return JSON.parse(new TextDecoder('utf8',{fatal:true}).decode(Buffer.concat(a)));}catch{throw new StudioError(400,'INVALID_REQUEST','Valid UTF-8 JSON required.');}}
++export function createPhase4Routes({service,watcher,workspace,authority,intents,clock,audit,fallback}){
++ const prefix='/api/v1/workspaces/'+workspace.id+'/phase4';
++ return async(req,res)=>{
++  const url=new URL(req.url,'http://127.0.0.1');if(!url.pathname.startsWith(prefix))return fallback(req,res);
++  const requestId=crypto.randomUUID(),mutation=req.method!=='GET';let resourceId=null;
++  const record=(result,status,reason)=>audit(req,{action:'meta.change.propose',resourceId,result,status,reason,requestId});
++  const send=(status,data,e)=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(JSON.stringify({data,meta:{request_id:requestId,recorded_at:new Date().toISOString(),contract_revision:'phase4-local.1',...(e?{error:{code:e.code||'INTERNAL_ERROR',message:e instanceof StudioError?e.message:'Phase4 halted.',halted:true}}:{})}}));};
++  try{
++   if(mutation)record('ATTEMPT',null,'Phase4 request');const principal=authority.authenticate(req),actor=authority.describe(principal);if(url.search)throw new StudioError(400,'INVALID_REQUEST','No query allowed.');
++   if(req.method==='GET'){
++    if(Number(req.headers['content-length'])>0||req.headers['transfer-encoding'])throw new StudioError(400,'INVALID_REQUEST','No GET body.');
++    if(url.pathname===prefix)return send(200,{...service.status(),watcher:watcher.status()});
++    if(url.pathname===prefix+'/packages')return send(200,service.packages());
++    const m=url.pathname.slice(prefix.length).match(/^\/packages\/(CP-[\w-]+)(\/evidence)?$/);if(m)return send(200,m[2]?service.evidence(m[1]):service.get(m[1]));
++   }
++   if(req.method==='POST'&&url.pathname===prefix+'/intents'){
++    const input=await body(req),request=input?.operation==='watch.start'&&Object.keys(input).join(',')==='operation'?input:service.validate(input);
++    for(const [key,i]of intents)if(clock()>=i.expires)intents.delete(key);if(intents.size>=128)throw new StudioError(429,'RATE_LIMITED','Too many intents.');
++    resourceId=request.cp_id||'CP-'+crypto.randomUUID();const roleAction={'governance-owner':'governance','security-owner':'security','architecture-board':'architecture'}[actor.server_resolved_role];
++    const scope={workspace_id:workspace.id,target_project:'studio-drafts',action:request.operation==='review'?'cp.approve.'+roleAction:request.operation==='calibration.eval'?'verify.run.eval':'meta.change.propose',resource_id:resourceId,proposal_version_hash:request.operation==='watch.start'?watcher.binding():service.binding(request)};
++    const id=crypto.randomUUID();intents.set(id,{principal,operation:'phase4',payload:request,scope,prepared:{id:resourceId,title:request.operation},expires:clock()+120000,grant:null});return send(200,{id,scope,status:'AWAITING_OPERATOR'});
++   }
++   if(req.method==='POST'&&url.pathname===prefix+'/run'){
++    const token=req.headers['x-write-grant'],entry=[...intents].find(([,i])=>i.grant===token&&i.principal===principal),intent=entry?.[1];
++    if(!intent||intent.operation!=='phase4'||intent.revoked||clock()>=intent.expires)throw new StudioError(403,'FORBIDDEN','Scoped Phase4 grant required.');resourceId=intent.scope.resource_id;
++    if(!req.headers['if-match'])throw new StudioError(428,'STALE_PROPOSAL','If-Match required.');
++    const input=await body(req),binding=intent.payload.operation==='watch.start'?watcher.binding():service.binding(intent.payload);
++    if(req.headers['if-match']!==JSON.stringify(intent.scope.proposal_version_hash)||binding!==intent.scope.proposal_version_hash||!isDeepStrictEqual(input,intent.payload))throw new StudioError(412,'STALE_PROPOSAL','Proposal/configuration changed.');
++    const receipt=authority.authorize(principal,intent.scope,token);let result;
++    if(input.operation==='watch.start'){watcher.start(receipt,intent.scope);result=watcher.status();}else result=await service.run(receipt,intent.scope,input,actor);
++    intents.delete(entry[0]);return send(200,result);
++   }
++   throw new StudioError(mutation?403:404,mutation?'FORBIDDEN':'NOT_FOUND','Unsupported Phase4 endpoint.');
++  }catch(e){const status=e instanceof StudioError?e.status:503;try{if(mutation||status===403)record(status===403?'DENY':'ERROR',status,e.code||'PHASE4_FAILED');}catch{return send(503,null,new StudioError(503,'INTERNAL_ERROR','Audit unavailable.'));}return send(status,null,e);}
++ };
++}
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw b/server/studio/phase4/service.mjs
+index e69de29..3c48069 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw
++++ b/server/studio/phase4/service.mjs
+@@ -0,0 +1,92 @@
++import fs from 'node:fs';
++import path from 'node:path';
++import crypto from 'node:crypto';
++import {createPhase4Bridge,hash} from './bridge.mjs';
++import {createE4Engine} from '../aghr/e4-bridge.js';
++import {createLocalProcessHost} from '../hosts/local-process.mjs';
++import {StudioError} from '../auth.js';
++import {engineRoot} from '../aghr/cli-bridge.js';
++import {resourceProfiles} from '../aghr/job-runner.js';
++const fail=(code,message)=>new StudioError(422,code,message),id=s=>typeof s==='string'&&/^[\w][\w.-]{0,127}$/.test(s);
++export function createPhase4Service({python,store,base,catalog,evidence,e4Config={skills:[],permissions:[]},options={}}){
++ const bridge=createPhase4Bridge({python,base}),capture=createLocalProcessHost(e4Config),evaluations=new Map(),qualifications=new Map(),controllers=new Set();let active=false,closing=false;
++ const guarded=new Set();
++ const capabilityHash=c=>{const value=structuredClone(c.phase4.capability);delete value.skillQualification;return hash(JSON.stringify(value));};
++ const cp=id=>{const v=store.draft(id);if(!v?.phase4)throw new StudioError(404,'UNKNOWN_ID','Unknown Phase4 CP.');return v;};
++ const item=id=>{const v=catalog.views.find(v=>v.item?.id===id);if(!v)throw new StudioError(404,'UNKNOWN_ID','Unknown source item.');return structuredClone(v);};
++ const currentQualification=c=>{const q=qualifications.get(c.id),s=capture.capture().skills.find(s=>s.id===c.phase4.body.skill_id);return !!q&&q.data.qualification?.host==='aghr-local-process'&&q.data.qualification.hostVersion===process.version&&q.data.qualification.contentHash===s?.instruction_hash&&q.data.qualification.driverHash===s?.entry_hash&&q.capability===capabilityHash(c)&&q.data.qualification.scope===(e4Config.scope||'**/*');};
++ const liveEval=c=>{const e=evaluations.get(c.phase4.body.eval_run_id);return !!e&&e.cp_id===c.id&&e.cp_hash===c.proposal_version_hash&&e.source_hash===item(c.phase4.body.item_id).source_hash&&e.inventory_hash===hash(JSON.stringify(capture.capture()))&&e.status==='PASS'&&e.expires>Date.now();};
++ const validate=request=>{
++  if(!request||Object.keys(request).some(k=>!['operation','cp_id','data'].includes(k))||!request.data||typeof request.data!=='object'||Array.isArray(request.data)||!['meta.create','meta.evaluate','adoption.create','adoption.step','intake.create','lesson.create','calibration.eval','calibration.create','edit','submit','review'].includes(request.operation))throw new StudioError(400,'INVALID_REQUEST','Invalid Phase4 operation.');
++  if(request.operation==='intake.create')throw new StudioError(403,'FORBIDDEN','Intake creation belongs to the registered watcher only.');
++  if(['meta.evaluate','adoption.step','edit','submit','review'].includes(request.operation)&&!/^CP-[\w-]+$/.test(request.cp_id||''))throw fail('CP_REQUIRED','Saved change package required.');
++  if(request.cp_id)cp(request.cp_id);
++  if(Buffer.byteLength(JSON.stringify(request))>262144)throw new StudioError(413,'PAYLOAD_TOO_LARGE','Request exceeds256KiB.');return structuredClone(request);
++ };
++ const binding=request=>hash(JSON.stringify({request,cp:request.cp_id?cp(request.cp_id).proposal_version_hash:null,inventory:capture.capture(),base}));
++ const context=c=>({cp:c,qualification_current:currentQualification(c),...(qualifications.get(c.id)?{qualification:qualifications.get(c.id).data.qualification}:{}),live_eval:c.phase4.lane==='calibration'?liveEval(c):false,duplicates:catalog.capabilities.filter(v=>v.capability.function===c.phase4.body.function).map(v=>v.capability.skillId)});
++ const engine=()=>{const e=createE4Engine({python,...e4Config});controllers.add(e);return e;};
++ const beforeFiles=data=>{if(!Array.isArray(data.files)||data.files.length>20)throw fail('META_FILES_REQUIRED','At most20 files.');return data.files.map(f=>{if(typeof f.path!=='string'||! /^(policies|schemas|tools)\/[\w./-]+$/.test(f.path)||f.path.split('/').some(x=>['.','..',''].includes(x)))throw fail('UNSAFE_PATH','Unsafe meta path.');let current=engineRoot,exists=true;for(const part of f.path.split('/')){current=path.join(current,part);const st=fs.lstatSync(current,{throwIfNoEntry:false});if(!st){exists=false;break;}if(st.isSymbolicLink())throw fail('UNSAFE_PATH','Reparse source rejected.');}if(!exists)return {path:f.path,content:null,content_hash:null};const st=fs.statSync(current);if(!st.isFile()||st.size>131072)throw fail('SOURCE_SIZE_LIMIT','Source exceeds128KiB.');const bytes=fs.readFileSync(current);return {path:f.path,content:bytes.toString('utf8'),content_hash:hash(bytes)};});};
++ async function evalActual(request,cpValue){
++  const calibration=request.operation==='calibration.eval',skillId=calibration?options.measurementSkillId:options.metaSkillId;
++  if(!skillId)throw fail('EVALUATOR_NOT_CONFIGURED','An operator-registered measurement/meta evaluator is required.');
++  const d=request.data;if(Object.keys(d).some(k=>!(calibration?['item_id','reason']:[]).includes(k)))throw fail('UNTRUSTED_EVAL_INPUT','Only the target and reason may be submitted; metrics and PASS are never client inputs.');
++  const source=calibration?item(d.item_id):null,run_id='VR-'+crypto.randomUUID(),subject={run_id,item_id:source?.item.id??null,source_hash:source?.source_hash??null,cp_id:cpValue?.id??null,proposal_version_hash:cpValue?.proposal_version_hash??null,reason:d.reason??null,scope:e4Config.scope||'**/*'};
++  if(calibration&&(!d.reason?.trim()||source.item.impact.evidence!=='assumed'))throw fail('ASSUMED_SOURCE_REQUIRED','An assumed source and reason are required.');
++  const e=engine();let expired=false;const deadline=setTimeout(()=>{expired=true;e.close();},resourceProfiles.eval.timeoutMs);try{
++   const task=e.createTask({task_id:'phase4-'+crypto.randomUUID()}),input={binding:subject,...(source?{item:source.item}:{change:cpValue.phase4.body})};
++   const criteria=JSON.stringify({all:[{pointer:'/binding/run_id',op:'equals',value:run_id},{pointer:'/valid',op:'equals',value:true}]});
++   const result=await e.eval(task,skillId,{input,task_criteria:criteria,runs:3});if(result.data.status!=='PASS')throw fail('EVAL_NOT_PASSED','Actual evaluation did not pass.');
++   const executed=e.records.filter(r=>r.operation==='execute');if(executed.length!==3)throw fail('EXECUTION_EVIDENCE_REQUIRED','Three actual eval executions required.');
++   const outputs=executed.map(r=>JSON.parse(r.stdout));for(const o of outputs)if(JSON.stringify(o.binding)!==JSON.stringify(subject))throw fail('EVAL_CONTEXT_MISMATCH','Evaluator output is not bound to the target.');
++   let measured_delta;
++   if(calibration){for(const o of outputs){if(!Number.isFinite(o.before_metric)||!Number.isFinite(o.after_metric)||!/^sha256:[a-f0-9]{64}$/.test(o.repo_hash))throw fail('MEASUREMENT_EVIDENCE_REQUIRED','Evaluator must measure the registered repository and return before/after metrics and byte hash.');}measured_delta=outputs[0].after_metric-outputs[0].before_metric;if(outputs.some(o=>o.after_metric-o.before_metric!==measured_delta||o.repo_hash!==outputs[0].repo_hash))throw fail('UNSTABLE_MEASUREMENT','Repeated measurements differ.');}
++   else{const expected=options.requiredBehavioralEvals||[];if(!expected.length||outputs.some(o=>o.generation_check!=='PASS'||!expected.every(id=>o.behavioral_evals?.some(r=>r.id===id&&r.status==='PASS'))))throw fail('META_EVAL_AND_GENERATION_REQUIRED','All registered behavioral evals and candidate generation check must pass.');}
++   return {run_id,status:'PASS',...subject,finished_at:new Date().toISOString(),measured_delta,source_hash:source?.source_hash??null,inventory_hash:hash(JSON.stringify(capture.capture())),expires:Date.now()+15*60000,outputs,records:structuredClone(e.records),result:result.data};
++  }catch(error){if(expired)error=fail('resource_limit_exceeded','Overall eval deadline exceeded.');error.execution_records=structuredClone(e.records);throw error;}finally{clearTimeout(deadline);e.close();controllers.delete(e);}
++ }
++ return {validate,binding,packages:()=>store.phase4Packages(),get:cp,evidence:id=>{cp(id);return store.phase4Evidence(id);},
++  async guard(prepared){if(!guarded.has(prepared.proposal_version_hash)){await bridge.run('legacy.guard',prepared);guarded.add(prepared.proposal_version_hash);if(guarded.size>256)guarded.delete(guarded.values().next().value);}},
++  status(){return {mode:'DRAFT_ONLY',policy_promotion:false,source_written:false,state_written:false,host_inventory:capture.capture(),scope:e4Config.scope||'**/*',measurement_configured:!!options.measurementSkillId,meta_eval_configured:!!options.metaSkillId,items:catalog.views.map(x=>({id:x.item?.id,evidence:x.item?.impact?.evidence,source_hash:x.source_hash})),evaluations:[...evaluations.values()].map(({records,outputs,result,...x})=>x),qualification:'Live process only; historical rows do not restore proofs.'};},
++  async run(receipt,bound,request,actor){
++   if(active||closing)throw new StudioError(409,'CONFLICT','Phase4 operation active.');active=true;let completed=false,begun=false;const receipts=[];
++   try{
++    store.phase4Begin(receipt,bound);begun=true;
++    let c=request.cp_id?cp(request.cp_id):null,prepared,review,status;const op=request.operation,d=request.data;
++    if(['calibration.eval','meta.evaluate'].includes(op)){
++     if(op==='meta.evaluate'&&c.phase4.lane!=='meta')throw fail('META_CP_REQUIRED','Meta CP required.');
++     const e=await evalActual(request,c);store.phase4Complete(receipt,bound,{id:e.run_id,status:'passed',raw:JSON.stringify(e)});completed=true;evaluations.set(e.run_id,e);return {eval_run_id:e.run_id,status:e.status,measured_delta:e.measured_delta,finished_at:e.finished_at,source_hash:e.source_hash,source_written:false,state_written:false};
++    }
++    if(op==='lesson.create'||op==='edit'&&c.phase4.lane==='lesson'){
++     const source=await evidence.detail(d.task_id);if(source.task.parse_status!=='VALID'||source.source_hash!==d.source_hash)throw fail('LESSON_EVIDENCE_MISMATCH','Valid matching original evidence required.');
++     if(store.phase4Packages().some(c=>c.phase4.lane==='lesson'&&c.phase4.body.pattern===d.pattern&&c.phase4.body.source_hash===d.source_hash))throw new StudioError(409,'CONFLICT','Exact lesson already has a CP; review it.');
++    }
++    if(op==='calibration.create'){
++     const e=evaluations.get(d.eval_run_id),source=item(d.item_id);if(!e||e.status!=='PASS'||e.cp_id||e.inventory_hash!==hash(JSON.stringify(capture.capture()))||e.source_hash!==source.source_hash||e.item_id!==d.item_id||e.reason!==d.reason||e.expires<=Date.now())throw fail('LIVE_PASSED_EVAL_REQUIRED','No current, matching real eval evidence.');
++     const r=await bridge.run(op,d,{live_eval:true,item:source.item,source_hash:source.source_hash,eval:e});prepared=r.data;receipts.push(r.receipt);
++    }else if(op==='adoption.step'){
++     if(d.step===5){
++      if(c.phase4.step!==4)throw fail('STEP_ORDER_REQUIRED','Complete steps1–4 first.');const e=engine();let expired=false;const deadline=setTimeout(()=>{expired=true;e.close();},resourceProfiles.qualify.timeoutMs);try{const task=e.createTask({task_id:'adoption-'+crypto.randomUUID()}),r=await e.qualify(task,c.phase4.body.skill_id,{input:d.output?.input,task_criteria:d.output?.task_criteria,runs:3});
++       if(r.data.status!=='QUALIFIED')throw fail('LIVE_QUALIFICATION_REQUIRED','Actual local qualification failed.');qualifications.set(c.id,{data:r.data,capability:capabilityHash(c)});receipts.push(...e.records);
++      }catch(error){if(expired)throw fail('resource_limit_exceeded','Overall qualification deadline exceeded.');throw error;}finally{clearTimeout(deadline);e.close();controllers.delete(e);}
++     }
++     const r=await bridge.run(op,d,context(c));prepared=r.data;receipts.push(r.receipt);
++    }else if(op==='submit'){
++     if(Object.keys(d).length)throw fail('INVALID_FIELDS','Submit has no fields.');if(c.phase4.lane==='intake')throw fail('TRIAGE_REQUIRED','Untrusted intake cannot be submitted as policy.');
++     if(c.phase4.lane==='adoption'&&(c.phase4.step!==7||!currentQualification(c)))throw fail('LIVE_QUALIFICATION_REQUIRED','Seven steps and a current qualification required.');
++     if(c.phase4.lane==='calibration'&&!liveEval(c))throw fail('LIVE_PASSED_EVAL_REQUIRED','Evaluation is unavailable, stale or belongs to another proposal.');status='in_review';
++    }else if(op==='review'){
++     const ctx=context(c),ev=[...evaluations.values()].find(e=>e.cp_id===c.id&&e.proposal_version_hash===c.proposal_version_hash&&e.expires>Date.now());
++     const r=await bridge.run('review',d,{...ctx,actor,all_behavioral_evals:!!ev,generation_check:!!ev});review={decision:r.data.decision,reason:d.reason};receipts.push(r.receipt);
++    }else if(!prepared){const r=await bridge.run(op,d,{...(c?context(c):{}),...(op==='meta.create'||op==='edit'&&c.phase4.lane==='meta'?{before:beforeFiles(d)}:{})});prepared=r.data;receipts.push(r.receipt);}
++    if(prepared){const canonical=Buffer.from(prepared.canonical_base64,'base64');if(hash(canonical)!==prepared.proposal_version_hash)throw Error('PHASE4_HASH_MISMATCH');}
++    const value=store.phase4Commit(receipt,bound,{id:bound.resource_id,previousHash:c?.proposal_version_hash??null,prepared,status,review,raw:JSON.stringify(receipts)});completed=true;
++    if(op==='calibration.create'){const e=evaluations.get(d.eval_run_id);e.cp_id=value.id;e.cp_hash=value.proposal_version_hash;}
++    return value;
++   }catch(error){if(begun&&!completed){store.phase4Complete(receipt,bound,{id:'VR-'+crypto.randomUUID(),status:'failed',raw:JSON.stringify({reason:error.message,receipt:error.receipt??null,execution_records:error.execution_records??[],receipts})});completed=true;}throw error;}
++   finally{active=false;}
++  },
++  async ingest(receipt,bound,data){const r=await bridge.run('intake.create',data);store.phase4Begin(receipt,bound);return store.phase4Commit(receipt,bound,{id:bound.resource_id,prepared:r.data,raw:JSON.stringify(r.receipt)});},
++  close(){closing=true;bridge.close();for(const e of controllers)e.close();if(active)return(async()=>{while(active)await new Promise(r=>setTimeout(r,50));})();},
++ };
++}
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw b/server/studio/phase4/watcher.mjs
+index e69de29..eb1c175 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw
++++ b/server/studio/phase4/watcher.mjs
+@@ -0,0 +1,26 @@
++import fs from 'node:fs';
++import path from 'node:path';
++import {hash} from './bridge.mjs';
++import {consumeAuthorization} from '../write-authorization.js';
++import {StudioError} from '../auth.js';
++export function createIntakeWatcher({root,service,authorize,store,audit}){
++ let handle,closed=false,queue=Promise.resolve();const timers=new Map(),inflight=new Set(),errors=[],exclude=new Set(['node_modules','.git','__pycache__','.venv','.governance','backups','staging']);
++ const safe=file=>{
++  if(!root||!path.isAbsolute(root))throw Error('INBOX_ROOT_NOT_CONFIGURED');const absolute=path.resolve(root,file),relative=path.relative(root,absolute);
++  if(!relative||relative.startsWith('..')||path.isAbsolute(relative)||relative.split(path.sep).some(p=>exclude.has(p)||p.startsWith('.'))||!['.md','.yaml','.json'].includes(path.extname(relative).toLowerCase()))return null;
++  let current=path.parse(absolute).root;for(const part of path.relative(current,absolute).split(path.sep)){current=path.join(current,part);const s=fs.lstatSync(current);if(s.isSymbolicLink())throw Error('INBOX_REPARSE_REJECTED');}
++  return {absolute,relative:relative.split(path.sep).join('/')};
++ };
++ const receive=async file=>{
++  const p=safe(file);if(!p)return;const st=fs.lstatSync(p.absolute);if(!st.isFile()||st.nlink!==1||st.size>131072||!st.size)throw Error('INBOX_SIZE_OR_TYPE_REJECTED');
++  const fd=fs.openSync(p.absolute,'r');let raw;try{const start=fs.fstatSync(fd);if(start.ino!==st.ino||start.dev!==st.dev)throw Error('INBOX_CHANGED');const b=Buffer.alloc(131073),n=fs.readSync(fd,b,0,b.length,0),after=fs.fstatSync(fd);if(n>131072||n!==after.size||after.mtimeMs!==start.mtimeMs)throw Error('INBOX_CHANGED');raw=b.subarray(0,n);}finally{fs.closeSync(fd);}
++  const source_hash=hash(raw);if(store.phase4Packages().some(c=>c.phase4.lane==='intake'&&c.phase4.body.source_hash===source_hash))return;
++  const data={title:'INBOX '+p.relative,path:p.relative,content:raw.toString('utf8'),raw_base64:raw.toString('base64'),source_hash,bytes:raw.length};
++  const {receipt,scope}=authorize(hash(JSON.stringify(data)));return service.ingest(receipt,scope,data);
++ };
++ const schedule=file=>{if(closed||typeof file!=='string'||timers.size>=128||inflight.size>=128)return;clearTimeout(timers.get(file));timers.set(file,setTimeout(()=>{timers.delete(file);const task=queue.then(()=>receive(file)).catch(e=>{errors.push({file,reason:e.message,at:new Date().toISOString()});if(errors.length>50)errors.shift();try{audit({file,reason:e.message});}catch{errors.push({reason:'AUDIT_UNAVAILABLE'});}}).finally(()=>inflight.delete(task));queue=task;inflight.add(task);},500));};
++ return {binding:()=>hash(JSON.stringify({root:root??null,debounce_ms:500,extensions:['.md','.yaml','.json']})),status:()=>({configured:!!root,running:!!handle,debounce_ms:500,mode:'DRAFTS_ONLY',existing_files_scanned:false,errors:[...errors]}),
++  start(receipt,scope){if(handle)throw new StudioError(409,'CONFLICT','Watcher already running.');if(!root||!path.isAbsolute(root)||!fs.statSync(root).isDirectory()||fs.lstatSync(root).isSymbolicLink())throw new StudioError(422,'VALIDATION_FAILED','Register a safe absolute INBOX root at startup.');consumeAuthorization(receipt,scope);store.appendAudit(receipt,{event_type:scope.action,resource_type:'watcher',payload:{result:'STARTED',root,debounce_ms:500,mode:'DRAFTS_ONLY'}});handle=fs.watch(root,{recursive:true},(_,file)=>schedule(file?.toString()));},
++  close(){closed=true;handle?.close();handle=null;for(const t of timers.values())clearTimeout(t);timers.clear();if(inflight.size)return Promise.allSettled([...inflight]);},
++ };
++}
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw b/src/features/governed/phase4.css
+index e69de29..828b5bf 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw
++++ b/src/features/governed/phase4.css
+@@ -0,0 +1,5 @@
++[data-testid="phase4-screen"] .draft-grid > section { min-width: 0; }
++[data-testid="phase4-screen"] pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 30rem; overflow: auto; }
++[data-testid="phase4-screen"] ol { padding-inline-start: 1.5rem; line-height: 2; }
++[data-testid="phase4-screen"] button { margin: .2rem; }
++[data-testid="phase4-screen"] input,[data-testid="phase4-screen"] textarea,[data-testid="phase4-screen"] select { max-width: 100%; box-sizing: border-box; }
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw b/src/features/governed/Phase4Studio.jsx
+index e69de29..f35479e 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw
++++ b/src/features/governed/Phase4Studio.jsx
+@@ -0,0 +1,42 @@
++import {useEffect,useState} from 'react';
++import {Badge,useText} from '../phase0/common.jsx';
++import './phase4.css';
++const steps=[['التصنيف','Classify'],['مراجعة التكرار','Review duplicates'],['اختيارات المشروع','Project selections'],['بند القدرة','Capability item'],['التأهيل الفعلي','Actual qualification'],['حالات التقييم','Eval fixtures'],['الإرسال كحزمة تغيير','Submit as CP']];
++const template=(cp,status)=>{
++ if(cp.phase4.lane!=='adoption')return {};
++ const b=cp.phase4.body,s=status?.host_inventory?.skills.find(x=>x.id===b.skill_id),choice=cp.phase4.steps.find(x=>x.step===2)?.output;
++ if(cp.phase4.step===1)return {preferred:true,alternatives:[],rationale:''};
++ if(cp.phase4.step===2)return {kind:'PROJECT_SELECTION',project_id:b.project_id,selections:[{skill_id:b.skill_id,...choice}]};
++ if(cp.phase4.step===3)return {id:'CAP-'+b.skill_id,title:cp.title,kind:'CAPABILITY',force:'INFORMATIVE',severity:'info',scope:{paths:['**/*']},rule:'',impact:{evidence:'assumed'},skillId:b.skill_id,source:b.source,function:b.function,permissions:{read:[],write:[],network:'deny',secrets:'deny'},inputs:[],outputs:[],skillQualification:{skillId:b.skill_id,host:status.host_inventory.host_id,hostVersion:status.host_inventory.host_version,scope:status.scope,contentHash:s?.instruction_hash||'',status:'NOT_RUN'}};
++ if(cp.phase4.step===4)return {input:{},task_criteria:''};
++ if(cp.phase4.step===5)return cp.phase4.capability.defaultTier?.startsWith('P0')?Array.from({length:8},(_,i)=>({scenario:'S'+(i+1),input:{},task_criteria:''})):[];
++ return {};
++};
++export default function Phase4Studio({api,workspace}){
++ const t=useText(),base='/workspaces/'+workspace+'/phase4';
++ const [tab,setTab]=useState('meta'),[rows,setRows]=useState([]),[status,setStatus]=useState(null),[selected,setSelected]=useState(null),[intent,setIntent]=useState(null),[grant,setGrant]=useState(null),[busy,setBusy]=useState(false),[error,setError]=useState(''),[result,setResult]=useState(null),[proofs,setProofs]=useState(null);
++ const [title,setTitle]=useState(''),[path,setPath]=useState('schemas/proposed.json'),[content,setContent]=useState('{}'),[skill,setSkill]=useState(''),[project,setProject]=useState(''),[source,setSource]=useState('project'),[fn,setFn]=useState('verification'),[output,setOutput]=useState('{}'),[reason,setReason]=useState(''),[item,setItem]=useState(''),[task,setTask]=useState(''),[failure,setFailure]=useState(''),[pattern,setPattern]=useState(''),[instruction,setInstruction]=useState('UNRESOLVED'),[scope,setScope]=useState('project'),[authority,setAuthority]=useState('UNRESOLVED');
++ const work=async action=>{setBusy(true);setError('');try{await action();}catch(e){setError(e.message);}finally{setBusy(false);}};
++ const refresh=async()=>{setRows(await api(base+'/packages'));const s=await api(base);setStatus(s);return s;};
++ useEffect(()=>{let live=true;Promise.all([api(base+'/packages'),api(base)]).then(([r,s])=>{if(live){setRows(r);setStatus(s);}}).catch(e=>{if(live)setError(e.message);});return()=>{live=false;};},[api,base]);
++ const clear=()=>{setIntent(null);setGrant(null);setResult(null);};
++ const prepare=(operation,data,cp_id)=>work(async()=>{clear();const payload={operation,...(cp_id?{cp_id}:{}),...(operation==='watch.start'?{}:{data})};setIntent({...await api(base+'/intents','POST',payload),payload});});
++ const run=()=>work(async()=>{const r=await api(base+'/run','POST',intent.payload,{'X-Write-Grant':grant,'If-Match':JSON.stringify(intent.scope.proposal_version_hash)});setResult(r);const s=await refresh();if(r.id){setSelected(r);setOutput(JSON.stringify(template(r,s),null,2));setProofs(null);}setIntent(null);setGrant(null);});
++ const choose=c=>{clear();setSelected(c);setProofs(null);setTab(c.phase4.lane);if(c.phase4.lane==='adoption')setOutput(JSON.stringify(template(c,status),null,2));};
++ const lesson=()=>work(async()=>{const e=await api('/workspaces/'+workspace+'/evidence/tasks/'+encodeURIComponent(task));clear();const payload={operation:'lesson.create',data:{title,task_id:task,source_hash:e.source_hash,error:failure,pattern,cause:'UNPROVEN',knowledge_type:'lesson',instruction_kind:instruction,scope,authority_level:authority,disposition:'propose',duplicates:[],conflicts:[]}};setIntent({...await api(base+'/intents','POST',payload),payload});});
++ return <section data-testid="phase4-screen"><h2>{t('الحوكمة والتعلم','Governance and learning')}</h2><p className="p0-notice">{t('مسودات ومراجعات فقط. الدرس والتبني والمعايرة لا يغيرون السياسات أو المرجع تلقائيًا.','Drafts and reviews only. Lessons, adoption and calibration never modify policies or references automatically.')}</p>
++ <nav className="draft-actions" aria-label={t('مسارات الحوكمة','Governance workflows')}>{[['meta','تغيير الحزمة','Meta-governance'],['adoption','تبني المهارات','Skill adoption'],['intake','الوارد','Intake'],['lesson','الدروس','Lessons'],['calibration','المعايرة','Calibration']].map(([id,ar,en])=><button key={id} data-testid={'phase4-'+id} aria-pressed={tab===id} onClick={()=>{setTab(id);setSelected(null);clear();}}>{t(ar,en)}</button>)}</nav>
++ <div className="draft-grid"><section>
++ {['meta','adoption','lesson'].includes(tab)&&<><label htmlFor="p4-title">{t('عنوان المسودة','Draft title')}</label><input id="p4-title" value={title} onChange={e=>{setTitle(e.target.value);clear();}}/></>}
++ {tab==='meta'&&<div className="draft-form"><h3>{t('مقترح تغيير سياسات أو مخططات أو أدوات','Propose policy, schema or tool changes')}</h3><p>{t('يتطلب موافقة المالك ومراجع معماري مستقل الهوية، وجميع التقييمات وفحص التوليد. الكود المقترح لا يُنفذ.','Requires governance owner and a distinct architecture reviewer, all behavioral evals and generation check. Proposed code is never executed.')}</p><label htmlFor="p4-path">{t('المسار داخل الحزمة المرشحة','Path inside candidate package')}</label><input id="p4-path" dir="ltr" value={path} onChange={e=>{setPath(e.target.value);clear();}}/><label htmlFor="p4-content">{t('المحتوى المقترح','Proposed content')}</label><textarea id="p4-content" rows={9} dir="ltr" value={content} onChange={e=>{setContent(e.target.value);clear();}}/><button disabled={busy||!title} data-testid="p4-meta-create" onClick={()=>prepare('meta.create',{title,files:[{path,content}]})}>{t('إعداد مسودة CP','Prepare CP draft')}</button></div>}
++ {tab==='adoption'&&<div className="draft-form"><h3>{t('معالج تبني المهارة — سبع خطوات','Skill adoption wizard — seven steps')}</h3><ol data-testid="adoption-steps">{steps.map(([ar,en],i)=><li key={en} aria-current={selected?.phase4.step===i?'step':undefined}>{t(ar,en)} · <Badge code={(selected?.phase4.step||0)>i?'RECORDED':'NOT_RUN'}/></li>)}</ol>
++ {!selected?<><label htmlFor="p4-skill">{t('معرف المهارة المسجلة','Registered skill ID')}</label><input id="p4-skill" value={skill} onChange={e=>{setSkill(e.target.value);clear();}}/><label htmlFor="p4-project">{t('معرف المشروع','Project ID')}</label><input id="p4-project" value={project} onChange={e=>{setProject(e.target.value);clear();}}/><label htmlFor="p4-source">{t('مصدر المهارة','Skill source')}</label><select id="p4-source" value={source} onChange={e=>{setSource(e.target.value);clear();}}>{['system','user','project','extension','catalog','aghr'].map(x=><option key={x}>{x}</option>)}</select><label htmlFor="p4-function">{t('وظيفة المهارة','Skill function')}</label><select id="p4-function" value={fn} onChange={e=>{setFn(e.target.value);clear();}}>{['routing','design','implementation','debugging','security','verification','learning'].map(x=><option key={x}>{x}</option>)}</select><button data-testid="p4-adoption-start" disabled={busy||!title||!skill||!project} onClick={()=>prepare('adoption.create',{title,skill_id:skill,project_id:project,source,function:fn})}>{t('تسجيل الخطوة الأولى كمسودة','Record step1 as a draft')}</button></>:selected.phase4.step<7&&<><p>{t('لا يسمح بتجاوز الخطوات. الخطوة الخامسة تشغل qualify فعليًا وفق حدود T15.','Steps cannot be skipped. Step5 executes actual qualify under T15 limits.')}</p><label htmlFor="p4-step-output">{t('مخرجات الخطوة التالية JSON','Next step output JSON')} · {selected.phase4.step+1}</label><textarea id="p4-step-output" dir="ltr" rows={10} value={output} onChange={e=>{setOutput(e.target.value);clear();}}/><button data-testid="p4-adoption-next" disabled={busy} onClick={()=>work(async()=>{const payload={operation:'adoption.step',cp_id:selected.id,data:{step:selected.phase4.step+1,output:JSON.parse(output)}};clear();setIntent({...await api(base+'/intents','POST',payload),payload});})}>{t('إعداد الخطوة التالية','Prepare next step')}</button></>}
++ </div>}
++ {tab==='intake'&&<section><h3>{t('مراقبة الوارد المسجل','Registered intake watcher')}</h3><p>{t('md / yaml / json؛ انتظار استقرار 500ms؛ استثناء مجلدات التبعيات؛ حفظ الأصل والبصمة. لا تنفيذ للمحتوى ولا مسح شامل للوثائق القديمة.','md / yaml / json;500ms debounce; dependency folders excluded; original bytes and hash preserved. No content execution or initial crawl of old documents.')}</p><Badge code={status?.watcher.running?'WATCHING':status?.watcher.configured?'READY':'NOT_CONFIGURED'}/><button data-testid="p4-watch" disabled={busy||!status?.watcher.configured||status?.watcher.running} onClick={()=>prepare('watch.start')}>{t('تفويض تشغيل المراقبة','Authorize watcher start')}</button><button data-testid="p4-refresh" disabled={busy} onClick={()=>work(refresh)}>{t('تحديث الوارد','Refresh intake')}</button><p>{t('تسجيل المسار يتم من إعداد تشغيل موثوق، وليس من HTTP.','The directory is registered through trusted startup configuration, not HTTP.')}</p></section>}
++ {tab==='lesson'&&<div className="draft-form"><h3>{t('خطأ ← دليل ← درس ← مقترح CP','Error → evidence → lesson → proposed CP')}</h3>{[['p4-task',t('معرف مهمة الدليل','Evidence task ID'),task,setTask],['p4-error',t('الخطأ المرصود','Observed error'),failure,setFailure],['p4-pattern',t('الدرس المقترح','Proposed lesson'),pattern,setPattern],['p4-scope',t('النطاق','Scope'),scope,setScope]].map(([id,label,value,set])=><label key={id} htmlFor={id}>{label}<input id={id} value={value} onChange={e=>{set(e.target.value);clear();}}/></label>)}<label htmlFor="p4-kind">{t('نوع التعليمات المقترح','Proposed instruction kind')}</label><select id="p4-kind" value={instruction} onChange={e=>{setInstruction(e.target.value);clear();}}>{['UNRESOLVED','OBSERVATION','RULE','PROCEDURE','GUIDELINE','CONTROL','POLICY','REQUIREMENT'].map(x=><option key={x}>{x}</option>)}</select><label htmlFor="p4-authority">{t('مستوى السلطة المقترح','Proposed authority level')}</label><select id="p4-authority" value={authority} onChange={e=>{setAuthority(e.target.value);clear();}}>{['UNRESOLVED','component','project','organization','enterprise'].map(x=><option key={x}>{x}</option>)}</select><p>{t('السبب UNPROVEN حتى مراجعته. معرفة الدرس وتصنيفه لا يمنحانه سلطة حاكمة.','Cause remains UNPROVEN pending review. A lesson and its classification do not grant governing authority.')}</p><button data-testid="p4-lesson-create" disabled={busy||!title||!task||!failure||!pattern} onClick={lesson}>{t('إعداد مقترح درس فقط','Prepare lesson proposal only')}</button></div>}
++ {tab==='calibration'&&<div className="draft-form"><h3>{t('معايرة الأثر بدليل تنفيذ','Calibrate impact with execution evidence')}</h3><label htmlFor="p4-item">{t('البند ذو الدليل المفترض','Item with assumed evidence')}</label><select id="p4-item" value={item} onChange={e=>{setItem(e.target.value);clear();}}><option value="">{t('اختر بندًا','Choose an item')}</option>{status?.items.filter(x=>x.evidence==='assumed').map(x=><option key={x.id}>{x.id}</option>)}</select><label htmlFor="p4-reason">{t('سبب القياس والمراجعة','Measurement and review reason')}</label><textarea id="p4-reason" rows={3} value={reason} onChange={e=>{setReason(e.target.value);clear();}}/><p>{t('المقيّم مسجل من المشغل. الدلتا تأتي من قياس قبل/بعد فعلي وثلاثة تنفيذات، لا من قيمة يدعيها العميل.','Evaluator is operator registered. Delta comes from actual before/after measurements and three executions, not a client claim.')}</p><button data-testid="p4-eval" disabled={busy||!status?.measurement_configured||!item||!reason} onClick={()=>prepare('calibration.eval',{item_id:item,reason})}>{t('إعداد eval فعلي','Prepare actual eval')}</button>{!status?.measurement_configured&&<p>{t('لم يسجل مقيّم قياس للمشروع؛ المعايرة محجوبة.','No project measurement evaluator registered; calibration is blocked.')}</p>}{result?.eval_run_id&&<><Badge code={result.status}/><p><bdi>{result.eval_run_id} · Δ {result.measured_delta}</bdi></p><button data-testid="p4-calibrate-create" disabled={busy} onClick={()=>prepare('calibration.create',{item_id:item,reason,eval_run_id:result.eval_run_id,measured_delta:result.measured_delta})}>{t('اقتراح repo-measured كحزمة تغيير','Propose repo-measured as a CP')}</button></>}</div>}
++ {intent&&<section className="draft-intent" role="status"><Badge code={intent.status}/><pre dir="ltr">approve {intent.id}</pre><code className="draft-hash">{intent.scope.proposal_version_hash}</code><p>{t('تفويض كتابة العملية منفصل عن موافقة الحوكمة على المقترح.','Operation authorization is separate from governance approval of the proposal.')}</p><button data-testid="p4-auth" disabled={busy} onClick={()=>work(async()=>{const r=await api('/draft-intents/'+intent.id);setGrant(r.status==='GRANTED'?r.grant:null);})}>{t('التحقق من التفويض','Check authorization')}</button><button data-testid="p4-run" disabled={busy||!grant} onClick={run}>{t('تنفيذ العملية المفوضة','Run authorized operation')}</button></section>}
++ </section><section><h3>{t('حزم تغيير هذا المسار','Change packages in this workflow')}</h3><ul className="draft-list">{rows.filter(c=>c.phase4.lane===tab).map(c=><li key={c.id}><button onClick={()=>choose(c)}><strong>{c.title}</strong><Badge code={c.status}/><code>{c.id}</code></button></li>)}</ul>
++ {selected&&<article data-testid="phase4-detail"><h3>{selected.title}</h3><Badge code={selected.status}/><code className="draft-hash">{selected.proposal_version_hash}</code><p>{t('المراجعون المطلوبون','Required reviewers')}: <bdi>{selected.required_approvals.join(' + ')}</bdi></p><label htmlFor="p4-review">{t('سبب قرار المراجعة','Review decision reason')}</label><textarea id="p4-review" value={reason} onChange={e=>{setReason(e.target.value);setIntent(null);setGrant(null);}}/><div className="draft-actions"><button data-testid="p4-submit" disabled={busy||selected.status==='approved'||selected.phase4.lane==='intake'} onClick={()=>prepare('submit',{},selected.id)}>{t('إرسال للمراجعة','Submit for review')}</button><button data-testid="p4-approve" disabled={busy||!reason||selected.status!=='in_review'} onClick={()=>prepare('review',{decision:'approve',reason},selected.id)}>{t('إعداد موافقة على البصمة','Prepare hash-bound approval')}</button>{tab==='meta'&&<button disabled={busy||!status?.meta_eval_configured} onClick={()=>prepare('meta.evaluate',{},selected.id)}>{t('إعداد تقييم الحزمة وفحص التوليد','Prepare package eval and generation check')}</button>}</div><p>{t('الموافقة تخص مسودة؛ لا تصدير أو دمج أو تعديل مرجع في هذه المرحلة.','Approval is for a draft; no export, merge or reference modification in this phase.')}</p><button disabled={busy} onClick={()=>work(async()=>setProofs(await api(base+'/packages/'+selected.id+'/evidence')))}>{t('قراءة أدلة المحرك الأصلية','Read original engine evidence')}</button>{proofs&&<pre dir="ltr">{JSON.stringify(proofs,null,2)}</pre>}<details><summary>{t('المقترح والبيانات والأدلة','Proposal, metadata and evidence')}</summary><pre dir="ltr">{selected.proposed_yaml}</pre><pre dir="ltr">{JSON.stringify(selected.phase4,null,2)}</pre></details></article>}
++ </section></div>{busy&&<p role="status" aria-busy="true">{t('جارٍ تنفيذ العملية تحت حدود الموارد…','Running under resource limits…')}</p>}{error&&<p role="alert" className="p0-notice">{error}</p>}</section>;
++}
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw b/tools/phase4/browser.mjs
+index e69de29..fb85e94 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw
++++ b/tools/phase4/browser.mjs
+@@ -0,0 +1,52 @@
++import fs from 'node:fs';
++import path from 'node:path';
++import crypto from 'node:crypto';
++import assert from 'node:assert/strict';
++import {spawn} from 'node:child_process';
++import {fixtureConfiguration} from '../../tests/helpers/phase4-fixture.mjs';
++import {encodeJsonl} from '../contracts/evidence_jsonl.mjs';
++import {out as evidenceRoot,changed} from './prepare.mjs';
++const out=evidenceRoot+'/'+(process.argv[2]||'browser-final');fs.mkdirSync(out);
++const root=process.cwd(),temp=fs.mkdtempSync(path.resolve('temp/phase4-browser-')),db=temp+'/db',project=temp+'/project';fs.mkdirSync(db);fs.mkdirSync(temp+'/inbox');fs.mkdirSync(project+'/.aghr/runtime_evidence',{recursive:true});
++const config=fixtureConfiguration(temp),configFile=temp+'/skills.json',optionsFile=temp+'/phase4.json';fs.writeFileSync(configFile,JSON.stringify(config.e4Config));fs.writeFileSync(optionsFile,JSON.stringify(config.phase4Options));
++const at=new Date().toISOString(),raw=encodeJsonl([{task_id:'ui-lesson',session:{agent:'UNAUTHENTICATED_SOURCE',agent_version:'1',host_os:'windows',started_at:at},events:[{at,type:'skill.blocked',skill_id:'json-audit',status:'BLOCKED',reason:'Permission failure; causal interpretation UNPROVEN.'}],submit_to_ci:false}]);fs.writeFileSync(project+'/.aghr/runtime_evidence/ui-lesson.jsonl',raw);
++const sha=b=>crypto.createHash('sha256').update(b).digest('hex'),parent=JSON.parse(fs.readFileSync('docs/evidence/studio-phase3-2026-10-24/CUSTODY.lock.json')),immutable=Object.fromEntries(Object.keys(parent.files).filter(p=>!changed.includes(p)).map(p=>[p,sha(fs.readFileSync(p))]));
++const server=spawn(process.execPath,['server/studio/serve-draft.mjs','--python='+path.resolve('temp/aghr-e1a-20261022-01/venv/Scripts/python.exe'),'--port=0','--storage-root='+db,'--evidence-project='+project,'--skill-config='+configFile,'--phase4-config='+optionsFile],{cwd:root,windowsHide:true,stdio:['pipe','pipe','pipe','ipc']});server.stdout.resume();server.stderr.resume();
++const receive=predicate=>new Promise((resolve,reject)=>{const timer=setTimeout(()=>{server.off('message',handler);reject(Error('Server timeout'));},90000);function handler(m){if(predicate(m)){clearTimeout(timer);server.off('message',handler);resolve(m);}}server.on('message',handler);});
++const ready=await receive(m=>m.event==='ready'),origin='http://127.0.0.1:'+ready.port;
++const version=await(await fetch('http://127.0.0.1:9223/json/version')).json(),socket=new WebSocket(version.webSocketDebuggerUrl);await new Promise((r,j)=>{socket.onopen=r;socket.onerror=j;});
++const pending=new Map();let n=0,context,sessionId;const errors=[];
++socket.onmessage=message=>{const v=JSON.parse(message.data);if(v.id){const p=pending.get(v.id);if(p){pending.delete(v.id);clearTimeout(p.timer);v.error?p.reject(Error(JSON.stringify(v.error))):p.resolve(v.result);}}else if(v.sessionId===sessionId&&v.method==='Runtime.exceptionThrown')errors.push(v.params.exceptionDetails.text);};
++const cdp=(method,params={},sid)=>new Promise((resolve,reject)=>{const id=++n,timer=setTimeout(()=>{pending.delete(id);reject(Error('CDP timeout '+method));},30000);pending.set(id,{resolve,reject,timer});socket.send(JSON.stringify({id,method,params,...(sid?{sessionId:sid}:{})}));});
++const evaluate=async expression=>{const r=await cdp('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true},sessionId);if(r.exceptionDetails)throw Error(r.exceptionDetails.text);return r.result.value;};
++const wait=ms=>new Promise(r=>setTimeout(r,ms));
++const until=async(expression,timeout=180000)=>{const end=Date.now()+timeout;while(Date.now()<end){const value=await evaluate(expression);if(value)return value;await wait(200);}throw Error('UI timeout '+expression);};
++const click=async selector=>{await until(`!!document.querySelector(${JSON.stringify(selector)})`);await evaluate(`document.querySelector(${JSON.stringify(selector)}).click()`);};
++const fill=(selector,value)=>evaluate(`(()=>{const e=document.querySelector(${JSON.stringify(selector)}),proto=e.tagName==='SELECT'?HTMLSelectElement.prototype:e.tagName==='TEXTAREA'?HTMLTextAreaElement.prototype:HTMLInputElement.prototype;Object.getOwnPropertyDescriptor(proto,'value').set.call(e,${JSON.stringify(value)});e.dispatchEvent(new Event(e.tagName==='SELECT'?'change':'input',{bubbles:true}));})()`);
++const authorize=async trigger=>{await click(trigger);const intent=await until('document.querySelector("[data-testid=phase4-screen] .draft-intent pre")?.innerText.match(/approve ([a-f0-9-]+)/)?.[1]'),control=receive(m=>m.event==='control');server.send({command:'approve',id:intent,request_id:'ui-'+n});const r=await control;assert(!r.error,r.error);await click('[data-testid=p4-auth]');await until('document.querySelector("[data-testid=p4-run]")?.disabled===false');await click('[data-testid=p4-run]');await until('!document.querySelector("[data-testid=p4-run]") && !document.querySelector("[data-testid=phase4-screen] [aria-busy=true]")');assert.equal(await evaluate('document.querySelector("[data-testid=phase4-screen] [role=alert]")?.innerText||""'),'');};
++const snapshot=async name=>{fs.writeFileSync(out+'/'+name+'.txt',await evaluate('document.body.innerText'),{flag:'wx'});const p=await cdp('Page.captureScreenshot',{format:'png',captureBeyondViewport:true},sessionId);fs.writeFileSync(out+'/'+name+'.png',Buffer.from(p.data,'base64'),{flag:'wx'});};
++const checks=[];let failure;
++try{
++ context=(await cdp('Target.createBrowserContext')).browserContextId;const target=(await cdp('Target.createTarget',{url:'about:blank',browserContextId:context})).targetId;sessionId=(await cdp('Target.attachToTarget',{targetId:target,flatten:true})).sessionId;
++ await cdp('Runtime.enable',{},sessionId);await cdp('Page.enable',{},sessionId);await cdp('Page.navigate',{url:origin},sessionId);await until('!!document.querySelector("#draft-token")');assert.match(await evaluate('navigator.userAgent'),/Edg\//);await fill('#draft-token',ready.token);await click('form button');await until('!!document.querySelector("[data-testid=phase4-nav]")');await click('[data-testid=phase4-nav]');await until('!!document.querySelector("[data-testid=phase4-screen]")');
++ await fill('#p4-title','Browser schema proposal');await fill('#p4-content','{"type":"string"}');await authorize('[data-testid=p4-meta-create]');await snapshot('meta-ar-draft');checks.push('Actual authorized Meta CP from UI; no proposed tool execution or source write');
++ await click('[data-testid=phase4-adoption]');await fill('#p4-title','Browser adoption');await fill('#p4-skill','json-audit');await fill('#p4-project','browser-project');await authorize('[data-testid=p4-adoption-start]');
++ for(let step=2;step<=7;step++){
++  let output=JSON.parse(await evaluate('document.querySelector("#p4-step-output").value'));
++  if(step===2)output.rationale='Explicit browser project selection';if(step===4)output.rule='Inspect JSON documents using the registered local procedure.';if(step===5)output={input:{document:{name:'browser'},required:['name']},task_criteria:'{"all":[{"pointer":"/valid","op":"equals","value":true}]}'};
++  await fill('#p4-step-output',JSON.stringify(output));await authorize('[data-testid=p4-adoption-next]');
++ }
++ assert.equal(await evaluate('document.querySelectorAll("[data-testid=adoption-steps] li").length'),7);await snapshot('adoption-ar-seven-steps');checks.push('Seven-step wizard retains one CP and actual3-run qualification; no installation');
++ await click('[data-testid=phase4-lesson]');await fill('#p4-title','Browser lesson');await fill('#p4-task','ui-lesson');await fill('#p4-error','Permission missing');await fill('#p4-pattern','Check granted permissions before selecting');await authorize('[data-testid=p4-lesson-create]');await snapshot('lesson-ar-proposal');checks.push('Error/evidence/UNPROVEN cause become a Draft CP without policy promotion');
++ await click('[data-testid=phase4-intake]');await authorize('[data-testid=p4-watch]');fs.writeFileSync(temp+'/inbox/ui-note.md','# Original untrusted idea\nNo execution.');
++ const end=Date.now()+60000;let found=false;while(Date.now()<end){const response=await fetch(origin+'/api/v1/workspaces/rc3-local/phase4/packages',{headers:{'X-Studio-Token':ready.token}}),data=await response.json();if(data.data.some(x=>x.phase4.lane==='intake')){found=true;break;}await wait(300);}assert(found);await click('[data-testid=p4-refresh]');await until('document.querySelector("[data-testid=phase4-screen]").innerText.includes("INBOX ui-note.md")');await snapshot('intake-ar-draft');checks.push('UI-authorized real watcher observes file drop; original preserved and Draft only');
++ await click('[data-testid=phase4-calibration]');await fill('#p4-item','OBS-REFERENCE-STATE-001');await fill('#p4-reason','Measure default-package compliance in isolated repository');await authorize('[data-testid=p4-eval]');await until('!!document.querySelector("[data-testid=p4-calibrate-create]")');await authorize('[data-testid=p4-calibrate-create]');await authorize('[data-testid=p4-submit]');await fill('#p4-review','Owner approves a measured Draft proposal only');await authorize('[data-testid=p4-approve]');await snapshot('calibration-ar-approved-draft');checks.push('Actual3-run measurement → calibrated CP → owner hash-bound approval, original still assumed');
++ for(const locale of ['ar','en']){await fill('[data-testid=draft-locale]',locale);await until(`document.documentElement.dir===${JSON.stringify(locale==='ar'?'rtl':'ltr')}`);for(const width of [320,768,1024,1440]){await cdp('Emulation.setDeviceMetricsOverride',{width,height:900,deviceScaleFactor:1,mobile:false},sessionId);await wait(100);assert.equal(await evaluate('document.documentElement.scrollWidth>innerWidth'),false,'Overflow '+locale+width);checks.push('No overflow '+locale+' '+width);if(width===320||width===1440)await snapshot('phase4-'+locale+'-'+width);}}
++ assert.deepEqual(errors,[]);console.log(JSON.stringify({event:'browser_ready_for_inspection',origin,context,checks}));await new Promise(resolve=>{const timer=setInterval(()=>{if(fs.existsSync(out+'/finish.marker')){clearInterval(timer);resolve();}},250);});
++}catch(e){failure=e.stack;console.error(e.stack);}
++finally{
++ const preserved=Object.entries(immutable).every(([p,h])=>sha(fs.readFileSync(p))===h),originalUnchanged=sha(fs.readFileSync(project+'/.aghr/runtime_evidence/ui-lesson.jsonl'))===sha(raw),state_written=fs.existsSync(project+'/.aghr/state.json');if(!preserved||!originalUnchanged||state_written)failure=(failure||'')+' SENTINEL_FAILED';
++ fs.writeFileSync(out+'/BROWSER_ACCEPTANCE.json',JSON.stringify({status:failure?'FAIL':'PASS',failure,checks,browser:'Actual isolated Microsoft Edge via127.0.0.1:9223',errors,protected_files:Object.keys(immutable).length,preserved,original_unchanged:originalUnchanged,source_written:false,state_written,profile:'Isolated Draft + actual local measurement-repository fixture; no production calibration claim.'},null,2),{flag:'wx'});
++ if(context)await cdp('Target.disposeBrowserContext',{browserContextId:context});socket.close();server.send('stop');
++}
++if(failure)process.exitCode=1;
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw b/tools/phase4/finalize.mjs
+index e69de29..a5f7831 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw
++++ b/tools/phase4/finalize.mjs
+@@ -0,0 +1,44 @@
++import fs from 'node:fs';
++import {out} from './prepare.mjs';
++const log=fs.readFileSync(out+'/NPM_TEST_FINAL.log','utf8'),count=Number(log.match(/ℹ pass (\d+)/)?.[1]);if(!count||!log.includes('ℹ fail 0')||!log.includes('ℹ skipped 0'))throw Error('FINAL_REGRESSION_PENDING');
++if(JSON.parse(fs.readFileSync(out+'/full-suite-final/HTTP_ACCEPTANCE.json')).status!=='PASS'||!fs.readFileSync(out+'/CONTRACTS_FINAL_V2.log','utf8').includes('ℹ pass 1'))throw Error('PHASE4_GATE_FAILED');
++if(JSON.parse(fs.readFileSync(out+'/browser-final/BROWSER_ACCEPTANCE.json')).status!=='PASS')throw Error('BROWSER_GATE_FAILED');
++fs.writeFileSync('docs/status/CURRENT.md',`# Active Project Execution State — Derived View
++
++> Updated2026-10-24. Git, source and exact custody take precedence over this snapshot.
++
++## Accepted position
++
++Owner accepted E1/E2, T01–T05/T07–T10, E4 local core and T13–T18 Draft workflows. T06/T12/T19 accepted only in their explicit MOCK scopes. Original SEC-001 stays BLOCKED/3 without its real authority/gates/P0 evidence. T11 inventory accepted; no automatic Active adoption. Reference1.2.0 and E1–E4 source/contracts preserved.
++
++Owner now formally accepts T22/T23/T24 and closure of Phase3 within [its documented NOT_RUN limits](../evidence/studio-phase3-2026-10-24/README.md). Codex's single extra attempt timed out before initialize; agy unavailable. Native checks REQUIRED / NOT_RUN / NOT_WAIVED; hosted CI publication NOT_RUN. No fresh diagnosis or publishing was attempted.
++
++## Phase4 delivery — local Draft
++
++[T25–T29 delivery](../evidence/studio-phase4-2026-10-24/README.md): separate Python proposal/hash/policy extension, shared CP identities and12-table SQLite, scoped one-use grants and audit. Meta changes route policies/schemas/tools through review; approval stays blocked until all registered behavioral evals/generation checks pass and distinct roles approve. No production meta evaluator registered/qualified yet.
++
++Seven-step adoption was exercised through real3-run local qualification and owner Draft review; no skill installation/apply. Watcher is explicitly grant-activated on a trusted registered root,500ms debounce, md/yaml/json, bounded reads/exclusions/raw byte custody/dedup; no initial crawl or content execution. Lessons bind error/task/source hash and classifications, with UNPROVEN cause and proposed CP only. Unsupported causal claims and exact duplicates reject.
++
++Calibration requires actual E4 eval,3 executions, measured before/after metrics + repo byte hash, target/source/reason/delta binding, then hash-bound owner approval. Ordinary create/edit cannot bypass this gate. Proposals and fixture evidence remain separate from canonical sources. Positive measurement evidence is confined to an isolated test repository; no production impact claim.
++
++Verification: full${count}/${count}, final contract guard1/1, actual Edge AR/EN four widths/Sentinel and source preservation passed. First regression's SOURCE_DRIFT rejection retained; final run and custody are authoritative for this local delivery. No independent/release/Phase4 owner acceptance self-granted.
++
++## Boundaries and next action
++
++No reference/policy/state writes, owner default DB use, push/merge, native retry or T30/Phase5. Writing remains Draft-only. Reopen new custody and live Git before resuming. Next: owner review of Phase4 delivery and registration of project-specific trusted measurement/meta evaluators before operational use; absent configuration fails closed. Native/hosted gates remain separate.
++`);
++fs.writeFileSync('docs/status/HANDOFF.md',`# Studio handoff —2026-10-24, derived position
++
++Branch main, base133746a0ad99d10568a44c8d225219df8454271c; prior dirty/untracked owner work preserved. No commit/push/merge. Owner accepted Phase3 within native/hosted NOT_RUN limits and authorized T25–T29. Reopen CURRENT, live Git and [Phase4 delivery/custody](../evidence/studio-phase4-2026-10-24/README.md).
++
++Phase4 implemented/tested locally: meta CP routes, same-ID7-step adoption, real read-only qualification, explicitly authorized watcher, classified lesson proposals and actual-eval calibration. Python owns parse/JCS/hash/policy; original E1–E4/E5/E3 remain unchanged. SQLite stays12 tables, append-only audit, atomic Draft commits, hash-bound reviews/history. Legacy CP edits cannot bypass calibration or alter Phase4 CPs; frozen API reads keep contract.1 shape while extension uses phase4-local.1.
++
++Tests: final full${count}/${count}, contract guard1/1, actual isolated Edge five workflows + bilingual/responsive/Sentinel, context and preservation receipts. First full run rejected changed Phase4 source; actual SQLite SOURCE_DRIFT is retained and final frozen regression supersedes it. Aggregate deadlines use immutable T15 profiles in addition to per-process600s eval/3600s qualify/2GiB. Runtime evidence/imported PASS cannot mint live proofs.
++
++Operational gaps: owner must register actual project measurement/meta evaluators through trusted startup config. Without them calibration and meta approval block. Positive measurement evidence is an isolated repository fixture, not production improvement. Native Codex/Antigravity and hosted CI publication remain NOT_RUN; no further host attempt authorized. approved Phase4 CP means Draft review only, not export/apply/publication. Original SEC-001 unchanged/BLOCKED outside old MOCK scope.
++
++Next: owner review of this delivery, then trusted project-specific evaluator registration and bounded operational trials. No automatic Phase5/T30, reference promotion, source apply, independent or release acceptance. Preserve source/evidence pins and backups.
++`);
++let p='docs/plans/STUDIO_UPGRADE_TASKS_AR.md',s=fs.readFileSync(p,'utf8');s=s.replace('| [ ] T23 —','| [x] T23 —').replace('UI_LOCAL_MATRIX_TESTED؛ NATIVE_ENVIRONMENT_BLOCKED','ACCEPTED_BY_OWNER_WITH_NATIVE_NOT_RUN').replace('| [ ] T24 —','| [x] T24 —').replace('CODE_LOCAL_TESTED؛ HOSTED_NOT_RUN','ACCEPTED_BY_OWNER_WITH_HOSTED_NOT_RUN');for(let n=25;n<=29;n++)s=s.replace('| [ ] T'+n+' —','| [x] T'+n+' —');s+='\n### تسليم المرحلة الرابعة في Draft\n\nاعتمد المالك إغلاق Phase3 ضمن حدود NOT_RUN وفوض T25–T29. [تسليم Phase4](../evidence/studio-phase4-2026-10-24/README.md): المسارات الخمسة منفذة ومختبرة محليًا؛ لا ترقية تلقائية للسياسة، ولا تبنٍ فعلي أو كتابة مرجع. نجاح CP معايرة في مستودع اختبار معزول لا يعاير المشروع الإنتاجي. تشغيل مقيّم الحزمة الإنتاجي وتسجيل مقاييس مشروع المالك لم ينفذا؛ عند غيابهما تستمر البوابات في الحجب. العلامات هنا IMPLEMENTED_TESTED_LOCAL_DRAFT؛ قبول المالك للمرحلة الرابعة أو الإصدار ليس ممنوحًا تلقائيًا.\n';fs.writeFileSync(p,s);
++p='docs/INDEX.md';s=fs.readFileSync(p,'utf8');s+='\n- [Phase4 Draft governance and learning](evidence/studio-phase4-2026-10-24/README.md) — T25–T29, same-CP adoption, safe intake, lesson proposals and live-eval calibration; no canonical promotion.\n';fs.writeFileSync(p,s);
++console.log(JSON.stringify({status:'DERIVED_DOCS_UPDATED',passed:count}));
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw b/tools/phase4/prepare.mjs
+index e69de29..f66c5c4 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw
++++ b/tools/phase4/prepare.mjs
+@@ -0,0 +1,13 @@
++import fs from 'node:fs';
++import path from 'node:path';
++import crypto from 'node:crypto';
++import {execFileSync} from 'node:child_process';
++import {verifyE4} from '../../server/studio/aghr/e4-bridge.js';
++export const out='docs/evidence/studio-phase4-2026-10-24',sha=b=>crypto.createHash('sha256').update(b).digest('hex');
++export const changed=['server/studio/draft-runtime.js','server/studio/serve-draft.mjs','server/studio/db/persistent.js','server/studio/draft-routes.js','src/features/changes/DraftStudio.jsx','docs/status/CURRENT.md','docs/status/HANDOFF.md','docs/plans/STUDIO_UPGRADE_TASKS_AR.md','docs/INDEX.md'];
++if(process.argv[1]?.endsWith('prepare.mjs')){
++ const parentPath='docs/evidence/studio-phase3-2026-10-24/CUSTODY.lock.json',b=fs.readFileSync(parentPath),parent=JSON.parse(b);
++ if(sha(b)!=='ac81be0b7824263aa545b80e705f801c83aca54591c92e4af791a3dc756a8e45')throw Error('PARENT_DRIFT');for(const [p,r]of Object.entries(parent.files))if(sha(fs.readFileSync(p))!==r.sha256)throw Error('PARENT_DRIFT '+p);verifyE4();
++ fs.mkdirSync(out+'/before',{recursive:true});const before={};for(const p of changed){const b=fs.readFileSync(p),copy='before/'+p+'.raw';fs.mkdirSync(path.dirname(out+'/'+copy),{recursive:true});fs.writeFileSync(out+'/'+copy,b,{flag:'wx'});before[p]={sha256:sha(b),bytes:b.length,copy};}
++ fs.writeFileSync(out+'/PREFLIGHT.json',JSON.stringify({at:new Date().toISOString(),head:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),branch:execFileSync('git',['branch','--show-current'],{encoding:'utf8'}).trim(),before,parent:{path:parentPath,sha256:sha(b)},authority:'Owner accepts Phase3 within documented NOT_RUN boundaries; implement T25–T29 in Draft, no canonical writes or automatic policy promotion.'},null,2),{flag:'wx'});console.log('Parent custody verified; before snapshots saved.');
++}
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw b/tools/phase4/preserve.mjs
+index e69de29..efd44a6 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw
++++ b/tools/phase4/preserve.mjs
+@@ -0,0 +1,15 @@
++import fs from 'node:fs';
++import {out,changed,sha} from './prepare.mjs';
++import {verifyE4} from '../../server/studio/aghr/e4-bridge.js';
++const pre=JSON.parse(fs.readFileSync(out+'/PREFLIGHT.json')),raw=fs.readFileSync(pre.parent.path),parent=JSON.parse(raw);
++if(sha(raw)!==pre.parent.sha256)throw Error('PARENT_CUSTODY_DRIFT');let unchanged=0;const edits=[];
++for(const [p,r]of Object.entries(parent.files)){
++ if(changed.includes(p)){const old=pre.before[p];if(old.sha256!==r.sha256||sha(fs.readFileSync(out+'/'+old.copy))!==r.sha256)throw Error('BEFORE_DRIFT '+p);edits.push({path:p,before:r.sha256,after:sha(fs.readFileSync(p)),copy:old.copy});}
++ else if(sha(fs.readFileSync(p))!==r.sha256)throw Error('PARENT_DRIFT '+p);else unchanged++;
++}
++const e3path='docs/evidence/studio-e3-t19-2026-10-24/CUSTODY.lock.json',e3raw=fs.readFileSync(e3path);if(sha(e3raw)!=='2869e66bf9ada6b7471bfbdb2060ae12ed9890c76057be8898678610a1251c9a')throw Error('E3_CUSTODY_DRIFT');const e3=JSON.parse(e3raw);let immutable=0;
++for(const [p,r]of Object.entries(e3.files)){
++ if(changed.includes(p)){if(!parent.files[p]){const old=pre.before[p];if(sha(fs.readFileSync(out+'/'+old.copy))!==r.sha256)throw Error('E3_BEFORE_DRIFT '+p);edits.push({path:p,before:r.sha256,after:sha(fs.readFileSync(p)),copy:old.copy});}continue;}
++ if(sha(fs.readFileSync(p))!==r.sha256)throw Error('IMMUTABLE_DRIFT '+p);immutable++;
++}verifyE4();
++fs.writeFileSync(out+'/PRESERVATION.json',JSON.stringify({status:'PASS',parent_unchanged:unchanged,parent_total:Object.keys(parent.files).length,immutable_e3_files:immutable,authorized_edits:edits,e1_e4:'UNCHANGED',reference120:'Unchanged via explicit transitive sealed file lists; no governance package crawl',default_draft_db_used:false,state_written:false,source_apply:false},null,2),{flag:'wx'});console.log(JSON.stringify({status:'PASS',parent_unchanged:unchanged,immutable_e3_files:immutable,authorized_edits:edits.length}));
+diff --git a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw b/tools/phase4/seal.mjs
+index e69de29..d17e08f 100644
+--- a/docs/evidence/studio-phase4-2026-10-24/before/EMPTY.raw
++++ b/tools/phase4/seal.mjs
+@@ -0,0 +1,28 @@
++import fs from 'node:fs';
++import path from 'node:path';
++import {spawnSync} from 'node:child_process';
++import {out,changed,sha} from './prepare.mjs';
++import {verifyE4} from '../../server/studio/aghr/e4-bridge.js';
++if(fs.existsSync(out+'/CUSTODY.lock.json'))throw Error('ALREADY_SEALED');
++const pre=JSON.parse(fs.readFileSync(out+'/PREFLIGHT.json')),source=JSON.parse(fs.readFileSync(out+'/TESTED_SOURCE_FINAL.json')),deadline=JSON.parse(fs.readFileSync(out+'/DEADLINE_ADJUSTMENT.json')),coverage=[];
++for(const [p,r]of Object.entries(source)){const actual=sha(fs.readFileSync(p));if(actual!==r.sha256){if(p!==deadline.path||actual!==deadline.after.sha256)throw Error('TESTED_SOURCE_DRIFT '+p);coverage.push({path:p,sha256:actual,reason:deadline.reason,proof:'PHASE4_TEST_PROCESS.json: affected test process started after final deadline adjustment; final129/129 includes actual eval/qualification.'});}}
++const processProof=JSON.parse(fs.readFileSync(out+'/PHASE4_TEST_PROCESS.json'));if(![processProof].flat().some(p=>p.started_after_final_deadline_change))throw Error('FINAL_PROCESS_CUSTODY_REQUIRED');
++const log=fs.readFileSync(out+'/NPM_TEST_FINAL.log','utf8');if(!log.includes('ℹ pass 129')||!log.includes('ℹ fail 0')||!log.includes('ℹ skipped 0'))throw Error('REGRESSION_FAILED');
++const browser=JSON.parse(fs.readFileSync(out+'/browser-final/BROWSER_ACCEPTANCE.json')),preservation=JSON.parse(fs.readFileSync(out+'/PRESERVATION.json'));
++if(browser.status!=='PASS'||browser.state_written||!browser.original_unchanged||!browser.preserved)throw Error('BROWSER_FAILED');
++if(JSON.parse(fs.readFileSync(out+'/full-suite-final/HTTP_ACCEPTANCE.json')).status!=='PASS'||JSON.parse(fs.readFileSync(out+'/FINAL_CONTRACT_ACCEPTANCE_V2.json')).status!=='PASS')throw Error('HTTP_GATE_FAILED');
++if(!fs.readFileSync(out+'/CONTEXT_HEALTH.log','utf8').includes('Errors: 0, Warnings: 0')||preservation.status!=='PASS')throw Error('CONTEXT_PRESERVATION_FAILED');verifyE4();
++const added=['tests/studio_phase4.test.mjs','tests/studio_phase4_contracts.test.mjs','tests/helpers/phase4-fixture.mjs',...['server/studio/phase4','src/features/governed','tools/phase4'].flatMap(dir=>fs.readdirSync(dir).filter(n=>/\.(mjs|js|py|jsx|css)$/.test(n)).map(n=>dir+'/'+n))],files=[...new Set([...changed,...added])],differences=[],checks=[];
++const empty=out+'/before/EMPTY.raw';fs.writeFileSync(empty,'',{flag:'wx'});fs.mkdirSync(out+'/after-final');const decoder=new TextDecoder('utf8',{fatal:true});
++for(const p of files){
++ const b=fs.readFileSync(p);decoder.decode(b);const before=pre.before[p]||null,copy='after-final/'+p+'.raw';fs.mkdirSync(path.dirname(out+'/'+copy),{recursive:true});fs.writeFileSync(out+'/'+copy,b,{flag:'wx'});differences.push({path:p,before,after:{sha256:sha(b),bytes:b.length,copy}});
++ const baseline=before?out+'/'+before.copy:empty,r=spawnSync('git',['-c','core.whitespace=blank-at-eol,blank-at-eof','diff','--no-index','--check',baseline,p],{encoding:'utf8',windowsHide:true}),lines=(r.stdout+r.stderr).split(/\r?\n/).filter(Boolean),advisory=s=>/^warning: in the working copy of '[^']+', LF will be replaced by CRLF the next time Git touches it$/.test(s);
++ checks.push({path:p,status:r.status,advisories:lines.filter(advisory),findings:lines.filter(s=>!advisory(s))});const patch=spawnSync('git',['diff','--no-index','--',baseline,p],{encoding:'utf8',windowsHide:true});fs.appendFileSync(out+'/CHANGES.patch',patch.stdout);
++}
++fs.writeFileSync(out+'/BEFORE_AFTER.json',JSON.stringify(differences,null,2),{flag:'wx'});fs.writeFileSync(out+'/SCOPED_DIFF_CHECK.json',JSON.stringify(checks,null,2),{flag:'wx'});if(checks.some(x=>x.findings.length||![0,1].includes(x.status)))throw Error('WHITESPACE_FAILED');
++const git=args=>spawnSync('git',args,{encoding:'utf8',windowsHide:true}).stdout.trim();
++fs.writeFileSync(out+'/VERIFICATION.json',JSON.stringify({status:'IMPLEMENTED_TESTED_LOCAL_DRAFT',full_regression:{passed:129,failed:0,skipped:0,raw:'NPM_TEST_FINAL.log',source:'TESTED_SOURCE_FINAL.json',coverage_notes:coverage},focused_phase4:{passed:8,failed:0,raw:'FOCUSED_FINAL.log'},final_contract_guard:{passed:1,failed:0,raw:'CONTRACTS_FINAL_V2.log'},browser:{status:'PASS',checks:browser.checks,source:'browser-final/BROWSER_ACCEPTANCE.json',console:'No errors/warnings/issues observed'},context:'0 errors,0 warnings',build:'PASS; existing legacy chunk-size advisory',preservation,operational:{meta_positive_production_evaluation:'NOT_RUN_NOT_CONFIGURED',measurement:'ACTUAL_ISOLATED_TEST_REPOSITORY_ONLY',native:'REQUIRED / NOT_RUN / NOT_WAIVED',hosted_ci:'NOT_RUN',default_owner_db_used:false,policy_promotion:false,source_apply:false,state_written:false,skill_installation:false,phase5:'NOT_STARTED'},first_regression:{classification:'STALE_CONTEXT',proof:'REGRESSION_FIRST_ROOT_CAUSE.json',kept:true},branch:git(['branch','--show-current']),head:git(['rev-parse','HEAD']),independent_review:'NOT_PERFORMED',phase4_owner_acceptance:'NOT_SELF_GRANTED',release_acceptance:'NOT_GRANTED'},null,2),{flag:'wx'});
++fs.writeFileSync(out+'/REVIEW.json',JSON.stringify({kind:'Adversarial implementer self-review; not independent',axes:{correctness:'Python schema/JCS/CP path decisions; source/criterion/measurement binding;7 ordered steps; stale/foreign/unsupported evidence rejects',simplicity:'Reuses existing12 tables, source engines, T15, grants and audit. No new dependency, normative kind or external service',architecture:'Same CP identities; explicit local extension profile; legacy frozen read shape; no canonical apply endpoint',security:'Mandatory scoped write grants, audit, raw-input quarantine, no code execution from INBOX, no imported execution/causal trust and no alternate calibration path',verification:'129 final regression + contract guards + actual Edge/Sentinel; no unit-to-native or fixture-to-production qualification claim'},remaining:['Register actual project-specific trusted evaluators and verify operational semantics before use','Production meta-evaluator positive qualification NOT_RUN','Native and hosted qualifications retain previous NOT_RUN state'],scope:'No independent review, release/security-scan or production-measurement verdict'},null,2),{flag:'wx'});
++const manifest={},receipt=b=>({sha256:sha(b),bytes:b.length});function collect(dir){for(const e of fs.readdirSync(dir,{withFileTypes:true})){const p=dir+'/'+e.name;if(e.isSymbolicLink())throw Error('EVIDENCE_REPARSE');if(e.isDirectory())collect(p);else manifest[p]=receipt(fs.readFileSync(p));}}collect(out);for(const p of files)manifest[p]=receipt(fs.readFileSync(p));
++fs.writeFileSync(out+'/CUSTODY.lock.json',JSON.stringify({algorithm:'SHA256 raw bytes; not a publisher/owner signature',profile:'phase4-local.1',scope:'T25–T29 Draft implementation and local verification; operational project/native/hosted qualifications remain distinct',parent:pre.parent,files:Object.fromEntries(Object.entries(manifest).sort(([a],[b])=>a.localeCompare(b)))},null,2),{flag:'wx'});
++for(const [p,r]of Object.entries(manifest))if(sha(fs.readFileSync(p))!==r.sha256)throw Error('POST_SEAL_DRIFT '+p);console.log(JSON.stringify({status:'SEALED',files:Object.keys(manifest).length,sha256:sha(fs.readFileSync(out+'/CUSTODY.lock.json')),passed:129}));

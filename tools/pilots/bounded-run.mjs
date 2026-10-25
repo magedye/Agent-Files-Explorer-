@@ -1,0 +1,10 @@
+import path from 'node:path';
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import {createJobRunner} from '../../server/studio/aghr/job-runner.js';
+const python=path.resolve('temp/aghr-e1a-20261022-01/venv/Scripts/python.exe'),id=process.argv[2];
+if(!['pilot-app-l2','pilot-app-l3'].includes(id))throw Error('PILOT_REQUIRED');
+const args=[path.resolve('tools/pilots/run.mjs'),id,...process.argv.slice(3)];
+const result=await createJobRunner({python}).run('qualify',{executable:process.execPath,args,cwd:process.cwd(),onOutput:e=>(e.stream==='stdout'?process.stdout:process.stderr).write(e.bytes),maxOutputBytes:4*1024**2});
+const file='docs/evidence/studio-pilots-2026-10-25/BOUNDED-'+id+'-'+crypto.randomUUID()+'.json';fs.writeFileSync(file,JSON.stringify(result,null,2)+'\n',{flag:'wx'});
+if(result.exit_code!==0)process.exitCode=1;

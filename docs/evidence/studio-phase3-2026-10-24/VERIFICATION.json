@@ -1,0 +1,149 @@
+{
+  "status": "IMPLEMENTED_TESTED_LOCAL_DRAFT",
+  "full_regression": {
+    "passed": 120,
+    "failed": 0,
+    "skipped": 0,
+    "raw": "NPM_TEST.log",
+    "start_source": "TESTED_SOURCE.json"
+  },
+  "final_source_changes_after_regression_start": [
+    {
+      "path": "tests/studio_ci_publisher.test.mjs",
+      "before": "b5210f9d58c25442da3b035d11ccec19fb596da71cdf89df5dccc9f2040c47b3",
+      "after": "a49b4ed74ab08c45001357c653bb75fcf6e654d145ed1d270c9959fb5a13ac7f",
+      "final_verification": "CI_FOCUSED_FINAL.log:3/3"
+    },
+    {
+      "path": "server/studio/ci/assessment.mjs",
+      "before": "2145b0f7a2891e1fa82dabad3ebba9acba35a01312bf43d6fac6c44a7170c008",
+      "after": "9f8661ffd34b4618a1b509ccbabe6c7dfc9f03d2c0fd56903a36bb1d80f2c21a",
+      "final_verification": "CI_FOCUSED_FINAL.log:3/3; actual E4 imported-evidence inspection and mock rejection"
+    },
+    {
+      "path": "src/features/skills/SkillStudio.jsx",
+      "before": "e81d7df7db94194d8d508b196099ba8a232a7534ae6929013fef09c5a34dce46",
+      "after": "2a8259bae19d453f6218ee0644c2c4ac47ce42ead8b382199ef56ce70a69d552",
+      "final_verification": "BUILD_FINAL_V2.log + browser-final-v2: actual rebuilt Edge AR/EN + metadata/scenarios"
+    }
+  ],
+  "focused_skill_http": {
+    "passed": 11,
+    "failed": 0,
+    "raw": "SKILLS_FOCUSED_4.log"
+  },
+  "focused_final_ci": {
+    "passed": 3,
+    "failed": 0,
+    "raw": "CI_FOCUSED_FINAL.log"
+  },
+  "parity": {
+    "seed": 20261024,
+    "units": 100,
+    "variants": 2,
+    "actual_cli_runs": 4,
+    "raw": "PARITY_100.json"
+  },
+  "browser": {
+    "status": "PASS",
+    "checks": [
+      "Verify before execution rejected by actual E4",
+      "Real local execute + task criteria VERIFIED; three axes remain separate",
+      "Actual3-run local qualification with host tuple; not native qualification",
+      "Scoped CI bundle contains original bytes and real CLI report; no PR/state write",
+      "Native unavailable blocks without local fallback;15 local/native matrix rows",
+      "No overflow ar 320",
+      "No overflow ar 768",
+      "No overflow ar 1024",
+      "No overflow ar 1440",
+      "No overflow en 320",
+      "No overflow en 768",
+      "No overflow en 1024",
+      "No overflow en 1440",
+      "Keyboard Tab moves from labeled input to action after explicit test focus"
+    ],
+    "raw": "browser-final-v2/BROWSER_ACCEPTANCE.json",
+    "console": "No errors/warnings/issues in MCP inspection"
+  },
+  "context": "0 errors,0 warnings",
+  "build": "PASS; existing legacy bundle advisory",
+  "native": {
+    "attempts": 1,
+    "codex": "ENVIRONMENT_BLOCKED_INITIALIZE_TIMEOUT",
+    "antigravity": "NOT_RUN_AGY_UNAVAILABLE",
+    "qualification": "REQUIRED / NOT_RUN / NOT_WAIVED"
+  },
+  "publisher": {
+    "code": "IMPLEMENTED_LOCAL_TESTED",
+    "profile": "L0_NOT_RUN_ONLY",
+    "real_github_publication": "NOT_RUN",
+    "pr_created": false,
+    "source_written": false,
+    "state_written": false
+  },
+  "preservation": {
+    "status": "PASS",
+    "parent_unchanged": 146,
+    "parent_files": 154,
+    "exceptions": [
+      {
+        "path": "docs/INDEX.md",
+        "before": "fbadd084e31eb862a378f29c87c9a0b5d596e5546805757bae15802889c447cf",
+        "after": "5ba09c68a0b7039ce457ee8021a8fd9ea38e05934193b90f3f619e50a6db360f",
+        "before_copy": "before/docs/INDEX.md.raw"
+      },
+      {
+        "path": "docs/plans/STUDIO_UPGRADE_TASKS_AR.md",
+        "before": "0284613f1335f902593f4a8bbbbf414caef5d596093debd41e5ec4e47abc0134",
+        "after": "53002280603aa59b9696394b8d8307822c20925e3d5631d37d106534eb447170",
+        "before_copy": "before/docs/plans/STUDIO_UPGRADE_TASKS_AR.md.raw"
+      },
+      {
+        "path": "docs/status/CURRENT.md",
+        "before": "cec59860e6d9d863c97bc24593b3d073e4f9dff5a6e2a359c2fc3d321b1490ad",
+        "after": "a013eac7ac64f0e7aab5d42ec09189a2b0b06fae22b1ab3f2d61ab85939fc20b",
+        "before_copy": "before/docs/status/CURRENT.md.raw"
+      },
+      {
+        "path": "docs/status/HANDOFF.md",
+        "before": "f858a0bc88b4e9f66e3118d106c8dce083355e8a3f2f6e8c714336cb484cbc0c",
+        "after": "ced8803fee4b055ebce71dce80a1f59742b7f850f4596798c76a56c22dd93124",
+        "before_copy": "before/docs/status/HANDOFF.md.raw"
+      },
+      {
+        "path": "server/studio/db/persistent.js",
+        "before": "bd8e730e9f9b0af9c1e67a041fa7ca329178c7079cc0018128c7a71e30ba776c",
+        "after": "26c1cde8d431c849313f839ed5de8ac7700ce24e98dd8ba30bda377ed184aac3",
+        "before_copy": "before/server/studio/db/persistent.js.raw"
+      },
+      {
+        "path": "server/studio/draft-runtime.js",
+        "before": "a39b65cfd29f06bbbb33221dec8b8822eabc2f8b14301f08b585aa43dd06f93a",
+        "after": "30d564555002b6121d04db1e591f29019044a31a8a307e26ba7b8d15cf7bb41c",
+        "before_copy": "before/server/studio/draft-runtime.js.raw"
+      },
+      {
+        "path": "server/studio/serve-draft.mjs",
+        "before": "ffe5ece7a3933d55b05a8ce71853c7af48d41c8f022839d25f75d25c1b1b3cce",
+        "after": "db25883f9da1e359ae3ddd3581e190b6cfbc90b5edb533ad1adf837e844eabf7",
+        "before_copy": "before/server/studio/serve-draft.mjs.raw"
+      },
+      {
+        "path": "src/features/changes/DraftStudio.jsx",
+        "before": "40a281ae3a79c1e434947c13eae240c1bf862dd90127363b3b8228ca42dd7d3e",
+        "after": "21f3bc9335898844f80bbcf564471f1381fc27cf14fc54895375f7004978af70",
+        "before_copy": "before/src/features/changes/DraftStudio.jsx.raw"
+      }
+    ],
+    "immutable_e3_files": 1916,
+    "e4_pin_unchanged": true,
+    "reference_120": "Preserved via accepted transitive custody; no package crawl.",
+    "original_and_state_written": false
+  },
+  "branch": "main",
+  "head": "133746a0ad99d10568a44c8d225219df8454271c",
+  "independent_review": "NOT_PERFORMED",
+  "release_acceptance": "NOT_GRANTED",
+  "phase4": "NOT_STARTED",
+  "default_draft_db_used": false
+}

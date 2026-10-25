@@ -1,0 +1,122 @@
+{
+  "baseline": "adbe19e64f5d7385feec9ed8c46ed83b3eee41ec",
+  "proposed": "fb3418c19b61260dc78752af8d8e258d8b955217",
+  "merged": "8968bcbf5963c50dbab75ef0418d0c9827a86df2",
+  "stale_hash": {
+    "status": "REJECTED",
+    "exit_code": 1,
+    "stderr": "remote: MERGE_OR_CURRENT_HASH_REQUIRED        \nTo D:\\APP\\Agent-Files-Explorer\\pilot-app-l3/.aghr/ci-private/remote.git\n ! [remote rejected] main -> main (pre-receive hook declined)\nerror: failed to push some refs to 'D:\\APP\\Agent-Files-Explorer\\pilot-app-l3/.aghr/ci-private/remote.git'\n"
+  },
+  "application_test": {
+    "event": "finished",
+    "status": "passed",
+    "reason": null,
+    "exit_code": 0,
+    "resource_peak_mb": 22.05078125,
+    "duration_ms": 2438,
+    "active_processes_after": 0,
+    "observed_pids": [
+      136444,
+      137156,
+      138384
+    ],
+    "memory_events": [],
+    "started": {
+      "event": "started",
+      "pid": 136444,
+      "adapter": "windows-job-list",
+      "hard_memory_bytes": 2147483648,
+      "limit_flags": 8704
+    },
+    "stdout": "{\"status\": \"PASS\", \"http_requests\": 4, \"negative_sql_checks\": 5, \"rows\": 3, \"units\": 23, \"inventory_value\": 376}\r\n",
+    "stderr": "",
+    "limits": {
+      "timeoutMs": 30000,
+      "memoryBytes": 2147483648
+    }
+  },
+  "publisher": {
+    "status": "PUBLISHED_AFTER_ACTUAL_LOCAL_MERGE",
+    "state": {
+      "schemaVersion": "1.2",
+      "aghrVersion": "1.0.0-rc.3",
+      "adoptionLevel": "L3",
+      "domainLevels": {
+        "instructions": "L3",
+        "skills": "L3"
+      },
+      "evalStatus": "PASS",
+      "skillQualification": [
+        {
+          "skillId": "pilot-sql-readonly",
+          "host": "aghr-local-process",
+          "hostVersion": "v24.11.0",
+          "scope": "pilot-app-l3/**",
+          "contentHash": "sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e",
+          "status": "QUALIFIED",
+          "qualifiedAt": "2026-10-25",
+          "evidence": [
+            "e4:execution/E4-56fa7c5d-2c87-470c-958c-6720c5f44a13#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a",
+            "e4:execution/E4-a9715e9a-ae63-4a99-9506-403a3cb8bddf#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a",
+            "e4:execution/E4-dd9827cc-914a-4b44-9372-85d0c8320cba#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a"
+          ]
+        }
+      ],
+      "exceptions": [],
+      "publication": {
+        "publisher": "ci",
+        "ciRunRef": "local-git-ci:e769f4a0-d2f1-410f-90c5-58dc6e93cd4d",
+        "commitHash": "8968bcbf5963c50dbab75ef0418d0c9827a86df2",
+        "publishedAt": "2026-10-25T12:06:17.299Z",
+        "sourceEvidence": [
+          {
+            "path": ".aghr/ci-results/pr-evidence-e309cde2-a444-4f57-8a6d-cda0829ec2b0.json",
+            "content_hash": "sha256:586e251d43335ff4c9c964f4fc9ca90b6d89b7457c62c8d65cfe4b72a1b1a84d",
+            "bytes": 488257
+          }
+        ]
+      }
+    },
+    "profile": "SANDBOX_LOCAL_CI_V1",
+    "state_sha256": "ca7d851150ac04b7594302f797e25ca5faaed46a9d6b6a7c09fb332352a7fa0c",
+    "gpg": "UNSIGNED_OWNER_ACCEPTED_WARNING",
+    "hosted_ci": "NOT_RUN",
+    "release": "NOT_GRANTED"
+  },
+  "resource": {
+    "event": "finished",
+    "status": "passed",
+    "reason": null,
+    "exit_code": 0,
+    "resource_peak_mb": 67.59375,
+    "duration_ms": 2218,
+    "active_processes_after": 0,
+    "observed_pids": [
+      132988,
+      140724,
+      142120,
+      143608,
+      138296,
+      134392,
+      143616,
+      137976,
+      140608,
+      143864,
+      143280
+    ],
+    "memory_events": [],
+    "started": {
+      "event": "started",
+      "pid": 132988,
+      "adapter": "windows-job-list",
+      "hard_memory_bytes": 2147483648,
+      "limit_flags": 8704
+    },
+    "stdout": "{\"status\":\"PUBLISHED_AFTER_ACTUAL_LOCAL_MERGE\",\"state\":{\"schemaVersion\":\"1.2\",\"aghrVersion\":\"1.0.0-rc.3\",\"adoptionLevel\":\"L3\",\"domainLevels\":{\"instructions\":\"L3\",\"skills\":\"L3\"},\"evalStatus\":\"PASS\",\"skillQualification\":[{\"skillId\":\"pilot-sql-readonly\",\"host\":\"aghr-local-process\",\"hostVersion\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"contentHash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"status\":\"QUALIFIED\",\"qualifiedAt\":\"2026-10-25\",\"evidence\":[\"e4:execution/E4-56fa7c5d-2c87-470c-958c-6720c5f44a13#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\",\"e4:execution/E4-a9715e9a-ae63-4a99-9506-403a3cb8bddf#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\",\"e4:execution/E4-dd9827cc-914a-4b44-9372-85d0c8320cba#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\"]}],\"exceptions\":[],\"publication\":{\"publisher\":\"ci\",\"ciRunRef\":\"local-git-ci:e769f4a0-d2f1-410f-90c5-58dc6e93cd4d\",\"commitHash\":\"8968bcbf5963c50dbab75ef0418d0c9827a86df2\",\"publishedAt\":\"2026-10-25T12:06:17.299Z\",\"sourceEvidence\":[{\"path\":\".aghr/ci-results/pr-evidence-e309cde2-a444-4f57-8a6d-cda0829ec2b0.json\",\"content_hash\":\"sha256:586e251d43335ff4c9c964f4fc9ca90b6d89b7457c62c8d65cfe4b72a1b1a84d\",\"bytes\":488257}]}},\"profile\":\"SANDBOX_LOCAL_CI_V1\",\"state_sha256\":\"ca7d851150ac04b7594302f797e25ca5faaed46a9d6b6a7c09fb332352a7fa0c\",\"gpg\":\"UNSIGNED_OWNER_ACCEPTED_WARNING\",\"hosted_ci\":\"NOT_RUN\",\"release\":\"NOT_GRANTED\"}\n",
+    "stderr": "",
+    "limits": {
+      "timeoutMs": 30000,
+      "memoryBytes": 2147483648
+    }
+  }
+}

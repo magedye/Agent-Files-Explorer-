@@ -1,0 +1,44 @@
+{
+  "id": "AGHR-010",
+  "title": "استمرار العمل ضمن التفويض",
+  "kind": "PRINCIPLE",
+  "force": "MUST",
+  "severity": "high",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: During execution.\nContinue authorized independent work until the scoped goal or a genuine boundary is reached. Offer guided or continuous-within-grant delivery without repeated permission for already covered actions; continuous mode never grants merge, push, installation or deployment. Stop for revoked authority, safety, owner pause or exhausted budget.",
+  "authority": {
+    "source": "drafting/OWNER_DIRECTIVE.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "PROVISIONAL_OWNER_REVIEW",
+    "status": "draft",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "الاستمرار خارج التفويض أو التوقف غير اللازم يعطل هدف المالك. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "review",
+    "mergeEffect": "advisory"
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-010"
+    ]
+  },
+  "impact": {
+    "band": "high",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2027-01-21",
+  "exceptions": {
+    "allowed": false
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

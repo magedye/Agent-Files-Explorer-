@@ -1,0 +1,857 @@
+[
+  {
+    "method": "POST",
+    "route": "/project-adoption-intents",
+    "status": 200,
+    "data": {
+      "id": "5ac38dd3-ee6a-42cc-9a8f-c5b60b396cdc",
+      "scope": {
+        "workspace_id": "rc3-local",
+        "target_project": "studio-drafts",
+        "action": "cp.create",
+        "resource_id": "CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc",
+        "proposal_version_hash": "sha256:ff0784ee44dc158d3aca271192922d712405c9e9351d9d7affc8db0080f3d431"
+      },
+      "status": "AWAITING_OPERATOR"
+    },
+    "meta": {
+      "request_id": "dac9420b-2f60-497c-9603-84d1ef26bebc",
+      "contract_revision": "contract.1",
+      "recorded_at": "2026-10-25T15:44:38.247Z"
+    }
+  },
+  {
+    "method": "POST",
+    "route": "/workspaces/rc3-local/adoptions",
+    "status": 201,
+    "data": {
+      "id": "AD-0941de1d-5606-48ff-8ce1-325df1c3b3dc",
+      "change_package_id": "CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc",
+      "target_project_id": "pilot-app-l2",
+      "level": "L2",
+      "profile": "SANDBOX_LOCAL_CI_V1",
+      "proposal_version_hash": "sha256:ff0784ee44dc158d3aca271192922d712405c9e9351d9d7affc8db0080f3d431",
+      "status": "draft"
+    },
+    "meta": {
+      "request_id": "aa56b67c-6dae-4768-a123-cc8d2d4f2ee6",
+      "contract_revision": "contract.1",
+      "recorded_at": "2026-10-25T15:44:38.339Z"
+    }
+  },
+  {
+    "method": "GET",
+    "route": "/workspaces/rc3-local/adoptions/AD-0941de1d-5606-48ff-8ce1-325df1c3b3dc",
+    "status": 200,
+    "data": {
+      "id": "AD-0941de1d-5606-48ff-8ce1-325df1c3b3dc",
+      "change_package_id": "CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc",
+      "target_project_id": "pilot-app-l2",
+      "level": "L2",
+      "profile": "SANDBOX_LOCAL_CI_V1",
+      "proposal_version_hash": "sha256:ff0784ee44dc158d3aca271192922d712405c9e9351d9d7affc8db0080f3d431",
+      "status": "draft"
+    },
+    "meta": {
+      "request_id": "cfe3042e-e4a3-4be5-a1db-c45ffe65f36c",
+      "contract_revision": "contract.1",
+      "recorded_at": "2026-10-25T15:44:38.361Z"
+    }
+  },
+  {
+    "method": "POST",
+    "route": "/workspaces/rc3-local/cps/CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc/intents",
+    "status": 200,
+    "data": {
+      "id": "8178a0b1-2bd7-4b33-a04e-a36745621c62",
+      "scope": {
+        "workspace_id": "rc3-local",
+        "target_project": "studio-drafts",
+        "action": "cp.validate",
+        "resource_id": "CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc",
+        "proposal_version_hash": "sha256:ff0784ee44dc158d3aca271192922d712405c9e9351d9d7affc8db0080f3d431"
+      },
+      "status": "AWAITING_OPERATOR"
+    },
+    "meta": {
+      "request_id": "b6afef2b-1866-480b-a75a-4896c1a1041c",
+      "contract_revision": "contract.1",
+      "recorded_at": "2026-10-25T15:44:38.395Z"
+    }
+  },
+  {
+    "method": "POST",
+    "route": "/workspaces/rc3-local/cps/CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc/validate",
+    "status": 202,
+    "data": {
+      "id": "CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc",
+      "workspace_id": "rc3-local",
+      "title": "Adopt L2 on pilot-app-l2",
+      "kind": "GENERATED_FILE",
+      "target_item_id": null,
+      "status": "validated",
+      "source": {
+        "type": "request",
+        "ref": "studio-project-adoption:pilot-app-l2"
+      },
+      "base_package_version": "1.0.0-rc.3",
+      "base_candidate_hash": "sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2",
+      "proposed_yaml": "{\n  \"kind\": \"GENERATED_FILE\",\n  \"target_project_id\": \"pilot-app-l2\",\n  \"files\": [\n    {\n      \"path\": \".aghr/package/CHANGELOG.md\",\n      \"content\": \"# Sandbox package\\n\\n1.0.0-rc.3 — local pilot only; not a release.\\n\",\n      \"content_hash\": \"sha256:6b37f7a1d95a4778471f8a1ee5d70c762bc9cf7d73950d05a747f6c4ae792b81\"\n    },\n    {\n      \"path\": \".aghr/package/aghr.json\",\n      \"content\": \"{\\n  \\\"id\\\": \\\"pilot-app-l2\\\",\\n  \\\"name\\\": \\\"pilot-app-l2 scoped sandbox package\\\",\\n  \\\"version\\\": \\\"1.0.0-rc.3\\\",\\n  \\\"schemaVersion\\\": \\\"1.2\\\",\\n  \\\"owner\\\": \\\"Platform Governance Team\\\",\\n  \\\"license\\\": \\\"MIT\\\",\\n  \\\"compatibility\\\": {\\n    \\\"agents\\\": [\\n      \\\"aghr-local-process\\\"\\n    ],\\n    \\\"targets\\\": {\\n      \\\"aghr-local-process\\\": {\\n        \\\"file\\\": \\\"AGENTS.md\\\",\\n        \\\"budgetBytes\\\": 32768\\n      }\\n    }\\n  },\\n  \\\"validation\\\": {\\n    \\\"strict\\\": true,\\n    \\\"coreKindsOnly\\\": true,\\n    \\\"requireEvalForPriority\\\": [\\n      \\\"P0-Safety\\\",\\n      \\\"P0-Integrity\\\"\\n    ],\\n    \\\"requireTechnicalEnforcementFor\\\": [\\n      \\\"MUST_NOT\\\"\\n    ],\\n    \\\"requireSkillQualificationFor\\\": [\\n      \\\"P0-Safety\\\",\\n      \\\"P0-Integrity\\\"\\n    ],\\n    \\\"enforceSkillStateHonesty\\\": true,\\n    \\\"enforceDocumentationConsistency\\\": true,\\n    \\\"enforceAuthorityLevel\\\": true\\n  }\\n}\\n\",\n      \"content_hash\": \"sha256:ffd1914b442e1436e62277b3b6e6c2f9fc557ac7d7369b6d81f497520d176db5\"\n    },\n    {\n      \"path\": \".aghr/package/policies/identity.json\",\n      \"content\": \"{\\n  \\\"kind\\\": \\\"CONSTRAINT\\\",\\n  \\\"force\\\": \\\"MUST\\\",\\n  \\\"severity\\\": \\\"medium\\\",\\n  \\\"scope\\\": {\\n    \\\"paths\\\": [\\n      \\\"**/*\\\"\\n    ]\\n  },\\n  \\\"rationale\\\": \\\"Owner-authorized sandbox adoption; no authority outside this project.\\\",\\n  \\\"authority\\\": {\\n    \\\"source\\\": \\\"owner://T34-T35/2026-10-25/pilot-app-l2\\\",\\n    \\\"level\\\": \\\"project\\\",\\n    \\\"owner\\\": \\\"Sandbox Project Owner\\\",\\n    \\\"approvedBy\\\": \\\"OWNER_T34_T35_20261025\\\",\\n    \\\"status\\\": \\\"active\\\",\\n    \\\"effectiveFrom\\\": \\\"2026-10-25\\\"\\n  },\\n  \\\"impact\\\": {\\n    \\\"band\\\": \\\"medium\\\",\\n    \\\"evidence\\\": \\\"assumed\\\"\\n  },\\n  \\\"verification\\\": {\\n    \\\"commands\\\": [\\n      \\\"node --test app.test.mjs\\\"\\n    ]\\n  },\\n  \\\"id\\\": \\\"PILOT-IDENTITY-001\\\",\\n  \\\"title\\\": \\\"Project identity in public read responses\\\",\\n  \\\"rule\\\": \\\"Read API responses MUST identify this sandbox project. Do not claim authority over another project.\\\"\\n}\\n\",\n      \"content_hash\": \"sha256:5ac0bbb24b853d8e347d23892562cb47149f3d09af52afdef77d0904db11a947\"\n    },\n    {\n      \"path\": \".aghr/package/policies/principle.json\",\n      \"content\": \"{\\n  \\\"kind\\\": \\\"PRINCIPLE\\\",\\n  \\\"force\\\": \\\"MUST\\\",\\n  \\\"severity\\\": \\\"medium\\\",\\n  \\\"scope\\\": {\\n    \\\"paths\\\": [\\n      \\\"**/*\\\"\\n    ]\\n  },\\n  \\\"rationale\\\": \\\"Owner-authorized sandbox adoption; no authority outside this project.\\\",\\n  \\\"authority\\\": {\\n    \\\"source\\\": \\\"owner://T34-T35/2026-10-25/pilot-app-l2\\\",\\n    \\\"level\\\": \\\"project\\\",\\n    \\\"owner\\\": \\\"Sandbox Project Owner\\\",\\n    \\\"approvedBy\\\": \\\"OWNER_T34_T35_20261025\\\",\\n    \\\"status\\\": \\\"active\\\",\\n    \\\"effectiveFrom\\\": \\\"2026-10-25\\\"\\n  },\\n  \\\"impact\\\": {\\n    \\\"band\\\": \\\"medium\\\",\\n    \\\"evidence\\\": \\\"assumed\\\"\\n  },\\n  \\\"verification\\\": {\\n    \\\"commands\\\": [\\n      \\\"node --test app.test.mjs\\\"\\n    ]\\n  },\\n  \\\"id\\\": \\\"PRIN-007\\\",\\n  \\\"title\\\": \\\"Truthful skill-state reporting\\\",\\n  \\\"rule\\\": \\\"When receiving a software task or crossing a substantive phase boundary,\\\\nthe agent MUST evaluate the fitness of the capabilities actually available\\\\nin the execution environment, and select the minimal effective set for\\\\nthe current phase. Priority is given to native capabilities compatible with\\\\nthe host and project. Repetition, conflict, and authorization bypass MUST\\\\nbe prevented. The agent is NOT obligated to use a skill when direct\\\\nexecution is better, and MUST NOT treat discovery or loading as evidence\\\\nof execution or success. Adoption of new skills, modification of governing\\\\ninstructions, and promotion of lessons into persistent memory remain\\\\nsubject to the approved authority and procedure.\\\\n\\\"\\n}\\n\",\n      \"content_hash\": \"sha256:5ef814c7371ec1aff4202acec66a535c5c73159961847d051ddfe425da59142b\"\n    },\n    {\n      \"path\": \"AGENTS.md\",\n      \"content\": \"# AGENTS.md\\n\\n<!-- Candidate output; approval/export require current CP gates. -->\\n\\n## PILOT-IDENTITY-001\\nMUST\\nRead API responses MUST identify this sandbox project. Do not claim authority over another project.\\n\\n## PRIN-007\\nMUST\\nWhen receiving a software task or crossing a substantive phase boundary,\\nthe agent MUST evaluate the fitness of the capabilities actually available\\nin the execution environment, and select the minimal effective set for\\nthe current phase. Priority is given to native capabilities compatible with\\nthe host and project. Repetition, conflict, and authorization bypass MUST\\nbe prevented. The agent is NOT obligated to use a skill when direct\\nexecution is better, and MUST NOT treat discovery or loading as evidence\\nof execution or success. Adoption of new skills, modification of governing\\ninstructions, and promotion of lessons into persistent memory remain\\nsubject to the approved authority and procedure.\\n\\n\\n\",\n      \"content_hash\": \"sha256:4d264947a44a0f8f7000438cb81b694045f3a5c78936d363914e7e56a8aab913\"\n    }\n  ],\n  \"adoption\": {\n    \"level\": \"L2\",\n    \"profile\": \"SANDBOX_LOCAL_CI_V1\"\n  }\n}",
+      "proposal_version_hash": "sha256:ff0784ee44dc158d3aca271192922d712405c9e9351d9d7affc8db0080f3d431",
+      "checks": {
+        "validate": {
+          "status": "PASS",
+          "at": "2026-10-25T15:44:48.788Z",
+          "run_id": "VR-61b86a96-2ff2-48c3-9262-599f985f4761",
+          "evidence": [
+            {
+              "path": "sqlite:verification_runs/VR-61b86a96-2ff2-48c3-9262-599f985f4761",
+              "content_hash": "sha256:843f09b42804edb96a6d8e3981902e44d515c4f09f92507c8722f808810ca1e6",
+              "bytes": 20015
+            }
+          ]
+        },
+        "lint": {
+          "status": "PASS",
+          "at": "2026-10-25T15:44:48.788Z",
+          "run_id": "VR-61b86a96-2ff2-48c3-9262-599f985f4761",
+          "evidence": [
+            {
+              "path": "sqlite:verification_runs/VR-61b86a96-2ff2-48c3-9262-599f985f4761",
+              "content_hash": "sha256:843f09b42804edb96a6d8e3981902e44d515c4f09f92507c8722f808810ca1e6",
+              "bytes": 20015
+            }
+          ]
+        },
+        "skill_states": {
+          "status": "NOT_RUN",
+          "evidence": [],
+          "reason": "Required check has not run for this proposal version."
+        },
+        "generate": {
+          "status": "NOT_RUN",
+          "evidence": [],
+          "reason": "Required check has not run for this proposal version."
+        },
+        "doctor": {
+          "status": "PASS",
+          "at": "2026-10-25T15:44:48.788Z",
+          "run_id": "VR-61b86a96-2ff2-48c3-9262-599f985f4761",
+          "evidence": [
+            {
+              "path": "sqlite:verification_runs/VR-61b86a96-2ff2-48c3-9262-599f985f4761",
+              "content_hash": "sha256:843f09b42804edb96a6d8e3981902e44d515c4f09f92507c8722f808810ca1e6",
+              "bytes": 20015
+            }
+          ]
+        },
+        "eval": {
+          "status": "NOT_RUN",
+          "evidence": [],
+          "reason": "Required check has not run for this proposal version."
+        }
+      },
+      "generation": null,
+      "ci_comparison": null,
+      "required_approvals": [
+        "governance-owner"
+      ],
+      "approvals": [],
+      "approval_history": [],
+      "blockers": [
+        {
+          "code": "CHECK_GENERATE",
+          "message": "Required check has not run for this proposal version.",
+          "severity": "warning"
+        }
+      ],
+      "created_by": "project-adoption-owner",
+      "created_at": "2026-10-25T15:44:38.322Z",
+      "updated_at": "2026-10-25T15:44:48.788Z"
+    },
+    "meta": {
+      "request_id": "7cd58b1b-be9e-43f2-8794-7da2a97503b5",
+      "contract_revision": "contract.1",
+      "recorded_at": "2026-10-25T15:44:48.803Z"
+    }
+  },
+  {
+    "method": "POST",
+    "route": "/workspaces/rc3-local/cps/CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc/intents",
+    "status": 200,
+    "data": {
+      "id": "5c7cb881-0259-4f56-8331-74a47e38cb53",
+      "scope": {
+        "workspace_id": "rc3-local",
+        "target_project": "studio-drafts",
+        "action": "cp.generate.preview",
+        "resource_id": "CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc",
+        "proposal_version_hash": "sha256:ff0784ee44dc158d3aca271192922d712405c9e9351d9d7affc8db0080f3d431"
+      },
+      "status": "AWAITING_OPERATOR"
+    },
+    "meta": {
+      "request_id": "dd96b76a-36f5-44d1-98c9-33c87278df3d",
+      "contract_revision": "contract.1",
+      "recorded_at": "2026-10-25T15:44:54.603Z"
+    }
+  },
+  {
+    "method": "POST",
+    "route": "/workspaces/rc3-local/generate/preview",
+    "status": 200,
+    "data": {
+      "content": "# AGENTS.md\n\n<!-- Candidate output; approval/export require current CP gates. -->\n\n## PILOT-IDENTITY-001\nMUST\nRead API responses MUST identify this sandbox project. Do not claim authority over another project.\n\n## PRIN-007\nMUST\nWhen receiving a software task or crossing a substantive phase boundary,\nthe agent MUST evaluate the fitness of the capabilities actually available\nin the execution environment, and select the minimal effective set for\nthe current phase. Priority is given to native capabilities compatible with\nthe host and project. Repetition, conflict, and authorization bypass MUST\nbe prevented. The agent is NOT obligated to use a skill when direct\nexecution is better, and MUST NOT treat discovery or loading as evidence\nof execution or success. Adoption of new skills, modification of governing\ninstructions, and promotion of lessons into persistent memory remain\nsubject to the approved authority and procedure.\n\n\n",
+      "content_hash": "sha256:4d264947a44a0f8f7000438cb81b694045f3a5c78936d363914e7e56a8aab913",
+      "stage": "full",
+      "byte_size": 933,
+      "byte_delta": -31835,
+      "budget_bytes": 32768,
+      "p0_preserved": true,
+      "prin_007_present": true,
+      "adoption_level": "L2",
+      "p0_evidence": [
+        {
+          "path": "preview-item:PILOT-IDENTITY-001",
+          "content_hash": "sha256:1645dfdbea2e3bedf7b3f4c3a892598380b53ccf60b004f2e25f583c7bb983d8",
+          "bytes": 99
+        },
+        {
+          "path": "preview-item:PRIN-007",
+          "content_hash": "sha256:a152a42a5d6f4f6c30eed76401bc88878a41948a7c5a35fee9bd9eb79463250f",
+          "bytes": 703
+        }
+      ],
+      "overflow_items": [],
+      "acknowledgements": [],
+      "lookup": {
+        "status": "NOT_RUN",
+        "evidence": [],
+        "reason": "On-demand lookup has no qualified host evidence. Compact/export blocked."
+      },
+      "run_id": "GEN-cb9dee08-e7fe-46c1-bb6d-e509821199e7"
+    },
+    "meta": {
+      "request_id": "01255c57-5d80-49ae-a08c-2d5340022398",
+      "contract_revision": "contract.1",
+      "recorded_at": "2026-10-25T15:45:03.471Z"
+    }
+  },
+  {
+    "method": "POST",
+    "route": "/workspaces/rc3-local/cps/CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc/intents",
+    "status": 200,
+    "data": {
+      "id": "6d7352a0-0011-421a-aeca-25e887a266e2",
+      "scope": {
+        "workspace_id": "rc3-local",
+        "target_project": "studio-drafts",
+        "action": "cp.preview",
+        "resource_id": "CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc",
+        "proposal_version_hash": "sha256:ff0784ee44dc158d3aca271192922d712405c9e9351d9d7affc8db0080f3d431"
+      },
+      "status": "AWAITING_OPERATOR"
+    },
+    "meta": {
+      "request_id": "0d57bfc3-03b5-4594-a884-bdec9ede39c9",
+      "contract_revision": "contract.1",
+      "recorded_at": "2026-10-25T15:45:03.503Z"
+    }
+  },
+  {
+    "method": "POST",
+    "route": "/workspaces/rc3-local/adoptions/AD-0941de1d-5606-48ff-8ce1-325df1c3b3dc/preview",
+    "status": 200,
+    "data": {
+      "proposal_version_hash": "sha256:ff0784ee44dc158d3aca271192922d712405c9e9351d9d7affc8db0080f3d431",
+      "diff": "",
+      "files": [],
+      "source_written": false,
+      "state_written": false
+    },
+    "meta": {
+      "request_id": "d57e9a59-75b7-4aed-817a-6f24bfb06312",
+      "contract_revision": "contract.1",
+      "recorded_at": "2026-10-25T15:45:11.168Z"
+    }
+  },
+  {
+    "method": "GET",
+    "route": "/workspaces/rc3-local/adoptions/AD-0941de1d-5606-48ff-8ce1-325df1c3b3dc/diff",
+    "status": 200,
+    "data": {
+      "proposal_version_hash": "sha256:ff0784ee44dc158d3aca271192922d712405c9e9351d9d7affc8db0080f3d431",
+      "diff": "",
+      "files": [],
+      "source_written": false,
+      "state_written": false
+    },
+    "meta": {
+      "request_id": "45a4f837-9c5f-4ceb-816b-d5509469a4c6",
+      "contract_revision": "contract.1",
+      "recorded_at": "2026-10-25T15:45:11.285Z"
+    }
+  },
+  {
+    "method": "POST",
+    "route": "/workspaces/rc3-local/cps/CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc/intents",
+    "status": 200,
+    "data": {
+      "id": "2e124993-df75-45d5-9831-6bb38c5be827",
+      "scope": {
+        "workspace_id": "rc3-local",
+        "target_project": "studio-drafts",
+        "action": "cp.submit",
+        "resource_id": "CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc",
+        "proposal_version_hash": "sha256:ff0784ee44dc158d3aca271192922d712405c9e9351d9d7affc8db0080f3d431"
+      },
+      "status": "AWAITING_OPERATOR"
+    },
+    "meta": {
+      "request_id": "0ada3a22-e75c-40e6-842c-0dfca418d843",
+      "contract_revision": "contract.1",
+      "recorded_at": "2026-10-25T15:45:11.361Z"
+    }
+  },
+  {
+    "method": "POST",
+    "route": "/workspaces/rc3-local/cps/CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc/submit",
+    "status": 200,
+    "data": {
+      "id": "CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc",
+      "workspace_id": "rc3-local",
+      "title": "Adopt L2 on pilot-app-l2",
+      "kind": "GENERATED_FILE",
+      "target_item_id": null,
+      "status": "in_review",
+      "source": {
+        "type": "request",
+        "ref": "studio-project-adoption:pilot-app-l2"
+      },
+      "base_package_version": "1.0.0-rc.3",
+      "base_candidate_hash": "sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2",
+      "proposed_yaml": "{\n  \"kind\": \"GENERATED_FILE\",\n  \"target_project_id\": \"pilot-app-l2\",\n  \"files\": [\n    {\n      \"path\": \".aghr/package/CHANGELOG.md\",\n      \"content\": \"# Sandbox package\\n\\n1.0.0-rc.3 — local pilot only; not a release.\\n\",\n      \"content_hash\": \"sha256:6b37f7a1d95a4778471f8a1ee5d70c762bc9cf7d73950d05a747f6c4ae792b81\"\n    },\n    {\n      \"path\": \".aghr/package/aghr.json\",\n      \"content\": \"{\\n  \\\"id\\\": \\\"pilot-app-l2\\\",\\n  \\\"name\\\": \\\"pilot-app-l2 scoped sandbox package\\\",\\n  \\\"version\\\": \\\"1.0.0-rc.3\\\",\\n  \\\"schemaVersion\\\": \\\"1.2\\\",\\n  \\\"owner\\\": \\\"Platform Governance Team\\\",\\n  \\\"license\\\": \\\"MIT\\\",\\n  \\\"compatibility\\\": {\\n    \\\"agents\\\": [\\n      \\\"aghr-local-process\\\"\\n    ],\\n    \\\"targets\\\": {\\n      \\\"aghr-local-process\\\": {\\n        \\\"file\\\": \\\"AGENTS.md\\\",\\n        \\\"budgetBytes\\\": 32768\\n      }\\n    }\\n  },\\n  \\\"validation\\\": {\\n    \\\"strict\\\": true,\\n    \\\"coreKindsOnly\\\": true,\\n    \\\"requireEvalForPriority\\\": [\\n      \\\"P0-Safety\\\",\\n      \\\"P0-Integrity\\\"\\n    ],\\n    \\\"requireTechnicalEnforcementFor\\\": [\\n      \\\"MUST_NOT\\\"\\n    ],\\n    \\\"requireSkillQualificationFor\\\": [\\n      \\\"P0-Safety\\\",\\n      \\\"P0-Integrity\\\"\\n    ],\\n    \\\"enforceSkillStateHonesty\\\": true,\\n    \\\"enforceDocumentationConsistency\\\": true,\\n    \\\"enforceAuthorityLevel\\\": true\\n  }\\n}\\n\",\n      \"content_hash\": \"sha256:ffd1914b442e1436e62277b3b6e6c2f9fc557ac7d7369b6d81f497520d176db5\"\n    },\n    {\n      \"path\": \".aghr/package/policies/identity.json\",\n      \"content\": \"{\\n  \\\"kind\\\": \\\"CONSTRAINT\\\",\\n  \\\"force\\\": \\\"MUST\\\",\\n  \\\"severity\\\": \\\"medium\\\",\\n  \\\"scope\\\": {\\n    \\\"paths\\\": [\\n      \\\"**/*\\\"\\n    ]\\n  },\\n  \\\"rationale\\\": \\\"Owner-authorized sandbox adoption; no authority outside this project.\\\",\\n  \\\"authority\\\": {\\n    \\\"source\\\": \\\"owner://T34-T35/2026-10-25/pilot-app-l2\\\",\\n    \\\"level\\\": \\\"project\\\",\\n    \\\"owner\\\": \\\"Sandbox Project Owner\\\",\\n    \\\"approvedBy\\\": \\\"OWNER_T34_T35_20261025\\\",\\n    \\\"status\\\": \\\"active\\\",\\n    \\\"effectiveFrom\\\": \\\"2026-10-25\\\"\\n  },\\n  \\\"impact\\\": {\\n    \\\"band\\\": \\\"medium\\\",\\n    \\\"evidence\\\": \\\"assumed\\\"\\n  },\\n  \\\"verification\\\": {\\n    \\\"commands\\\": [\\n      \\\"node --test app.test.mjs\\\"\\n    ]\\n  },\\n  \\\"id\\\": \\\"PILOT-IDENTITY-001\\\",\\n  \\\"title\\\": \\\"Project identity in public read responses\\\",\\n  \\\"rule\\\": \\\"Read API responses MUST identify this sandbox project. Do not claim authority over another project.\\\"\\n}\\n\",\n      \"content_hash\": \"sha256:5ac0bbb24b853d8e347d23892562cb47149f3d09af52afdef77d0904db11a947\"\n    },\n    {\n      \"path\": \".aghr/package/policies/principle.json\",\n      \"content\": \"{\\n  \\\"kind\\\": \\\"PRINCIPLE\\\",\\n  \\\"force\\\": \\\"MUST\\\",\\n  \\\"severity\\\": \\\"medium\\\",\\n  \\\"scope\\\": {\\n    \\\"paths\\\": [\\n      \\\"**/*\\\"\\n    ]\\n  },\\n  \\\"rationale\\\": \\\"Owner-authorized sandbox adoption; no authority outside this project.\\\",\\n  \\\"authority\\\": {\\n    \\\"source\\\": \\\"owner://T34-T35/2026-10-25/pilot-app-l2\\\",\\n    \\\"level\\\": \\\"project\\\",\\n    \\\"owner\\\": \\\"Sandbox Project Owner\\\",\\n    \\\"approvedBy\\\": \\\"OWNER_T34_T35_20261025\\\",\\n    \\\"status\\\": \\\"active\\\",\\n    \\\"effectiveFrom\\\": \\\"2026-10-25\\\"\\n  },\\n  \\\"impact\\\": {\\n    \\\"band\\\": \\\"medium\\\",\\n    \\\"evidence\\\": \\\"assumed\\\"\\n  },\\n  \\\"verification\\\": {\\n    \\\"commands\\\": [\\n      \\\"node --test app.test.mjs\\\"\\n    ]\\n  },\\n  \\\"id\\\": \\\"PRIN-007\\\",\\n  \\\"title\\\": \\\"Truthful skill-state reporting\\\",\\n  \\\"rule\\\": \\\"When receiving a software task or crossing a substantive phase boundary,\\\\nthe agent MUST evaluate the fitness of the capabilities actually available\\\\nin the execution environment, and select the minimal effective set for\\\\nthe current phase. Priority is given to native capabilities compatible with\\\\nthe host and project. Repetition, conflict, and authorization bypass MUST\\\\nbe prevented. The agent is NOT obligated to use a skill when direct\\\\nexecution is better, and MUST NOT treat discovery or loading as evidence\\\\nof execution or success. Adoption of new skills, modification of governing\\\\ninstructions, and promotion of lessons into persistent memory remain\\\\nsubject to the approved authority and procedure.\\\\n\\\"\\n}\\n\",\n      \"content_hash\": \"sha256:5ef814c7371ec1aff4202acec66a535c5c73159961847d051ddfe425da59142b\"\n    },\n    {\n      \"path\": \"AGENTS.md\",\n      \"content\": \"# AGENTS.md\\n\\n<!-- Candidate output; approval/export require current CP gates. -->\\n\\n## PILOT-IDENTITY-001\\nMUST\\nRead API responses MUST identify this sandbox project. Do not claim authority over another project.\\n\\n## PRIN-007\\nMUST\\nWhen receiving a software task or crossing a substantive phase boundary,\\nthe agent MUST evaluate the fitness of the capabilities actually available\\nin the execution environment, and select the minimal effective set for\\nthe current phase. Priority is given to native capabilities compatible with\\nthe host and project. Repetition, conflict, and authorization bypass MUST\\nbe prevented. The agent is NOT obligated to use a skill when direct\\nexecution is better, and MUST NOT treat discovery or loading as evidence\\nof execution or success. Adoption of new skills, modification of governing\\ninstructions, and promotion of lessons into persistent memory remain\\nsubject to the approved authority and procedure.\\n\\n\\n\",\n      \"content_hash\": \"sha256:4d264947a44a0f8f7000438cb81b694045f3a5c78936d363914e7e56a8aab913\"\n    }\n  ],\n  \"adoption\": {\n    \"level\": \"L2\",\n    \"profile\": \"SANDBOX_LOCAL_CI_V1\"\n  }\n}",
+      "proposal_version_hash": "sha256:ff0784ee44dc158d3aca271192922d712405c9e9351d9d7affc8db0080f3d431",
+      "checks": {
+        "validate": {
+          "status": "PASS",
+          "at": "2026-10-25T15:44:48.788Z",
+          "run_id": "VR-61b86a96-2ff2-48c3-9262-599f985f4761",
+          "evidence": [
+            {
+              "path": "sqlite:verification_runs/VR-61b86a96-2ff2-48c3-9262-599f985f4761",
+              "content_hash": "sha256:843f09b42804edb96a6d8e3981902e44d515c4f09f92507c8722f808810ca1e6",
+              "bytes": 20015
+            }
+          ]
+        },
+        "lint": {
+          "status": "PASS",
+          "at": "2026-10-25T15:44:48.788Z",
+          "run_id": "VR-61b86a96-2ff2-48c3-9262-599f985f4761",
+          "evidence": [
+            {
+              "path": "sqlite:verification_runs/VR-61b86a96-2ff2-48c3-9262-599f985f4761",
+              "content_hash": "sha256:843f09b42804edb96a6d8e3981902e44d515c4f09f92507c8722f808810ca1e6",
+              "bytes": 20015
+            }
+          ]
+        },
+        "skill_states": {
+          "status": "NOT_RUN",
+          "evidence": [],
+          "reason": "Required check has not run for this proposal version."
+        },
+        "generate": {
+          "status": "PASS",
+          "at": "2026-10-25T15:45:03.460Z",
+          "run_id": "VR-a90dd5ff-36ca-4a9b-99f6-b4122a254d63",
+          "evidence": [
+            {
+              "path": "sqlite:verification_runs/VR-a90dd5ff-36ca-4a9b-99f6-b4122a254d63",
+              "content_hash": "sha256:2c132a022cf4eaddd050f5abe5c41be644f9d88ec01c88185c6031373b57d4d8",
+              "bytes": 4278
+            }
+          ]
+        },
+        "doctor": {
+          "status": "PASS",
+          "at": "2026-10-25T15:44:48.788Z",
+          "run_id": "VR-61b86a96-2ff2-48c3-9262-599f985f4761",
+          "evidence": [
+            {
+              "path": "sqlite:verification_runs/VR-61b86a96-2ff2-48c3-9262-599f985f4761",
+              "content_hash": "sha256:843f09b42804edb96a6d8e3981902e44d515c4f09f92507c8722f808810ca1e6",
+              "bytes": 20015
+            }
+          ]
+        },
+        "eval": {
+          "status": "NOT_RUN",
+          "evidence": [],
+          "reason": "Required check has not run for this proposal version."
+        }
+      },
+      "generation": {
+        "content": "# AGENTS.md\n\n<!-- Candidate output; approval/export require current CP gates. -->\n\n## PILOT-IDENTITY-001\nMUST\nRead API responses MUST identify this sandbox project. Do not claim authority over another project.\n\n## PRIN-007\nMUST\nWhen receiving a software task or crossing a substantive phase boundary,\nthe agent MUST evaluate the fitness of the capabilities actually available\nin the execution environment, and select the minimal effective set for\nthe current phase. Priority is given to native capabilities compatible with\nthe host and project. Repetition, conflict, and authorization bypass MUST\nbe prevented. The agent is NOT obligated to use a skill when direct\nexecution is better, and MUST NOT treat discovery or loading as evidence\nof execution or success. Adoption of new skills, modification of governing\ninstructions, and promotion of lessons into persistent memory remain\nsubject to the approved authority and procedure.\n\n\n",
+        "content_hash": "sha256:4d264947a44a0f8f7000438cb81b694045f3a5c78936d363914e7e56a8aab913",
+        "stage": "full",
+        "byte_size": 933,
+        "byte_delta": -31835,
+        "budget_bytes": 32768,
+        "p0_preserved": true,
+        "prin_007_present": true,
+        "adoption_level": "L2",
+        "p0_evidence": [
+          {
+            "path": "preview-item:PILOT-IDENTITY-001",
+            "content_hash": "sha256:1645dfdbea2e3bedf7b3f4c3a892598380b53ccf60b004f2e25f583c7bb983d8",
+            "bytes": 99
+          },
+          {
+            "path": "preview-item:PRIN-007",
+            "content_hash": "sha256:a152a42a5d6f4f6c30eed76401bc88878a41948a7c5a35fee9bd9eb79463250f",
+            "bytes": 703
+          }
+        ],
+        "overflow_items": [],
+        "acknowledgements": [],
+        "lookup": {
+          "status": "NOT_RUN",
+          "evidence": [],
+          "reason": "On-demand lookup has no qualified host evidence. Compact/export blocked."
+        },
+        "run_id": "GEN-cb9dee08-e7fe-46c1-bb6d-e509821199e7"
+      },
+      "ci_comparison": null,
+      "required_approvals": [
+        "governance-owner"
+      ],
+      "approvals": [],
+      "approval_history": [],
+      "blockers": [],
+      "preview": {
+        "proposal_version_hash": "sha256:ff0784ee44dc158d3aca271192922d712405c9e9351d9d7affc8db0080f3d431",
+        "diff": "",
+        "files": [],
+        "source_written": false,
+        "state_written": false
+      },
+      "created_by": "project-adoption-owner",
+      "created_at": "2026-10-25T15:44:38.322Z",
+      "updated_at": "2026-10-25T15:45:11.453Z"
+    },
+    "meta": {
+      "request_id": "88ea271f-d5d1-418a-9771-2f854d37d5e6",
+      "contract_revision": "contract.1",
+      "recorded_at": "2026-10-25T15:45:11.470Z"
+    }
+  },
+  {
+    "method": "POST",
+    "route": "/workspaces/rc3-local/cps/CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc/intents",
+    "status": 200,
+    "data": {
+      "id": "65038c6a-686c-4adc-96f5-e857a07c9cd0",
+      "scope": {
+        "workspace_id": "rc3-local",
+        "target_project": "studio-drafts",
+        "action": "cp.approve.governance",
+        "resource_id": "CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc",
+        "proposal_version_hash": "sha256:ff0784ee44dc158d3aca271192922d712405c9e9351d9d7affc8db0080f3d431"
+      },
+      "status": "AWAITING_OPERATOR"
+    },
+    "meta": {
+      "request_id": "0c1e101a-3769-4805-8517-6d9589894d9c",
+      "contract_revision": "contract.1",
+      "recorded_at": "2026-10-25T15:45:16.743Z"
+    }
+  },
+  {
+    "method": "POST",
+    "route": "/workspaces/rc3-local/cps/CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc/approve",
+    "status": 200,
+    "data": {
+      "id": "CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc",
+      "workspace_id": "rc3-local",
+      "title": "Adopt L2 on pilot-app-l2",
+      "kind": "GENERATED_FILE",
+      "target_item_id": null,
+      "status": "approved",
+      "source": {
+        "type": "request",
+        "ref": "studio-project-adoption:pilot-app-l2"
+      },
+      "base_package_version": "1.0.0-rc.3",
+      "base_candidate_hash": "sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2",
+      "proposed_yaml": "{\n  \"kind\": \"GENERATED_FILE\",\n  \"target_project_id\": \"pilot-app-l2\",\n  \"files\": [\n    {\n      \"path\": \".aghr/package/CHANGELOG.md\",\n      \"content\": \"# Sandbox package\\n\\n1.0.0-rc.3 — local pilot only; not a release.\\n\",\n      \"content_hash\": \"sha256:6b37f7a1d95a4778471f8a1ee5d70c762bc9cf7d73950d05a747f6c4ae792b81\"\n    },\n    {\n      \"path\": \".aghr/package/aghr.json\",\n      \"content\": \"{\\n  \\\"id\\\": \\\"pilot-app-l2\\\",\\n  \\\"name\\\": \\\"pilot-app-l2 scoped sandbox package\\\",\\n  \\\"version\\\": \\\"1.0.0-rc.3\\\",\\n  \\\"schemaVersion\\\": \\\"1.2\\\",\\n  \\\"owner\\\": \\\"Platform Governance Team\\\",\\n  \\\"license\\\": \\\"MIT\\\",\\n  \\\"compatibility\\\": {\\n    \\\"agents\\\": [\\n      \\\"aghr-local-process\\\"\\n    ],\\n    \\\"targets\\\": {\\n      \\\"aghr-local-process\\\": {\\n        \\\"file\\\": \\\"AGENTS.md\\\",\\n        \\\"budgetBytes\\\": 32768\\n      }\\n    }\\n  },\\n  \\\"validation\\\": {\\n    \\\"strict\\\": true,\\n    \\\"coreKindsOnly\\\": true,\\n    \\\"requireEvalForPriority\\\": [\\n      \\\"P0-Safety\\\",\\n      \\\"P0-Integrity\\\"\\n    ],\\n    \\\"requireTechnicalEnforcementFor\\\": [\\n      \\\"MUST_NOT\\\"\\n    ],\\n    \\\"requireSkillQualificationFor\\\": [\\n      \\\"P0-Safety\\\",\\n      \\\"P0-Integrity\\\"\\n    ],\\n    \\\"enforceSkillStateHonesty\\\": true,\\n    \\\"enforceDocumentationConsistency\\\": true,\\n    \\\"enforceAuthorityLevel\\\": true\\n  }\\n}\\n\",\n      \"content_hash\": \"sha256:ffd1914b442e1436e62277b3b6e6c2f9fc557ac7d7369b6d81f497520d176db5\"\n    },\n    {\n      \"path\": \".aghr/package/policies/identity.json\",\n      \"content\": \"{\\n  \\\"kind\\\": \\\"CONSTRAINT\\\",\\n  \\\"force\\\": \\\"MUST\\\",\\n  \\\"severity\\\": \\\"medium\\\",\\n  \\\"scope\\\": {\\n    \\\"paths\\\": [\\n      \\\"**/*\\\"\\n    ]\\n  },\\n  \\\"rationale\\\": \\\"Owner-authorized sandbox adoption; no authority outside this project.\\\",\\n  \\\"authority\\\": {\\n    \\\"source\\\": \\\"owner://T34-T35/2026-10-25/pilot-app-l2\\\",\\n    \\\"level\\\": \\\"project\\\",\\n    \\\"owner\\\": \\\"Sandbox Project Owner\\\",\\n    \\\"approvedBy\\\": \\\"OWNER_T34_T35_20261025\\\",\\n    \\\"status\\\": \\\"active\\\",\\n    \\\"effectiveFrom\\\": \\\"2026-10-25\\\"\\n  },\\n  \\\"impact\\\": {\\n    \\\"band\\\": \\\"medium\\\",\\n    \\\"evidence\\\": \\\"assumed\\\"\\n  },\\n  \\\"verification\\\": {\\n    \\\"commands\\\": [\\n      \\\"node --test app.test.mjs\\\"\\n    ]\\n  },\\n  \\\"id\\\": \\\"PILOT-IDENTITY-001\\\",\\n  \\\"title\\\": \\\"Project identity in public read responses\\\",\\n  \\\"rule\\\": \\\"Read API responses MUST identify this sandbox project. Do not claim authority over another project.\\\"\\n}\\n\",\n      \"content_hash\": \"sha256:5ac0bbb24b853d8e347d23892562cb47149f3d09af52afdef77d0904db11a947\"\n    },\n    {\n      \"path\": \".aghr/package/policies/principle.json\",\n      \"content\": \"{\\n  \\\"kind\\\": \\\"PRINCIPLE\\\",\\n  \\\"force\\\": \\\"MUST\\\",\\n  \\\"severity\\\": \\\"medium\\\",\\n  \\\"scope\\\": {\\n    \\\"paths\\\": [\\n      \\\"**/*\\\"\\n    ]\\n  },\\n  \\\"rationale\\\": \\\"Owner-authorized sandbox adoption; no authority outside this project.\\\",\\n  \\\"authority\\\": {\\n    \\\"source\\\": \\\"owner://T34-T35/2026-10-25/pilot-app-l2\\\",\\n    \\\"level\\\": \\\"project\\\",\\n    \\\"owner\\\": \\\"Sandbox Project Owner\\\",\\n    \\\"approvedBy\\\": \\\"OWNER_T34_T35_20261025\\\",\\n    \\\"status\\\": \\\"active\\\",\\n    \\\"effectiveFrom\\\": \\\"2026-10-25\\\"\\n  },\\n  \\\"impact\\\": {\\n    \\\"band\\\": \\\"medium\\\",\\n    \\\"evidence\\\": \\\"assumed\\\"\\n  },\\n  \\\"verification\\\": {\\n    \\\"commands\\\": [\\n      \\\"node --test app.test.mjs\\\"\\n    ]\\n  },\\n  \\\"id\\\": \\\"PRIN-007\\\",\\n  \\\"title\\\": \\\"Truthful skill-state reporting\\\",\\n  \\\"rule\\\": \\\"When receiving a software task or crossing a substantive phase boundary,\\\\nthe agent MUST evaluate the fitness of the capabilities actually available\\\\nin the execution environment, and select the minimal effective set for\\\\nthe current phase. Priority is given to native capabilities compatible with\\\\nthe host and project. Repetition, conflict, and authorization bypass MUST\\\\nbe prevented. The agent is NOT obligated to use a skill when direct\\\\nexecution is better, and MUST NOT treat discovery or loading as evidence\\\\nof execution or success. Adoption of new skills, modification of governing\\\\ninstructions, and promotion of lessons into persistent memory remain\\\\nsubject to the approved authority and procedure.\\\\n\\\"\\n}\\n\",\n      \"content_hash\": \"sha256:5ef814c7371ec1aff4202acec66a535c5c73159961847d051ddfe425da59142b\"\n    },\n    {\n      \"path\": \"AGENTS.md\",\n      \"content\": \"# AGENTS.md\\n\\n<!-- Candidate output; approval/export require current CP gates. -->\\n\\n## PILOT-IDENTITY-001\\nMUST\\nRead API responses MUST identify this sandbox project. Do not claim authority over another project.\\n\\n## PRIN-007\\nMUST\\nWhen receiving a software task or crossing a substantive phase boundary,\\nthe agent MUST evaluate the fitness of the capabilities actually available\\nin the execution environment, and select the minimal effective set for\\nthe current phase. Priority is given to native capabilities compatible with\\nthe host and project. Repetition, conflict, and authorization bypass MUST\\nbe prevented. The agent is NOT obligated to use a skill when direct\\nexecution is better, and MUST NOT treat discovery or loading as evidence\\nof execution or success. Adoption of new skills, modification of governing\\ninstructions, and promotion of lessons into persistent memory remain\\nsubject to the approved authority and procedure.\\n\\n\\n\",\n      \"content_hash\": \"sha256:4d264947a44a0f8f7000438cb81b694045f3a5c78936d363914e7e56a8aab913\"\n    }\n  ],\n  \"adoption\": {\n    \"level\": \"L2\",\n    \"profile\": \"SANDBOX_LOCAL_CI_V1\"\n  }\n}",
+      "proposal_version_hash": "sha256:ff0784ee44dc158d3aca271192922d712405c9e9351d9d7affc8db0080f3d431",
+      "checks": {
+        "validate": {
+          "status": "PASS",
+          "at": "2026-10-25T15:44:48.788Z",
+          "run_id": "VR-61b86a96-2ff2-48c3-9262-599f985f4761",
+          "evidence": [
+            {
+              "path": "sqlite:verification_runs/VR-61b86a96-2ff2-48c3-9262-599f985f4761",
+              "content_hash": "sha256:843f09b42804edb96a6d8e3981902e44d515c4f09f92507c8722f808810ca1e6",
+              "bytes": 20015
+            }
+          ]
+        },
+        "lint": {
+          "status": "PASS",
+          "at": "2026-10-25T15:44:48.788Z",
+          "run_id": "VR-61b86a96-2ff2-48c3-9262-599f985f4761",
+          "evidence": [
+            {
+              "path": "sqlite:verification_runs/VR-61b86a96-2ff2-48c3-9262-599f985f4761",
+              "content_hash": "sha256:843f09b42804edb96a6d8e3981902e44d515c4f09f92507c8722f808810ca1e6",
+              "bytes": 20015
+            }
+          ]
+        },
+        "skill_states": {
+          "status": "NOT_RUN",
+          "evidence": [],
+          "reason": "Required check has not run for this proposal version."
+        },
+        "generate": {
+          "status": "PASS",
+          "at": "2026-10-25T15:45:03.460Z",
+          "run_id": "VR-a90dd5ff-36ca-4a9b-99f6-b4122a254d63",
+          "evidence": [
+            {
+              "path": "sqlite:verification_runs/VR-a90dd5ff-36ca-4a9b-99f6-b4122a254d63",
+              "content_hash": "sha256:2c132a022cf4eaddd050f5abe5c41be644f9d88ec01c88185c6031373b57d4d8",
+              "bytes": 4278
+            }
+          ]
+        },
+        "doctor": {
+          "status": "PASS",
+          "at": "2026-10-25T15:44:48.788Z",
+          "run_id": "VR-61b86a96-2ff2-48c3-9262-599f985f4761",
+          "evidence": [
+            {
+              "path": "sqlite:verification_runs/VR-61b86a96-2ff2-48c3-9262-599f985f4761",
+              "content_hash": "sha256:843f09b42804edb96a6d8e3981902e44d515c4f09f92507c8722f808810ca1e6",
+              "bytes": 20015
+            }
+          ]
+        },
+        "eval": {
+          "status": "NOT_RUN",
+          "evidence": [],
+          "reason": "Required check has not run for this proposal version."
+        }
+      },
+      "generation": {
+        "content": "# AGENTS.md\n\n<!-- Candidate output; approval/export require current CP gates. -->\n\n## PILOT-IDENTITY-001\nMUST\nRead API responses MUST identify this sandbox project. Do not claim authority over another project.\n\n## PRIN-007\nMUST\nWhen receiving a software task or crossing a substantive phase boundary,\nthe agent MUST evaluate the fitness of the capabilities actually available\nin the execution environment, and select the minimal effective set for\nthe current phase. Priority is given to native capabilities compatible with\nthe host and project. Repetition, conflict, and authorization bypass MUST\nbe prevented. The agent is NOT obligated to use a skill when direct\nexecution is better, and MUST NOT treat discovery or loading as evidence\nof execution or success. Adoption of new skills, modification of governing\ninstructions, and promotion of lessons into persistent memory remain\nsubject to the approved authority and procedure.\n\n\n",
+        "content_hash": "sha256:4d264947a44a0f8f7000438cb81b694045f3a5c78936d363914e7e56a8aab913",
+        "stage": "full",
+        "byte_size": 933,
+        "byte_delta": -31835,
+        "budget_bytes": 32768,
+        "p0_preserved": true,
+        "prin_007_present": true,
+        "adoption_level": "L2",
+        "p0_evidence": [
+          {
+            "path": "preview-item:PILOT-IDENTITY-001",
+            "content_hash": "sha256:1645dfdbea2e3bedf7b3f4c3a892598380b53ccf60b004f2e25f583c7bb983d8",
+            "bytes": 99
+          },
+          {
+            "path": "preview-item:PRIN-007",
+            "content_hash": "sha256:a152a42a5d6f4f6c30eed76401bc88878a41948a7c5a35fee9bd9eb79463250f",
+            "bytes": 703
+          }
+        ],
+        "overflow_items": [],
+        "acknowledgements": [],
+        "lookup": {
+          "status": "NOT_RUN",
+          "evidence": [],
+          "reason": "On-demand lookup has no qualified host evidence. Compact/export blocked."
+        },
+        "run_id": "GEN-cb9dee08-e7fe-46c1-bb6d-e509821199e7"
+      },
+      "ci_comparison": null,
+      "required_approvals": [
+        "governance-owner"
+      ],
+      "approvals": [
+        {
+          "id": 1,
+          "package_id": "CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc",
+          "role": "governance-owner",
+          "approver": "project-adoption-owner",
+          "decision": "approve",
+          "approved_version_hash": "sha256:ff0784ee44dc158d3aca271192922d712405c9e9351d9d7affc8db0080f3d431",
+          "reason": "Isolated canonical API acceptance; no release or source apply",
+          "at": "2026-10-25T15:45:23.445Z"
+        }
+      ],
+      "approval_history": [],
+      "blockers": [],
+      "preview": {
+        "proposal_version_hash": "sha256:ff0784ee44dc158d3aca271192922d712405c9e9351d9d7affc8db0080f3d431",
+        "diff": "",
+        "files": [],
+        "source_written": false,
+        "state_written": false
+      },
+      "created_by": "project-adoption-owner",
+      "created_at": "2026-10-25T15:44:38.322Z",
+      "updated_at": "2026-10-25T15:45:23.445Z"
+    },
+    "meta": {
+      "request_id": "45c7928d-1a3c-401e-afa7-b43ca3f6ecca",
+      "contract_revision": "contract.1",
+      "recorded_at": "2026-10-25T15:45:23.459Z"
+    }
+  },
+  {
+    "method": "POST",
+    "route": "/workspaces/rc3-local/cps/CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc/intents",
+    "status": 200,
+    "data": {
+      "id": "fa3ce897-d716-4226-a696-4be9720cfe28",
+      "scope": {
+        "workspace_id": "rc3-local",
+        "target_project": "studio-drafts",
+        "action": "cp.export.patch",
+        "resource_id": "CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc",
+        "proposal_version_hash": "sha256:ff0784ee44dc158d3aca271192922d712405c9e9351d9d7affc8db0080f3d431"
+      },
+      "status": "AWAITING_OPERATOR"
+    },
+    "meta": {
+      "request_id": "3d670b47-744c-4b6c-ae17-0a5920ee84c1",
+      "contract_revision": "contract.1",
+      "recorded_at": "2026-10-25T15:45:23.483Z"
+    }
+  },
+  {
+    "method": "POST",
+    "route": "/workspaces/rc3-local/adoptions/AD-0941de1d-5606-48ff-8ce1-325df1c3b3dc/apply",
+    "status": 200,
+    "data": {
+      "package_id": "CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc",
+      "proposal_version_hash": "sha256:ff0784ee44dc158d3aca271192922d712405c9e9351d9d7affc8db0080f3d431",
+      "format": "patch",
+      "artifact": {
+        "path": "C:\\Users\\Majed\\AppData\\Local\\Temp\\aghr-project-api-Dc3VBQ\\artifacts\\CP-0941de1d-5606-48ff-8ce1-325df1c3b3dc-approved-ff0784ee44dc158d3aca271192922d712405c9e9351d9d7affc8db0080f3d431.patch",
+        "content_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "commit_sha": null,
+      "signed": false,
+      "warnings": [
+        "Patch prepared only. No source apply, merge or release acceptance; CI/T24 still required.",
+        "No changes: this exact package is already adopted. Empty patch does not grant a new adoption level."
+      ],
+      "state_written": false,
+      "publication": "NOT_PERFORMED"
+    },
+    "meta": {
+      "request_id": "3936922a-00b3-4534-a504-e34226276ffe",
+      "contract_revision": "contract.1",
+      "recorded_at": "2026-10-25T15:45:38.575Z"
+    }
+  },
+  {
+    "method": "POST",
+    "route": "/project-adoption-intents",
+    "status": 200,
+    "data": {
+      "id": "65bc4017-b936-43e0-b93b-cab769c1b59e",
+      "scope": {
+        "workspace_id": "rc3-local",
+        "target_project": "studio-drafts",
+        "action": "cp.create",
+        "resource_id": "CP-7763b1f8-4577-4bc8-bcbc-bbe674f351ec",
+        "proposal_version_hash": "sha256:85419922acefa2d8beea601d9af775e13db63b27b22795e3b1c61c268cdb2135"
+      },
+      "status": "AWAITING_OPERATOR"
+    },
+    "meta": {
+      "request_id": "da22bcbb-24e4-4f4d-8708-0959ba01ff0e",
+      "contract_revision": "contract.1",
+      "recorded_at": "2026-10-25T15:45:57.371Z"
+    }
+  },
+  {
+    "method": "POST",
+    "route": "/workspaces/rc3-local/adoptions",
+    "status": 201,
+    "data": {
+      "id": "AD-7763b1f8-4577-4bc8-bcbc-bbe674f351ec",
+      "change_package_id": "CP-7763b1f8-4577-4bc8-bcbc-bbe674f351ec",
+      "target_project_id": "pilot-app-l3",
+      "level": "L3",
+      "profile": "SANDBOX_LOCAL_CI_V1",
+      "proposal_version_hash": "sha256:85419922acefa2d8beea601d9af775e13db63b27b22795e3b1c61c268cdb2135",
+      "status": "draft"
+    },
+    "meta": {
+      "request_id": "56f4232f-138d-42fc-b946-e3f4f17e84d4",
+      "contract_revision": "contract.1",
+      "recorded_at": "2026-10-25T15:45:57.417Z"
+    }
+  },
+  {
+    "method": "POST",
+    "route": "/workspaces/rc3-local/cps/CP-7763b1f8-4577-4bc8-bcbc-bbe674f351ec/intents",
+    "status": 200,
+    "data": {
+      "id": "33b51d66-d197-4b8f-acb1-f166a9b1b46c",
+      "scope": {
+        "workspace_id": "rc3-local",
+        "target_project": "studio-drafts",
+        "action": "cp.validate",
+        "resource_id": "CP-7763b1f8-4577-4bc8-bcbc-bbe674f351ec",
+        "proposal_version_hash": "sha256:85419922acefa2d8beea601d9af775e13db63b27b22795e3b1c61c268cdb2135"
+      },
+      "status": "AWAITING_OPERATOR"
+    },
+    "meta": {
+      "request_id": "85d40d97-f01c-4f6b-ac96-252ddcc66e85",
+      "contract_revision": "contract.1",
+      "recorded_at": "2026-10-25T15:45:57.435Z"
+    }
+  },
+  {
+    "method": "POST",
+    "route": "/workspaces/rc3-local/cps/CP-7763b1f8-4577-4bc8-bcbc-bbe674f351ec/validate",
+    "status": 202,
+    "data": {
+      "id": "CP-7763b1f8-4577-4bc8-bcbc-bbe674f351ec",
+      "workspace_id": "rc3-local",
+      "title": "Adopt L3 on pilot-app-l3",
+      "kind": "GENERATED_FILE",
+      "target_item_id": null,
+      "status": "draft",
+      "source": {
+        "type": "request",
+        "ref": "studio-project-adoption:pilot-app-l3"
+      },
+      "base_package_version": "1.0.0-rc.3",
+      "base_candidate_hash": "sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2",
+      "proposed_yaml": "{\n  \"kind\": \"GENERATED_FILE\",\n  \"target_project_id\": \"pilot-app-l3\",\n  \"files\": [\n    {\n      \"path\": \".aghr/package/CHANGELOG.md\",\n      \"content\": \"# Sandbox package\\n\\n1.0.0-rc.3 — local pilot only; not a release.\\n\",\n      \"content_hash\": \"sha256:6b37f7a1d95a4778471f8a1ee5d70c762bc9cf7d73950d05a747f6c4ae792b81\"\n    },\n    {\n      \"path\": \".aghr/package/aghr.json\",\n      \"content\": \"{\\n  \\\"id\\\": \\\"pilot-app-l3\\\",\\n  \\\"name\\\": \\\"pilot-app-l3 scoped sandbox package\\\",\\n  \\\"version\\\": \\\"1.0.0-rc.3\\\",\\n  \\\"schemaVersion\\\": \\\"1.2\\\",\\n  \\\"owner\\\": \\\"Platform Governance Team\\\",\\n  \\\"license\\\": \\\"MIT\\\",\\n  \\\"compatibility\\\": {\\n    \\\"agents\\\": [\\n      \\\"aghr-local-process\\\"\\n    ],\\n    \\\"targets\\\": {\\n      \\\"aghr-local-process\\\": {\\n        \\\"file\\\": \\\"AGENTS.md\\\",\\n        \\\"budgetBytes\\\": 32768\\n      }\\n    }\\n  },\\n  \\\"validation\\\": {\\n    \\\"strict\\\": true,\\n    \\\"coreKindsOnly\\\": true,\\n    \\\"requireEvalForPriority\\\": [\\n      \\\"P0-Safety\\\",\\n      \\\"P0-Integrity\\\"\\n    ],\\n    \\\"requireTechnicalEnforcementFor\\\": [\\n      \\\"MUST_NOT\\\"\\n    ],\\n    \\\"requireSkillQualificationFor\\\": [\\n      \\\"P0-Safety\\\",\\n      \\\"P0-Integrity\\\"\\n    ],\\n    \\\"enforceSkillStateHonesty\\\": true,\\n    \\\"enforceDocumentationConsistency\\\": true,\\n    \\\"enforceAuthorityLevel\\\": true\\n  }\\n}\\n\",\n      \"content_hash\": \"sha256:de505b95b74ee19270bb38ca6f9c2404bed3eb64f6411999428b2ed33c711fe4\"\n    },\n    {\n      \"path\": \".aghr/package/policies/capability.json\",\n      \"content\": \"{\\n  \\\"kind\\\": \\\"CAPABILITY\\\",\\n  \\\"force\\\": \\\"MAY\\\",\\n  \\\"severity\\\": \\\"high\\\",\\n  \\\"scope\\\": {\\n    \\\"paths\\\": [\\n      \\\"**/*\\\"\\n    ]\\n  },\\n  \\\"rationale\\\": \\\"Owner-authorized sandbox adoption; no authority outside this project.\\\",\\n  \\\"authority\\\": {\\n    \\\"source\\\": \\\"owner://T34-T35/2026-10-25/pilot-app-l3\\\",\\n    \\\"level\\\": \\\"project\\\",\\n    \\\"owner\\\": \\\"Sandbox Project Owner\\\",\\n    \\\"approvedBy\\\": \\\"OWNER_T34_T35_20261025\\\",\\n    \\\"status\\\": \\\"active\\\",\\n    \\\"effectiveFrom\\\": \\\"2026-10-25\\\"\\n  },\\n  \\\"impact\\\": {\\n    \\\"band\\\": \\\"medium\\\",\\n    \\\"evidence\\\": \\\"assumed\\\"\\n  },\\n  \\\"verification\\\": {\\n    \\\"commands\\\": [\\n      \\\"python -B checks.py\\\"\\n    ]\\n  },\\n  \\\"id\\\": \\\"CAP-PILOT-SQL\\\",\\n  \\\"title\\\": \\\"Project SQL inspection procedure\\\",\\n  \\\"rule\\\": \\\"Use the registered local read-only procedure when evaluating the inventory SQL boundary. Loading is not execution.\\\",\\n  \\\"skillId\\\": \\\"pilot-sql-readonly\\\",\\n  \\\"source\\\": \\\"project\\\",\\n  \\\"function\\\": \\\"security\\\",\\n  \\\"instructionsPath\\\": \\\"procedures/sql-readonly/SKILL.md\\\",\\n  \\\"permissions\\\": {\\n    \\\"read\\\": [\\n      \\\"app/**\\\",\\n      \\\"data/inventory.sqlite\\\"\\n    ],\\n    \\\"write\\\": [],\\n    \\\"network\\\": \\\"deny\\\",\\n    \\\"secrets\\\": \\\"deny\\\"\\n  },\\n  \\\"inputs\\\": [],\\n  \\\"outputs\\\": [],\\n  \\\"defaultTier\\\": \\\"P0-Safety\\\",\\n  \\\"minimumStatus\\\": \\\"QUALIFIED\\\",\\n  \\\"requiredOnHosts\\\": [\\n    \\\"aghr-local-process\\\"\\n  ],\\n  \\\"maxAgeDays\\\": 1,\\n  \\\"skillQualification\\\": {\\n    \\\"skillId\\\": \\\"pilot-sql-readonly\\\",\\n    \\\"host\\\": \\\"aghr-local-process\\\",\\n    \\\"hostVersion\\\": \\\"v24.11.0\\\",\\n    \\\"scope\\\": \\\"pilot-app-l3/**\\\",\\n    \\\"contentHash\\\": \\\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\\\",\\n    \\\"status\\\": \\\"QUALIFIED\\\",\\n    \\\"qualifiedAt\\\": \\\"2026-10-25\\\",\\n    \\\"evidence\\\": [\\n      \\\"e4:execution/E4-56fa7c5d-2c87-470c-958c-6720c5f44a13#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\\\",\\n      \\\"e4:execution/E4-a9715e9a-ae63-4a99-9506-403a3cb8bddf#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\\\",\\n      \\\"e4:execution/E4-dd9827cc-914a-4b44-9372-85d0c8320cba#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\\\"\\n    ]\\n  }\\n}\\n\",\n      \"content_hash\": \"sha256:5f4a273df0a1ebe7c18c7f0eb08ef001a82cef1582ff244c5c2efc8d525c0cea\"\n    },\n    {\n      \"path\": \".aghr/package/policies/identity.json\",\n      \"content\": \"{\\n  \\\"kind\\\": \\\"CONSTRAINT\\\",\\n  \\\"force\\\": \\\"MUST\\\",\\n  \\\"severity\\\": \\\"medium\\\",\\n  \\\"scope\\\": {\\n    \\\"paths\\\": [\\n      \\\"**/*\\\"\\n    ]\\n  },\\n  \\\"rationale\\\": \\\"Owner-authorized sandbox adoption; no authority outside this project.\\\",\\n  \\\"authority\\\": {\\n    \\\"source\\\": \\\"owner://T34-T35/2026-10-25/pilot-app-l3\\\",\\n    \\\"level\\\": \\\"project\\\",\\n    \\\"owner\\\": \\\"Sandbox Project Owner\\\",\\n    \\\"approvedBy\\\": \\\"OWNER_T34_T35_20261025\\\",\\n    \\\"status\\\": \\\"active\\\",\\n    \\\"effectiveFrom\\\": \\\"2026-10-25\\\"\\n  },\\n  \\\"impact\\\": {\\n    \\\"band\\\": \\\"medium\\\",\\n    \\\"evidence\\\": \\\"assumed\\\"\\n  },\\n  \\\"verification\\\": {\\n    \\\"commands\\\": [\\n      \\\"python -B checks.py\\\"\\n    ]\\n  },\\n  \\\"id\\\": \\\"PILOT-IDENTITY-001\\\",\\n  \\\"title\\\": \\\"Project identity in public read responses\\\",\\n  \\\"rule\\\": \\\"Read API responses MUST identify this sandbox project. Do not claim authority over another project.\\\"\\n}\\n\",\n      \"content_hash\": \"sha256:e0517d2f335fe75061c122be7d9444617151a93aa493416498680c9151c80381\"\n    },\n    {\n      \"path\": \".aghr/package/policies/principle.json\",\n      \"content\": \"{\\n  \\\"kind\\\": \\\"PRINCIPLE\\\",\\n  \\\"force\\\": \\\"MUST\\\",\\n  \\\"severity\\\": \\\"medium\\\",\\n  \\\"scope\\\": {\\n    \\\"paths\\\": [\\n      \\\"**/*\\\"\\n    ]\\n  },\\n  \\\"rationale\\\": \\\"Owner-authorized sandbox adoption; no authority outside this project.\\\",\\n  \\\"authority\\\": {\\n    \\\"source\\\": \\\"owner://T34-T35/2026-10-25/pilot-app-l3\\\",\\n    \\\"level\\\": \\\"project\\\",\\n    \\\"owner\\\": \\\"Sandbox Project Owner\\\",\\n    \\\"approvedBy\\\": \\\"OWNER_T34_T35_20261025\\\",\\n    \\\"status\\\": \\\"active\\\",\\n    \\\"effectiveFrom\\\": \\\"2026-10-25\\\"\\n  },\\n  \\\"impact\\\": {\\n    \\\"band\\\": \\\"medium\\\",\\n    \\\"evidence\\\": \\\"assumed\\\"\\n  },\\n  \\\"verification\\\": {\\n    \\\"commands\\\": [\\n      \\\"python -B checks.py\\\"\\n    ]\\n  },\\n  \\\"id\\\": \\\"PRIN-007\\\",\\n  \\\"title\\\": \\\"Truthful skill-state reporting\\\",\\n  \\\"rule\\\": \\\"When receiving a software task or crossing a substantive phase boundary,\\\\nthe agent MUST evaluate the fitness of the capabilities actually available\\\\nin the execution environment, and select the minimal effective set for\\\\nthe current phase. Priority is given to native capabilities compatible with\\\\nthe host and project. Repetition, conflict, and authorization bypass MUST\\\\nbe prevented. The agent is NOT obligated to use a skill when direct\\\\nexecution is better, and MUST NOT treat discovery or loading as evidence\\\\nof execution or success. Adoption of new skills, modification of governing\\\\ninstructions, and promotion of lessons into persistent memory remain\\\\nsubject to the approved authority and procedure.\\\\n\\\"\\n}\\n\",\n      \"content_hash\": \"sha256:42f7f5953011c58cde5904a6dd6aa5d7e732dd5b2e8a22fac4cfdd5801c2f7e0\"\n    },\n    {\n      \"path\": \".aghr/package/policies/sql.json\",\n      \"content\": \"{\\n  \\\"kind\\\": \\\"CONSTRAINT\\\",\\n  \\\"force\\\": \\\"MUST_NOT\\\",\\n  \\\"severity\\\": \\\"critical\\\",\\n  \\\"scope\\\": {\\n    \\\"paths\\\": [\\n      \\\"pilot-app-l3/app/**\\\",\\n      \\\"pilot-app-l3/data/**\\\"\\n    ],\\n    \\\"skillIds\\\": [\\n      \\\"pilot-sql-readonly\\\"\\n    ]\\n  },\\n  \\\"rationale\\\": \\\"Owner-authorized sandbox adoption; no authority outside this project.\\\",\\n  \\\"authority\\\": {\\n    \\\"source\\\": \\\"owner://T34-T35/2026-10-25/pilot-app-l3\\\",\\n    \\\"level\\\": \\\"project\\\",\\n    \\\"owner\\\": \\\"Sandbox Project Owner\\\",\\n    \\\"approvedBy\\\": \\\"OWNER_T34_T35_20261025\\\",\\n    \\\"status\\\": \\\"active\\\",\\n    \\\"effectiveFrom\\\": \\\"2026-10-25\\\"\\n  },\\n  \\\"impact\\\": {\\n    \\\"band\\\": \\\"medium\\\",\\n    \\\"evidence\\\": \\\"assumed\\\"\\n  },\\n  \\\"verification\\\": {\\n    \\\"commands\\\": [\\n      \\\"python -B checks.py\\\"\\n    ],\\n    \\\"evalFixtures\\\": [\\n      \\\"procedures/sql-readonly/worker.py\\\"\\n    ]\\n  },\\n  \\\"id\\\": \\\"PILOT-SQL-001\\\",\\n  \\\"title\\\": \\\"Read-only inventory boundary\\\",\\n  \\\"rule\\\": \\\"The inventory inspection procedure MUST_NOT execute mutating, multiple, extension-loading or metadata SQL. Enforce both SQL authorization and SQLite read-only permissions.\\\",\\n  \\\"defaultTier\\\": \\\"P0-Safety\\\",\\n  \\\"enforcement\\\": {\\n    \\\"textual\\\": true,\\n    \\\"technical\\\": [\\n      \\\"pilot-sql-readonly-v1\\\"\\n    ],\\n    \\\"failureAction\\\": \\\"block\\\",\\n    \\\"mergeEffect\\\": \\\"blocking\\\",\\n    \\\"gate\\\": {\\n      \\\"type\\\": \\\"pilot-sql-readonly-v1\\\",\\n      \\\"required\\\": true\\n    }\\n  },\\n  \\\"skillQualification\\\": {\\n    \\\"skillId\\\": \\\"pilot-sql-readonly\\\",\\n    \\\"host\\\": \\\"aghr-local-process\\\",\\n    \\\"hostVersion\\\": \\\"v24.11.0\\\",\\n    \\\"scope\\\": \\\"pilot-app-l3/**\\\",\\n    \\\"contentHash\\\": \\\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\\\",\\n    \\\"status\\\": \\\"QUALIFIED\\\",\\n    \\\"qualifiedAt\\\": \\\"2026-10-25\\\",\\n    \\\"evidence\\\": [\\n      \\\"e4:execution/E4-56fa7c5d-2c87-470c-958c-6720c5f44a13#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\\\",\\n      \\\"e4:execution/E4-a9715e9a-ae63-4a99-9506-403a3cb8bddf#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\\\",\\n      \\\"e4:execution/E4-dd9827cc-914a-4b44-9372-85d0c8320cba#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\\\"\\n    ]\\n  }\\n}\\n\",\n      \"content_hash\": \"sha256:d54aa6ecf794fd890f98925bed57e082b4e77a7ba11925a8a13281aa34d6bf22\"\n    },\n    {\n      \"path\": \"AGENTS.md\",\n      \"content\": \"# AGENTS.md\\n\\n<!-- Candidate output; approval/export require current CP gates. -->\\n\\n## CAP-PILOT-SQL\\nMAY\\nUse the registered local read-only procedure when evaluating the inventory SQL boundary. Loading is not execution.\\n\\n## PILOT-IDENTITY-001\\nMUST\\nRead API responses MUST identify this sandbox project. Do not claim authority over another project.\\n\\n## PRIN-007\\nMUST\\nWhen receiving a software task or crossing a substantive phase boundary,\\nthe agent MUST evaluate the fitness of the capabilities actually available\\nin the execution environment, and select the minimal effective set for\\nthe current phase. Priority is given to native capabilities compatible with\\nthe host and project. Repetition, conflict, and authorization bypass MUST\\nbe prevented. The agent is NOT obligated to use a skill when direct\\nexecution is better, and MUST NOT treat discovery or loading as evidence\\nof execution or success. Adoption of new skills, modification of governing\\ninstructions, and promotion of lessons into persistent memory remain\\nsubject to the approved authority and procedure.\\n\\n\\n## PILOT-SQL-001\\nMUST_NOT\\nThe inventory inspection procedure MUST_NOT execute mutating, multiple, extension-loading or metadata SQL. Enforce both SQL authorization and SQLite read-only permissions.\\n\\n\",\n      \"content_hash\": \"sha256:8762324723799fd5590c8d9a3652bb593204cbe1107a22778137923db6865d39\"\n    }\n  ],\n  \"adoption\": {\n    \"level\": \"L3\",\n    \"profile\": \"SANDBOX_LOCAL_CI_V1\"\n  }\n}",
+      "proposal_version_hash": "sha256:85419922acefa2d8beea601d9af775e13db63b27b22795e3b1c61c268cdb2135",
+      "checks": {
+        "validate": {
+          "status": "FAIL",
+          "at": "2026-10-25T15:46:06.781Z",
+          "run_id": "VR-175ccf7e-c756-4559-9c66-b5e7cc7a7c8f",
+          "evidence": [
+            {
+              "path": "sqlite:verification_runs/VR-175ccf7e-c756-4559-9c66-b5e7cc7a7c8f",
+              "content_hash": "sha256:c12b585ff7cb5eed2fd230bb33cec6872089b8344e6c02c206482d056bdce407",
+              "bytes": 40669
+            }
+          ],
+          "reason": "BLOCKED: SCOPE_CONTEXT_REQUIRED, QUALIFICATION_E4_EVIDENCE_UNAVAILABLE, QUALIFICATION_E4_EVIDENCE_UNAVAILABLE, QUALIFICATION_E4_EVIDENCE_UNAVAILABLE, P0_EVAL_QUALIFICATION_UNAVAILABLE, QUALIFICATION_E4_EVIDENCE_UNAVAILABLE, ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE, P0_EVAL_QUALIFICATION_UNAVAILABLE, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT"
+        },
+        "lint": {
+          "status": "FAIL",
+          "at": "2026-10-25T15:46:06.781Z",
+          "run_id": "VR-175ccf7e-c756-4559-9c66-b5e7cc7a7c8f",
+          "evidence": [
+            {
+              "path": "sqlite:verification_runs/VR-175ccf7e-c756-4559-9c66-b5e7cc7a7c8f",
+              "content_hash": "sha256:c12b585ff7cb5eed2fd230bb33cec6872089b8344e6c02c206482d056bdce407",
+              "bytes": 40669
+            }
+          ],
+          "reason": "BLOCKED: SCOPE_CONTEXT_REQUIRED, QUALIFICATION_E4_EVIDENCE_UNAVAILABLE, QUALIFICATION_E4_EVIDENCE_UNAVAILABLE, QUALIFICATION_E4_EVIDENCE_UNAVAILABLE, P0_EVAL_QUALIFICATION_UNAVAILABLE, QUALIFICATION_E4_EVIDENCE_UNAVAILABLE, ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE, P0_EVAL_QUALIFICATION_UNAVAILABLE, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT"
+        },
+        "skill_states": {
+          "status": "NOT_RUN",
+          "evidence": [],
+          "reason": "Required check has not run for this proposal version."
+        },
+        "generate": {
+          "status": "NOT_RUN",
+          "evidence": [],
+          "reason": "Required check has not run for this proposal version."
+        },
+        "doctor": {
+          "status": "FAIL",
+          "at": "2026-10-25T15:46:06.781Z",
+          "run_id": "VR-175ccf7e-c756-4559-9c66-b5e7cc7a7c8f",
+          "evidence": [
+            {
+              "path": "sqlite:verification_runs/VR-175ccf7e-c756-4559-9c66-b5e7cc7a7c8f",
+              "content_hash": "sha256:c12b585ff7cb5eed2fd230bb33cec6872089b8344e6c02c206482d056bdce407",
+              "bytes": 40669
+            }
+          ],
+          "reason": "Required host gate could not be established."
+        },
+        "eval": {
+          "status": "NOT_RUN",
+          "evidence": [],
+          "reason": "Required check has not run for this proposal version."
+        }
+      },
+      "generation": null,
+      "ci_comparison": null,
+      "required_approvals": [
+        "governance-owner"
+      ],
+      "approvals": [],
+      "approval_history": [],
+      "blockers": [
+        {
+          "code": "CHECK_VALIDATE",
+          "message": "BLOCKED: SCOPE_CONTEXT_REQUIRED, QUALIFICATION_E4_EVIDENCE_UNAVAILABLE, QUALIFICATION_E4_EVIDENCE_UNAVAILABLE, QUALIFICATION_E4_EVIDENCE_UNAVAILABLE, P0_EVAL_QUALIFICATION_UNAVAILABLE, QUALIFICATION_E4_EVIDENCE_UNAVAILABLE, ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE, P0_EVAL_QUALIFICATION_UNAVAILABLE, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT",
+          "severity": "warning"
+        },
+        {
+          "code": "CHECK_LINT",
+          "message": "BLOCKED: SCOPE_CONTEXT_REQUIRED, QUALIFICATION_E4_EVIDENCE_UNAVAILABLE, QUALIFICATION_E4_EVIDENCE_UNAVAILABLE, QUALIFICATION_E4_EVIDENCE_UNAVAILABLE, P0_EVAL_QUALIFICATION_UNAVAILABLE, QUALIFICATION_E4_EVIDENCE_UNAVAILABLE, ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE, P0_EVAL_QUALIFICATION_UNAVAILABLE, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT, OPTIONAL_FIELD_ABSENT",
+          "severity": "warning"
+        },
+        {
+          "code": "CHECK_GENERATE",
+          "message": "Required check has not run for this proposal version.",
+          "severity": "warning"
+        },
+        {
+          "code": "CHECK_DOCTOR",
+          "message": "Required host gate could not be established.",
+          "severity": "warning"
+        }
+      ],
+      "created_by": "project-adoption-owner",
+      "created_at": "2026-10-25T15:45:57.406Z",
+      "updated_at": "2026-10-25T15:46:06.781Z"
+    },
+    "meta": {
+      "request_id": "a29c03a5-ca69-4d8b-bf72-e37f62f1bf98",
+      "contract_revision": "contract.1",
+      "recorded_at": "2026-10-25T15:46:06.794Z"
+    }
+  },
+  {
+    "method": "POST",
+    "route": "/project-adoption-intents",
+    "status": 403,
+    "data": null,
+    "meta": {
+      "request_id": "bcc58b1b-c2b6-4c74-b16c-7e1d337c3e53",
+      "contract_revision": "contract.1",
+      "recorded_at": "2026-10-25T15:46:14.753Z",
+      "error": {
+        "code": "FORBIDDEN",
+        "message": "Only the accepted local sandbox level/profile is authorized in this Draft deployment.",
+        "halted": true,
+        "issues": []
+      }
+    }
+  }
+]

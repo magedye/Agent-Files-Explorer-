@@ -1,0 +1,126 @@
+
+> aghr-governance-studio@1.0.0 test
+> node --test tests/*.test.mjs
+
+✔ M2 Reference Explorer: Default summary uses AGHR 1.2.0 with exact counts (14.5635ms)
+✔ M2 Reference Explorer: Rules search and filtering (1.9726ms)
+✔ M2 Reference Explorer: Rule details with basis sources and coverage (78.3624ms)
+✔ M2 Reference Explorer: Packages endpoint returns all registered governance packages (4.1447ms)
+✔ M2 Reference Explorer: Omitted package uses 1.2.0 while historical IDs stay explicit (169.5143ms)
+✔ M2 Reference Explorer: Compare AGHR 1.0.0 vs AGHR 1.1.0 returns typed structural delta (1.9528ms)
+✔ M2 Reference Explorer: Updated 1.2.0 is registered with scoped reference status (1.1448ms)
+✔ M2 Reference Explorer: Impact analysis for modified rule (0.954ms)
+✔ M3 Intake: Compound statement decomposition (1.7831ms)
+✔ M3 Intake: 2-Layer classification of domain concern and normative force (4.3351ms)
+✔ M3 Intake: Conflict detection against existing rules triggers REJECT proposal (4.1084ms)
+✔ M3 Intake: Legacy submit without server grant is rejected before persistence (1.4975ms)
+✔ M4 Adoption: Empty discovery when data/ was removed (1.1739ms)
+✔ M4 Adoption: Prepares adoption plan without silent destruction (7.6096ms)
+✔ M6 Governed Staging & Apply: Staging, Precondition Drift, and Authorized Apply (824.5694ms)
+✔ T13 every legacy mutation route rejects before reading an untrusted body (1.2151ms)
+✔ UI locales: every message has Arabic/English copy and matching parameters (19.4424ms)
+✔ UI locales: stored preference chooses language and matching direction (1.0306ms)
+✔ UI locales: absent, corrupt or unavailable storage preserves the Arabic default (1.2951ms)
+✔ UI locales: interpolation preserves mixed input, dollar signs and zero counts (1.8912ms)
+✔ INBOX custody receipt detects changed bytes or file set (1155.0591ms)
+✔ M1 Security: Approved Roots Listing (55.8534ms)
+✔ M1 Security: Reject Path Traversal via rootId + rel (2.5313ms)
+✔ M1 Security: Reject Null Byte Injection (0.677ms)
+✔ M1 Security: Reject Absolute Path in relPath (0.8054ms)
+✔ M1 Security: Reject Arbitrary Client Path outside Approved Roots (2.2522ms)
+✔ M1 Security: Reject Protected Files (.git, .env) (3.6806ms)
+✔ M1 API Endpoint: GET /api/roots returns approved roots safely (129.6152ms)
+✔ M1 API Endpoint: GET /api/tree with traversal attempt returns 403 (1.6895ms)
+✔ M1 API Endpoint: GET /api/file within approved root succeeds (3.5608ms)
+✔ M1 API Endpoint: GET /api/file requesting protected file returns 403 (1.298ms)
+✔ T02 source identity and command injection boundary (18332.9205ms)
+✔ T02 audited Python launcher denies filesystem, subprocess and network effects (8418.0467ms)
+✔ T02 malformed, absent, forged status/exit and foreign engine reject (19.1143ms)
+✔ T06 candidate selection keeps engine pinned, refuses invalid structures and does not fabricate critical acceptance (54153.5235ms)
+(node:59828) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ T03 real scan, twelve memory tables, immutable raw source and absence (19971.6451ms)
+✔ T03 synthetic due/future lifecycle, capability absence states and atomic rollback (691.8489ms)
+✔ Contract JSONL: multiple lines round-trip without changing original bytes or granting trust (76.6431ms)
+✔ Contract JSONL: CRLF and optional final newline preserve source bytes and line locations (1.2244ms)
+✔ Contract JSONL: duplicate records are reported, never counted as extra successful use (3.9011ms)
+✔ Contract JSONL: duplicate JSON keys and noncanonical foreign JSON remain unsupported originals (45.1928ms)
+✔ Contract JSONL: task or immutable session mismatch blocks import of the entire file (2.2083ms)
+✔ Contract JSONL: a session can acquire an end time, but cannot rewrite it (2.5407ms)
+✔ Contract JSONL: malformed UTF-8, BOM, YAML and blank records keep their original bytes (1.5788ms)
+✔ Contract JSONL: multiple events on one line cannot overwrite the SQL source-line identity (0.8703ms)
+✔ Contract JSONL: byte, line and record-count limits reject bounded inputs explicitly (1.7808ms)
+✔ Contract canonical JSON: UTF-16 ordering, array order and Unicode text are stable (2.9525ms)
+✔ Contract schema bundling preserves literal dollar properties and opaque JSON instance values (2.0671ms)
+(node:72464) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+▶ T13/T14/T16 real HTTP draft grants, denial audit, atomic persistence and restart
+  ✔ No identity, forged role, no grant and all unsupported writes return403 and persist denial identity (4891.6278ms)
+  ✖ Pinned Python rejects missing authority.level, scope, wrapper mismatch, YAML aliases and owner claims (26133.6238ms)
+  ✔ Preview grants no write; another actor/intent, expiry, revoke, mismatch and replay cannot write (43768.0754ms)
+  ✔ Failure inserting audit rolls back CP row in the same transaction (9716.2256ms)
+✖ T13/T14/T16 real HTTP draft grants, denial audit, atomic persistence and restart (117862.4754ms)
+✔ T15 Windows job adapter captures normal stdout/stderr and enforces default profiles (4919.1806ms)
+ℹ {"event":"finished","status":"passed","reason":null,"exit_code":0,"resource_peak_mb":11.5234375,"duration_ms":1969,"active_processes_after":0,"observed_pids":[42840,68160,63600],"memory_events":[],"started":{"event":"started","pid":42840,"adapter":"windows-job-list","hard_memory_bytes":134217728,"limit_flags":8704},"stdout":"partial-out\r\n","stderr":"partial-err\r\n","limits":{"timeoutMs":15000,"memoryBytes":134217728}}
+✔ T15 actual timeout reaps root and child tree and retains partial output (14326.6338ms)
+ℹ {"event":"finished","status":"resource_limit_exceeded","reason":"timeout","exit_code":null,"resource_peak_mb":22.33984375,"duration_ms":10094,"active_processes_after":0,"observed_pids":[41728,64980,57884,11000,67544],"memory_events":[],"started":{"event":"started","pid":41728,"adapter":"windows-job-list","hard_memory_bytes":134217728,"limit_flags":8704},"stdout":"CHILD:11000\r\n","stderr":"","limits":{"timeoutMs":10000,"memoryBytes":134217728}}
+✔ T15 actual hard memory limit produces memory_limit with no surviving process (3566.0325ms)
+ℹ {"event":"finished","status":"resource_limit_exceeded","reason":"memory_limit","exit_code":null,"resource_peak_mb":131.93359375,"duration_ms":1985,"active_processes_after":0,"observed_pids":[55980,18436,66760],"memory_events":[{"message":10}],"started":{"event":"started","pid":55980,"adapter":"windows-job-list","hard_memory_bytes":134217728,"limit_flags":8704},"stdout":"MEMORY_PROBE\r\nALLOCATION_BLOCKED completed_bytes=117440512\r\n","stderr":"","limits":{"timeoutMs":5000,"memoryBytes":134217728}}
+✔ T15 user cancellation differs from resource limit and output is bounded (8310.3206ms)
+ℹ {"cancelled":{"event":"finished","status":"errored","reason":"user_cancelled","exit_code":null,"resource_peak_mb":0.9765625,"duration_ms":234,"active_processes_after":0,"observed_pids":[71888,524],"memory_events":[],"started":{"event":"started","pid":71888,"adapter":"windows-job-list","hard_memory_bytes":134217728,"limit_flags":8704},"stdout":"","stderr":"","limits":{"timeoutMs":15000,"memoryBytes":134217728}},"output":{"event":"finished","status":"resource_limit_exceeded","reason":"output_limit","exit_code":null,"resource_peak_mb":13.4296875,"duration_ms":1687,"active_processes_after":0,"observed_pids":[68768,69508,55436],"memory_events":[],"started":{"event":"started","pid":68768,"adapter":"windows-job-list","hard_memory_bytes":134217728,"limit_flags":8704},"stdout":"omitted 32768 chars","stderr":"","limits":{"timeoutMs":15000,"memoryBytes":134217728}}}
+(node:63808) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ T14 explicit disk mode persists/reopens 12 tables and truthful audit; no default activation (190.4174ms)
+✔ T14 migration is atomic: real SQLite denial rolls back, then authorized retry succeeds (18.2827ms)
+✔ T14 detects incompatible schemas and keeps approval history constraints (58.1207ms)
+(node:57676) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ T07 frozen sample preserves all 15 categories, actual bytes, missing authority and pending review (685.6273ms)
+✔ T07 actual HTTP source, history, relations and unknown paths reject without filesystem path input (72847.4907ms)
+✔ T08 display projection never transfers recorded qualification across any changed identity key (1.4381ms)
+✔ T07 unresolved relation is retained as unresolved, not silently dropped or accepted (521.267ms)
+(node:63972) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ T04 actual HTTP session, list/detail, query, identity, mutation and origin rejection (16531.0052ms)
+✔ T04 synthetic pagination preserves every ID and binds cursor to filters (1135.031ms)
+✔ T04 credential rotation and expiry (33.7921ms)
+✔ T06 authorized mock reaches actual E2 VALID/0 while retaining explicit simulation and unknown real trust (20108.5272ms)
+✔ T06 source/receipt/public-key bindings and fixture scope cannot be self-declared (129.9481ms)
+✔ T06 mock never bypasses missing scope or invalid signature (19746.6594ms)
+✔ T12 owner-approved mock reaches actual E2 strict VALID/0 for exactly 47 items (21582.277ms)
+✔ T12 altered signatures, keys, unsigned policy additions and manifest drift reject (3343.7211ms)
+✔ T12 valid signed fixture cannot bypass missing scope (30056.249ms)
+✔ T13 server capabilities bind actor/project/action/resource/hash; labels and clones grant nothing (23.2068ms)
+✔ T13 expiry and revocation are rechecked at the effect; developer cannot issue grants (3.6902ms)
+✔ T13 actual HTTP checks server identity, denies role headers and scope-mismatched tokens (378.4443ms)
+✔ T13 importing backend and refusing legacy writes keeps the zero-write profile (11430.0998ms)
+ℹ tests 77
+ℹ suites 0
+ℹ pass 75
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 122995.4598
+
+✖ failing tests:
+
+test at tests\studio_draft_runtime.test.mjs:42:11
+✖ Pinned Python rejects missing authority.level, scope, wrapper mismatch, YAML aliases and owner claims (26133.6238ms)
+  AssertionError [ERR_ASSERTION]: {"data":null,"meta":{"request_id":"7d4268d8-40af-403d-a813-b920bfbfb4bc","contract_revision":"contract.1","recorded_at":"2026-10-23T17:07:40.367Z","error":{"code":"INTERNAL_ERROR","message":"Draft service unavailable; no source operation permitted.","halted":true,"issues":[]}}}
+  
+  503 !== 422
+  
+      at TestContext.<anonymous> (file:///D:/APP/Agent-Files-Explorer/tests/studio_draft_runtime.test.mjs:44:164)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async TestContext.<anonymous> (file:///D:/APP/Agent-Files-Explorer/tests/studio_draft_runtime.test.mjs:42:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 503,
+    expected: 422,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,54 @@
+{
+  "reason": "Custody bytes are raw originals, not relocated active Markdown documents. The context/link check correctly rejects relative links interpreted at snapshot locations.",
+  "source_bytes_changed": false,
+  "corrections": [
+    {
+      "source": "server/studio/draft-runtime.js",
+      "before": "before/server/studio/draft-runtime.js",
+      "after": "before/server/studio/draft-runtime.js.raw",
+      "sha256": "ab667b70f2c25fde213415e6fdf145c9066b63c5fd71e9c151606dddedb67cc3"
+    },
+    {
+      "source": "server/studio/db/persistent.js",
+      "before": "before/server/studio/db/persistent.js",
+      "after": "before/server/studio/db/persistent.js.raw",
+      "sha256": "888a3bf20c52d1ae66540ff570530dabc7fdaa6bfd8c618a175266c16ba1589d"
+    },
+    {
+      "source": "server/studio/serve-draft.mjs",
+      "before": "before/server/studio/serve-draft.mjs",
+      "after": "before/server/studio/serve-draft.mjs.raw",
+      "sha256": "d32d2fa5fbbc5aee51bc1e2373ec04e51a55d450b87eba1df6f16677e904ded4"
+    },
+    {
+      "source": "src/features/changes/DraftStudio.jsx",
+      "before": "before/src/features/changes/DraftStudio.jsx",
+      "after": "before/src/features/changes/DraftStudio.jsx.raw",
+      "sha256": "e68e0f16af90d3725e207422f950d98e1c49a17b8a39d5ef2a40e472fd33414f"
+    },
+    {
+      "source": "docs/status/CURRENT.md",
+      "before": "before/docs/status/CURRENT.md",
+      "after": "before/docs/status/CURRENT.md.raw",
+      "sha256": "9b605b78f7d81438871d5e1022a49b76dd39dc356cf23669fb7febb943cba3ab"
+    },
+    {
+      "source": "docs/status/HANDOFF.md",
+      "before": "before/docs/status/HANDOFF.md",
+      "after": "before/docs/status/HANDOFF.md.raw",
+      "sha256": "5d15cc05e8cf505a41c5c5fc000812be265255edb95a531ed2130402d851c064"
+    },
+    {
+      "source": "docs/plans/STUDIO_UPGRADE_TASKS_AR.md",
+      "before": "before/docs/plans/STUDIO_UPGRADE_TASKS_AR.md",
+      "after": "before/docs/plans/STUDIO_UPGRADE_TASKS_AR.md.raw",
+      "sha256": "417794235835ff162da5e8fb0bd6f4087a232fe7305a5c28c9c864856b491bc9"
+    },
+    {
+      "source": "docs/INDEX.md",
+      "before": "before/docs/INDEX.md",
+      "after": "before/docs/INDEX.md.raw",
+      "sha256": "36571aff7b6c12148e0e19c04fa3166ea710a4229447db19e0b40cff8b0a7c3e"
+    }
+  ]
+}

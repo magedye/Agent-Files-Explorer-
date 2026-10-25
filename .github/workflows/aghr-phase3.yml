@@ -1,0 +1,75 @@
+name: AGHR Phase 3 evidence gate
+on:
+  pull_request:
+    branches: [main]
+    paths: ['.aghr/runtime_evidence/**', '.aghr/ci-submissions/**']
+  push:
+    branches: [main]
+    paths: ['.aghr/runtime_evidence/**', '.aghr/ci-submissions/**']
+permissions:
+  contents: read
+  pull-requests: read
+concurrency:
+  group: aghr-state-${{ github.repository }}-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify-pr:
+    if: github.event_name == 'pull_request'
+    runs-on: windows-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - run: git config --global core.autocrlf false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+          architecture: x64
+      - name: Create isolated pinned environment
+        shell: pwsh
+        run: |
+          python -m venv .ci-venv
+          & .ci-venv/Scripts/python.exe -m pip install --require-hashes --only-binary=:all: -r governance_packages/candidates/AGHR_rc3_Core_Candidate/requirements.lock
+      - name: Read original PR evidence and run pinned engine
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        shell: pwsh
+        run: node tools/phase3/ci.mjs check-pr --python="$((Resolve-Path .ci-venv/Scripts/python.exe).Path)" --pr="$env:PR_NUMBER"
+  publish-after-merge:
+    if: github.event_name == 'push'
+    runs-on: windows-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      pull-requests: read
+      id-token: write
+    steps:
+      - run: git config --global core.autocrlf false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+          architecture: x64
+      - name: Create isolated pinned environment
+        shell: pwsh
+        run: |
+          python -m venv .ci-venv
+          & .ci-venv/Scripts/python.exe -m pip install --require-hashes --only-binary=:all: -r governance_packages/candidates/AGHR_rc3_Core_Candidate/requirements.lock
+      - name: Authenticate workload, confirm merged PR, validate, publish one state path
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        shell: pwsh
+        run: node tools/phase3/ci.mjs publish --python="$((Resolve-Path .ci-venv/Scripts/python.exe).Path)"

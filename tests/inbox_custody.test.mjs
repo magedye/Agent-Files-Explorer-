@@ -5,14 +5,15 @@ import { scanInbox, verifyReceipt, receiptPath } from "../tools/inbox_custody.mj
 
 test("INBOX custody receipt detects changed bytes or file set", () => {
   const baseline = JSON.parse(fs.readFileSync(receiptPath, "utf8"));
-  // Preserve the eight originals and the prior 21-file intake through the Git checkpoint.
+  // Preserve all prior originals; the added document is custody-only, not policy adoption.
   const priorPath = new URL("../docs/evidence/inbox/2026-10-21-01-custody.json", import.meta.url);
   const prior = JSON.parse(fs.readFileSync(priorPath, "utf8"));
-  const currentPath = new URL("../docs/evidence/inbox/2026-10-21-02-custody.json", import.meta.url);
+  const previous = JSON.parse(fs.readFileSync(new URL("../docs/evidence/inbox/2026-10-21-02-custody.json", import.meta.url), "utf8"));
+  const currentPath = new URL("../docs/evidence/inbox/2026-10-25-custody.json", import.meta.url);
   const receipt = JSON.parse(fs.readFileSync(currentPath, "utf8"));
-  assert.equal(verifyReceipt(receipt), 23);
+  assert.equal(verifyReceipt(receipt), 24);
   const actual = scanInbox();
-  for (const original of [...baseline.files, ...prior.files]) {
+  for (const original of [...baseline.files, ...prior.files, ...previous.files]) {
     assert.deepEqual(actual.find((file) => file.name === original.name), original);
   }
   const altered = structuredClone(receipt);

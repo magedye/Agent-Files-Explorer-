@@ -1,0 +1,73 @@
+# Preserve exact bytes for frozen packages, source custody, and verification evidence.
+/governance_packages/** -text
+/docs/evidence/** -text
+/docs/specs/aghr-rc3/** -text
+/docs/reviews/aghr-items-2026-10-22/** -text
+/docs/contracts/aghr-rc3/** -text
+
+# Keep receipt-pinned Studio documents and tools byte-identical in Git and checkouts.
+/.gitattributes -text
+/docs/INDEX.md -text
+/docs/governance/LAST_APP_ADOPTION_2026_10_22.md -text
+/docs/governance/STUDIO_DESIGN_ADOPTION_2026_10_21.md -text
+/docs/plans/STUDIO_E1_E2_CORE_SCOPE_AR.md -text
+/docs/plans/STUDIO_FULL_PROJECT_UPGRADE_AR.md -text
+/docs/plans/STUDIO_PRODUCT_AND_CONTRACTS_AR.md -text
+/docs/plans/STUDIO_UPGRADE_TASKS_AR.md -text
+/docs/reviews/STUDIO_UPGRADE_PLAN_REVIEW_2026_10_22_AR.md -text
+/docs/status/CURRENT.md -text
+/docs/status/HANDOFF.md -text
+/tests/studio_contract_serialization.test.mjs -text
+/tools/check_studio_contracts.mjs -text
+/tools/check_studio_contracts.ps1 -text
+/tools/contracts/build_openapi.mjs -text
+/tools/contracts/evidence_jsonl.mjs -text
+/tools/contracts/fixtures.mjs -text
+/tools/contracts/schema_documents.mjs -text
+/tools/governance_inventory.mjs -text
+
+# Phase 0 evidence pins raw application source bytes across Windows checkouts.
+/server/studio/** -text
+/src/features/phase0/** -text
+/phase0.html -text
+/src/i18n/I18nProvider.jsx -text
+/vite.config.mjs -text
+/package.json -text
+/tests/studio_bridge.test.mjs -text
+/tests/studio_catalog.test.mjs -text
+/tests/studio_read_api.test.mjs -text
+/tests/helpers/studio_vectors.mjs -text
+/tools/test_phase0_sentinel.mjs -text
+/tools/verify_phase0_http_contracts.mjs -text
+/tools/verify_t06_sec001.mjs -text
+/tools/t06/** -text
+/tests/studio_t06_mock.test.mjs -text
+/.gitignore -text
+
+# Phase 1 read-only source and evidence custody.
+/src/features/instructions/** -text
+/src/features/capabilities/** -text
+/src/features/profiles/** -text
+/tests/studio_phase1_read.test.mjs -text
+/tools/prepare_phase1_sample.mjs -text
+/tools/phase1_browser_cases.mjs -text
+/tools/test_phase1_edge.mjs -text
+/docs/features/STUDIO_PHASE1_READ_ONLY.md -text
+/tools/seal_phase1_evidence.mjs -text
+
+# T12 signed mock and T13/T14 source/evidence must retain their raw hashes.
+/tools/t12/** -text
+/tests/studio_t12_mock.test.mjs -text
+/tests/studio_write_authorization.test.mjs -text
+/tests/studio_persistence.test.mjs -text
+/tests/governance_studio.test.mjs -text
+/server/api.js -text
+/server/staging.js -text
+/server/intake.js -text
+/server/evaluation.js -text
+/tests/studio_draft_runtime.test.mjs -text
+/tests/studio_job_runner.test.mjs -text
+/tools/test_draft_studio_edge.mjs -text
+/src/features/changes/** -text
+/draft.html -text
+/docs/features/STUDIO_DRAFT_MODE.md -text

@@ -1,0 +1,37 @@
+{
+  "id": "pilot-app-l3",
+  "name": "pilot-app-l3 scoped sandbox package",
+  "version": "1.0.0-rc.3",
+  "schemaVersion": "1.2",
+  "owner": "Platform Governance Team",
+  "license": "MIT",
+  "compatibility": {
+    "agents": [
+      "aghr-local-process"
+    ],
+    "targets": {
+      "aghr-local-process": {
+        "file": "AGENTS.md",
+        "budgetBytes": 32768
+      }
+    }
+  },
+  "validation": {
+    "strict": true,
+    "coreKindsOnly": true,
+    "requireEvalForPriority": [
+      "P0-Safety",
+      "P0-Integrity"
+    ],
+    "requireTechnicalEnforcementFor": [
+      "MUST_NOT"
+    ],
+    "requireSkillQualificationFor": [
+      "P0-Safety",
+      "P0-Integrity"
+    ],
+    "enforceSkillStateHonesty": true,
+    "enforceDocumentationConsistency": true,
+    "enforceAuthorityLevel": true
+  }
+}

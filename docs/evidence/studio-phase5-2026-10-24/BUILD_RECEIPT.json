@@ -1,0 +1,25 @@
+{
+  "command": "npm run build",
+  "exit_code": 0,
+  "source": "UI source unchanged since successful build; only backend corrections followed",
+  "raw_stdout": "Successful build stdout was observed in the conversation tool result; not separately captured to disk",
+  "advisory": "Existing legacy main bundle above500KiB; no build failure",
+  "artifacts": [
+    {
+      "path": "dist/draft.html",
+      "bytes": 609,
+      "sha256": "7d1d5752bd2f42f137231c60013598d649241e62740e0e8f479e16ab558bd6dc"
+    },
+    {
+      "path": "dist/assets/draft-DBW5V8hX.css",
+      "bytes": 4732,
+      "sha256": "d292457895a94b1f89167ca53d0f1f417b8bf69f2c1efb3718cb078477bcee12"
+    },
+    {
+      "path": "dist/assets/draft-DearxVFy.js",
+      "bytes": 76016,
+      "sha256": "651f3b0363f189e11b1bd9f00adc0487174ae7f3ade7a540531e4b55d4274aa1"
+    }
+  ],
+  "browser": "Actual isolated Edge loaded these generated assets successfully"
+}

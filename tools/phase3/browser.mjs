@@ -1,0 +1,53 @@
+// Real Edge/CDP, isolated browser context and disposable Draft DB. No native impersonation.
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import assert from 'node:assert/strict';
+import {spawn} from 'node:child_process';
+import {encodeJsonl} from '../contracts/evidence_jsonl.mjs';
+import {changed,out as evidenceRoot} from './prepare.mjs';
+const out=evidenceRoot+'/'+(process.argv[2]||'browser-final');fs.mkdirSync(out);
+const root=process.cwd(),temp=fs.mkdtempSync(path.resolve('temp/phase3-browser-')),db=temp+'/db',project=temp+'/project',dir=project+'/.aghr/runtime_evidence';fs.mkdirSync(db);fs.mkdirSync(dir,{recursive:true});
+const at=new Date().toISOString(),raw=encodeJsonl([{task_id:'ui-evidence',session:{agent:'UI_SOURCE_CLAIM_ONLY',agent_version:'1',host_os:'windows',started_at:at},events:[{at,type:'skill.loaded',skill_id:'json-audit',instruction_hash:'sha256:'+'a'.repeat(64)}],submit_to_ci:false}]);fs.writeFileSync(dir+'/ui-evidence.jsonl',raw);
+const skill=path.resolve('tests/fixtures/studio-e4/json-audit'),config=temp+'/skills.json';fs.writeFileSync(config,JSON.stringify({skills:[{id:'json-audit',source:'project',skillPath:skill+'/SKILL.md',entry:skill+'/worker.py',triggers:['review','مراجعة'],requires:['workspace.read']}],permissions:['workspace.read']}));
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex'),parent=JSON.parse(fs.readFileSync('docs/evidence/studio-native-t20-t21-2026-10-24/CUSTODY.lock.json'));
+const immutable=Object.fromEntries(Object.keys(parent.files).filter(p=>!changed.includes(p)).map(p=>[p,sha(fs.readFileSync(p))]));
+const server=spawn(process.execPath,['server/studio/serve-draft.mjs','--python='+path.resolve('temp/aghr-e1a-20261022-01/venv/Scripts/python.exe'),'--port=0','--storage-root='+db,'--evidence-project='+project,'--skill-config='+config],{cwd:root,windowsHide:true,stdio:['pipe','pipe','pipe','ipc']});server.stdout.resume();server.stderr.resume();
+const receive=predicate=>new Promise((resolve,reject)=>{const timer=setTimeout(()=>{server.off('message',handler);reject(Error('Server timeout'));},90000);function handler(m){if(predicate(m)){clearTimeout(timer);server.off('message',handler);resolve(m);}}server.on('message',handler);});
+const ready=await receive(m=>m.event==='ready'),origin='http://127.0.0.1:'+ready.port;
+const version=await(await fetch('http://127.0.0.1:9223/json/version')).json(),socket=new WebSocket(version.webSocketDebuggerUrl);await new Promise((r,j)=>{socket.onopen=r;socket.onerror=j;});
+const pending=new Map();let n=0,context,sessionId;const errors=[];
+socket.onmessage=message=>{const value=JSON.parse(message.data);if(value.id){const p=pending.get(value.id);if(p){pending.delete(value.id);clearTimeout(p.timer);value.error?p.reject(Error(JSON.stringify(value.error))):p.resolve(value.result);}}else if(value.sessionId===sessionId&&value.method==='Runtime.exceptionThrown')errors.push(value.params.exceptionDetails.text);};
+const cdp=(method,params={},sid)=>new Promise((resolve,reject)=>{const id=++n,timer=setTimeout(()=>{pending.delete(id);reject(Error('CDP timeout '+method));},30000);pending.set(id,{resolve,reject,timer});socket.send(JSON.stringify({id,method,params,...(sid?{sessionId:sid}:{})}));});
+const evaluate=async expression=>{const r=await cdp('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true},sessionId);if(r.exceptionDetails)throw Error(r.exceptionDetails.text);return r.result.value;};
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const until=async(expression,timeout=90000)=>{const end=Date.now()+timeout;while(Date.now()<end){const value=await evaluate(expression);if(value)return value;await wait(150);}throw Error('UI timeout '+expression);};
+const click=async selector=>{await until(`!!document.querySelector(${JSON.stringify(selector)})`);await evaluate(`document.querySelector(${JSON.stringify(selector)}).click()`);};
+const fill=(selector,value)=>evaluate(`(()=>{const e=document.querySelector(${JSON.stringify(selector)}),proto=e.tagName==='SELECT'?HTMLSelectElement.prototype:e.tagName==='TEXTAREA'?HTMLTextAreaElement.prototype:HTMLInputElement.prototype;Object.getOwnPropertyDescriptor(proto,'value').set.call(e,${JSON.stringify(value)});e.dispatchEvent(new Event(e.tagName==='SELECT'?'change':'input',{bubbles:true}));})()`);
+const approve=async(scope)=>{const intent=await until(`document.querySelector(${JSON.stringify(scope+' .draft-intent pre')})?.innerText.match(/approve ([a-f0-9-]+)/)?.[1]`),control=receive(m=>m.event==='control');server.send({command:'approve',id:intent,request_id:'ui-'+n});const r=await control;assert(!r.error,r.error);};
+const operation=async(op,values={})=>{await fill('#skill-operation',op);for(const [selector,value]of Object.entries(values))await fill(selector,value);await click('[data-testid=skill-prepare]');await approve('[data-testid=skills-screen]');await click('[data-testid=skill-auth]');await until('document.querySelector("[data-testid=skill-run]")?.disabled===false');await click('[data-testid=skill-run]');await until('!document.querySelector("[data-testid=skill-run]") && document.querySelector("[data-testid=skill-prepare]")?.disabled===false');};
+const snapshot=async name=>{fs.writeFileSync(out+'/'+name+'.txt',await evaluate('document.body.innerText'),{flag:'wx'});const picture=await cdp('Page.captureScreenshot',{format:'png',captureBeyondViewport:true},sessionId);fs.writeFileSync(out+'/'+name+'.png',Buffer.from(picture.data,'base64'),{flag:'wx'});};
+const checks=[];let failure;
+try{
+ context=(await cdp('Target.createBrowserContext')).browserContextId;const target=(await cdp('Target.createTarget',{url:'about:blank',browserContextId:context})).targetId;sessionId=(await cdp('Target.attachToTarget',{targetId:target,flatten:true})).sessionId;
+ await cdp('Runtime.enable',{},sessionId);await cdp('Page.enable',{},sessionId);await cdp('Page.navigate',{url:origin},sessionId);await until('!!document.querySelector("#draft-token")');assert.match(await evaluate('navigator.userAgent'),/Edg\//);
+ await fill('#draft-token',ready.token);await click('form button');await until('!!document.querySelector("[data-testid=skills-nav]")');await click('[data-testid=skills-nav]');await until('document.querySelectorAll("[data-testid=skill-scenarios] tbody tr").length===15');
+ await fill('#skill-query','مراجعة شفرة');await operation('select');await fill('#skill-id','json-audit');await operation('load');assert.match(await evaluate('document.querySelector("[data-testid=live-skill-card]").innerText'),/LOADED/);await snapshot('skills-ar-loaded');
+ const criteria='{"all":[{"pointer":"/valid","op":"equals","value":true}]}';
+ await operation('verify',{'#skill-criteria':criteria});assert.match(await evaluate('document.querySelector("[data-testid=live-skill-card]").innerText'),/EXECUTION_EVIDENCE_REQUIRED/);checks.push('Verify before execution rejected by actual E4');
+ await operation('execute',{'#skill-input':'{"document":{"name":"ui-real"},"required":["name"]}'});await operation('verify',{'#skill-criteria':criteria});assert.match(await evaluate('document.querySelector("[data-testid=live-skill-card]").innerText'),/VERIFIED/);checks.push('Real local execute + task criteria VERIFIED; three axes remain separate');
+ await operation('qualify',{'#skill-input':'{"document":{"name":"ui-local-qualification"},"required":["name"]}','#skill-criteria':criteria});assert.match(await evaluate('document.querySelector("[data-testid=live-skill-card]").innerText'),/QUALIFIED/);checks.push('Actual3-run local qualification with host tuple; not native qualification');await snapshot('skills-ar-qualified');
+ await fill('#ci-task','ui-evidence');await click('[data-testid=ci-prepare]');await approve('[data-testid=ci-bundle]');await click('[data-testid=ci-auth]');await until('document.querySelector("[data-testid=ci-run]")?.disabled===false');await click('[data-testid=ci-run]');await until('document.querySelector("[data-testid=ci-bundle-result]")?.innerText.includes("PREPARED_NOT_SUBMITTED")');checks.push('Scoped CI bundle contains original bytes and real CLI report; no PR/state write');await snapshot('skills-ar-ci-bundle');
+ await fill('#skill-task','native-ui');await fill('#skill-host','codex');await operation('select');assert.match(await evaluate('document.querySelector("[data-testid=live-skill-card]").innerText'),/DISCOVERY_UNAVAILABLE/);checks.push('Native unavailable blocks without local fallback;15 local/native matrix rows');
+ for(const locale of ['ar','en']){await fill('[data-testid=draft-locale]',locale);await until(`document.documentElement.dir===${JSON.stringify(locale==='ar'?'rtl':'ltr')}`);for(const width of [320,768,1024,1440]){await cdp('Emulation.setDeviceMetricsOverride',{width,height:900,deviceScaleFactor:1,mobile:false},sessionId);await wait(100);assert.equal(await evaluate('document.documentElement.scrollWidth>window.innerWidth'),false,'Page overflow '+locale+width);checks.push('No overflow '+locale+' '+width);if(width===320||width===1440)await snapshot('skills-'+locale+'-'+width);}}
+ await evaluate('document.querySelector("#ci-task").focus()');assert.equal(await evaluate('document.activeElement.id'),'ci-task');await cdp('Input.dispatchKeyEvent',{type:'keyDown',key:'Tab',code:'Tab',windowsVirtualKeyCode:9},sessionId);await until('document.activeElement.getAttribute("data-testid")==="ci-prepare"');checks.push('Keyboard Tab moves from labeled input to action after explicit test focus');assert.deepEqual(errors,[]);
+ console.log(JSON.stringify({event:'browser_ready_for_inspection',origin,context,checks}));
+ await new Promise(resolve=>{const timer=setInterval(()=>{if(fs.existsSync(out+'/finish.marker')){clearInterval(timer);resolve();}},250);});
+}catch(e){failure=e.stack;console.error(e.stack);}
+finally{
+ const preserved=Object.entries(immutable).every(([p,h])=>sha(fs.readFileSync(p))===h),unchanged=sha(fs.readFileSync(dir+'/ui-evidence.jsonl'))===sha(raw),state_written=fs.existsSync(project+'/.aghr/state.json');
+ if(!preserved||!unchanged||state_written)failure=(failure||'')+' SENTINEL_FAILED';
+ fs.writeFileSync(out+'/BROWSER_ACCEPTANCE.json',JSON.stringify({status:failure?'FAIL':'PASS',failure,checks,browser:'Actual Microsoft Edge; isolated context;127.0.0.1:9223',errors,protected_files:Object.keys(immutable).length,preserved,original_before:sha(raw),original_after:sha(fs.readFileSync(dir+'/ui-evidence.jsonl')),source_written:!unchanged,state_written,draft_storage:db},null,2),{flag:'wx'});
+ if(context)await cdp('Target.disposeBrowserContext',{browserContextId:context});socket.close();server.send('stop');
+}
+if(failure)process.exitCode=1;

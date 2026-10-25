@@ -1,0 +1,243 @@
+{
+  "result": {
+    "results": [
+      {
+        "route": "/workspaces",
+        "status": 200,
+        "schema": "api.responses.schema.json#/$defs/listWorkspacesResponse",
+        "errors": []
+      },
+      {
+        "route": "/workspaces/rc3-local/instructions",
+        "status": 200,
+        "schema": "api.responses.schema.json#/$defs/listInstructionsResponse",
+        "errors": []
+      },
+      {
+        "route": "/workspaces/rc3-local/instructions/OBS-REFERENCE-STATE-001",
+        "status": 200,
+        "schema": "api.responses.schema.json#/$defs/getInstructionResponse",
+        "errors": []
+      },
+      {
+        "route": "/workspaces/rc3-local/capabilities",
+        "status": 200,
+        "schema": "api.responses.schema.json#/$defs/listCapabilitiesResponse",
+        "errors": []
+      },
+      {
+        "route": "/workspaces/rc3-local/capabilities/matrix",
+        "status": 200,
+        "schema": "api.responses.schema.json#/$defs/getQualificationMatrixResponse",
+        "errors": []
+      },
+      {
+        "route": "/workspaces/rc3-local/instructions?language=ar",
+        "status": 400,
+        "schema": "transport.schema.json#/$defs/ErrorEnvelope",
+        "errors": []
+      },
+      {
+        "route": "/workspaces",
+        "status": 401,
+        "schema": "transport.schema.json#/$defs/ErrorEnvelope",
+        "errors": []
+      }
+    ],
+    "passed": true
+  },
+  "samples": [
+    {
+      "route": "/workspaces",
+      "status": 200,
+      "schema": "api.responses.schema.json#/$defs/listWorkspacesResponse",
+      "value": {
+        "data": [
+          {
+            "id": "rc3-local",
+            "name": "AGHR rc.3 Core — Local Source Candidate",
+            "package_path": "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate",
+            "package_version": "1.0.0-rc.3",
+            "schema_version": "1.2",
+            "read_only": true,
+            "package_signature_verified": false,
+            "signature_identity": null,
+            "signature_verified_at": null,
+            "created_at": "2026-10-22T22:33:13.062Z",
+            "last_scanned_at": "2026-10-22T22:33:13.062Z",
+            "scan_duration_ms": 5302
+          }
+        ],
+        "meta": {
+          "request_id": "593b9433-80e4-4db9-a9b7-463e30eb4bbb",
+          "contract_revision": "contract.1",
+          "recorded_at": "2026-10-22T22:33:18.540Z"
+        }
+      }
+    },
+    {
+      "route": "/workspaces/rc3-local/instructions",
+      "status": 200,
+      "schema": "api.responses.schema.json#/$defs/listInstructionsResponse",
+      "value": {
+        "data": [
+          {
+            "item": {
+              "id": "OBS-REFERENCE-STATE-001",
+              "title": "رصد المرجع الافتراضي المعلن في مصدر التطبيق",
+              "kind": "OBSERVATION",
+              "force": "INFORMATIVE",
+              "severity": "info",
+              "scope": {
+                "paths": [
+                  "server/security.js"
+                ]
+              },
+              "rule": "في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \"aghr_1_2_0\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.",
+              "impact": {
+                "band": "info",
+                "evidence": "assumed"
+              }
+            },
+            "source_path": "policies/observations/reference-state.json",
+            "source_hash": "sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0",
+            "source_yaml": "{\n  \"id\": \"OBS-REFERENCE-STATE-001\",\n  \"title\": \"رصد المرجع الافتراضي المعلن في مصدر التطبيق\",\n  \"kind\": \"OBSERVATION\",\n  \"force\": \"INFORMATIVE\",\n  \"severity\": \"info\",\n  \"scope\": {\n    \"paths\": [\n      \"server/security.js\"\n    ]\n  },\n  \"rule\": \"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\",\n  \"impact\": {\n    \"band\": \"info\",\n    \"evidence\": \"assumed\"\n  }\n}\n",
+            "validation_status": "VALID",
+            "diagnostics": [],
+            "translation_unavailable": true,
+            "is_review_due": null,
+            "priority_tier": null,
+            "issuer_trust": {
+              "status": "UNKNOWN",
+              "evidence": [],
+              "reason": "Pinned source digest is not authenticated publisher identity."
+            }
+          }
+        ],
+        "meta": {
+          "request_id": "2357222e-e45f-4e33-9f04-7f23e2c6ef66",
+          "contract_revision": "contract.1",
+          "recorded_at": "2026-10-22T22:33:18.623Z",
+          "total": 1,
+          "limit": 100,
+          "next_cursor": null
+        }
+      }
+    },
+    {
+      "route": "/workspaces/rc3-local/instructions/OBS-REFERENCE-STATE-001",
+      "status": 200,
+      "schema": "api.responses.schema.json#/$defs/getInstructionResponse",
+      "value": {
+        "data": {
+          "item": {
+            "id": "OBS-REFERENCE-STATE-001",
+            "title": "رصد المرجع الافتراضي المعلن في مصدر التطبيق",
+            "kind": "OBSERVATION",
+            "force": "INFORMATIVE",
+            "severity": "info",
+            "scope": {
+              "paths": [
+                "server/security.js"
+              ]
+            },
+            "rule": "في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \"aghr_1_2_0\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.",
+            "impact": {
+              "band": "info",
+              "evidence": "assumed"
+            }
+          },
+          "source_path": "policies/observations/reference-state.json",
+          "source_hash": "sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0",
+          "source_yaml": "{\n  \"id\": \"OBS-REFERENCE-STATE-001\",\n  \"title\": \"رصد المرجع الافتراضي المعلن في مصدر التطبيق\",\n  \"kind\": \"OBSERVATION\",\n  \"force\": \"INFORMATIVE\",\n  \"severity\": \"info\",\n  \"scope\": {\n    \"paths\": [\n      \"server/security.js\"\n    ]\n  },\n  \"rule\": \"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\",\n  \"impact\": {\n    \"band\": \"info\",\n    \"evidence\": \"assumed\"\n  }\n}\n",
+          "validation_status": "VALID",
+          "diagnostics": [],
+          "translation_unavailable": true,
+          "is_review_due": null,
+          "priority_tier": null,
+          "issuer_trust": {
+            "status": "UNKNOWN",
+            "evidence": [],
+            "reason": "Pinned source digest is not authenticated publisher identity."
+          }
+        },
+        "meta": {
+          "request_id": "27ac255f-9b2f-4920-9f2e-bb8b8eea667d",
+          "contract_revision": "contract.1",
+          "recorded_at": "2026-10-22T22:33:18.633Z"
+        }
+      }
+    },
+    {
+      "route": "/workspaces/rc3-local/capabilities",
+      "status": 200,
+      "schema": "api.responses.schema.json#/$defs/listCapabilitiesResponse",
+      "value": {
+        "data": [],
+        "meta": {
+          "request_id": "f8ac4ad1-0739-4412-afac-a5a6d0f9c612",
+          "contract_revision": "contract.1",
+          "recorded_at": "2026-10-22T22:33:18.645Z",
+          "total": 0,
+          "limit": 100,
+          "next_cursor": null
+        }
+      }
+    },
+    {
+      "route": "/workspaces/rc3-local/capabilities/matrix",
+      "status": 200,
+      "schema": "api.responses.schema.json#/$defs/getQualificationMatrixResponse",
+      "value": {
+        "data": {
+          "skills": [],
+          "hosts": [],
+          "cells": []
+        },
+        "meta": {
+          "request_id": "8c36960a-320c-4936-8c74-6720b6f6829d",
+          "contract_revision": "contract.1",
+          "recorded_at": "2026-10-22T22:33:18.651Z"
+        }
+      }
+    },
+    {
+      "route": "/workspaces/rc3-local/instructions?language=ar",
+      "status": 400,
+      "schema": "transport.schema.json#/$defs/ErrorEnvelope",
+      "value": {
+        "data": null,
+        "meta": {
+          "request_id": "bd706f55-75e9-47bc-9d1f-b9e24f5811a0",
+          "contract_revision": "contract.1",
+          "recorded_at": "2026-10-22T22:33:18.659Z",
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Unknown, duplicate or unsupported query.",
+            "halted": true,
+            "issues": []
+          }
+        }
+      }
+    },
+    {
+      "route": "/workspaces",
+      "status": 401,
+      "schema": "transport.schema.json#/$defs/ErrorEnvelope",
+      "value": {
+        "data": null,
+        "meta": {
+          "request_id": "6a21eb81-6b7c-4882-9bc5-e2a5d5672cb6",
+          "contract_revision": "contract.1",
+          "recorded_at": "2026-10-22T22:33:18.669Z",
+          "error": {
+            "code": "UNAUTHENTICATED",
+            "message": "Session credential required or expired.",
+            "halted": true,
+            "issues": []
+          }
+        }
+      }
+    }
+  ]
+}

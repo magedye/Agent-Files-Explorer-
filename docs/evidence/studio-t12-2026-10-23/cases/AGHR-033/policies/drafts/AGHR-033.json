@@ -1,0 +1,44 @@
+{
+  "id": "AGHR-033",
+  "title": "ملفات ضمان متناسبة",
+  "kind": "PROCEDURE",
+  "force": "MUST",
+  "severity": "high",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: When selecting assurance depth.\nUse STANDARD by default, LITE only for eligible low-impact work, and CONTROLLED for protected/high-impact boundaries; profiles do not themselves grant actions.",
+  "authority": {
+    "source": "drafting/OWNER_DIRECTIVE.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "PROVISIONAL_OWNER_REVIEW",
+    "status": "draft",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "اختيار ضمان غير مناسب قد يتجاهل حدوداً محمية. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "review",
+    "mergeEffect": "advisory"
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-033"
+    ]
+  },
+  "impact": {
+    "band": "high",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2027-01-21",
+  "exceptions": {
+    "allowed": false
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

@@ -1,0 +1,35 @@
+✔ T15 Windows job adapter captures normal stdout/stderr and enforces default profiles (1354.4247ms)
+ℹ {"event":"finished","status":"passed","reason":null,"exit_code":0,"resource_peak_mb":11.6171875,"duration_ms":656,"active_processes_after":0,"observed_pids":[66956,18672,44596],"started":{"event":"started","pid":66956,"adapter":"windows-job-list","hard_memory_bytes":134217728},"stdout":"partial-out\r\n","stderr":"partial-err\r\n","limits":{"timeoutMs":3000,"memoryBytes":134217728}}
+✔ T15 actual timeout reaps root and child tree and retains partial output (2094.5311ms)
+ℹ {"event":"finished","status":"resource_limit_exceeded","reason":"timeout","exit_code":null,"resource_peak_mb":21.5625,"duration_ms":1172,"active_processes_after":0,"observed_pids":[47540,70628,10980,224,71628],"started":{"event":"started","pid":47540,"adapter":"windows-job-list","hard_memory_bytes":134217728},"stdout":"CHILD:224\r\n","stderr":"","limits":{"timeoutMs":1000,"memoryBytes":134217728}}
+✖ T15 actual hard memory limit produces memory_limit with no surviving process (1589.9282ms)
+✔ T15 user cancellation differs from resource limit and output is bounded (3442.7882ms)
+ℹ {"cancelled":{"event":"finished","status":"errored","reason":"user_cancelled","exit_code":null,"resource_peak_mb":2.984375,"duration_ms":234,"active_processes_after":0,"observed_pids":[68472,42912],"started":{"event":"started","pid":68472,"adapter":"windows-job-list","hard_memory_bytes":134217728},"stdout":"","stderr":"","limits":{"timeoutMs":3000,"memoryBytes":134217728}},"output":{"event":"finished","status":"resource_limit_exceeded","reason":"output_limit","exit_code":null,"resource_peak_mb":13.37890625,"duration_ms":828,"active_processes_after":0,"observed_pids":[71480,10828,68172],"started":{"event":"started","pid":71480,"adapter":"windows-job-list","hard_memory_bytes":134217728},"stdout":"omitted 32768 chars","stderr":"","limits":{"timeoutMs":3000,"memoryBytes":134217728}}}
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9131.7554
+
+✖ failing tests:
+
+test at tests\studio_job_runner.test.mjs:20:1
+✖ T15 actual hard memory limit produces memory_limit with no surviving process (1589.9282ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert(r.resource_peak_mb<=128)
+  
+      at TestContext.<anonymous> (file:///D:/APP/Agent-Files-Explorer/tests/studio_job_runner.test.mjs:22:168)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

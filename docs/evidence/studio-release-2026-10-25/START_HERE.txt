@@ -1,0 +1,24 @@
+AGHR Governance Studio — T40 owner signature packet, target v1.0.0.
+
+1. Read docs/evidence/studio-release-2026-10-25/T40_REPORT_AR.md.
+2. Read ACCEPTANCE_MATRIX.csv, KNOWN_LIMITATIONS_AR.md and ROLLBACK_AR.md there.
+3. Verify this ZIP with the supplied tools/t40/verify_packet.py and CPython3.12:
+   <absolute-python.exe> tools/t40/verify_packet.py <packet.zip>
+   Compare the outer ZIP SHA256 against the separately delivered PACKET_RECEIPT.json.
+   Hashes establish integrity, not publisher identity. The owner signature is pending.
+4. Review FROZEN_CANDIDATE.json, FROZEN_SOURCE.lock.json, DEPENDENCIES.json,
+   SIGNATURES.json, T37_CLOSURE.json and the T39 independent review.
+5. Keep the signed owner decision separately; do not modify the original ZIP.
+
+Installer: installer/aghr_studio-0.1.0.dev20261025+win.3-py3-none-any.whl.
+Seven offline Python dependency wheels: installer/wheelhouse/.
+Node24.11, CPython3.12 AMD64 and pipx are external prerequisites.
+Use pipx --python with an absolute CPython3.12 path and --pip-args specifying
+--no-index --find-links=<extracted-packet>/installer/wheelhouse --only-binary=:all:.
+Never fetch an unrelated public aghr-studio package as a substitute.
+Installation/operation detail: docs/features/STUDIO_INSTALLATION.md.
+Frozen source for inspection: artifacts/FROZEN_SOURCE.zip (extract separately).
+Historical evidence not included here remains located and hash-bound by the receipts;
+this source snapshot is not a hermetic replay of every historical test environment.
+
+No public release, reference promotion or owner signature has been performed.

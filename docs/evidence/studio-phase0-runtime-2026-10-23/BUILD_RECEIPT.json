@@ -1,0 +1,29 @@
+{
+  "status": "PASS_TOOL_OBSERVED",
+  "command": "node node_modules/vite/bin/vite.js build",
+  "vite": "7.3.6",
+  "modules": 300,
+  "seconds": 20.3,
+  "raw_streams": "Initial build observed in tool response; not separately captured to disk",
+  "warnings": [
+    "Existing main application bundle exceeds 500 kB; no threshold altered"
+  ],
+  "files": {
+    "phase0.html": {
+      "sha256": "0366cb1fa713b201119634a3f69df5b1366c8197d4d0749194aa5118de66222d",
+      "bytes": 472
+    },
+    "assets/phase0-Bq_EZg_k.js": {
+      "sha256": "cd5763a7e3cc7b9b3486251011784b18ff5e8649cf69effd8b5f34331693241e",
+      "bytes": 8808
+    },
+    "assets/I18nProvider-B8JCg0pZ.js": {
+      "sha256": "17f7aec233b35fd48f1fb834be971f3ee507db14428f40ecaedbe344c540e952",
+      "bytes": 215964
+    },
+    "assets/phase0-BnGG-O3p.css": {
+      "sha256": "5b76e1c7c67627275fb863b550f549b752082d6169f3e1c098f32552d646723c",
+      "bytes": 3283
+    }
+  }
+}

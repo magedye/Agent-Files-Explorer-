@@ -1,0 +1,129 @@
+{
+  "at": "2026-10-23T00:43:54.686Z",
+  "status": "IMPLEMENTED_AND_TESTED_FOR_READ_ONLY_PROFILE",
+  "T06": "ACCEPTED_BY_OWNER_MOCK_ONLY",
+  "branch": "main",
+  "head": "133746a0ad99d10568a44c8d225219df8454271c",
+  "working_tree": "LOCAL_UNCOMMITTED; pre-existing work preserved",
+  "engine": {
+    "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+    "unchanged_files": 46
+  },
+  "tests": {
+    "passed": 57,
+    "failed": 0,
+    "log": "npm-test-final.txt",
+    "timing": "Before final CSS/dir presentation correction; corrected exact UI reverified in final Edge run"
+  },
+  "http": {
+    "passed": 7,
+    "all_passed": true,
+    "log": "http-contracts.txt"
+  },
+  "build": {
+    "status": "PASS",
+    "log": "build-final.txt",
+    "warning": "Existing main chunk >500kB"
+  },
+  "browser": {
+    "status": "PASS",
+    "version": "Edg/155.0.4283.62",
+    "receipt": "sentinel-2026-10-23T00-19-24-374Z/BROWSER.json",
+    "playwright": "NOT_INSTALLED / NOT_USED",
+    "devtools_mcp": "UNAVAILABLE / ISOLATED_EDGE_CDP_USED"
+  },
+  "zero_write": {
+    "protected_files": 106,
+    "mutations": 0,
+    "application_attempts": 0,
+    "storage_writes": 0,
+    "scope": "Phase 1 standalone Studio startup, actual Edge UI, all API requests and pinned Python subprocesses; application/API audit boundary, not kernel-wide tracing",
+    "receipt": "sentinel-2026-10-23T00-19-24-374Z/SENTINEL.json"
+  },
+  "context": {
+    "errors": 0,
+    "warnings": 0,
+    "log": "context-health.txt"
+  },
+  "preserved": [
+    {
+      "path": "src/App.jsx",
+      "sha256": "ad0e2b899672701fd09f319577a90d559aea859b7877f09cc99aa8233352d19e",
+      "unchanged_content": true,
+      "raw_equal_to_git_blob": false,
+      "comparison": "Clean V0/current Git blob; exact difference is existing CRLF checkout normalization. Raw V0 for this clean legacy file was not captured."
+    },
+    {
+      "path": "server/security.js",
+      "sha256": "5b59626a9af0b6d9524be7f331d66da28078b2c9ddc14520a62f6353973c5ba8",
+      "unchanged_content": true,
+      "raw_equal_to_git_blob": false,
+      "comparison": "Clean V0/current Git blob; exact difference is existing CRLF checkout normalization. Raw V0 for this clean legacy file was not captured."
+    },
+    {
+      "path": "docs/contracts/aghr-rc3/CONTRACTS.lock.json",
+      "sha256": "68dc22d168a3698eb7ee3a3e944a2341805816f4ba2695a1fc1403dc49867048",
+      "unchanged_content": true,
+      "raw_equal_to_git_blob": true,
+      "comparison": "RAW_BYTES"
+    },
+    {
+      "path": "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/registry/RULES.json",
+      "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db",
+      "unchanged_content": true,
+      "raw_equal_to_git_blob": true,
+      "comparison": "RAW_BYTES"
+    }
+  ],
+  "reference_status": "CLEAN_UNCHANGED",
+  "previous_custody": {
+    "files": 64,
+    "passed": true
+  },
+  "T11a": {
+    "status": "NOT_RUN",
+    "presentation_units": 50,
+    "categories": 15,
+    "skills": 5,
+    "metrics": "ALL_NULL",
+    "original_register": "UNCHANGED / ALL_1608_PENDING_REVIEW"
+  },
+  "E4": "7 REQUIRED / NOT_RUN / NOT_WAIVED",
+  "limitations": [
+    "No registered target project/adopted selections",
+    "No native discovery or qualification",
+    "No CRUD, persistent storage, generation, reference promotion or E3",
+    "Independent review and release acceptance not granted"
+  ],
+  "attempts": [
+    {
+      "status": "TEST_DEFECT",
+      "reason": "Unquoted dotted CSS attribute selector",
+      "evidence": "sentinel-2026-10-22T23-57-48-589Z/SENTINEL.json"
+    },
+    {
+      "status": "TEST_DEFECT",
+      "reason": "Keyboard dispatched before registry became visible",
+      "evidence": "sentinel-2026-10-22T23-58-37-774Z/SENTINEL.json"
+    },
+    {
+      "status": "TEST_DEFECT",
+      "reason": "Whitespace assumption in compact JSON; replaced by parsing",
+      "raw_log": "NOT_CAPTURED; observed tool output"
+    },
+    {
+      "status": "PRODUCT_DEFECT_FIXED",
+      "reason": "Bridge rejected protocol ERROR/2 null data; now preserved as HTTP422",
+      "evidence": "t09-focused.txt"
+    },
+    {
+      "status": "EVIDENCE_FORMAT_FIXED",
+      "reason": "Relocated snapshots are raw artifacts; linter unchanged. Duplicate handoff text condensed to preserve context budget.",
+      "evidence": "context-health-before-finalization.txt"
+    },
+    {
+      "status": "EXPECTED_CHECKOUT_STATE",
+      "reason": "Clean legacy App/security working files use CRLF while HEAD blobs use LF; verified exact EOL-only difference and clean Git blobs. Locked contracts/reference still require raw equality."
+    }
+  ]
+}

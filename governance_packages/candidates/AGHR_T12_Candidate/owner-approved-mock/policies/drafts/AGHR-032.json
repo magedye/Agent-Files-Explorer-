@@ -1,0 +1,44 @@
+{
+  "id": "AGHR-032",
+  "title": "حيازة المصادر",
+  "kind": "REQUIREMENT",
+  "force": "MUST",
+  "severity": "high",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: When importing or merging material.\nPreserve source identity and traceability; classify superseded, historical and unverifiable claims without inheriting prior approval assertions.",
+  "authority": {
+    "source": ".t12/SourceGrant.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "OWNER_T12_OVERRIDE",
+    "status": "active",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "فقد المصدر أو وراثة موافقته دون تحقق يضعف سلسلة الحيازة. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "review",
+    "mergeEffect": "advisory"
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-032"
+    ]
+  },
+  "impact": {
+    "band": "high",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2027-01-21",
+  "exceptions": {
+    "allowed": false
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

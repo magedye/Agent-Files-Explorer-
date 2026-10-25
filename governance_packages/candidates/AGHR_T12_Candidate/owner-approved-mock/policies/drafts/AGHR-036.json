@@ -1,0 +1,44 @@
+{
+  "id": "AGHR-036",
+  "title": "ربط الادعاء بالأثر الفعلي",
+  "kind": "CONSTRAINT",
+  "force": "MUST",
+  "severity": "critical",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: When validating evidence.\nBind results to a nonempty target set and actual artifact/candidate identity; reject missing or altered evidence and distinguish integrity from authenticity.",
+  "authority": {
+    "source": ".t12/SourceGrant.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "OWNER_T12_OVERRIDE",
+    "status": "active",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "دليل فارغ أو محرف قد يتحول إلى إثبات زائف. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "review",
+    "mergeEffect": "advisory"
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-036"
+    ]
+  },
+  "impact": {
+    "band": "critical",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2026-11-22",
+  "exceptions": {
+    "allowed": false
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

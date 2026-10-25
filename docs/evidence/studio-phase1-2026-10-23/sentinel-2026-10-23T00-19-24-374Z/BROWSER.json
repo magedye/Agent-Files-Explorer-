@@ -1,0 +1,240 @@
+{
+  "browser": "Edg/155.0.4283.62",
+  "profile": "isolated Edge",
+  "cdp": "127.0.0.1:9224",
+  "ui": {
+    "checkpoint": "PHASE1",
+    "arIDs": [
+      "OBS-REFERENCE-STATE-001"
+    ],
+    "sampleIds": [
+      "ADAPTER-ANTHROPIC",
+      "ADAPTER-CLAUDE_CODE",
+      "AGHR-001",
+      "AGHR-002",
+      "AGHR-003",
+      "AGHR-004",
+      "AGHR-005",
+      "AGHR-006",
+      "AGHR-007",
+      "AGHR-008",
+      "AGHR-009",
+      "AGHR-010",
+      "AGHR-011",
+      "AGHR-012",
+      "AGHR-038",
+      "AGHR-041",
+      "AGHR-047",
+      "DELIVERY-BE-01",
+      "DELIVERY-BE-02",
+      "DOC-009861be9c35d311",
+      "DOC-00cb940b76fcb8ad",
+      "DOC-00d0c06ad2301468",
+      "DOC-00d5abd26dfa9dfa",
+      "DOC-00fffa0bf9446fde",
+      "DOC-01219a73bd0c0871",
+      "DOC-012d08df5467de9b",
+      "DOC-01879d4a0b0d3d87",
+      "DOC-04fd771ad2d4400e",
+      "DOC-08001d19c09dbb08",
+      "DOC-08d421506d4d0551",
+      "DOC-0ba448a1179f4e89",
+      "DOC-1e887e5e765d4cb7",
+      "ENF-AGHR-001",
+      "ENF-AGHR-002",
+      "HOST-Antigravity",
+      "META-067600fc4a27",
+      "PROFILE-CONTROLLED",
+      "REC-01-01",
+      "REC-01-02",
+      "REC-01-03",
+      "REC-01-04",
+      "REC-01-05",
+      "SCHEMA-EVIDENCE",
+      "SKILL-agent-tool-security",
+      "SKILL-architecture-options",
+      "SKILL-governed-learning",
+      "SKILL-incremental-change",
+      "SKILL-plan-drift-review",
+      "SOURCE-AN-01",
+      "TEMPLATE-EVIDENCE"
+    ],
+    "ar_en_ids_identical": true,
+    "keyboard": "PASS",
+    "scope": "Python CLI 3: ar/en identical; exclusion and invalid-path rejection tested",
+    "navigation": "16 routes; 5 read screens and explicit deferred routes",
+    "review_due": "Real source has no nextReview; overdue filter returns zero; positive due case is covered separately in catalog tests",
+    "sample_status": "PENDING_REVIEW / T11a NOT_RUN",
+    "rejected": [
+      {
+        "route": "/api/v1/workspaces",
+        "method": "POST",
+        "status": 403
+      },
+      {
+        "route": "/api/v1/workspaces/rc3-local/generate/export",
+        "method": "POST",
+        "status": 403
+      },
+      {
+        "route": "/api/staging",
+        "method": "POST",
+        "status": 403
+      },
+      {
+        "route": "/api/v1/workspaces/rc3-local/instructions?language=ar",
+        "method": "GET",
+        "status": 400
+      }
+    ],
+    "breakpoints": [
+      320,
+      768,
+      1024,
+      1440
+    ],
+    "accessibility_nodes": 1298
+  },
+  "network": [
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/assets/phase0-DHvWAoyB.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/assets/I18nProvider-B8JCg0pZ.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/assets/phase0-Co7YwFfF.css"
+    },
+    {
+      "method": "GET",
+      "url": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0xLjI2IDkuNkE2Ljk3IDYuOTcgMCAwMTggNGMzLjIgMCA2LjA2IDIuMzMgNi43NCA1LjZhLjUuNSAwIDAwLjk4LS4yQTcuOTcgNy45NyAwIDAwOCAzIDcuOTcgNy45NyAwIDAwLjI4IDkuNGEuNS41IDAgMDAuOTguMnoiIGZpbGw9IldpbmRvd1RleHQiLz48cGF0aCBkPSJNOCA2YTMuNSAzLjUgMCAxMDAgNyAzLjUgMy41IDAgMDAwLTd6TTUuNSA5LjVhMi41IDIuNSAwIDExNSAwIDIuNSAyLjUgMCAwMS01IDB6IiBmaWxsPSJXaW5kb3dUZXh0Ii8+DQo8L3N2Zz4="
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/session"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/workspaces"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/workspaces/rc3-local/instructions"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/review-sample/items"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/review-sample"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/workspaces/rc3-local/instructions/OBS-REFERENCE-STATE-001/relations"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/workspaces/rc3-local/instructions/OBS-REFERENCE-STATE-001/history"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/workspaces/rc3-local/instructions"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/review-sample/items/ADAPTER-ANTHROPIC/source"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/review-sample/items/ADAPTER-ANTHROPIC/source"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/review-sample/skills"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/review-sample/hosts"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/review-sample/skills/SKILL-agent-tool-security/qualification"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/review-sample/skills/SKILL-agent-tool-security/qualification"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/review-sample/profiles"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/read-profile"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/read-scope"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/read-scope"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/read-scope"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/read-scope"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/review-sample/skills"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/review-sample/hosts"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/review-sample/profiles"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/read-profile"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:37065/api/v1/workspaces"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:37065/api/v1/workspaces/rc3-local/generate/export"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:37065/api/staging"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:37065/api/v1/workspaces/rc3-local/instructions"
+    }
+  ],
+  "console_errors": [
+    "Failed to load resource: the server responded with a status of 422 (Unprocessable Entity)",
+    "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+    "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+    "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+    "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+  ],
+  "unexpected_errors": []
+}

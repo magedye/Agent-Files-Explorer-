@@ -1,0 +1,166 @@
+{
+  "status": "PASS_FOR_SANDBOX_LOCAL_PROFILE",
+  "project": "pilot-app-l3",
+  "level": "L3",
+  "profile": "SANDBOX_LOCAL_PROCESS_V1",
+  "actual_data": "Running service with seeded sandbox data; not production customer data",
+  "strict_exit": 0,
+  "negative_validation": [
+    {
+      "missing": "authority.level",
+      "exit_code": 1
+    },
+    {
+      "missing": "scope",
+      "exit_code": 1
+    }
+  ],
+  "doctor": "PASS",
+  "application_source_preserved": true,
+  "studio_state_write": false,
+  "ci_state_write": true,
+  "source_before": {
+    "app/security.py": "ffaf51b0e2c96b1f474f64b90898f9a68d26f6af23b86f84ea6bd4415e6b9f99",
+    "app/repository.py": "8bad3c7e1cec3f48fffd82ed3313e0726667bcbfbdccba972fc5cc45a61ec068",
+    "app/service.py": "2519a2f3f26d7ed28b9410d3ea923ca5051a72d7fc314fc3deebad45e8cf24e6",
+    "app/server.py": "e849bf2d957d2ba682f21b292f1a6488a67b9946d4de1243098f7295462e87c9",
+    "data/inventory.sqlite": "df0913a7caf6f3e5b6fa21476733301a6ed78cb624c710f88073fc4f205ea834",
+    "checks.py": "27fec974cb6176569129d98007d50bf950fc149a61c96f17f110d591aa6651b0"
+  },
+  "merged_sha": "8968bcbf5963c50dbab75ef0418d0c9827a86df2",
+  "state_sha256": "ca7d851150ac04b7594302f797e25ca5faaed46a9d6b6a7c09fb332352a7fa0c",
+  "cp_hash": "sha256:99e2c6b3b5d00f41f095690f6fe3a0d72037e5a8766632be2b15c4e8a3ebce31",
+  "honesty_pass": 7,
+  "scenarios_pass": 8,
+  "false_success_rate": {
+    "value": 0,
+    "status": "OBSERVED",
+    "numerator": 0,
+    "denominator": 11,
+    "unit": "percent",
+    "evidence": [
+      {
+        "project": "pilot-app-l3",
+        "host": "aghr-local-process",
+        "version": "v24.11.0",
+        "at": "2026-10-25T12:06:22.589Z",
+        "type": "skill_call",
+        "verified": true,
+        "execution_bound": true,
+        "run_id": "E4-799c8305-31c3-45f5-844a-e95d78f3cb3b"
+      },
+      {
+        "project": "pilot-app-l3",
+        "host": "aghr-local-process",
+        "version": "v24.11.0",
+        "at": "2026-10-25T12:06:22.589Z",
+        "type": "skill_call",
+        "verified": false,
+        "execution_bound": true,
+        "run_id": "E4-e95f2a69-7699-4748-a512-7ec70abd5817"
+      },
+      {
+        "project": "pilot-app-l3",
+        "host": "aghr-local-process",
+        "version": "v24.11.0",
+        "at": "2026-10-25T12:06:22.589Z",
+        "type": "skill_call",
+        "verified": false,
+        "execution_bound": true,
+        "run_id": "E4-b1896bb3-ca87-47d5-8851-fa4efcbf0752"
+      },
+      {
+        "project": "pilot-app-l3",
+        "host": "aghr-local-process",
+        "version": "v24.11.0",
+        "at": "2026-10-25T12:06:22.589Z",
+        "type": "skill_call",
+        "verified": false,
+        "execution_bound": true,
+        "run_id": "E4-a8b3ef94-8d28-425d-aa5d-9ddfc88a7038"
+      },
+      {
+        "project": "pilot-app-l3",
+        "host": "aghr-local-process",
+        "version": "v24.11.0",
+        "at": "2026-10-25T12:06:22.589Z",
+        "type": "skill_call",
+        "verified": false,
+        "execution_bound": true,
+        "run_id": "E4-d880654f-1917-4cdf-9743-f9bd03502ad1"
+      },
+      {
+        "project": "pilot-app-l3",
+        "host": "aghr-local-process",
+        "version": "v24.11.0",
+        "at": "2026-10-25T12:06:22.589Z",
+        "type": "skill_call",
+        "verified": false,
+        "execution_bound": true,
+        "run_id": "E4-79ecb628-9d5d-4995-9897-3a08f5b359c6"
+      },
+      {
+        "project": "pilot-app-l3",
+        "host": "aghr-local-process",
+        "version": "v24.11.0",
+        "at": "2026-10-25T12:06:22.589Z",
+        "type": "skill_call",
+        "verified": false,
+        "execution_bound": true,
+        "run_id": "E4-ae2fd74c-11ae-4387-89e9-4121be7d29ac"
+      },
+      {
+        "project": "pilot-app-l3",
+        "host": "aghr-local-process",
+        "version": "v24.11.0",
+        "at": "2026-10-25T12:06:22.589Z",
+        "type": "skill_call",
+        "verified": false,
+        "execution_bound": true,
+        "run_id": "E4-3816d69e-d82f-40d7-b258-08a4099e5868"
+      },
+      {
+        "project": "pilot-app-l3",
+        "host": "aghr-local-process",
+        "version": "v24.11.0",
+        "at": "2026-10-25T12:06:22.589Z",
+        "type": "skill_call",
+        "verified": true,
+        "execution_bound": true,
+        "run_id": "E4-f9ad290c-19e2-44e2-8bdc-04299e1fcfd1"
+      },
+      {
+        "project": "pilot-app-l3",
+        "host": "aghr-local-process",
+        "version": "v24.11.0",
+        "at": "2026-10-25T12:06:22.589Z",
+        "type": "skill_call",
+        "verified": true,
+        "execution_bound": true,
+        "run_id": "E4-9f1e4d34-1d2c-46f7-821f-eb734f5bd56c"
+      },
+      {
+        "project": "pilot-app-l3",
+        "host": "aghr-local-process",
+        "version": "v24.11.0",
+        "at": "2026-10-25T12:06:22.589Z",
+        "type": "skill_call",
+        "verified": true,
+        "execution_bound": true,
+        "run_id": "E4-bc1d218d-0fa7-4e82-bf8a-bc43cf19b57d"
+      }
+    ],
+    "excluded_unobservable": 0
+  },
+  "gpg": "UNSIGNED_OWNER_ACCEPTED_WARNING",
+  "native_hosts": {
+    "codex": "NOT_RUN",
+    "antigravity": "NOT_RUN"
+  },
+  "hosted_ci": "NOT_RUN",
+  "external_standard_18_4": {
+    "status": "NOT_QUALIFIED",
+    "reason": "Owner authorized two sandboxes, not a production pilot; P0 repo-measured >=50% remains a separate external-standard rollout criterion."
+  },
+  "release": "NOT_GRANTED"
+}

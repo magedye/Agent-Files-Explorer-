@@ -1,0 +1,30 @@
+✖ T15 actual hard memory limit produces memory_limit with no surviving process (1275.3405ms)
+ℹ {"event":"finished","status":"resource_limit_exceeded","reason":"memory_limit","exit_code":null,"resource_peak_mb":132.015625,"duration_ms":547,"active_processes_after":0,"observed_pids":[45004,28888,59996],"started":{"event":"started","pid":45004,"adapter":"windows-job-list","hard_memory_bytes":134217728,"limit_flags":8704},"stdout":"MEMORY_PROBE\r\n","stderr":"","limits":{"timeoutMs":5000,"memoryBytes":134217728}}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1690.5013
+
+✖ failing tests:
+
+test at tests\studio_job_runner.test.mjs:20:1
+✖ T15 actual hard memory limit produces memory_limit with no surviving process (1275.3405ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert(r.resource_peak_mb<=128)
+  
+      at TestContext.<anonymous> (file:///D:/APP/Agent-Files-Explorer/tests/studio_job_runner.test.mjs:23:168)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

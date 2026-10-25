@@ -1,0 +1,8 @@
+[
+  {"command":"node tools/t19/prepare_fixture.mjs","exit_code":0,"scope":"one-shot MOCK fixture and preflight; 1924 prior files verified"},
+  {"command":"node tools/t19/run_cycle.mjs","exit_code":0,"stdout":"CYCLE.stdout.json","stderr":"CYCLE.stderr.txt","scope":"corrected fresh isolated MOCK database; first failed tool attempt retained"},
+  {"command":"node --test tests/studio_t19_mock.test.mjs","exit_code":0,"log":"FOCUSED_TESTS.log","tests":2,"pass":2},
+  {"command":"npm test","exit_code":0,"log":"NPM_TEST.log","tests":84,"pass":84,"fail":0,"skipped":0},
+  {"command":"node tools/check_context_health.mjs","exit_code":0,"log":"CONTEXT_HEALTH.log","errors":0,"warnings":0},
+  {"command":"git diff --check -- docs/status/CURRENT.md docs/status/HANDOFF.md docs/INDEX.md docs/plans/STUDIO_UPGRADE_TASKS_AR.md","exit_code":2,"log":"GIT_DIFF_CHECK.log","status":"EXPECTED_PREEXISTING_MARKDOWN_HARD_BREAKS"}
+]

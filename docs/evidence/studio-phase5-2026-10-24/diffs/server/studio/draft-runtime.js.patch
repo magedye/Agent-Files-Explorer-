@@ -1,0 +1,29 @@
+diff --git a/docs/evidence/studio-phase5-2026-10-24/before/server/studio/draft-runtime.js.raw b/server/studio/draft-runtime.js
+index d67ab1d..0503c6b 100644
+--- a/docs/evidence/studio-phase5-2026-10-24/before/server/studio/draft-runtime.js.raw
++++ b/server/studio/draft-runtime.js
+@@ -15,8 +15,10 @@ import {createSubmissionService} from './ci/submission-service.mjs';
+ import {createPhase4Service} from './phase4/service.mjs';
+ import {createPhase4Routes} from './phase4/routes.mjs';
+ import {createIntakeWatcher} from './phase4/watcher.mjs';
++import {createPhase5Service} from './phase5/service.mjs';
++import {createPhase5Routes} from './phase5/routes.mjs';
+ 
+-export async function createDraftStudio({python,storageRoot,actor,clock=Date.now,evidenceProjectRoot=null,e4Config,phase4Options={}}={}){
++export async function createDraftStudio({python,storageRoot,actor,clock=Date.now,evidenceProjectRoot=null,e4Config,phase4Options={},project=null}={}){
+  if(typeof actor!=='string'||!actor.trim())throw Error('TRUSTED_OPERATOR_REQUIRED');
+  const read=await createStudio({python,actor,bounded:true});let store,validator;
+  try{
+@@ -57,8 +59,10 @@ export async function createDraftStudio({python,storageRoot,actor,clock=Date.now
+   const watcher=createIntakeWatcher({root:phase4Options.intakeRoot,service:phase4,store,authorize:binding=>{const scope={workspace_id:workspace.id,target_project:'studio-drafts',action:'meta.change.propose',resource_id:'CP-'+crypto.randomUUID(),proposal_version_hash:binding};return {scope,receipt:permit(scope)};},audit:event=>store.recordAttempt({actor,role:'governance-owner',action:'meta.change.propose',result:'ERROR',status:422,reason:JSON.stringify(event),requestId:crypto.randomUUID()})});
+   const execution=createExecutionRoutes({workspace,authority,store,intents,verification,evidence,clock,audit,fallback});
+   const previous=createSkillRoutes({service:skills,submission,workspace,authority,intents,clock,audit,fallback:execution});
+-  return {session:{token:owner.token},workspace,authority,store,intents,approveIntent,revokeIntent,attestSource,verification,skills,phase4,watcher,
+-   handle:createPhase4Routes({service:phase4,watcher,workspace,authority,intents,clock,audit,fallback:previous}),
++  const phase5=createPhase5Service({store,catalog:snapshot,authority,ownerActor:actor,project,phase4,skills,clock});
++  const governed=createPhase4Routes({service:phase4,watcher,workspace,authority,intents,clock,audit,fallback:previous});
++  return {session:{token:owner.token},workspace,authority,store,intents,approveIntent,revokeIntent,attestSource,verification,skills,phase4,phase5,watcher,
++   handle:createPhase5Routes({service:phase5,workspace,authority,intents,clock,audit,fallback:governed}),
+    close(){const pending=[watcher.close(),phase4.close(),skills.close(),submission.close(),verification.close()],finish=()=>{validator.close();store.close();read.close();};if(pending.some(Boolean))return Promise.all(pending).then(finish);finish();}};
+  }catch(error){validator?.close();store?.close();read.close();throw error;}
+ }

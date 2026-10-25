@@ -50,6 +50,7 @@ lerna-debug.log*
 .governance/intake/
 .governance/evaluations/
 .governance/audit.jsonl
+.governance/studio-drafts/
 
 # Editor directories and files
 .vscode/*
@@ -75,3 +76,28 @@ Thumbs.db
 tmp/
 temp/
 *.tmp
+
+# Public test verification key only; private/other PEM files remain excluded.
+!governance_packages/candidates/AGHR_T06_SEC001_Candidate/mock-authorized/.t06/mock-public.pem
+
+
+# Large evidence blobs live in AGHR_Evidence_Archive_v1.0.0.zip; hashes are in EVIDENCE_MANIFEST.sha256
+/docs/evidence/**/*.png
+/docs/evidence/**/*.sqlite
+/docs/evidence/**/*.raw
+/docs/evidence/**/*.snapshot
+/docs/evidence/**/*.log
+/docs/evidence/studio-t11b-2026-10-23/**
+!/docs/evidence/studio-t11b-2026-10-23/T11B_REVIEW_AR.md
+!/docs/evidence/studio-t11b-2026-10-23/REVIEW_REQUIRED_AR.md
+/docs/evidence/studio-native-t20-t21-2026-10-24/HTTP_ACCEPTANCE.json
+/docs/evidence/studio-phase3-2026-10-24/PARITY_100.json
+/docs/evidence/studio-release-2026-10-25/FROZEN_SOURCE.zip
+/docs/evidence/studio-t36-completion-2026-10-25/api-1792937862934/HTTP.json
+/docs/evidence/studio-t36-completion-2026-10-25/api-1792937862934/SCHEMA_INPUT.json
+/docs/evidence/studio-t36-completion-2026-10-25/api-1792945287583/HTTP.json
+/docs/evidence/studio-t36-completion-2026-10-25/api-1792945287583/SCHEMA_INPUT.json
+/docs/evidence/studio-t37-2026-10-25/run-1792947697167/BENCHMARK.json
+/docs/evidence/studio-t37-2026-10-25/run-1792947697167/index500.stdout.json
+/docs/evidence/studio-t38-2026-10-25/wheels/aghr_studio-0.1.0.dev20261025-py3-none-any.whl
+/docs/evidence/studio-t38-2026-10-25/wheels/aghr_studio-0.1.0.dev20261025+win.2-py3-none-any.whl

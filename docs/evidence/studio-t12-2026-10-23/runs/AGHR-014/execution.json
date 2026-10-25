@@ -1,0 +1,57 @@
+{
+  "name": "AGHR-014",
+  "started_at": "2026-10-23T13:50:19.913324+00:00",
+  "finished_at": "2026-10-23T13:50:26.558523+00:00",
+  "wall_seconds": 6.645629000035115,
+  "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+  "argv": [
+    "-X",
+    "utf8",
+    "-B",
+    "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+    "validate",
+    "--strict",
+    "--format",
+    "json"
+  ],
+  "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-014",
+  "process_exit_code": 3,
+  "protocol_version": "3",
+  "result": "BLOCKED",
+  "structure": "PASS",
+  "diagnostics": {
+    "AUTHORITY_SOURCE_UNVERIFIED": 1,
+    "AUTHORITY_NOT_ACTIVE": 1,
+    "ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE": 1
+  },
+  "item_ids": [
+    "AGHR-014"
+  ],
+  "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+  "inputs": {
+    "candidate_hash": "db2d8bcf30acc644d3dc94d3ea858f8f02933c1cde2c3e2ed75eb7ae8acb3290",
+    "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+    "inputs_hash": "eea19eb01cdf767c19a744bad76aabe9416d985acfb0ec49bd2711986a0d3b94",
+    "catalog": [
+      {
+        "path": "aghr.json",
+        "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "role": "manifest"
+      },
+      {
+        "path": "policies/drafts/AGHR-014.json",
+        "sha256": "7c1bf43d19853b03efd361183b5589f15d828853e6bb6426ecbd1a9519f3a92c",
+        "role": "item"
+      }
+    ]
+  },
+  "input_before": {
+    "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+    "drafting/eval-fixtures.json": "5652a95cc94b90e1470789ef07374c58285c62d2476bd3c5555c5229bd060ae5",
+    "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+    "policies/drafts/AGHR-014.json": "7c1bf43d19853b03efd361183b5589f15d828853e6bb6426ecbd1a9519f3a92c"
+  },
+  "input_after_unchanged": true,
+  "stdout_sha256": "b8ec544f8c048791858bb75df7d7857b1dd826ddc7d587343e1d29f439c5868f",
+  "stderr_sha256": "ad8cc68417fd1423617e5355065a9032a1d65fb0590a9e63b7b27514db546b2e"
+}

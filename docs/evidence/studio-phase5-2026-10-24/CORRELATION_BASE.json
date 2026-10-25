@@ -1,0 +1,28 @@
+{
+  "status": "COMPOSED_VERIFICATION_BASELINE",
+  "full_log": "NPM_TEST_FINAL_V2.log",
+  "full_source": "TESTED_SOURCE_FINAL_V2.json",
+  "before": {
+    "server/studio/phase5/observations.mjs": {
+      "sha256": "ba724da18c5a590591e8e3071e9d8d2adc8a12f9d253b92c4e4c32b3701e1a87",
+      "bytes": 2601,
+      "copy": "correlation-before/server/studio/phase5/observations.mjs.raw"
+    },
+    "server/studio/phase5/metrics.mjs": {
+      "sha256": "780e567fd820c4b490371eebd57c57bf0ba546ae984d40672270f11e36553845",
+      "bytes": 3491,
+      "copy": "correlation-before/server/studio/phase5/metrics.mjs.raw"
+    },
+    "server/studio/skills/lifecycle-service.js": {
+      "sha256": "55e1d7fff1aa4c5468ce2cb6e00121e90e8900ff453883998afbe8ff0ae5bee6",
+      "bytes": 10679,
+      "copy": "correlation-before/server/studio/skills/lifecycle-service.js.raw"
+    },
+    "tests/studio_phase5_metrics.test.mjs": {
+      "sha256": "9cdcc19c629a96dfcb7e09f3796e04f83eccff39e3ee0003325193ceb482e0e4",
+      "bytes": 6881,
+      "copy": "correlation-before/tests/studio_phase5_metrics.test.mjs.raw"
+    }
+  },
+  "reason": "Required metric-boundary corrections only: historical host versions, bounded execution observability, Arabic vs non-ASCII classification. Reverify all changed lifecycle/Phase5 integration; unchanged E1–E4 evidence remains valid."
+}

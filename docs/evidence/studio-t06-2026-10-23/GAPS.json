@@ -1,0 +1,41 @@
+{
+  "T06": "INCOMPLETE_ACCEPTANCE_NOT_MET",
+  "required_positive_exit": 0,
+  "observed_complete_exit": 3,
+  "classification": "EXPECTED_UNSUPPORTED_OR_OPTIONAL_STATE: mandatory planned dependency unavailable; no waiver",
+  "gaps": [
+    {
+      "id": "T06-G01",
+      "status": "RESOLVED",
+      "requirement": "Read a separate candidate through the real pinned engine",
+      "before": "Bridge cwd fixed to engineRoot",
+      "after": "Trusted packageRoot option restricted to candidates, reparse points denied and rechecked; default unchanged",
+      "file": "server/studio/aghr/cli-bridge.js",
+      "tests": "studio_bridge.test.mjs T06 candidate selection"
+    },
+    {
+      "id": "T06-G02",
+      "status": "REQUIRED_FOR_CURRENT_ACCEPTANCE",
+      "code": "AUTHORITY_SOURCE_UNVERIFIED",
+      "file": "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/authority.py",
+      "function": "authority_state/check_authority",
+      "cli_file": "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/cli.py",
+      "observed": "CLI calls validate_package without SourceGrant; config trust_grants is empty. Canonical enterprise/security-owner/governance-board text is not authenticated source authority.",
+      "required": "Host-authenticated source attestation bound to source hash, path, level, issuer and item ID; read-only transport to the existing API, hashed in configuration; reject self-declared and stale grants.",
+      "acceptance": "Actual authorized source can be attested; absence, mismatch, stale hash and self-elevation remain blocked; never infer enterprise authority from user-authored text."
+    },
+    {
+      "id": "T06-G03",
+      "status": "REQUIRED_FOR_CURRENT_ACCEPTANCE",
+      "code": "ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE",
+      "file": "governance_packages/candidates/AGHR_rc3_Core_Candidate/tools/evidence.py",
+      "function": "check_evidence",
+      "observed": "Critical MUST_NOT and required gate unconditionally receive E3-unavailable BLOCKED in accepted E2 source.",
+      "required": "A bounded E3 read-only enforcement proof path with real control/host evidence, source identity and candidate hashes; no generation, CRUD or persistent DB needed to define this prerequisite.",
+      "acceptance": "A real required gate with sufficient evidence can pass, while declaration-only, missing, stale and foreign evidence remains blocked. A command listed in verification.commands is not execution evidence."
+    }
+  ],
+  "T01": "CLOSED_UNBLOCKED_ACCEPTED_FOR_LOCAL_PHASE0_PROFILE",
+  "Phase0": "ACCEPTED_BY_OWNER_NOT_REVOKED",
+  "scope_rule": "Do not weaken SEC-001 force/severity/gate or substitute schema-only success. Do not infer permission to generate or claim enterprise issuer trust."
+}

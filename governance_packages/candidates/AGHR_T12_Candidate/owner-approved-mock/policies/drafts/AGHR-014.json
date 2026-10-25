@@ -1,0 +1,48 @@
+{
+  "id": "AGHR-014",
+  "title": "منع التلاعب بالاختبارات",
+  "kind": "CONSTRAINT",
+  "force": "MUST_NOT",
+  "severity": "critical",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: When changing tests or acceptance logic.\nDo not weaken assertions, targets, thresholds or fixtures to conceal failure; legitimate criterion/test changes require a reason and the proper authority.",
+  "authority": {
+    "source": ".t12/SourceGrant.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "OWNER_T12_OVERRIDE",
+    "status": "active",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "إضعاف معيار الاختبار قد يصنع نجاحاً كاذباً. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "block",
+    "mergeEffect": "blocking",
+    "gate": {
+      "type": "human-approval",
+      "required": true
+    }
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-014"
+    ]
+  },
+  "impact": {
+    "band": "critical",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2026-11-22",
+  "exceptions": {
+    "allowed": false
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

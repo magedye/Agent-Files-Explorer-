@@ -1,0 +1,493 @@
+{
+  "sample": {
+    "units": 50,
+    "categories": 15,
+    "selection": "FROZEN_PURPOSIVE_STRATIFIED, not random",
+    "population": 1608,
+    "remaining": 1558
+  },
+  "dispositions": {
+    "UNRESOLVED": 26,
+    "Merge": 4,
+    "Adopt": 14,
+    "Defer": 5,
+    "Reject": 1
+  },
+  "types": {
+    "governing_complete_for_rc3": 0,
+    "non_governing_or_dependent_support": 24,
+    "unresolved_target_items_or_config": 26,
+    "explicit_normative_legacy_rules": 15,
+    "normative_force_distribution": {
+      "MUST": 12,
+      "MUST_NOT": 1,
+      "SHOULD": 2
+    },
+    "note": "Unresolved is not counted as metadata. Of 26: 15 legacy normative rules, 5 capabilities, 5 proposed standards guidelines, 1 profile crosswalk. Source intent is distinct from rc.3 import readiness."
+  },
+  "ambiguity": {
+    "owner_required_units": 26,
+    "denominator": 50,
+    "rate": 0.52,
+    "groups": {
+      "A_rule_authority": 15,
+      "B_capabilities": 5,
+      "C_standards_applicability": 5,
+      "D_profile_crosswalk": 1
+    },
+    "human_decisions_received_in_this_pass": 0
+  },
+  "semantic_duplicates": {
+    "population": 50,
+    "screened_unordered_pairs": 1225,
+    "lexical_candidates": 13,
+    "reviewed_candidate_pairs": 39,
+    "confirmed_groups": [],
+    "confirmed_duplicate_units": 0,
+    "redundant_units": 0,
+    "confirmed_unit_rate": 0.0,
+    "confirmed_redundancy_rate": 0.0,
+    "limits": "Full-unit confirmed equivalence only, observed in this sample. Partial overlap/structural Merge is separate. No semantic recall proof; not proof of zero duplication in all 1608. No automatic deletion."
+  },
+  "time": {
+    "review": {
+      "n": 50,
+      "min_seconds": 39.93446170005389,
+      "median_seconds": 71.85123135002704,
+      "max_seconds": 431.1401284999335,
+      "sum_seconds": 4315.146542600069
+    },
+    "tool_wait": {
+      "n": 50,
+      "min_seconds": 2.3575267000170426,
+      "median_seconds": 3.7152293499507945,
+      "max_seconds": 77.49733180000354,
+      "sum_seconds": 316.16735769965317
+    },
+    "cycle": {
+      "n": 50,
+      "min_seconds": 43.5074191000266,
+      "median_seconds": 75.09013450008678,
+      "max_seconds": 442.53593380002394,
+      "sum_seconds": 4631.313900299721
+    },
+    "components": {
+      "read_seconds": {
+        "n": 50,
+        "min_seconds": 0.00316319998819381,
+        "median_seconds": 0.004669549991376698,
+        "max_seconds": 0.09441020002122968,
+        "sum_seconds": 0.45778010005597025
+      },
+      "classify_seconds": {
+        "n": 50,
+        "min_seconds": 39.926,
+        "median_seconds": 71.83850000000001,
+        "max_seconds": 431.037,
+        "sum_seconds": 4314.359
+      },
+      "verification_seconds": {
+        "n": 50,
+        "min_seconds": 0.0029421999352052808,
+        "median_seconds": 0.003972549980971962,
+        "max_seconds": 0.04191789997275919,
+        "sum_seconds": 0.27390140027273446
+      },
+      "rework_seconds": {
+        "n": 50,
+        "min_seconds": 0.0,
+        "median_seconds": 0.0,
+        "max_seconds": 0.0,
+        "sum_seconds": 0.0
+      },
+      "supplementary_verification_seconds": {
+        "n": 50,
+        "min_seconds": 0.0004477999173104763,
+        "median_seconds": 0.0008298000320792198,
+        "max_seconds": 0.0103075000224635,
+        "sum_seconds": 0.055861099739558995
+      }
+    },
+    "by_source_category": {
+      "CORE_RULE": {
+        "sample_count": 15,
+        "population_count": 47,
+        "remaining_count": 32,
+        "timing": {
+          "n": 15,
+          "min_seconds": 39.93446170005389,
+          "median_seconds": 87.3886315999031,
+          "max_seconds": 431.1401284999335,
+          "sum_seconds": 1798.2262106999476
+        },
+        "difficulty": {
+          "high": 13,
+          "medium": 2
+        },
+        "resolved": 0,
+        "unresolved": 15,
+        "forecast_agent_seconds": {
+          "low": 1277.9027744017244,
+          "median_scenario": 2796.4362111968994,
+          "high": 13796.484111997872
+        }
+      },
+      "SKILL": {
+        "sample_count": 5,
+        "population_count": 11,
+        "remaining_count": 6,
+        "timing": {
+          "n": 5,
+          "min_seconds": 49.672516500042754,
+          "median_seconds": 70.17786720007193,
+          "max_seconds": 95.0882581000952,
+          "sum_seconds": 363.63450420020706
+        },
+        "difficulty": {
+          "high": 5
+        },
+        "resolved": 0,
+        "unresolved": 5,
+        "forecast_agent_seconds": {
+          "low": 298.03509900025654,
+          "median_scenario": 421.06720320043155,
+          "high": 570.5295486005712
+        }
+      },
+      "STANDARD_RECOMMENDATION": {
+        "sample_count": 5,
+        "population_count": 80,
+        "remaining_count": 75,
+        "timing": {
+          "n": 5,
+          "min_seconds": 53.899855500093665,
+          "median_seconds": 70.24503210002091,
+          "max_seconds": 96.12218399992305,
+          "sum_seconds": 355.62487619997
+        },
+        "difficulty": {
+          "high": 5
+        },
+        "resolved": 0,
+        "unresolved": 5,
+        "forecast_agent_seconds": {
+          "low": 4042.489162507025,
+          "median_scenario": 5268.377407501568,
+          "high": 7209.163799994229
+        }
+      },
+      "DOCUMENT_CLAUSE": {
+        "sample_count": 7,
+        "population_count": 1118,
+        "remaining_count": 1111,
+        "timing": {
+          "n": 7,
+          "min_seconds": 40.24992740003858,
+          "median_seconds": 67.71851679996028,
+          "max_seconds": 77.97513969997782,
+          "sum_seconds": 425.2834899999285
+        },
+        "difficulty": {
+          "medium": 4,
+          "low": 3
+        },
+        "resolved": 7,
+        "unresolved": 0,
+        "forecast_agent_seconds": {
+          "low": 44717.66934144286,
+          "median_scenario": 75235.27216475588,
+          "high": 86630.38020667536
+        }
+      },
+      "DOCUMENT_TABLE_ROW": {
+        "sample_count": 4,
+        "population_count": 131,
+        "remaining_count": 127,
+        "timing": {
+          "n": 4,
+          "min_seconds": 49.418340700180266,
+          "median_seconds": 90.16157650004652,
+          "max_seconds": 91.94070159976557,
+          "sum_seconds": 321.68219530003887
+        },
+        "difficulty": {
+          "medium": 4
+        },
+        "resolved": 4,
+        "unresolved": 0,
+        "forecast_agent_seconds": {
+          "low": 6276.129268922894,
+          "median_scenario": 11450.520215505909,
+          "high": 11676.469103170228
+        }
+      },
+      "EXAMPLE_BLOCK": {
+        "sample_count": 2,
+        "population_count": 18,
+        "remaining_count": 16,
+        "timing": {
+          "n": 2,
+          "min_seconds": 49.43643450005818,
+          "median_seconds": 64.37311834996845,
+          "max_seconds": 79.30980219987873,
+          "sum_seconds": 128.7462366999369
+        },
+        "difficulty": {
+          "medium": 2
+        },
+        "resolved": 2,
+        "unresolved": 0,
+        "forecast_agent_seconds": {
+          "low": 790.9829520009309,
+          "median_scenario": 1029.9698935994952,
+          "high": 1268.9568351980597
+        }
+      },
+      "PROFILE": {
+        "sample_count": 1,
+        "population_count": 3,
+        "remaining_count": 2,
+        "timing": {
+          "n": 1,
+          "min_seconds": 72.38994620009605,
+          "median_seconds": 72.38994620009605,
+          "max_seconds": 72.38994620009605,
+          "sum_seconds": 72.38994620009605
+        },
+        "difficulty": {
+          "high": 1
+        },
+        "resolved": 0,
+        "unresolved": 1,
+        "forecast_agent_seconds": {
+          "low": 144.7798924001921,
+          "median_scenario": 144.7798924001921,
+          "high": 144.7798924001921
+        }
+      },
+      "ADAPTER": {
+        "sample_count": 2,
+        "population_count": 12,
+        "remaining_count": 10,
+        "timing": {
+          "n": 2,
+          "min_seconds": 62.54593110001925,
+          "median_seconds": 69.26429414996598,
+          "max_seconds": 75.98265719991271,
+          "sum_seconds": 138.52858829993195
+        },
+        "difficulty": {
+          "low": 2
+        },
+        "resolved": 2,
+        "unresolved": 0,
+        "forecast_agent_seconds": {
+          "low": 625.4593110001925,
+          "median_scenario": 692.6429414996597,
+          "high": 759.826571999127
+        }
+      },
+      "SCENARIO": {
+        "sample_count": 2,
+        "population_count": 60,
+        "remaining_count": 58,
+        "timing": {
+          "n": 2,
+          "min_seconds": 44.74271519998368,
+          "median_seconds": 66.68653365005646,
+          "max_seconds": 88.63035210012924,
+          "sum_seconds": 133.37306730011292
+        },
+        "difficulty": {
+          "low": 2
+        },
+        "resolved": 2,
+        "unresolved": 0,
+        "forecast_agent_seconds": {
+          "low": 2595.0774815990535,
+          "median_scenario": 3867.8189517032747,
+          "high": 5140.560421807496
+        }
+      },
+      "HOST_QUALIFICATION": {
+        "sample_count": 1,
+        "population_count": 2,
+        "remaining_count": 1,
+        "timing": {
+          "n": 1,
+          "min_seconds": 108.38264929992147,
+          "median_seconds": 108.38264929992147,
+          "max_seconds": 108.38264929992147,
+          "sum_seconds": 108.38264929992147
+        },
+        "difficulty": {
+          "medium": 1
+        },
+        "resolved": 1,
+        "unresolved": 0,
+        "forecast_agent_seconds": {
+          "low": 108.38264929992147,
+          "median_scenario": 108.38264929992147,
+          "high": 108.38264929992147
+        }
+      },
+      "SOURCE_REFERENCE": {
+        "sample_count": 1,
+        "population_count": 56,
+        "remaining_count": 55,
+        "timing": {
+          "n": 1,
+          "min_seconds": 66.63228510004188,
+          "median_seconds": 66.63228510004188,
+          "max_seconds": 66.63228510004188,
+          "sum_seconds": 66.63228510004188
+        },
+        "difficulty": {
+          "low": 1
+        },
+        "resolved": 1,
+        "unresolved": 0,
+        "forecast_agent_seconds": {
+          "low": 3664.7756805023037,
+          "median_scenario": 3664.7756805023037,
+          "high": 3664.7756805023037
+        }
+      },
+      "SCHEMA": {
+        "sample_count": 1,
+        "population_count": 6,
+        "remaining_count": 5,
+        "timing": {
+          "n": 1,
+          "min_seconds": 140.6134957999168,
+          "median_seconds": 140.6134957999168,
+          "max_seconds": 140.6134957999168,
+          "sum_seconds": 140.6134957999168
+        },
+        "difficulty": {
+          "medium": 1
+        },
+        "resolved": 1,
+        "unresolved": 0,
+        "forecast_agent_seconds": {
+          "low": 703.067478999584,
+          "median_scenario": 703.067478999584,
+          "high": 703.067478999584
+        }
+      },
+      "TEMPLATE": {
+        "sample_count": 1,
+        "population_count": 7,
+        "remaining_count": 6,
+        "timing": {
+          "n": 1,
+          "min_seconds": 86.23467020005918,
+          "median_seconds": 86.23467020005918,
+          "max_seconds": 86.23467020005918,
+          "sum_seconds": 86.23467020005918
+        },
+        "difficulty": {
+          "low": 1
+        },
+        "resolved": 1,
+        "unresolved": 0,
+        "forecast_agent_seconds": {
+          "low": 517.408021200355,
+          "median_scenario": 517.408021200355,
+          "high": 517.408021200355
+        }
+      },
+      "ENFORCEMENT_RECORD": {
+        "sample_count": 2,
+        "population_count": 47,
+        "remaining_count": 45,
+        "timing": {
+          "n": 2,
+          "min_seconds": 62.50916440007556,
+          "median_seconds": 62.63624715005234,
+          "max_seconds": 62.76332990002911,
+          "sum_seconds": 125.27249430010468
+        },
+        "difficulty": {
+          "low": 2
+        },
+        "resolved": 2,
+        "unresolved": 0,
+        "forecast_agent_seconds": {
+          "low": 2812.9123980034,
+          "median_scenario": 2818.6311217523553,
+          "high": 2824.34984550131
+        }
+      },
+      "CATALOG_METADATA": {
+        "sample_count": 1,
+        "population_count": 10,
+        "remaining_count": 9,
+        "timing": {
+          "n": 1,
+          "min_seconds": 50.52183299985435,
+          "median_seconds": 50.52183299985435,
+          "max_seconds": 50.52183299985435,
+          "sum_seconds": 50.52183299985435
+        },
+        "difficulty": {
+          "low": 1
+        },
+        "resolved": 1,
+        "unresolved": 0,
+        "forecast_agent_seconds": {
+          "low": 454.6964969986891,
+          "median_scenario": 454.6964969986891,
+          "high": 454.6964969986891
+        }
+      }
+    },
+    "clock_method": "Measured agent review turn wall seconds from coordinator Date.now; source I/O and commit verification measured with perf_counter. Not human labor or model CPU. Tool wait is timed separately by coordinator; unobservable queue within a review turn cannot be isolated.",
+    "limitations": [
+      "Observed agent decision-turn wall time, not model CPU or human work hours. Reading/analysis/turn scheduling and related progress communication within the decision turn cannot be separated further.",
+      "Tool wait is measured separately; initial orientation, pair-comparison/report work and unmeasured setup are not distributed over units. No reconstructed or evenly allocated durations.",
+      "Rework=0 in the original single-pass unit journal; subsequent shared contract audit is disclosed separately, with per-unit mechanical verification measured.",
+      "No timer values exist for earlier extraction or future owner decisions; these remain null."
+    ]
+  },
+  "extraction": {
+    "principal_routes": {
+      "owner-clarification": 26,
+      "source-reread": 7,
+      "non-instruction": 7,
+      "structured-direct": 10
+    },
+    "structured_source_records": 37,
+    "contextual_text_units": 13,
+    "agent_reviewed_units": 50,
+    "human_review_performed_units": 0,
+    "owner_decision_required_units": 26,
+    "actual_automated_migrations": 0,
+    "actual_manual_migrations": 0,
+    "source_writes": 0,
+    "difficulty": {
+      "high": 24,
+      "medium": 14,
+      "low": 12
+    }
+  },
+  "reestimate": {
+    "remaining_units": 1558,
+    "observed_agent_review_scenarios_seconds": {
+      "low": 69029.76800827938,
+      "median_scenario": 109173.84633011652,
+      "high": 135469.8306643453
+    },
+    "owner_resolution_seconds": null,
+    "real_migration_seconds": null,
+    "minimum_batches_at_50": 32,
+    "category_separated_batches_at_50": 42,
+    "batch_constraint": "At most 50 units/about 5 source files/focused session; smaller for high ambiguity. No T11b IDs/manifests/decisions created.",
+    "assumptions": [
+      "Same agent, same evidence/source access and review method; apply per-category sample timings, never mean(50)*1558.",
+      "Sample is purposive and tiny in some strata; no statistical confidence interval. Scenario bounds are observed min/max scaling, not guaranteed completion bounds.",
+      "Owner-required decisions and host qualification have unknown waits/cost; total completion duration remains unbounded/unestimated."
+    ]
+  },
+  "acceptance": "PENDING_OWNER_ACCEPTANCE; T11b NOT_STARTED_BLOCKED_BY_OWNER_GATE; reference 1.2.0 untouched; E4 seven checks REQUIRED/NOT_RUN/NOT_WAIVED"
+}

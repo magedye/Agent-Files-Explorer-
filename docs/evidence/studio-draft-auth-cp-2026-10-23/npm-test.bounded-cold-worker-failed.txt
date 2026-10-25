@@ -1,0 +1,176 @@
+
+> aghr-governance-studio@1.0.0 test
+> node --test --test-concurrency=2 tests/*.test.mjs
+
+✔ M2 Reference Explorer: Default summary uses AGHR 1.2.0 with exact counts (7.6042ms)
+✔ M2 Reference Explorer: Rules search and filtering (2.0507ms)
+✔ M2 Reference Explorer: Rule details with basis sources and coverage (2.685ms)
+✔ M2 Reference Explorer: Packages endpoint returns all registered governance packages (4.3556ms)
+✔ M2 Reference Explorer: Omitted package uses 1.2.0 while historical IDs stay explicit (15.3482ms)
+✔ M2 Reference Explorer: Compare AGHR 1.0.0 vs AGHR 1.1.0 returns typed structural delta (2.0046ms)
+✔ M2 Reference Explorer: Updated 1.2.0 is registered with scoped reference status (1.0618ms)
+✔ M2 Reference Explorer: Impact analysis for modified rule (1.0547ms)
+✔ M3 Intake: Compound statement decomposition (1.8156ms)
+✔ M3 Intake: 2-Layer classification of domain concern and normative force (3.9315ms)
+✔ M3 Intake: Conflict detection against existing rules triggers REJECT proposal (58.7247ms)
+✔ M3 Intake: Legacy submit without server grant is rejected before persistence (1.1274ms)
+✔ M4 Adoption: Empty discovery when data/ was removed (1.0688ms)
+✔ M4 Adoption: Prepares adoption plan without silent destruction (4.3272ms)
+✔ M6 Governed Staging & Apply: Staging, Precondition Drift, and Authorized Apply (377.8458ms)
+✔ T13 every legacy mutation route rejects before reading an untrusted body (51.8456ms)
+✔ UI locales: every message has Arabic/English copy and matching parameters (25.8548ms)
+✔ UI locales: stored preference chooses language and matching direction (1.0544ms)
+✔ UI locales: absent, corrupt or unavailable storage preserves the Arabic default (3.2259ms)
+✔ UI locales: interpolation preserves mixed input, dollar signs and zero counts (3.4767ms)
+✔ INBOX custody receipt detects changed bytes or file set (1227.1357ms)
+✔ M1 Security: Approved Roots Listing (6.2197ms)
+✔ M1 Security: Reject Path Traversal via rootId + rel (2.2939ms)
+✔ M1 Security: Reject Null Byte Injection (0.555ms)
+✔ M1 Security: Reject Absolute Path in relPath (0.552ms)
+✔ M1 Security: Reject Arbitrary Client Path outside Approved Roots (1.0182ms)
+✔ M1 Security: Reject Protected Files (.git, .env) (1.373ms)
+✔ M1 API Endpoint: GET /api/roots returns approved roots safely (3.1891ms)
+✔ M1 API Endpoint: GET /api/tree with traversal attempt returns 403 (1.4806ms)
+✔ M1 API Endpoint: GET /api/file within approved root succeeds (4.3286ms)
+✔ M1 API Endpoint: GET /api/file requesting protected file returns 403 (1.605ms)
+✔ T02 source identity and command injection boundary (19669.2354ms)
+✔ T02 audited Python launcher denies filesystem, subprocess and network effects (12765.9692ms)
+✔ T02 malformed, absent, forged status/exit and foreign engine reject (394.0832ms)
+✔ T06 candidate selection keeps engine pinned, refuses invalid structures and does not fabricate critical acceptance (62606.7424ms)
+(node:18672) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ T03 real scan, twelve memory tables, immutable raw source and absence (15433.2497ms)
+✔ T03 synthetic due/future lifecycle, capability absence states and atomic rollback (202.358ms)
+✔ Contract JSONL: multiple lines round-trip without changing original bytes or granting trust (21.5612ms)
+✔ Contract JSONL: CRLF and optional final newline preserve source bytes and line locations (1.3602ms)
+✔ Contract JSONL: duplicate records are reported, never counted as extra successful use (4.1363ms)
+✔ Contract JSONL: duplicate JSON keys and noncanonical foreign JSON remain unsupported originals (1.4877ms)
+✔ Contract JSONL: task or immutable session mismatch blocks import of the entire file (3.477ms)
+✔ Contract JSONL: a session can acquire an end time, but cannot rewrite it (2.1674ms)
+✔ Contract JSONL: malformed UTF-8, BOM, YAML and blank records keep their original bytes (23.4215ms)
+✔ Contract JSONL: multiple events on one line cannot overwrite the SQL source-line identity (12.0589ms)
+✔ Contract JSONL: byte, line and record-count limits reject bounded inputs explicitly (2.2974ms)
+✔ Contract canonical JSON: UTF-16 ordering, array order and Unicode text are stable (2.1202ms)
+✔ Contract schema bundling preserves literal dollar properties and opaque JSON instance values (14.313ms)
+(node:69520) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+▶ T13/T14/T16 real HTTP draft grants, denial audit, atomic persistence and restart
+  ✔ No identity, forged role, no grant and all unsupported writes return403 and persist denial identity (4091.5865ms)
+  ✖ Pinned Python rejects missing authority.level, scope, wrapper mismatch, YAML aliases and owner claims (16808.1773ms)
+  ✖ Preview grants no write; another actor/intent, expiry, revoke, mismatch and replay cannot write (27931.0577ms)
+  ✖ Failure inserting audit rolls back CP row in the same transaction (10702.2907ms)
+✖ T13/T14/T16 real HTTP draft grants, denial audit, atomic persistence and restart (81758.755ms)
+✔ T15 Windows job adapter captures normal stdout/stderr and enforces default profiles (4204.178ms)
+ℹ {"event":"finished","status":"passed","reason":null,"exit_code":0,"resource_peak_mb":11.54296875,"duration_ms":1907,"active_processes_after":0,"observed_pids":[71352,64744,71736],"memory_events":[],"started":{"event":"started","pid":71352,"adapter":"windows-job-list","hard_memory_bytes":134217728,"limit_flags":8704},"stdout":"partial-out\r\n","stderr":"partial-err\r\n","limits":{"timeoutMs":15000,"memoryBytes":134217728}}
+✔ T15 actual timeout reaps root and child tree and retains partial output (13376.1789ms)
+ℹ {"event":"finished","status":"resource_limit_exceeded","reason":"timeout","exit_code":null,"resource_peak_mb":22.37109375,"duration_ms":10047,"active_processes_after":0,"observed_pids":[23260,32148,69612,36176,71284],"memory_events":[],"started":{"event":"started","pid":23260,"adapter":"windows-job-list","hard_memory_bytes":134217728,"limit_flags":8704},"stdout":"CHILD:36176\r\n","stderr":"","limits":{"timeoutMs":10000,"memoryBytes":134217728}}
+✔ T15 actual hard memory limit produces memory_limit with no surviving process (3650.0152ms)
+ℹ {"event":"finished","status":"resource_limit_exceeded","reason":"memory_limit","exit_code":null,"resource_peak_mb":132.0078125,"duration_ms":1328,"active_processes_after":0,"observed_pids":[26808,66624,72512],"memory_events":[{"message":10}],"started":{"event":"started","pid":26808,"adapter":"windows-job-list","hard_memory_bytes":134217728,"limit_flags":8704},"stdout":"MEMORY_PROBE\r\nALLOCATION_BLOCKED completed_bytes=117440512\r\n","stderr":"","limits":{"timeoutMs":5000,"memoryBytes":134217728}}
+✔ T15 user cancellation differs from resource limit and output is bounded (5372.8074ms)
+ℹ {"cancelled":{"event":"finished","status":"errored","reason":"user_cancelled","exit_code":null,"resource_peak_mb":1.92578125,"duration_ms":203,"active_processes_after":0,"observed_pids":[69348,72668],"memory_events":[],"started":{"event":"started","pid":69348,"adapter":"windows-job-list","hard_memory_bytes":134217728,"limit_flags":8704},"stdout":"","stderr":"","limits":{"timeoutMs":15000,"memoryBytes":134217728}},"output":{"event":"finished","status":"resource_limit_exceeded","reason":"output_limit","exit_code":null,"resource_peak_mb":13.421875,"duration_ms":1625,"active_processes_after":0,"observed_pids":[40968,71252,68084],"memory_events":[],"started":{"event":"started","pid":40968,"adapter":"windows-job-list","hard_memory_bytes":134217728,"limit_flags":8704},"stdout":"omitted 32768 chars","stderr":"","limits":{"timeoutMs":15000,"memoryBytes":134217728}}}
+(node:17800) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ T14 explicit disk mode persists/reopens 12 tables and truthful audit; no default activation (191.4387ms)
+✔ T14 migration is atomic: real SQLite denial rolls back, then authorized retry succeeds (20.0645ms)
+✔ T14 detects incompatible schemas and keeps approval history constraints (41.9206ms)
+(node:44300) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ T07 frozen sample preserves all 15 categories, actual bytes, missing authority and pending review (265.8266ms)
+✔ T07 actual HTTP source, history, relations and unknown paths reject without filesystem path input (50413.2507ms)
+✔ T08 display projection never transfers recorded qualification across any changed identity key (1.4498ms)
+✔ T07 unresolved relation is retained as unresolved, not silently dropped or accepted (971.3341ms)
+(node:54320) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ T04 actual HTTP session, list/detail, query, identity, mutation and origin rejection (15982.9844ms)
+✔ T04 synthetic pagination preserves every ID and binds cursor to filters (847.7152ms)
+✔ T04 credential rotation and expiry (17.5956ms)
+✔ T06 authorized mock reaches actual E2 VALID/0 while retaining explicit simulation and unknown real trust (12796.6491ms)
+✔ T06 source/receipt/public-key bindings and fixture scope cannot be self-declared (152.9683ms)
+✔ T06 mock never bypasses missing scope or invalid signature (15216.5712ms)
+✔ T12 owner-approved mock reaches actual E2 strict VALID/0 for exactly 47 items (17821.3933ms)
+✔ T12 altered signatures, keys, unsigned policy additions and manifest drift reject (2297.1999ms)
+✔ T12 valid signed fixture cannot bypass missing scope (24958.7018ms)
+✔ T13 server capabilities bind actor/project/action/resource/hash; labels and clones grant nothing (15.2797ms)
+✔ T13 expiry and revocation are rechecked at the effect; developer cannot issue grants (3.9685ms)
+✔ T13 actual HTTP checks server identity, denies role headers and scope-mismatched tokens (328.2347ms)
+✔ T13 importing backend and refusing legacy writes keeps the zero-write profile (1566.4448ms)
+ℹ tests 77
+ℹ suites 0
+ℹ pass 73
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 218742.5735
+
+✖ failing tests:
+
+test at tests\studio_draft_runtime.test.mjs:42:11
+✖ Pinned Python rejects missing authority.level, scope, wrapper mismatch, YAML aliases and owner claims (16808.1773ms)
+  AssertionError [ERR_ASSERTION]: {"response":{"data":null,"meta":{"request_id":"227df1f6-e143-48e9-ba1f-4fc504ddae2f","contract_revision":"contract.1","recorded_at":"2026-10-23T17:16:29.579Z","error":{"code":"INTERNAL_ERROR","message":"Draft service unavailable; no source operation permitted.","halted":true,"issues":[]}}},"last_audit":[{"id":23,"at":"2026-10-23T17:16:13.523Z","actor":"isolated-owner","actor_role":"governance-owner","simulated_role":null,"event_type":"draft.preview","workspace_id":"rc3-local","resource_type":"draft","resource_id":null,"payload_json":"{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"227df1f6-e143-48e9-ba1f-4fc504ddae2f\"}","ip_address":null,"user_agent":null},{"id":24,"at":"2026-10-23T17:16:29.458Z","actor":"isolated-owner","actor_role":"governance-owner","simulated_role":null,"event_type":"draft.preview","workspace_id":"rc3-local","resource_type":"draft","resource_id":null,"payload_json":"{\"result\":\"ERROR\",\"status\":503,\"reason\":\"DRAFT_PARSER_TIMEOUT\",\"request_id\":\"227df1f6-e143-48e9-ba1f-4fc504ddae2f\"}","ip_address":null,"user_agent":null}]}
+  
+  503 !== 422
+  
+      at TestContext.<anonymous> (file:///D:/APP/Agent-Files-Explorer/tests/studio_draft_runtime.test.mjs:44:164)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async TestContext.<anonymous> (file:///D:/APP/Agent-Files-Explorer/tests/studio_draft_runtime.test.mjs:42:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 503,
+    expected: 422,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\studio_draft_runtime.test.mjs:50:11
+✖ Preview grants no write; another actor/intent, expiry, revoke, mismatch and replay cannot write (27931.0577ms)
+  AssertionError [ERR_ASSERTION]: {"data":null,"meta":{"request_id":"d4aa0c43-1391-45f5-becd-4724b393117a","contract_revision":"contract.1","recorded_at":"2026-10-23T17:16:57.637Z","error":{"code":"INTERNAL_ERROR","message":"Draft service unavailable; no source operation permitted.","halted":true,"issues":[]}}}
+  
+  503 !== 200
+  
+      at preview (file:///D:/APP/Agent-Files-Explorer/tests/studio_draft_runtime.test.mjs:24:97)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async grantFor (file:///D:/APP/Agent-Files-Explorer/tests/studio_draft_runtime.test.mjs:25:44)
+      at async TestContext.<anonymous> (file:///D:/APP/Agent-Files-Explorer/tests/studio_draft_runtime.test.mjs:53:16)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async TestContext.<anonymous> (file:///D:/APP/Agent-Files-Explorer/tests/studio_draft_runtime.test.mjs:50:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 503,
+    expected: 200,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\studio_draft_runtime.test.mjs:73:11
+✖ Failure inserting audit rolls back CP row in the same transaction (10702.2907ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///D:/APP/Agent-Files-Explorer/tests/studio_draft_runtime.test.mjs:76:98)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async TestContext.<anonymous> (file:///D:/APP/Agent-Files-Explorer/tests/studio_draft_runtime.test.mjs:73:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\studio_draft_runtime.test.mjs:16:1
+✖ T13/T14/T16 real HTTP draft grants, denial audit, atomic persistence and restart (81758.755ms)
+  TypeError: Cannot read properties of undefined (reading 'id')
+      at TestContext.<anonymous> (file:///D:/APP/Agent-Files-Explorer/tests/studio_draft_runtime.test.mjs:79:36)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)

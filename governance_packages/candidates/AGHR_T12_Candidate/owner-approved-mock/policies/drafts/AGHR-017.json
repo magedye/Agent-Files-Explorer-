@@ -1,0 +1,44 @@
+{
+  "id": "AGHR-017",
+  "title": "فصل التنفيذ والتحقق والقبول",
+  "kind": "PRINCIPLE",
+  "force": "MUST",
+  "severity": "critical",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: When reporting completion.\nSeparate implementation, verification, review, release acceptance and activation; never self-grant independent authority.",
+  "authority": {
+    "source": ".t12/SourceGrant.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "OWNER_T12_OVERRIDE",
+    "status": "active",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "الخلط بين التنفيذ والقبول يسمح باعتماد ذاتي غير مخول. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "review",
+    "mergeEffect": "advisory"
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-017"
+    ]
+  },
+  "impact": {
+    "band": "critical",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2026-11-22",
+  "exceptions": {
+    "allowed": false
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

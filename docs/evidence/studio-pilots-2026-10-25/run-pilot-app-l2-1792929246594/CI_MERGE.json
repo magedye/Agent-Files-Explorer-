@@ -1,0 +1,107 @@
+{
+  "baseline": "669e485b6a9a12067b9099265649f983dbd964cf",
+  "proposed": "fb9b9175f79d5e747ddfe9c9eccfb4623a47a43c",
+  "merged": "bef262c3d4fbc2ebbef2a8909c807fe2956aa379",
+  "stale_hash": {
+    "status": "REJECTED",
+    "exit_code": 1,
+    "stderr": "remote: MERGE_OR_CURRENT_HASH_REQUIRED        \nTo D:\\APP\\Agent-Files-Explorer\\pilot-app-l2/.aghr/ci-private/remote.git\n ! [remote rejected] main -> main (pre-receive hook declined)\nerror: failed to push some refs to 'D:\\APP\\Agent-Files-Explorer\\pilot-app-l2/.aghr/ci-private/remote.git'\n"
+  },
+  "application_test": {
+    "event": "finished",
+    "status": "passed",
+    "reason": null,
+    "exit_code": 0,
+    "resource_peak_mb": 80.5625,
+    "duration_ms": 2265,
+    "active_processes_after": 0,
+    "observed_pids": [
+      130636,
+      142996,
+      131256
+    ],
+    "memory_events": [],
+    "started": {
+      "event": "started",
+      "pid": 130636,
+      "adapter": "windows-job-list",
+      "hard_memory_bytes": 2147483648,
+      "limit_flags": 8704
+    },
+    "stdout": "✔ actual L2 service supplies project identity and refuses mutations (210.251ms)\nℹ tests 1\nℹ suites 0\nℹ pass 1\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 1541.3817\n",
+    "stderr": "",
+    "limits": {
+      "timeoutMs": 30000,
+      "memoryBytes": 2147483648
+    }
+  },
+  "publisher": {
+    "status": "PUBLISHED_AFTER_ACTUAL_LOCAL_MERGE",
+    "state": {
+      "schemaVersion": "1.2",
+      "aghrVersion": "1.0.0-rc.3",
+      "adoptionLevel": "L2",
+      "domainLevels": {
+        "instructions": "L2",
+        "skills": "L0"
+      },
+      "evalStatus": "NOT_RUN",
+      "skillQualification": [],
+      "exceptions": [],
+      "publication": {
+        "publisher": "ci",
+        "ciRunRef": "local-git-ci:bf233e81-6d3d-4b6e-86b8-c7f7dc384307",
+        "commitHash": "bef262c3d4fbc2ebbef2a8909c807fe2956aa379",
+        "publishedAt": "2026-10-25T11:56:07.112Z",
+        "sourceEvidence": [
+          {
+            "path": ".aghr/ci-results/pr-evidence-63206aa4-241a-4057-9c69-c36e6b97f6a8.json",
+            "content_hash": "sha256:cdd72d08f829fd47e0c44a160970a869e3f3785971bf7be6d0bf0c75fac7300a",
+            "bytes": 57307
+          }
+        ]
+      }
+    },
+    "profile": "SANDBOX_LOCAL_CI_V1",
+    "state_sha256": "bda0c08507dd045ce85f726bd811df5e2a43e0776cac87d653d11557bd8ef86e",
+    "gpg": "UNSIGNED_OWNER_ACCEPTED_WARNING",
+    "hosted_ci": "NOT_RUN",
+    "release": "NOT_GRANTED"
+  },
+  "resource": {
+    "event": "finished",
+    "status": "passed",
+    "reason": null,
+    "exit_code": 0,
+    "resource_peak_mb": 67.6875,
+    "duration_ms": 2968,
+    "active_processes_after": 0,
+    "observed_pids": [
+      144320,
+      133900,
+      135264,
+      135696,
+      143700,
+      119636,
+      133016,
+      141396,
+      143564,
+      143956,
+      124980
+    ],
+    "memory_events": [],
+    "started": {
+      "event": "started",
+      "pid": 144320,
+      "adapter": "windows-job-list",
+      "hard_memory_bytes": 2147483648,
+      "limit_flags": 8704
+    },
+    "stdout": "{\"status\":\"PUBLISHED_AFTER_ACTUAL_LOCAL_MERGE\",\"state\":{\"schemaVersion\":\"1.2\",\"aghrVersion\":\"1.0.0-rc.3\",\"adoptionLevel\":\"L2\",\"domainLevels\":{\"instructions\":\"L2\",\"skills\":\"L0\"},\"evalStatus\":\"NOT_RUN\",\"skillQualification\":[],\"exceptions\":[],\"publication\":{\"publisher\":\"ci\",\"ciRunRef\":\"local-git-ci:bf233e81-6d3d-4b6e-86b8-c7f7dc384307\",\"commitHash\":\"bef262c3d4fbc2ebbef2a8909c807fe2956aa379\",\"publishedAt\":\"2026-10-25T11:56:07.112Z\",\"sourceEvidence\":[{\"path\":\".aghr/ci-results/pr-evidence-63206aa4-241a-4057-9c69-c36e6b97f6a8.json\",\"content_hash\":\"sha256:cdd72d08f829fd47e0c44a160970a869e3f3785971bf7be6d0bf0c75fac7300a\",\"bytes\":57307}]}},\"profile\":\"SANDBOX_LOCAL_CI_V1\",\"state_sha256\":\"bda0c08507dd045ce85f726bd811df5e2a43e0776cac87d653d11557bd8ef86e\",\"gpg\":\"UNSIGNED_OWNER_ACCEPTED_WARNING\",\"hosted_ci\":\"NOT_RUN\",\"release\":\"NOT_GRANTED\"}\n",
+    "stderr": "",
+    "limits": {
+      "timeoutMs": 30000,
+      "memoryBytes": 2147483648
+    }
+  }
+}

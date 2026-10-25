@@ -1,0 +1,63 @@
+=== Context Health & Budget Check ===
+
+1. Checking Bootstrap File Budgets:
+  ✔ [PASS] AGENTS.md                :   3.5 KB | ~ 981 est. tokens (Budget: 2500)
+  ✔ [PASS] docs/status/CURRENT.md   :   3.4 KB | ~ 930 est. tokens (Budget: 3500)
+  ✔ [PASS] docs/status/HANDOFF.md   :   7.9 KB | ~2194 est. tokens (Budget: 2500)
+  ✔ [PASS] docs/INDEX.md            :   4.0 KB | ~1096 est. tokens (Budget: 3000)
+
+  Total Bootstrap Context: ~5201 tokens (Target: < 5,000 tokens)
+
+2. Checking for Prohibited Crawl Patterns in Bootstrap Files:
+  ⚠️ Total bootstrap context exceeds recommended threshold of 5,000 tokens.
+  ✔ Prohibited patterns check complete.
+
+3. Verifying Local Markdown Links in docs/:
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_E1_E2_CORE_SCOPE_AR.md: link target not found: ../evidence/studio-t00-t01-2026-10-22/README.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_E1_E2_CORE_SCOPE_AR.md: link target not found: ../specs/aghr-rc3/AGHR_REFERENCE.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_E1_E2_CORE_SCOPE_AR.md: link target not found: ../specs/aghr-rc3/STUDIO_SPECIFICATION.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_E1_E2_CORE_SCOPE_AR.md: link target not found: ../contracts/aghr-rc3/README.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_E1_E2_CORE_SCOPE_AR.md: link target not found: ../contracts/aghr-rc3/CONTRACTS.lock.json
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_E1_E2_CORE_SCOPE_AR.md: link target not found: ../evidence/studio-t00-t01-2026-10-22/04_GAP_REPORT.json
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_E1_E2_CORE_SCOPE_AR.md: link target not found: ../evidence/studio-t00-t01-2026-10-22/03_COMPATIBILITY_MATRIX.json
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_E1_E2_CORE_SCOPE_AR.md: link target not found: ../evidence/studio-t00-t01-2026-10-22/07_VERDICT.json
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_E1_E2_CORE_SCOPE_AR.md: link target not found: STUDIO_FULL_PROJECT_UPGRADE_AR.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_E1_E2_CORE_SCOPE_AR.md: link target not found: ../evidence/studio-e1-e2-scope-2026-10-22/PREFLIGHT.json
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_E1_E2_CORE_SCOPE_AR.md: link target not found: ../../server/security.js
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_E1_E2_CORE_SCOPE_AR.md: link target not found: ../evidence/studio-e2-2026-10-22/GAPS.json
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_E1_E2_CORE_SCOPE_AR.md: link target not found: ../evidence/studio-e1a-2026-10-22/README.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_E1_E2_CORE_SCOPE_AR.md: link target not found: ../evidence/studio-e1b-2026-10-22/README.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_E1_E2_CORE_SCOPE_AR.md: link target not found: ../evidence/studio-e1d-2026-10-22/README.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_UPGRADE_TASKS_AR.md: link target not found: STUDIO_FULL_PROJECT_UPGRADE_AR.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_UPGRADE_TASKS_AR.md: link target not found: ../specs/aghr-rc3/STUDIO_SPECIFICATION.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_UPGRADE_TASKS_AR.md: link target not found: ../contracts/aghr-rc3/README.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_UPGRADE_TASKS_AR.md: link target not found: ../reviews/STUDIO_UPGRADE_PLAN_REVIEW_2026_10_22_AR.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_UPGRADE_TASKS_AR.md: link target not found: ../evidence/studio-t00-t01-2026-10-22/README.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_UPGRADE_TASKS_AR.md: link target not found: ../evidence/studio-t00-t01-2026-10-22/T00_PREFLIGHT.json
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_UPGRADE_TASKS_AR.md: link target not found: ../evidence/studio-t00-t01-2026-10-22/README.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_UPGRADE_TASKS_AR.md: link target not found: ../evidence/studio-e2-2026-10-22/OWNER_ACCEPTANCE.json
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\plans\STUDIO_UPGRADE_TASKS_AR.md: link target not found: ../evidence/studio-e2-2026-10-22/README.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\status\CURRENT.md: link target not found: ../evidence/studio-e2-2026-10-22/README.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\status\CURRENT.md: link target not found: ../contracts/aghr-rc3/README.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\status\CURRENT.md: link target not found: ../reviews/aghr-items-2026-10-22/README.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\status\CURRENT.md: link target not found: ../governance/REFERENCE_UPDATE_1_2_0.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\status\CURRENT.md: link target not found: ../governance/SKILLS_CANDIDATE_1_3_0.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\status\CURRENT.md: link target not found: ../features/INTERFACE_LANGUAGES.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\status\HANDOFF.md: link target not found: ../../AGENTS.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\status\HANDOFF.md: link target not found: ../reviews/aghr-items-2026-10-22/README.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\status\HANDOFF.md: link target not found: ../specs/aghr-rc3/README.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\status\HANDOFF.md: link target not found: ../governance/LAST_APP_ADOPTION_2026_10_22.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\status\HANDOFF.md: link target not found: ../plans/SKILLS_GOVERNANCE_CANDIDATE_1_3_0.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\status\HANDOFF.md: link target not found: ../governance/SKILLS_CANDIDATE_1_3_0.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\status\HANDOFF.md: link target not found: ../features/INTERFACE_LANGUAGES.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\status\HANDOFF.md: link target not found: ../evidence/default-reference-1.2.0/after.json
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\status\HANDOFF.md: link target not found: ../evidence/reference-layout-2026-10-20/after.json
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\before\docs\status\HANDOFF.md: link target not found: ../governance/REFERENCE_UPDATE_1_2_0.md
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\README.md: link target not found: DIFFS.json
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\README.md: link target not found: CUSTODY.lock.json
+  ❌ [BROKEN_LINK] In docs\evidence\studio-phase1-2026-10-23\README.md: link target not found: VERIFICATION.json
+  ✔ Markdown link verification complete.
+
+=== Summary ===
+Errors: 43, Warnings: 1
+❌ Context health check FAILED.

@@ -1,0 +1,64 @@
+
+> aghr-governance-studio@1.0.0 test
+> node --test tests/*.test.mjs
+
+✔ M2 Reference Explorer: Default summary uses AGHR 1.2.0 with exact counts (16.4467ms)
+✔ M2 Reference Explorer: Rules search and filtering (2.0473ms)
+✔ M2 Reference Explorer: Rule details with basis sources and coverage (1.381ms)
+✔ M2 Reference Explorer: Packages endpoint returns all registered governance packages (6.707ms)
+✔ M2 Reference Explorer: Omitted package uses 1.2.0 while historical IDs stay explicit (80.2096ms)
+✔ M2 Reference Explorer: Compare AGHR 1.0.0 vs AGHR 1.1.0 returns typed structural delta (1.7718ms)
+✔ M2 Reference Explorer: Updated 1.2.0 is registered with scoped reference status (1.1129ms)
+✔ M2 Reference Explorer: Impact analysis for modified rule (0.9733ms)
+✔ M3 Intake: Compound statement decomposition (1.8181ms)
+✔ M3 Intake: 2-Layer classification of domain concern and normative force (3.9751ms)
+✔ M3 Intake: Conflict detection against existing rules triggers REJECT proposal (3.7891ms)
+✔ M3 Intake: Submit intake request generates persistent ChangePacket (8.3506ms)
+✔ M4 Adoption: Empty discovery when data/ was removed (1.0673ms)
+✔ M4 Adoption: Prepares adoption plan without silent destruction (4.1012ms)
+✔ M6 Governed Staging & Apply: Staging, Precondition Drift, and Authorized Apply (67.1412ms)
+✔ UI locales: every message has Arabic/English copy and matching parameters (8.9988ms)
+✔ UI locales: stored preference chooses language and matching direction (1.0071ms)
+✔ UI locales: absent, corrupt or unavailable storage preserves the Arabic default (0.8801ms)
+✔ UI locales: interpolation preserves mixed input, dollar signs and zero counts (1.684ms)
+✔ INBOX custody receipt detects changed bytes or file set (409.4939ms)
+✔ M1 Security: Approved Roots Listing (7.6666ms)
+✔ M1 Security: Reject Path Traversal via rootId + rel (2.635ms)
+✔ M1 Security: Reject Null Byte Injection (0.6709ms)
+✔ M1 Security: Reject Absolute Path in relPath (0.6817ms)
+✔ M1 Security: Reject Arbitrary Client Path outside Approved Roots (1.2666ms)
+✔ M1 Security: Reject Protected Files (.git, .env) (2.5986ms)
+✔ M1 API Endpoint: GET /api/roots returns approved roots safely (4.1153ms)
+✔ M1 API Endpoint: GET /api/tree with traversal attempt returns 403 (2.2293ms)
+✔ M1 API Endpoint: GET /api/file within approved root succeeds (3.9488ms)
+✔ M1 API Endpoint: GET /api/file requesting protected file returns 403 (1.4057ms)
+✔ T02 source identity and command injection boundary (7256.1304ms)
+✔ T02 malformed, absent, forged status/exit and foreign engine reject (3.1255ms)
+(node:56156) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ T03 real scan, twelve memory tables, immutable raw source and absence (7417.2706ms)
+✔ T03 synthetic due/future lifecycle, capability absence states and atomic rollback (62.9468ms)
+✔ Contract JSONL: multiple lines round-trip without changing original bytes or granting trust (11.9251ms)
+✔ Contract JSONL: CRLF and optional final newline preserve source bytes and line locations (28.3862ms)
+✔ Contract JSONL: duplicate records are reported, never counted as extra successful use (2.4271ms)
+✔ Contract JSONL: duplicate JSON keys and noncanonical foreign JSON remain unsupported originals (1.1343ms)
+✔ Contract JSONL: task or immutable session mismatch blocks import of the entire file (11.556ms)
+✔ Contract JSONL: a session can acquire an end time, but cannot rewrite it (2.008ms)
+✔ Contract JSONL: malformed UTF-8, BOM, YAML and blank records keep their original bytes (1.574ms)
+✔ Contract JSONL: multiple events on one line cannot overwrite the SQL source-line identity (0.8802ms)
+✔ Contract JSONL: byte, line and record-count limits reject bounded inputs explicitly (1.1636ms)
+✔ Contract canonical JSON: UTF-16 ordering, array order and Unicode text are stable (24.6386ms)
+✔ Contract schema bundling preserves literal dollar properties and opaque JSON instance values (2.237ms)
+(node:10132) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ T04 actual HTTP session, list/detail, query, identity, mutation and origin rejection (7739.9438ms)
+✔ T04 synthetic pagination preserves every ID and binds cursor to filters (300.8864ms)
+✔ T04 credential rotation and expiry (3.7679ms)
+ℹ tests 48
+ℹ suites 0
+ℹ pass 48
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10105.4731

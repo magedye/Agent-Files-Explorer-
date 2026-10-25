@@ -1,0 +1,826 @@
+{
+  "profile": "ACTUAL_PROJECT_LOCAL_PROCESS_ONLY",
+  "project": {
+    "id": "agent-files-explorer",
+    "name": "Agent Files Explorer",
+    "root": "D:\\APP\\Agent-Files-Explorer",
+    "scope": "D:/APP/Agent-Files-Explorer/**",
+    "registration": "OWNER_AUTHORIZED_PHASE5",
+    "host": "aghr-local-process",
+    "host_version": "v24.11.0"
+  },
+  "source_unchanged": true,
+  "before": {
+    "server/security.js": "5b59626a9af0b6d9524be7f331d66da28078b2c9ddc14520a62f6353973c5ba8",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/aghr.json": "ef25b809b529fc6898db46c0afcaafaffc6ac67fa52c5e54c0517b088fe972c6",
+    "governance_packages/candidates/AGHR_rc3_Core_Candidate/policies/observations/reference-state.json": "f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0"
+  },
+  "requests": [
+    {
+      "method": "GET",
+      "route": "/api/v1/workspaces/rc3-local/phase4",
+      "status": 200,
+      "data": {
+        "mode": "DRAFT_ONLY",
+        "policy_promotion": false,
+        "source_written": false,
+        "state_written": false,
+        "host_inventory": {
+          "host_id": "aghr-local-process",
+          "host_version": "v24.11.0",
+          "registry_status": "available",
+          "skills": [
+            {
+              "id": "project-measurement",
+              "source": "project",
+              "exists": true,
+              "available": true,
+              "instruction_hash": "sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692",
+              "entry_hash": "sha256:229c4a5c1fe8248ea452f5fe2dfd26e9ea6391430187f0237f52c5feab8ef6d9",
+              "triggers": [
+                "قياس",
+                "مراجعة",
+                "measure",
+                "review"
+              ],
+              "capabilities": [],
+              "requires": [],
+              "preference": 100
+            },
+            {
+              "id": "project-meta",
+              "source": "project",
+              "exists": true,
+              "available": true,
+              "instruction_hash": "sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692",
+              "entry_hash": "sha256:229c4a5c1fe8248ea452f5fe2dfd26e9ea6391430187f0237f52c5feab8ef6d9",
+              "triggers": [
+                "قياس",
+                "مراجعة",
+                "measure",
+                "review"
+              ],
+              "capabilities": [],
+              "requires": [],
+              "preference": 100
+            }
+          ],
+          "observation": "actual local registered driver inventory; not a native agent skill listing"
+        },
+        "scope": "D:/APP/Agent-Files-Explorer/**",
+        "measurement_configured": true,
+        "meta_eval_configured": true,
+        "items": [
+          {
+            "id": "OBS-REFERENCE-STATE-001",
+            "evidence": "assumed",
+            "source_hash": "sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0"
+          }
+        ],
+        "evaluations": [],
+        "qualification": "Live process only; historical rows do not restore proofs.",
+        "watcher": {
+          "configured": false,
+          "running": false,
+          "debounce_ms": 500,
+          "mode": "DRAFTS_ONLY",
+          "existing_files_scanned": false,
+          "errors": []
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "route": "/api/v1/settings",
+      "status": 200,
+      "data": {
+        "revision": "phase5-local.1",
+        "hash": "sha256:bb4d6e9db4ec2acf03ab76f64eb0c528d127a1b5c15f8d583d10970d88dbfa1a",
+        "project": {
+          "id": "agent-files-explorer",
+          "name": "Agent Files Explorer",
+          "root": "D:\\APP\\Agent-Files-Explorer",
+          "scope": "D:/APP/Agent-Files-Explorer/**",
+          "registration": "OWNER_AUTHORIZED_PHASE5",
+          "host": "aghr-local-process",
+          "host_version": "v24.11.0"
+        },
+        "settings": {
+          "roles": {
+            "actual-project-owner": "governance-owner"
+          },
+          "git": {
+            "gpg_key_id": null,
+            "default_branch": "main",
+            "commit_message_template": "aghr: {title}"
+          },
+          "limits": {
+            "eval": {
+              "timeout_ms": 600000,
+              "memory_mib": 2048
+            },
+            "qualify": {
+              "timeout_ms": 3600000,
+              "memory_mib": 2048
+            }
+          },
+          "hosts": [],
+          "security": {
+            "binding": "127.0.0.1",
+            "audit_retention_days": 90,
+            "token_rotation": "per_session"
+          }
+        },
+        "evaluators": {
+          "mode": "DRAFT_ONLY",
+          "policy_promotion": false,
+          "source_written": false,
+          "state_written": false,
+          "host_inventory": {
+            "host_id": "aghr-local-process",
+            "host_version": "v24.11.0",
+            "registry_status": "available",
+            "skills": [
+              {
+                "id": "project-measurement",
+                "source": "project",
+                "exists": true,
+                "available": true,
+                "instruction_hash": "sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692",
+                "entry_hash": "sha256:229c4a5c1fe8248ea452f5fe2dfd26e9ea6391430187f0237f52c5feab8ef6d9",
+                "triggers": [
+                  "قياس",
+                  "مراجعة",
+                  "measure",
+                  "review"
+                ],
+                "capabilities": [],
+                "requires": [],
+                "preference": 100
+              },
+              {
+                "id": "project-meta",
+                "source": "project",
+                "exists": true,
+                "available": true,
+                "instruction_hash": "sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692",
+                "entry_hash": "sha256:229c4a5c1fe8248ea452f5fe2dfd26e9ea6391430187f0237f52c5feab8ef6d9",
+                "triggers": [
+                  "قياس",
+                  "مراجعة",
+                  "measure",
+                  "review"
+                ],
+                "capabilities": [],
+                "requires": [],
+                "preference": 100
+              }
+            ],
+            "observation": "actual local registered driver inventory; not a native agent skill listing"
+          },
+          "scope": "D:/APP/Agent-Files-Explorer/**",
+          "measurement_configured": true,
+          "meta_eval_configured": true,
+          "items": [
+            {
+              "id": "OBS-REFERENCE-STATE-001",
+              "evidence": "assumed",
+              "source_hash": "sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0"
+            }
+          ],
+          "evaluations": [],
+          "qualification": "Live process only; historical rows do not restore proofs."
+        },
+        "resources": {
+          "effective": {
+            "eval": {
+              "timeout_ms": 600000,
+              "memory_mib": 2048
+            },
+            "qualify": {
+              "timeout_ms": 3600000,
+              "memory_mib": 2048
+            }
+          },
+          "mutable": false,
+          "reason": "T15 pinned by E1–E4 custody; changes require an engine CP, never a silent settings override."
+        },
+        "signing": {
+          "status": "NOT_CONFIGURED",
+          "warning": "UNSIGNED; GPG identity is not verified by a key label. Patch-only Draft exports."
+        },
+        "security": {
+          "session_rotation": "per_startup",
+          "listen": "127.0.0.1",
+          "audit_retention": "Minimum retention policy; no automatic audit deletion."
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/v1/workspaces/rc3-local/phase4/intents",
+      "status": 200,
+      "data": {
+        "id": "3d3adde4-c7da-4624-a577-dfa0c6fcbc08",
+        "scope": {
+          "workspace_id": "rc3-local",
+          "target_project": "studio-drafts",
+          "action": "verify.run.eval",
+          "resource_id": "CP-27e5e9ae-8fb0-4112-94cb-bd86596f0416",
+          "proposal_version_hash": "sha256:99eb04048f9db265dcd5ef499d8b8276c7740498da80192da6314d9a7b798091"
+        },
+        "status": "AWAITING_OPERATOR"
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/v1/workspaces/rc3-local/phase4/run",
+      "status": 200,
+      "data": {
+        "eval_run_id": "VR-b188d622-0562-42a7-b201-776e2a807225",
+        "status": "PASS",
+        "measured_delta": 0,
+        "finished_at": "2026-10-24T20:08:53.032Z",
+        "source_hash": "sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0",
+        "source_written": false,
+        "state_written": false
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/v1/workspaces/rc3-local/phase4/intents",
+      "status": 200,
+      "data": {
+        "id": "6172336a-40f7-46c4-b9ab-d5f4d6297213",
+        "scope": {
+          "workspace_id": "rc3-local",
+          "target_project": "studio-drafts",
+          "action": "meta.change.propose",
+          "resource_id": "CP-baf92ef3-ab36-4849-b095-40267b5c998b",
+          "proposal_version_hash": "sha256:d2d75ca835a404bc34711c9dae2d5d0936cff9acdcf1d59b88a602fd11efbf1b"
+        },
+        "status": "AWAITING_OPERATOR"
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/v1/workspaces/rc3-local/phase4/run",
+      "status": 422,
+      "error": "VALIDATION_FAILED",
+      "data": null
+    },
+    {
+      "method": "POST",
+      "route": "/api/v1/workspaces/rc3-local/phase4/intents",
+      "status": 200,
+      "data": {
+        "id": "214e25a4-1233-42d3-b2c5-79b72a5b9fcd",
+        "scope": {
+          "workspace_id": "rc3-local",
+          "target_project": "studio-drafts",
+          "action": "meta.change.propose",
+          "resource_id": "CP-c56a29ee-ebe5-4834-bff1-e0c8bd274ecd",
+          "proposal_version_hash": "sha256:f8ed2aa5dbadc5a2dfb9fc8585202cbd1da0b3e31c996bcdf2ca5ccadd244028"
+        },
+        "status": "AWAITING_OPERATOR"
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/v1/workspaces/rc3-local/phase4/run",
+      "status": 200,
+      "data": {
+        "id": "CP-c56a29ee-ebe5-4834-bff1-e0c8bd274ecd",
+        "workspace_id": "rc3-local",
+        "title": "Actual additive schema evaluation",
+        "kind": "GENERATED_FILE",
+        "target_item_id": null,
+        "status": "draft",
+        "source": {
+          "type": "request",
+          "ref": "phase4-meta"
+        },
+        "base_package_version": "1.0.0-rc.3",
+        "base_candidate_hash": "sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2",
+        "proposed_yaml": "{\"files\": [{\"content\": \"{\\\"type\\\":\\\"object\\\",\\\"required\\\":[\\\"name\\\"],\\\"properties\\\":{\\\"name\\\":{\\\"type\\\":\\\"string\\\"}},\\\"x-aghr-examples\\\":{\\\"valid\\\":[{\\\"name\\\":\\\"AGHR\\\"}],\\\"invalid\\\":[{},{\\\"name\\\":42}]}}\", \"content_hash\": \"sha256:4fd562047cf88814296db322004ea3551ea6fd3a15cb31aaf5b97eb8bbf1d2d8\", \"path\": \"schemas/project-metadata.schema.json\"}], \"kind\": \"GENERATED_FILE\", \"target_project_id\": \"studio-drafts\"}",
+        "proposal_version_hash": "sha256:a007fd7474c35136a5c773ad92ec541a07a0bf49bdc07102a65bc593076e80f3",
+        "phase4": {
+          "lane": "meta",
+          "body": {
+            "title": "Actual additive schema evaluation",
+            "files": [
+              {
+                "path": "schemas/project-metadata.schema.json",
+                "content": "{\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"name\":{\"type\":\"string\"}},\"x-aghr-examples\":{\"valid\":[{\"name\":\"AGHR\"}],\"invalid\":[{},{\"name\":42}]}}"
+              }
+            ]
+          },
+          "before": [
+            {
+              "path": "schemas/project-metadata.schema.json",
+              "content": null,
+              "content_hash": null
+            }
+          ],
+          "diff": "--- a/schemas/project-metadata.schema.json\n+++ b/schemas/project-metadata.schema.json\n@@ -0,0 +1 @@\n+{\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"name\":{\"type\":\"string\"}},\"x-aghr-examples\":{\"valid\":[{\"name\":\"AGHR\"}],\"invalid\":[{},{\"name\":42}]}}",
+          "required_approvals": [
+            "governance-owner",
+            "architecture-board"
+          ],
+          "checks": {
+            "structure": "PASS",
+            "behavioral_evals": "NOT_RUN",
+            "generation_check": "NOT_RUN"
+          }
+        },
+        "checks": {
+          "validate": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "lint": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "skill_states": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "generate": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "doctor": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "eval": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          }
+        },
+        "generation": null,
+        "ci_comparison": null,
+        "required_approvals": [
+          "governance-owner",
+          "architecture-board"
+        ],
+        "approvals": [],
+        "approval_history": [],
+        "blockers": [
+          {
+            "code": "CHECK_VALIDATE",
+            "message": "Required check has not run for this proposal version.",
+            "severity": "warning"
+          },
+          {
+            "code": "CHECK_LINT",
+            "message": "Required check has not run for this proposal version.",
+            "severity": "warning"
+          },
+          {
+            "code": "CHECK_GENERATE",
+            "message": "Required check has not run for this proposal version.",
+            "severity": "warning"
+          },
+          {
+            "code": "CHECK_DOCTOR",
+            "message": "Required check has not run for this proposal version.",
+            "severity": "warning"
+          }
+        ],
+        "created_by": "actual-project-owner",
+        "created_at": "2026-10-24T20:09:01.768Z",
+        "updated_at": "2026-10-24T20:09:01.768Z"
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/v1/workspaces/rc3-local/phase4/intents",
+      "status": 200,
+      "data": {
+        "id": "ac15fd1e-518e-462d-951b-bd21db9e404f",
+        "scope": {
+          "workspace_id": "rc3-local",
+          "target_project": "studio-drafts",
+          "action": "meta.change.propose",
+          "resource_id": "CP-c56a29ee-ebe5-4834-bff1-e0c8bd274ecd",
+          "proposal_version_hash": "sha256:0e53c99820f7c98287cd7ca42e98d57e146001c24a9c5c558c3c13bb259d4ad3"
+        },
+        "status": "AWAITING_OPERATOR"
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/v1/workspaces/rc3-local/phase4/run",
+      "status": 200,
+      "data": {
+        "id": "CP-c56a29ee-ebe5-4834-bff1-e0c8bd274ecd",
+        "workspace_id": "rc3-local",
+        "title": "Actual additive schema evaluation",
+        "kind": "GENERATED_FILE",
+        "target_item_id": null,
+        "status": "in_review",
+        "source": {
+          "type": "request",
+          "ref": "phase4-meta"
+        },
+        "base_package_version": "1.0.0-rc.3",
+        "base_candidate_hash": "sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2",
+        "proposed_yaml": "{\"files\": [{\"content\": \"{\\\"type\\\":\\\"object\\\",\\\"required\\\":[\\\"name\\\"],\\\"properties\\\":{\\\"name\\\":{\\\"type\\\":\\\"string\\\"}},\\\"x-aghr-examples\\\":{\\\"valid\\\":[{\\\"name\\\":\\\"AGHR\\\"}],\\\"invalid\\\":[{},{\\\"name\\\":42}]}}\", \"content_hash\": \"sha256:4fd562047cf88814296db322004ea3551ea6fd3a15cb31aaf5b97eb8bbf1d2d8\", \"path\": \"schemas/project-metadata.schema.json\"}], \"kind\": \"GENERATED_FILE\", \"target_project_id\": \"studio-drafts\"}",
+        "proposal_version_hash": "sha256:a007fd7474c35136a5c773ad92ec541a07a0bf49bdc07102a65bc593076e80f3",
+        "phase4": {
+          "lane": "meta",
+          "body": {
+            "title": "Actual additive schema evaluation",
+            "files": [
+              {
+                "path": "schemas/project-metadata.schema.json",
+                "content": "{\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"name\":{\"type\":\"string\"}},\"x-aghr-examples\":{\"valid\":[{\"name\":\"AGHR\"}],\"invalid\":[{},{\"name\":42}]}}"
+              }
+            ]
+          },
+          "before": [
+            {
+              "path": "schemas/project-metadata.schema.json",
+              "content": null,
+              "content_hash": null
+            }
+          ],
+          "diff": "--- a/schemas/project-metadata.schema.json\n+++ b/schemas/project-metadata.schema.json\n@@ -0,0 +1 @@\n+{\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"name\":{\"type\":\"string\"}},\"x-aghr-examples\":{\"valid\":[{\"name\":\"AGHR\"}],\"invalid\":[{},{\"name\":42}]}}",
+          "required_approvals": [
+            "governance-owner",
+            "architecture-board"
+          ],
+          "checks": {
+            "structure": "PASS",
+            "behavioral_evals": "NOT_RUN",
+            "generation_check": "NOT_RUN"
+          }
+        },
+        "checks": {
+          "validate": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "lint": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "skill_states": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "generate": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "doctor": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "eval": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          }
+        },
+        "generation": null,
+        "ci_comparison": null,
+        "required_approvals": [
+          "governance-owner",
+          "architecture-board"
+        ],
+        "approvals": [],
+        "approval_history": [],
+        "blockers": [
+          {
+            "code": "CHECK_VALIDATE",
+            "message": "Required check has not run for this proposal version.",
+            "severity": "warning"
+          },
+          {
+            "code": "CHECK_LINT",
+            "message": "Required check has not run for this proposal version.",
+            "severity": "warning"
+          },
+          {
+            "code": "CHECK_GENERATE",
+            "message": "Required check has not run for this proposal version.",
+            "severity": "warning"
+          },
+          {
+            "code": "CHECK_DOCTOR",
+            "message": "Required check has not run for this proposal version.",
+            "severity": "warning"
+          }
+        ],
+        "created_by": "actual-project-owner",
+        "created_at": "2026-10-24T20:09:01.768Z",
+        "updated_at": "2026-10-24T20:09:01.852Z"
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/v1/workspaces/rc3-local/phase4/intents",
+      "status": 200,
+      "data": {
+        "id": "0ff99187-904b-4e3b-a190-b0873c4f31ff",
+        "scope": {
+          "workspace_id": "rc3-local",
+          "target_project": "studio-drafts",
+          "action": "cp.approve.governance",
+          "resource_id": "CP-c56a29ee-ebe5-4834-bff1-e0c8bd274ecd",
+          "proposal_version_hash": "sha256:3b4917ac97bba5e374d96a5672b7d12c5a4db367c688f74628c8f8c106109b69"
+        },
+        "status": "AWAITING_OPERATOR"
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/v1/workspaces/rc3-local/phase4/run",
+      "status": 422,
+      "error": "VALIDATION_FAILED",
+      "data": null
+    },
+    {
+      "method": "POST",
+      "route": "/api/v1/workspaces/rc3-local/phase4/intents",
+      "status": 200,
+      "data": {
+        "id": "551d44da-73c0-4b40-961d-d001490a0437",
+        "scope": {
+          "workspace_id": "rc3-local",
+          "target_project": "studio-drafts",
+          "action": "meta.change.propose",
+          "resource_id": "CP-c56a29ee-ebe5-4834-bff1-e0c8bd274ecd",
+          "proposal_version_hash": "sha256:69023cc2894516e9ddc04f59197c343504b47e76934f65537e4ef8a9d4ed807d"
+        },
+        "status": "AWAITING_OPERATOR"
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/v1/workspaces/rc3-local/phase4/run",
+      "status": 422,
+      "error": "EVAL_NOT_PASSED",
+      "data": null
+    },
+    {
+      "method": "POST",
+      "route": "/api/v1/workspaces/rc3-local/phase4/intents",
+      "status": 200,
+      "data": {
+        "id": "582d1c0f-e436-4348-9772-f2088aa7c185",
+        "scope": {
+          "workspace_id": "rc3-local",
+          "target_project": "studio-drafts",
+          "action": "meta.change.propose",
+          "resource_id": "CP-5467321e-bc81-4875-b24a-18aa8df7c22b",
+          "proposal_version_hash": "sha256:04df0de970d9e04bbb2cd538c0f0df74a8970faa2dab50b17deeddbcf58c3d12"
+        },
+        "status": "AWAITING_OPERATOR"
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/v1/workspaces/rc3-local/phase4/run",
+      "status": 200,
+      "data": {
+        "id": "CP-5467321e-bc81-4875-b24a-18aa8df7c22b",
+        "workspace_id": "rc3-local",
+        "title": "Unsupported tool change",
+        "kind": "GENERATED_FILE",
+        "target_item_id": null,
+        "status": "draft",
+        "source": {
+          "type": "request",
+          "ref": "phase4-meta"
+        },
+        "base_package_version": "1.0.0-rc.3",
+        "base_candidate_hash": "sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2",
+        "proposed_yaml": "{\"files\": [{\"content\": \"raise RuntimeError(\\\"MUST_NOT_EXECUTE\\\")\\n\", \"content_hash\": \"sha256:11f33d5fa87cf29cd274246c00e7b529a24574e76f566635b33ee132baf6fdcb\", \"path\": \"tools/proposed.py\"}], \"kind\": \"GENERATED_FILE\", \"target_project_id\": \"studio-drafts\"}",
+        "proposal_version_hash": "sha256:a3fda4042e30d6aefb632bb8acb8275d97ffd7eda2252d074dcc9bfd6fd08501",
+        "phase4": {
+          "lane": "meta",
+          "body": {
+            "title": "Unsupported tool change",
+            "files": [
+              {
+                "path": "tools/proposed.py",
+                "content": "raise RuntimeError(\"MUST_NOT_EXECUTE\")\n"
+              }
+            ]
+          },
+          "before": [
+            {
+              "path": "tools/proposed.py",
+              "content": null,
+              "content_hash": null
+            }
+          ],
+          "diff": "--- a/tools/proposed.py\n+++ b/tools/proposed.py\n@@ -0,0 +1 @@\n+raise RuntimeError(\"MUST_NOT_EXECUTE\")\n",
+          "required_approvals": [
+            "governance-owner",
+            "architecture-board"
+          ],
+          "checks": {
+            "structure": "PASS",
+            "behavioral_evals": "NOT_RUN",
+            "generation_check": "NOT_RUN"
+          }
+        },
+        "checks": {
+          "validate": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "lint": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "skill_states": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "generate": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "doctor": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "eval": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          }
+        },
+        "generation": null,
+        "ci_comparison": null,
+        "required_approvals": [
+          "governance-owner",
+          "architecture-board"
+        ],
+        "approvals": [],
+        "approval_history": [],
+        "blockers": [
+          {
+            "code": "CHECK_VALIDATE",
+            "message": "Required check has not run for this proposal version.",
+            "severity": "warning"
+          },
+          {
+            "code": "CHECK_LINT",
+            "message": "Required check has not run for this proposal version.",
+            "severity": "warning"
+          },
+          {
+            "code": "CHECK_GENERATE",
+            "message": "Required check has not run for this proposal version.",
+            "severity": "warning"
+          },
+          {
+            "code": "CHECK_DOCTOR",
+            "message": "Required check has not run for this proposal version.",
+            "severity": "warning"
+          }
+        ],
+        "created_by": "actual-project-owner",
+        "created_at": "2026-10-24T20:09:33.683Z",
+        "updated_at": "2026-10-24T20:09:33.683Z"
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/v1/workspaces/rc3-local/phase4/intents",
+      "status": 200,
+      "data": {
+        "id": "b410f11a-69cb-4ff4-8739-a9f7e9d75f75",
+        "scope": {
+          "workspace_id": "rc3-local",
+          "target_project": "studio-drafts",
+          "action": "meta.change.propose",
+          "resource_id": "CP-5467321e-bc81-4875-b24a-18aa8df7c22b",
+          "proposal_version_hash": "sha256:fe4674f385581711594cac80ec894a437d9b3a627740de24f09c8b9f09e902d6"
+        },
+        "status": "AWAITING_OPERATOR"
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/v1/workspaces/rc3-local/phase4/run",
+      "status": 422,
+      "error": "EVAL_NOT_PASSED",
+      "data": null
+    }
+  ],
+  "run_records": [
+    {
+      "id": "VR-4acbe116-fb38-49d8-ace7-b680b3a92a9c",
+      "command": "check",
+      "status": "failed",
+      "started_at": "2026-10-24T20:09:53.581Z",
+      "finished_at": "2026-10-24T20:09:53.581Z",
+      "exit_code": 1,
+      "raw_output": "{\"reason\":\"Actual evaluation did not pass.\",\"receipt\":null,\"execution_records\":[{\"operation\":\"discover\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:56e7d7d03ee06f721bf17c8cac1a67be3b8289d61283525120482e672985a274\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"VALID\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"result\\\":\\\"VALID\\\",\\\"status\\\":\\\"SELECTED\\\",\\\"selected\\\":[\\\"project-meta\\\"],\\\"alternatives_not_loaded\\\":[],\\\"halt\\\":false,\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":15.78515625,\"duration_ms\":453,\"active_processes_after\":0,\"observed_pids\":[121924,120236,111004],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":121924,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"transition\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:0915461e63e14bfa8feba8304b3aa7084783649119c6664435ea92e10a758ef4\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"READ\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"state\\\":\\\"LOADED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-bd0cc86e-40bd-4549-8717-1b1c5938ff17\\\",\\\"session_id\\\":\\\"81cc1bdc-b8a8-4d75-bdc2-534bcea063d3\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-meta\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"NOT_RUN\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":15.953125,\"duration_ms\":437,\"active_processes_after\":0,\"observed_pids\":[114484,113384,117480],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":114484,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"execute\",\"resource_profile\":\"eval\",\"run_id\":\"E4-c9ea1d93-4f6f-4b78-8bd4-f4e3bf646a95\",\"identity\":{\"task_id\":\"phase4-bd0cc86e-40bd-4549-8717-1b1c5938ff17\",\"session_id\":\"81cc1bdc-b8a8-4d75-bdc2-534bcea063d3\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"D:/APP/Agent-Files-Explorer/**\",\"skill_id\":\"project-meta\",\"phase\":\"implementation\"},\"driver_hash\":\"sha256:229c4a5c1fe8248ea452f5fe2dfd26e9ea6391430187f0237f52c5feab8ef6d9\",\"input_hash\":\"sha256:d09533578d3877bf9c95177faf2acf6ed8ed3294ed95525ab3799532eac6268b\",\"input_base64\":\"eyJiaW5kaW5nIjp7InJ1bl9pZCI6IlZSLWUzMTgxOGRkLWMyYzAtNDM0ZS04NjQwLWNjNzg2ZjNkMWQwOSIsIml0ZW1faWQiOm51bGwsInNvdXJjZV9oYXNoIjpudWxsLCJjcF9pZCI6IkNQLTU0NjczMjFlLWJjODEtNDg3NS1iMjRhLTE4YWE4ZGY3YzIyYiIsInByb3Bvc2FsX3ZlcnNpb25faGFzaCI6InNoYTI1NjphM2ZkYTQwNDJlMzBkNmFlZmI2MzJiYjhhY2I4Mjc1ZDk3ZmZkN2VkYTIyNTJkMDc0ZGNjOWJmZDZmZDA4NTAxIiwicmVhc29uIjpudWxsLCJzY29wZSI6IkQ6L0FQUC9BZ2VudC1GaWxlcy1FeHBsb3Jlci8qKiJ9LCJjaGFuZ2UiOnsidGl0bGUiOiJVbnN1cHBvcnRlZCB0b29sIGNoYW5nZSIsImZpbGVzIjpbeyJwYXRoIjoidG9vbHMvcHJvcG9zZWQucHkiLCJjb250ZW50IjoicmFpc2UgUnVudGltZUVycm9yKFwiTVVTVF9OT1RfRVhFQ1VURVwiKVxuIn1dfX0=\",\"event\":\"finished\",\"status\":\"failed\",\"reason\":null,\"exit_code\":1,\"resource_peak_mb\":29.23828125,\"duration_ms\":3235,\"active_processes_after\":0,\"observed_pids\":[101416,119260,114176],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":101416,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"stdout\":\"{\\\"valid\\\": false, \\\"reason\\\": \\\"META_EVALUATOR_SCOPE_UNSUPPORTED: only additive schemas; closed contracts and tools require another qualified evaluator\\\"}\\r\\n\",\"stderr\":\"\",\"limits\":{\"timeoutMs\":600000,\"memoryBytes\":2147483648},\"stdout_base64\":\"eyJ2YWxpZCI6IGZhbHNlLCAicmVhc29uIjogIk1FVEFfRVZBTFVBVE9SX1NDT1BFX1VOU1VQUE9SVEVEOiBvbmx5IGFkZGl0aXZlIHNjaGVtYXM7IGNsb3NlZCBjb250cmFjdHMgYW5kIHRvb2xzIHJlcXVpcmUgYW5vdGhlciBxdWFsaWZpZWQgZXZhbHVhdG9yIn0NCg==\",\"stderr_base64\":\"\"},{\"operation\":\"transition\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:427a184800fcb1b3a828a09be42a8c9b8bf96d49151e755ab38289e34d021d48\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"READ\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"state\\\":\\\"EXECUTED_FAILED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-bd0cc86e-40bd-4549-8717-1b1c5938ff17\\\",\\\"session_id\\\":\\\"81cc1bdc-b8a8-4d75-bdc2-534bcea063d3\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-meta\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"EXECUTED_FAILED\\\",\\\"execution_run_id\\\":\\\"E4-c9ea1d93-4f6f-4b78-8bd4-f4e3bf646a95\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":15.65625,\"duration_ms\":453,\"active_processes_after\":0,\"observed_pids\":[123860,93460,121364],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":123860,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"discover\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:56e7d7d03ee06f721bf17c8cac1a67be3b8289d61283525120482e672985a274\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"VALID\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"result\\\":\\\"VALID\\\",\\\"status\\\":\\\"SELECTED\\\",\\\"selected\\\":[\\\"project-meta\\\"],\\\"alternatives_not_loaded\\\":[],\\\"halt\\\":false,\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":16.05078125,\"duration_ms\":469,\"active_processes_after\":0,\"observed_pids\":[123868,113568,120748],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":123868,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"transition\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:0915461e63e14bfa8feba8304b3aa7084783649119c6664435ea92e10a758ef4\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"READ\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"state\\\":\\\"LOADED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-bd0cc86e-40bd-4549-8717-1b1c5938ff17\\\",\\\"session_id\\\":\\\"81cc1bdc-b8a8-4d75-bdc2-534bcea063d3\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-meta\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"NOT_RUN\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":15.92578125,\"duration_ms\":422,\"active_processes_after\":0,\"observed_pids\":[122780,119988,117812],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":122780,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"execute\",\"resource_profile\":\"eval\",\"run_id\":\"E4-87c12139-3a27-448b-b2de-fde936ba7be3\",\"identity\":{\"task_id\":\"phase4-bd0cc86e-40bd-4549-8717-1b1c5938ff17\",\"session_id\":\"81cc1bdc-b8a8-4d75-bdc2-534bcea063d3\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"D:/APP/Agent-Files-Explorer/**\",\"skill_id\":\"project-meta\",\"phase\":\"implementation\"},\"driver_hash\":\"sha256:229c4a5c1fe8248ea452f5fe2dfd26e9ea6391430187f0237f52c5feab8ef6d9\",\"input_hash\":\"sha256:d09533578d3877bf9c95177faf2acf6ed8ed3294ed95525ab3799532eac6268b\",\"input_base64\":\"eyJiaW5kaW5nIjp7InJ1bl9pZCI6IlZSLWUzMTgxOGRkLWMyYzAtNDM0ZS04NjQwLWNjNzg2ZjNkMWQwOSIsIml0ZW1faWQiOm51bGwsInNvdXJjZV9oYXNoIjpudWxsLCJjcF9pZCI6IkNQLTU0NjczMjFlLWJjODEtNDg3NS1iMjRhLTE4YWE4ZGY3YzIyYiIsInByb3Bvc2FsX3ZlcnNpb25faGFzaCI6InNoYTI1NjphM2ZkYTQwNDJlMzBkNmFlZmI2MzJiYjhhY2I4Mjc1ZDk3ZmZkN2VkYTIyNTJkMDc0ZGNjOWJmZDZmZDA4NTAxIiwicmVhc29uIjpudWxsLCJzY29wZSI6IkQ6L0FQUC9BZ2VudC1GaWxlcy1FeHBsb3Jlci8qKiJ9LCJjaGFuZ2UiOnsidGl0bGUiOiJVbnN1cHBvcnRlZCB0b29sIGNoYW5nZSIsImZpbGVzIjpbeyJwYXRoIjoidG9vbHMvcHJvcG9zZWQucHkiLCJjb250ZW50IjoicmFpc2UgUnVudGltZUVycm9yKFwiTVVTVF9OT1RfRVhFQ1VURVwiKVxuIn1dfX0=\",\"event\":\"finished\",\"status\":\"failed\",\"reason\":null,\"exit_code\":1,\"resource_peak_mb\":29.33984375,\"duration_ms\":2953,\"active_processes_after\":0,\"observed_pids\":[119252,115448,19680],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":119252,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"stdout\":\"{\\\"valid\\\": false, \\\"reason\\\": \\\"META_EVALUATOR_SCOPE_UNSUPPORTED: only additive schemas; closed contracts and tools require another qualified evaluator\\\"}\\r\\n\",\"stderr\":\"\",\"limits\":{\"timeoutMs\":600000,\"memoryBytes\":2147483648},\"stdout_base64\":\"eyJ2YWxpZCI6IGZhbHNlLCAicmVhc29uIjogIk1FVEFfRVZBTFVBVE9SX1NDT1BFX1VOU1VQUE9SVEVEOiBvbmx5IGFkZGl0aXZlIHNjaGVtYXM7IGNsb3NlZCBjb250cmFjdHMgYW5kIHRvb2xzIHJlcXVpcmUgYW5vdGhlciBxdWFsaWZpZWQgZXZhbHVhdG9yIn0NCg==\",\"stderr_base64\":\"\"},{\"operation\":\"transition\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:f7f65ff2db12486444ab1316918857d683344b89c789ba96f953040b858fd805\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"READ\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"state\\\":\\\"EXECUTED_FAILED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-bd0cc86e-40bd-4549-8717-1b1c5938ff17\\\",\\\"session_id\\\":\\\"81cc1bdc-b8a8-4d75-bdc2-534bcea063d3\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-meta\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"EXECUTED_FAILED\\\",\\\"execution_run_id\\\":\\\"E4-87c12139-3a27-448b-b2de-fde936ba7be3\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":15.94140625,\"duration_ms\":422,\"active_processes_after\":0,\"observed_pids\":[122732,66248,119336],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":122732,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"discover\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:56e7d7d03ee06f721bf17c8cac1a67be3b8289d61283525120482e672985a274\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"VALID\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"result\\\":\\\"VALID\\\",\\\"status\\\":\\\"SELECTED\\\",\\\"selected\\\":[\\\"project-meta\\\"],\\\"alternatives_not_loaded\\\":[],\\\"halt\\\":false,\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":15.9921875,\"duration_ms\":438,\"active_processes_after\":0,\"observed_pids\":[115776,119516,120144],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":115776,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"transition\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:0915461e63e14bfa8feba8304b3aa7084783649119c6664435ea92e10a758ef4\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"READ\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"state\\\":\\\"LOADED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-bd0cc86e-40bd-4549-8717-1b1c5938ff17\\\",\\\"session_id\\\":\\\"81cc1bdc-b8a8-4d75-bdc2-534bcea063d3\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-meta\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"NOT_RUN\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":16.0546875,\"duration_ms\":406,\"active_processes_after\":0,\"observed_pids\":[106172,114020,122300],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":106172,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"execute\",\"resource_profile\":\"eval\",\"run_id\":\"E4-87cfaf17-56ee-472e-9171-33193394bacc\",\"identity\":{\"task_id\":\"phase4-bd0cc86e-40bd-4549-8717-1b1c5938ff17\",\"session_id\":\"81cc1bdc-b8a8-4d75-bdc2-534bcea063d3\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"D:/APP/Agent-Files-Explorer/**\",\"skill_id\":\"project-meta\",\"phase\":\"implementation\"},\"driver_hash\":\"sha256:229c4a5c1fe8248ea452f5fe2dfd26e9ea6391430187f0237f52c5feab8ef6d9\",\"input_hash\":\"sha256:d09533578d3877bf9c95177faf2acf6ed8ed3294ed95525ab3799532eac6268b\",\"input_base64\":\"eyJiaW5kaW5nIjp7InJ1bl9pZCI6IlZSLWUzMTgxOGRkLWMyYzAtNDM0ZS04NjQwLWNjNzg2ZjNkMWQwOSIsIml0ZW1faWQiOm51bGwsInNvdXJjZV9oYXNoIjpudWxsLCJjcF9pZCI6IkNQLTU0NjczMjFlLWJjODEtNDg3NS1iMjRhLTE4YWE4ZGY3YzIyYiIsInByb3Bvc2FsX3ZlcnNpb25faGFzaCI6InNoYTI1NjphM2ZkYTQwNDJlMzBkNmFlZmI2MzJiYjhhY2I4Mjc1ZDk3ZmZkN2VkYTIyNTJkMDc0ZGNjOWJmZDZmZDA4NTAxIiwicmVhc29uIjpudWxsLCJzY29wZSI6IkQ6L0FQUC9BZ2VudC1GaWxlcy1FeHBsb3Jlci8qKiJ9LCJjaGFuZ2UiOnsidGl0bGUiOiJVbnN1cHBvcnRlZCB0b29sIGNoYW5nZSIsImZpbGVzIjpbeyJwYXRoIjoidG9vbHMvcHJvcG9zZWQucHkiLCJjb250ZW50IjoicmFpc2UgUnVudGltZUVycm9yKFwiTVVTVF9OT1RfRVhFQ1VURVwiKVxuIn1dfX0=\",\"event\":\"finished\",\"status\":\"failed\",\"reason\":null,\"exit_code\":1,\"resource_peak_mb\":29.4921875,\"duration_ms\":2719,\"active_processes_after\":0,\"observed_pids\":[113976,109800,114128],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":113976,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"stdout\":\"{\\\"valid\\\": false, \\\"reason\\\": \\\"META_EVALUATOR_SCOPE_UNSUPPORTED: only additive schemas; closed contracts and tools require another qualified evaluator\\\"}\\r\\n\",\"stderr\":\"\",\"limits\":{\"timeoutMs\":600000,\"memoryBytes\":2147483648},\"stdout_base64\":\"eyJ2YWxpZCI6IGZhbHNlLCAicmVhc29uIjogIk1FVEFfRVZBTFVBVE9SX1NDT1BFX1VOU1VQUE9SVEVEOiBvbmx5IGFkZGl0aXZlIHNjaGVtYXM7IGNsb3NlZCBjb250cmFjdHMgYW5kIHRvb2xzIHJlcXVpcmUgYW5vdGhlciBxdWFsaWZpZWQgZXZhbHVhdG9yIn0NCg==\",\"stderr_base64\":\"\"},{\"operation\":\"transition\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:baca4236338d3cc4da8b6bf6463304fa83ede47f17fbc40f81d45c2bce1364c3\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"READ\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"state\\\":\\\"EXECUTED_FAILED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-bd0cc86e-40bd-4549-8717-1b1c5938ff17\\\",\\\"session_id\\\":\\\"81cc1bdc-b8a8-4d75-bdc2-534bcea063d3\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-meta\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"EXECUTED_FAILED\\\",\\\"execution_run_id\\\":\\\"E4-87cfaf17-56ee-472e-9171-33193394bacc\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":15.98828125,\"duration_ms\":359,\"active_processes_after\":0,\"observed_pids\":[112508,123144,108192],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":112508,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"eval\",\"command\":\"eval\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:d9ef812eee72515704d510f29bf8c04edafb24f5e33b49a7a7b8bc6c6c236994\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"eval\\\",\\\"result\\\":\\\"INVALID\\\",\\\"exit_code\\\":1,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"result\\\":\\\"INVALID\\\",\\\"status\\\":\\\"FAIL\\\",\\\"runs\\\":3,\\\"minimum_runs\\\":3,\\\"violations\\\":3,\\\"violation_rate\\\":1.0,\\\"max_violation_rate\\\":0,\\\"outcomes\\\":[{\\\"run_id\\\":\\\"E4-c9ea1d93-4f6f-4b78-8bd4-f4e3bf646a95\\\",\\\"verified\\\":false,\\\"verifier\\\":{\\\"state\\\":\\\"EXECUTED_FAILED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-bd0cc86e-40bd-4549-8717-1b1c5938ff17\\\",\\\"session_id\\\":\\\"81cc1bdc-b8a8-4d75-bdc2-534bcea063d3\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-meta\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"EXECUTED_FAILED\\\",\\\"execution_run_id\\\":\\\"E4-c9ea1d93-4f6f-4b78-8bd4-f4e3bf646a95\\\",\\\"result\\\":\\\"INVALID\\\",\\\"verified\\\":false,\\\"reason\\\":\\\"Execution did not succeed.\\\"}},{\\\"run_id\\\":\\\"E4-87c12139-3a27-448b-b2de-fde936ba7be3\\\",\\\"verified\\\":false,\\\"verifier\\\":{\\\"state\\\":\\\"EXECUTED_FAILED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-bd0cc86e-40bd-4549-8717-1b1c5938ff17\\\",\\\"session_id\\\":\\\"81cc1bdc-b8a8-4d75-bdc2-534bcea063d3\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-meta\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"EXECUTED_FAILED\\\",\\\"execution_run_id\\\":\\\"E4-87c12139-3a27-448b-b2de-fde936ba7be3\\\",\\\"result\\\":\\\"INVALID\\\",\\\"verified\\\":false,\\\"reason\\\":\\\"Execution did not succeed.\\\"}},{\\\"run_id\\\":\\\"E4-87cfaf17-56ee-472e-9171-33193394bacc\\\",\\\"verified\\\":false,\\\"verifier\\\":{\\\"state\\\":\\\"EXECUTED_FAILED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-bd0cc86e-40bd-4549-8717-1b1c5938ff17\\\",\\\"session_id\\\":\\\"81cc1bdc-b8a8-4d75-bdc2-534bcea063d3\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-meta\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"EXECUTED_FAILED\\\",\\\"execution_run_id\\\":\\\"E4-87cfaf17-56ee-472e-9171-33193394bacc\\\",\\\"result\\\":\\\"INVALID\\\",\\\"verified\\\":false,\\\"reason\\\":\\\"Execution did not succeed.\\\"}}],\\\"host\\\":\\\"aghr-local-process\\\",\\\"profile\\\":\\\"ACTUAL_LOCAL_PROCESS_PROCEDURE\\\",\\\"native_agent_qualification\\\":\\\"NOT_GRANTED\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"failed\",\"reason\":null,\"exit_code\":1,\"resource_peak_mb\":16.0703125,\"duration_ms\":359,\"active_processes_after\":0,\"observed_pids\":[123784,122932,123724],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":123784,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":600000,\"memoryBytes\":2147483648}}],\"receipts\":[]}",
+      "summary_json": null,
+      "linked_package_id": null
+    },
+    {
+      "id": "VR-4d71a995-5ba4-47c1-a455-52f740c09841",
+      "command": "check",
+      "status": "passed",
+      "started_at": "2026-10-24T20:09:33.683Z",
+      "finished_at": "2026-10-24T20:09:33.683Z",
+      "exit_code": 0,
+      "raw_output": "[{\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":27.70703125,\"duration_ms\":3156,\"active_processes_after\":0,\"observed_pids\":[108960,109220,113680],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":108960,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"stdout\":\"{\\\"protocol_version\\\": \\\"3\\\", \\\"result\\\": \\\"VALID\\\", \\\"exit_code\\\": 0, \\\"data\\\": {\\\"payload\\\": {\\\"title\\\": \\\"Unsupported tool change\\\", \\\"kind\\\": \\\"GENERATED_FILE\\\", \\\"proposed_yaml\\\": \\\"{\\\\\\\"files\\\\\\\": [{\\\\\\\"content\\\\\\\": \\\\\\\"raise RuntimeError(\\\\\\\\\\\\\\\"MUST_NOT_EXECUTE\\\\\\\\\\\\\\\")\\\\\\\\n\\\\\\\", \\\\\\\"content_hash\\\\\\\": \\\\\\\"sha256:11f33d5fa87cf29cd274246c00e7b529a24574e76f566635b33ee132baf6fdcb\\\\\\\", \\\\\\\"path\\\\\\\": \\\\\\\"tools/proposed.py\\\\\\\"}], \\\\\\\"kind\\\\\\\": \\\\\\\"GENERATED_FILE\\\\\\\", \\\\\\\"target_project_id\\\\\\\": \\\\\\\"studio-drafts\\\\\\\"}\\\", \\\"source\\\": {\\\"type\\\": \\\"request\\\", \\\"ref\\\": \\\"phase4-meta\\\"}}, \\\"phase4\\\": {\\\"lane\\\": \\\"meta\\\", \\\"body\\\": {\\\"title\\\": \\\"Unsupported tool change\\\", \\\"files\\\": [{\\\"path\\\": \\\"tools/proposed.py\\\", \\\"content\\\": \\\"raise RuntimeError(\\\\\\\"MUST_NOT_EXECUTE\\\\\\\")\\\\n\\\"}]}, \\\"before\\\": [{\\\"path\\\": \\\"tools/proposed.py\\\", \\\"content\\\": null, \\\"content_hash\\\": null}], \\\"diff\\\": \\\"--- a/tools/proposed.py\\\\n+++ b/tools/proposed.py\\\\n@@ -0,0 +1 @@\\\\n+raise RuntimeError(\\\\\\\"MUST_NOT_EXECUTE\\\\\\\")\\\\n\\\", \\\"required_approvals\\\": [\\\"governance-owner\\\", \\\"architecture-board\\\"], \\\"checks\\\": {\\\"structure\\\": \\\"PASS\\\", \\\"behavioral_evals\\\": \\\"NOT_RUN\\\", \\\"generation_check\\\": \\\"NOT_RUN\\\"}}, \\\"base_package_version\\\": \\\"1.0.0-rc.3\\\", \\\"base_candidate_hash\\\": \\\"sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2\\\", \\\"proposal_version_hash\\\": \\\"sha256:a3fda4042e30d6aefb632bb8acb8275d97ffd7eda2252d074dcc9bfd6fd08501\\\", \\\"canonical_base64\\\": \\\"eyJiYXNlX2NhbmRpZGF0ZV9oYXNoIjoic2hhMjU2OmExY2Q3MjI3MzE1ZjgzZGNmNGUyM2Q2NDFmNjcyNWY4ZDY4MDg2YTI4OWRhNDU3YTk4ZDQzZjdmMzRiODQwZDIiLCJiYXNlX3BhY2thZ2VfdmVyc2lvbiI6IjEuMC4wLXJjLjMiLCJraW5kIjoiR0VORVJBVEVEX0ZJTEUiLCJwaGFzZTQiOnsiYmVmb3JlIjpbeyJjb250ZW50IjpudWxsLCJjb250ZW50X2hhc2giOm51bGwsInBhdGgiOiJ0b29scy9wcm9wb3NlZC5weSJ9XSwiYm9keSI6eyJmaWxlcyI6W3siY29udGVudCI6InJhaXNlIFJ1bnRpbWVFcnJvcihcIk1VU1RfTk9UX0VYRUNVVEVcIilcbiIsInBhdGgiOiJ0b29scy9wcm9wb3NlZC5weSJ9XSwidGl0bGUiOiJVbnN1cHBvcnRlZCB0b29sIGNoYW5nZSJ9LCJjaGVja3MiOnsiYmVoYXZpb3JhbF9ldmFscyI6Ik5PVF9SVU4iLCJnZW5lcmF0aW9uX2NoZWNrIjoiTk9UX1JVTiIsInN0cnVjdHVyZSI6IlBBU1MifSwiZGlmZiI6Ii0tLSBhL3Rvb2xzL3Byb3Bvc2VkLnB5XG4rKysgYi90b29scy9wcm9wb3NlZC5weVxuQEAgLTAsMCArMSBAQFxuK3JhaXNlIFJ1bnRpbWVFcnJvcihcIk1VU1RfTk9UX0VYRUNVVEVcIilcbiIsImxhbmUiOiJtZXRhIiwicmVxdWlyZWRfYXBwcm92YWxzIjpbImdvdmVybmFuY2Utb3duZXIiLCJhcmNoaXRlY3R1cmUtYm9hcmQiXX0sInByb3Bvc2VkX3lhbWwiOiJ7XCJmaWxlc1wiOiBbe1wiY29udGVudFwiOiBcInJhaXNlIFJ1bnRpbWVFcnJvcihcXFwiTVVTVF9OT1RfRVhFQ1VURVxcXCIpXFxuXCIsIFwiY29udGVudF9oYXNoXCI6IFwic2hhMjU2OjExZjMzZDVmYTg3Y2YyOWNkMjc0MjQ2YzAwZTdiNTI5YTI0NTc0ZTc2ZjU2NjYzNWIzM2VlMTMyYmFmNmZkY2JcIiwgXCJwYXRoXCI6IFwidG9vbHMvcHJvcG9zZWQucHlcIn1dLCBcImtpbmRcIjogXCJHRU5FUkFURURfRklMRVwiLCBcInRhcmdldF9wcm9qZWN0X2lkXCI6IFwic3R1ZGlvLWRyYWZ0c1wifSIsInNvdXJjZSI6eyJyZWYiOiJwaGFzZTQtbWV0YSIsInR5cGUiOiJyZXF1ZXN0In0sInRpdGxlIjoiVW5zdXBwb3J0ZWQgdG9vbCBjaGFuZ2UifQ==\\\"}}\\r\\n\",\"stderr\":\"\",\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}}]",
+      "summary_json": null,
+      "linked_package_id": "CP-5467321e-bc81-4875-b24a-18aa8df7c22b"
+    },
+    {
+      "id": "VR-f9be3db6-3be5-4c4f-b9b4-cae94cc953e2",
+      "command": "check",
+      "status": "failed",
+      "started_at": "2026-10-24T20:09:29.943Z",
+      "finished_at": "2026-10-24T20:09:29.943Z",
+      "exit_code": 1,
+      "raw_output": "{\"reason\":\"Actual evaluation did not pass.\",\"receipt\":null,\"execution_records\":[{\"operation\":\"discover\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:56e7d7d03ee06f721bf17c8cac1a67be3b8289d61283525120482e672985a274\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"VALID\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"result\\\":\\\"VALID\\\",\\\"status\\\":\\\"SELECTED\\\",\\\"selected\\\":[\\\"project-meta\\\"],\\\"alternatives_not_loaded\\\":[],\\\"halt\\\":false,\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":15.76953125,\"duration_ms\":484,\"active_processes_after\":0,\"observed_pids\":[116372,107996,104020],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":116372,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"transition\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:94685ecc9aa2aeafed2571325bb349bfbd9a89388e35991eb84febabef4d9528\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"READ\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"state\\\":\\\"LOADED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-47b15aea-00fc-43cf-87be-ecb4aef6c9dd\\\",\\\"session_id\\\":\\\"8bcfa024-3978-4631-bac3-71f59de77d42\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-meta\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"NOT_RUN\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":15.91015625,\"duration_ms\":453,\"active_processes_after\":0,\"observed_pids\":[123420,117480,106664],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":123420,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"execute\",\"resource_profile\":\"eval\",\"run_id\":\"E4-13ce6473-9ca9-48e5-94e9-8afc38305568\",\"identity\":{\"task_id\":\"phase4-47b15aea-00fc-43cf-87be-ecb4aef6c9dd\",\"session_id\":\"8bcfa024-3978-4631-bac3-71f59de77d42\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"D:/APP/Agent-Files-Explorer/**\",\"skill_id\":\"project-meta\",\"phase\":\"implementation\"},\"driver_hash\":\"sha256:229c4a5c1fe8248ea452f5fe2dfd26e9ea6391430187f0237f52c5feab8ef6d9\",\"input_hash\":\"sha256:ea0ae5616291f1f15595412fac13a52370c1fc57d787b9912861c0a34575f48f\",\"input_base64\":\"eyJiaW5kaW5nIjp7InJ1bl9pZCI6IlZSLTM5MDc1NzhjLTIwYzAtNGZmYy1hMjQ1LTAwNzRjYzQ2N2Q0ZCIsIml0ZW1faWQiOm51bGwsInNvdXJjZV9oYXNoIjpudWxsLCJjcF9pZCI6IkNQLWM1NmEyOWVlLWViZTUtNDgzNC1iZmYxLWUwYzhiZDI3NGVjZCIsInByb3Bvc2FsX3ZlcnNpb25faGFzaCI6InNoYTI1NjphMDA3ZmQ3NDc0YzM1MTM2YTVjNzczYWQ5MmVjNTQxYTA3YTBiZjQ5YmRjMDcxMDJhNjViYzU5MzA3NmU4MGYzIiwicmVhc29uIjpudWxsLCJzY29wZSI6IkQ6L0FQUC9BZ2VudC1GaWxlcy1FeHBsb3Jlci8qKiJ9LCJjaGFuZ2UiOnsidGl0bGUiOiJBY3R1YWwgYWRkaXRpdmUgc2NoZW1hIGV2YWx1YXRpb24iLCJmaWxlcyI6W3sicGF0aCI6InNjaGVtYXMvcHJvamVjdC1tZXRhZGF0YS5zY2hlbWEuanNvbiIsImNvbnRlbnQiOiJ7XCJ0eXBlXCI6XCJvYmplY3RcIixcInJlcXVpcmVkXCI6W1wibmFtZVwiXSxcInByb3BlcnRpZXNcIjp7XCJuYW1lXCI6e1widHlwZVwiOlwic3RyaW5nXCJ9fSxcIngtYWdoci1leGFtcGxlc1wiOntcInZhbGlkXCI6W3tcIm5hbWVcIjpcIkFHSFJcIn1dLFwiaW52YWxpZFwiOlt7fSx7XCJuYW1lXCI6NDJ9XX19In1dfX0=\",\"event\":\"finished\",\"status\":\"failed\",\"reason\":null,\"exit_code\":1,\"resource_peak_mb\":29.44921875,\"duration_ms\":3438,\"active_processes_after\":0,\"observed_pids\":[114028,120920,115192],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":114028,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"stdout\":\"{\\\"valid\\\": false, \\\"reason\\\": \\\"DUPLICATE_ITEM_ID_REQUIRES_EXPLICIT_TARGET\\\"}\\r\\n\",\"stderr\":\"\",\"limits\":{\"timeoutMs\":600000,\"memoryBytes\":2147483648},\"stdout_base64\":\"eyJ2YWxpZCI6IGZhbHNlLCAicmVhc29uIjogIkRVUExJQ0FURV9JVEVNX0lEX1JFUVVJUkVTX0VYUExJQ0lUX1RBUkdFVCJ9DQo=\",\"stderr_base64\":\"\"},{\"operation\":\"transition\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:f0c335efe054ba6a852a49628cbb60eb8904588809e1d39715703e1371232677\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"READ\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"state\\\":\\\"EXECUTED_FAILED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-47b15aea-00fc-43cf-87be-ecb4aef6c9dd\\\",\\\"session_id\\\":\\\"8bcfa024-3978-4631-bac3-71f59de77d42\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-meta\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"EXECUTED_FAILED\\\",\\\"execution_run_id\\\":\\\"E4-13ce6473-9ca9-48e5-94e9-8afc38305568\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":15.96484375,\"duration_ms\":484,\"active_processes_after\":0,\"observed_pids\":[112608,65580,121340],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":112608,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"discover\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:56e7d7d03ee06f721bf17c8cac1a67be3b8289d61283525120482e672985a274\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"VALID\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"result\\\":\\\"VALID\\\",\\\"status\\\":\\\"SELECTED\\\",\\\"selected\\\":[\\\"project-meta\\\"],\\\"alternatives_not_loaded\\\":[],\\\"halt\\\":false,\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":15.8359375,\"duration_ms\":453,\"active_processes_after\":0,\"observed_pids\":[123756,113876,108316],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":123756,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"transition\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:94685ecc9aa2aeafed2571325bb349bfbd9a89388e35991eb84febabef4d9528\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"READ\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"state\\\":\\\"LOADED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-47b15aea-00fc-43cf-87be-ecb4aef6c9dd\\\",\\\"session_id\\\":\\\"8bcfa024-3978-4631-bac3-71f59de77d42\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-meta\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"NOT_RUN\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":15.9296875,\"duration_ms\":422,\"active_processes_after\":0,\"observed_pids\":[116072,121440,121976],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":116072,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"execute\",\"resource_profile\":\"eval\",\"run_id\":\"E4-16e5d0ed-e9b4-43a7-96a0-aeb3d8110f58\",\"identity\":{\"task_id\":\"phase4-47b15aea-00fc-43cf-87be-ecb4aef6c9dd\",\"session_id\":\"8bcfa024-3978-4631-bac3-71f59de77d42\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"D:/APP/Agent-Files-Explorer/**\",\"skill_id\":\"project-meta\",\"phase\":\"implementation\"},\"driver_hash\":\"sha256:229c4a5c1fe8248ea452f5fe2dfd26e9ea6391430187f0237f52c5feab8ef6d9\",\"input_hash\":\"sha256:ea0ae5616291f1f15595412fac13a52370c1fc57d787b9912861c0a34575f48f\",\"input_base64\":\"eyJiaW5kaW5nIjp7InJ1bl9pZCI6IlZSLTM5MDc1NzhjLTIwYzAtNGZmYy1hMjQ1LTAwNzRjYzQ2N2Q0ZCIsIml0ZW1faWQiOm51bGwsInNvdXJjZV9oYXNoIjpudWxsLCJjcF9pZCI6IkNQLWM1NmEyOWVlLWViZTUtNDgzNC1iZmYxLWUwYzhiZDI3NGVjZCIsInByb3Bvc2FsX3ZlcnNpb25faGFzaCI6InNoYTI1NjphMDA3ZmQ3NDc0YzM1MTM2YTVjNzczYWQ5MmVjNTQxYTA3YTBiZjQ5YmRjMDcxMDJhNjViYzU5MzA3NmU4MGYzIiwicmVhc29uIjpudWxsLCJzY29wZSI6IkQ6L0FQUC9BZ2VudC1GaWxlcy1FeHBsb3Jlci8qKiJ9LCJjaGFuZ2UiOnsidGl0bGUiOiJBY3R1YWwgYWRkaXRpdmUgc2NoZW1hIGV2YWx1YXRpb24iLCJmaWxlcyI6W3sicGF0aCI6InNjaGVtYXMvcHJvamVjdC1tZXRhZGF0YS5zY2hlbWEuanNvbiIsImNvbnRlbnQiOiJ7XCJ0eXBlXCI6XCJvYmplY3RcIixcInJlcXVpcmVkXCI6W1wibmFtZVwiXSxcInByb3BlcnRpZXNcIjp7XCJuYW1lXCI6e1widHlwZVwiOlwic3RyaW5nXCJ9fSxcIngtYWdoci1leGFtcGxlc1wiOntcInZhbGlkXCI6W3tcIm5hbWVcIjpcIkFHSFJcIn1dLFwiaW52YWxpZFwiOlt7fSx7XCJuYW1lXCI6NDJ9XX19In1dfX0=\",\"event\":\"finished\",\"status\":\"failed\",\"reason\":null,\"exit_code\":1,\"resource_peak_mb\":28.39453125,\"duration_ms\":2984,\"active_processes_after\":0,\"observed_pids\":[113260,123536,100300],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":113260,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"stdout\":\"{\\\"valid\\\": false, \\\"reason\\\": \\\"DUPLICATE_ITEM_ID_REQUIRES_EXPLICIT_TARGET\\\"}\\r\\n\",\"stderr\":\"\",\"limits\":{\"timeoutMs\":600000,\"memoryBytes\":2147483648},\"stdout_base64\":\"eyJ2YWxpZCI6IGZhbHNlLCAicmVhc29uIjogIkRVUExJQ0FURV9JVEVNX0lEX1JFUVVJUkVTX0VYUExJQ0lUX1RBUkdFVCJ9DQo=\",\"stderr_base64\":\"\"},{\"operation\":\"transition\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:8910bb4d287ca1a89ce9ddac8b4f82185550c97f572e1364b2e6ce88a75b35db\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"READ\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"state\\\":\\\"EXECUTED_FAILED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-47b15aea-00fc-43cf-87be-ecb4aef6c9dd\\\",\\\"session_id\\\":\\\"8bcfa024-3978-4631-bac3-71f59de77d42\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-meta\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"EXECUTED_FAILED\\\",\\\"execution_run_id\\\":\\\"E4-16e5d0ed-e9b4-43a7-96a0-aeb3d8110f58\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":15.94140625,\"duration_ms\":547,\"active_processes_after\":0,\"observed_pids\":[105040,118852,121408],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":105040,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"discover\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:56e7d7d03ee06f721bf17c8cac1a67be3b8289d61283525120482e672985a274\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"VALID\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"result\\\":\\\"VALID\\\",\\\"status\\\":\\\"SELECTED\\\",\\\"selected\\\":[\\\"project-meta\\\"],\\\"alternatives_not_loaded\\\":[],\\\"halt\\\":false,\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":16.0859375,\"duration_ms\":469,\"active_processes_after\":0,\"observed_pids\":[118456,118808,119992],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":118456,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"transition\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:94685ecc9aa2aeafed2571325bb349bfbd9a89388e35991eb84febabef4d9528\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"READ\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"state\\\":\\\"LOADED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-47b15aea-00fc-43cf-87be-ecb4aef6c9dd\\\",\\\"session_id\\\":\\\"8bcfa024-3978-4631-bac3-71f59de77d42\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-meta\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"NOT_RUN\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":16.04296875,\"duration_ms\":407,\"active_processes_after\":0,\"observed_pids\":[117128,122440,118932],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":117128,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"execute\",\"resource_profile\":\"eval\",\"run_id\":\"E4-ba337ff3-584b-48bb-9b3d-725695e71a09\",\"identity\":{\"task_id\":\"phase4-47b15aea-00fc-43cf-87be-ecb4aef6c9dd\",\"session_id\":\"8bcfa024-3978-4631-bac3-71f59de77d42\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"D:/APP/Agent-Files-Explorer/**\",\"skill_id\":\"project-meta\",\"phase\":\"implementation\"},\"driver_hash\":\"sha256:229c4a5c1fe8248ea452f5fe2dfd26e9ea6391430187f0237f52c5feab8ef6d9\",\"input_hash\":\"sha256:ea0ae5616291f1f15595412fac13a52370c1fc57d787b9912861c0a34575f48f\",\"input_base64\":\"eyJiaW5kaW5nIjp7InJ1bl9pZCI6IlZSLTM5MDc1NzhjLTIwYzAtNGZmYy1hMjQ1LTAwNzRjYzQ2N2Q0ZCIsIml0ZW1faWQiOm51bGwsInNvdXJjZV9oYXNoIjpudWxsLCJjcF9pZCI6IkNQLWM1NmEyOWVlLWViZTUtNDgzNC1iZmYxLWUwYzhiZDI3NGVjZCIsInByb3Bvc2FsX3ZlcnNpb25faGFzaCI6InNoYTI1NjphMDA3ZmQ3NDc0YzM1MTM2YTVjNzczYWQ5MmVjNTQxYTA3YTBiZjQ5YmRjMDcxMDJhNjViYzU5MzA3NmU4MGYzIiwicmVhc29uIjpudWxsLCJzY29wZSI6IkQ6L0FQUC9BZ2VudC1GaWxlcy1FeHBsb3Jlci8qKiJ9LCJjaGFuZ2UiOnsidGl0bGUiOiJBY3R1YWwgYWRkaXRpdmUgc2NoZW1hIGV2YWx1YXRpb24iLCJmaWxlcyI6W3sicGF0aCI6InNjaGVtYXMvcHJvamVjdC1tZXRhZGF0YS5zY2hlbWEuanNvbiIsImNvbnRlbnQiOiJ7XCJ0eXBlXCI6XCJvYmplY3RcIixcInJlcXVpcmVkXCI6W1wibmFtZVwiXSxcInByb3BlcnRpZXNcIjp7XCJuYW1lXCI6e1widHlwZVwiOlwic3RyaW5nXCJ9fSxcIngtYWdoci1leGFtcGxlc1wiOntcInZhbGlkXCI6W3tcIm5hbWVcIjpcIkFHSFJcIn1dLFwiaW52YWxpZFwiOlt7fSx7XCJuYW1lXCI6NDJ9XX19In1dfX0=\",\"event\":\"finished\",\"status\":\"failed\",\"reason\":null,\"exit_code\":1,\"resource_peak_mb\":29.1875,\"duration_ms\":3437,\"active_processes_after\":0,\"observed_pids\":[116024,111492,115760],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":116024,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"stdout\":\"{\\\"valid\\\": false, \\\"reason\\\": \\\"DUPLICATE_ITEM_ID_REQUIRES_EXPLICIT_TARGET\\\"}\\r\\n\",\"stderr\":\"\",\"limits\":{\"timeoutMs\":600000,\"memoryBytes\":2147483648},\"stdout_base64\":\"eyJ2YWxpZCI6IGZhbHNlLCAicmVhc29uIjogIkRVUExJQ0FURV9JVEVNX0lEX1JFUVVJUkVTX0VYUExJQ0lUX1RBUkdFVCJ9DQo=\",\"stderr_base64\":\"\"},{\"operation\":\"transition\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:b5185fa7ffce3de9dcdb754155b80f2ca36fa4732b9093b201f15d5980b2ad12\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"READ\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"state\\\":\\\"EXECUTED_FAILED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-47b15aea-00fc-43cf-87be-ecb4aef6c9dd\\\",\\\"session_id\\\":\\\"8bcfa024-3978-4631-bac3-71f59de77d42\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-meta\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"EXECUTED_FAILED\\\",\\\"execution_run_id\\\":\\\"E4-ba337ff3-584b-48bb-9b3d-725695e71a09\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":15.96875,\"duration_ms\":437,\"active_processes_after\":0,\"observed_pids\":[123076,123092,122612],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":123076,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"eval\",\"command\":\"eval\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:f05ff24f3d0a04a8c0e4422e9e3212a1d5a478521bf0aeca9e4cf3122c2f5333\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"eval\\\",\\\"result\\\":\\\"INVALID\\\",\\\"exit_code\\\":1,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"result\\\":\\\"INVALID\\\",\\\"status\\\":\\\"FAIL\\\",\\\"runs\\\":3,\\\"minimum_runs\\\":3,\\\"violations\\\":3,\\\"violation_rate\\\":1.0,\\\"max_violation_rate\\\":0,\\\"outcomes\\\":[{\\\"run_id\\\":\\\"E4-13ce6473-9ca9-48e5-94e9-8afc38305568\\\",\\\"verified\\\":false,\\\"verifier\\\":{\\\"state\\\":\\\"EXECUTED_FAILED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-47b15aea-00fc-43cf-87be-ecb4aef6c9dd\\\",\\\"session_id\\\":\\\"8bcfa024-3978-4631-bac3-71f59de77d42\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-meta\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"EXECUTED_FAILED\\\",\\\"execution_run_id\\\":\\\"E4-13ce6473-9ca9-48e5-94e9-8afc38305568\\\",\\\"result\\\":\\\"INVALID\\\",\\\"verified\\\":false,\\\"reason\\\":\\\"Execution did not succeed.\\\"}},{\\\"run_id\\\":\\\"E4-16e5d0ed-e9b4-43a7-96a0-aeb3d8110f58\\\",\\\"verified\\\":false,\\\"verifier\\\":{\\\"state\\\":\\\"EXECUTED_FAILED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-47b15aea-00fc-43cf-87be-ecb4aef6c9dd\\\",\\\"session_id\\\":\\\"8bcfa024-3978-4631-bac3-71f59de77d42\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-meta\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"EXECUTED_FAILED\\\",\\\"execution_run_id\\\":\\\"E4-16e5d0ed-e9b4-43a7-96a0-aeb3d8110f58\\\",\\\"result\\\":\\\"INVALID\\\",\\\"verified\\\":false,\\\"reason\\\":\\\"Execution did not succeed.\\\"}},{\\\"run_id\\\":\\\"E4-ba337ff3-584b-48bb-9b3d-725695e71a09\\\",\\\"verified\\\":false,\\\"verifier\\\":{\\\"state\\\":\\\"EXECUTED_FAILED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-47b15aea-00fc-43cf-87be-ecb4aef6c9dd\\\",\\\"session_id\\\":\\\"8bcfa024-3978-4631-bac3-71f59de77d42\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-meta\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"EXECUTED_FAILED\\\",\\\"execution_run_id\\\":\\\"E4-ba337ff3-584b-48bb-9b3d-725695e71a09\\\",\\\"result\\\":\\\"INVALID\\\",\\\"verified\\\":false,\\\"reason\\\":\\\"Execution did not succeed.\\\"}}],\\\"host\\\":\\\"aghr-local-process\\\",\\\"profile\\\":\\\"ACTUAL_LOCAL_PROCESS_PROCEDURE\\\",\\\"native_agent_qualification\\\":\\\"NOT_GRANTED\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"failed\",\"reason\":null,\"exit_code\":1,\"resource_peak_mb\":16.0703125,\"duration_ms\":547,\"active_processes_after\":0,\"observed_pids\":[96168,115960,106840],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":96168,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":600000,\"memoryBytes\":2147483648}}],\"receipts\":[]}",
+      "summary_json": null,
+      "linked_package_id": null
+    },
+    {
+      "id": "VR-cdcc4e2b-c943-4ca5-adee-d73c28a2d890",
+      "command": "check",
+      "status": "failed",
+      "started_at": "2026-10-24T20:09:08.230Z",
+      "finished_at": "2026-10-24T20:09:08.230Z",
+      "exit_code": 1,
+      "raw_output": "{\"reason\":\"META_EVAL_AND_GENERATION_REQUIRED\",\"receipt\":{\"event\":\"finished\",\"status\":\"failed\",\"reason\":null,\"exit_code\":1,\"resource_peak_mb\":27.44921875,\"duration_ms\":5782,\"active_processes_after\":0,\"observed_pids\":[120652,101808,109668],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":120652,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"stdout\":\"{\\\"protocol_version\\\": \\\"3\\\", \\\"result\\\": \\\"INVALID\\\", \\\"exit_code\\\": 1, \\\"data\\\": null, \\\"reason\\\": \\\"META_EVAL_AND_GENERATION_REQUIRED\\\"}\\r\\n\",\"stderr\":\"\",\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},\"execution_records\":[],\"receipts\":[]}",
+      "summary_json": null,
+      "linked_package_id": null
+    },
+    {
+      "id": "VR-840a2272-a196-493a-a63c-3a028052e12f",
+      "command": "check",
+      "status": "passed",
+      "started_at": "2026-10-24T20:09:01.852Z",
+      "finished_at": "2026-10-24T20:09:01.852Z",
+      "exit_code": 0,
+      "raw_output": "[]",
+      "summary_json": null,
+      "linked_package_id": "CP-c56a29ee-ebe5-4834-bff1-e0c8bd274ecd"
+    },
+    {
+      "id": "VR-aab33958-af9b-428c-ae18-2b789c5f6461",
+      "command": "check",
+      "status": "passed",
+      "started_at": "2026-10-24T20:09:01.768Z",
+      "finished_at": "2026-10-24T20:09:01.768Z",
+      "exit_code": 0,
+      "raw_output": "[{\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":28.5234375,\"duration_ms\":3672,\"active_processes_after\":0,\"observed_pids\":[106740,123880,115160],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":106740,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"stdout\":\"{\\\"protocol_version\\\": \\\"3\\\", \\\"result\\\": \\\"VALID\\\", \\\"exit_code\\\": 0, \\\"data\\\": {\\\"payload\\\": {\\\"title\\\": \\\"Actual additive schema evaluation\\\", \\\"kind\\\": \\\"GENERATED_FILE\\\", \\\"proposed_yaml\\\": \\\"{\\\\\\\"files\\\\\\\": [{\\\\\\\"content\\\\\\\": \\\\\\\"{\\\\\\\\\\\\\\\"type\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"object\\\\\\\\\\\\\\\",\\\\\\\\\\\\\\\"required\\\\\\\\\\\\\\\":[\\\\\\\\\\\\\\\"name\\\\\\\\\\\\\\\"],\\\\\\\\\\\\\\\"properties\\\\\\\\\\\\\\\":{\\\\\\\\\\\\\\\"name\\\\\\\\\\\\\\\":{\\\\\\\\\\\\\\\"type\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"string\\\\\\\\\\\\\\\"}},\\\\\\\\\\\\\\\"x-aghr-examples\\\\\\\\\\\\\\\":{\\\\\\\\\\\\\\\"valid\\\\\\\\\\\\\\\":[{\\\\\\\\\\\\\\\"name\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"AGHR\\\\\\\\\\\\\\\"}],\\\\\\\\\\\\\\\"invalid\\\\\\\\\\\\\\\":[{},{\\\\\\\\\\\\\\\"name\\\\\\\\\\\\\\\":42}]}}\\\\\\\", \\\\\\\"content_hash\\\\\\\": \\\\\\\"sha256:4fd562047cf88814296db322004ea3551ea6fd3a15cb31aaf5b97eb8bbf1d2d8\\\\\\\", \\\\\\\"path\\\\\\\": \\\\\\\"schemas/project-metadata.schema.json\\\\\\\"}], \\\\\\\"kind\\\\\\\": \\\\\\\"GENERATED_FILE\\\\\\\", \\\\\\\"target_project_id\\\\\\\": \\\\\\\"studio-drafts\\\\\\\"}\\\", \\\"source\\\": {\\\"type\\\": \\\"request\\\", \\\"ref\\\": \\\"phase4-meta\\\"}}, \\\"phase4\\\": {\\\"lane\\\": \\\"meta\\\", \\\"body\\\": {\\\"title\\\": \\\"Actual additive schema evaluation\\\", \\\"files\\\": [{\\\"path\\\": \\\"schemas/project-metadata.schema.json\\\", \\\"content\\\": \\\"{\\\\\\\"type\\\\\\\":\\\\\\\"object\\\\\\\",\\\\\\\"required\\\\\\\":[\\\\\\\"name\\\\\\\"],\\\\\\\"properties\\\\\\\":{\\\\\\\"name\\\\\\\":{\\\\\\\"type\\\\\\\":\\\\\\\"string\\\\\\\"}},\\\\\\\"x-aghr-examples\\\\\\\":{\\\\\\\"valid\\\\\\\":[{\\\\\\\"name\\\\\\\":\\\\\\\"AGHR\\\\\\\"}],\\\\\\\"invalid\\\\\\\":[{},{\\\\\\\"name\\\\\\\":42}]}}\\\"}]}, \\\"before\\\": [{\\\"path\\\": \\\"schemas/project-metadata.schema.json\\\", \\\"content\\\": null, \\\"content_hash\\\": null}], \\\"diff\\\": \\\"--- a/schemas/project-metadata.schema.json\\\\n+++ b/schemas/project-metadata.schema.json\\\\n@@ -0,0 +1 @@\\\\n+{\\\\\\\"type\\\\\\\":\\\\\\\"object\\\\\\\",\\\\\\\"required\\\\\\\":[\\\\\\\"name\\\\\\\"],\\\\\\\"properties\\\\\\\":{\\\\\\\"name\\\\\\\":{\\\\\\\"type\\\\\\\":\\\\\\\"string\\\\\\\"}},\\\\\\\"x-aghr-examples\\\\\\\":{\\\\\\\"valid\\\\\\\":[{\\\\\\\"name\\\\\\\":\\\\\\\"AGHR\\\\\\\"}],\\\\\\\"invalid\\\\\\\":[{},{\\\\\\\"name\\\\\\\":42}]}}\\\", \\\"required_approvals\\\": [\\\"governance-owner\\\", \\\"architecture-board\\\"], \\\"checks\\\": {\\\"structure\\\": \\\"PASS\\\", \\\"behavioral_evals\\\": \\\"NOT_RUN\\\", \\\"generation_check\\\": \\\"NOT_RUN\\\"}}, \\\"base_package_version\\\": \\\"1.0.0-rc.3\\\", \\\"base_candidate_hash\\\": \\\"sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2\\\", \\\"proposal_version_hash\\\": \\\"sha256:a007fd7474c35136a5c773ad92ec541a07a0bf49bdc07102a65bc593076e80f3\\\", \\\"canonical_base64\\\": \\\"eyJiYXNlX2NhbmRpZGF0ZV9oYXNoIjoic2hhMjU2OmExY2Q3MjI3MzE1ZjgzZGNmNGUyM2Q2NDFmNjcyNWY4ZDY4MDg2YTI4OWRhNDU3YTk4ZDQzZjdmMzRiODQwZDIiLCJiYXNlX3BhY2thZ2VfdmVyc2lvbiI6IjEuMC4wLXJjLjMiLCJraW5kIjoiR0VORVJBVEVEX0ZJTEUiLCJwaGFzZTQiOnsiYmVmb3JlIjpbeyJjb250ZW50IjpudWxsLCJjb250ZW50X2hhc2giOm51bGwsInBhdGgiOiJzY2hlbWFzL3Byb2plY3QtbWV0YWRhdGEuc2NoZW1hLmpzb24ifV0sImJvZHkiOnsiZmlsZXMiOlt7ImNvbnRlbnQiOiJ7XCJ0eXBlXCI6XCJvYmplY3RcIixcInJlcXVpcmVkXCI6W1wibmFtZVwiXSxcInByb3BlcnRpZXNcIjp7XCJuYW1lXCI6e1widHlwZVwiOlwic3RyaW5nXCJ9fSxcIngtYWdoci1leGFtcGxlc1wiOntcInZhbGlkXCI6W3tcIm5hbWVcIjpcIkFHSFJcIn1dLFwiaW52YWxpZFwiOlt7fSx7XCJuYW1lXCI6NDJ9XX19IiwicGF0aCI6InNjaGVtYXMvcHJvamVjdC1tZXRhZGF0YS5zY2hlbWEuanNvbiJ9XSwidGl0bGUiOiJBY3R1YWwgYWRkaXRpdmUgc2NoZW1hIGV2YWx1YXRpb24ifSwiY2hlY2tzIjp7ImJlaGF2aW9yYWxfZXZhbHMiOiJOT1RfUlVOIiwiZ2VuZXJhdGlvbl9jaGVjayI6Ik5PVF9SVU4iLCJzdHJ1Y3R1cmUiOiJQQVNTIn0sImRpZmYiOiItLS0gYS9zY2hlbWFzL3Byb2plY3QtbWV0YWRhdGEuc2NoZW1hLmpzb25cbisrKyBiL3NjaGVtYXMvcHJvamVjdC1tZXRhZGF0YS5zY2hlbWEuanNvblxuQEAgLTAsMCArMSBAQFxuK3tcInR5cGVcIjpcIm9iamVjdFwiLFwicmVxdWlyZWRcIjpbXCJuYW1lXCJdLFwicHJvcGVydGllc1wiOntcIm5hbWVcIjp7XCJ0eXBlXCI6XCJzdHJpbmdcIn19LFwieC1hZ2hyLWV4YW1wbGVzXCI6e1widmFsaWRcIjpbe1wibmFtZVwiOlwiQUdIUlwifV0sXCJpbnZhbGlkXCI6W3t9LHtcIm5hbWVcIjo0Mn1dfX0iLCJsYW5lIjoibWV0YSIsInJlcXVpcmVkX2FwcHJvdmFscyI6WyJnb3Zlcm5hbmNlLW93bmVyIiwiYXJjaGl0ZWN0dXJlLWJvYXJkIl19LCJwcm9wb3NlZF95YW1sIjoie1wiZmlsZXNcIjogW3tcImNvbnRlbnRcIjogXCJ7XFxcInR5cGVcXFwiOlxcXCJvYmplY3RcXFwiLFxcXCJyZXF1aXJlZFxcXCI6W1xcXCJuYW1lXFxcIl0sXFxcInByb3BlcnRpZXNcXFwiOntcXFwibmFtZVxcXCI6e1xcXCJ0eXBlXFxcIjpcXFwic3RyaW5nXFxcIn19LFxcXCJ4LWFnaHItZXhhbXBsZXNcXFwiOntcXFwidmFsaWRcXFwiOlt7XFxcIm5hbWVcXFwiOlxcXCJBR0hSXFxcIn1dLFxcXCJpbnZhbGlkXFxcIjpbe30se1xcXCJuYW1lXFxcIjo0Mn1dfX1cIiwgXCJjb250ZW50X2hhc2hcIjogXCJzaGEyNTY6NGZkNTYyMDQ3Y2Y4ODgxNDI5NmRiMzIyMDA0ZWEzNTUxZWE2ZmQzYTE1Y2IzMWFhZjViOTdlYjhiYmYxZDJkOFwiLCBcInBhdGhcIjogXCJzY2hlbWFzL3Byb2plY3QtbWV0YWRhdGEuc2NoZW1hLmpzb25cIn1dLCBcImtpbmRcIjogXCJHRU5FUkFURURfRklMRVwiLCBcInRhcmdldF9wcm9qZWN0X2lkXCI6IFwic3R1ZGlvLWRyYWZ0c1wifSIsInNvdXJjZSI6eyJyZWYiOiJwaGFzZTQtbWV0YSIsInR5cGUiOiJyZXF1ZXN0In0sInRpdGxlIjoiQWN0dWFsIGFkZGl0aXZlIHNjaGVtYSBldmFsdWF0aW9uIn0=\\\"}}\\r\\n\",\"stderr\":\"\",\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}}]",
+      "summary_json": null,
+      "linked_package_id": "CP-c56a29ee-ebe5-4834-bff1-e0c8bd274ecd"
+    },
+    {
+      "id": "VR-13296d39-0f58-4345-80a4-a61ca73b8972",
+      "command": "check",
+      "status": "failed",
+      "started_at": "2026-10-24T20:08:57.395Z",
+      "finished_at": "2026-10-24T20:08:57.395Z",
+      "exit_code": 1,
+      "raw_output": "{\"reason\":\"INVALID_FIELDS\",\"receipt\":{\"event\":\"finished\",\"status\":\"failed\",\"reason\":null,\"exit_code\":1,\"resource_peak_mb\":28.7734375,\"duration_ms\":3657,\"active_processes_after\":0,\"observed_pids\":[123584,115760,121044],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":123584,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"stdout\":\"{\\\"protocol_version\\\": \\\"3\\\", \\\"result\\\": \\\"INVALID\\\", \\\"exit_code\\\": 1, \\\"data\\\": null, \\\"reason\\\": \\\"INVALID_FIELDS\\\"}\\r\\n\",\"stderr\":\"\",\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},\"execution_records\":[],\"receipts\":[]}",
+      "summary_json": null,
+      "linked_package_id": null
+    },
+    {
+      "id": "VR-b188d622-0562-42a7-b201-776e2a807225",
+      "command": "eval",
+      "status": "passed",
+      "started_at": "2026-10-24T20:08:53.036Z",
+      "finished_at": "2026-10-24T20:08:53.036Z",
+      "exit_code": 0,
+      "raw_output": "{\"run_id\":\"VR-b188d622-0562-42a7-b201-776e2a807225\",\"status\":\"PASS\",\"item_id\":\"OBS-REFERENCE-STATE-001\",\"source_hash\":\"sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0\",\"cp_id\":null,\"proposal_version_hash\":null,\"reason\":\"Measure the declared default from actual source bytes\",\"scope\":\"D:/APP/Agent-Files-Explorer/**\",\"finished_at\":\"2026-10-24T20:08:53.032Z\",\"measured_delta\":0,\"inventory_hash\":\"sha256:ddcf083a22bb92931c4042560d50bc765bff7b39faf1e80f909dfe3a8db68cbe\",\"expires\":1792873433034,\"outputs\":[{\"binding\":{\"run_id\":\"VR-b188d622-0562-42a7-b201-776e2a807225\",\"item_id\":\"OBS-REFERENCE-STATE-001\",\"source_hash\":\"sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0\",\"cp_id\":null,\"proposal_version_hash\":null,\"reason\":\"Measure the declared default from actual source bytes\",\"scope\":\"D:/APP/Agent-Files-Explorer/**\"},\"valid\":true,\"before_metric\":1,\"after_metric\":1,\"repo_hash\":\"sha256:5b59626a9af0b6d9524be7f331d66da28078b2c9ddc14520a62f6353973c5ba8\",\"measurement\":\"two actual reads of current source; delta zero is not an improvement claim\",\"sources\":[{\"path\":\"server/security.js\",\"sha256\":\"sha256:5b59626a9af0b6d9524be7f331d66da28078b2c9ddc14520a62f6353973c5ba8\"},{\"path\":\"governance_packages/candidates/AGHR_rc3_Core_Candidate/policies/observations/reference-state.json\",\"sha256\":\"sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0\"}]},{\"binding\":{\"run_id\":\"VR-b188d622-0562-42a7-b201-776e2a807225\",\"item_id\":\"OBS-REFERENCE-STATE-001\",\"source_hash\":\"sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0\",\"cp_id\":null,\"proposal_version_hash\":null,\"reason\":\"Measure the declared default from actual source bytes\",\"scope\":\"D:/APP/Agent-Files-Explorer/**\"},\"valid\":true,\"before_metric\":1,\"after_metric\":1,\"repo_hash\":\"sha256:5b59626a9af0b6d9524be7f331d66da28078b2c9ddc14520a62f6353973c5ba8\",\"measurement\":\"two actual reads of current source; delta zero is not an improvement claim\",\"sources\":[{\"path\":\"server/security.js\",\"sha256\":\"sha256:5b59626a9af0b6d9524be7f331d66da28078b2c9ddc14520a62f6353973c5ba8\"},{\"path\":\"governance_packages/candidates/AGHR_rc3_Core_Candidate/policies/observations/reference-state.json\",\"sha256\":\"sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0\"}]},{\"binding\":{\"run_id\":\"VR-b188d622-0562-42a7-b201-776e2a807225\",\"item_id\":\"OBS-REFERENCE-STATE-001\",\"source_hash\":\"sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0\",\"cp_id\":null,\"proposal_version_hash\":null,\"reason\":\"Measure the declared default from actual source bytes\",\"scope\":\"D:/APP/Agent-Files-Explorer/**\"},\"valid\":true,\"before_metric\":1,\"after_metric\":1,\"repo_hash\":\"sha256:5b59626a9af0b6d9524be7f331d66da28078b2c9ddc14520a62f6353973c5ba8\",\"measurement\":\"two actual reads of current source; delta zero is not an improvement claim\",\"sources\":[{\"path\":\"server/security.js\",\"sha256\":\"sha256:5b59626a9af0b6d9524be7f331d66da28078b2c9ddc14520a62f6353973c5ba8\"},{\"path\":\"governance_packages/candidates/AGHR_rc3_Core_Candidate/policies/observations/reference-state.json\",\"sha256\":\"sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0\"}]}],\"records\":[{\"operation\":\"discover\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:18a198d9c86956fffc1a73029b3074162af770efb6581a97e0de6beee79bc272\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"VALID\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"result\\\":\\\"VALID\\\",\\\"status\\\":\\\"SELECTED\\\",\\\"selected\\\":[\\\"project-measurement\\\"],\\\"alternatives_not_loaded\\\":[],\\\"halt\\\":false,\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":15.94921875,\"duration_ms\":500,\"active_processes_after\":0,\"observed_pids\":[122612,123144,116680],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":122612,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"transition\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:8a73ea42fed34cc68f76c2b94df52d5cd1a7f47f6900c4e94017f3503c04ef09\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"READ\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"state\\\":\\\"LOADED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-19f3af8e-b2b2-4fd7-a5d5-cc54fc1ad604\\\",\\\"session_id\\\":\\\"cf31b083-b3ff-4788-9f16-547009029645\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-measurement\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"NOT_RUN\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":15.9140625,\"duration_ms\":531,\"active_processes_after\":0,\"observed_pids\":[74904,123116,118816],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":74904,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"execute\",\"resource_profile\":\"eval\",\"run_id\":\"E4-73bd0964-4f90-479e-a816-6ce29da1f94a\",\"identity\":{\"task_id\":\"phase4-19f3af8e-b2b2-4fd7-a5d5-cc54fc1ad604\",\"session_id\":\"cf31b083-b3ff-4788-9f16-547009029645\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"D:/APP/Agent-Files-Explorer/**\",\"skill_id\":\"project-measurement\",\"phase\":\"implementation\"},\"driver_hash\":\"sha256:229c4a5c1fe8248ea452f5fe2dfd26e9ea6391430187f0237f52c5feab8ef6d9\",\"input_hash\":\"sha256:d28703f64ac502d3b44223f281dc38f3b76e27854a1004cad78d58f4b0df1f0d\",\"input_base64\":\"eyJiaW5kaW5nIjp7InJ1bl9pZCI6IlZSLWIxODhkNjIyLTA1NjItNDJhNy1iMjAxLTc3NmUyYTgwNzIyNSIsIml0ZW1faWQiOiJPQlMtUkVGRVJFTkNFLVNUQVRFLTAwMSIsInNvdXJjZV9oYXNoIjoic2hhMjU2OmY4OWJiMjJjN2M5NWI0MmIzODg5YTg3MjUwMThjYTJmZThlOTFkMjllYmMxNTQ4ZjU4NzVlY2Q5NzhlMzFjYzAiLCJjcF9pZCI6bnVsbCwicHJvcG9zYWxfdmVyc2lvbl9oYXNoIjpudWxsLCJyZWFzb24iOiJNZWFzdXJlIHRoZSBkZWNsYXJlZCBkZWZhdWx0IGZyb20gYWN0dWFsIHNvdXJjZSBieXRlcyIsInNjb3BlIjoiRDovQVBQL0FnZW50LUZpbGVzLUV4cGxvcmVyLyoqIn0sIml0ZW0iOnsiaWQiOiJPQlMtUkVGRVJFTkNFLVNUQVRFLTAwMSIsInRpdGxlIjoi2LHYtdivINin2YTZhdix2KzYuSDYp9mE2KfZgdiq2LHYp9i22Yog2KfZhNmF2LnZhNmGINmB2Yog2YXYtdiv2LEg2KfZhNiq2LfYqNmK2YIiLCJraW5kIjoiT0JTRVJWQVRJT04iLCJmb3JjZSI6IklORk9STUFUSVZFIiwic2V2ZXJpdHkiOiJpbmZvIiwic2NvcGUiOnsicGF0aHMiOlsic2VydmVyL3NlY3VyaXR5LmpzIl19LCJydWxlIjoi2YHZiiDYsdi12K8g2KfZhNmF2LXYr9ixINio2KrYp9ix2YrYriAyMDI2LTEwLTIy2Iwg2YrYudix2ZHZgSBzZXJ2ZXIvc2VjdXJpdHkuanMg2KfZhNmC2YrZhdipIERFRkFVTFRfUEFDS0FHRV9JRCA9IFwiYWdocl8xXzJfMFwi2Iwg2YjZitix2KjYtyBBR0hSX1JPT1Qg2KjYp9mE2YLZitmF2KkgQUdIUl8xXzJfMF9ST09ULiIsImltcGFjdCI6eyJiYW5kIjoiaW5mbyIsImV2aWRlbmNlIjoiYXNzdW1lZCJ9fX0=\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":28.30859375,\"duration_ms\":3718,\"active_processes_after\":0,\"observed_pids\":[119532,113836,116468],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":119532,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"stdout\":\"{\\\"binding\\\": {\\\"run_id\\\": \\\"VR-b188d622-0562-42a7-b201-776e2a807225\\\", \\\"item_id\\\": \\\"OBS-REFERENCE-STATE-001\\\", \\\"source_hash\\\": \\\"sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0\\\", \\\"cp_id\\\": null, \\\"proposal_version_hash\\\": null, \\\"reason\\\": \\\"Measure the declared default from actual source bytes\\\", \\\"scope\\\": \\\"D:/APP/Agent-Files-Explorer/**\\\"}, \\\"valid\\\": true, \\\"before_metric\\\": 1, \\\"after_metric\\\": 1, \\\"repo_hash\\\": \\\"sha256:5b59626a9af0b6d9524be7f331d66da28078b2c9ddc14520a62f6353973c5ba8\\\", \\\"measurement\\\": \\\"two actual reads of current source; delta zero is not an improvement claim\\\", \\\"sources\\\": [{\\\"path\\\": \\\"server/security.js\\\", \\\"sha256\\\": \\\"sha256:5b59626a9af0b6d9524be7f331d66da28078b2c9ddc14520a62f6353973c5ba8\\\"}, {\\\"path\\\": \\\"governance_packages/candidates/AGHR_rc3_Core_Candidate/policies/observations/reference-state.json\\\", \\\"sha256\\\": \\\"sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0\\\"}]}\\r\\n\",\"stderr\":\"\",\"limits\":{\"timeoutMs\":600000,\"memoryBytes\":2147483648},\"stdout_base64\":\"eyJiaW5kaW5nIjogeyJydW5faWQiOiAiVlItYjE4OGQ2MjItMDU2Mi00MmE3LWIyMDEtNzc2ZTJhODA3MjI1IiwgIml0ZW1faWQiOiAiT0JTLVJFRkVSRU5DRS1TVEFURS0wMDEiLCAic291cmNlX2hhc2giOiAic2hhMjU2OmY4OWJiMjJjN2M5NWI0MmIzODg5YTg3MjUwMThjYTJmZThlOTFkMjllYmMxNTQ4ZjU4NzVlY2Q5NzhlMzFjYzAiLCAiY3BfaWQiOiBudWxsLCAicHJvcG9zYWxfdmVyc2lvbl9oYXNoIjogbnVsbCwgInJlYXNvbiI6ICJNZWFzdXJlIHRoZSBkZWNsYXJlZCBkZWZhdWx0IGZyb20gYWN0dWFsIHNvdXJjZSBieXRlcyIsICJzY29wZSI6ICJEOi9BUFAvQWdlbnQtRmlsZXMtRXhwbG9yZXIvKioifSwgInZhbGlkIjogdHJ1ZSwgImJlZm9yZV9tZXRyaWMiOiAxLCAiYWZ0ZXJfbWV0cmljIjogMSwgInJlcG9faGFzaCI6ICJzaGEyNTY6NWI1OTYyNmE5YWYwYjZkOTUyNGJlN2YzMzFkNjZkYTI4MDc4YjJjOWRkYzE0NTIwYTYyZjYzNTM5NzNjNWJhOCIsICJtZWFzdXJlbWVudCI6ICJ0d28gYWN0dWFsIHJlYWRzIG9mIGN1cnJlbnQgc291cmNlOyBkZWx0YSB6ZXJvIGlzIG5vdCBhbiBpbXByb3ZlbWVudCBjbGFpbSIsICJzb3VyY2VzIjogW3sicGF0aCI6ICJzZXJ2ZXIvc2VjdXJpdHkuanMiLCAic2hhMjU2IjogInNoYTI1Njo1YjU5NjI2YTlhZjBiNmQ5NTI0YmU3ZjMzMWQ2NmRhMjgwNzhiMmM5ZGRjMTQ1MjBhNjJmNjM1Mzk3M2M1YmE4In0sIHsicGF0aCI6ICJnb3Zlcm5hbmNlX3BhY2thZ2VzL2NhbmRpZGF0ZXMvQUdIUl9yYzNfQ29yZV9DYW5kaWRhdGUvcG9saWNpZXMvb2JzZXJ2YXRpb25zL3JlZmVyZW5jZS1zdGF0ZS5qc29uIiwgInNoYTI1NiI6ICJzaGEyNTY6Zjg5YmIyMmM3Yzk1YjQyYjM4ODlhODcyNTAxOGNhMmZlOGU5MWQyOWViYzE1NDhmNTg3NWVjZDk3OGUzMWNjMCJ9XX0NCg==\",\"stderr_base64\":\"\"},{\"operation\":\"transition\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:390945e80c45156a3568a18b393d89af1b60c1b7c15593eed6d1b84edb5bdbb2\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"READ\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"state\\\":\\\"EXECUTED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-19f3af8e-b2b2-4fd7-a5d5-cc54fc1ad604\\\",\\\"session_id\\\":\\\"cf31b083-b3ff-4788-9f16-547009029645\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-measurement\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"EXECUTED\\\",\\\"execution_run_id\\\":\\\"E4-73bd0964-4f90-479e-a816-6ce29da1f94a\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":15.90234375,\"duration_ms\":532,\"active_processes_after\":0,\"observed_pids\":[77252,122176,112604],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":77252,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"discover\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:18a198d9c86956fffc1a73029b3074162af770efb6581a97e0de6beee79bc272\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"VALID\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"result\\\":\\\"VALID\\\",\\\"status\\\":\\\"SELECTED\\\",\\\"selected\\\":[\\\"project-measurement\\\"],\\\"alternatives_not_loaded\\\":[],\\\"halt\\\":false,\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":15.78125,\"duration_ms\":563,\"active_processes_after\":0,\"observed_pids\":[121352,122416,97784],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":121352,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"transition\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:8a73ea42fed34cc68f76c2b94df52d5cd1a7f47f6900c4e94017f3503c04ef09\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"READ\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"state\\\":\\\"LOADED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-19f3af8e-b2b2-4fd7-a5d5-cc54fc1ad604\\\",\\\"session_id\\\":\\\"cf31b083-b3ff-4788-9f16-547009029645\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-measurement\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"NOT_RUN\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":15.98828125,\"duration_ms\":563,\"active_processes_after\":0,\"observed_pids\":[122540,110896,108364],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":122540,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"execute\",\"resource_profile\":\"eval\",\"run_id\":\"E4-6abb176c-dc17-4a5c-9912-2cd04f3de1c5\",\"identity\":{\"task_id\":\"phase4-19f3af8e-b2b2-4fd7-a5d5-cc54fc1ad604\",\"session_id\":\"cf31b083-b3ff-4788-9f16-547009029645\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"D:/APP/Agent-Files-Explorer/**\",\"skill_id\":\"project-measurement\",\"phase\":\"implementation\"},\"driver_hash\":\"sha256:229c4a5c1fe8248ea452f5fe2dfd26e9ea6391430187f0237f52c5feab8ef6d9\",\"input_hash\":\"sha256:d28703f64ac502d3b44223f281dc38f3b76e27854a1004cad78d58f4b0df1f0d\",\"input_base64\":\"eyJiaW5kaW5nIjp7InJ1bl9pZCI6IlZSLWIxODhkNjIyLTA1NjItNDJhNy1iMjAxLTc3NmUyYTgwNzIyNSIsIml0ZW1faWQiOiJPQlMtUkVGRVJFTkNFLVNUQVRFLTAwMSIsInNvdXJjZV9oYXNoIjoic2hhMjU2OmY4OWJiMjJjN2M5NWI0MmIzODg5YTg3MjUwMThjYTJmZThlOTFkMjllYmMxNTQ4ZjU4NzVlY2Q5NzhlMzFjYzAiLCJjcF9pZCI6bnVsbCwicHJvcG9zYWxfdmVyc2lvbl9oYXNoIjpudWxsLCJyZWFzb24iOiJNZWFzdXJlIHRoZSBkZWNsYXJlZCBkZWZhdWx0IGZyb20gYWN0dWFsIHNvdXJjZSBieXRlcyIsInNjb3BlIjoiRDovQVBQL0FnZW50LUZpbGVzLUV4cGxvcmVyLyoqIn0sIml0ZW0iOnsiaWQiOiJPQlMtUkVGRVJFTkNFLVNUQVRFLTAwMSIsInRpdGxlIjoi2LHYtdivINin2YTZhdix2KzYuSDYp9mE2KfZgdiq2LHYp9i22Yog2KfZhNmF2LnZhNmGINmB2Yog2YXYtdiv2LEg2KfZhNiq2LfYqNmK2YIiLCJraW5kIjoiT0JTRVJWQVRJT04iLCJmb3JjZSI6IklORk9STUFUSVZFIiwic2V2ZXJpdHkiOiJpbmZvIiwic2NvcGUiOnsicGF0aHMiOlsic2VydmVyL3NlY3VyaXR5LmpzIl19LCJydWxlIjoi2YHZiiDYsdi12K8g2KfZhNmF2LXYr9ixINio2KrYp9ix2YrYriAyMDI2LTEwLTIy2Iwg2YrYudix2ZHZgSBzZXJ2ZXIvc2VjdXJpdHkuanMg2KfZhNmC2YrZhdipIERFRkFVTFRfUEFDS0FHRV9JRCA9IFwiYWdocl8xXzJfMFwi2Iwg2YjZitix2KjYtyBBR0hSX1JPT1Qg2KjYp9mE2YLZitmF2KkgQUdIUl8xXzJfMF9ST09ULiIsImltcGFjdCI6eyJiYW5kIjoiaW5mbyIsImV2aWRlbmNlIjoiYXNzdW1lZCJ9fX0=\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":28.74609375,\"duration_ms\":3640,\"active_processes_after\":0,\"observed_pids\":[114368,117812,109168],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":114368,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"stdout\":\"{\\\"binding\\\": {\\\"run_id\\\": \\\"VR-b188d622-0562-42a7-b201-776e2a807225\\\", \\\"item_id\\\": \\\"OBS-REFERENCE-STATE-001\\\", \\\"source_hash\\\": \\\"sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0\\\", \\\"cp_id\\\": null, \\\"proposal_version_hash\\\": null, \\\"reason\\\": \\\"Measure the declared default from actual source bytes\\\", \\\"scope\\\": \\\"D:/APP/Agent-Files-Explorer/**\\\"}, \\\"valid\\\": true, \\\"before_metric\\\": 1, \\\"after_metric\\\": 1, \\\"repo_hash\\\": \\\"sha256:5b59626a9af0b6d9524be7f331d66da28078b2c9ddc14520a62f6353973c5ba8\\\", \\\"measurement\\\": \\\"two actual reads of current source; delta zero is not an improvement claim\\\", \\\"sources\\\": [{\\\"path\\\": \\\"server/security.js\\\", \\\"sha256\\\": \\\"sha256:5b59626a9af0b6d9524be7f331d66da28078b2c9ddc14520a62f6353973c5ba8\\\"}, {\\\"path\\\": \\\"governance_packages/candidates/AGHR_rc3_Core_Candidate/policies/observations/reference-state.json\\\", \\\"sha256\\\": \\\"sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0\\\"}]}\\r\\n\",\"stderr\":\"\",\"limits\":{\"timeoutMs\":600000,\"memoryBytes\":2147483648},\"stdout_base64\":\"eyJiaW5kaW5nIjogeyJydW5faWQiOiAiVlItYjE4OGQ2MjItMDU2Mi00MmE3LWIyMDEtNzc2ZTJhODA3MjI1IiwgIml0ZW1faWQiOiAiT0JTLVJFRkVSRU5DRS1TVEFURS0wMDEiLCAic291cmNlX2hhc2giOiAic2hhMjU2OmY4OWJiMjJjN2M5NWI0MmIzODg5YTg3MjUwMThjYTJmZThlOTFkMjllYmMxNTQ4ZjU4NzVlY2Q5NzhlMzFjYzAiLCAiY3BfaWQiOiBudWxsLCAicHJvcG9zYWxfdmVyc2lvbl9oYXNoIjogbnVsbCwgInJlYXNvbiI6ICJNZWFzdXJlIHRoZSBkZWNsYXJlZCBkZWZhdWx0IGZyb20gYWN0dWFsIHNvdXJjZSBieXRlcyIsICJzY29wZSI6ICJEOi9BUFAvQWdlbnQtRmlsZXMtRXhwbG9yZXIvKioifSwgInZhbGlkIjogdHJ1ZSwgImJlZm9yZV9tZXRyaWMiOiAxLCAiYWZ0ZXJfbWV0cmljIjogMSwgInJlcG9faGFzaCI6ICJzaGEyNTY6NWI1OTYyNmE5YWYwYjZkOTUyNGJlN2YzMzFkNjZkYTI4MDc4YjJjOWRkYzE0NTIwYTYyZjYzNTM5NzNjNWJhOCIsICJtZWFzdXJlbWVudCI6ICJ0d28gYWN0dWFsIHJlYWRzIG9mIGN1cnJlbnQgc291cmNlOyBkZWx0YSB6ZXJvIGlzIG5vdCBhbiBpbXByb3ZlbWVudCBjbGFpbSIsICJzb3VyY2VzIjogW3sicGF0aCI6ICJzZXJ2ZXIvc2VjdXJpdHkuanMiLCAic2hhMjU2IjogInNoYTI1Njo1YjU5NjI2YTlhZjBiNmQ5NTI0YmU3ZjMzMWQ2NmRhMjgwNzhiMmM5ZGRjMTQ1MjBhNjJmNjM1Mzk3M2M1YmE4In0sIHsicGF0aCI6ICJnb3Zlcm5hbmNlX3BhY2thZ2VzL2NhbmRpZGF0ZXMvQUdIUl9yYzNfQ29yZV9DYW5kaWRhdGUvcG9saWNpZXMvb2JzZXJ2YXRpb25zL3JlZmVyZW5jZS1zdGF0ZS5qc29uIiwgInNoYTI1NiI6ICJzaGEyNTY6Zjg5YmIyMmM3Yzk1YjQyYjM4ODlhODcyNTAxOGNhMmZlOGU5MWQyOWViYzE1NDhmNTg3NWVjZDk3OGUzMWNjMCJ9XX0NCg==\",\"stderr_base64\":\"\"},{\"operation\":\"transition\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:392269d70b4ea09c96fbb6ff9de84ea80e1d4821f297ca41fdbff8a125794792\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"READ\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"state\\\":\\\"EXECUTED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-19f3af8e-b2b2-4fd7-a5d5-cc54fc1ad604\\\",\\\"session_id\\\":\\\"cf31b083-b3ff-4788-9f16-547009029645\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-measurement\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"EXECUTED\\\",\\\"execution_run_id\\\":\\\"E4-6abb176c-dc17-4a5c-9912-2cd04f3de1c5\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":15.921875,\"duration_ms\":532,\"active_processes_after\":0,\"observed_pids\":[123512,121004,107896],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":123512,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"discover\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:18a198d9c86956fffc1a73029b3074162af770efb6581a97e0de6beee79bc272\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"VALID\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"result\\\":\\\"VALID\\\",\\\"status\\\":\\\"SELECTED\\\",\\\"selected\\\":[\\\"project-measurement\\\"],\\\"alternatives_not_loaded\\\":[],\\\"halt\\\":false,\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":15.71484375,\"duration_ms\":594,\"active_processes_after\":0,\"observed_pids\":[112392,119364,77396],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":112392,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"transition\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:8a73ea42fed34cc68f76c2b94df52d5cd1a7f47f6900c4e94017f3503c04ef09\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"READ\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"state\\\":\\\"LOADED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-19f3af8e-b2b2-4fd7-a5d5-cc54fc1ad604\\\",\\\"session_id\\\":\\\"cf31b083-b3ff-4788-9f16-547009029645\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-measurement\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"NOT_RUN\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":15.953125,\"duration_ms\":515,\"active_processes_after\":0,\"observed_pids\":[113296,110332,120336],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":113296,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"execute\",\"resource_profile\":\"eval\",\"run_id\":\"E4-8d8fdc39-2798-4f4d-b5fd-bc3f9cbb329c\",\"identity\":{\"task_id\":\"phase4-19f3af8e-b2b2-4fd7-a5d5-cc54fc1ad604\",\"session_id\":\"cf31b083-b3ff-4788-9f16-547009029645\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"D:/APP/Agent-Files-Explorer/**\",\"skill_id\":\"project-measurement\",\"phase\":\"implementation\"},\"driver_hash\":\"sha256:229c4a5c1fe8248ea452f5fe2dfd26e9ea6391430187f0237f52c5feab8ef6d9\",\"input_hash\":\"sha256:d28703f64ac502d3b44223f281dc38f3b76e27854a1004cad78d58f4b0df1f0d\",\"input_base64\":\"eyJiaW5kaW5nIjp7InJ1bl9pZCI6IlZSLWIxODhkNjIyLTA1NjItNDJhNy1iMjAxLTc3NmUyYTgwNzIyNSIsIml0ZW1faWQiOiJPQlMtUkVGRVJFTkNFLVNUQVRFLTAwMSIsInNvdXJjZV9oYXNoIjoic2hhMjU2OmY4OWJiMjJjN2M5NWI0MmIzODg5YTg3MjUwMThjYTJmZThlOTFkMjllYmMxNTQ4ZjU4NzVlY2Q5NzhlMzFjYzAiLCJjcF9pZCI6bnVsbCwicHJvcG9zYWxfdmVyc2lvbl9oYXNoIjpudWxsLCJyZWFzb24iOiJNZWFzdXJlIHRoZSBkZWNsYXJlZCBkZWZhdWx0IGZyb20gYWN0dWFsIHNvdXJjZSBieXRlcyIsInNjb3BlIjoiRDovQVBQL0FnZW50LUZpbGVzLUV4cGxvcmVyLyoqIn0sIml0ZW0iOnsiaWQiOiJPQlMtUkVGRVJFTkNFLVNUQVRFLTAwMSIsInRpdGxlIjoi2LHYtdivINin2YTZhdix2KzYuSDYp9mE2KfZgdiq2LHYp9i22Yog2KfZhNmF2LnZhNmGINmB2Yog2YXYtdiv2LEg2KfZhNiq2LfYqNmK2YIiLCJraW5kIjoiT0JTRVJWQVRJT04iLCJmb3JjZSI6IklORk9STUFUSVZFIiwic2V2ZXJpdHkiOiJpbmZvIiwic2NvcGUiOnsicGF0aHMiOlsic2VydmVyL3NlY3VyaXR5LmpzIl19LCJydWxlIjoi2YHZiiDYsdi12K8g2KfZhNmF2LXYr9ixINio2KrYp9ix2YrYriAyMDI2LTEwLTIy2Iwg2YrYudix2ZHZgSBzZXJ2ZXIvc2VjdXJpdHkuanMg2KfZhNmC2YrZhdipIERFRkFVTFRfUEFDS0FHRV9JRCA9IFwiYWdocl8xXzJfMFwi2Iwg2YjZitix2KjYtyBBR0hSX1JPT1Qg2KjYp9mE2YLZitmF2KkgQUdIUl8xXzJfMF9ST09ULiIsImltcGFjdCI6eyJiYW5kIjoiaW5mbyIsImV2aWRlbmNlIjoiYXNzdW1lZCJ9fX0=\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":29.16796875,\"duration_ms\":3703,\"active_processes_after\":0,\"observed_pids\":[105396,121048,115044],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":105396,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"stdout\":\"{\\\"binding\\\": {\\\"run_id\\\": \\\"VR-b188d622-0562-42a7-b201-776e2a807225\\\", \\\"item_id\\\": \\\"OBS-REFERENCE-STATE-001\\\", \\\"source_hash\\\": \\\"sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0\\\", \\\"cp_id\\\": null, \\\"proposal_version_hash\\\": null, \\\"reason\\\": \\\"Measure the declared default from actual source bytes\\\", \\\"scope\\\": \\\"D:/APP/Agent-Files-Explorer/**\\\"}, \\\"valid\\\": true, \\\"before_metric\\\": 1, \\\"after_metric\\\": 1, \\\"repo_hash\\\": \\\"sha256:5b59626a9af0b6d9524be7f331d66da28078b2c9ddc14520a62f6353973c5ba8\\\", \\\"measurement\\\": \\\"two actual reads of current source; delta zero is not an improvement claim\\\", \\\"sources\\\": [{\\\"path\\\": \\\"server/security.js\\\", \\\"sha256\\\": \\\"sha256:5b59626a9af0b6d9524be7f331d66da28078b2c9ddc14520a62f6353973c5ba8\\\"}, {\\\"path\\\": \\\"governance_packages/candidates/AGHR_rc3_Core_Candidate/policies/observations/reference-state.json\\\", \\\"sha256\\\": \\\"sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0\\\"}]}\\r\\n\",\"stderr\":\"\",\"limits\":{\"timeoutMs\":600000,\"memoryBytes\":2147483648},\"stdout_base64\":\"eyJiaW5kaW5nIjogeyJydW5faWQiOiAiVlItYjE4OGQ2MjItMDU2Mi00MmE3LWIyMDEtNzc2ZTJhODA3MjI1IiwgIml0ZW1faWQiOiAiT0JTLVJFRkVSRU5DRS1TVEFURS0wMDEiLCAic291cmNlX2hhc2giOiAic2hhMjU2OmY4OWJiMjJjN2M5NWI0MmIzODg5YTg3MjUwMThjYTJmZThlOTFkMjllYmMxNTQ4ZjU4NzVlY2Q5NzhlMzFjYzAiLCAiY3BfaWQiOiBudWxsLCAicHJvcG9zYWxfdmVyc2lvbl9oYXNoIjogbnVsbCwgInJlYXNvbiI6ICJNZWFzdXJlIHRoZSBkZWNsYXJlZCBkZWZhdWx0IGZyb20gYWN0dWFsIHNvdXJjZSBieXRlcyIsICJzY29wZSI6ICJEOi9BUFAvQWdlbnQtRmlsZXMtRXhwbG9yZXIvKioifSwgInZhbGlkIjogdHJ1ZSwgImJlZm9yZV9tZXRyaWMiOiAxLCAiYWZ0ZXJfbWV0cmljIjogMSwgInJlcG9faGFzaCI6ICJzaGEyNTY6NWI1OTYyNmE5YWYwYjZkOTUyNGJlN2YzMzFkNjZkYTI4MDc4YjJjOWRkYzE0NTIwYTYyZjYzNTM5NzNjNWJhOCIsICJtZWFzdXJlbWVudCI6ICJ0d28gYWN0dWFsIHJlYWRzIG9mIGN1cnJlbnQgc291cmNlOyBkZWx0YSB6ZXJvIGlzIG5vdCBhbiBpbXByb3ZlbWVudCBjbGFpbSIsICJzb3VyY2VzIjogW3sicGF0aCI6ICJzZXJ2ZXIvc2VjdXJpdHkuanMiLCAic2hhMjU2IjogInNoYTI1Njo1YjU5NjI2YTlhZjBiNmQ5NTI0YmU3ZjMzMWQ2NmRhMjgwNzhiMmM5ZGRjMTQ1MjBhNjJmNjM1Mzk3M2M1YmE4In0sIHsicGF0aCI6ICJnb3Zlcm5hbmNlX3BhY2thZ2VzL2NhbmRpZGF0ZXMvQUdIUl9yYzNfQ29yZV9DYW5kaWRhdGUvcG9saWNpZXMvb2JzZXJ2YXRpb25zL3JlZmVyZW5jZS1zdGF0ZS5qc29uIiwgInNoYTI1NiI6ICJzaGEyNTY6Zjg5YmIyMmM3Yzk1YjQyYjM4ODlhODcyNTAxOGNhMmZlOGU5MWQyOWViYzE1NDhmNTg3NWVjZDk3OGUzMWNjMCJ9XX0NCg==\",\"stderr_base64\":\"\"},{\"operation\":\"transition\",\"command\":\"check\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:4adc8933ddb4ab79bed6a80cdd1cdf4793ab7e881b229e9949c91f2da5b074d3\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"check\\\",\\\"result\\\":\\\"READ\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"state\\\":\\\"EXECUTED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-19f3af8e-b2b2-4fd7-a5d5-cc54fc1ad604\\\",\\\"session_id\\\":\\\"cf31b083-b3ff-4788-9f16-547009029645\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-measurement\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"EXECUTED\\\",\\\"execution_run_id\\\":\\\"E4-8d8fdc39-2798-4f4d-b5fd-bc3f9cbb329c\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":15.71484375,\"duration_ms\":531,\"active_processes_after\":0,\"observed_pids\":[69428,117212,121848],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":69428,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":30000,\"memoryBytes\":2147483648}},{\"operation\":\"eval\",\"command\":\"eval\",\"protocol_version\":\"3\",\"engine_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"python_hash\":\"0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14\",\"input_hash\":\"sha256:a09392d7170cad0683e1d75a453cd5ec9b2016a493ea2b564e6d9ffb10e99fa3\",\"stdout\":\"{\\\"protocol_version\\\":\\\"3\\\",\\\"command\\\":\\\"eval\\\",\\\"result\\\":\\\"VALID\\\",\\\"exit_code\\\":0,\\\"source\\\":{\\\"implementation_id\\\":\\\"aghr-e4-native-core\\\",\\\"revision\\\":\\\"e4.e-correction.1\\\",\\\"content_hash\\\":\\\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\\\",\\\"publisher_authentication\\\":\\\"UNKNOWN\\\"},\\\"data\\\":{\\\"result\\\":\\\"VALID\\\",\\\"status\\\":\\\"PASS\\\",\\\"runs\\\":3,\\\"minimum_runs\\\":3,\\\"violations\\\":0,\\\"violation_rate\\\":0.0,\\\"max_violation_rate\\\":0,\\\"outcomes\\\":[{\\\"run_id\\\":\\\"E4-73bd0964-4f90-479e-a816-6ce29da1f94a\\\",\\\"verified\\\":true,\\\"verifier\\\":{\\\"state\\\":\\\"VERIFIED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-19f3af8e-b2b2-4fd7-a5d5-cc54fc1ad604\\\",\\\"session_id\\\":\\\"cf31b083-b3ff-4788-9f16-547009029645\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-measurement\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"EXECUTED\\\",\\\"execution_run_id\\\":\\\"E4-73bd0964-4f90-479e-a816-6ce29da1f94a\\\",\\\"result\\\":\\\"VALID\\\",\\\"verified\\\":true,\\\"criteria_hash\\\":\\\"sha256:980c37ba4e48a1bfee2ff09761917075f12645f1e30050feb0e88c152c537dc2\\\",\\\"criteria_results\\\":[{\\\"pointer\\\":\\\"/binding/run_id\\\",\\\"op\\\":\\\"equals\\\",\\\"passed\\\":true,\\\"actual_hash\\\":\\\"sha256:fd694269d6a6e7952ef4b1448327b8cc81331263d43fdf0edf3ed786bd3baa71\\\"},{\\\"pointer\\\":\\\"/valid\\\",\\\"op\\\":\\\"equals\\\",\\\"passed\\\":true,\\\"actual_hash\\\":\\\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\\\"}],\\\"output_hash\\\":\\\"sha256:93577d87cb80b68905b444cfd84230ff1786221146d445272c046eb921ea93e8\\\"}},{\\\"run_id\\\":\\\"E4-6abb176c-dc17-4a5c-9912-2cd04f3de1c5\\\",\\\"verified\\\":true,\\\"verifier\\\":{\\\"state\\\":\\\"VERIFIED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-19f3af8e-b2b2-4fd7-a5d5-cc54fc1ad604\\\",\\\"session_id\\\":\\\"cf31b083-b3ff-4788-9f16-547009029645\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-measurement\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"EXECUTED\\\",\\\"execution_run_id\\\":\\\"E4-6abb176c-dc17-4a5c-9912-2cd04f3de1c5\\\",\\\"result\\\":\\\"VALID\\\",\\\"verified\\\":true,\\\"criteria_hash\\\":\\\"sha256:980c37ba4e48a1bfee2ff09761917075f12645f1e30050feb0e88c152c537dc2\\\",\\\"criteria_results\\\":[{\\\"pointer\\\":\\\"/binding/run_id\\\",\\\"op\\\":\\\"equals\\\",\\\"passed\\\":true,\\\"actual_hash\\\":\\\"sha256:fd694269d6a6e7952ef4b1448327b8cc81331263d43fdf0edf3ed786bd3baa71\\\"},{\\\"pointer\\\":\\\"/valid\\\",\\\"op\\\":\\\"equals\\\",\\\"passed\\\":true,\\\"actual_hash\\\":\\\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\\\"}],\\\"output_hash\\\":\\\"sha256:93577d87cb80b68905b444cfd84230ff1786221146d445272c046eb921ea93e8\\\"}},{\\\"run_id\\\":\\\"E4-8d8fdc39-2798-4f4d-b5fd-bc3f9cbb329c\\\",\\\"verified\\\":true,\\\"verifier\\\":{\\\"state\\\":\\\"VERIFIED\\\",\\\"instruction_hash\\\":\\\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\\\",\\\"identity\\\":{\\\"task_id\\\":\\\"phase4-19f3af8e-b2b2-4fd7-a5d5-cc54fc1ad604\\\",\\\"session_id\\\":\\\"cf31b083-b3ff-4788-9f16-547009029645\\\",\\\"host\\\":\\\"aghr-local-process\\\",\\\"host_version\\\":\\\"v24.11.0\\\",\\\"scope\\\":\\\"D:/APP/Agent-Files-Explorer/**\\\",\\\"skill_id\\\":\\\"project-measurement\\\",\\\"phase\\\":\\\"implementation\\\"},\\\"host_signal\\\":\\\"NOT_OBSERVABLE\\\",\\\"execution\\\":\\\"EXECUTED\\\",\\\"execution_run_id\\\":\\\"E4-8d8fdc39-2798-4f4d-b5fd-bc3f9cbb329c\\\",\\\"result\\\":\\\"VALID\\\",\\\"verified\\\":true,\\\"criteria_hash\\\":\\\"sha256:980c37ba4e48a1bfee2ff09761917075f12645f1e30050feb0e88c152c537dc2\\\",\\\"criteria_results\\\":[{\\\"pointer\\\":\\\"/binding/run_id\\\",\\\"op\\\":\\\"equals\\\",\\\"passed\\\":true,\\\"actual_hash\\\":\\\"sha256:fd694269d6a6e7952ef4b1448327b8cc81331263d43fdf0edf3ed786bd3baa71\\\"},{\\\"pointer\\\":\\\"/valid\\\",\\\"op\\\":\\\"equals\\\",\\\"passed\\\":true,\\\"actual_hash\\\":\\\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\\\"}],\\\"output_hash\\\":\\\"sha256:93577d87cb80b68905b444cfd84230ff1786221146d445272c046eb921ea93e8\\\"}}],\\\"host\\\":\\\"aghr-local-process\\\",\\\"profile\\\":\\\"ACTUAL_LOCAL_PROCESS_PROCEDURE\\\",\\\"native_agent_qualification\\\":\\\"NOT_GRANTED\\\"},\\\"diagnostics\\\":[]}\\r\\n\",\"stderr\":\"\",\"event\":\"finished\",\"status\":\"passed\",\"reason\":null,\"exit_code\":0,\"resource_peak_mb\":16.046875,\"duration_ms\":516,\"active_processes_after\":0,\"observed_pids\":[122576,120096,118800],\"memory_events\":[],\"started\":{\"event\":\"started\",\"pid\":122576,\"adapter\":\"windows-job-list\",\"hard_memory_bytes\":2147483648,\"limit_flags\":8704},\"limits\":{\"timeoutMs\":600000,\"memoryBytes\":2147483648}}],\"result\":{\"result\":\"VALID\",\"status\":\"PASS\",\"runs\":3,\"minimum_runs\":3,\"violations\":0,\"violation_rate\":0,\"max_violation_rate\":0,\"outcomes\":[{\"run_id\":\"E4-73bd0964-4f90-479e-a816-6ce29da1f94a\",\"verified\":true,\"verifier\":{\"state\":\"VERIFIED\",\"instruction_hash\":\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\",\"identity\":{\"task_id\":\"phase4-19f3af8e-b2b2-4fd7-a5d5-cc54fc1ad604\",\"session_id\":\"cf31b083-b3ff-4788-9f16-547009029645\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"D:/APP/Agent-Files-Explorer/**\",\"skill_id\":\"project-measurement\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-73bd0964-4f90-479e-a816-6ce29da1f94a\",\"result\":\"VALID\",\"verified\":true,\"criteria_hash\":\"sha256:980c37ba4e48a1bfee2ff09761917075f12645f1e30050feb0e88c152c537dc2\",\"criteria_results\":[{\"pointer\":\"/binding/run_id\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:fd694269d6a6e7952ef4b1448327b8cc81331263d43fdf0edf3ed786bd3baa71\"},{\"pointer\":\"/valid\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"}],\"output_hash\":\"sha256:93577d87cb80b68905b444cfd84230ff1786221146d445272c046eb921ea93e8\"}},{\"run_id\":\"E4-6abb176c-dc17-4a5c-9912-2cd04f3de1c5\",\"verified\":true,\"verifier\":{\"state\":\"VERIFIED\",\"instruction_hash\":\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\",\"identity\":{\"task_id\":\"phase4-19f3af8e-b2b2-4fd7-a5d5-cc54fc1ad604\",\"session_id\":\"cf31b083-b3ff-4788-9f16-547009029645\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"D:/APP/Agent-Files-Explorer/**\",\"skill_id\":\"project-measurement\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-6abb176c-dc17-4a5c-9912-2cd04f3de1c5\",\"result\":\"VALID\",\"verified\":true,\"criteria_hash\":\"sha256:980c37ba4e48a1bfee2ff09761917075f12645f1e30050feb0e88c152c537dc2\",\"criteria_results\":[{\"pointer\":\"/binding/run_id\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:fd694269d6a6e7952ef4b1448327b8cc81331263d43fdf0edf3ed786bd3baa71\"},{\"pointer\":\"/valid\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"}],\"output_hash\":\"sha256:93577d87cb80b68905b444cfd84230ff1786221146d445272c046eb921ea93e8\"}},{\"run_id\":\"E4-8d8fdc39-2798-4f4d-b5fd-bc3f9cbb329c\",\"verified\":true,\"verifier\":{\"state\":\"VERIFIED\",\"instruction_hash\":\"sha256:6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692\",\"identity\":{\"task_id\":\"phase4-19f3af8e-b2b2-4fd7-a5d5-cc54fc1ad604\",\"session_id\":\"cf31b083-b3ff-4788-9f16-547009029645\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"D:/APP/Agent-Files-Explorer/**\",\"skill_id\":\"project-measurement\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-8d8fdc39-2798-4f4d-b5fd-bc3f9cbb329c\",\"result\":\"VALID\",\"verified\":true,\"criteria_hash\":\"sha256:980c37ba4e48a1bfee2ff09761917075f12645f1e30050feb0e88c152c537dc2\",\"criteria_results\":[{\"pointer\":\"/binding/run_id\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:fd694269d6a6e7952ef4b1448327b8cc81331263d43fdf0edf3ed786bd3baa71\"},{\"pointer\":\"/valid\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"}],\"output_hash\":\"sha256:93577d87cb80b68905b444cfd84230ff1786221146d445272c046eb921ea93e8\"}}],\"host\":\"aghr-local-process\",\"profile\":\"ACTUAL_LOCAL_PROCESS_PROCEDURE\",\"native_agent_qualification\":\"NOT_GRANTED\"}}",
+      "summary_json": null,
+      "linked_package_id": null
+    }
+  ],
+  "native": "REQUIRED / NOT_RUN / NOT_WAIVED"
+}

@@ -1,0 +1,1203 @@
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/server/studio/draft-runtime.js.raw b/server/studio/draft-runtime.js
+index c3fd0ac..b0036aa 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/server/studio/draft-runtime.js.raw
++++ b/server/studio/draft-runtime.js
+@@ -9,6 +9,9 @@ import {createSchemaReader} from './schema-reader.js';
+ import {createVerificationService} from './verification-service.js';
+ import {createEvidenceReader} from './evidence-reader.js';
+ import {createExecutionRoutes} from './execution-routes.js';
++import {createSkillLifecycle} from './skills/lifecycle-service.js';
++import {createSkillRoutes} from './skills/routes.js';
++import {createSubmissionService} from './ci/submission-service.mjs';
+ 
+ export async function createDraftStudio({python,storageRoot,actor,clock=Date.now,evidenceProjectRoot=null,e4Config}={}){
+  if(typeof actor!=='string'||!actor.trim())throw Error('TRUSTED_OPERATOR_REQUIRED');
+@@ -44,8 +47,11 @@ export async function createDraftStudio({python,storageRoot,actor,clock=Date.now
+   const schema=createSchemaReader({python}),evidence=createEvidenceReader({projectRoot:evidenceProjectRoot,schema});
+   const verification=createVerificationService({python,workspace,store,validator,schema,e4Config});
+   const fallback=createDraftRoutes({authority,store,intents,validate,validator,workspace,clock,audit,read:read.handle});
+-  return {session:{token:owner.token},workspace,authority,store,intents,approveIntent,revokeIntent,attestSource,verification,
+-   handle:createExecutionRoutes({workspace,authority,store,intents,verification,evidence,clock,audit,fallback}),
+-   close(){const finish=()=>{validator.close();store.close();read.close();};const pending=verification.close();if(pending)return pending.then(finish);finish();}};
++  const skills=createSkillLifecycle({python,workspace,store,config:e4Config});
++  const submission=createSubmissionService({python,evidence,store});
++  const execution=createExecutionRoutes({workspace,authority,store,intents,verification,evidence,clock,audit,fallback});
++  return {session:{token:owner.token},workspace,authority,store,intents,approveIntent,revokeIntent,attestSource,verification,skills,
++   handle:createSkillRoutes({service:skills,submission,workspace,authority,intents,clock,audit,fallback:execution}),
++   close(){const pSkills=skills.close(),pSubmission=submission.close(),finish=()=>{validator.close();store.close();read.close();},pVerify=verification.close();if(pSkills||pVerify||pSubmission)return Promise.all([pSkills,pVerify,pSubmission]).then(finish);finish();}};
+  }catch(error){validator?.close();store?.close();read.close();throw error;}
+ }
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/server/studio/serve-draft.mjs.raw b/server/studio/serve-draft.mjs
+index e825b0f..9e71d12 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/server/studio/serve-draft.mjs.raw
++++ b/server/studio/serve-draft.mjs
+@@ -8,7 +8,7 @@ import {repository} from './aghr/cli-bridge.js';
+ import {createJobRunner,resourceProfiles} from './aghr/job-runner.js';
+ 
+ const args=new Map(process.argv.slice(2).map(arg=>{const i=arg.indexOf('=');if(i<0)throw Error('Use --name=value');return [arg.slice(0,i),arg.slice(i+1)];}));
+-if([...args.keys()].some(k=>!['--python','--port','--storage-root','--evidence-project'].includes(k)))throw Error('Unknown Draft startup option');
++if([...args.keys()].some(k=>!['--python','--port','--storage-root','--evidence-project','--skill-config'].includes(k)))throw Error('Unknown Draft startup option');
+ const python=args.get('--python')||process.env.AGHR_STUDIO_PYTHON;
+ const port=Number(args.get('--port')||5182);if(!Number.isInteger(port)||port<0||port>65535)throw Error('Invalid port');
+ // Bootstrap is an explicit local operator action. No HTTP identity/role/grant
+@@ -25,7 +25,13 @@ createJobRunner({python});
+ const assets=new Map(),dist=path.join(repository,'dist');
+ function preload(dir){for(const e of fs.readdirSync(dir,{withFileTypes:true})){const p=path.join(dir,e.name);if(e.isSymbolicLink())throw Error('Static reparse point');if(e.isDirectory())preload(p);else assets.set('/'+path.relative(dist,p).split(path.sep).join('/'),fs.readFileSync(p));}}
+ preload(dist);if(!assets.has('/draft.html'))throw Error('Build Draft Studio before startup');
+-const studio=await createDraftStudio({python,storageRoot,actor,evidenceProjectRoot:args.get('--evidence-project')||null});
++let e4Config;
++if(args.has('--skill-config')){
++ const selected=args.get('--skill-config');if(!path.isAbsolute(selected)||fs.lstatSync(selected).isSymbolicLink()||fs.statSync(selected).size>65536)throw Error('SKILL_CONFIG_UNSAFE');
++ e4Config=JSON.parse(fs.readFileSync(selected,'utf8'));
++ if(!e4Config||!Array.isArray(e4Config.skills)||!Array.isArray(e4Config.permissions)||Object.keys(e4Config).some(k=>!['skills','permissions','scope','hostSignals'].includes(k)))throw Error('SKILL_CONFIG_INVALID');
++}
++const studio=await createDraftStudio({python,storageRoot,actor,evidenceProjectRoot:args.get('--evidence-project')||null,e4Config});
+ const server=http.createServer((req,res)=>{
+  if(req.url?.startsWith('/api/'))return studio.handle(req,res);
+  if(req.method!=='GET'||!['127.0.0.1','::ffff:127.0.0.1'].includes(req.socket.remoteAddress)||!/^127\.0\.0\.1:\d+$/.test(req.headers.host||'')){res.writeHead(403);return res.end();}
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/server/studio/db/persistent.js.raw b/server/studio/db/persistent.js
+index 1a072c3..04c4b6a 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/server/studio/db/persistent.js.raw
++++ b/server/studio/db/persistent.js
+@@ -268,6 +268,13 @@ export function openPersistentStore(config,authorization){
+     if(snapshot.status!=='running')closed=true;
+    };
+   },
++  beginSkillRun(receipt,run,bound){
++   const actor=consumeAuthorization(receipt,{...scope,action:'verify.run.skills',resource_id:run.task_id,proposal_version_hash:run.inputs_hash});
++   if(bound.resource_id!==run.task_id||bound.proposal_version_hash!==run.inputs_hash)throw Error('SKILL_SCOPE_MISMATCH');
++   transaction(()=>{db.prepare('INSERT INTO verification_runs(id,workspace_id,command,args_json,status,started_at,triggered_by,triggered_by_user,summary_json) VALUES(?,?,?,?,?,?,?,?,?)').run(run.id,scope.workspace_id,run.command,JSON.stringify(run.request),'running',run.at,'user',actor.authenticated_actor,JSON.stringify({skill_operation:run.request.operation,task_id:run.task_id}));append(actor,{event_type:actor.action,resource_type:'skill-task',payload:{result:'SUCCESS',run_id:run.id,inputs_hash:run.inputs_hash,status:'running'}});});
++   let finished=false;return value=>{if(finished)throw Error('SKILL_COMPLETION_REPLAY');transaction(()=>{db.prepare('UPDATE verification_runs SET status=?,exit_code=?,finished_at=?,duration_ms=?,raw_stdout=?,raw_output=?,summary_json=? WHERE id=? AND workspace_id=?').run(value.status,value.exit_code,value.finished_at,value.duration_ms,value.raw,value.raw,JSON.stringify({studio_skill:{run_id:run.id,task_id:run.task_id,operation:run.request.operation,status:value.status,view:value.view,source_hash:'sha256:'+sha(value.raw),trust:'HISTORICAL_ONLY; cannot restore live E4 proofs'}}),run.id,scope.workspace_id);append(actor,{event_type:actor.action,resource_type:'skill-task',payload:{result:'SUCCESS',run_id:run.id,status:value.status,inputs_hash:run.inputs_hash,source_hash:'sha256:'+sha(value.raw)}});});finished=true;};
++  },
++  skillRuns(){return db.prepare('SELECT summary_json FROM verification_runs WHERE workspace_id=? ORDER BY started_at DESC LIMIT 200').all(scope.workspace_id).map(r=>{try{return JSON.parse(r.summary_json||'{}').studio_skill;}catch{return null;}}).filter(Boolean);},
+   verificationRuns(){return db.prepare('SELECT summary_json FROM verification_runs WHERE workspace_id=? ORDER BY started_at DESC,id DESC LIMIT 500').all(scope.workspace_id).map(r=>{try{return JSON.parse(r.summary_json||'{}').studio_t20;}catch{return null;}}).filter(Boolean);},
+   drafts(){return db.prepare('SELECT * FROM change_packages WHERE workspace_id=? ORDER BY created_at DESC,id LIMIT 100').all(scope.workspace_id).map(cpView);},
+   draft(id){return cpView(db.prepare('SELECT * FROM change_packages WHERE workspace_id=? AND id=?').get(scope.workspace_id,id));},
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/src/features/changes/DraftStudio.jsx.raw b/src/features/changes/DraftStudio.jsx
+index d1b56f0..bc5744b 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/src/features/changes/DraftStudio.jsx.raw
++++ b/src/features/changes/DraftStudio.jsx
+@@ -5,6 +5,7 @@ import ReviewPanel from './ReviewPanel.jsx';
+ import Verification from '../verification/Verification.jsx';
+ import RuntimeEvidence from '../runtime/RuntimeEvidence.jsx';
+ import '../verification/execution.css';
++import SkillStudio from '../skills/SkillStudio.jsx';
+ 
+ const kinds=['OBSERVATION','PRINCIPLE','CONSTRAINT','REQUIREMENT','PROCEDURE','GUIDELINE','POLICY','RULE','STANDARD','CONTROL','DECISION','EXCEPTION','CAPABILITY'];
+ export default function DraftStudio(){
+@@ -39,8 +40,8 @@ export default function DraftStudio(){
+  <header className="p0-header"><div><span className="p0-kicker">AGHR · GOVERNANCE STUDIO</span><h1>{t('حزم التغيير','Change packages')}</h1><p>{t('مسودات محفوظة، وصلاحية محددة لكل عملية.','Saved drafts, with scoped authorization for each change.')}</p></div><label>{t('لغة الواجهة','Interface language')} <select id="draft-locale" data-testid="draft-locale" value={locale} onChange={e=>setLocale(e.target.value)}><option value="ar">العربية</option><option value="en">English</option></select></label></header>
+  <div className="p0-banner"><Badge code="DRAFT">{t('مسودات فقط','Drafts only')}</Badge> {t('المرجع 1.2.0 محفوظ. الحفظ لا يعتمد قاعدة أو ينشر حزمة.','Reference 1.2.0 is preserved. Saving neither adopts a rule nor publishes a package.')}</div>
+  {!session?<main id="draft-main" className="p0-login"><h2>{t('جلسة المشغل المحلي','Local operator session')}</h2><form onSubmit={connect}><label htmlFor="draft-token">{t('رمز الجلسة من الخادم','Session credential from server')}</label><input id="draft-token" type="password" autoComplete="off" required value={credential} onChange={e=>setCredential(e.target.value)}/><button disabled={busy}>{t('اتصال','Connect')}</button></form></main>:<main id="draft-main" className="p0-content draft-content">
+- <div className="draft-toolbar"><span><bdi>{session.authenticated_actor}</bdi> · <Badge code={session.server_resolved_role}/></span><span>{t('SQLite دائمة · 12 جدولًا','Persistent SQLite · 12 tables')}</span><nav aria-label={t('عرض المسودات والتدقيق','Draft and audit views')}><button aria-pressed={tab==='drafts'} onClick={()=>setTab('drafts')}>{t('المسودات','Drafts')}</button><button aria-pressed={tab==='audit'} onClick={openAudit} disabled={busy}>{t('سجل التدقيق','Audit log')}</button><button data-testid="verification-nav" aria-pressed={tab==='verification'} onClick={()=>setTab('verification')}>{t('التحقق','Verification')}</button><button data-testid="runtime-nav" aria-pressed={tab==='runtime'} onClick={()=>setTab('runtime')}>{t('الأدلة التشغيلية','Runtime evidence')}</button></nav></div>
+- {tab==='verification'?<Verification api={api} workspace={status.workspace.id}/>:tab==='runtime'?<RuntimeEvidence api={api} workspace={status.workspace.id}/>:tab==='audit'?<section><h2>{t('محاولات الكتابة وقراراتها','Write attempts and outcomes')}</h2><div className="p0-table-wrap"><table><thead><tr>{[t('الوقت','Time'),t('الفاعل','Actor'),t('العملية','Action'),t('النتيجة','Outcome')].map(v=><th key={v}>{v}</th>)}</tr></thead><tbody>{audit.slice().reverse().map(e=><tr key={e.id}><td><bdi>{e.at}</bdi></td><td>{e.actor}</td><td><bdi>{e.event_type}</bdi></td><td><bdi>{JSON.parse(e.payload_json||'{}')?.result||'SUCCESS'}</bdi></td></tr>)}</tbody></table></div></section>:<div className="draft-grid">
++ <div className="draft-toolbar"><span><bdi>{session.authenticated_actor}</bdi> · <Badge code={session.server_resolved_role}/></span><span>{t('SQLite دائمة · 12 جدولًا','Persistent SQLite · 12 tables')}</span><nav aria-label={t('عرض المسودات والتدقيق','Draft and audit views')}><button aria-pressed={tab==='drafts'} onClick={()=>setTab('drafts')}>{t('المسودات','Drafts')}</button><button aria-pressed={tab==='audit'} onClick={openAudit} disabled={busy}>{t('سجل التدقيق','Audit log')}</button><button data-testid="verification-nav" aria-pressed={tab==='verification'} onClick={()=>setTab('verification')}>{t('التحقق','Verification')}</button><button data-testid="runtime-nav" aria-pressed={tab==='runtime'} onClick={()=>setTab('runtime')}>{t('الأدلة التشغيلية','Runtime evidence')}</button><button data-testid="skills-nav" aria-pressed={tab==='skills'} onClick={()=>setTab('skills')}>{t('المهارات','Skills')}</button></nav></div>
++ {tab==='skills'?<SkillStudio api={api} workspace={status.workspace.id}/>:tab==='verification'?<Verification api={api} workspace={status.workspace.id}/>:tab==='runtime'?<RuntimeEvidence api={api} workspace={status.workspace.id}/>:tab==='audit'?<section><h2>{t('محاولات الكتابة وقراراتها','Write attempts and outcomes')}</h2><div className="p0-table-wrap"><table><thead><tr>{[t('الوقت','Time'),t('الفاعل','Actor'),t('العملية','Action'),t('النتيجة','Outcome')].map(v=><th key={v}>{v}</th>)}</tr></thead><tbody>{audit.slice().reverse().map(e=><tr key={e.id}><td><bdi>{e.at}</bdi></td><td>{e.actor}</td><td><bdi>{e.event_type}</bdi></td><td><bdi>{JSON.parse(e.payload_json||'{}')?.result||'SUCCESS'}</bdi></td></tr>)}</tbody></table></div></section>:<div className="draft-grid">
+  <section><h2>{t('مسودة جديدة','New draft')}</h2><p className="p0-hint">{t('يعالج E5 المقترح وبصمته في Python. الحفظ يفحص البنية؛ زر التحقق يشغّل سياسات E2 دون منح سلطة للمقترح.','Python E5 processes the proposal and hash. Save checks structure; validation runs E2 policy without granting authority to the proposal.')}</p>
+  <form onSubmit={prepare} className="draft-form"><label htmlFor="cp-title">{t('العنوان','Title')}</label><input id="cp-title" disabled={busy} required value={title} onChange={changed(setTitle)} maxLength={500}/><label htmlFor="cp-kind">{t('نوع البند','Item kind')}</label><select id="cp-kind" disabled={busy} value={kind} onChange={changed(setKind)}>{kinds.map(k=><option key={k}>{k}</option>)}</select><label htmlFor="cp-origin">{t('مرجع الطلب','Request reference')}</label><input id="cp-origin" disabled={busy} required value={origin} onChange={changed(setOrigin)} maxLength={1000}/><label htmlFor="cp-yaml">{t('مقترح البند · YAML أو JSON','Item proposal · YAML or JSON')}</label><textarea id="cp-yaml" disabled={busy} dir="ltr" rows={16} required spellCheck="false" value={yaml} onChange={changed(setYaml)} aria-describedby="cp-limit"/><small id="cp-limit">{t('بند واحد، حتى 64 KiB مع بيانات الطلب. لا تعديلات على المصدر.','One item, up to 64 KiB including request metadata. Source files stay unchanged.')}</small><button disabled={busy} data-testid="prepare-draft">{t('فحص المسودة وإعدادها','Check and prepare draft')}</button></form>
+  {intent&&<div className="draft-intent" role="status"><Badge code={intent.status}/><p><bdi>{intent.scope.action}</bdi></p><p>{t('راجع العملية، ثم فوّضها من طرفية الخادم على هذه البصمة:','Review the action, then authorize this hash from the server terminal:')}</p><code className="draft-hash">{intent.scope.proposal_version_hash}</code><pre dir="ltr">approve {intent.id}</pre><p>{t('تفويض عملية واحدة لمدة دقيقتين؛ ليس موافقة حوكمة على الحزمة.','One action, two minutes. This is not governance approval of the package.')}</p><div className="draft-actions"><button onClick={check} disabled={busy}>{t('التحقق من التفويض','Check authorization')}</button><button onClick={save} data-testid="save-draft" disabled={busy||!grant}>{intent.operation?t('تنفيذ العملية المفوضة','Run authorized action'):t('حفظ المسودة','Save draft')}</button></div></div>}
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/docs/status/CURRENT.md.raw b/docs/status/CURRENT.md
+index 8a632b9..76e49f1 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/docs/status/CURRENT.md.raw
++++ b/docs/status/CURRENT.md
+@@ -1,26 +1,21 @@
+ # Active Project Execution State — Derived View
+ 
+-> Updated: 2026-10-24. Git, source and exact evidence take precedence.
++> Updated2026-10-24. Reopen Git, source and exact custody; prose is not authority.
+ 
+-## Current scope
++## Accepted position
+ 
+-- E1/E2 ACCEPTED_BY_OWNER; original46-file engine and CLI3 unchanged. License PROVISIONAL; publisher UNKNOWN. [E2](../evidence/studio-e2-2026-10-22/README.md).
+-- T01–T05,T07–T10 owner accepted: read-only backend,12 memory tables, bilingual screens. T06/T12 accepted MOCK_ONLY; native mandatory-rule validation stays BLOCKED/3 without real evidence. T11 inventory accepted; no Active adoption.
+-- T13/T14/T15 formally ACCEPTED_BY_OWNER in current instruction: real scoped grants,12-table persistent Draft SQLite, audit/rollback and Windows resource adapter. [Prior proof](../evidence/studio-draft-auth-cp-2026-10-23/README.md).
+-- T16 and E5 proposal core formally ACCEPTED_BY_OWNER in the current instruction. [Accepted delivery](../evidence/studio-e5-t16-preview-2026-10-23/README.md):80/80, full Draft lifecycle/hash invalidation; no release acceptance.
+-- [E3/T17/T18 local delivery](../evidence/studio-e3-t19-2026-10-24/README.md): bounded real local doctor, four-stage generation/readonly lookup, actual approval/history and patch transaction. Prior evidence remains sealed.
+-- [T19 owner-authorized MOCK delivery](../evidence/studio-t19-mock-2026-10-24/README.md): SEC-001 cycle/export exit0 in a separate MOCK Draft SQLite; simulated enterprise SourceGrant, GitHub gate and P0 eval bound to the exact proposal hash. Two MOCK reviewer identities; edit invalidation/history and stale rejection proven. T19 CLOSED_OWNER_AUTHORIZED_MOCK_ONLY; Phase2 workflow closed within this authorized mock scope.
+-- T19/Phase2 MOCK closure formally ACCEPTED_BY_OWNER. Canonical/native SEC-001 remains BLOCKED/3; its source/GitHub/reviewer requirements are not satisfied by the mock cycle or a local E4 test.
+-- E4.a-e local core ACCEPTED_BY_OWNER. [E4 delivery](../evidence/studio-e4-2026-10-24/README.md): separate local core IMPLEMENTED/TESTED;93/93,8 public CLI cases,7 real local honesty guards and8 workflow scenarios passed. Capability-mismatch/stale-selection defect reproduced, fixed and regressed on the final pin. Native Codex/Antigravity qualification NOT_RUN; no independent/release acceptance.
++E1/E2, T01–T05/T07–T10 and E4 local core accepted by owner. T06/T12/T19 accepted only within explicit MOCK scopes; original SEC-001 remains BLOCKED/3 without real authority/gates/P0 evidence. T11 inventory accepted, no automatic Active adoption. T13–T18 Draft storage, grants,12 tables, hash-bound approvals, bounded local E3 generation and patch workflow accepted. Reference1.2.0, contracts and E1–E4 remain preserved.
+ 
+-## Preserved boundaries
++T20/T21 now formally ACCEPTED_BY_OWNER: bounded verification, authenticated polling and original runtime-evidence reader. [Accepted delivery](../evidence/studio-native-t20-t21-2026-10-24/README.md).
+ 
+-Reference1.2.0, E2, accepted E5/E3 source and locked contracts unchanged. E4 is a separate extension; actual execution uses T15 controls and read-only drivers. Imported evidence and returned JSON cannot create live execution proofs. Draft-only writes remain authorized; no source apply, final package, default Draft DB, state.json or runtime_evidence writes; no T01 re-evaluation or release/independent acceptance. Native host checks remain REQUIRED / NOT_RUN / NOT_WAIVED until actually observed.
++## Current authorized delivery
+ 
+-## Current authorized extension
++[T22/T23/T24](../evidence/studio-phase3-2026-10-24/README.md): T22 real lifecycle HTTP/UI, three independent axes, actual criteria and3-run local qualification; scoped grants and durable history cannot restore live E4 proofs. T23 UI links the pinned8 scenarios and7 honesty results for the unchanged local core; every native column remains REQUIRED / NOT_RUN / NOT_WAIVED.
+ 
+-Owner authorized native adapters then T20/T21. Separate Codex app-server and Antigravity agy transport code implemented; actual Codex initialize timed out before discovery, and agy was absent. Native skill execution/7 honesty gates remain NOT_RUN, not waived. T20 adds scoped run/cancel grants, bounded FIFO execution, raw output and authenticated polling in persistent Draft SQLite. T21 reads registered project JSONL with byte custody/schema checks; imported claims never qualify execution. [Delivery](../evidence/studio-native-t20-t21-2026-10-24/README.md):105/105 passed, actual local eval, Edge bilingual/responsive UI and source sentinel passed; native runtime qualification remains NOT_RUN.
++One additional owner-bounded Codex stdio diagnosis completed: no initialize response in20s, no diagnostic stderr, T15 tree reaped; ENVIRONMENT_BLOCKED, deeper cause UNPROVEN. agy absence is inherited from accepted observation; no second attempt/install. No native qualification claimed.
+ 
+-## Exact next action
++T24 provides scoped local PR-bundle preparation, exact original bytes/hashes, real E2/E4 inspection,100 seeded parity units, signed GitHub OIDC publisher and post-merge workflow. Only L0/NOT_RUN state is supported; existing qualified state cannot be downgraded. Matching JSON/producer labels never grant execution trust. Hosted PR/post-merge publication NOT_RUN; no state was written. Full suite120/120, final CI3/3, final Edge AR/EN/RTL and Sentinel passed. No independent/release acceptance.
+ 
+-Reopen the new delivery/custody and current Git before resuming. T20/T21 are locally tested in Draft; owner acceptance is not self-granted. Native next action is diagnosis of the observed Codex initialize timeout under T15 and provision of an isolated agy channel. No automatic T24, native qualification, SEC-001 acceptance or release.
++## Preserved boundaries and next action
++
++App writes only authorized disposable/Draft storage; no reference/source apply, owner default DB use, runtime_evidence rewrite, local state writer, push or merge. Owner permitted proceeding to publisher despite native blockers; this does not waive them or close Phase3 operational qualification. Reopen new custody before resuming. Next unfinished gates: owner review/deployment of the publisher followed by a genuine merged evidence PR; native trials require a working isolated channel and fresh authorization after the one-attempt limit. No automatic Phase4.
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/docs/status/HANDOFF.md.raw b/docs/status/HANDOFF.md
+index b58eb1b..6f8c878 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/docs/status/HANDOFF.md.raw
++++ b/docs/status/HANDOFF.md
+@@ -1,9 +1,11 @@
+ # Studio handoff —2026-10-24, derived position
+ 
+-Owner formally accepted E4.a-e local core and authorized native adapters followed by T20/T21. Reopen CURRENT, live Git and [new delivery](../evidence/studio-native-t20-t21-2026-10-24/README.md), its custody and HTTP/browser evidence. Branch main, base133746a; substantial earlier dirty work was preserved. No commit or push in this task.
++Branch main, base133746a0ad99d10568a44c8d225219df8454271c; prior dirty work preserved. No commit/push/merge. Owner accepted T20/T21, authorized one bounded host diagnosis and T22–T24 regardless of its result. Reopen CURRENT, live Git and [delivery/custody](../evidence/studio-phase3-2026-10-24/README.md).
+ 
+-T20/T21 implemented and locally tested:105/105 full tests; actual strict CLI3 run and registered local three-execution eval; scoped start/cancel grants and mandatory audit,12-table Draft history, deadlines/memory/tree controls, authenticated GET polling, schema-checked original JSONL read and source sentinel, Arabic/English Edge at320/768/1024/1440. Completion-audit failure cannot return PASS. Fast source switching keeps the latest selection. Imported producer/event claims remain untrusted and do not qualify execution. Evidence timeline explicitly shows first500 events, with full original bytes available.
++Native attempt: Codex stdio initialize timed out at20s with empty stderr; total controller22.641s, tree reaped under30s/2GiB. Further cause UNPROVEN. No agy installation/retry; accepted absence retained. Both hosts'7 checks/8 scenarios REQUIRED / NOT_RUN / NOT_WAIVED.
+ 
+-Native transport code is separate from immutable E1-E3/E4. Codex0.162.0-alpha.2 version/help observed; actual app-server initialize timed out before discovery within the bounded temporary-project attempt. Further cause UNPROVEN. Antigravity2.25 desktop exists but agy headless CLI was absent. Native execution,7 honesty checks and8 scenarios remain REQUIRED / NOT_RUN / NOT_WAIVED for each host; no transfer of local-process qualification. No existing conversation or credential extraction.
++T22 real HTTP/UI handles select/load/execute/verify/eval/qualify/phase with mandatory one-use exact grants. Qualification uses actual3-run local evidence and host/version/scope/content/driver/engine tuple; imported/history JSON cannot restore proofs. T23 bilingual matrix separates pinned local conformance from native NOT_RUN. T24 prepares exact PR attachments locally, checks E2 strict and E4 imported-evidence trust, verifies signed GitHub identity/repo IDs/workflow/SHA/merged PR and non-force head update. Single remote state path, L0/NOT_RUN profile only; qualified-state update remains unavailable. No Studio state writer or PR creation.
+ 
+-Next: diagnose that observed Codex handshake failure within T15 and supply an isolated authenticated agy channel before real T23 trials. No automatic T24/CI publisher, source apply/state update, release or independent acceptance. Reference1.2.0 and engine pins remain unchanged; four app integration files have authorized before/after custody. Default owner Draft DB was not used or restored. Original SEC-001 remains BLOCKED/3; standalone local eval is not its P0 acceptance.
++Verification: full120/120; CI final3/3 (includes E4 mock-evidence rejection);100 seeded valid/invalid parity units; final Edge AR/EN four widths, keyboard and source/state sentinel; context/custody recorded in delivery. Full regression began before the final additive E4-inspection/UI metadata changes; final focused CI and rebuilt Edge checks cover those exact changes. Not an exact-source hosted CI run or independent review.
++
++Next: review/deploy the workflow, then real merged evidence PR under GitHub OIDC. Hosted publication NOT_RUN. Native channel availability remains an environmental prerequisite, not waived. Do not retry native diagnosis automatically; owner authorized one attempt only. No Phase4, reference promotion, source apply or release acceptance. Original SEC-001 stays BLOCKED/3 outside prior authorized MOCK scope.
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/docs/plans/STUDIO_UPGRADE_TASKS_AR.md.raw b/docs/plans/STUDIO_UPGRADE_TASKS_AR.md
+index 7b3d145..05b10d3 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/docs/plans/STUDIO_UPGRADE_TASKS_AR.md.raw
++++ b/docs/plans/STUDIO_UPGRADE_TASKS_AR.md
+@@ -130,11 +130,11 @@
+ 
+ | المهمة | التبعيات والحجم | المخرج والملفات المتوقعة | القبول والتحقق |
+ | --- | --- | --- | --- |
+-| [x] T20 — إدارة تشغيل التحقق | TESTED_LOCAL_DRAFT؛ T15 وT19؛ M | verify routes/service وشاشة 8 واختبارات queue/stream | validate/lint/generate/check/eval/qualify/doctor عبر الجسر؛ raw stdout/stderr/output وSARIF وتاريخ؛ cancel وتجاوز الموارد صادقان. اختبار تشغيل وفشل وتزامن وبث موثق أو polling وفق العقد دون URL token |
+-| [x] T21 — قراءة الأدلة التشغيلية | TESTED_LOCAL_READ_ONLY؛ T20؛ M | evidence-reader/service وشاشة 9 واختبار JSONL | قراءة أصل `.aghr/runtime_evidence/` فقط وفق البروتوكول والحدود؛ hash ومهمة وجلسة وخط زمني؛ malformed/foreign evidence لا تصبح نجاحًا. اختبار البايتات وsentinel وحالات halt/NOT_OBSERVABLE |
+-| [ ] T22 — دورة اختيار وتأهيل المهارة | T08–T09،T20–T21 وE4 إن لزم؛ M | bridge discovery/qualification وعرض الحالة واختبارات المحتوى | حالات الاختيار/التحميل/الملاحظة/التنفيذ/التحقق مستقلة؛ task_criteria والمخرجات الفعلية والأدلة مستخدمة؛ UNKNOWN_ID وNO_SKILL_MATCH وDISCOVERY_UNAVAILABLE وBLOCKED منفصلة. اختبارات عربية/إنجليزية وصلاحيات ومحتوى فارغ أو خاطئ ومفاتيح التأهيل |
+-| [ ] T23 — سيناريوهات الصدق وتجارب المضيف | T22؛ M لكل مضيف | eval fixtures وتجارب Codex وAntigravity وسجلات تأهيل منفصلة | سيناريوهات rc.3 §11.2 الثمانية، و7 honesty checks، وHS-01..HS-05 المفصلة في §9 من الخطة؛ host/version/scope/contentHash وqualifiedAt وأدلة تاريخية قابلة للمراجعة؛ لا اختراع تاريخ أو HOST_SIGNAL عند الغياب. نتائج الوحدة لا ترقى إلى native، وتأهيل مضيف لا ينتقل لآخر |
+-| [ ] T24 — الأدلة وناشر CI والتطابق | T18،T21–T23 وE6 إن لزم؛ M | evidence submit integration وCI workflow وpublisher/tests | PR يرفق الأصل؛ post-merge CI موثوق وحده ينشر state بعد التحقق؛ نفس المحرك والمدخلات والأحكام. اختبار تزوير publisher والتوقيع/مصدر CI، و100 بند ببذرة محفوظة؛ divergence يمنع القبول والنشر |
++| [x] T20 — إدارة تشغيل التحقق | ACCEPTED_BY_OWNER؛ T15 وT19؛ M | verify routes/service وشاشة 8 واختبارات queue/stream | validate/lint/generate/check/eval/qualify/doctor عبر الجسر؛ raw stdout/stderr/output وSARIF وتاريخ؛ cancel وتجاوز الموارد صادقان. اختبار تشغيل وفشل وتزامن وبث موثق أو polling وفق العقد دون URL token |
++| [x] T21 — قراءة الأدلة التشغيلية | ACCEPTED_BY_OWNER؛ T20؛ M | evidence-reader/service وشاشة 9 واختبار JSONL | قراءة أصل `.aghr/runtime_evidence/` فقط وفق البروتوكول والحدود؛ hash ومهمة وجلسة وخط زمني؛ malformed/foreign evidence لا تصبح نجاحًا. اختبار البايتات وsentinel وحالات halt/NOT_OBSERVABLE |
++| [x] T22 — دورة اختيار وتأهيل المهارة | IMPLEMENTED_TESTED_LOCAL؛ T08–T09،T20–T21 وE4 إن لزم؛ M | bridge discovery/qualification وعرض الحالة واختبارات المحتوى | حالات الاختيار/التحميل/الملاحظة/التنفيذ/التحقق مستقلة؛ task_criteria والمخرجات الفعلية والأدلة مستخدمة؛ UNKNOWN_ID وNO_SKILL_MATCH وDISCOVERY_UNAVAILABLE وBLOCKED منفصلة. اختبارات عربية/إنجليزية وصلاحيات ومحتوى فارغ أو خاطئ ومفاتيح التأهيل |
++| [ ] T23 — سيناريوهات الصدق وتجارب المضيف | UI_LOCAL_MATRIX_TESTED؛ NATIVE_ENVIRONMENT_BLOCKED؛ T22؛ M لكل مضيف | eval fixtures وتجارب Codex وAntigravity وسجلات تأهيل منفصلة | سيناريوهات rc.3 §11.2 الثمانية، و7 honesty checks، وHS-01..HS-05 المفصلة في §9 من الخطة؛ host/version/scope/contentHash وqualifiedAt وأدلة تاريخية قابلة للمراجعة؛ لا اختراع تاريخ أو HOST_SIGNAL عند الغياب. نتائج الوحدة لا ترقى إلى native، وتأهيل مضيف لا ينتقل لآخر |
++| [ ] T24 — الأدلة وناشر CI والتطابق | CODE_LOCAL_TESTED؛ HOSTED_NOT_RUN؛ T18،T21–T23 وE6 إن لزم؛ M | evidence submit integration وCI workflow وpublisher/tests | PR يرفق الأصل؛ post-merge CI موثوق وحده ينشر state بعد التحقق؛ نفس المحرك والمدخلات والأحكام. اختبار تزوير publisher والتوقيع/مصدر CI، و100 بند ببذرة محفوظة؛ divergence يمنع القبول والنشر |
+ 
+ **نقاط فحص D:** بعد T20–T21 تثبت حدود التنفيذ والقراءة؛ بعد T22–T23 تثبت دلالات المهارات في نطاقها؛ بعد T24 يفصل سجل اختبارات المحرك عن سجل كل مضيف وعن CI والمراجعة المستقلة.
+ 
+@@ -238,3 +238,7 @@
+ ### تسليم T20/T21 المحلي
+ 
+ [الأدلة والحدود](../evidence/studio-native-t20-t21-2026-10-24/README.md): تشغيل وصلاحيات وإلغاء ومخرجات فعلية في Draft؛ polling موثق بدل WebSocket في المتصفح، وقراءة JSONL دون منح ثقة للادعاءات. المصدر 1.2.0 وE1–E3/E4 محفوظة. موائما النقل مكتوبان؛ Codex توقف قبل initialize وagy غير موجود. فحوص الصدق الأصلية السبعة لكل مضيف NOT_RUN/NOT_WAIVED. لا إغلاق T23 أو بدء T24 أو تأهيل/إصدار تلقائي.
++
++### تسليم T22–T24 بتفويض المالك
++
++اعتمد المالك T20/T21 وسمح ببدء الناشر رغم العائق الأصلي. [التسليم والأدلة](../evidence/studio-phase3-2026-10-24/README.md): محاولة Codex واحدة انتهت دون initialize؛ لا إعادة محاولة. T22 مرتبط فعليًا بالواجهة، T23 يعرض8+7 محليًا دون نقل التأهيل إلى المضيفين. T24 جهز مرفقات PR الأصلية وناشر OIDC وworkflow بعد الدمج، مع مقارنة100 بند. الملف المدعوم L0/NOT_RUN فقط؛ النشر المستضاف وتأهيل المضيفين NOT_RUN، لذلك لا إغلاق شامل للمرحلة الثالثة ولا بدء تلقائي للرابعة.
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/docs/INDEX.md.raw b/docs/INDEX.md
+index a75f374..3d907f2 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/docs/INDEX.md.raw
++++ b/docs/INDEX.md
+@@ -65,3 +65,5 @@ node tools/check_context_health.mjs
+ - [E3/T17/T18 local execution and T19 canonical blockers](evidence/studio-e3-t19-2026-10-24/README.md) — actual bounded controls/approvals/patches; no E4 waiver or release acceptance.
+ 
+ - [Native adapters and T20/T21 Draft delivery](evidence/studio-native-t20-t21-2026-10-24/README.md):105 tests, authenticated run polling, runtime evidence, native NOT_RUN boundaries.
++
++- [T22–T24 local delivery](evidence/studio-phase3-2026-10-24/README.md) — real skill lifecycle, native environmental blocker, PR-byte bundles and signed post-merge CI publisher; hosted publication NOT_RUN.
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw b/.github/workflows/aghr-phase3.yml
+index e69de29..ce0d210 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw
++++ b/.github/workflows/aghr-phase3.yml
+@@ -0,0 +1,75 @@
++name: AGHR Phase 3 evidence gate
++on:
++  pull_request:
++    branches: [main]
++    paths: ['.aghr/runtime_evidence/**', '.aghr/ci-submissions/**']
++  push:
++    branches: [main]
++    paths: ['.aghr/runtime_evidence/**', '.aghr/ci-submissions/**']
++permissions:
++  contents: read
++  pull-requests: read
++concurrency:
++  group: aghr-state-${{ github.repository }}-${{ github.ref }}
++  cancel-in-progress: false
++jobs:
++  verify-pr:
++    if: github.event_name == 'pull_request'
++    runs-on: windows-latest
++    timeout-minutes: 20
++    permissions:
++      contents: read
++      pull-requests: read
++    steps:
++      - run: git config --global core.autocrlf false
++      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
++        with:
++          persist-credentials: false
++      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
++        with:
++          node-version: '24'
++      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
++        with:
++          python-version: '3.12'
++          architecture: x64
++      - name: Create isolated pinned environment
++        shell: pwsh
++        run: |
++          python -m venv .ci-venv
++          & .ci-venv/Scripts/python.exe -m pip install --require-hashes --only-binary=:all: -r governance_packages/candidates/AGHR_rc3_Core_Candidate/requirements.lock
++      - name: Read original PR evidence and run pinned engine
++        env:
++          GITHUB_TOKEN: ${{ github.token }}
++          PR_NUMBER: ${{ github.event.pull_request.number }}
++        shell: pwsh
++        run: node tools/phase3/ci.mjs check-pr --python="$((Resolve-Path .ci-venv/Scripts/python.exe).Path)" --pr="$env:PR_NUMBER"
++  publish-after-merge:
++    if: github.event_name == 'push'
++    runs-on: windows-latest
++    timeout-minutes: 20
++    permissions:
++      contents: write
++      pull-requests: read
++      id-token: write
++    steps:
++      - run: git config --global core.autocrlf false
++      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
++        with:
++          persist-credentials: false
++      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
++        with:
++          node-version: '24'
++      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
++        with:
++          python-version: '3.12'
++          architecture: x64
++      - name: Create isolated pinned environment
++        shell: pwsh
++        run: |
++          python -m venv .ci-venv
++          & .ci-venv/Scripts/python.exe -m pip install --require-hashes --only-binary=:all: -r governance_packages/candidates/AGHR_rc3_Core_Candidate/requirements.lock
++      - name: Authenticate workload, confirm merged PR, validate, publish one state path
++        env:
++          GITHUB_TOKEN: ${{ github.token }}
++        shell: pwsh
++        run: node tools/phase3/ci.mjs publish --python="$((Resolve-Path .ci-venv/Scripts/python.exe).Path)"
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw b/.github/aghr-publisher-policy.json
+index e69de29..2a2f60c 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw
++++ b/.github/aghr-publisher-policy.json
+@@ -0,0 +1,14 @@
++{
++  "profile": "aghr-ci-publisher.1",
++  "repository": "magedye/Agent-Files-Explorer-",
++  "repository_id": 1415931969,
++  "repository_owner_id": 112538837,
++  "branch": "main",
++  "workflow": ".github/workflows/aghr-phase3.yml",
++  "environment": null,
++  "audience": "aghr-state-publisher",
++  "require_protected_ref": false,
++  "state_path": ".aghr/state.json",
++  "adoption_level": "L0",
++  "native_hosts": ["codex", "antigravity"]
++}
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw b/tests/studio_ci_publisher.test.mjs
+index e69de29..f562f02 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw
++++ b/tests/studio_ci_publisher.test.mjs
+@@ -0,0 +1,49 @@
++// Cryptographic test vectors below are not GitHub-issued workload identities.
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import crypto from 'node:crypto';
++import fs from 'node:fs';
++import path from 'node:path';
++import {verifyGithubJwt,authenticateGithub,ciDetails,consumeCi} from '../server/studio/ci/identity.mjs';
++import {compareReports,readSubmission,mergeBinding,assessSubmission,makeState} from '../server/studio/ci/assessment.mjs';
++import {createBridge} from '../server/studio/aghr/cli-bridge.js';
++import {createJobRunner} from '../server/studio/aghr/job-runner.js';
++import {encodeJsonl} from '../tools/contracts/evidence_jsonl.mjs';
++import {publishFromGithub} from '../server/studio/ci/github-publisher.mjs';
++const policy=JSON.parse(fs.readFileSync('.github/aghr-publisher-policy.json')),python=path.resolve('temp/aghr-e1a-20261022-01/venv/Scripts/python.exe');
++const hash=b=>'sha256:'+crypto.createHash('sha256').update(b).digest('hex');
++test('T24 RSA test vectors verify signatures/scope and never create production CI permits',async()=>{
++ const now=Math.floor(Date.now()/1000),pair=crypto.generateKeyPairSync('rsa',{modulusLength:2048}),jwk={...pair.publicKey.export({format:'jwk'}),kid:'TEST_VECTOR_NOT_GITHUB',use:'sig',alg:'RS256'};
++ const claims={iss:'https://token.actions.githubusercontent.com',aud:policy.audience,sub:`repo:${policy.repository}:ref:refs/heads/main`,repository:policy.repository,repository_id:String(policy.repository_id),repository_owner_id:String(policy.repository_owner_id),ref:'refs/heads/main',event_name:'push',workflow_ref:policy.repository+'/'+policy.workflow+'@refs/heads/main',workflow_sha:'a'.repeat(40),sha:'a'.repeat(40),runner_environment:'github-hosted',run_id:'123',run_attempt:'1',iat:now,nbf:now-1,exp:now+300};
++ const sign=(payload,header={alg:'RS256',typ:'JWT',kid:jwk.kid})=>{const h=Buffer.from(JSON.stringify(header)).toString('base64url'),p=Buffer.from(JSON.stringify(payload)).toString('base64url'),data=h+'.'+p;return data+'.'+crypto.sign('RSA-SHA256',Buffer.from(data),pair.privateKey).toString('base64url');};
++ const value=verifyGithubJwt(sign(claims),{keys:[jwk]},policy,now);assert.equal(value.repository_id,String(policy.repository_id));assert.throws(()=>ciDetails(value),/UNTRUSTED_CI_PUBLISHER/);assert.throws(()=>consumeCi({publisher:'ci',...value}),/UNTRUSTED_CI_PUBLISHER/);
++ const mutations=[{iss:'https://attacker.invalid'},{aud:'other'},{repository_id:'1'},{repository_owner_id:'2'},{event_name:'pull_request'},{ref:'refs/pull/1/merge'},{workflow_ref:'other/workflow'},{sha:'b'.repeat(40)},{exp:now-1},{nbf:now+60},{runner_environment:'self-hosted'}];
++ for(const m of mutations)assert.throws(()=>verifyGithubJwt(sign({...claims,...m}),{keys:[jwk]},policy,now));
++ assert.throws(()=>verifyGithubJwt(sign(claims,{alg:'none',typ:'JWT',kid:jwk.kid}),{keys:[jwk]},policy,now),/ALGORITHM/);
++ const token=sign(claims),parts=token.split('.');parts[2]=Buffer.alloc(256,1).toString('base64url');assert.throws(()=>verifyGithubJwt(parts.join('.'),{keys:[jwk]},policy,now),/SIGNATURE/);
++ const [owner,name]=policy.repository.split('/');assert.equal(verifyGithubJwt(sign({...claims,sub:`repo:${owner}@${policy.repository_owner_id}/${name}@${policy.repository_id}:ref:refs/heads/main`}),{keys:[jwk]},policy,now).sha,claims.sha);
++ await assert.rejects(authenticateGithub(policy,{}),/CI_OIDC_UNAVAILABLE/);
++ await assert.rejects(authenticateGithub(policy,{GITHUB_ACTIONS:'true',ACTIONS_ID_TOKEN_REQUEST_URL:'https://attacker.invalid/',ACTIONS_ID_TOKEN_REQUEST_TOKEN:'TEST_ONLY'}),/CI_OIDC_ORIGIN_REJECTED/);
++});
++test('T24 requires exact merged PR, rejects env labels and local publisher without writing state',async()=>{
++ const sha='a'.repeat(40),pr={number:1,merged:true,state:'closed',merge_commit_sha:sha,merged_at:'2026-10-01T00:00:00Z',base:{ref:'main',repo:{full_name:policy.repository}}};
++ assert.equal(mergeBinding({pr,repository:policy.repository,sha,branch:'main'}).number,1);
++ for(const p of [{...pr,merged:false},{...pr,state:'open'},{...pr,merge_commit_sha:'b'.repeat(40)},{...pr,base:{ref:'other'}}])assert.throws(()=>mergeBinding({pr:p,repository:policy.repository,sha,branch:'main'}),/MERGED_PR_REQUIRED/);
++ await assert.rejects(publishFromGithub({python,policy,env:{publisher:'ci',GITHUB_SHA:sha}}),/CI_OIDC_UNAVAILABLE/);
++ assert.equal(fs.existsSync('.aghr/state.json'),false);
++});
++test('T24 actual pinned strict CLI + original PR bytes compare, reject divergence/forged qualification and build truthful L0 state',async()=>{
++ const bridge=createBridge({python,jobRunner:createJobRunner({python})}),local=await bridge.run('validate'),at=new Date().toISOString();
++ const bytes=encodeJsonl([{task_id:'ci-source',session:{agent:'DECLARED_SOURCE_NOT_AUTHENTICATED',agent_version:'1',host_os:'windows',started_at:at},events:[{at,type:'skill.verified',source:'ci',skill_id:'fake-native',task_criteria:'producer claim only',verifier_output:{claimed:true},result:'PASS'}],submit_to_ci:true}]);
++ const submission={profile:'aghr-ci-submission.1',evidence:[{path:'.aghr/runtime_evidence/ci-source.jsonl',content_hash:hash(bytes),bytes:bytes.length}],local_report:local.report},raw=Buffer.from(JSON.stringify(submission));
++ const result=await assessSubmission({python,submissionBytes:raw,readSource:async()=>bytes});assert.equal(result.comparison.status,'MATCH');assert.equal(result.eval_status,'NOT_RUN');assert.deepEqual(result.skill_qualification,[]);assert.equal(result.source_trust,'UNAUTHENTICATED_RUNTIME_CLAIMS');
++ assert.equal(result.inspections[0].data.producer_authentication,'NOT_ESTABLISHED');assert.equal(result.inspections[0].data.execution_status,'NOT_OBSERVABLE');assert.equal(result.inspections[0].resource_receipt.active_processes_after,0);
++ const simulated=Buffer.from(bytes.toString('utf8').replace('producer claim only','T19_MOCK_EVAL_EVIDENCE'));
++ await assert.rejects(assessSubmission({python,submissionBytes:Buffer.from(JSON.stringify({...submission,evidence:[{...submission.evidence[0],content_hash:hash(simulated),bytes:simulated.length}]})),readSource:async()=>simulated}),/SIMULATED_EVIDENCE_REJECTED/);
++ assert.throws(()=>compareReports(local.report,{...local.report,result:'INVALID',exit_code:1}),/DIVERGENCE/);
++ for(const key of ['candidate_hash','inputs_hash','config_hash'])assert.throws(()=>compareReports(local.report,{...local.report,inputs:{...local.report.inputs,[key]:'f'.repeat(64)}}),/DIVERGENCE/);
++ await assert.rejects(assessSubmission({python,submissionBytes:raw,readSource:async()=>Buffer.from('tampered')}),/HASH_OR_SIZE/);
++ for(const path of ['../outside','.aghr/runtime_evidence/../../state.json','C:/Windows/test.jsonl'])assert.throws(()=>readSubmission(Buffer.from(JSON.stringify({...submission,evidence:[{...submission.evidence[0],path}]}))),/MANIFEST/);
++ const state=await makeState({assessment:result,policy,python,publication:{ciRunRef:'TEST_VECTOR_ONLY_NOT_PUBLISHED',commitHash:'a'.repeat(40),publishedAt:at}});assert.equal(state.evalStatus,'NOT_RUN');assert.deepEqual(state.skillQualification,[]);assert.equal(state.adoptionLevel,'L0');assert.equal(fs.existsSync('.aghr/state.json'),false);
++ if(process.env.AGHR_PHASE3_OUT)fs.writeFileSync(path.join(process.env.AGHR_PHASE3_OUT,'CI_ASSESSMENT_ACCEPTANCE.json'),JSON.stringify({status:'PASS_FOR_LOCAL_ENGINE_AND_GUARDS',result,state_preview_only:state,publication:'NOT_RUN',signature_test_vectors:'NOT_GITHUB_IDENTITIES',state_written:false},null,2),{flag:'wx'});
++});
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw b/tests/studio_ci_parity.test.mjs
+index e69de29..5f1e676 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw
++++ b/tests/studio_ci_parity.test.mjs
+@@ -0,0 +1,7 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import path from 'node:path';
++import {parity100} from '../tools/phase3/parity.mjs';
++test('T24 100 seeded units produce identical real CLI3 judgments at Studio/CI boundaries; divergence blocks',async()=>{
++ const result=await parity100(process.env.AGHR_PARITY_OUT&&path.resolve(process.env.AGHR_PARITY_OUT));assert.equal(result.units,100);assert.equal(result.runs.length,4);assert.equal(result.decisions.length,200);
++});
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw b/tests/studio_phase3_skills.test.mjs
+index e69de29..5e98933 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw
++++ b/tests/studio_phase3_skills.test.mjs
+@@ -0,0 +1,77 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import fs from 'node:fs';
++import os from 'node:os';
++import path from 'node:path';
++import http from 'node:http';
++import {createDraftStudio} from '../server/studio/draft-runtime.js';
++import {encodeJsonl} from '../tools/contracts/evidence_jsonl.mjs';
++const python=path.resolve('temp/aghr-e1a-20261022-01/venv/Scripts/python.exe'),root=path.resolve('tests/fixtures/studio-e4/json-audit');
++const skill={id:'json-audit',source:'project',skillPath:root+'/SKILL.md',entry:root+'/worker.py',triggers:['review','مراجعة'],requires:['workspace.read']};
++test('T22/T23 real HTTP lifecycle keeps three axes, auth, scenarios and native blockers distinct',async t=>{
++ const storageRoot=fs.mkdtempSync(path.join(os.tmpdir(),'aghr-t22-')),config={skills:[skill,{...skill,id:'restricted',requires:['deploy']},{...skill,id:'unavailable',entry:undefined}],permissions:['workspace.read']};
++ const project=path.join(storageRoot,'project'),at=new Date().toISOString();fs.mkdirSync(project+'/.aghr/runtime_evidence',{recursive:true});
++ const original=encodeJsonl([{task_id:'ci-task',session:{agent:'UNAUTHENTICATED_SOURCE',agent_version:'1',host_os:'windows',started_at:at},events:[{at,type:'skill.loaded',skill_id:'json-audit',instruction_hash:'sha256:'+'a'.repeat(64)}],submit_to_ci:false}]);fs.writeFileSync(project+'/.aghr/runtime_evidence/ci-task.jsonl',original);
++ const studio=await createDraftStudio({python,storageRoot,actor:'phase3-test-owner',e4Config:config,evidenceProjectRoot:project}),server=http.createServer(studio.handle);await new Promise(r=>server.listen(0,'127.0.0.1',r));
++ const base='/api/v1/workspaces/rc3-local/skill-lifecycle',origin='http://127.0.0.1:'+server.address().port,results=[];
++ const request=async(method,url,body,headers={})=>{const r=await fetch(origin+url,{method,headers:{'X-Studio-Token':studio.session.token,'Content-Type':'application/json',...headers},...(body===undefined?{}:{body:JSON.stringify(body)})});return {status:r.status,...await r.json()};};
++ const prepare=async payload=>{const r=await request('POST',base+'/intents',payload);assert.equal(r.status,200,JSON.stringify(r));studio.approveIntent(r.data.id);const grant=(await request('GET','/api/v1/draft-intents/'+r.data.id)).data.grant;return {...r.data,grant,payload};};
++ const apply=async intent=>{const r=await request('POST',base+'/run',intent.payload,{'X-Write-Grant':intent.grant,'If-Match':JSON.stringify(intent.scope.proposal_version_hash)});assert.equal(r.status,200,JSON.stringify(r));results.push(r.data);return r.data;};
++ const run=async payload=>apply(await prepare({host:'aghr-local-process',...payload}));
++ try{
++  await t.test('No grant, forged body roles or arbitrary executable can execute; permissions audited',async()=>{
++   assert.equal((await request('POST',base+'/run',{operation:'execute',task_id:'forged',host:'aghr-local-process'})).status,403);
++   assert.equal((await request('POST',base+'/intents',{operation:'select',task_id:'forged',host:'aghr-local-process',role:'governance-owner'})).status,400);
++   assert.equal((await request('POST',base+'/intents',{operation:'select',task_id:'forged',host:'aghr-local-process',executable:'cmd.exe'})).status,400);
++  });
++  await t.test('Pinned 8 scenarios and7 honesty records show local conformance and native NOT_RUN, never native PASS',async()=>{
++   const r=await request('GET',base+'/scenarios');assert.equal(r.status,200,JSON.stringify(r));assert.equal(r.data.scenarios.length,8);assert.equal(r.data.honesty.length,7);assert(r.data.scenarios.every(x=>x.codex==='NOT_RUN'&&x.antigravity==='NOT_RUN'));assert.equal(r.data.native_waived,false);
++  });
++  await t.test('Arabic selection and loading cannot claim execution/verification',async()=>{
++   const s=await run({operation:'select',task_id:'actual',query:'مراجعة شفرة'});assert.equal(s.result.status,'SELECTED');assert.equal(s.task.usage.selected,'SELECTED');
++   const l=await run({operation:'load',task_id:'actual',skill_id:'json-audit'});assert.equal(l.task.usage.loaded,'LOADED');assert.equal(l.task.usage.executed,'NOT_RUN');assert.equal(l.task.usage.verified,'NOT_RUN');
++   const denied=await run({operation:'verify',task_id:'actual',skill_id:'json-audit',task_criteria:'{"all":[{"pointer":"/valid","op":"equals","value":true}]}'});assert.match(denied.error,/EXECUTION_EVIDENCE_REQUIRED/);assert.equal(denied.task.usage.verified,'NOT_RUN');
++  });
++  await t.test('Actual read-only execution + task criteria permit VERIFIED; raw receipts persist',async()=>{
++   const r=await run({operation:'execute',task_id:'actual',skill_id:'json-audit',input:{document:{name:'real'},required:['name']}});assert.equal(r.task.usage.executed,'EXECUTED');assert.equal(r.task.usage.verified,'NOT_RUN');
++   const v=await run({operation:'verify',task_id:'actual',skill_id:'json-audit',task_criteria:'{"all":[{"pointer":"/valid","op":"equals","value":true}]}'});assert.equal(v.task.usage.verified,'VERIFIED');assert.equal(v.task.qualification.status,'NOT_RUN');assert.equal(v.task.host,'aghr-local-process');
++  });
++  await t.test('No match, unknown ID, installed-unavailable and denied permission remain distinct',async()=>{
++   for(const [task_id,selection,expected]of [['simple',{query:'hello unrelated task'},'NO_SKILL_MATCH'],['unknown',{skill_id:'unknown'},'UNKNOWN_ID'],['unavailable',{skill_id:'unavailable'},'NOT_OBSERVABLE'],['permission',{skill_id:'restricted'},'BLOCKED']]){const r=await run({operation:'select',task_id,...selection});assert.equal(r.result.status,expected,JSON.stringify(r));assert.equal(r.task.usage.verified,'NOT_RUN');}
++  });
++  await t.test('Failed task criteria stay failed in durable history, never VERIFIED',async()=>{
++   const r=await run({operation:'verify',task_id:'actual',skill_id:'json-audit',task_criteria:'{"all":[{"pointer":"/valid","op":"equals","value":false}]}'});
++   assert.equal(r.task.usage.verified,'NOT_RUN');
++   assert.equal((await request('GET',base+'/history')).data.find(x=>x.run_id===r.run_id).status,'failed');
++  });
++  await t.test('Qualification comes from3 real local executions and remains bound to its actual host tuple',async()=>{
++   const r=await run({operation:'qualify',task_id:'actual',skill_id:'json-audit',input:{document:{name:'qualified-local'},required:['name']},task_criteria:'{"all":[{"pointer":"/valid","op":"equals","value":true}]}',runs:3});
++   assert.equal(r.task.qualification.status,'QUALIFIED',JSON.stringify(r));assert.equal(r.task.qualification.record.host,'aghr-local-process');assert(r.task.qualification.record.qualifiedAt);assert.equal(r.task.qualification.record.hostVersion,process.version);
++  });
++  await t.test('Native requests block before any local driver fallback or qualification',async()=>{
++   for(const host of ['codex','antigravity']){const r=await run({operation:'select',task_id:'native-'+host,host,query:'review'});assert.equal(r.result.engine_execution,'NOT_RUN');assert.equal(r.task.availability.registry,'DISCOVERY_UNAVAILABLE');assert.equal(r.records.length,0);assert.equal(r.task.qualification.status,'NOT_RUN');}
++  });
++  await t.test('Phase changes invalidate prepared intents and live selections; replay cannot execute',async()=>{
++   const intent=await prepare({operation:'load',task_id:'actual',host:'aghr-local-process',skill_id:'json-audit'});
++   await run({operation:'phase',task_id:'actual',phase:'review'});
++   assert.equal((await request('POST',base+'/run',intent.payload,{'X-Write-Grant':intent.grant,'If-Match':JSON.stringify(intent.scope.proposal_version_hash)})).status,412);
++   const view=(await request('GET',base+'/tasks/actual')).data;assert.equal(view.usage.selected,'NOT_RUN');assert.equal(view.usage.verified,'NOT_RUN');
++   const history=(await request('GET',base+'/history')).data;assert(history.length>=10);assert(history.every(x=>x.trust.startsWith('HISTORICAL_ONLY')));
++  });
++  await t.test('CI submission integration requires a grant, preserves originals and prepares PR bytes without publishing',async()=>{
++   assert.equal((await request('POST',base+'/ci-bundle',{task_id:'ci-task'})).status,403);
++   const intent=(await request('POST',base+'/ci-intents',{task_id:'ci-task'})).data;studio.approveIntent(intent.id);
++   const grant=(await request('GET','/api/v1/draft-intents/'+intent.id)).data.grant,headers={'X-Write-Grant':grant,'If-Match':JSON.stringify(intent.scope.proposal_version_hash)};
++   const r=await request('POST',base+'/ci-bundle',{task_id:'ci-task'},headers);assert.equal(r.status,200,JSON.stringify(r));
++   assert.equal(r.data.status,'PREPARED_NOT_SUBMITTED');assert.equal(r.data.published,false);assert.equal(r.data.state_written,false);
++   assert.deepEqual(Buffer.from(r.data.files[0].base64,'base64'),original);assert.deepEqual(fs.readFileSync(project+'/.aghr/runtime_evidence/ci-task.jsonl'),original);
++   assert.equal(JSON.parse(Buffer.from(r.data.files[1].base64,'base64')).local_report.exit_code,0);
++   assert.equal((await request('POST',base+'/ci-bundle',{task_id:'ci-task'},headers)).status,403);
++   const stale=(await request('POST',base+'/ci-intents',{task_id:'ci-task'})).data;studio.approveIntent(stale.id);const staleGrant=(await request('GET','/api/v1/draft-intents/'+stale.id)).data.grant;
++   fs.writeFileSync(project+'/.aghr/runtime_evidence/ci-task.jsonl',Buffer.from(original.toString('utf8').replace('UNAUTHENTICATED_SOURCE','CHANGED_VALID_SOURCE')));
++   assert.equal((await request('POST',base+'/ci-bundle',{task_id:'ci-task'},{'X-Write-Grant':staleGrant,'If-Match':JSON.stringify(stale.scope.proposal_version_hash)})).status,412);
++   assert.equal(fs.existsSync(project+'/.aghr/state.json'),false);
++  });
++  if(process.env.AGHR_PHASE3_OUT)fs.writeFileSync(path.join(process.env.AGHR_PHASE3_OUT,'SKILL_HTTP_ACCEPTANCE.json'),JSON.stringify({status:'PASS_FOR_LOCAL_LIFECYCLE',results,history:studio.store.skillRuns(),native:'NOT_RUN',source_written:false,state_written:false},null,2),{flag:'wx'});
++ }finally{await new Promise(r=>server.close(r));await studio.close();}
++});
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw b/server/studio/skills/lifecycle-service.js
+index e69de29..6815ca1 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw
++++ b/server/studio/skills/lifecycle-service.js
+@@ -0,0 +1,88 @@
++import fs from 'node:fs';
++import crypto from 'node:crypto';
++import {createE4Engine,sourceHash,verifyE4} from '../aghr/e4-bridge.js';
++import {createLocalProcessHost} from '../hosts/local-process.mjs';
++import {resourceProfiles} from '../aghr/job-runner.js';
++import {StudioError} from '../auth.js';
++const hash=b=>'sha256:'+crypto.createHash('sha256').update(b).digest('hex');
++const fail=message=>new StudioError(400,'INVALID_REQUEST',message);
++const id=s=>typeof s==='string'&&/^[\w][\w.-]{0,127}$/.test(s);
++const hosts=['aghr-local-process','codex','antigravity'];
++const proofPath='docs/evidence/studio-e4-2026-10-24/final-local-v2/ACCEPTANCE.json';
++export function createSkillLifecycle({python,workspace,store,config={skills:[],permissions:[]}}){
++ config=structuredClone(config);const capture=createLocalProcessHost(config),tasks=new Map();let active=null,closing=false;
++ const state=task=>{
++  const live=capture.capture(),usage=task.engine&&task.skill_id?task.engine.state(task.token,task.skill_id):{state:task.outcome||'NOT_RUN'};
++  const skill=live.skills.find(s=>s.id===task.skill_id),q=task.qualification;
++  const current=q&&q.host==='aghr-local-process'&&q.hostVersion===process.version&&q.contentHash===skill?.instruction_hash&&q.driverHash===skill?.entry_hash&&q.scope===(config.scope||'**/*')&&q.engineHash==='sha256:'+sourceHash;
++  return {task_id:task.id,session_id:task.session,phase:task.phase,host:task.host,host_version:task.host==='aghr-local-process'?process.version:null,revision:task.revision,skill_id:task.skill_id||null,
++   availability:{registry:task.host==='aghr-local-process'?live.registry_status:'DISCOVERY_UNAVAILABLE',installed:!!skill,available:task.host==='aghr-local-process'&&skill?.available===true,content_hash:skill?.instruction_hash??null},
++   qualification:{status:current?'QUALIFIED':'NOT_RUN',record:current?structuredClone(q):null,historical:q?structuredClone(q):null,reason:current?'Actual local runs; native qualification is separate.':'No current live qualification for this host/version/scope/content/driver/engine tuple.'},
++   usage:{selected:usage.identity?'SELECTED':'NOT_RUN',loaded:['LOADED','EXECUTED','EXECUTED_FAILED','VERIFIED'].includes(usage.state)?'LOADED':'NOT_RUN',executed:usage.execution||'NOT_RUN',verified:usage.state==='VERIFIED'&&usage.verified===true?'VERIFIED':'NOT_RUN',host_signal:usage.host_signal||'NOT_OBSERVABLE'},
++   state:usage,outcome:task.outcome||'NOT_RUN',halt:task.halt||false,reason:task.reason||null,last_run_id:task.lastRun||null};
++ };
++ const options=value=>{
++  if(!value||Array.isArray(value)||Object.keys(value).some(k=>!['operation','task_id','host','skill_id','query','input','task_criteria','phase','runs'].includes(k)))throw fail('Unknown lifecycle request field.');
++  if(!['select','load','execute','verify','host_signal','phase','eval','qualify'].includes(value.operation)||!id(value.task_id)||!hosts.includes(value.host))throw fail('Invalid operation/task/host.');
++  if(value.operation!=='select'&&!tasks.has(value.task_id))throw new StudioError(404,'UNKNOWN_ID','Create a task by selecting first.');
++  if(value.skill_id!==undefined&&!id(value.skill_id)||value.query!==undefined&&(typeof value.query!=='string'||value.query.length>2000)||value.phase!==undefined&&(typeof value.phase!=='string'||!value.phase.trim()||value.phase.length>100))throw fail('Invalid skill/query/phase.');
++  if(['load','execute','verify','host_signal','eval','qualify'].includes(value.operation)&&!id(value.skill_id))throw fail('Skill identifier required.');
++  if(value.operation==='phase'&&!value.phase)throw fail('Phase required.');
++  if(['verify','eval','qualify'].includes(value.operation)&&(typeof value.task_criteria!=='string'||value.task_criteria.length>65536))throw fail('Task criteria required.');
++  if(value.runs!==undefined&&(!Number.isInteger(value.runs)||value.runs<3||value.runs>20))throw fail('Runs must be3–20.');
++  const existing=tasks.get(value.task_id);if(existing&&existing.host!==value.host)throw fail('A task cannot change its host.');
++  if(!existing&&tasks.size>=64)throw new StudioError(429,'RATE_LIMITED','At most64 live tasks.');
++  if(existing&&existing.closed)throw new StudioError(409,'CONFLICT','Task was cancelled or timed out; create a new task.');
++  if(Buffer.byteLength(JSON.stringify(value))>65536)throw new StudioError(413,'PAYLOAD_TOO_LARGE','Request exceeds64KiB.');
++  return structuredClone(value);
++ };
++ const binding=request=>hash(JSON.stringify({request,revision:tasks.get(request.task_id)?.revision??0,capture:capture.capture(),scope:config.scope||'**/*',engine:sourceHash,permissions:config.permissions||[]}));
++ return {
++  options,binding,
++  inventory(){return {profile:'studio-phase3-local.1',local:capture.capture(),hosts:hosts.map(host=>({host,host_version:host==='aghr-local-process'?process.version:null,availability:host==='aghr-local-process'?'CONFIGURED':'DISCOVERY_UNAVAILABLE',qualification:'NOT_RUN',reason:host==='aghr-local-process'?'Registered read-only drivers only.':'Native channel has not been qualified; no fallback to local execution.'})),tasks:[...tasks.values()].map(state)};},
++  get(taskId){const t=tasks.get(taskId);if(!t)throw new StudioError(404,'UNKNOWN_ID','Unknown live task.');return state(t);},
++  scenarios(){
++   verifyE4();const raw=fs.readFileSync('docs/evidence/studio-e4-2026-10-24/CUSTODY.lock.json');
++   if(hash(raw)!=='sha256:f57daf24577be0c40f007328dedb335f755e57a9bea5133efc501399b8effb9f')throw Error('SCENARIO_CUSTODY_DRIFT');
++   const data=fs.readFileSync(proofPath),record=JSON.parse(data);if(crypto.createHash('sha256').update(data).digest('hex')!==JSON.parse(raw).files[proofPath].sha256||record.source_hash!==sourceHash||record.honesty.length!==7||record.scenarios.length!==8)throw Error('SCENARIO_PROOF_DRIFT');
++   return {profile:'LOCAL_CORE_CONFORMANCE_ONLY',source:{path:proofPath,content_hash:hash(data),bytes:data.length},engine_hash:'sha256:'+sourceHash,
++    scenarios:record.scenarios.map(x=>({id:x.id,local:x.status,codex:'NOT_RUN',antigravity:'NOT_RUN'})),honesty:record.honesty.map(x=>({id:x.id,local:x.status,codex:'NOT_RUN',antigravity:'NOT_RUN'})),native_required:true,native_waived:false};
++  },
++  async run(receipt,request,scope){
++   if(active||closing)throw new StudioError(409,'CONFLICT','A skill operation is active.');
++   options(request);const inputs=binding(request);if(inputs!==scope.proposal_version_hash)throw new StudioError(412,'STALE_PROPOSAL','Task/content changed after authorization.');
++   const run_id='VR-'+crypto.randomUUID(),command=['eval','qualify'].includes(request.operation)?request.operation:'check',at=new Date().toISOString();
++   const save=store.beginSkillRun(receipt,{id:run_id,task_id:request.task_id,command,inputs_hash:inputs,request,at},scope);
++   let task=tasks.get(request.task_id);if(!task){
++    if(tasks.size>=64)throw new StudioError(429,'RATE_LIMITED','At most64 live tasks.');
++    task={id:request.task_id,session:crypto.randomUUID(),host:request.host,phase:request.phase||'implementation',revision:0};
++    tasks.set(task.id,task);
++   }
++   const before=task.engine?.records.length||0,started=Date.now();let result,error,expired=false;
++   active=task;const timer=setTimeout(()=>{expired=true;task.closed=true;task.engine?.close();},resourceProfiles[command].timeoutMs);
++   try{
++    if(task.host==='aghr-local-process'&&!task.engine){task.engine=createE4Engine({python,...config});task.token=task.engine.createTask({task_id:task.id,phase:task.phase});}
++    if(task.host!=='aghr-local-process')result={data:{status:'BLOCKED',halt:true,reason:'DISCOVERY_UNAVAILABLE',engine_execution:'NOT_RUN'},receipt:null};
++    else if(request.operation==='select')result=await task.engine.discover(task.token,{...(request.skill_id?{requested_id:request.skill_id}:{}),...(request.query?{query:request.query}:{})});
++    else if(request.operation==='phase'){result={data:task.engine.changePhase(task.token,request.phase),receipt:null};task.phase=request.phase;task.skill_id=null;}
++    else if(request.operation==='load')result=await task.engine.load(task.token,request.skill_id);
++    else if(request.operation==='execute')result=await task.engine.execute(task.token,request.skill_id,request.input??{});
++    else if(request.operation==='verify')result=await task.engine.verify(task.token,request.skill_id,request.task_criteria);
++    else if(request.operation==='host_signal')result=await task.engine.hostSignal(task.token,request.skill_id);
++    else result=await task.engine[request.operation](task.token,request.skill_id,{input:request.input??{},task_criteria:request.task_criteria,runs:request.runs||3});
++    task.outcome=result.data.status||result.data.state||result.data.result||'NOT_RUN';task.halt=result.data.halt===true;task.reason=result.data.reason||null;
++    if(request.operation==='select'){task.skill_id=result.data.selected?.[0]||null;task.qualification=null;}
++    else if(request.operation!=='phase')task.skill_id=request.skill_id;
++    if(request.operation==='qualify'&&result.data.status==='QUALIFIED')task.qualification=structuredClone(result.data.qualification);
++   }catch(e){error=e;task.reason=e.message;task.outcome=expired?'resource_limit_exceeded':'REJECTED';task.halt=true;}
++   finally{clearTimeout(timer);active=null;task.revision++;task.lastRun=run_id;}
++   const records=task.engine?.records.slice(before)||[],last=result?.receipt||error?.receipt||records.at(-1),exit=expired?null:last?.exit_code??null;
++   const raw=JSON.stringify({profile:'studio-phase3-local.1',operation:request.operation,host:task.host,engine_hash:sourceHash,inputs_hash:inputs,result:result?.data||null,error:error?.message||null,records}),view=state(task);
++   const rejected=error||task.halt||exit!==null&&exit!==0||['INVALID','FAIL','FAILED','UNKNOWN_ID','NOT_OBSERVABLE','BLOCKED'].includes(task.outcome);
++   try{save({status:expired?'resource_limit_exceeded':rejected?'failed':'passed',exit_code:exit,finished_at:new Date().toISOString(),duration_ms:Date.now()-started,raw,view,termination_reason:expired?'timeout':error?'engine_error':'completed'});}catch(e){task.outcome='AUDIT_COMMIT_FAILED';task.halt=true;task.closed=true;task.engine?.close();throw e;}
++   return {run_id,task:view,result:result?.data||null,error:error?.message||null,records,source_written:false,state_written:false};
++  },
++  history:()=>store.skillRuns(),
++  close(){closing=true;for(const t of tasks.values())t.engine?.close();if(active)return (async()=>{while(active)await new Promise(r=>setTimeout(r,50));})();},
++ };
++}
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw b/server/studio/skills/routes.js
+index e69de29..288de14 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw
++++ b/server/studio/skills/routes.js
+@@ -0,0 +1,50 @@
++import crypto from 'node:crypto';
++import {isDeepStrictEqual} from 'node:util';
++import {StudioError} from '../auth.js';
++const denied=()=>new StudioError(403,'FORBIDDEN','A scoped skill-operation grant is required.');
++async function body(req){
++ if(!/^application\/json(?:;|$)/i.test(req.headers['content-type']||''))throw new StudioError(400,'INVALID_REQUEST','JSON required.');
++ let size=0;const parts=[];for await(const b of req){size+=b.length;if(size>65536)throw new StudioError(413,'PAYLOAD_TOO_LARGE','Request exceeds64KiB.');parts.push(b);}
++ try{return JSON.parse(new TextDecoder('utf8',{fatal:true}).decode(Buffer.concat(parts)));}catch{throw new StudioError(400,'INVALID_REQUEST','Valid UTF-8 JSON required.');}
++}
++export function createSkillRoutes({service,submission,workspace,authority,intents,clock,audit,fallback}){
++ const prefix='/api/v1/workspaces/'+workspace.id+'/skill-lifecycle';
++ return async(req,res)=>{
++  let url;try{url=new URL(req.url,'http://127.0.0.1');}catch{return fallback(req,res);}
++  if(url.pathname!==prefix&&!url.pathname.startsWith(prefix+'/'))return fallback(req,res);
++  const requestId=crypto.randomUUID(),mutation=req.method!=='GET';let resourceId=null;
++  const record=(result,status,reason)=>audit(req,{action:'verify.run.skills',resourceId,result,status,reason,requestId});
++  const send=(status,data,error)=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(JSON.stringify({data,meta:{request_id:requestId,recorded_at:new Date().toISOString(),contract_revision:'contract.1',...(error?{error:{code:error.code||'INTERNAL_ERROR',message:error instanceof StudioError?error.message:'Skill service unavailable.',halted:true,issues:[]}}:{})}}));};
++  try{
++   if(mutation)record('ATTEMPT',null,'Skill operation requested');const principal=authority.authenticate(req);
++   if(url.search||req.url.length>8192)throw new StudioError(400,'INVALID_REQUEST','No query supported.');
++   if(req.method==='GET'){
++    if(Number(req.headers['content-length'])>0||req.headers['transfer-encoding'])throw new StudioError(400,'INVALID_REQUEST','No GET body.');
++    if(url.pathname===prefix)return send(200,service.inventory());
++    if(url.pathname===prefix+'/scenarios')return send(200,service.scenarios());
++    if(url.pathname===prefix+'/history')return send(200,service.history());
++    const m=url.pathname.slice(prefix.length).match(/^\/tasks\/([\w.-]+)$/);if(m)return send(200,service.get(m[1]));
++   }
++   if(req.method==='POST'&&[prefix+'/intents',prefix+'/ci-intents'].includes(url.pathname)){
++    const ci=url.pathname.endsWith('/ci-intents'),input=await body(req);
++    if(ci&&(!input||Object.keys(input).join(',')!=='task_id'))throw new StudioError(400,'INVALID_REQUEST','Only task_id accepted.');
++    const payload=ci?await submission.prepare(input.task_id):service.options(input);resourceId=payload.task_id;
++    for(const [key,i]of intents)if(clock()>=i.expires)intents.delete(key);if(intents.size>=128)throw new StudioError(429,'RATE_LIMITED','Too many pending intents.');
++    const id=crypto.randomUUID(),scope={workspace_id:workspace.id,target_project:'studio-drafts',action:'verify.run.skills',resource_id:resourceId,proposal_version_hash:ci?'sha256:'+crypto.createHash('sha256').update(JSON.stringify(payload)).digest('hex'):service.binding(payload)};
++    const intent={principal,operation:ci?'ci.bundle':'skill.lifecycle',payload,scope,prepared:{id:resourceId,title:ci?'CI bundle':payload.operation},expires:clock()+120000,grant:null};intents.set(id,intent);record('ATTEMPT',200,'Prepared only; no execution before grant');return send(200,{id,scope,status:'AWAITING_OPERATOR',expires_at:new Date(intent.expires).toISOString()});
++   }
++   if(req.method==='POST'&&[prefix+'/run',prefix+'/ci-bundle'].includes(url.pathname)){
++    const ci=url.pathname.endsWith('/ci-bundle');
++    const token=req.headers['x-write-grant'],entry=[...intents].find(([,i])=>i.grant===token&&i.principal===principal),intent=entry?.[1];
++    if(!intent||intent.operation!==(ci?'ci.bundle':'skill.lifecycle')||intent.revoked||clock()>=intent.expires)throw denied();resourceId=intent.scope.resource_id;
++    if(!req.headers['if-match'])throw new StudioError(428,'STALE_PROPOSAL','If-Match required.');
++    if(req.headers['if-match']!==JSON.stringify(intent.scope.proposal_version_hash))throw new StudioError(412,'STALE_PROPOSAL','Request differs from grant.');
++    const input=await body(req),payload=ci?input:service.options(input);
++    if(ci){if(!payload||Object.keys(payload).join(',')!=='task_id'||payload.task_id!==resourceId)throw new StudioError(412,'STALE_PROPOSAL','Task differs from grant.');}
++    else if(!isDeepStrictEqual(payload,intent.payload)||service.binding(payload)!==intent.scope.proposal_version_hash)throw new StudioError(412,'STALE_PROPOSAL','Task/content changed.');
++    const receipt=authority.authorize(principal,intent.scope,token),result=ci?await submission.run(receipt,intent.payload,intent.scope):await service.run(receipt,payload,intent.scope);intents.delete(entry[0]);return send(200,result);
++   }
++   if(mutation)throw denied();throw new StudioError(404,'NOT_FOUND','Unknown skill route.');
++  }catch(error){const status=error instanceof StudioError?error.status:503;try{if(mutation||status===403)record(status===403?'DENY':'ERROR',status,error.code||'SKILL_SERVICE_FAILED');}catch{return send(503,null,new StudioError(503,'INTERNAL_ERROR','Audit unavailable; halted.'));}return send(status,null,error);}
++ };
++}
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw b/server/studio/ci/assessment.mjs
+index e69de29..24834aa 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw
++++ b/server/studio/ci/assessment.mjs
+@@ -0,0 +1,56 @@
++import crypto from 'node:crypto';
++import fs from 'node:fs';
++import os from 'node:os';
++import path from 'node:path';
++import {decodeJsonl} from '../../../tools/contracts/evidence_jsonl.mjs';
++import {createSchemaReader} from '../schema-reader.js';
++import {createBridge,sourceHash} from '../aghr/cli-bridge.js';
++import {createJobRunner} from '../aghr/job-runner.js';
++import {createE4Engine} from '../aghr/e4-bridge.js';
++const hash=b=>'sha256:'+crypto.createHash('sha256').update(b).digest('hex');
++export function compareReports(local,ci){
++ const key=r=>JSON.stringify({protocol:r.protocol_version,command:r.command,engine:r.source?.content_hash,inputs:r.inputs,result:r.result,exit_code:r.exit_code,checks:r.checks,data:r.data,diagnostics:r.diagnostics});
++ if(key(local)!==key(ci))throw Error('STUDIO_CI_DIVERGENCE');return {status:'MATCH',candidate_hash:'sha256:'+ci.inputs.candidate_hash,engine_hash:'sha256:'+sourceHash,inputs_hash:'sha256:'+ci.inputs.inputs_hash,config_hash:'sha256:'+ci.inputs.config_hash,meaning:'Exact report match; PR producer identity/skill execution not authenticated by matching JSON.'};
++}
++export function readSubmission(bytes){
++ if(!Buffer.isBuffer(bytes)||bytes.length>1024**2)throw Error('SUBMISSION_SIZE_LIMIT');
++ const r=JSON.parse(new TextDecoder('utf8',{fatal:true}).decode(bytes));
++ if(!r||Object.keys(r).some(k=>!['profile','evidence','local_report'].includes(k))||r.profile!=='aghr-ci-submission.1'||!Array.isArray(r.evidence)||r.evidence.length<1||r.evidence.length>100||r.local_report?.command!=='validate'||r.local_report?.protocol_version!=='3'||r.local_report?.source?.content_hash!==sourceHash)throw Error('SUBMISSION_INVALID');
++ const seen=new Set();for(const e of r.evidence){if(!e||Object.keys(e).sort().join(',')!=='bytes,content_hash,path'||!/^\.aghr\/runtime_evidence\/[A-Za-z0-9][\w.-]{0,127}\.jsonl$/.test(e.path)||!/^sha256:[a-f0-9]{64}$/.test(e.content_hash)||!Number.isInteger(e.bytes)||e.bytes<1||e.bytes>16*1024**2||seen.has(e.path))throw Error('EVIDENCE_MANIFEST_INVALID');seen.add(e.path);}
++ return r;
++}
++export async function assessSubmission({python,submissionBytes,readSource}){
++ const submission=readSubmission(submissionBytes),schema=createSchemaReader({python}),sources=[],claims=[],inspections=[];let total=0;
++ for(const e of submission.evidence){
++  const b=await readSource(e.path);total+=b.length;if(total>16*1024**2||b.length!==e.bytes||hash(b)!==e.content_hash)throw Error('EVIDENCE_HASH_OR_SIZE_MISMATCH');
++  const task=e.path.split('/').at(-1).slice(0,-6),decoded=decodeJsonl(b,{expectedTaskId:task});
++  if(decoded.syntax_status!=='PASS')throw Error('EVIDENCE_SERIALIZATION_REJECTED');
++  const valid=await schema('evidence.schema.json',null,decoded.records.map(x=>x.record));if(!valid.valid)throw Error('EVIDENCE_SCHEMA_REJECTED');
++  // CI inspects an exact-byte scratch copy through immutable E4. Neither the
++  // PR's claims nor the Node publisher can manufacture execution trust.
++  const scratch=fs.mkdtempSync(path.join(os.tmpdir(),'aghr-ci-evidence-')),engine=createE4Engine({python});
++  try{
++   fs.writeFileSync(path.join(scratch,'original.jsonl'),b,{flag:'wx'});
++   const result=await engine.inspectEvidence({root:scratch,path:'original.jsonl',task_id:task,session:decoded.records[0].record.session});
++   if(result.data.artifact.content_hash!==e.content_hash||result.data.execution_status!=='NOT_OBSERVABLE'||result.data.producer_authentication!=='NOT_ESTABLISHED')throw Error('CI_EVIDENCE_TRUST_MISMATCH');
++   inspections.push({path:e.path,data:result.data,resource_receipt:result.receipt});
++  }finally{engine.close();}
++  for(const {record}of decoded.records)claims.push(...record.events);
++  sources.push({...e});
++ }
++ const bridge=createBridge({python,jobRunner:createJobRunner({python})}),run=await bridge.run('validate');
++ const comparison=compareReports(submission.local_report,run.report);
++ if(run.exitCode!==0)throw Error('CI_STRICT_VALIDATION_REJECTED');
++ // Imported PASS/VERIFIED/source:host cannot create a live E4 proof. CI records
++ // only L0/NOT_RUN until a separately qualified native execution profile exists.
++ return {profile:'aghr-ci-assessment.1',comparison,sources,inspections,report:run.report,resource_receipt:run.resourceReceipt,claim_count:claims.length,source_trust:'UNAUTHENTICATED_RUNTIME_CLAIMS',eval_status:'NOT_RUN',skill_qualification:[],native_required:true,native_waived:false};
++}
++export async function makeState({assessment,publication,policy,python}){
++ if(assessment?.profile!=='aghr-ci-assessment.1'||assessment.comparison?.status!=='MATCH'||assessment.report?.exit_code!==0||assessment.eval_status!=='NOT_RUN'||assessment.skill_qualification.length!==0||policy.adoption_level!=='L0')throw Error('CI_ASSESSMENT_PROFILE_REJECTED');
++ const state={schemaVersion:'1.2',aghrVersion:assessment.report.source.target_spec_version,adoptionLevel:'L0',domainLevels:{instructions:'L0',skills:'L0'},evalStatus:'NOT_RUN',skillQualification:[],exceptions:[],publication:{publisher:'ci',ciRunRef:publication.ciRunRef,commitHash:publication.commitHash,publishedAt:publication.publishedAt,sourceEvidence:assessment.sources}};
++ const report=await createSchemaReader({python})('state.schema.json',null,[state]);if(!report.valid)throw Error('CI_STATE_SCHEMA_REJECTED');return state;
++}
++export function mergeBinding({pr,repository,sha,branch}){
++ if(!pr||pr.merged!==true||pr.state!=='closed'||!Number.isInteger(pr.number)||pr.number<1||pr.merge_commit_sha!==sha||pr.base?.ref!==branch||pr.base?.repo?.full_name!==repository||!pr.merged_at||!Number.isFinite(Date.parse(pr.merged_at))||Date.parse(pr.merged_at)>Date.now())throw Error('MERGED_PR_REQUIRED');
++ return {number:pr.number,merge_commit_sha:sha,merged_at:pr.merged_at};
++}
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw b/server/studio/ci/github-publisher.mjs
+index e69de29..e568263 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw
++++ b/server/studio/ci/github-publisher.mjs
+@@ -0,0 +1,66 @@
++import fs from 'node:fs';
++import crypto from 'node:crypto';
++import {authenticateGithub,boundedJson,ciDetails,consumeCi} from './identity.mjs';
++import {assessSubmission,makeState,mergeBinding} from './assessment.mjs';
++const hash=b=>'sha256:'+crypto.createHash('sha256').update(b).digest('hex');
++const artifactPattern=/^\.aghr\/(?:runtime_evidence\/[A-Za-z0-9][\w.-]{0,127}\.jsonl|ci-submissions\/[A-Za-z0-9][\w.-]{0,127}\.json)$/;
++export async function githubApi(repository,token,endpoint,method='GET',body){
++ if(!/^[\w.-]+\/[\w.-]+$/.test(repository)||endpoint!==''&&!endpoint.startsWith('/')||endpoint.includes('..')||endpoint.includes('://'))throw Error('CI_API_PATH_REJECTED');
++ return boundedJson('https://api.github.com/repos/'+repository+endpoint,{method,headers:{Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','User-Agent':'aghr-ci-publisher',...(token?{Authorization:'Bearer '+token}:{}),...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})},24*1024**2);
++}
++export async function readGithubFile(api,name,sha,maxBytes=16*1024**2){
++ if(!artifactPattern.test(name)&&name!=='.aghr/state.json')throw Error('CI_SOURCE_PATH_REJECTED');
++ const data=await api('/contents/'+name.split('/').map(encodeURIComponent).join('/')+'?ref='+sha);
++ if(data.type!=='file'||data.encoding!=='base64'||!Number.isInteger(data.size)||data.size>maxBytes||typeof data.content!=='string'||!/^[a-f0-9]{40}$/.test(data.sha))throw Error('CI_BLOB_ENCODING_OR_SIZE_REJECTED');
++ const bytes=Buffer.from(data.content,'base64');if(bytes.length!==data.size||crypto.createHash('sha1').update(Buffer.concat([Buffer.from('blob '+bytes.length+'\0'),bytes])).digest('hex')!==data.sha)throw Error('CI_GIT_BLOB_MISMATCH');return bytes;
++}
++export async function collectPrEvidence({api,prNumber,commitSha}){
++ const files=[];for(let page=1;page<=10;page++){
++  const part=await api('/pulls/'+prNumber+'/files?per_page=100&page='+page);if(!Array.isArray(part))throw Error('CI_PR_FILE_LIST_INVALID');files.push(...part);if(part.length<100)break;if(page===10)throw Error('CI_PR_FILE_LIMIT');
++ }
++ const admitted=new Set(files.filter(x=>['added','modified'].includes(x.status)&&artifactPattern.test(x.filename)).map(x=>x.filename));
++ const submissions=[...admitted].filter(x=>x.startsWith('.aghr/ci-submissions/')).sort();if(submissions.length!==1)throw Error('ONE_PR_SUBMISSION_REQUIRED');
++ const submissionBytes=await readGithubFile(api,submissions[0],commitSha,1024**2),cache=new Map();
++ const readSource=async name=>{if(!admitted.has(name))throw Error('EVIDENCE_NOT_IN_PR');if(!cache.has(name))cache.set(name,await readGithubFile(api,name,commitSha));return cache.get(name);};
++ return {submissionBytes,readSource,submissionPath:submissions[0]};
++}
++export async function checkPullRequest({python,policy,prNumber,env=process.env}){
++ if(!Number.isInteger(prNumber)||prNumber<1)throw Error('PR_NUMBER_REQUIRED');
++ const api=(endpoint,...args)=>githubApi(policy.repository,env.GITHUB_TOKEN,endpoint,...args),pr=await api('/pulls/'+prNumber);
++ if(pr.base?.repo?.full_name!==policy.repository||pr.base?.ref!==policy.branch||!/^[a-f0-9]{40}$/.test(pr.head?.sha))throw Error('PR_TARGET_MISMATCH');
++ const originals=await collectPrEvidence({api,prNumber,commitSha:pr.head.sha});
++ const result=await assessSubmission({python,...originals});
++ return {...result,mode:'PR_CHECK_ONLY',state_written:false,published:false};
++}
++export async function publishFromGithub({python,policy,env=process.env}){
++ // Only this live path can obtain the process-owned permit. A JSON document,
++ // env publisher label, test key, or Studio grant is never accepted instead.
++ if(policy.state_path!=='.aghr/state.json')throw Error('CI_STATE_TARGET_REJECTED');
++ const permit=await authenticateGithub(policy,env),{claims}=ciDetails(permit);
++ const api=(endpoint,...args)=>githubApi(policy.repository,env.GITHUB_TOKEN,endpoint,...args);
++ const repository=await api('');
++ if(String(repository.id)!==String(policy.repository_id)||String(repository.owner?.id)!==String(policy.repository_owner_id)||repository.default_branch!==policy.branch)throw Error('CI_REPOSITORY_CHANGED');
++ const branch=await api('/branches/'+encodeURIComponent(policy.branch));
++ if(branch.commit?.sha!==claims.sha||policy.require_protected_ref&&branch.protected!==true)throw Error('CI_HEAD_OR_BRANCH_POLICY_CHANGED');
++ const candidates=await api('/commits/'+claims.sha+'/pulls?per_page=100');
++ const matched=[];for(const p of candidates){const pr=await api('/pulls/'+p.number);try{matched.push(mergeBinding({pr,repository:policy.repository,sha:claims.sha,branch:policy.branch}));}catch{/* Only exact merged PRs can authorize publication. */}}
++ if(matched.length!==1)throw Error('MERGED_PR_REQUIRED');
++ const merged=matched[0],originals=await collectPrEvidence({api,prNumber:merged.number,commitSha:claims.sha});
++ const assessment=await assessSubmission({python,...originals});
++ const state=await makeState({assessment,policy,python,publication:{ciRunRef:`https://github.com/${policy.repository}/actions/runs/${claims.run_id}/attempts/${claims.run_attempt}`,commitHash:claims.sha,publishedAt:new Date().toISOString()}});
++ let previous=null;try{previous=await readGithubFile(api,'.aghr/state.json',claims.sha,1024**2);}catch(e){if(e.message!=='CI_PROVIDER_HTTP_404')throw e;}
++ if(previous){const old=JSON.parse(previous);if(old.adoptionLevel!=='L0'||old.evalStatus==='PASS'||old.skillQualification?.length||old.exceptions?.length)throw Error('CI_EXISTING_STATE_REQUIRES_QUALIFIED_UPDATE_PROFILE');}
++ const current=await api('/git/ref/heads/'+policy.branch);if(current.object?.sha!==claims.sha)throw Error('CI_HEAD_ADVANCED');
++ const content=Buffer.from(JSON.stringify(state,null,2)+'\n');
++ // No filesystem state write exists in Studio. Publication is a scoped Git
++ // commit with a single permitted path and a non-force fast-forward update.
++ consumeCi(permit);
++ const base=await api('/git/commits/'+claims.sha),blob=await api('/git/blobs','POST',{content:content.toString('base64'),encoding:'base64'});
++ const tree=await api('/git/trees','POST',{base_tree:base.tree.sha,tree:[{path:'.aghr/state.json',mode:'100644',type:'blob',sha:blob.sha}]});
++ const commit=await api('/git/commits','POST',{message:'AGHR: publish checked L0 state after PR #'+merged.number,tree:tree.sha,parents:[claims.sha]});
++ if(claims.exp<=Date.now()/1000)throw Error('CI_IDENTITY_EXPIRED_BEFORE_EFFECT');
++ const updated=await api('/git/refs/heads/'+policy.branch,'PATCH',{sha:commit.sha,force:false});
++ if(updated.object?.sha!==commit.sha)throw Error('CI_PUBLICATION_NOT_CONFIRMED');
++ return {profile:'aghr-ci-publication.1',status:'PUBLISHED_L0_NOT_QUALIFIED',commit_sha:commit.sha,source_merge_sha:claims.sha,pr:merged.number,state_path:'.aghr/state.json',state_hash:hash(content),assessment,qualification:'NOT_RUN',native_waived:false};
++}
++// No public local-write or permit-issuing test hook is exported.
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw b/server/studio/ci/identity.mjs
+index e69de29..bd8f94b 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw
++++ b/server/studio/ci/identity.mjs
+@@ -0,0 +1,36 @@
++import crypto from 'node:crypto';
++const issuer='https://token.actions.githubusercontent.com';
++const permits=new WeakMap();
++export function verifyGithubJwt(token,jwks,policy,now=Math.floor(Date.now()/1000)){
++ if(typeof token!=='string'||token.length>32768)throw Error('CI_IDENTITY_REQUIRED');
++ const parts=token.split('.');if(parts.length!==3||parts.some(x=>!/^[A-Za-z0-9_-]+$/.test(x)))throw Error('CI_TOKEN_INVALID');
++ const header=JSON.parse(Buffer.from(parts[0],'base64url')),claims=JSON.parse(Buffer.from(parts[1],'base64url'));
++ if(header.alg!=='RS256'||header.typ!=='JWT'||typeof header.kid!=='string'||header.jku||header.jwk||header.x5u||header.crit)throw Error('CI_TOKEN_ALGORITHM');
++ const keys=jwks.keys?.filter(k=>k.kid===header.kid&&k.kty==='RSA'&&(!k.alg||k.alg==='RS256')&&(!k.use||k.use==='sig'));
++ if(keys?.length!==1)throw Error('CI_SIGNING_KEY_UNKNOWN');
++ const key=crypto.createPublicKey({key:keys[0],format:'jwk'});if(key.asymmetricKeyDetails.modulusLength<2048||!crypto.verify('RSA-SHA256',Buffer.from(parts[0]+'.'+parts[1]),key,Buffer.from(parts[2],'base64url')))throw Error('CI_SIGNATURE_INVALID');
++ const [owner,name]=policy.repository.split('/'),context=policy.environment?'environment:'+policy.environment:'ref:refs/heads/'+policy.branch,subjects=[`repo:${policy.repository}:${context}`,`repo:${owner}@${policy.repository_owner_id}/${name}@${policy.repository_id}:${context}`];
++ if(claims.iss!==issuer||claims.aud!==policy.audience||claims.repository!==policy.repository||String(claims.repository_id)!==String(policy.repository_id)||String(claims.repository_owner_id)!==String(policy.repository_owner_id)||claims.ref!=='refs/heads/'+policy.branch||claims.event_name!=='push'||claims.environment!==undefined&&claims.environment!==policy.environment||!subjects.includes(claims.sub)||claims.workflow_ref!==`${policy.repository}/${policy.workflow}@refs/heads/${policy.branch}`||claims.workflow_sha!==claims.sha||claims.runner_environment!=='github-hosted')throw Error('CI_IDENTITY_SCOPE_MISMATCH');
++ if(!/^[a-f0-9]{40}$/.test(claims.sha)||!/^\d+$/.test(String(claims.run_id))||!/^\d+$/.test(String(claims.run_attempt))||!Number.isSafeInteger(claims.exp)||!Number.isSafeInteger(claims.iat)||!Number.isSafeInteger(claims.nbf)||claims.exp<=now||claims.nbf>now+30||claims.iat>now+30||now-claims.iat>600||claims.exp-claims.iat>3600)throw Error('CI_TOKEN_EXPIRED_OR_INVALID');
++ return structuredClone(claims); // Cryptographic primitive only; this JSON is NOT a publication capability.
++}
++export async function boundedJson(url,options={},maxBytes=2*1024**2){
++ const response=await fetch(url,{...options,redirect:'error',signal:AbortSignal.timeout(15000)});if(!response.ok)throw Error('CI_PROVIDER_HTTP_'+response.status);
++ const reader=response.body.getReader(),parts=[];let n=0;
++ try{for(;;){const {value,done}=await reader.read();if(done)break;n+=value.length;if(n>maxBytes)throw Error('CI_PROVIDER_BODY_LIMIT');parts.push(value);}}finally{await reader.cancel();}
++ return JSON.parse(new TextDecoder('utf8',{fatal:true}).decode(Buffer.concat(parts)));
++}
++export async function authenticateGithub(policy,env=process.env){
++ if(env.GITHUB_ACTIONS!=='true'||!env.ACTIONS_ID_TOKEN_REQUEST_URL||!env.ACTIONS_ID_TOKEN_REQUEST_TOKEN)throw Error('CI_OIDC_UNAVAILABLE');
++ const request=new URL(env.ACTIONS_ID_TOKEN_REQUEST_URL);
++ if(request.protocol!=='https:'||request.port&&request.port!=='443'||request.username||request.password||!/(^|\.)actions\.githubusercontent\.com$/.test(request.hostname))throw Error('CI_OIDC_ORIGIN_REJECTED');
++ request.searchParams.set('audience',policy.audience);
++ const {value:token}=await boundedJson(request,{headers:{Authorization:'Bearer '+env.ACTIONS_ID_TOKEN_REQUEST_TOKEN}},65536);
++ const discovery=await boundedJson(issuer+'/.well-known/openid-configuration',{},65536);
++ if(discovery.issuer!==issuer||discovery.jwks_uri!==issuer+'/.well-known/jwks')throw Error('CI_JWKS_ORIGIN_REJECTED');
++ const keys=await boundedJson(discovery.jwks_uri,{},262144),claims=verifyGithubJwt(token,keys,policy);
++ if(env.GITHUB_REPOSITORY!==claims.repository||env.GITHUB_SHA!==claims.sha||env.GITHUB_RUN_ID!==String(claims.run_id)||env.GITHUB_RUN_ATTEMPT!==String(claims.run_attempt)||env.GITHUB_EVENT_NAME!=='push'||env.GITHUB_REF!==claims.ref)throw Error('CI_RUN_CONTEXT_MISMATCH');
++ const permit=Object.freeze({});permits.set(permit,{claims,policy:structuredClone(policy),used:false});return permit;
++}
++export function ciDetails(permit){const value=permits.get(permit);if(!value||value.used||value.claims.exp<=Date.now()/1000)throw Error('UNTRUSTED_CI_PUBLISHER');return structuredClone(value);}
++export function consumeCi(permit){const details=ciDetails(permit);permits.get(permit).used=true;return details;}
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw b/server/studio/ci/submission-service.mjs
+index e69de29..26051c8 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw
++++ b/server/studio/ci/submission-service.mjs
+@@ -0,0 +1,35 @@
++import crypto from 'node:crypto';
++import {createBridge} from '../aghr/cli-bridge.js';
++import {createJobRunner} from '../aghr/job-runner.js';
++import {StudioError} from '../auth.js';
++const hash=b=>'sha256:'+crypto.createHash('sha256').update(b).digest('hex');
++// Preparation is a Draft operation. It never creates a PR, rewrites evidence,
++// grants a CI identity, or publishes state.
++export function createSubmissionService({python,evidence,store}){
++ let active=false,closing=false;
++ const prepare=async task_id=>{
++  const source=await evidence.detail(task_id);
++  if(source.task.parse_status!=='VALID')throw new StudioError(422,'VALIDATION_FAILED','Valid original JSONL required.');
++  return {task_id,source_hash:source.source_hash,bytes:source.source_bytes,path:source.source_file};
++ };
++ return {prepare,async run(receipt,expected,scope){
++  if(active||closing)throw new StudioError(409,'CONFLICT','CI bundle preparation is unavailable.');
++  const current=await prepare(expected.task_id);
++  if(JSON.stringify(current)!==JSON.stringify(expected))throw new StudioError(412,'STALE_PROPOSAL','Original evidence changed after authorization.');
++  const run_id='VR-'+crypto.randomUUID(),started=Date.now();
++  const finish=store.beginSkillRun(receipt,{id:run_id,task_id:expected.task_id,inputs_hash:scope.proposal_version_hash,command:'validate',request:{operation:'ci_bundle'},at:new Date().toISOString()},scope);
++  active=true;let result,error;
++  try{
++   const run=await createBridge({python,jobRunner:createJobRunner({python})}).run('validate');
++   if(run.exitCode!==0)throw Error('LOCAL_STRICT_VALIDATION_REJECTED');
++   const source=await evidence.detail(expected.task_id);
++   if(source.source_hash!==expected.source_hash||source.task.parse_status!=='VALID')throw new StudioError(412,'STALE_PROPOSAL','Original evidence changed during validation.');
++   const submission={profile:'aghr-ci-submission.1',evidence:[{path:source.source_file,content_hash:source.source_hash,bytes:source.source_bytes}],local_report:run.report};
++   const manifest=Buffer.from(JSON.stringify(submission,null,2)+'\n');
++   result={profile:'studio-ci-bundle.1',status:'PREPARED_NOT_SUBMITTED',run_id,files:[{path:source.source_file,content_hash:source.source_hash,bytes:source.source_bytes,base64:source.raw_source_base64},{path:'.aghr/ci-submissions/'+expected.task_id+'.json',content_hash:hash(manifest),bytes:manifest.length,base64:manifest.toString('base64')}],resource_receipt:run.resourceReceipt,submitted:false,published:false,source_written:false,state_written:false,qualification:'NOT_RUN'};
++  }catch(e){error=e;}finally{active=false;}
++  const raw=JSON.stringify({result,error:error?.message||null});
++  finish({status:error?'failed':'passed',exit_code:error?3:0,finished_at:new Date().toISOString(),duration_ms:Date.now()-started,raw,view:{profile:'CI_BUNDLE_PREPARATION_ONLY',submitted:false,published:false,state_written:false}});
++  if(error)throw error;return result;
++ },close(){closing=true;if(active)return (async()=>{while(active)await new Promise(r=>setTimeout(r,50));})();}};
++}
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw b/src/features/skills/CiBundle.jsx
+index e69de29..8807a65 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw
++++ b/src/features/skills/CiBundle.jsx
+@@ -0,0 +1,15 @@
++import {useState} from 'react';
++import {Badge,useText} from '../phase0/common.jsx';
++export default function CiBundle({api,base}){
++ const t=useText(),[id,setId]=useState(''),[intent,setIntent]=useState(null),[grant,setGrant]=useState(null),[result,setResult]=useState(null),[busy,setBusy]=useState(false),[error,setError]=useState('');
++ const work=async fn=>{setBusy(true);setError('');try{await fn();}catch(e){setError(e.message);}finally{setBusy(false);}};
++ const prepare=e=>{e.preventDefault();work(async()=>{setGrant(null);setResult(null);setIntent(await api(base+'/ci-intents','POST',{task_id:id}));});};
++ const check=()=>work(async()=>{const r=await api('/draft-intents/'+intent.id);setGrant(r.status==='GRANTED'?r.grant:null);});
++ const run=()=>work(async()=>{setResult(await api(base+'/ci-bundle','POST',{task_id:id},{'X-Write-Grant':grant,'If-Match':JSON.stringify(intent.scope.proposal_version_hash)}));setIntent(null);setGrant(null);});
++ const download=f=>{const bytes=Uint8Array.from(atob(f.base64),x=>x.charCodeAt(0)),url=URL.createObjectURL(new Blob([bytes],{type:'application/octet-stream'})),a=document.createElement('a');a.href=url;a.download=f.path.split('/').at(-1);a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
++ return <section data-testid="ci-bundle"><h3>{t('تجهيز الأدلة للمراجعة وCI','Prepare evidence for PR and CI')}</h3><p>{t('يحفظ الأصل والبصمة ونتيجة المحرك. تنزيل محلي فقط؛ لا ينشئ PR ولا ينشر الحالة. CI الموثوق وحده ينشر بعد الدمج.','Retains original bytes, hash and engine report. Local download only; creates no PR and publishes no state. Only authenticated CI publishes after merge.')}</p>
++ <form className="draft-form" onSubmit={prepare}><label htmlFor="ci-task">{t('معرف دليل المهمة المسجل','Registered evidence task ID')}</label><input id="ci-task" required value={id} onChange={e=>{setId(e.target.value);setIntent(null);setGrant(null);setResult(null);}}/><button data-testid="ci-prepare" disabled={busy}>{t('إعداد التفويض','Prepare authorization')}</button></form>
++ {intent&&<div className="draft-intent"><pre dir="ltr">approve {intent.id}</pre><button data-testid="ci-auth" disabled={busy} onClick={check}>{t('التحقق من التفويض','Check authorization')}</button><button data-testid="ci-run" disabled={busy||!grant} onClick={run}>{t('تجهيز المرفقات','Prepare attachments')}</button></div>}
++ {result&&<div data-testid="ci-bundle-result"><Badge code={result.status}/><ul>{result.files.map(f=><li key={f.path}><code className="draft-hash">{f.path} · {f.content_hash}</code><button onClick={()=>download(f)}>{t('تنزيل الأصل','Download bytes')}</button></li>)}</ul><p>{t('أرفق الملفين في PR بنفس المسارين أعلاه. التأهيل الأصلي لم يُنفذ.','Attach both files in the PR at the paths above. Native qualification remains NOT_RUN.')}</p></div>}
++ {busy&&<p role="status">{t('جارٍ التجهيز…','Preparing…')}</p>}{error&&<p role="alert">{error}</p>}</section>;
++}
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw b/src/features/skills/skills.css
+index e69de29..6103a96 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw
++++ b/src/features/skills/skills.css
+@@ -0,0 +1,7 @@
++[data-testid="skills-screen"] { min-width: 0; }
++[data-testid="skills-screen"] .draft-grid > section { min-width: 0; }
++[data-testid="skills-screen"] pre { overflow: auto; max-width: 100%; }
++[data-testid="skills-screen"] td { overflow-wrap: anywhere; }
++[data-testid="skills-screen"] article section { border-block-start: 1px solid #d4dae3; margin-block: 1rem; }
++[data-testid="skills-screen"] button { margin: .2rem; }
++[data-testid="ci-bundle"] { margin-block: 1.5rem; border-block-start: 1px solid #d4dae3; padding-block: 1rem; }
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw b/src/features/skills/SkillStudio.jsx
+index e69de29..ca0dc52 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw
++++ b/src/features/skills/SkillStudio.jsx
+@@ -0,0 +1,49 @@
++import {useEffect,useState} from 'react';
++import {Badge,Empty,useText} from '../phase0/common.jsx';
++import CiBundle from './CiBundle.jsx';
++import './skills.css';
++const checkLabels={
++ S1_SEQUENTIAL_FEATURE_SKILLS:['مهارات متتابعة لميزة جديدة','Sequential skills for a feature'],S2_SIMPLE_TASK:['مهمة لا تحتاج مهارة','Task needing no skill'],S3_OVERLAP:['مهارات متداخلة','Overlapping skills'],S4_INSTALLED_UNAVAILABLE:['مثبتة وغير متاحة','Installed but unavailable'],S5_PERMISSION_DENIED:['صلاحيات غير ممنوحة','Permission denied'],S6_EXECUTION_FAILED:['فشل التنفيذ بعد التحميل','Execution fails after loading'],S7_ARABIC_ENGLISH_ONLY_TRIGGERS:['طلب عربي ومحفزات إنجليزية','Arabic request, English triggers'],S8_GOVERNED_LEARNING_NO_PROMOTION:['درس دون ترقية تلقائية للسياسة','Lesson without automatic policy promotion'],
++ H1:['لا تحقق دون تنفيذ','No verification without execution'],H2:['رفض المعرف المجهول','Reject unknown ID'],H3:['رفض المخرجات الفارغة','Reject empty output'],H4:['تطبيق معايير قبول المهمة','Apply task acceptance criteria'],H5:['فصل الحجب عن عدم الحاجة','Blocking differs from no skill needed'],H6:['لا إشارة مضيف مخترعة','No invented host signal'],H7:['إبطال التأهيل عند تغير الهوية','Invalidate qualification on identity change'],
++};
++export default function SkillStudio({api,workspace}){
++ const t=useText(),base='/workspaces/'+workspace+'/skill-lifecycle';
++ const [inventory,setInventory]=useState(null),[task,setTask]=useState(null),[matrix,setMatrix]=useState(null),[history,setHistory]=useState([]),[intent,setIntent]=useState(null),[grant,setGrant]=useState(null),[busy,setBusy]=useState(false),[error,setError]=useState('');
++ const [form,setForm]=useState({operation:'select',task_id:'studio-task',host:'aghr-local-process',skill_id:'',query:'',phase:'implementation',input:'{}',task_criteria:'',runs:3});
++ const work=async fn=>{setBusy(true);setError('');try{await fn();}catch(e){setError(e.message);}finally{setBusy(false);}};
++ const refresh=async()=>{setInventory(await api(base));setHistory(await api(base+'/history'));};
++ useEffect(()=>{let current=true;Promise.all([api(base),api(base+'/scenarios'),api(base+'/history')]).then(([i,m,h])=>{if(current){setInventory(i);setMatrix(m);setHistory(h);}}).catch(e=>{if(current)setError(e.message);});return()=>{current=false;};},[api,base]);
++ const change=(key,value)=>{setForm(v=>({...v,[key]:value}));setIntent(null);setGrant(null);if(['task_id','host'].includes(key))setTask(null);};
++ const prepare=event=>{event.preventDefault();work(async()=>{
++  setGrant(null);const {operation,task_id,host,skill_id,query,phase}=form;
++  const payload={operation,task_id,host,...(skill_id&&operation!=='phase'?{skill_id}:{}),...(operation==='select'&&query?{query}:{}),...(['phase','select'].includes(operation)?{phase}:{}),...(['execute','eval','qualify'].includes(operation)?{input:JSON.parse(form.input)}:{}),...(['verify','eval','qualify'].includes(operation)?{task_criteria:form.task_criteria}:{}),...(['eval','qualify'].includes(operation)?{runs:Number(form.runs)}:{})};
++  setIntent({...await api(base+'/intents','POST',payload),payload});
++ });};
++ const check=()=>work(async()=>{const r=await api('/draft-intents/'+intent.id);setGrant(r.status==='GRANTED'?r.grant:null);setIntent({...intent,status:r.status});});
++ const execute=()=>work(async()=>{const r=await api(base+'/run','POST',intent.payload,{'X-Write-Grant':grant,'If-Match':JSON.stringify(intent.scope.proposal_version_hash)});setTask(r.task);setIntent(null);setGrant(null);await refresh();});
++ return <section data-testid="skills-screen"><h2>{t('دورة حياة المهارات','Skill lifecycle')}</h2><p>{t('اختيار وتحميل وتنفيذ وتحقق منفصلة. المضيف المحلي لا يمثل Codex أو Antigravity.','Selection, loading, execution and verification are separate. The local host does not represent Codex or Antigravity.')}</p>
++ <div className="draft-grid"><section><h3>{t('اختيارات المهمة','Task selections')}</h3><form className="draft-form" onSubmit={prepare}>
++ <label htmlFor="skill-task">{t('معرف المهمة','Task ID')}</label><input id="skill-task" required value={form.task_id} onChange={e=>change('task_id',e.target.value)}/>
++ <label htmlFor="skill-host">{t('المضيف','Host')}</label><select id="skill-host" value={form.host} onChange={e=>change('host',e.target.value)}>{['aghr-local-process','codex','antigravity'].map(x=><option key={x}>{x}</option>)}</select>
++ <label htmlFor="skill-id">{t('المهارة المسجلة','Registered skill')}</label><select id="skill-id" value={form.skill_id} onChange={e=>change('skill_id',e.target.value)}><option value="">{t('اختيار بالاستعلام','Select by query')}</option>{inventory?.local.skills.map(s=><option key={s.id}>{s.id}</option>)}</select>
++ <label htmlFor="skill-query">{t('المهمة بالعربية أو الإنجليزية','Task in Arabic or English')}</label><input id="skill-query" value={form.query} onChange={e=>change('query',e.target.value)}/>
++ <label htmlFor="skill-operation">{t('المرحلة المطلوبة','Requested operation')}</label><select id="skill-operation" value={form.operation} onChange={e=>change('operation',e.target.value)}>{[['select','اختيار','Select'],['load','تحميل','Load'],['execute','تنفيذ','Execute'],['verify','تحقق النتيجة','Verify result'],['phase','تغيير المرحلة','Change phase'],['host_signal','رصد المضيف','Observe host'],['eval','تقييم','Evaluate'],['qualify','تأهيل محلي','Qualify locally']].map(([id,ar,en])=><option key={id} value={id}>{t(ar,en)}</option>)}</select>
++ <label htmlFor="skill-phase">{t('مرحلة المهمة','Task phase')}</label><input id="skill-phase" value={form.phase} onChange={e=>change('phase',e.target.value)}/>
++ {['execute','eval','qualify'].includes(form.operation)&&<><label htmlFor="skill-input">{t('المدخلات JSON','JSON input')}</label><textarea id="skill-input" rows={5} dir="ltr" value={form.input} onChange={e=>change('input',e.target.value)}/></>}
++ {['verify','eval','qualify'].includes(form.operation)&&<><label htmlFor="skill-criteria">{t('معايير قبول المهمة','Task acceptance criteria')}</label><textarea id="skill-criteria" required rows={4} dir="ltr" value={form.task_criteria} onChange={e=>change('task_criteria',e.target.value)}/></>}
++ {['eval','qualify'].includes(form.operation)&&<><label htmlFor="skill-runs">{t('عدد التنفيذات الفعلية','Actual executions')}</label><input id="skill-runs" type="number" min="3" max="20" value={form.runs} onChange={e=>change('runs',e.target.value)}/></>}
++ <button data-testid="skill-prepare" disabled={busy}>{t('إعداد العملية للتفويض','Prepare scoped authorization')}</button></form>
++ {intent&&<div className="draft-intent" role="status"><Badge code={intent.status}/><pre dir="ltr">approve {intent.id}</pre><code className="draft-hash">{intent.scope.proposal_version_hash}</code><div className="draft-actions"><button data-testid="skill-auth" disabled={busy} onClick={check}>{t('التحقق من التفويض','Check authorization')}</button><button data-testid="skill-run" disabled={busy||!grant} onClick={execute}>{t('تنفيذ العملية المفوضة','Run authorized operation')}</button></div></div>}
++ </section><section><h3>{t('بطاقة المهارة','Skill card')}</h3>{!task?<Empty>{t('اختر مهمة لعرض حالتها الفعلية.','Select a task to inspect its actual state.')}</Empty>:<article data-testid="live-skill-card"><h4><bdi>{task.task_id} · {task.skill_id||'—'}</bdi></h4><Badge code={task.outcome}/>{task.halt&&<p className="p0-notice">{t('توقف؛ لا تنفيذ بديل عند حجب المهارة.','Halted; blocking a skill does not authorize fallback execution.')} <bdi>{task.reason}</bdi></p>}
++ <section><h4>{t('١ · التوفر','1 · Availability')}</h4><Badge code={task.availability.registry}/><p>{t('مثبتة','Installed')}: {String(task.availability.installed)} · {t('متاحة للجلسة','Available to session')}: {String(task.availability.available)}</p><code className="draft-hash">{task.availability.content_hash}</code></section>
++ <section><h4>{t('٢ · التأهيل','2 · Qualification')}</h4><Badge code={task.qualification.status}/><p><bdi>{task.host} · {task.host_version||'UNKNOWN'} · {task.phase}</bdi></p><p>{t('تغير المضيف أو نسخته أو النطاق أو المحتوى يبطل المطابقة؛ التاريخ ليس تأهيلًا حيًا.','Changing host, version, scope or content invalidates matching; history is not live qualification.')}</p></section>
++ {task.qualification.record&&<dl data-testid="qualification-metadata"><dt>{t('نطاق التأهيل','Qualification scope')}</dt><dd><bdi>{task.qualification.record.scope}</bdi></dd><dt>{t('تاريخ التأهيل الفعلي','Actual qualification date')}</dt><dd><bdi>{task.qualification.record.qualifiedAt}</bdi></dd></dl>}
++ <section><h4>{t('٣ · الاستخدام','3 · Usage')}</h4>{Object.entries(task.usage).map(([k,v])=><p key={k}>{t({selected:'اختيار',loaded:'تحميل',executed:'تنفيذ',verified:'تحقق',host_signal:'إشارة المضيف'}[k],{selected:'Selection',loaded:'Loading',executed:'Execution',verified:'Verification',host_signal:'Host signal'}[k])} · <Badge code={v}/></p>)}</section></article>}
++ {inventory?.tasks.map(x=><button key={x.task_id} onClick={()=>work(async()=>setTask(await api(base+'/tasks/'+encodeURIComponent(x.task_id))))}><bdi>{x.task_id}</bdi></button>)}
++ <details><summary>{t('سجل العمليات؛ للعرض فقط','Operation history; display only')} ({history.length})</summary><p>{t('لا يعيد السجل أدلة التنفيذ الحية أو التأهيل بعد إعادة التشغيل.','History cannot restore live execution proofs or qualification after restart.')}</p>{history.map(h=><p key={h.run_id}><bdi>{h.task_id} · {h.operation}</bdi> · <Badge code={h.status}/></p>)}</details>
++ </section></div>
++ {matrix&&<section data-testid="skill-scenarios"><h3>{t('السيناريوهات الثمانية وفحوص الصدق السبعة','Eight scenarios and seven honesty checks')}</h3><p>{t('النتائج المحلية من دليل مثبت لنفس المحرك؛ فحوص المضيفين الأصلية ما زالت مطلوبة ولم تُنفذ.','Local results use pinned evidence for the same engine; native checks remain required and not run.')}</p><div className="p0-table-wrap"><table><thead><tr><th>{t('الفحص','Check')}</th><th>{t('النواة المحلية','Local core')}</th><th>Codex</th><th>Antigravity</th></tr></thead><tbody>{[...matrix.scenarios,...matrix.honesty].map(r=><tr key={r.id}><td>{t(...checkLabels[r.id])}<br/><bdi>{r.id}</bdi></td><td><Badge code={r.local}/></td><td><Badge code={r.codex}/></td><td><Badge code={r.antigravity}/></td></tr>)}</tbody></table></div></section>}
++ <CiBundle api={api} base={base}/>
++ {busy&&<p role="status" aria-busy="true">{t('جارٍ تنفيذ العملية تحت حدود الموارد…','Running under resource limits…')}</p>}{error&&<p className="p0-notice" role="alert">{error}</p>}
++ </section>;
++}
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw b/tools/phase3/browser.mjs
+index e69de29..9d863db 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw
++++ b/tools/phase3/browser.mjs
+@@ -0,0 +1,53 @@
++// Real Edge/CDP, isolated browser context and disposable Draft DB. No native impersonation.
++import fs from 'node:fs';
++import path from 'node:path';
++import crypto from 'node:crypto';
++import assert from 'node:assert/strict';
++import {spawn} from 'node:child_process';
++import {encodeJsonl} from '../contracts/evidence_jsonl.mjs';
++import {changed,out as evidenceRoot} from './prepare.mjs';
++const out=evidenceRoot+'/'+(process.argv[2]||'browser-final');fs.mkdirSync(out);
++const root=process.cwd(),temp=fs.mkdtempSync(path.resolve('temp/phase3-browser-')),db=temp+'/db',project=temp+'/project',dir=project+'/.aghr/runtime_evidence';fs.mkdirSync(db);fs.mkdirSync(dir,{recursive:true});
++const at=new Date().toISOString(),raw=encodeJsonl([{task_id:'ui-evidence',session:{agent:'UI_SOURCE_CLAIM_ONLY',agent_version:'1',host_os:'windows',started_at:at},events:[{at,type:'skill.loaded',skill_id:'json-audit',instruction_hash:'sha256:'+'a'.repeat(64)}],submit_to_ci:false}]);fs.writeFileSync(dir+'/ui-evidence.jsonl',raw);
++const skill=path.resolve('tests/fixtures/studio-e4/json-audit'),config=temp+'/skills.json';fs.writeFileSync(config,JSON.stringify({skills:[{id:'json-audit',source:'project',skillPath:skill+'/SKILL.md',entry:skill+'/worker.py',triggers:['review','مراجعة'],requires:['workspace.read']}],permissions:['workspace.read']}));
++const sha=b=>crypto.createHash('sha256').update(b).digest('hex'),parent=JSON.parse(fs.readFileSync('docs/evidence/studio-native-t20-t21-2026-10-24/CUSTODY.lock.json'));
++const immutable=Object.fromEntries(Object.keys(parent.files).filter(p=>!changed.includes(p)).map(p=>[p,sha(fs.readFileSync(p))]));
++const server=spawn(process.execPath,['server/studio/serve-draft.mjs','--python='+path.resolve('temp/aghr-e1a-20261022-01/venv/Scripts/python.exe'),'--port=0','--storage-root='+db,'--evidence-project='+project,'--skill-config='+config],{cwd:root,windowsHide:true,stdio:['pipe','pipe','pipe','ipc']});server.stdout.resume();server.stderr.resume();
++const receive=predicate=>new Promise((resolve,reject)=>{const timer=setTimeout(()=>{server.off('message',handler);reject(Error('Server timeout'));},90000);function handler(m){if(predicate(m)){clearTimeout(timer);server.off('message',handler);resolve(m);}}server.on('message',handler);});
++const ready=await receive(m=>m.event==='ready'),origin='http://127.0.0.1:'+ready.port;
++const version=await(await fetch('http://127.0.0.1:9223/json/version')).json(),socket=new WebSocket(version.webSocketDebuggerUrl);await new Promise((r,j)=>{socket.onopen=r;socket.onerror=j;});
++const pending=new Map();let n=0,context,sessionId;const errors=[];
++socket.onmessage=message=>{const value=JSON.parse(message.data);if(value.id){const p=pending.get(value.id);if(p){pending.delete(value.id);clearTimeout(p.timer);value.error?p.reject(Error(JSON.stringify(value.error))):p.resolve(value.result);}}else if(value.sessionId===sessionId&&value.method==='Runtime.exceptionThrown')errors.push(value.params.exceptionDetails.text);};
++const cdp=(method,params={},sid)=>new Promise((resolve,reject)=>{const id=++n,timer=setTimeout(()=>{pending.delete(id);reject(Error('CDP timeout '+method));},30000);pending.set(id,{resolve,reject,timer});socket.send(JSON.stringify({id,method,params,...(sid?{sessionId:sid}:{})}));});
++const evaluate=async expression=>{const r=await cdp('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true},sessionId);if(r.exceptionDetails)throw Error(r.exceptionDetails.text);return r.result.value;};
++const wait=ms=>new Promise(r=>setTimeout(r,ms));
++const until=async(expression,timeout=90000)=>{const end=Date.now()+timeout;while(Date.now()<end){const value=await evaluate(expression);if(value)return value;await wait(150);}throw Error('UI timeout '+expression);};
++const click=async selector=>{await until(`!!document.querySelector(${JSON.stringify(selector)})`);await evaluate(`document.querySelector(${JSON.stringify(selector)}).click()`);};
++const fill=(selector,value)=>evaluate(`(()=>{const e=document.querySelector(${JSON.stringify(selector)}),proto=e.tagName==='SELECT'?HTMLSelectElement.prototype:e.tagName==='TEXTAREA'?HTMLTextAreaElement.prototype:HTMLInputElement.prototype;Object.getOwnPropertyDescriptor(proto,'value').set.call(e,${JSON.stringify(value)});e.dispatchEvent(new Event(e.tagName==='SELECT'?'change':'input',{bubbles:true}));})()`);
++const approve=async(scope)=>{const intent=await until(`document.querySelector(${JSON.stringify(scope+' .draft-intent pre')})?.innerText.match(/approve ([a-f0-9-]+)/)?.[1]`),control=receive(m=>m.event==='control');server.send({command:'approve',id:intent,request_id:'ui-'+n});const r=await control;assert(!r.error,r.error);};
++const operation=async(op,values={})=>{await fill('#skill-operation',op);for(const [selector,value]of Object.entries(values))await fill(selector,value);await click('[data-testid=skill-prepare]');await approve('[data-testid=skills-screen]');await click('[data-testid=skill-auth]');await until('document.querySelector("[data-testid=skill-run]")?.disabled===false');await click('[data-testid=skill-run]');await until('!document.querySelector("[data-testid=skill-run]") && document.querySelector("[data-testid=skill-prepare]")?.disabled===false');};
++const snapshot=async name=>{fs.writeFileSync(out+'/'+name+'.txt',await evaluate('document.body.innerText'),{flag:'wx'});const picture=await cdp('Page.captureScreenshot',{format:'png',captureBeyondViewport:true},sessionId);fs.writeFileSync(out+'/'+name+'.png',Buffer.from(picture.data,'base64'),{flag:'wx'});};
++const checks=[];let failure;
++try{
++ context=(await cdp('Target.createBrowserContext')).browserContextId;const target=(await cdp('Target.createTarget',{url:'about:blank',browserContextId:context})).targetId;sessionId=(await cdp('Target.attachToTarget',{targetId:target,flatten:true})).sessionId;
++ await cdp('Runtime.enable',{},sessionId);await cdp('Page.enable',{},sessionId);await cdp('Page.navigate',{url:origin},sessionId);await until('!!document.querySelector("#draft-token")');assert.match(await evaluate('navigator.userAgent'),/Edg\//);
++ await fill('#draft-token',ready.token);await click('form button');await until('!!document.querySelector("[data-testid=skills-nav]")');await click('[data-testid=skills-nav]');await until('document.querySelectorAll("[data-testid=skill-scenarios] tbody tr").length===15');
++ await fill('#skill-query','مراجعة شفرة');await operation('select');await fill('#skill-id','json-audit');await operation('load');assert.match(await evaluate('document.querySelector("[data-testid=live-skill-card]").innerText'),/LOADED/);await snapshot('skills-ar-loaded');
++ const criteria='{"all":[{"pointer":"/valid","op":"equals","value":true}]}';
++ await operation('verify',{'#skill-criteria':criteria});assert.match(await evaluate('document.querySelector("[data-testid=live-skill-card]").innerText'),/EXECUTION_EVIDENCE_REQUIRED/);checks.push('Verify before execution rejected by actual E4');
++ await operation('execute',{'#skill-input':'{"document":{"name":"ui-real"},"required":["name"]}'});await operation('verify',{'#skill-criteria':criteria});assert.match(await evaluate('document.querySelector("[data-testid=live-skill-card]").innerText'),/VERIFIED/);checks.push('Real local execute + task criteria VERIFIED; three axes remain separate');
++ await operation('qualify',{'#skill-input':'{"document":{"name":"ui-local-qualification"},"required":["name"]}','#skill-criteria':criteria});assert.match(await evaluate('document.querySelector("[data-testid=live-skill-card]").innerText'),/QUALIFIED/);checks.push('Actual3-run local qualification with host tuple; not native qualification');await snapshot('skills-ar-qualified');
++ await fill('#ci-task','ui-evidence');await click('[data-testid=ci-prepare]');await approve('[data-testid=ci-bundle]');await click('[data-testid=ci-auth]');await until('document.querySelector("[data-testid=ci-run]")?.disabled===false');await click('[data-testid=ci-run]');await until('document.querySelector("[data-testid=ci-bundle-result]")?.innerText.includes("PREPARED_NOT_SUBMITTED")');checks.push('Scoped CI bundle contains original bytes and real CLI report; no PR/state write');await snapshot('skills-ar-ci-bundle');
++ await fill('#skill-task','native-ui');await fill('#skill-host','codex');await operation('select');assert.match(await evaluate('document.querySelector("[data-testid=live-skill-card]").innerText'),/DISCOVERY_UNAVAILABLE/);checks.push('Native unavailable blocks without local fallback;15 local/native matrix rows');
++ for(const locale of ['ar','en']){await fill('[data-testid=draft-locale]',locale);await until(`document.documentElement.dir===${JSON.stringify(locale==='ar'?'rtl':'ltr')}`);for(const width of [320,768,1024,1440]){await cdp('Emulation.setDeviceMetricsOverride',{width,height:900,deviceScaleFactor:1,mobile:false},sessionId);await wait(100);assert.equal(await evaluate('document.documentElement.scrollWidth>window.innerWidth'),false,'Page overflow '+locale+width);checks.push('No overflow '+locale+' '+width);if(width===320||width===1440)await snapshot('skills-'+locale+'-'+width);}}
++ await evaluate('document.querySelector("#ci-task").focus()');assert.equal(await evaluate('document.activeElement.id'),'ci-task');await cdp('Input.dispatchKeyEvent',{type:'keyDown',key:'Tab',code:'Tab',windowsVirtualKeyCode:9},sessionId);await until('document.activeElement.getAttribute("data-testid")==="ci-prepare"');checks.push('Keyboard Tab moves from labeled input to action after explicit test focus');assert.deepEqual(errors,[]);
++ console.log(JSON.stringify({event:'browser_ready_for_inspection',origin,context,checks}));
++ await new Promise(resolve=>{const timer=setInterval(()=>{if(fs.existsSync(out+'/finish.marker')){clearInterval(timer);resolve();}},250);});
++}catch(e){failure=e.stack;console.error(e.stack);}
++finally{
++ const preserved=Object.entries(immutable).every(([p,h])=>sha(fs.readFileSync(p))===h),unchanged=sha(fs.readFileSync(dir+'/ui-evidence.jsonl'))===sha(raw),state_written=fs.existsSync(project+'/.aghr/state.json');
++ if(!preserved||!unchanged||state_written)failure=(failure||'')+' SENTINEL_FAILED';
++ fs.writeFileSync(out+'/BROWSER_ACCEPTANCE.json',JSON.stringify({status:failure?'FAIL':'PASS',failure,checks,browser:'Actual Microsoft Edge; isolated context;127.0.0.1:9223',errors,protected_files:Object.keys(immutable).length,preserved,original_before:sha(raw),original_after:sha(fs.readFileSync(dir+'/ui-evidence.jsonl')),source_written:!unchanged,state_written,draft_storage:db},null,2),{flag:'wx'});
++ if(context)await cdp('Target.disposeBrowserContext',{browserContextId:context});socket.close();server.send('stop');
++}
++if(failure)process.exitCode=1;
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw b/tools/phase3/ci.mjs
+index e69de29..80bed63 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw
++++ b/tools/phase3/ci.mjs
+@@ -0,0 +1,11 @@
++import fs from 'node:fs';
++import path from 'node:path';
++import {publishFromGithub,checkPullRequest} from '../../server/studio/ci/github-publisher.mjs';
++const args=process.argv.slice(2),mode=args.shift(),options=new Map(args.map(s=>{const p=s.indexOf('=');if(p<0)throw Error('Use --name=value');return [s.slice(0,p),s.slice(p+1)];}));
++if(!['check-pr','publish'].includes(mode)||[...options.keys()].some(k=>!['--python','--pr'].includes(k)))throw Error('CI_COMMAND_INVALID');
++const python=options.get('--python');if(!python||!path.isAbsolute(python))throw Error('ABSOLUTE_VENV_PYTHON_REQUIRED');
++const policy=JSON.parse(fs.readFileSync('.github/aghr-publisher-policy.json','utf8'));
++try{
++ const result=mode==='publish'?await publishFromGithub({python,policy}):await checkPullRequest({python,policy,prNumber:Number(options.get('--pr'))});
++ process.stdout.write(JSON.stringify(result)+'\n');
++}catch(error){process.stdout.write(JSON.stringify({profile:'aghr-ci.1',result:'BLOCKED',reason:error.message,state_written:false,published:false,native_qualification:'NOT_RUN'})+'\n');process.exitCode=3;}
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw b/tools/phase3/finalize.mjs
+index e69de29..eac13b2 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw
++++ b/tools/phase3/finalize.mjs
+@@ -0,0 +1,48 @@
++import fs from 'node:fs';
++import {out} from './prepare.mjs';
++const log=fs.readFileSync(out+'/NPM_TEST.log','utf8'),passed=Number(log.match(/ℹ pass (\d+)/)?.[1]);
++if(!passed||!log.includes('ℹ fail 0')||!log.includes('ℹ skipped 0'))throw Error('FULL_TEST_GATE_PENDING');
++if(!fs.readFileSync(out+'/CI_FOCUSED_FINAL.log','utf8').includes('ℹ pass 3'))throw Error('FINAL_CI_GATE_PENDING');
++if(JSON.parse(fs.readFileSync(out+'/browser-final-v2/BROWSER_ACCEPTANCE.json')).status!=='PASS')throw Error('FINAL_BROWSER_GATE_PENDING');
++fs.writeFileSync('docs/status/CURRENT.md',`# Active Project Execution State — Derived View
++
++> Updated2026-10-24. Reopen Git, source and exact custody; prose is not authority.
++
++## Accepted position
++
++E1/E2, T01–T05/T07–T10 and E4 local core accepted by owner. T06/T12/T19 accepted only within explicit MOCK scopes; original SEC-001 remains BLOCKED/3 without real authority/gates/P0 evidence. T11 inventory accepted, no automatic Active adoption. T13–T18 Draft storage, grants,12 tables, hash-bound approvals, bounded local E3 generation and patch workflow accepted. Reference1.2.0, contracts and E1–E4 remain preserved.
++
++T20/T21 now formally ACCEPTED_BY_OWNER: bounded verification, authenticated polling and original runtime-evidence reader. [Accepted delivery](../evidence/studio-native-t20-t21-2026-10-24/README.md).
++
++## Current authorized delivery
++
++[T22/T23/T24](../evidence/studio-phase3-2026-10-24/README.md): T22 real lifecycle HTTP/UI, three independent axes, actual criteria and3-run local qualification; scoped grants and durable history cannot restore live E4 proofs. T23 UI links the pinned8 scenarios and7 honesty results for the unchanged local core; every native column remains REQUIRED / NOT_RUN / NOT_WAIVED.
++
++One additional owner-bounded Codex stdio diagnosis completed: no initialize response in20s, no diagnostic stderr, T15 tree reaped; ENVIRONMENT_BLOCKED, deeper cause UNPROVEN. agy absence is inherited from accepted observation; no second attempt/install. No native qualification claimed.
++
++T24 provides scoped local PR-bundle preparation, exact original bytes/hashes, real E2/E4 inspection,100 seeded parity units, signed GitHub OIDC publisher and post-merge workflow. Only L0/NOT_RUN state is supported; existing qualified state cannot be downgraded. Matching JSON/producer labels never grant execution trust. Hosted PR/post-merge publication NOT_RUN; no state was written. Full suite${passed}/${passed}, final CI3/3, final Edge AR/EN/RTL and Sentinel passed. No independent/release acceptance.
++
++## Preserved boundaries and next action
++
++App writes only authorized disposable/Draft storage; no reference/source apply, owner default DB use, runtime_evidence rewrite, local state writer, push or merge. Owner permitted proceeding to publisher despite native blockers; this does not waive them or close Phase3 operational qualification. Reopen new custody before resuming. Next unfinished gates: owner review/deployment of the publisher followed by a genuine merged evidence PR; native trials require a working isolated channel and fresh authorization after the one-attempt limit. No automatic Phase4.
++`);
++fs.writeFileSync('docs/status/HANDOFF.md',`# Studio handoff —2026-10-24, derived position
++
++Branch main, base133746a0ad99d10568a44c8d225219df8454271c; prior dirty work preserved. No commit/push/merge. Owner accepted T20/T21, authorized one bounded host diagnosis and T22–T24 regardless of its result. Reopen CURRENT, live Git and [delivery/custody](../evidence/studio-phase3-2026-10-24/README.md).
++
++Native attempt: Codex stdio initialize timed out at20s with empty stderr; total controller22.641s, tree reaped under30s/2GiB. Further cause UNPROVEN. No agy installation/retry; accepted absence retained. Both hosts'7 checks/8 scenarios REQUIRED / NOT_RUN / NOT_WAIVED.
++
++T22 real HTTP/UI handles select/load/execute/verify/eval/qualify/phase with mandatory one-use exact grants. Qualification uses actual3-run local evidence and host/version/scope/content/driver/engine tuple; imported/history JSON cannot restore proofs. T23 bilingual matrix separates pinned local conformance from native NOT_RUN. T24 prepares exact PR attachments locally, checks E2 strict and E4 imported-evidence trust, verifies signed GitHub identity/repo IDs/workflow/SHA/merged PR and non-force head update. Single remote state path, L0/NOT_RUN profile only; qualified-state update remains unavailable. No Studio state writer or PR creation.
++
++Verification: full${passed}/${passed}; CI final3/3 (includes E4 mock-evidence rejection);100 seeded valid/invalid parity units; final Edge AR/EN four widths, keyboard and source/state sentinel; context/custody recorded in delivery. Full regression began before the final additive E4-inspection/UI metadata changes; final focused CI and rebuilt Edge checks cover those exact changes. Not an exact-source hosted CI run or independent review.
++
++Next: review/deploy the workflow, then real merged evidence PR under GitHub OIDC. Hosted publication NOT_RUN. Native channel availability remains an environmental prerequisite, not waived. Do not retry native diagnosis automatically; owner authorized one attempt only. No Phase4, reference promotion, source apply or release acceptance. Original SEC-001 stays BLOCKED/3 outside prior authorized MOCK scope.
++`);
++let p='docs/plans/STUDIO_UPGRADE_TASKS_AR.md',s=fs.readFileSync(p,'utf8');
++s=s.replace('TESTED_LOCAL_DRAFT؛ T15','ACCEPTED_BY_OWNER؛ T15').replace('TESTED_LOCAL_READ_ONLY؛ T20','ACCEPTED_BY_OWNER؛ T20');
++s=s.replace('| [ ] T22 — دورة اختيار وتأهيل المهارة | T08','| [x] T22 — دورة اختيار وتأهيل المهارة | IMPLEMENTED_TESTED_LOCAL؛ T08');
++s=s.replace('| [ ] T23 — سيناريوهات الصدق وتجارب المضيف | T22','| [ ] T23 — سيناريوهات الصدق وتجارب المضيف | UI_LOCAL_MATRIX_TESTED؛ NATIVE_ENVIRONMENT_BLOCKED؛ T22');
++s=s.replace('| [ ] T24 — الأدلة وناشر CI والتطابق | T18','| [ ] T24 — الأدلة وناشر CI والتطابق | CODE_LOCAL_TESTED؛ HOSTED_NOT_RUN؛ T18');
++s+='\n### تسليم T22–T24 بتفويض المالك\n\nاعتمد المالك T20/T21 وسمح ببدء الناشر رغم العائق الأصلي. [التسليم والأدلة](../evidence/studio-phase3-2026-10-24/README.md): محاولة Codex واحدة انتهت دون initialize؛ لا إعادة محاولة. T22 مرتبط فعليًا بالواجهة، T23 يعرض8+7 محليًا دون نقل التأهيل إلى المضيفين. T24 جهز مرفقات PR الأصلية وناشر OIDC وworkflow بعد الدمج، مع مقارنة100 بند. الملف المدعوم L0/NOT_RUN فقط؛ النشر المستضاف وتأهيل المضيفين NOT_RUN، لذلك لا إغلاق شامل للمرحلة الثالثة ولا بدء تلقائي للرابعة.\n';fs.writeFileSync(p,s);
++p='docs/INDEX.md';s=fs.readFileSync(p,'utf8');s+='\n- [T22–T24 local delivery](evidence/studio-phase3-2026-10-24/README.md) — real skill lifecycle, native environmental blocker, PR-byte bundles and signed post-merge CI publisher; hosted publication NOT_RUN.\n';fs.writeFileSync(p,s);
++console.log(JSON.stringify({status:'DERIVED_DOCS_UPDATED',full_tests:passed}));
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw b/tools/phase3/host-attempt.mjs
+index e69de29..57c1be4 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw
++++ b/tools/phase3/host-attempt.mjs
+@@ -0,0 +1,9 @@
++import fs from 'node:fs';
++import path from 'node:path';
++import {createJobRunner} from '../../server/studio/aghr/job-runner.js';
++import {out} from './prepare.mjs';
++const dir=fs.mkdtempSync(path.resolve('temp/phase3-native-'));fs.mkdirSync(dir+'/state');fs.mkdirSync(dir+'/project');
++const input=dir+'/input.json';fs.writeFileSync(input,JSON.stringify({state:dir+'/state',cwd:dir+'/project',binary:'C:/Users/Majed/.vscode/extensions/openai.chatgpt-26.1002.51308-win32-x64/bin/windows-x86_64/codex.exe'}));
++const runner=createJobRunner({python:path.resolve('temp/aghr-e1a-20261022-01/venv/Scripts/python.exe')});
++const result=await runner.run('check',{executable:path.resolve('temp/aghr-e1a-20261022-01/venv/Scripts/python.exe'),args:['-I','-B','-S','-X','utf8',path.resolve('tools/phase3/host-attempt.py'),input],cwd:dir,maxOutputBytes:65536});
++fs.writeFileSync(out+'/NATIVE_SINGLE_ATTEMPT.json',JSON.stringify({attempts:1,job:result,host:'codex',honesty:'REQUIRED / NOT_RUN / NOT_WAIVED',antigravity:'agy was absent in accepted previous observation; no installation attempted'},null,2),{flag:'wx'});console.log(JSON.stringify({status:result.status,exit_code:result.exit_code,output:result.stdout}));
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw b/tools/phase3/host-attempt.py
+index e69de29..b94ab71 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw
++++ b/tools/phase3/host-attempt.py
+@@ -0,0 +1,44 @@
++"""Single native initialize diagnosis, inside T15. No credentials are read."""
++import hashlib
++import json
++from pathlib import Path
++import queue
++import re
++import subprocess
++import sys
++import threading
++config=json.loads(Path(sys.argv[1]).read_text(encoding='utf-8'))
++state=Path(config['state'])
++argv=[config['binary'],'--config','sqlite_home='+json.dumps((state/'sqlite').as_posix()),'--config','log_dir='+json.dumps((state/'logs').as_posix()),'--config','history.persistence="none"','app-server','--stdio']
++child=subprocess.Popen(argv,cwd=config['cwd'],stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,creationflags=subprocess.CREATE_NO_WINDOW)
++messages=queue.Queue();diagnostics=bytearray()
++def read_out():
++    for line in child.stdout:
++        if len(line)>1024*1024:
++            messages.put({'diagnostic':'FRAME_LIMIT'});break
++        try:messages.put(json.loads(line))
++        except ValueError:messages.put({'diagnostic':'INVALID_JSON'})
++def read_err():
++    for line in child.stderr:
++        if len(diagnostics)<16384:diagnostics.extend(line[:16384-len(diagnostics)])
++threading.Thread(target=read_out,daemon=True).start();threading.Thread(target=read_err,daemon=True).start()
++try:
++    request={'id':1,'method':'initialize','params':{'clientInfo':{'name':'aghr_phase3_probe','title':'AGHR','version':'0.1.0'}}}
++    child.stdin.write((json.dumps(request)+'\n').encode('utf-8'));child.stdin.flush()
++    result=None
++    try:
++        while True:
++            frame=messages.get(timeout=20)
++            if frame.get('id')==1:result=frame;break
++    except queue.Empty:pass
++    if result and 'result' in result:
++        child.stdin.write(b'{"method":"initialized","params":{}}\n');child.stdin.flush()
++    safe=[]
++    for line in diagnostics.decode('utf-8',errors='replace').splitlines():
++        if re.search(r'(?i)token|authorization|api.?key|password|secret|bearer|cookie',line):safe.append('[credential-related diagnostic redacted]')
++        else:safe.append(line[:500])
++    print(json.dumps({'initialized':bool(result and 'result' in result),'initialize_response':result,'stderr_sha256':hashlib.sha256(diagnostics).hexdigest(),'diagnostics_redacted':safe,'result':'INITIALIZED' if result and 'result' in result else 'ENVIRONMENT_BLOCKED','qualification':'NOT_RUN'},ensure_ascii=False),flush=True)
++finally:
++    child.terminate()
++    try:child.wait(timeout=3)
++    except subprocess.TimeoutExpired:child.kill()
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw b/tools/phase3/parity.mjs
+index e69de29..9fff914 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw
++++ b/tools/phase3/parity.mjs
+@@ -0,0 +1,33 @@
++import fs from 'node:fs';
++import os from 'node:os';
++import path from 'node:path';
++import crypto from 'node:crypto';
++import assert from 'node:assert/strict';
++import {createJobRunner} from '../../server/studio/aghr/job-runner.js';
++import {engineRoot,verifySource,decodeResult} from '../../server/studio/aghr/cli-bridge.js';
++import {compareReports} from '../../server/studio/ci/assessment.mjs';
++const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
++export async function parity100(output){
++ const python=path.resolve('temp/aghr-e1a-20261022-01/venv/Scripts/python.exe'),root=fs.mkdtempSync(path.join(os.tmpdir(),'aghr-ci-parity-')),seed=20261024;
++ let random=seed;const next=()=>{random^=random<<13;random^=random>>>17;random^=random<<5;return random>>>0;};
++ const base=JSON.parse(fs.readFileSync(engineRoot+'/policies/observations/reference-state.json')),items=Array.from({length:100},(_,i)=>({...structuredClone(base),id:'OBS-SEED-'+String(i+1).padStart(3,'0'),title:'Seeded parity observation '+(i+1),scope:{paths:['src/part-'+next()%17+'/**']},rule:'Seeded test observation '+next()}));
++ fs.mkdirSync(root+'/policies/observations',{recursive:true});fs.copyFileSync(engineRoot+'/aghr.json',root+'/aghr.json');
++ const itemPath=root+'/policies/observations/seeded.json',initial=verifySource(),runs=[],decisions=[];
++ const execute=async(label)=>{
++  const receipt=await createJobRunner({python}).run('validate',{executable:python,args:['-I','-B','-S','-X','utf8',path.resolve('server/studio/aghr/read-only-launcher.py'),engineRoot+'/tools/cli.py','validate','--strict'],cwd:root});
++  assert.equal(receipt.active_processes_after,0);assert.equal(receipt.started.hard_memory_bytes,2*1024**3);assert(['passed','failed'].includes(receipt.status));
++  const decoded=decodeResult(receipt.stdout,receipt.stderr,receipt.exit_code,'validate');runs.push({label,...decoded,resource_receipt:receipt});return decoded.report;
++ };
++ for(const variant of ['valid','invalid']){
++  const data=structuredClone(items);if(variant==='invalid')for(let i=0;i<data.length;i++){if(i%3===0)delete data[i].scope;else if(i%5===0)data[i].force='MUST';}
++  const bytes=Buffer.from(JSON.stringify(data,null,2)+'\n');fs.writeFileSync(itemPath,bytes);
++  const studio=await execute(variant+'-studio'),ci=await execute(variant+'-ci'),comparison=compareReports(studio,ci);
++  assert.equal(studio.exit_code,variant==='valid'?0:1);assert.equal(ci.exit_code,studio.exit_code);
++  const findings=studio.data.validation.findings;for(const item of data){const issues=findings.filter(f=>f.item_id===item.id);decisions.push({variant,id:item.id,item_hash:hash(Buffer.from(JSON.stringify(item))),comparison:comparison.status,findings:issues.map(x=>({code:x.code,pointer:x.pointer})),individual_structure:issues.length?'INVALID':'NO_STRUCTURAL_FINDING',package_result:studio.result});}
++  assert.equal(hash(fs.readFileSync(itemPath)),hash(bytes));
++ }
++ assert.deepEqual(verifySource(),initial);assert.throws(()=>compareReports(runs[0].report,{...runs[1].report,result:'INVALID'}),/DIVERGENCE/);
++ const result={status:'PASS_FOR_TWO_LOCAL_BOUNDARIES',seed,units:100,variants:['valid','invalid'],original_items:items,decisions,runs,divergence:'REJECTED',source_written:false,state_written:false,hosted_ci:'NOT_RUN',qualification:'NOT_RUN',meaning:'Actual immutable CLI invoked twice per variant; this is local parity evidence, not a hosted workflow execution.'};
++ if(output)fs.writeFileSync(output,JSON.stringify(result,null,2),{flag:'wx'});return result;
++}
++if(process.argv[1]?.endsWith('/parity.mjs')||process.argv[1]?.endsWith('\\parity.mjs'))console.log(JSON.stringify({status:(await parity100(process.argv[2])).status}));
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw b/tools/phase3/prepare.mjs
+index e69de29..bc091c4 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw
++++ b/tools/phase3/prepare.mjs
+@@ -0,0 +1,17 @@
++import fs from 'node:fs';
++import path from 'node:path';
++import crypto from 'node:crypto';
++import {execFileSync} from 'node:child_process';
++import {verifyE4} from '../../server/studio/aghr/e4-bridge.js';
++export const out='docs/evidence/studio-phase3-2026-10-24';
++export const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
++export const changed=['server/studio/draft-runtime.js','server/studio/serve-draft.mjs','server/studio/db/persistent.js','src/features/changes/DraftStudio.jsx','docs/status/CURRENT.md','docs/status/HANDOFF.md','docs/plans/STUDIO_UPGRADE_TASKS_AR.md','docs/INDEX.md'];
++if(process.argv[1]?.endsWith('prepare.mjs')){
++ if(fs.existsSync(out))throw Error('EVIDENCE_EXISTS');
++ const p='docs/evidence/studio-native-t20-t21-2026-10-24/CUSTODY.lock.json',b=fs.readFileSync(p),parent=JSON.parse(b);
++ if(sha(b)!=='7e09b28b329d8e36bb44df86caa93058e20326aba59085b93ddaf3c720281cff')throw Error('PARENT_PIN');
++ for(const [p,r]of Object.entries(parent.files))if(sha(fs.readFileSync(p))!==r.sha256)throw Error('PARENT_DRIFT '+p);
++ verifyE4();fs.mkdirSync(out+'/before',{recursive:true});const before={};
++ for(const p of changed){const b=fs.readFileSync(p),copy='before/'+p+'.raw';fs.mkdirSync(path.dirname(out+'/'+copy),{recursive:true});fs.writeFileSync(out+'/'+copy,b,{flag:'wx'});before[p]={sha256:sha(b),bytes:b.length,copy};}
++ fs.writeFileSync(out+'/PREFLIGHT.json',JSON.stringify({at:new Date().toISOString(),head:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),status:execFileSync('git',['status','--short'],{encoding:'utf8'}),parent:{path:p,sha256:sha(b),files:Object.keys(parent.files).length},before,authority:'Owner accepts T20/T21; one bounded native diagnosis; implement T22/T23/T24 without changing reference or E1-E4'},null,2),{flag:'wx'});console.log('Custody verified; before snapshots saved.');
++}
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw b/tools/phase3/preserve.mjs
+index e69de29..ee8bad6 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw
++++ b/tools/phase3/preserve.mjs
+@@ -0,0 +1,15 @@
++import fs from 'node:fs';
++import {out,changed,sha} from './prepare.mjs';
++import {verifyE4} from '../../server/studio/aghr/e4-bridge.js';
++const pre=JSON.parse(fs.readFileSync(out+'/PREFLIGHT.json')),raw=fs.readFileSync(pre.parent.path),parent=JSON.parse(raw);
++if(sha(raw)!==pre.parent.sha256)throw Error('PARENT_PIN_DRIFT');
++let parentVerified=0;const exceptions=[];
++for(const [p,r]of Object.entries(parent.files)){
++ if(changed.includes(p)){const b=pre.before[p];if(sha(fs.readFileSync(out+'/'+b.copy))!==r.sha256||b.sha256!==r.sha256)throw Error('BEFORE_PIN_DRIFT '+p);exceptions.push({path:p,before:r.sha256,after:sha(fs.readFileSync(p)),before_copy:b.copy});}
++ else if(sha(fs.readFileSync(p))!==r.sha256)throw Error('PARENT_DRIFT '+p);else parentVerified++;
++}
++const e3path='docs/evidence/studio-e3-t19-2026-10-24/CUSTODY.lock.json',e3=fs.readFileSync(e3path);if(sha(e3)!=='2869e66bf9ada6b7471bfbdb2060ae12ed9890c76057be8898678610a1251c9a')throw Error('E3_CUSTODY_DRIFT');
++let immutable=0;for(const [p,r]of Object.entries(JSON.parse(e3).files)){if(changed.includes(p))continue;if(sha(fs.readFileSync(p))!==r.sha256)throw Error('IMMUTABLE_DRIFT '+p);immutable++;}
++verifyE4();
++fs.writeFileSync(out+'/PRESERVATION.json',JSON.stringify({status:'PASS',parent_unchanged:parentVerified,parent_files:Object.keys(parent.files).length,exceptions,immutable_e3_files:immutable,e4_pin_unchanged:true,reference_120:'Preserved via accepted transitive custody; no package crawl.',original_and_state_written:false},null,2),{flag:'wx'});
++console.log(JSON.stringify({status:'PASS',parent_unchanged:parentVerified,authorized_changes:exceptions.length,immutable_e3_files:immutable}));
+diff --git a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw b/tools/phase3/seal.mjs
+index e69de29..3443d58 100644
+--- a/docs/evidence/studio-phase3-2026-10-24/before/EMPTY.raw
++++ b/tools/phase3/seal.mjs
+@@ -0,0 +1,35 @@
++import fs from 'node:fs';
++import path from 'node:path';
++import {spawnSync} from 'node:child_process';
++import {out,changed,sha} from './prepare.mjs';
++import {verifyE4} from '../../server/studio/aghr/e4-bridge.js';
++if(fs.existsSync(out+'/CUSTODY.lock.json'))throw Error('ALREADY_SEALED');
++const pre=JSON.parse(fs.readFileSync(out+'/PREFLIGHT.json')),tested=JSON.parse(fs.readFileSync(out+'/TESTED_SOURCE.json'));
++const allowedFinal={
++ 'server/studio/ci/assessment.mjs':'CI_FOCUSED_FINAL.log:3/3; actual E4 imported-evidence inspection and mock rejection',
++ 'tests/studio_ci_publisher.test.mjs':'CI_FOCUSED_FINAL.log:3/3',
++ 'src/features/skills/SkillStudio.jsx':'BUILD_FINAL_V2.log + browser-final-v2: actual rebuilt Edge AR/EN + metadata/scenarios',
++};
++const coverage=[];for(const [p,r]of Object.entries(tested)){const after=sha(fs.readFileSync(p));if(after!==r.sha256){if(!allowedFinal[p])throw Error('UNVERIFIED_SOURCE_DRIFT '+p);coverage.push({path:p,before:r.sha256,after,final_verification:allowedFinal[p]});}}
++const log=fs.readFileSync(out+'/NPM_TEST.log','utf8'),count=Number(log.match(/ℹ pass (\d+)/)?.[1]);if(count!==120||!log.includes('ℹ fail 0'))throw Error('TEST_GATE_FAILED');
++if(!fs.readFileSync(out+'/CI_FOCUSED_FINAL.log','utf8').includes('ℹ pass 3'))throw Error('FINAL_CI_FAILED');
++const browser=JSON.parse(fs.readFileSync(out+'/browser-final-v2/BROWSER_ACCEPTANCE.json'));if(browser.status!=='PASS'||browser.source_written||browser.state_written)throw Error('BROWSER_FAILED');
++if(!fs.readFileSync(out+'/CONTEXT_HEALTH.log','utf8').includes('Errors: 0, Warnings: 0'))throw Error('CONTEXT_FAILED');
++const preserved=JSON.parse(fs.readFileSync(out+'/PRESERVATION.json'));if(preserved.status!=='PASS'||preserved.immutable_e3_files!==1916||preserved.parent_unchanged!==146)throw Error('PRESERVATION_FAILED');verifyE4();
++const newFiles=['.github/workflows/aghr-phase3.yml','.github/aghr-publisher-policy.json','tests/studio_ci_publisher.test.mjs','tests/studio_ci_parity.test.mjs','tests/studio_phase3_skills.test.mjs',...['server/studio/skills','server/studio/ci','src/features/skills','tools/phase3'].flatMap(d=>fs.readdirSync(d).filter(n=>/\.(mjs|js|py|jsx|css)$/.test(n)).map(n=>d+'/'+n))];
++const files=[...new Set([...changed,...newFiles])],diff=[],checks=[];const empty=out+'/before/EMPTY.raw';fs.writeFileSync(empty,'',{flag:'wx'});fs.mkdirSync(out+'/after-final');
++const decode=new TextDecoder('utf8',{fatal:true});for(const p of files){
++ const b=fs.readFileSync(p);decode.decode(b);const before=pre.before[p]||null,copy='after-final/'+p+'.raw';fs.mkdirSync(path.dirname(out+'/'+copy),{recursive:true});fs.writeFileSync(out+'/'+copy,b,{flag:'wx'});
++ diff.push({path:p,before,after:{sha256:sha(b),bytes:b.length,copy}});
++ const baseline=before?out+'/'+before.copy:empty,r=spawnSync('git',['-c','core.whitespace=blank-at-eol,blank-at-eof','diff','--no-index','--check',baseline,p],{encoding:'utf8',windowsHide:true});
++ const output=r.stdout+r.stderr,lines=output.split(/\r?\n/).filter(Boolean),advisory=s=>/^warning: in the working copy of '[^']+', LF will be replaced by CRLF the next time Git touches it$/.test(s),findings=lines.filter(s=>!advisory(s));checks.push({path:p,status:r.status,advisories:lines.filter(advisory),findings});
++ const patch=spawnSync('git',['diff','--no-index','--',baseline,p],{encoding:'utf8',windowsHide:true});fs.appendFileSync(out+'/CHANGES.patch',patch.stdout);
++}
++fs.writeFileSync(out+'/BEFORE_AFTER.json',JSON.stringify(diff,null,2),{flag:'wx'});fs.writeFileSync(out+'/SCOPED_DIFF_CHECK.json',JSON.stringify(checks,null,2),{flag:'wx'});if(checks.some(x=>x.findings.length||![0,1].includes(x.status)))throw Error('WHITESPACE_FAILED');
++const git=args=>spawnSync('git',args,{encoding:'utf8',windowsHide:true}).stdout.trim();
++fs.writeFileSync(out+'/VERIFICATION.json',JSON.stringify({status:'IMPLEMENTED_TESTED_LOCAL_DRAFT',full_regression:{passed:120,failed:0,skipped:0,raw:'NPM_TEST.log',start_source:'TESTED_SOURCE.json'},final_source_changes_after_regression_start:coverage,focused_skill_http:{passed:11,failed:0,raw:'SKILLS_FOCUSED_4.log'},focused_final_ci:{passed:3,failed:0,raw:'CI_FOCUSED_FINAL.log'},parity:{seed:20261024,units:100,variants:2,actual_cli_runs:4,raw:'PARITY_100.json'},browser:{status:'PASS',checks:browser.checks,raw:'browser-final-v2/BROWSER_ACCEPTANCE.json',console:'No errors/warnings/issues in MCP inspection'},context:'0 errors,0 warnings',build:'PASS; existing legacy bundle advisory',native:{attempts:1,codex:'ENVIRONMENT_BLOCKED_INITIALIZE_TIMEOUT',antigravity:'NOT_RUN_AGY_UNAVAILABLE',qualification:'REQUIRED / NOT_RUN / NOT_WAIVED'},publisher:{code:'IMPLEMENTED_LOCAL_TESTED',profile:'L0_NOT_RUN_ONLY',real_github_publication:'NOT_RUN',pr_created:false,source_written:false,state_written:false},preservation:preserved,branch:git(['branch','--show-current']),head:git(['rev-parse','HEAD']),independent_review:'NOT_PERFORMED',release_acceptance:'NOT_GRANTED',phase4:'NOT_STARTED',default_draft_db_used:false},null,2),{flag:'wx'});
++fs.writeFileSync(out+'/REVIEW.json',JSON.stringify({kind:'Adversarial implementer self-review; NOT independent',axes:{correctness:'Actual lifecycle/criteria, native fail-closed, E4 original-evidence inspection, merged-PR and head binding',simplicity:'Reuses frozen Python schemas/E2/E4, existing grants/12 tables/T15; no new skill/router/service daemon',architecture:'Native host, application grants, imported claims and CI identity remain separate',security:'No HTTP publisher capability; signed OIDC + repo IDs/workflow/SHA/time; read-only PR; exact one-path post-merge commit; no secret output',verification:'120 full + final focused3 + actual Edge +100 seeded units; coverage deltas explicit'},remaining:{native:'ENVIRONMENT_BLOCKED / NOT_RUN',hosted_publication:'NOT_RUN',qualified_state_profile:'NOT_IMPLEMENTED; existing qualified state overwrite rejected'},scope:'No security-scan or independent-review claim'},null,2),{flag:'wx'});
++const manifest={},receipt=b=>({sha256:sha(b),bytes:b.length});const own=p=>{for(const entry of fs.readdirSync(p,{withFileTypes:true})){const name=p+'/'+entry.name;if(entry.isSymbolicLink())throw Error('EVIDENCE_REPARSE');if(entry.isDirectory())own(name);else manifest[name]=receipt(fs.readFileSync(name));}};own(out);for(const p of files)manifest[p]=receipt(fs.readFileSync(p));
++fs.writeFileSync(out+'/CUSTODY.lock.json',JSON.stringify({algorithm:'SHA256 raw bytes; NOT a publisher/owner signature',scope:'T22/T23 local lifecycle and T24 local-code verification; native and hosted operational qualification NOT_RUN',parent:pre.parent,files:Object.fromEntries(Object.entries(manifest).sort(([a],[b])=>a.localeCompare(b)))},null,2),{flag:'wx'});
++for(const [p,r]of Object.entries(manifest))if(sha(fs.readFileSync(p))!==r.sha256)throw Error('POST_SEAL_DRIFT '+p);
++console.log(JSON.stringify({status:'SEALED',files:Object.keys(manifest).length,sha256:sha(fs.readFileSync(out+'/CUSTODY.lock.json')),full_tests:count,final_coverage_deltas:coverage.length}));

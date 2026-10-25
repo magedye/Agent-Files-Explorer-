@@ -1,0 +1,15 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import {verifyE4} from '../../server/studio/aghr/e4-bridge.js';
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex'),base='docs/evidence/studio-pilots-2026-10-25';
+const parent=JSON.parse(fs.readFileSync(base+'/PREFLIGHT.json')),pin=JSON.parse(fs.readFileSync(parent.parent.path));
+const product=Object.keys(pin.files).filter(p=>!Object.keys(parent.before).includes(p));
+for(const p of product)if(sha(fs.readFileSync(p))!==pin.files[p].sha256)throw Error('PARENT_PRODUCT_DRIFT '+p);
+verifyE4();
+for(const n of fs.readdirSync('server/studio/pilots'))product.push('server/studio/pilots/'+n);
+for(const id of ['pilot-app-l2','pilot-app-l3'])for(const n of execFileSync('C:/Program Files/Git/cmd/git.exe',['-C',id,'ls-tree','-r','--name-only','HEAD'],{encoding:'utf8',windowsHide:true}).trim().split('\n'))product.push(id+'/'+n);
+const files=Object.fromEntries(product.map(p=>[p,{sha256:sha(fs.readFileSync(p)),bytes:fs.statSync(p).size}]));
+fs.writeFileSync(base+'/TESTED_SOURCE.lock.json',JSON.stringify({at:new Date().toISOString(),parent:parent.parent,scope:'Exact parent product files plus new sandbox host implementation and actual merged pilot application/policy sources. Documentation and tooling receipts are sealed separately.',files},null,2)+'\n',{flag:'wx'});
+console.log('Frozen '+Object.keys(files).length+' product/source files before final regression.');

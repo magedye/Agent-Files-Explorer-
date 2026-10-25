@@ -1,0 +1,127 @@
+{
+  "date": "2026-10-26",
+  "timezone": "Asia/Aden",
+  "project_status": "PROJECT CLOSED",
+  "release": "AGHR Governance Studio v1.0.0",
+  "release_acceptance": "RELEASE_ACCEPTED_FOR_LOCAL_USE",
+  "authority_type": "OWNER_EXPLICIT_CHAT_SIGNOFF",
+  "owner_signoff": {
+    "sha256": "839906f6645ffa648736df5740f06e57f8e1c1c8ce654b23bef15c7895172829",
+    "bytes": 4026
+  },
+  "official_registration": {
+    "sha256": "44007c224f46b99d35e68fc84d74eca122fc123c9cdea705df72560588656af6",
+    "bytes": 873
+  },
+  "accepted_T40_ZIP": {
+    "sha256": "f9d06cf3cdfd4ad3cae29059f30c330f70b3f36e9d9d82507be27f19193601e6",
+    "bytes": 6849789
+  },
+  "accepted_wheel": {
+    "sha256": "9086c12a67511a20bffc7319e803ef9cf90cea614745c4a3ddf494633941b238",
+    "bytes": 1330515
+  },
+  "accepted_artifacts_unchanged": true,
+  "new_default": "aghr_rc3",
+  "legacy": "aghr_1_2_0_READ_ONLY_UNCHANGED",
+  "existing_project_migration": false,
+  "post_signoff_frozen_source_changes": [
+    {
+      "path": "AGENTS.md",
+      "before_sha256": "a29c105b7f175441ff2f0d86b661fc2e7485c8aa4d2004519802be957bad6af6",
+      "after_sha256": "8b2e9759010d6fa6c657054002940c05858ceb16b0b00bfb62bae53e9ddc66c9",
+      "bytes": 4009
+    },
+    {
+      "path": "server/governance.js",
+      "before_sha256": "2c4da002caa6341537b943c0b07f0004d0e7e85fce21d3530eb99bcc5211075c",
+      "after_sha256": "4ae6a48762026f9f4672af8a5bb4be499461ab28364736a0aa6f036a554ace8e",
+      "bytes": 13772
+    },
+    {
+      "path": "server/security.js",
+      "before_sha256": "5b59626a9af0b6d9524be7f331d66da28078b2c9ddc14520a62f6353973c5ba8",
+      "after_sha256": "69b7508057dd9b57de04aafec97dad6b53d77385cea88290156f565950b8d04e",
+      "bytes": 9646
+    },
+    {
+      "path": "tests/governance_studio.test.mjs",
+      "before_sha256": "1287148ed3a748028d26ecdfd1d7b9f6251c73e24fa5ff276056a3004fde771d",
+      "after_sha256": "2c8e83480457b1907edb3f5fa793f92fc7ce23486ce2e1b210d474012362c6e1",
+      "bytes": 15921
+    },
+    {
+      "path": "tests/security.test.mjs",
+      "before_sha256": "487033eb540468d83dc4dc69dc90d0e0ebb4651daf5c5b2b92c62e70c74917c6",
+      "after_sha256": "f9f5ad34703f602dc197506f72e98c1ea7b6e7742983669a088871f5980eee59",
+      "bytes": 5487
+    },
+    {
+      "path": "tests/studio_phase5_evaluators.test.mjs",
+      "before_sha256": "2fa53e03ba25bda44f61522782a7bd15aa16dca0fdf47dd6c23f7c4bdd4112fa",
+      "after_sha256": "d941f51fc8151057071093ece308878651200ab128a635e97da5961379807702",
+      "bytes": 7374
+    }
+  ],
+  "all_other_frozen_source_files_unchanged": 562,
+  "verification": {
+    "focused": {
+      "tests": 26,
+      "pass": 26
+    },
+    "npm_test": {
+      "tests": 172,
+      "pass": 172,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "npm_exit": 0,
+    "coverage_scope": "All61server JS/MJS files; Python NOT_MEASURED",
+    "coverage": {
+      "lines": {
+        "total": 5587,
+        "covered": 4673,
+        "skipped": 0,
+        "pct": 83.64
+      },
+      "statements": {
+        "total": 5587,
+        "covered": 4673,
+        "skipped": 0,
+        "pct": 83.64
+      },
+      "functions": {
+        "total": 468,
+        "covered": 436,
+        "skipped": 0,
+        "pct": 93.16
+      },
+      "branches": {
+        "total": 3766,
+        "covered": 2765,
+        "skipped": 0,
+        "pct": 73.42
+      },
+      "branchesTrue": {
+        "total": 0,
+        "covered": 0,
+        "skipped": 0,
+        "pct": 100
+      }
+    },
+    "context_health": "PASS_0_ERRORS_0_WARNINGS",
+    "historical_default_evaluator": "Expected real EVAL_NOT_PASSED; false calibration blocked; original driver/pin unchanged"
+  },
+  "prior_T39": "APPROVE for original frozen candidate only; not retroactively extended to default change",
+  "git": {
+    "branch": "main",
+    "head": "133746a0ad99d10568a44c8d225219df8454271c",
+    "commit_push_merge_reset": "NONE",
+    "unrelated_work": "PRESERVED"
+  },
+  "public_release": "NOT_PERFORMED_NOT_AUTHORIZED",
+  "technical_native_hosted_production_gaps": "RETAINED_NOT_FABRICATED",
+  "next_task": null,
+  "STOP": true
+}

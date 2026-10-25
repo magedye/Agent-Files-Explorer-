@@ -1,0 +1,48 @@
+{
+  "id": "AGHR-016",
+  "title": "صدق الأدلة",
+  "kind": "CONSTRAINT",
+  "force": "MUST_NOT",
+  "severity": "critical",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: For every execution or quality claim.\nDo not report checks, tool execution, host capability or review as successful unless actually observed within the stated scope.",
+  "authority": {
+    "source": ".t12/SourceGrant.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "OWNER_T12_OVERRIDE",
+    "status": "active",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "ادعاء نجاح غير مرصود يفسد قرارات الثقة والقبول. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "block",
+    "mergeEffect": "blocking",
+    "gate": {
+      "type": "human-approval",
+      "required": true
+    }
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-016"
+    ]
+  },
+  "impact": {
+    "band": "critical",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2026-11-22",
+  "exceptions": {
+    "allowed": false
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

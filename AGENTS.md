@@ -43,7 +43,9 @@ When a task requires deeper context, navigate directly to the relevant document:
 | **Session Handoff & Transfer** | [docs/status/HANDOFF.md](docs/status/HANDOFF.md) | ~800 tokens |
 | **Full Documentation Index** | [docs/INDEX.md](docs/INDEX.md) | ~1,000 tokens |
 | **Project Architecture Map** | [PROJECT_MAP.md](PROJECT_MAP.md) | ~2,500 tokens |
-| **Specific Governance Rules** | [AGHR 1.2.0 RULES.json](governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/registry/RULES.json) | On-demand query; consumer adoption remains scoped |
+| **Owner Release / Project Closure** | [Owner sign-off](docs/evidence/studio-signoff-2026-10-26/OWNER_SIGNOFF_AR.md) | v1.0.0 local; PROJECT CLOSED; no new development/public release |
+| **Current Default Reference** | [Official rc.3 registration](governance_packages/references/AGHR_Studio_1.0.0_rc3_RELEASE.json) | New projects only; existing projects are not migrated |
+| **Legacy 1.2.0 Rules** | [AGHR 1.2.0 RULES.json](governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/registry/RULES.json) | Explicit Legacy selection; no automatic consumer migration |
 | **Learning & Classified Instructions** | [Governed learning](governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/procedures/GOVERNED_LEARNING.md) | Relevant evidence and owner references only |
 | **Package Layout & INBOX** | [governance_packages/README.md](governance_packages/README.md) | Directory roles and incoming-document boundary |
 | **Server Security & Roots** | [server/security.js](server/security.js) | Component level |

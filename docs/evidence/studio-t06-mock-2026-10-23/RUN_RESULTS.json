@@ -1,0 +1,152 @@
+{
+  "T06": "CLOSED_FOR_OWNER_AUTHORIZED_MOCK_PROFILE_ONLY",
+  "acceptance": "Owner current instruction conditionally accepts successful mock proof; this closure does not replace production enforcement/authority requirements",
+  "normal_cli": {
+    "profile": "UNMODIFIED_E2_CLI",
+    "result": "BLOCKED",
+    "exit_code": 3,
+    "started_at": "2026-10-22T23:23:42.478Z",
+    "finished_at": "2026-10-22T23:23:54.628Z",
+    "invocation": {
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "args": [
+        "-I",
+        "-B",
+        "-S",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\server\\studio\\aghr\\read-only-launcher.py",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict"
+      ],
+      "cwd": "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_T06_SEC001_Candidate\\mock-authorized",
+      "shell": false,
+      "pythonHash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "launcherHash": "7b0e3c6e92a3d08f4bb804e60c90d633ba4ee8518ee5f2bc2024e9d8f247b236"
+    },
+    "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+    "checks": {
+      "status": "BLOCKED",
+      "reason": "E2 static package profile only; E4 runtime qualification NOT_RUN."
+    },
+    "inputs": {
+      "candidate_hash": "b8e6ba95e30dd8cc3ee8c29fc95246b5b7bf967540c7fb4ee0dcd23272836a8d",
+      "config_hash": "5728ccc7a0753bec5c5dd1103a633e11161b55fb1dc16f48231b617db1ee5ee4",
+      "inputs_hash": "166d6a73f1b15dc779f429c74a1fff549047a7e5dee5172089d6da4af289aa69",
+      "catalog": [
+        {
+          "path": "aghr.json",
+          "sha256": "d72e77992eb12cb2a53edd502c9e2a1b306956da36aad3e5d9fc44b2765d2c95",
+          "role": "manifest"
+        },
+        {
+          "path": "policies/security/secrets.yaml",
+          "sha256": "839c6b1a1f4f72f941e816f1172c5524031b9f5332c43ff4d26e6343d6a36ce9",
+          "role": "item"
+        }
+      ]
+    },
+    "stdout_sha256": "4ecc9099745c70e6b18dec09e9c416ba78b3255b2681fefe42b7791807288e08",
+    "stderr_sha256": "f3760cec30db7cba02ef2e2070d669ceb2f750fd093bf1fab807d978fcbcbca0"
+  },
+  "mock_profile": {
+    "profile": "T06_MOCK_ONLY",
+    "result": "VALID",
+    "exit_code": 0,
+    "started_at": "2026-10-22T23:23:54.828Z",
+    "finished_at": "2026-10-22T23:24:06.135Z",
+    "invocation": {
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "args": [
+        "-I",
+        "-B",
+        "-S",
+        "-X",
+        "utf8",
+        "D:\\APP\\Agent-Files-Explorer\\server\\studio\\aghr\\read-only-launcher.py",
+        "D:\\APP\\Agent-Files-Explorer\\tools\\t06\\mock_engine.py",
+        "--engine-root=D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate",
+        "validate",
+        "--strict"
+      ],
+      "cwd": "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_T06_SEC001_Candidate\\mock-authorized",
+      "shell": false,
+      "adapter_sha256": "8bfafcfa970d8626c1a09d3f08a3162336200e1704fa61dce545790ca3d7a5f0",
+      "bridge_sha256": "fa9464ad0dea9ba1926e51388a450a1c6f98e6a1c8eda5ef6606e6bc6590da7c",
+      "host_fixture": {
+        "profile": "T06_MOCK_ONLY",
+        "fixture_id": "OWNER_AUTHORIZED_SEC001_MOCK_20261023",
+        "as_of": "2026-10-23",
+        "engine_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+        "public_key_sha256": "1276b62c126208252edfd277ca43796fe4abe7bb36d46bf0109ddabd3a92bd16",
+        "receipt_sha256": "b6f641619232e2d6163ef6bcc02eb63d77af7badacdaf79dd6096096f2040cf0",
+        "owner_directive_sha256": "7eee8acf3eb8c6145c27467eaaeb628a345c61a1326e6b71444bb64bfbcf5486",
+        "gate": {
+          "type": "github-branch-protection",
+          "required": true
+        },
+        "grant": {
+          "item_path": "policies/security/secrets.yaml",
+          "source_sha256": "839c6b1a1f4f72f941e816f1172c5524031b9f5332c43ff4d26e6343d6a36ce9",
+          "authority_source": "policies/security/secrets.yaml",
+          "level": "enterprise",
+          "owner": "security-owner",
+          "approved_by": "governance-board",
+          "evidence_ref": "T06_MOCK_ONLY:.t06/mock-evidence.json",
+          "item_ids": [
+            "SEC-001"
+          ]
+        },
+        "support_hashes": {
+          ".t06/mock-public.pem": "1276b62c126208252edfd277ca43796fe4abe7bb36d46bf0109ddabd3a92bd16",
+          ".t06/mock-evidence.json": "b6f641619232e2d6163ef6bcc02eb63d77af7badacdaf79dd6096096f2040cf0",
+          ".t06/source-attestation.json": "a99d333e39128abaf717a1148433647d5f2890fdd67874608838663c0d51f534"
+        }
+      }
+    },
+    "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+    "checks": {
+      "status": "COMPLETE",
+      "reason": "T06_MOCK_ONLY: caller authority and required-gate dependency simulated; real enterprise authority, native gate enforcement, E3 doctor and E4 qualification NOT_VERIFIED."
+    },
+    "inputs": {
+      "candidate_hash": "0451ec9876e4ab693b19890ee61a1e1b37684ac56ea8bfd6d5758fdf2b04b46d",
+      "config_hash": "ed1b4fbd725211054246c34e23c02e614ccf9780ad7321ea914bcdaf9f54f515",
+      "inputs_hash": "1d4d5dffee6aa0adb10a552d6a837c4fa3917395d3a0a4510d4930bf8613f6ee",
+      "catalog": [
+        {
+          "path": ".t06/mock-evidence.json",
+          "sha256": "b6f641619232e2d6163ef6bcc02eb63d77af7badacdaf79dd6096096f2040cf0",
+          "role": "provenance"
+        },
+        {
+          "path": ".t06/mock-public.pem",
+          "sha256": "1276b62c126208252edfd277ca43796fe4abe7bb36d46bf0109ddabd3a92bd16",
+          "role": "provenance"
+        },
+        {
+          "path": ".t06/source-attestation.json",
+          "sha256": "a99d333e39128abaf717a1148433647d5f2890fdd67874608838663c0d51f534",
+          "role": "provenance"
+        },
+        {
+          "path": "aghr.json",
+          "sha256": "d72e77992eb12cb2a53edd502c9e2a1b306956da36aad3e5d9fc44b2765d2c95",
+          "role": "manifest"
+        },
+        {
+          "path": "policies/security/secrets.yaml",
+          "sha256": "839c6b1a1f4f72f941e816f1172c5524031b9f5332c43ff4d26e6343d6a36ce9",
+          "role": "item"
+        }
+      ]
+    },
+    "stdout_sha256": "81868be18317b88a3b4302e26c4d4eb4fafd03be9e79c856b8a4b3a3ff451280",
+    "stderr_sha256": "73d58e07b892d3f455bd4c7bf417822ed6232d1ad3f05103d47e84843528d142"
+  },
+  "production_cli_pass": false,
+  "generation": "NOT_STARTED",
+  "full_E3": "NOT_IMPLEMENTED",
+  "E4": "7 REQUIRED / NOT_RUN / NOT_WAIVED"
+}

@@ -1,0 +1,35 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {spawnSync} from 'node:child_process';
+import {out,changed,sha} from './prepare.mjs';
+import {verifyE4} from '../../server/studio/aghr/e4-bridge.js';
+if(fs.existsSync(out+'/CUSTODY.lock.json'))throw Error('ALREADY_SEALED');
+const pre=JSON.parse(fs.readFileSync(out+'/PREFLIGHT.json')),tested=JSON.parse(fs.readFileSync(out+'/TESTED_SOURCE.json'));
+const allowedFinal={
+ 'server/studio/ci/assessment.mjs':'CI_FOCUSED_FINAL.log:3/3; actual E4 imported-evidence inspection and mock rejection',
+ 'tests/studio_ci_publisher.test.mjs':'CI_FOCUSED_FINAL.log:3/3',
+ 'src/features/skills/SkillStudio.jsx':'BUILD_FINAL_V2.log + browser-final-v2: actual rebuilt Edge AR/EN + metadata/scenarios',
+};
+const coverage=[];for(const [p,r]of Object.entries(tested)){const after=sha(fs.readFileSync(p));if(after!==r.sha256){if(!allowedFinal[p])throw Error('UNVERIFIED_SOURCE_DRIFT '+p);coverage.push({path:p,before:r.sha256,after,final_verification:allowedFinal[p]});}}
+const log=fs.readFileSync(out+'/NPM_TEST.log','utf8'),count=Number(log.match(/ℹ pass (\d+)/)?.[1]);if(count!==120||!log.includes('ℹ fail 0'))throw Error('TEST_GATE_FAILED');
+if(!fs.readFileSync(out+'/CI_FOCUSED_FINAL.log','utf8').includes('ℹ pass 3'))throw Error('FINAL_CI_FAILED');
+const browser=JSON.parse(fs.readFileSync(out+'/browser-final-v2/BROWSER_ACCEPTANCE.json'));if(browser.status!=='PASS'||browser.source_written||browser.state_written)throw Error('BROWSER_FAILED');
+if(!fs.readFileSync(out+'/CONTEXT_HEALTH.log','utf8').includes('Errors: 0, Warnings: 0'))throw Error('CONTEXT_FAILED');
+const preserved=JSON.parse(fs.readFileSync(out+'/PRESERVATION.json'));if(preserved.status!=='PASS'||preserved.immutable_e3_files!==1916||preserved.parent_unchanged!==146)throw Error('PRESERVATION_FAILED');verifyE4();
+const newFiles=['.github/workflows/aghr-phase3.yml','.github/aghr-publisher-policy.json','tests/studio_ci_publisher.test.mjs','tests/studio_ci_parity.test.mjs','tests/studio_phase3_skills.test.mjs',...['server/studio/skills','server/studio/ci','src/features/skills','tools/phase3'].flatMap(d=>fs.readdirSync(d).filter(n=>/\.(mjs|js|py|jsx|css)$/.test(n)).map(n=>d+'/'+n))];
+const files=[...new Set([...changed,...newFiles])],diff=[],checks=[];const empty=out+'/before/EMPTY.raw';fs.writeFileSync(empty,'',{flag:'wx'});fs.mkdirSync(out+'/after-final');
+const decode=new TextDecoder('utf8',{fatal:true});for(const p of files){
+ const b=fs.readFileSync(p);decode.decode(b);const before=pre.before[p]||null,copy='after-final/'+p+'.raw';fs.mkdirSync(path.dirname(out+'/'+copy),{recursive:true});fs.writeFileSync(out+'/'+copy,b,{flag:'wx'});
+ diff.push({path:p,before,after:{sha256:sha(b),bytes:b.length,copy}});
+ const baseline=before?out+'/'+before.copy:empty,r=spawnSync('git',['-c','core.whitespace=blank-at-eol,blank-at-eof','diff','--no-index','--check',baseline,p],{encoding:'utf8',windowsHide:true});
+ const output=r.stdout+r.stderr,lines=output.split(/\r?\n/).filter(Boolean),advisory=s=>/^warning: in the working copy of '[^']+', LF will be replaced by CRLF the next time Git touches it$/.test(s),findings=lines.filter(s=>!advisory(s));checks.push({path:p,status:r.status,advisories:lines.filter(advisory),findings});
+ const patch=spawnSync('git',['diff','--no-index','--',baseline,p],{encoding:'utf8',windowsHide:true});fs.appendFileSync(out+'/CHANGES.patch',patch.stdout);
+}
+fs.writeFileSync(out+'/BEFORE_AFTER.json',JSON.stringify(diff,null,2),{flag:'wx'});fs.writeFileSync(out+'/SCOPED_DIFF_CHECK.json',JSON.stringify(checks,null,2),{flag:'wx'});if(checks.some(x=>x.findings.length||![0,1].includes(x.status)))throw Error('WHITESPACE_FAILED');
+const git=args=>spawnSync('git',args,{encoding:'utf8',windowsHide:true}).stdout.trim();
+fs.writeFileSync(out+'/VERIFICATION.json',JSON.stringify({status:'IMPLEMENTED_TESTED_LOCAL_DRAFT',full_regression:{passed:120,failed:0,skipped:0,raw:'NPM_TEST.log',start_source:'TESTED_SOURCE.json'},final_source_changes_after_regression_start:coverage,focused_skill_http:{passed:11,failed:0,raw:'SKILLS_FOCUSED_4.log'},focused_final_ci:{passed:3,failed:0,raw:'CI_FOCUSED_FINAL.log'},parity:{seed:20261024,units:100,variants:2,actual_cli_runs:4,raw:'PARITY_100.json'},browser:{status:'PASS',checks:browser.checks,raw:'browser-final-v2/BROWSER_ACCEPTANCE.json',console:'No errors/warnings/issues in MCP inspection'},context:'0 errors,0 warnings',build:'PASS; existing legacy bundle advisory',native:{attempts:1,codex:'ENVIRONMENT_BLOCKED_INITIALIZE_TIMEOUT',antigravity:'NOT_RUN_AGY_UNAVAILABLE',qualification:'REQUIRED / NOT_RUN / NOT_WAIVED'},publisher:{code:'IMPLEMENTED_LOCAL_TESTED',profile:'L0_NOT_RUN_ONLY',real_github_publication:'NOT_RUN',pr_created:false,source_written:false,state_written:false},preservation:preserved,branch:git(['branch','--show-current']),head:git(['rev-parse','HEAD']),independent_review:'NOT_PERFORMED',release_acceptance:'NOT_GRANTED',phase4:'NOT_STARTED',default_draft_db_used:false},null,2),{flag:'wx'});
+fs.writeFileSync(out+'/REVIEW.json',JSON.stringify({kind:'Adversarial implementer self-review; NOT independent',axes:{correctness:'Actual lifecycle/criteria, native fail-closed, E4 original-evidence inspection, merged-PR and head binding',simplicity:'Reuses frozen Python schemas/E2/E4, existing grants/12 tables/T15; no new skill/router/service daemon',architecture:'Native host, application grants, imported claims and CI identity remain separate',security:'No HTTP publisher capability; signed OIDC + repo IDs/workflow/SHA/time; read-only PR; exact one-path post-merge commit; no secret output',verification:'120 full + final focused3 + actual Edge +100 seeded units; coverage deltas explicit'},remaining:{native:'ENVIRONMENT_BLOCKED / NOT_RUN',hosted_publication:'NOT_RUN',qualified_state_profile:'NOT_IMPLEMENTED; existing qualified state overwrite rejected'},scope:'No security-scan or independent-review claim'},null,2),{flag:'wx'});
+const manifest={},receipt=b=>({sha256:sha(b),bytes:b.length});const own=p=>{for(const entry of fs.readdirSync(p,{withFileTypes:true})){const name=p+'/'+entry.name;if(entry.isSymbolicLink())throw Error('EVIDENCE_REPARSE');if(entry.isDirectory())own(name);else manifest[name]=receipt(fs.readFileSync(name));}};own(out);for(const p of files)manifest[p]=receipt(fs.readFileSync(p));
+fs.writeFileSync(out+'/CUSTODY.lock.json',JSON.stringify({algorithm:'SHA256 raw bytes; NOT a publisher/owner signature',scope:'T22/T23 local lifecycle and T24 local-code verification; native and hosted operational qualification NOT_RUN',parent:pre.parent,files:Object.fromEntries(Object.entries(manifest).sort(([a],[b])=>a.localeCompare(b)))},null,2),{flag:'wx'});
+for(const [p,r]of Object.entries(manifest))if(sha(fs.readFileSync(p))!==r.sha256)throw Error('POST_SEAL_DRIFT '+p);
+console.log(JSON.stringify({status:'SEALED',files:Object.keys(manifest).length,sha256:sha(fs.readFileSync(out+'/CUSTODY.lock.json')),full_tests:count,final_coverage_deltas:coverage.length}));

@@ -1,7 +1,7 @@
 # نطاق استكمال نواة rc.3 — E1/E2
 
-**التاريخ:** 2026-10-23. **الحالة:** `E1 ACCEPTED_BY_OWNER / E2 IMPLEMENTED_AND_TESTED / T01 BLOCKED_NOT_CLOSED`.
-**التوجيه اللاحق:** اعتمد المالك مخرجات E1 بما فيها الترخيص المؤقت، وأجاز E2.a–e؛ [القرار](../evidence/studio-e2-2026-10-22/OWNER_ACCEPTANCE.json). [تسليم E2](../evidence/studio-e2-2026-10-22/README.md): تحقق صارم وانطباق وسلطة وتعارض وحدود أدلة وCLI بروتوكول 3؛ 141/141 مرشح و41/41 تطبيق. T01 BLOCKED_NOT_CLOSED وT02 NOT_STARTED، وفحوص الصدق السبعة مؤجلة E4. التوقيع النهائي مؤجل؛ لا ترقية مرجع.
+**التاريخ:** 2026-10-23. **الحالة:** `E1/E2 ACCEPTED_BY_OWNER / T01 CLOSED_UNBLOCKED / T02–T05 IMPLEMENTED_AND_TESTED / T06 CLOSED_FOR_OWNER_AUTHORIZED_MOCK_PROFILE_ONLY`.
+**التوجيه اللاحق:** اعتمد المالك E2.a–e ثم أجاز إعادة T01 وPhase 0 للقراءة فقط. [تسليم T01–T05](../evidence/studio-phase0-runtime-2026-10-23/README.md) يحفظ التقرير السباعي وstrict/lint فعليًا وبروتوكول 3؛ أغلقت T01 محليًا ونفذت T02–T05 مع 12 جدولًا بالذاكرة وSentinel ناجح. الترخيص PROVISIONAL وفحوص الصدق السبعة مؤجلة E4. لا CRUD أو توليد أو ترقية مرجع.
 
 ## 1. سبب اختيار هذا المسار ومصادره
 
@@ -189,4 +189,4 @@ governance_packages/candidates/AGHR_rc3_Core_Candidate/
 
 الافتراضات السابقة قائمة؛ انتظار قرار الترخيص وبيانات المالك غير مقدر زمنيًا، ولا يشمل المجموع E3–E6 أو التطبيق كله. لم تقس أيام هندسية فعلية من زمن تشغيل الاختبارات. يعاد تقدير المتبقي عند E2.c أو تغير مدخلاته؛ لا موعد تسليم أو سقف إيقاف جديد.
 
-**الوضع بعد E2:** E1 ACCEPTED_BY_OWNER؛ E2 IMPLEMENTED_AND_TESTED ضمن الملف الساكن، وقبول E2 من المالك لا يمنحه المنفذ. T01 BLOCKED_NOT_CLOSED وإعادة البوابة NOT_RUN وT02 NOT_STARTED. بيانات المالك/الترخيص PROVISIONAL؛ فحوص الصدق E4 مؤجلة؛ المرجع 1.2.0 والمرشح 1.3.0 والعقود محفوظة.
+**موضع الاستئناف:** E1/E2 ACCEPTED_BY_OWNER؛ T01 CLOSED_UNBLOCKED للقراءة والتحقق المحلي؛ T02–T05 IMPLEMENTED_AND_TESTED. [تسليم T01–T05](../evidence/studio-phase0-runtime-2026-10-23/README.md). T06 CLOSED_FOR_OWNER_AUTHORIZED_MOCK_PROFILE_ONLY. فحوص الصدق E4 مؤجلة؛ المرجع 1.2.0 والمرشح 1.3.0 والعقود محفوظة. **إغلاق T06 محاكى فقط؛ [تسليم T06 المحاكى](../evidence/studio-t06-mock-2026-10-23/README.md). لا بدء تلقائي لما بعدها. أدلة السلطة والإنفاذ الحقيقية E3 والتوليد لم تنفذ.**

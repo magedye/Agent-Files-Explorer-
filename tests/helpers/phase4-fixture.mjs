@@ -1,0 +1,7 @@
+import fs from 'node:fs';
+import path from 'node:path';
+export function fixtureConfiguration(temp){
+ const repo=path.join(temp,'measurement-repo');fs.mkdirSync(repo);fs.writeFileSync(repo+'/before.json','{"default_package":"legacy"}');fs.writeFileSync(repo+'/after.json','{"default_package":"aghr_1_2_0"}');
+ const driver=temp+'/measurement.py';fs.writeFileSync(driver,`import json,hashlib,sys\nfrom pathlib import Path\nr=json.loads(Path(sys.argv[1]).read_text(encoding='utf-8'))\nroot=Path(${JSON.stringify(repo.replaceAll('\\','/'))})\nb=(root/'before.json').read_bytes();a=(root/'after.json').read_bytes()\nbefore=int(json.loads(b).get('default_package')=='aghr_1_2_0');after=int(json.loads(a).get('default_package')=='aghr_1_2_0')\nprint(json.dumps({'binding':r['binding'],'valid':after>before,'before_metric':before,'after_metric':after,'repo_hash':'sha256:'+hashlib.sha256(b+a).hexdigest()}))\n`);
+ const root=path.resolve('tests/fixtures/studio-e4/json-audit');fs.copyFileSync(root+'/SKILL.md',temp+'/SKILL.md');return {repo,e4Config:{skills:[{id:'measurement',source:'project',skillPath:temp+'/SKILL.md',entry:driver,triggers:['measure']},{id:'json-audit',source:'project',skillPath:temp+'/SKILL.md',entry:root+'/worker.py',triggers:['review']}],permissions:[]},phase4Options:{measurementSkillId:'measurement',intakeRoot:temp+'/inbox'}};
+}

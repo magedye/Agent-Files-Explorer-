@@ -1,0 +1,17 @@
+{
+  "profile": "T19_OWNER_APPROVED_MOCK",
+  "t19": "CLOSED_OWNER_AUTHORIZED_MOCK_ONLY",
+  "phase2": "CLOSED_FOR_AUTHORIZED_MOCK_WORKFLOW_ONLY",
+  "real_requirements": [
+    {"id": "enterprise_source", "status": "UNVERIFIED", "resolution": "Authenticated enterprise source; simulated Ed25519 is not publisher authentication"},
+    {"id": "github_gate", "status": "NOT_OBSERVABLE", "resolution": "Real remote gate observation; local MOCK receipt is not sufficient"},
+    {"id": "P0_eval", "status": "REQUIRED / NOT_RUN / NOT_WAIVED", "resolution": "Approve E4 plan then implement and execute matching evaluations"},
+    {"id": "reviewer_identity", "status": "ISOLATED_MOCK_ONLY", "resolution": "Trusted actual reviewer identity and real decision for genuine approval"},
+    {"id": "honesty_checks_7", "status": "REQUIRED / NOT_RUN / NOT_WAIVED", "resolution": "E4; no execution in this slice"},
+    {"id": "host_qualification", "status": "NOT_RUN", "resolution": "Separate Codex and Antigravity evidence; no qualification inferred from unit tests"},
+    {"id": "CI_merge_release", "status": "NOT_GRANTED", "resolution": "E6/T24 and independent release gates; no patch application here"}
+  ],
+  "tool_defects": [{"id": "audit_enum", "classification": "TOOL_DEFECT", "status": "FIXED_AND_RERUN", "previous_attempt": "attempts/01-audit-input-failure/FAILURE.txt"}],
+  "e4_plan": "PROPOSED / AWAITING_OWNER_APPROVAL",
+  "e4_implementation": "NOT_STARTED"
+}

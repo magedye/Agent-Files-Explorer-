@@ -1,0 +1,937 @@
+{
+  "status": "STARTED_NOT_CLOSED",
+  "at": "2026-10-25T12:07:29.498Z",
+  "authority": "Owner directs T36 to begin after scoped sandbox pilots; no T37–T40 execution authority inferred.",
+  "pilots": [
+    {
+      "id": "pilot-app-l2",
+      "path": "docs/evidence/studio-pilots-2026-10-25/run-pilot-app-l2-1792929246594/ACCEPTANCE.json",
+      "sha256": "3acc0de2017d30dafa839e6c78768b1549fc9311bef9d0d27e3a3cd7cb983247",
+      "profile": "SANDBOX_LOCAL_PROCESS_V1",
+      "level": "L2"
+    },
+    {
+      "id": "pilot-app-l3",
+      "path": "docs/evidence/studio-pilots-2026-10-25/run-pilot-app-l3-1792929628781/ACCEPTANCE.json",
+      "sha256": "8106e740b2b88240cabf321d9846f04c70a7aac7554f785da006ed9ed222d9f8",
+      "profile": "SANDBOX_LOCAL_PROCESS_V1",
+      "level": "L3"
+    }
+  ],
+  "source": {
+    "path": "docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md",
+    "sha256": "7061607b534bc1d8765521c4249089d14b344511bd770b618692f793b4c403ef"
+  },
+  "contract": {
+    "path": "docs/contracts/aghr-rc3/API_OPERATIONS.json",
+    "sha256": "a7225099b76221d51042eece4ff541b23d025ddf8d7b3488800086a1157223bf",
+    "definitions": 59,
+    "http": 58,
+    "websocket": 1
+  },
+  "screens": [
+    {
+      "screen": 1,
+      "section": 11,
+      "name": "Project Dashboard",
+      "source": "docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md",
+      "status": "NOT_REVALIDATED",
+      "acceptance_group": "T36d"
+    },
+    {
+      "screen": 2,
+      "section": 12,
+      "name": "Instructions Registry",
+      "source": "docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md",
+      "status": "NOT_REVALIDATED",
+      "acceptance_group": "T36a"
+    },
+    {
+      "screen": 3,
+      "section": 13,
+      "name": "Instruction Detail",
+      "source": "docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md",
+      "status": "NOT_REVALIDATED",
+      "acceptance_group": "T36a"
+    },
+    {
+      "screen": 4,
+      "section": 14,
+      "name": "Capabilities & Hosts",
+      "source": "docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md",
+      "status": "NOT_REVALIDATED",
+      "acceptance_group": "T36a"
+    },
+    {
+      "screen": 5,
+      "section": 15,
+      "name": "Skill Detail",
+      "source": "docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md",
+      "status": "NOT_REVALIDATED",
+      "acceptance_group": "T36a"
+    },
+    {
+      "screen": 6,
+      "section": 16,
+      "name": "Profiles & Scope",
+      "source": "docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md",
+      "status": "NOT_REVALIDATED",
+      "acceptance_group": "T36a"
+    },
+    {
+      "screen": 7,
+      "section": 17,
+      "name": "Generation & Preview",
+      "source": "docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md",
+      "status": "NOT_REVALIDATED",
+      "acceptance_group": "T36b"
+    },
+    {
+      "screen": 8,
+      "section": 18,
+      "name": "Verification & Evidence",
+      "source": "docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md",
+      "status": "NOT_REVALIDATED",
+      "acceptance_group": "T36c"
+    },
+    {
+      "screen": 9,
+      "section": 19,
+      "name": "Runtime Evidence",
+      "source": "docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md",
+      "status": "NOT_REVALIDATED",
+      "acceptance_group": "T36c"
+    },
+    {
+      "screen": 10,
+      "section": 20,
+      "name": "Change Packages List",
+      "source": "docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md",
+      "status": "NOT_REVALIDATED",
+      "acceptance_group": "T36b"
+    },
+    {
+      "screen": 11,
+      "section": 21,
+      "name": "Change Package Detail",
+      "source": "docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md",
+      "status": "NOT_REVALIDATED",
+      "acceptance_group": "T36b"
+    },
+    {
+      "screen": 12,
+      "section": 22,
+      "name": "Meta-Governance",
+      "source": "docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md",
+      "status": "NOT_REVALIDATED",
+      "acceptance_group": "T36c"
+    },
+    {
+      "screen": 13,
+      "section": 23,
+      "name": "Intake & Learning",
+      "source": "docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md",
+      "status": "NOT_REVALIDATED",
+      "acceptance_group": "T36c"
+    },
+    {
+      "screen": 14,
+      "section": 24,
+      "name": "Audit & Reports",
+      "source": "docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md",
+      "status": "NOT_REVALIDATED",
+      "acceptance_group": "T36d"
+    },
+    {
+      "screen": 15,
+      "section": 25,
+      "name": "Metrics",
+      "source": "docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md",
+      "status": "NOT_REVALIDATED",
+      "acceptance_group": "T36d"
+    },
+    {
+      "screen": 16,
+      "section": 26,
+      "name": "Settings",
+      "source": "docs/specs/aghr-rc3/STUDIO_SPECIFICATION.md",
+      "status": "NOT_REVALIDATED",
+      "acceptance_group": "T36d"
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/workspaces",
+      "operation_id": "listWorkspaces",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Workspaces",
+      "source_section": 27,
+      "policy": "read",
+      "paged": true,
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces",
+      "operation_id": "registerWorkspace",
+      "request": "api.read.schema.json#/$defs/WorkspaceCreate",
+      "response": "api.read.schema.json#/$defs/Workspace",
+      "source_section": 27,
+      "policy": "installation_owner",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "DELETE",
+      "path": "/workspaces/{id}",
+      "operation_id": "removeWorkspaceRegistration",
+      "request": null,
+      "response": "transport.schema.json#/$defs/RemovedRegistration",
+      "source_section": 27,
+      "policy": "installation_owner",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/scan",
+      "operation_id": "scanWorkspace",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Scan",
+      "source_section": 27,
+      "policy": "registered_source_read",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/projects",
+      "operation_id": "listProjects",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Projects",
+      "source_section": 27,
+      "policy": "read",
+      "paged": true,
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/projects",
+      "operation_id": "registerProject",
+      "request": "api.read.schema.json#/$defs/ProjectCreate",
+      "response": "api.read.schema.json#/$defs/Project",
+      "source_section": 27,
+      "policy": "installation_owner",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "DELETE",
+      "path": "/workspaces/{id}/projects/{pid}",
+      "operation_id": "removeProjectRegistration",
+      "request": null,
+      "response": "transport.schema.json#/$defs/RemovedRegistration",
+      "source_section": 27,
+      "policy": "installation_owner",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/projects/{pid}/scan",
+      "operation_id": "scanProject",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Scan",
+      "source_section": 27,
+      "policy": "registered_source_read",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/projects/{pid}/config",
+      "operation_id": "getProjectConfig",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/ProjectConfig",
+      "source_section": 27,
+      "policy": "read",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/instructions",
+      "operation_id": "listInstructions",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Items",
+      "source_section": 28,
+      "policy": "read",
+      "query": [
+        "kind",
+        "force",
+        "priority",
+        "authority_level",
+        "status",
+        "impact_evidence",
+        "is_review_due",
+        "host",
+        "path",
+        "q"
+      ],
+      "paged": true,
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/instructions/{item_id}",
+      "operation_id": "getInstruction",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/ItemView",
+      "source_section": 28,
+      "policy": "read",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/instructions/{item_id}/relations",
+      "operation_id": "getInstructionRelations",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Relations",
+      "source_section": 28,
+      "policy": "read",
+      "paged": true,
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/instructions/{item_id}/history",
+      "operation_id": "getInstructionHistory",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/History",
+      "source_section": 28,
+      "policy": "read",
+      "paged": true,
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/instructions/{item_id}/evals",
+      "operation_id": "getInstructionEvals",
+      "request": null,
+      "response": "api.execution.schema.json#/$defs/VerificationRuns",
+      "source_section": 28,
+      "policy": "read",
+      "paged": true,
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/instructions/{item_id}/calibrations",
+      "operation_id": "getInstructionCalibrations",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Calibrations",
+      "source_section": 28,
+      "policy": "read",
+      "paged": true,
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/capabilities",
+      "operation_id": "listCapabilities",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Capabilities",
+      "source_section": 29,
+      "policy": "read",
+      "query": [
+        "source",
+        "function",
+        "tier",
+        "host",
+        "qual_status"
+      ],
+      "paged": true,
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/capabilities/{item_id}",
+      "operation_id": "getCapability",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/CapabilityView",
+      "source_section": 29,
+      "policy": "read",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/capabilities/{item_id}/qualification",
+      "operation_id": "getCapabilityQualification",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Qualifications",
+      "source_section": 29,
+      "policy": "read",
+      "paged": true,
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/capabilities/{item_id}/usage",
+      "operation_id": "getCapabilityUsage",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Usages",
+      "source_section": 29,
+      "policy": "read",
+      "query": [
+        "limit"
+      ],
+      "paged": true,
+      "default_limit": 20,
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/capabilities/matrix",
+      "operation_id": "getQualificationMatrix",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Matrix",
+      "source_section": 29,
+      "policy": "read",
+      "paged": true,
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/generate/preview",
+      "operation_id": "previewGeneration",
+      "request": "api.execution.schema.json#/$defs/GeneratePreviewRequest",
+      "response": "api.execution.schema.json#/$defs/Generation",
+      "source_section": 30,
+      "policy": "verify_fast",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/generate/export",
+      "operation_id": "downloadGeneration",
+      "request": "api.execution.schema.json#/$defs/GenerateExportRequest",
+      "response": "api.execution.schema.json#/$defs/GeneratedDownload",
+      "source_section": 30,
+      "policy": "generation_export",
+      "if_match": "generated_content_hash",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/verify/run",
+      "operation_id": "startVerification",
+      "request": "api.execution.schema.json#/$defs/VerifyRequest",
+      "response": "api.execution.schema.json#/$defs/StartedRun",
+      "source_section": 31,
+      "policy": "verify_command",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/verify/runs",
+      "operation_id": "listVerificationRuns",
+      "request": null,
+      "response": "api.execution.schema.json#/$defs/VerificationRuns",
+      "source_section": 31,
+      "policy": "read",
+      "paged": true,
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/verify/runs/{run_id}",
+      "operation_id": "getVerificationRun",
+      "request": null,
+      "response": "api.execution.schema.json#/$defs/VerificationRun",
+      "source_section": 31,
+      "policy": "read",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/verify/runs/{run_id}/sarif",
+      "operation_id": "getRunSarif",
+      "request": null,
+      "response": "api.execution.schema.json#/$defs/Sarif",
+      "source_section": 31,
+      "policy": "read",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "WS",
+      "path": "/workspaces/{id}/verify/runs/{run_id}/stream",
+      "operation_id": "streamVerification",
+      "request": null,
+      "response": "api.execution.schema.json#/$defs/StreamFrame",
+      "source_section": 31,
+      "policy": "read",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/verify/runs/{run_id}/cancel",
+      "operation_id": "cancelVerification",
+      "request": null,
+      "response": "transport.schema.json#/$defs/Ack",
+      "source_section": 31,
+      "policy": "run_owner_or_governance_owner",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/evidence/tasks",
+      "operation_id": "listEvidenceTasks",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/EvidenceTasks",
+      "source_section": 32,
+      "policy": "read",
+      "query": [
+        "attention_flag",
+        "agent",
+        "date_from",
+        "date_to"
+      ],
+      "paged": true,
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/evidence/tasks/{task_id}",
+      "operation_id": "getEvidenceTask",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/EvidenceDetail",
+      "source_section": 32,
+      "policy": "read",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/evidence/tasks/{task_id}/events",
+      "operation_id": "getEvidenceEvents",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/EvidenceEvents",
+      "source_section": 32,
+      "policy": "read",
+      "paged": true,
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/evidence/tasks/{task_id}/submit-to-ci",
+      "operation_id": "prepareEvidencePr",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/EvidenceSubmission",
+      "source_section": 32,
+      "policy": "scoped_external_write",
+      "if_match": "evidence_source_hash",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/cps",
+      "operation_id": "listChangePackages",
+      "request": null,
+      "response": "api.change.schema.json#/$defs/Packages",
+      "source_section": 33,
+      "policy": "read",
+      "query": [
+        "status",
+        "kind",
+        "created_by",
+        "requires_role"
+      ],
+      "paged": true,
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/cps",
+      "operation_id": "createChangePackage",
+      "request": "api.change.schema.json#/$defs/Create",
+      "response": "api.change.schema.json#/$defs/Package",
+      "source_section": 33,
+      "policy": "cp_create",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/cps/{cp_id}",
+      "operation_id": "getChangePackage",
+      "request": null,
+      "response": "api.change.schema.json#/$defs/Package",
+      "source_section": 33,
+      "policy": "read",
+      "etag": "proposal_version_hash",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/workspaces/{id}/cps/{cp_id}",
+      "operation_id": "editChangePackage",
+      "request": "api.change.schema.json#/$defs/Edit",
+      "response": "api.change.schema.json#/$defs/Package",
+      "source_section": 33,
+      "policy": "cp_edit",
+      "if_match": "proposal_version_hash",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/cps/{cp_id}/validate",
+      "operation_id": "validateChangePackage",
+      "request": null,
+      "response": "api.change.schema.json#/$defs/Package",
+      "source_section": 33,
+      "policy": "cp_edit_and_verify",
+      "if_match": "proposal_version_hash",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/cps/{cp_id}/preview",
+      "operation_id": "previewChangePackage",
+      "request": null,
+      "response": "api.change.schema.json#/$defs/Preview",
+      "source_section": 33,
+      "policy": "cp_edit",
+      "if_match": "proposal_version_hash",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/cps/{cp_id}/submit",
+      "operation_id": "submitChangePackage",
+      "request": null,
+      "response": "api.change.schema.json#/$defs/Package",
+      "source_section": 37,
+      "policy": "cp_edit",
+      "if_match": "proposal_version_hash",
+      "extension": "Workflow 37 step 6 and Appendix B require validated -> in_review; section 33 has no submit operation.",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/cps/{cp_id}/approve",
+      "operation_id": "decideChangePackage",
+      "request": "api.change.schema.json#/$defs/ApprovalRequest",
+      "response": "api.change.schema.json#/$defs/Package",
+      "source_section": 33,
+      "policy": "approval_slot",
+      "if_match": "proposal_version_hash",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/cps/{cp_id}/export",
+      "operation_id": "exportChangePackage",
+      "request": "api.change.schema.json#/$defs/ExportRequest",
+      "response": "api.change.schema.json#/$defs/Export",
+      "source_section": 33,
+      "policy": "approved_cp_scoped_grant",
+      "if_match": "proposal_version_hash",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/cps/{cp_id}/close",
+      "operation_id": "closeMergedChangePackage",
+      "request": null,
+      "response": "api.change.schema.json#/$defs/Package",
+      "source_section": 33,
+      "policy": "verified_ci_merge",
+      "if_match": "proposal_version_hash",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/adoptions",
+      "operation_id": "createAdoptionDraft",
+      "request": "api.change.schema.json#/$defs/AdoptionCreate",
+      "response": "api.change.schema.json#/$defs/Adoption",
+      "source_section": 34,
+      "policy": "cp_create",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/adoptions/{aid}",
+      "operation_id": "getAdoption",
+      "request": null,
+      "response": "api.change.schema.json#/$defs/Adoption",
+      "source_section": 34,
+      "policy": "read",
+      "etag": "proposal_version_hash",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/adoptions/{aid}/preview",
+      "operation_id": "previewAdoption",
+      "request": null,
+      "response": "api.change.schema.json#/$defs/Preview",
+      "source_section": 34,
+      "policy": "adoption_preview",
+      "if_match": "proposal_version_hash",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/adoptions/{aid}/apply",
+      "operation_id": "exportAdoption",
+      "request": "api.change.schema.json#/$defs/AdoptionApply",
+      "response": "api.change.schema.json#/$defs/Export",
+      "source_section": 34,
+      "policy": "adoption_apply",
+      "if_match": "proposal_version_hash",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/adoptions/{aid}/diff",
+      "operation_id": "getAdoptionDiff",
+      "request": null,
+      "response": "api.change.schema.json#/$defs/Preview",
+      "source_section": 34,
+      "policy": "read",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/metrics/current",
+      "operation_id": "getMetrics",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Metrics",
+      "source_section": 35,
+      "policy": "read",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/metrics/history",
+      "operation_id": "getMetricsHistory",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/MetricsHistory",
+      "source_section": 35,
+      "policy": "read",
+      "query": [
+        "days"
+      ],
+      "paged": true,
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/metrics/snapshot",
+      "operation_id": "captureMetrics",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Metrics",
+      "source_section": 35,
+      "policy": "registered_source_read",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/audit/events",
+      "operation_id": "listAuditEvents",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/AuditEvents",
+      "source_section": 35,
+      "policy": "read",
+      "query": [
+        "actor",
+        "event_type",
+        "date_from",
+        "date_to"
+      ],
+      "paged": true,
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/audit/events/{id}",
+      "operation_id": "getAuditEvent",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/AuditEvent",
+      "source_section": 35,
+      "policy": "read",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "GET",
+      "path": "/settings",
+      "operation_id": "getSettings",
+      "request": null,
+      "response": "settings.schema.json",
+      "source_section": 36,
+      "policy": "read",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/settings/roles",
+      "operation_id": "configureRoles",
+      "request": "settings.schema.json#/$defs/RolesPatch",
+      "response": "settings.schema.json",
+      "source_section": 36,
+      "policy": "installation_owner",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/settings/git",
+      "operation_id": "configureGit",
+      "request": "settings.schema.json#/$defs/GitPatch",
+      "response": "settings.schema.json",
+      "source_section": 36,
+      "policy": "installation_owner",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/settings/limits",
+      "operation_id": "configureLimits",
+      "request": "settings.schema.json#/$defs/LimitsPatch",
+      "response": "settings.schema.json",
+      "source_section": 36,
+      "policy": "installation_owner",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/settings/hosts",
+      "operation_id": "configureHosts",
+      "request": "settings.schema.json#/$defs/HostsPatch",
+      "response": "settings.schema.json",
+      "source_section": 36,
+      "policy": "installation_owner",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/settings/security",
+      "operation_id": "configureSecurity",
+      "request": "settings.schema.json#/$defs/SecurityPatch",
+      "response": "settings.schema.json",
+      "source_section": 36,
+      "policy": "installation_owner",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    },
+    {
+      "method": "POST",
+      "path": "/settings/test-signing",
+      "operation_id": "testSigning",
+      "request": null,
+      "response": "settings.schema.json#/$defs/SigningResult",
+      "source_section": 36,
+      "policy": "installation_owner",
+      "status": "NOT_REVALIDATED",
+      "evidence": []
+    }
+  ],
+  "inherited_references": [
+    {
+      "path": "docs/evidence/studio-phase1-2026-10-23/README.md",
+      "status": "LOCATOR_ONLY_NOT_OPERATION_ACCEPTANCE"
+    },
+    {
+      "path": "docs/evidence/studio-e3-t19-2026-10-24/README.md",
+      "status": "LOCATOR_ONLY_NOT_OPERATION_ACCEPTANCE"
+    },
+    {
+      "path": "docs/evidence/studio-e4-2026-10-24/README.md",
+      "status": "LOCATOR_ONLY_NOT_OPERATION_ACCEPTANCE"
+    },
+    {
+      "path": "docs/evidence/studio-phase3-2026-10-24/README.md",
+      "status": "LOCATOR_ONLY_NOT_OPERATION_ACCEPTANCE"
+    },
+    {
+      "path": "docs/evidence/studio-phase4-2026-10-24/README.md",
+      "status": "LOCATOR_ONLY_NOT_OPERATION_ACCEPTANCE"
+    },
+    {
+      "path": "docs/evidence/studio-phase5-2026-10-24/README.md",
+      "status": "LOCATOR_ONLY_NOT_OPERATION_ACCEPTANCE"
+    }
+  ],
+  "gaps": [
+    {
+      "id": "DRAFT_CANONICAL_API_PARITY",
+      "status": "REQUIRES_REVIEW",
+      "detail": "Draft extensions and aliases do not establish all59 canonical operation contracts."
+    },
+    {
+      "id": "PILOT_UI_REGISTRATION_AND_LEVELS",
+      "status": "REQUIRES_REVIEW",
+      "detail": "Pilot CLI/DB/CI profile is real; current default read catalog remains the reference candidate and Dashboard deliberately returns L0. Do not display sandbox adoption as global product qualification."
+    },
+    {
+      "id": "NATIVE_HOSTS",
+      "status": "NOT_RUN",
+      "detail": "Codex and Antigravity excluded by owner for this trial."
+    },
+    {
+      "id": "EXTERNAL_STANDARD_18_4",
+      "status": "NOT_QUALIFIED",
+      "detail": "Two sandboxes are not the production pilot or >=50% P0 repo-measured effect criterion for proposing an external standard."
+    }
+  ],
+  "next": "Run isolated Edge/HTTP source-state-runtime Sentinel for both pilot roots; then reconcile T36a–e per operation, screen and FA/NFA without inheriting unsupported PASS labels."
+}

@@ -1,0 +1,44 @@
+{
+  "id": "AGHR-003",
+  "title": "التمييز بين الواقع والالتزام",
+  "kind": "PRINCIPLE",
+  "force": "MUST",
+  "severity": "high",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: When reconciling implementation and specifications.\nTreat repository observations as evidence of what exists and approved requirements as obligations; record discrepancies without silent substitution.",
+  "authority": {
+    "source": ".t12/SourceGrant.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "OWNER_T12_OVERRIDE",
+    "status": "active",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "إحلال التنفيذ محل المتطلب يخفي التزامات غير منفذة. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "review",
+    "mergeEffect": "advisory"
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-003"
+    ]
+  },
+  "impact": {
+    "band": "high",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2027-01-21",
+  "exceptions": {
+    "allowed": false
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

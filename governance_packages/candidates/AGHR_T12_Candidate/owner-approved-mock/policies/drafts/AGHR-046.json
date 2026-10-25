@@ -1,0 +1,44 @@
+{
+  "id": "AGHR-046",
+  "title": "اتساق الخطة والانحراف المرصود",
+  "kind": "PROCEDURE",
+  "force": "MUST",
+  "severity": "high",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: At meaningful progress boundaries and reviews.\nCompare observed work with the approved goal, plan baseline, acceptance criteria and governing rules. Report measured populations, exclusions, unexamined scope and evidence-linked deviations by severity; distinguish approved replanning from unauthorized drift. Recommend corrective work without self-amending policy; critical failures are not averaged away.",
+  "authority": {
+    "source": ".t12/SourceGrant.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "OWNER_T12_OVERRIDE",
+    "status": "active",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "إخفاء انحراف حرج بمتوسط قد يمنع تصحيح المسار. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "review",
+    "mergeEffect": "advisory"
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-046"
+    ]
+  },
+  "impact": {
+    "band": "high",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2027-01-21",
+  "exceptions": {
+    "allowed": false
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "name": "AGHR-006",
+  "started_at": "2026-10-23T13:50:02.234463+00:00",
+  "finished_at": "2026-10-23T13:50:09.636512+00:00",
+  "wall_seconds": 7.402782199904323,
+  "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+  "argv": [
+    "-X",
+    "utf8",
+    "-B",
+    "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+    "validate",
+    "--strict",
+    "--format",
+    "json"
+  ],
+  "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-006",
+  "process_exit_code": 3,
+  "protocol_version": "3",
+  "result": "BLOCKED",
+  "structure": "PASS",
+  "diagnostics": {
+    "AUTHORITY_SOURCE_UNVERIFIED": 1
+  },
+  "item_ids": [
+    "AGHR-006"
+  ],
+  "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+  "inputs": {
+    "candidate_hash": "29c76262c92fa5b1823843e6b645a26845e3dbf47fdf0ec4fd32ee0795d1f7a9",
+    "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+    "inputs_hash": "dafc13ba583150d22672d890519768a587cbac4df360f2a8cc03a9d9324a54a0",
+    "catalog": [
+      {
+        "path": "aghr.json",
+        "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "role": "manifest"
+      },
+      {
+        "path": "policies/drafts/AGHR-006.json",
+        "sha256": "f7425a29b002e5f404514d4604c9a25e7a5f27553baf27fade194aff84e3c25d",
+        "role": "item"
+      }
+    ]
+  },
+  "input_before": {
+    "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+    "drafting/eval-fixtures.json": "6b7f470ed3d619aa99b6f34bd16dcb7c481ca58f65c59a6aaebb7284bdfb5166",
+    "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+    "policies/drafts/AGHR-006.json": "f7425a29b002e5f404514d4604c9a25e7a5f27553baf27fade194aff84e3c25d"
+  },
+  "input_after_unchanged": true,
+  "stdout_sha256": "df8ce010d834c67ccf80e6bae07d21f5c3f8416ca6ce70e6e30fc263e51c6131",
+  "stderr_sha256": "9729feeaf4d824675cd2458307ca4f21df5b6ef029a030406950853515add870"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "AGHR-030",
+  "title": "استثناءات محددة",
+  "kind": "PROCEDURE",
+  "force": "MUST",
+  "severity": "critical",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: When an exception is allowed.\nRequire authorized scope, rationale, compensating controls and expiry; non-waivable rules and higher constraints cannot be waived locally.",
+  "authority": {
+    "source": "drafting/OWNER_DIRECTIVE.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "PROVISIONAL_OWNER_REVIEW",
+    "status": "draft",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "استثناء غير مخول قد يلغي قيداً أعلى أو غير قابل للإعفاء. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "review",
+    "mergeEffect": "advisory"
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-030"
+    ]
+  },
+  "impact": {
+    "band": "critical",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2026-11-22",
+  "exceptions": {
+    "allowed": false
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

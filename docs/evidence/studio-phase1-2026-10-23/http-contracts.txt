@@ -1,0 +1,245 @@
+(node:45376) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "result": {
+    "results": [
+      {
+        "route": "/workspaces",
+        "status": 200,
+        "schema": "api.responses.schema.json#/$defs/listWorkspacesResponse",
+        "errors": []
+      },
+      {
+        "route": "/workspaces/rc3-local/instructions",
+        "status": 200,
+        "schema": "api.responses.schema.json#/$defs/listInstructionsResponse",
+        "errors": []
+      },
+      {
+        "route": "/workspaces/rc3-local/instructions/OBS-REFERENCE-STATE-001",
+        "status": 200,
+        "schema": "api.responses.schema.json#/$defs/getInstructionResponse",
+        "errors": []
+      },
+      {
+        "route": "/workspaces/rc3-local/capabilities",
+        "status": 200,
+        "schema": "api.responses.schema.json#/$defs/listCapabilitiesResponse",
+        "errors": []
+      },
+      {
+        "route": "/workspaces/rc3-local/capabilities/matrix",
+        "status": 200,
+        "schema": "api.responses.schema.json#/$defs/getQualificationMatrixResponse",
+        "errors": []
+      },
+      {
+        "route": "/workspaces/rc3-local/instructions?language=ar",
+        "status": 400,
+        "schema": "transport.schema.json#/$defs/ErrorEnvelope",
+        "errors": []
+      },
+      {
+        "route": "/workspaces",
+        "status": 401,
+        "schema": "transport.schema.json#/$defs/ErrorEnvelope",
+        "errors": []
+      }
+    ],
+    "passed": true
+  },
+  "samples": [
+    {
+      "route": "/workspaces",
+      "status": 200,
+      "schema": "api.responses.schema.json#/$defs/listWorkspacesResponse",
+      "value": {
+        "data": [
+          {
+            "id": "rc3-local",
+            "name": "AGHR rc.3 Core — Local Source Candidate",
+            "package_path": "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate",
+            "package_version": "1.0.0-rc.3",
+            "schema_version": "1.2",
+            "read_only": true,
+            "package_signature_verified": false,
+            "signature_identity": null,
+            "signature_verified_at": null,
+            "created_at": "2026-10-23T00:12:10.300Z",
+            "last_scanned_at": "2026-10-23T00:12:10.300Z",
+            "scan_duration_ms": 5967
+          }
+        ],
+        "meta": {
+          "request_id": "37328fe7-e29d-4692-8820-ff96b466092c",
+          "contract_revision": "contract.1",
+          "recorded_at": "2026-10-23T00:12:16.757Z"
+        }
+      }
+    },
+    {
+      "route": "/workspaces/rc3-local/instructions",
+      "status": 200,
+      "schema": "api.responses.schema.json#/$defs/listInstructionsResponse",
+      "value": {
+        "data": [
+          {
+            "item": {
+              "id": "OBS-REFERENCE-STATE-001",
+              "title": "رصد المرجع الافتراضي المعلن في مصدر التطبيق",
+              "kind": "OBSERVATION",
+              "force": "INFORMATIVE",
+              "severity": "info",
+              "scope": {
+                "paths": [
+                  "server/security.js"
+                ]
+              },
+              "rule": "في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \"aghr_1_2_0\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.",
+              "impact": {
+                "band": "info",
+                "evidence": "assumed"
+              }
+            },
+            "source_path": "policies/observations/reference-state.json",
+            "source_hash": "sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0",
+            "source_yaml": "{\n  \"id\": \"OBS-REFERENCE-STATE-001\",\n  \"title\": \"رصد المرجع الافتراضي المعلن في مصدر التطبيق\",\n  \"kind\": \"OBSERVATION\",\n  \"force\": \"INFORMATIVE\",\n  \"severity\": \"info\",\n  \"scope\": {\n    \"paths\": [\n      \"server/security.js\"\n    ]\n  },\n  \"rule\": \"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\",\n  \"impact\": {\n    \"band\": \"info\",\n    \"evidence\": \"assumed\"\n  }\n}\n",
+            "validation_status": "VALID",
+            "diagnostics": [],
+            "translation_unavailable": true,
+            "is_review_due": null,
+            "priority_tier": null,
+            "issuer_trust": {
+              "status": "UNKNOWN",
+              "evidence": [],
+              "reason": "Pinned source digest is not authenticated publisher identity."
+            }
+          }
+        ],
+        "meta": {
+          "request_id": "81d23b35-5564-4659-ab82-19f02fe135dd",
+          "contract_revision": "contract.1",
+          "recorded_at": "2026-10-23T00:12:16.829Z",
+          "total": 1,
+          "limit": 100,
+          "next_cursor": null
+        }
+      }
+    },
+    {
+      "route": "/workspaces/rc3-local/instructions/OBS-REFERENCE-STATE-001",
+      "status": 200,
+      "schema": "api.responses.schema.json#/$defs/getInstructionResponse",
+      "value": {
+        "data": {
+          "item": {
+            "id": "OBS-REFERENCE-STATE-001",
+            "title": "رصد المرجع الافتراضي المعلن في مصدر التطبيق",
+            "kind": "OBSERVATION",
+            "force": "INFORMATIVE",
+            "severity": "info",
+            "scope": {
+              "paths": [
+                "server/security.js"
+              ]
+            },
+            "rule": "في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \"aghr_1_2_0\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.",
+            "impact": {
+              "band": "info",
+              "evidence": "assumed"
+            }
+          },
+          "source_path": "policies/observations/reference-state.json",
+          "source_hash": "sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0",
+          "source_yaml": "{\n  \"id\": \"OBS-REFERENCE-STATE-001\",\n  \"title\": \"رصد المرجع الافتراضي المعلن في مصدر التطبيق\",\n  \"kind\": \"OBSERVATION\",\n  \"force\": \"INFORMATIVE\",\n  \"severity\": \"info\",\n  \"scope\": {\n    \"paths\": [\n      \"server/security.js\"\n    ]\n  },\n  \"rule\": \"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\",\n  \"impact\": {\n    \"band\": \"info\",\n    \"evidence\": \"assumed\"\n  }\n}\n",
+          "validation_status": "VALID",
+          "diagnostics": [],
+          "translation_unavailable": true,
+          "is_review_due": null,
+          "priority_tier": null,
+          "issuer_trust": {
+            "status": "UNKNOWN",
+            "evidence": [],
+            "reason": "Pinned source digest is not authenticated publisher identity."
+          }
+        },
+        "meta": {
+          "request_id": "b34e58a6-535d-4667-aa08-7e574a089867",
+          "contract_revision": "contract.1",
+          "recorded_at": "2026-10-23T00:12:16.837Z"
+        }
+      }
+    },
+    {
+      "route": "/workspaces/rc3-local/capabilities",
+      "status": 200,
+      "schema": "api.responses.schema.json#/$defs/listCapabilitiesResponse",
+      "value": {
+        "data": [],
+        "meta": {
+          "request_id": "93601ed4-29c9-45ff-a280-f1c963a52219",
+          "contract_revision": "contract.1",
+          "recorded_at": "2026-10-23T00:12:16.866Z",
+          "total": 0,
+          "limit": 100,
+          "next_cursor": null
+        }
+      }
+    },
+    {
+      "route": "/workspaces/rc3-local/capabilities/matrix",
+      "status": 200,
+      "schema": "api.responses.schema.json#/$defs/getQualificationMatrixResponse",
+      "value": {
+        "data": {
+          "skills": [],
+          "hosts": [],
+          "cells": []
+        },
+        "meta": {
+          "request_id": "72f06126-9dbb-4fde-b84b-23f26287523a",
+          "contract_revision": "contract.1",
+          "recorded_at": "2026-10-23T00:12:16.875Z"
+        }
+      }
+    },
+    {
+      "route": "/workspaces/rc3-local/instructions?language=ar",
+      "status": 400,
+      "schema": "transport.schema.json#/$defs/ErrorEnvelope",
+      "value": {
+        "data": null,
+        "meta": {
+          "request_id": "0c53ee81-c47b-4bf1-8d40-73dac6f233f9",
+          "contract_revision": "contract.1",
+          "recorded_at": "2026-10-23T00:12:16.880Z",
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Unknown, duplicate or unsupported query.",
+            "halted": true,
+            "issues": []
+          }
+        }
+      }
+    },
+    {
+      "route": "/workspaces",
+      "status": 401,
+      "schema": "transport.schema.json#/$defs/ErrorEnvelope",
+      "value": {
+        "data": null,
+        "meta": {
+          "request_id": "3e49352a-4c37-4ddb-8d13-576a85451e0b",
+          "contract_revision": "contract.1",
+          "recorded_at": "2026-10-23T00:12:16.896Z",
+          "error": {
+            "code": "UNAUTHENTICATED",
+            "message": "Session credential required or expired.",
+            "halted": true,
+            "issues": []
+          }
+        }
+      }
+    }
+  ]
+}

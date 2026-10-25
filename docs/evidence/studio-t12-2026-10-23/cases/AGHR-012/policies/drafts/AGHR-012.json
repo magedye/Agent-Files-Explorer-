@@ -1,0 +1,44 @@
+{
+  "id": "AGHR-012",
+  "title": "حماية العمل غير المرتبط",
+  "kind": "CONSTRAINT",
+  "force": "MUST",
+  "severity": "high",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: When changing artifacts.\nLimit changes to the complete required scope, preserve unrelated work, and remove only new obsolete material caused by the authorized change.",
+  "authority": {
+    "source": "drafting/OWNER_DIRECTIVE.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "PROVISIONAL_OWNER_REVIEW",
+    "status": "draft",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "تعديل عمل غير مرتبط قد يفقد تغييرات المالك. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "review",
+    "mergeEffect": "advisory"
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-012"
+    ]
+  },
+  "impact": {
+    "band": "high",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2027-01-21",
+  "exceptions": {
+    "allowed": false
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

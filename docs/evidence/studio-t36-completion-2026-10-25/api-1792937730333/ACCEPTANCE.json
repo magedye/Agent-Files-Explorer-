@@ -1,0 +1,964 @@
+{
+  "status": "FAIL",
+  "operations": 59,
+  "successful": 20,
+  "schemas": false,
+  "workflow_completed": false,
+  "matrix": [
+    {
+      "method": "GET",
+      "path": "/workspaces",
+      "operation_id": "listWorkspaces",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Workspaces",
+      "source_section": 27,
+      "policy": "read",
+      "paged": true,
+      "success_cases": 1,
+      "denial_cases": 0,
+      "status": "EXERCISED_SUCCESS",
+      "cases": [
+        {
+          "case": "positive",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces",
+      "operation_id": "registerWorkspace",
+      "request": "api.read.schema.json#/$defs/WorkspaceCreate",
+      "response": "api.read.schema.json#/$defs/Workspace",
+      "source_section": 27,
+      "policy": "installation_owner",
+      "status": "EXERCISED_SUCCESS",
+      "success_cases": 1,
+      "denial_cases": 0,
+      "cases": [
+        {
+          "case": "positive",
+          "status": 201
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/workspaces/{id}",
+      "operation_id": "removeWorkspaceRegistration",
+      "request": null,
+      "response": "transport.schema.json#/$defs/RemovedRegistration",
+      "source_section": 27,
+      "policy": "installation_owner",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/scan",
+      "operation_id": "scanWorkspace",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Scan",
+      "source_section": 27,
+      "policy": "registered_source_read",
+      "success_cases": 1,
+      "denial_cases": 0,
+      "status": "EXERCISED_SUCCESS",
+      "cases": [
+        {
+          "case": "positive",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/projects",
+      "operation_id": "listProjects",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Projects",
+      "source_section": 27,
+      "policy": "read",
+      "paged": true,
+      "success_cases": 1,
+      "denial_cases": 0,
+      "status": "EXERCISED_SUCCESS",
+      "cases": [
+        {
+          "case": "positive",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/projects",
+      "operation_id": "registerProject",
+      "request": "api.read.schema.json#/$defs/ProjectCreate",
+      "response": "api.read.schema.json#/$defs/Project",
+      "source_section": 27,
+      "policy": "installation_owner",
+      "status": "EXERCISED_SUCCESS",
+      "success_cases": 1,
+      "denial_cases": 0,
+      "cases": [
+        {
+          "case": "positive",
+          "status": 201
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/workspaces/{id}/projects/{pid}",
+      "operation_id": "removeProjectRegistration",
+      "request": null,
+      "response": "transport.schema.json#/$defs/RemovedRegistration",
+      "source_section": 27,
+      "policy": "installation_owner",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/projects/{pid}/scan",
+      "operation_id": "scanProject",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Scan",
+      "source_section": 27,
+      "policy": "registered_source_read",
+      "success_cases": 1,
+      "denial_cases": 0,
+      "status": "EXERCISED_SUCCESS",
+      "cases": [
+        {
+          "case": "positive",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/projects/{pid}/config",
+      "operation_id": "getProjectConfig",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/ProjectConfig",
+      "source_section": 27,
+      "policy": "read",
+      "success_cases": 1,
+      "denial_cases": 0,
+      "status": "EXERCISED_SUCCESS",
+      "cases": [
+        {
+          "case": "positive",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/instructions",
+      "operation_id": "listInstructions",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Items",
+      "source_section": 28,
+      "policy": "read",
+      "query": [
+        "kind",
+        "force",
+        "priority",
+        "authority_level",
+        "status",
+        "impact_evidence",
+        "is_review_due",
+        "host",
+        "path",
+        "q"
+      ],
+      "paged": true,
+      "success_cases": 1,
+      "denial_cases": 0,
+      "status": "EXERCISED_SUCCESS",
+      "cases": [
+        {
+          "case": "positive",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/instructions/{item_id}",
+      "operation_id": "getInstruction",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/ItemView",
+      "source_section": 28,
+      "policy": "read",
+      "success_cases": 1,
+      "denial_cases": 0,
+      "status": "EXERCISED_SUCCESS",
+      "cases": [
+        {
+          "case": "positive",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/instructions/{item_id}/relations",
+      "operation_id": "getInstructionRelations",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Relations",
+      "source_section": 28,
+      "policy": "read",
+      "paged": true,
+      "success_cases": 1,
+      "denial_cases": 0,
+      "status": "EXERCISED_SUCCESS",
+      "cases": [
+        {
+          "case": "positive",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/instructions/{item_id}/history",
+      "operation_id": "getInstructionHistory",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/History",
+      "source_section": 28,
+      "policy": "read",
+      "paged": true,
+      "success_cases": 1,
+      "denial_cases": 0,
+      "status": "EXERCISED_SUCCESS",
+      "cases": [
+        {
+          "case": "positive",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/instructions/{item_id}/evals",
+      "operation_id": "getInstructionEvals",
+      "request": null,
+      "response": "api.execution.schema.json#/$defs/VerificationRuns",
+      "source_section": 28,
+      "policy": "read",
+      "paged": true,
+      "success_cases": 1,
+      "denial_cases": 0,
+      "status": "EXERCISED_SUCCESS",
+      "cases": [
+        {
+          "case": "positive",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/instructions/{item_id}/calibrations",
+      "operation_id": "getInstructionCalibrations",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Calibrations",
+      "source_section": 28,
+      "policy": "read",
+      "paged": true,
+      "success_cases": 1,
+      "denial_cases": 0,
+      "status": "EXERCISED_SUCCESS",
+      "cases": [
+        {
+          "case": "positive",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/capabilities",
+      "operation_id": "listCapabilities",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Capabilities",
+      "source_section": 29,
+      "policy": "read",
+      "query": [
+        "source",
+        "function",
+        "tier",
+        "host",
+        "qual_status"
+      ],
+      "paged": true,
+      "success_cases": 1,
+      "denial_cases": 0,
+      "status": "EXERCISED_SUCCESS",
+      "cases": [
+        {
+          "case": "positive",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/capabilities/{item_id}",
+      "operation_id": "getCapability",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/CapabilityView",
+      "source_section": 29,
+      "policy": "read",
+      "success_cases": 2,
+      "denial_cases": 0,
+      "status": "EXERCISED_SUCCESS",
+      "cases": [
+        {
+          "case": "positive",
+          "status": 200
+        },
+        {
+          "case": "positive",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/capabilities/{item_id}/qualification",
+      "operation_id": "getCapabilityQualification",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Qualifications",
+      "source_section": 29,
+      "policy": "read",
+      "paged": true,
+      "success_cases": 1,
+      "denial_cases": 0,
+      "status": "EXERCISED_SUCCESS",
+      "cases": [
+        {
+          "case": "positive",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/capabilities/{item_id}/usage",
+      "operation_id": "getCapabilityUsage",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Usages",
+      "source_section": 29,
+      "policy": "read",
+      "query": [
+        "limit"
+      ],
+      "paged": true,
+      "default_limit": 20,
+      "success_cases": 1,
+      "denial_cases": 0,
+      "status": "EXERCISED_SUCCESS",
+      "cases": [
+        {
+          "case": "positive",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/capabilities/matrix",
+      "operation_id": "getQualificationMatrix",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Matrix",
+      "source_section": 29,
+      "policy": "read",
+      "paged": true,
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/generate/preview",
+      "operation_id": "previewGeneration",
+      "request": "api.execution.schema.json#/$defs/GeneratePreviewRequest",
+      "response": "api.execution.schema.json#/$defs/Generation",
+      "source_section": 30,
+      "policy": "verify_fast",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/generate/export",
+      "operation_id": "downloadGeneration",
+      "request": "api.execution.schema.json#/$defs/GenerateExportRequest",
+      "response": "api.execution.schema.json#/$defs/GeneratedDownload",
+      "source_section": 30,
+      "policy": "generation_export",
+      "if_match": "generated_content_hash",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/verify/run",
+      "operation_id": "startVerification",
+      "request": "api.execution.schema.json#/$defs/VerifyRequest",
+      "response": "api.execution.schema.json#/$defs/StartedRun",
+      "source_section": 31,
+      "policy": "verify_command",
+      "status": "NOT_RUN",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "cases": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/verify/runs",
+      "operation_id": "listVerificationRuns",
+      "request": null,
+      "response": "api.execution.schema.json#/$defs/VerificationRuns",
+      "source_section": 31,
+      "policy": "read",
+      "paged": true,
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/verify/runs/{run_id}",
+      "operation_id": "getVerificationRun",
+      "request": null,
+      "response": "api.execution.schema.json#/$defs/VerificationRun",
+      "source_section": 31,
+      "policy": "read",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/verify/runs/{run_id}/sarif",
+      "operation_id": "getRunSarif",
+      "request": null,
+      "response": "api.execution.schema.json#/$defs/Sarif",
+      "source_section": 31,
+      "policy": "read",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "WS",
+      "path": "/workspaces/{id}/verify/runs/{run_id}/stream",
+      "operation_id": "streamVerification",
+      "request": null,
+      "response": "api.execution.schema.json#/$defs/StreamFrame",
+      "source_section": 31,
+      "policy": "read",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/verify/runs/{run_id}/cancel",
+      "operation_id": "cancelVerification",
+      "request": null,
+      "response": "transport.schema.json#/$defs/Ack",
+      "source_section": 31,
+      "policy": "run_owner_or_governance_owner",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/evidence/tasks",
+      "operation_id": "listEvidenceTasks",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/EvidenceTasks",
+      "source_section": 32,
+      "policy": "read",
+      "query": [
+        "attention_flag",
+        "agent",
+        "date_from",
+        "date_to"
+      ],
+      "paged": true,
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/evidence/tasks/{task_id}",
+      "operation_id": "getEvidenceTask",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/EvidenceDetail",
+      "source_section": 32,
+      "policy": "read",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/evidence/tasks/{task_id}/events",
+      "operation_id": "getEvidenceEvents",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/EvidenceEvents",
+      "source_section": 32,
+      "policy": "read",
+      "paged": true,
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/evidence/tasks/{task_id}/submit-to-ci",
+      "operation_id": "prepareEvidencePr",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/EvidenceSubmission",
+      "source_section": 32,
+      "policy": "scoped_external_write",
+      "if_match": "evidence_source_hash",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/cps",
+      "operation_id": "listChangePackages",
+      "request": null,
+      "response": "api.change.schema.json#/$defs/Packages",
+      "source_section": 33,
+      "policy": "read",
+      "query": [
+        "status",
+        "kind",
+        "created_by",
+        "requires_role"
+      ],
+      "paged": true,
+      "success_cases": 1,
+      "denial_cases": 0,
+      "status": "EXERCISED_SUCCESS",
+      "cases": [
+        {
+          "case": "positive",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/cps",
+      "operation_id": "createChangePackage",
+      "request": "api.change.schema.json#/$defs/Create",
+      "response": "api.change.schema.json#/$defs/Package",
+      "source_section": 33,
+      "policy": "cp_create",
+      "status": "EXERCISED_SUCCESS",
+      "success_cases": 1,
+      "denial_cases": 0,
+      "cases": [
+        {
+          "case": "positive",
+          "status": 201
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/cps/{cp_id}",
+      "operation_id": "getChangePackage",
+      "request": null,
+      "response": "api.change.schema.json#/$defs/Package",
+      "source_section": 33,
+      "policy": "read",
+      "etag": "proposal_version_hash",
+      "success_cases": 1,
+      "denial_cases": 0,
+      "status": "EXERCISED_SUCCESS",
+      "cases": [
+        {
+          "case": "positive",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/workspaces/{id}/cps/{cp_id}",
+      "operation_id": "editChangePackage",
+      "request": "api.change.schema.json#/$defs/Edit",
+      "response": "api.change.schema.json#/$defs/Package",
+      "source_section": 33,
+      "policy": "cp_edit",
+      "if_match": "proposal_version_hash",
+      "success_cases": 0,
+      "denial_cases": 1,
+      "status": "NOT_RUN",
+      "cases": [
+        {
+          "case": "positive",
+          "status": 412
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/cps/{cp_id}/validate",
+      "operation_id": "validateChangePackage",
+      "request": null,
+      "response": "api.change.schema.json#/$defs/Package",
+      "source_section": 33,
+      "policy": "cp_edit_and_verify",
+      "if_match": "proposal_version_hash",
+      "status": "NOT_RUN",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "cases": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/cps/{cp_id}/preview",
+      "operation_id": "previewChangePackage",
+      "request": null,
+      "response": "api.change.schema.json#/$defs/Preview",
+      "source_section": 33,
+      "policy": "cp_edit",
+      "if_match": "proposal_version_hash",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/cps/{cp_id}/submit",
+      "operation_id": "submitChangePackage",
+      "request": null,
+      "response": "api.change.schema.json#/$defs/Package",
+      "source_section": 37,
+      "policy": "cp_edit",
+      "if_match": "proposal_version_hash",
+      "extension": "Workflow 37 step 6 and Appendix B require validated -> in_review; section 33 has no submit operation.",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/cps/{cp_id}/approve",
+      "operation_id": "decideChangePackage",
+      "request": "api.change.schema.json#/$defs/ApprovalRequest",
+      "response": "api.change.schema.json#/$defs/Package",
+      "source_section": 33,
+      "policy": "approval_slot",
+      "if_match": "proposal_version_hash",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/cps/{cp_id}/export",
+      "operation_id": "exportChangePackage",
+      "request": "api.change.schema.json#/$defs/ExportRequest",
+      "response": "api.change.schema.json#/$defs/Export",
+      "source_section": 33,
+      "policy": "approved_cp_scoped_grant",
+      "if_match": "proposal_version_hash",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/cps/{cp_id}/close",
+      "operation_id": "closeMergedChangePackage",
+      "request": null,
+      "response": "api.change.schema.json#/$defs/Package",
+      "source_section": 33,
+      "policy": "verified_ci_merge",
+      "if_match": "proposal_version_hash",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/adoptions",
+      "operation_id": "createAdoptionDraft",
+      "request": "api.change.schema.json#/$defs/AdoptionCreate",
+      "response": "api.change.schema.json#/$defs/Adoption",
+      "source_section": 34,
+      "policy": "cp_create",
+      "status": "NOT_RUN",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "cases": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/adoptions/{aid}",
+      "operation_id": "getAdoption",
+      "request": null,
+      "response": "api.change.schema.json#/$defs/Adoption",
+      "source_section": 34,
+      "policy": "read",
+      "etag": "proposal_version_hash",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/adoptions/{aid}/preview",
+      "operation_id": "previewAdoption",
+      "request": null,
+      "response": "api.change.schema.json#/$defs/Preview",
+      "source_section": 34,
+      "policy": "adoption_preview",
+      "if_match": "proposal_version_hash",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/adoptions/{aid}/apply",
+      "operation_id": "exportAdoption",
+      "request": "api.change.schema.json#/$defs/AdoptionApply",
+      "response": "api.change.schema.json#/$defs/Export",
+      "source_section": 34,
+      "policy": "adoption_apply",
+      "if_match": "proposal_version_hash",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/adoptions/{aid}/diff",
+      "operation_id": "getAdoptionDiff",
+      "request": null,
+      "response": "api.change.schema.json#/$defs/Preview",
+      "source_section": 34,
+      "policy": "read",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/metrics/current",
+      "operation_id": "getMetrics",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Metrics",
+      "source_section": 35,
+      "policy": "read",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces/{id}/metrics/history",
+      "operation_id": "getMetricsHistory",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/MetricsHistory",
+      "source_section": 35,
+      "policy": "read",
+      "query": [
+        "days"
+      ],
+      "paged": true,
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces/{id}/metrics/snapshot",
+      "operation_id": "captureMetrics",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/Metrics",
+      "source_section": 35,
+      "policy": "registered_source_read",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "GET",
+      "path": "/audit/events",
+      "operation_id": "listAuditEvents",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/AuditEvents",
+      "source_section": 35,
+      "policy": "read",
+      "query": [
+        "actor",
+        "event_type",
+        "date_from",
+        "date_to"
+      ],
+      "paged": true,
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "GET",
+      "path": "/audit/events/{id}",
+      "operation_id": "getAuditEvent",
+      "request": null,
+      "response": "api.read.schema.json#/$defs/AuditEvent",
+      "source_section": 35,
+      "policy": "read",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "GET",
+      "path": "/settings",
+      "operation_id": "getSettings",
+      "request": null,
+      "response": "settings.schema.json",
+      "source_section": 36,
+      "policy": "read",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/settings/roles",
+      "operation_id": "configureRoles",
+      "request": "settings.schema.json#/$defs/RolesPatch",
+      "response": "settings.schema.json",
+      "source_section": 36,
+      "policy": "installation_owner",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/settings/git",
+      "operation_id": "configureGit",
+      "request": "settings.schema.json#/$defs/GitPatch",
+      "response": "settings.schema.json",
+      "source_section": 36,
+      "policy": "installation_owner",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/settings/limits",
+      "operation_id": "configureLimits",
+      "request": "settings.schema.json#/$defs/LimitsPatch",
+      "response": "settings.schema.json",
+      "source_section": 36,
+      "policy": "installation_owner",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/settings/hosts",
+      "operation_id": "configureHosts",
+      "request": "settings.schema.json#/$defs/HostsPatch",
+      "response": "settings.schema.json",
+      "source_section": 36,
+      "policy": "installation_owner",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/settings/security",
+      "operation_id": "configureSecurity",
+      "request": "settings.schema.json#/$defs/SecurityPatch",
+      "response": "settings.schema.json",
+      "source_section": 36,
+      "policy": "installation_owner",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    },
+    {
+      "method": "POST",
+      "path": "/settings/test-signing",
+      "operation_id": "testSigning",
+      "request": null,
+      "response": "settings.schema.json#/$defs/SigningResult",
+      "source_section": 36,
+      "policy": "installation_owner",
+      "success_cases": 0,
+      "denial_cases": 0,
+      "status": "NOT_RUN",
+      "cases": []
+    }
+  ],
+  "source_written": false,
+  "state_written": false,
+  "native_hosts": "NOT_RUN",
+  "hosted_ci": "NOT_RUN"
+}

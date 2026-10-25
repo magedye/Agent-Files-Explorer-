@@ -1,0 +1,66 @@
+✖ T15 Windows job adapter captures normal stdout/stderr and enforces default profiles (2432.9397ms)
+✖ T15 actual timeout reaps root and child tree and retains partial output (2764.0457ms)
+✖ T15 actual hard memory limit produces memory_limit with no surviving process (2685.1802ms)
+✖ T15 user cancellation differs from resource limit and output is bounded (3382.784ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 0
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11822.2959
+
+✖ failing tests:
+
+test at tests\studio_job_runner.test.mjs:9:1
+✖ T15 Windows job adapter captures normal stdout/stderr and enforces default profiles (2432.9397ms)
+  Error: RESOURCE_ADAPTER_FAILED: Fatal Python error: _enter_buffered_busy: could not acquire lock for <_io.BufferedReader name='<stdin>'> at interpreter shutdown, possibly due to daemon threads
+  Python runtime state: finalizing (tstate=0x00007ffb79383d50)
+  
+  Current thread 0x00011b54 (most recent call first):
+    <no Python frame>
+  
+      at ChildProcess.<anonymous> (file:///D:/APP/Agent-Files-Explorer/server/studio/aghr/job-runner.js:41:111)
+      at ChildProcess.emit (node:events:508:28)
+      at maybeClose (node:internal/child_process:1101:16)
+      at ChildProcess._handle.onexit (node:internal/child_process:305:5)
+
+test at tests\studio_job_runner.test.mjs:15:1
+✖ T15 actual timeout reaps root and child tree and retains partial output (2764.0457ms)
+  Error: RESOURCE_ADAPTER_FAILED: Fatal Python error: _enter_buffered_busy: could not acquire lock for <_io.BufferedReader name='<stdin>'> at interpreter shutdown, possibly due to daemon threads
+  Python runtime state: finalizing (tstate=0x00007ffb79383d50)
+  
+  Current thread 0x00005bb4 (most recent call first):
+    <no Python frame>
+  
+      at ChildProcess.<anonymous> (file:///D:/APP/Agent-Files-Explorer/server/studio/aghr/job-runner.js:41:111)
+      at ChildProcess.emit (node:events:508:28)
+      at maybeClose (node:internal/child_process:1101:16)
+      at ChildProcess._handle.onexit (node:internal/child_process:305:5)
+
+test at tests\studio_job_runner.test.mjs:20:1
+✖ T15 actual hard memory limit produces memory_limit with no surviving process (2685.1802ms)
+  Error: RESOURCE_ADAPTER_FAILED: Fatal Python error: _enter_buffered_busy: could not acquire lock for <_io.BufferedReader name='<stdin>'> at interpreter shutdown, possibly due to daemon threads
+  Python runtime state: finalizing (tstate=0x00007ffb79383d50)
+  
+  Current thread 0x0000fbfc (most recent call first):
+    <no Python frame>
+  
+      at ChildProcess.<anonymous> (file:///D:/APP/Agent-Files-Explorer/server/studio/aghr/job-runner.js:41:111)
+      at ChildProcess.emit (node:events:508:28)
+      at maybeClose (node:internal/child_process:1101:16)
+      at ChildProcess._handle.onexit (node:internal/child_process:305:5)
+
+test at tests\studio_job_runner.test.mjs:25:1
+✖ T15 user cancellation differs from resource limit and output is bounded (3382.784ms)
+  Error: RESOURCE_ADAPTER_FAILED: Fatal Python error: _enter_buffered_busy: could not acquire lock for <_io.BufferedReader name='<stdin>'> at interpreter shutdown, possibly due to daemon threads
+  Python runtime state: finalizing (tstate=0x00007ffb79383d50)
+  
+  Current thread 0x0001168c (most recent call first):
+    <no Python frame>
+  
+      at ChildProcess.<anonymous> (file:///D:/APP/Agent-Files-Explorer/server/studio/aghr/job-runner.js:41:111)
+      at ChildProcess.emit (node:events:508:28)
+      at maybeClose (node:internal/child_process:1101:16)
+      at ChildProcess._handle.onexit (node:internal/child_process:305:5)

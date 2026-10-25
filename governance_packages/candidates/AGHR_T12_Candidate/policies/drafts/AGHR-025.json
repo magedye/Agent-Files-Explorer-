@@ -1,0 +1,44 @@
+{
+  "id": "AGHR-025",
+  "title": "إعادة محاولة آمنة",
+  "kind": "PROCEDURE",
+  "force": "MUST",
+  "severity": "high",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: After timeout, failure or resumption.\nCheck actual partial effects and current authorization before retry; use operation identity or reconciliation to prevent duplicate effects.",
+  "authority": {
+    "source": "drafting/OWNER_DIRECTIVE.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "PROVISIONAL_OWNER_REVIEW",
+    "status": "draft",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "إعادة المحاولة قد تكرر أثراً سبق تنفيذه جزئياً. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "review",
+    "mergeEffect": "advisory"
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-025"
+    ]
+  },
+  "impact": {
+    "band": "high",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2027-01-21",
+  "exceptions": {
+    "allowed": false
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

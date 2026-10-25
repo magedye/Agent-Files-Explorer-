@@ -1,0 +1,210 @@
+{
+  "status": "PASS",
+  "unsupported_causality": {
+    "status": 422,
+    "data": null,
+    "meta": {
+      "request_id": "209faf4b-b764-4620-818b-e7b27e80d123",
+      "recorded_at": "2026-10-24T18:11:08.807Z",
+      "contract_revision": "phase4-local.1",
+      "error": {
+        "code": "VALIDATION_FAILED",
+        "message": "CAUSE_EVIDENCE_UNVERIFIED",
+        "halted": true
+      }
+    }
+  },
+  "contract_validation": {
+    "valid": true,
+    "issues": []
+  },
+  "legacy": {
+    "id": "CP-528c3a46-2570-4a31-afd6-eeb15472aaf1",
+    "workspace_id": "rc3-local",
+    "title": "Causal review",
+    "kind": "GENERATED_FILE",
+    "target_item_id": null,
+    "status": "draft",
+    "source": {
+      "type": "lesson",
+      "ref": "runtime:causal-test",
+      "task_id": "causal-test",
+      "hash": "sha256:d48e24c1fb1e09b854fefb2c98669c5ce0274344bd96d6e7ef2ef6f9249317d1"
+    },
+    "base_package_version": "1.0.0-rc.3",
+    "base_candidate_hash": "sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2",
+    "proposed_yaml": "{\"files\": [{\"content\": \"{\\\"title\\\": \\\"Causal review\\\", \\\"task_id\\\": \\\"causal-test\\\", \\\"source_hash\\\": \\\"sha256:d48e24c1fb1e09b854fefb2c98669c5ce0274344bd96d6e7ef2ef6f9249317d1\\\", \\\"error\\\": \\\"Unproven failure\\\", \\\"pattern\\\": \\\"Review before claiming causality\\\", \\\"cause\\\": \\\"UNPROVEN\\\", \\\"knowledge_type\\\": \\\"lesson\\\", \\\"instruction_kind\\\": \\\"UNRESOLVED\\\", \\\"scope\\\": \\\"project\\\", \\\"authority_level\\\": \\\"UNRESOLVED\\\", \\\"disposition\\\": \\\"propose\\\", \\\"duplicates\\\": [], \\\"conflicts\\\": []}\", \"content_hash\": \"sha256:527d58e59f87ce3267054e43d6895cee8b33ddb8325ca9464b4b55945d60d98f\", \"path\": \"lessons/causal-test.json\"}], \"kind\": \"GENERATED_FILE\", \"target_project_id\": \"studio-drafts\"}",
+    "proposal_version_hash": "sha256:10ebbca2ed7fd1c6029e18b5a1149d6dc598d62ba5f232fa578eed63fa89e0af",
+    "checks": {
+      "validate": {
+        "status": "NOT_RUN",
+        "evidence": [],
+        "reason": "Required check has not run for this proposal version."
+      },
+      "lint": {
+        "status": "NOT_RUN",
+        "evidence": [],
+        "reason": "Required check has not run for this proposal version."
+      },
+      "skill_states": {
+        "status": "NOT_RUN",
+        "evidence": [],
+        "reason": "Required check has not run for this proposal version."
+      },
+      "generate": {
+        "status": "NOT_RUN",
+        "evidence": [],
+        "reason": "Required check has not run for this proposal version."
+      },
+      "doctor": {
+        "status": "NOT_RUN",
+        "evidence": [],
+        "reason": "Required check has not run for this proposal version."
+      },
+      "eval": {
+        "status": "NOT_RUN",
+        "evidence": [],
+        "reason": "Required check has not run for this proposal version."
+      }
+    },
+    "generation": null,
+    "ci_comparison": null,
+    "required_approvals": [
+      "governance-owner"
+    ],
+    "approvals": [],
+    "approval_history": [],
+    "blockers": [
+      {
+        "code": "CHECK_VALIDATE",
+        "message": "Required check has not run for this proposal version.",
+        "severity": "warning"
+      },
+      {
+        "code": "CHECK_LINT",
+        "message": "Required check has not run for this proposal version.",
+        "severity": "warning"
+      },
+      {
+        "code": "CHECK_GENERATE",
+        "message": "Required check has not run for this proposal version.",
+        "severity": "warning"
+      },
+      {
+        "code": "CHECK_DOCTOR",
+        "message": "Required check has not run for this proposal version.",
+        "severity": "warning"
+      }
+    ],
+    "created_by": "contract-owner",
+    "created_at": "2026-10-24T18:11:20.505Z",
+    "updated_at": "2026-10-24T18:11:20.505Z"
+  },
+  "extended": {
+    "id": "CP-528c3a46-2570-4a31-afd6-eeb15472aaf1",
+    "workspace_id": "rc3-local",
+    "title": "Causal review",
+    "kind": "GENERATED_FILE",
+    "target_item_id": null,
+    "status": "draft",
+    "source": {
+      "type": "lesson",
+      "ref": "runtime:causal-test",
+      "task_id": "causal-test",
+      "hash": "sha256:d48e24c1fb1e09b854fefb2c98669c5ce0274344bd96d6e7ef2ef6f9249317d1"
+    },
+    "base_package_version": "1.0.0-rc.3",
+    "base_candidate_hash": "sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2",
+    "proposed_yaml": "{\"files\": [{\"content\": \"{\\\"title\\\": \\\"Causal review\\\", \\\"task_id\\\": \\\"causal-test\\\", \\\"source_hash\\\": \\\"sha256:d48e24c1fb1e09b854fefb2c98669c5ce0274344bd96d6e7ef2ef6f9249317d1\\\", \\\"error\\\": \\\"Unproven failure\\\", \\\"pattern\\\": \\\"Review before claiming causality\\\", \\\"cause\\\": \\\"UNPROVEN\\\", \\\"knowledge_type\\\": \\\"lesson\\\", \\\"instruction_kind\\\": \\\"UNRESOLVED\\\", \\\"scope\\\": \\\"project\\\", \\\"authority_level\\\": \\\"UNRESOLVED\\\", \\\"disposition\\\": \\\"propose\\\", \\\"duplicates\\\": [], \\\"conflicts\\\": []}\", \"content_hash\": \"sha256:527d58e59f87ce3267054e43d6895cee8b33ddb8325ca9464b4b55945d60d98f\", \"path\": \"lessons/causal-test.json\"}], \"kind\": \"GENERATED_FILE\", \"target_project_id\": \"studio-drafts\"}",
+    "proposal_version_hash": "sha256:10ebbca2ed7fd1c6029e18b5a1149d6dc598d62ba5f232fa578eed63fa89e0af",
+    "phase4": {
+      "lane": "lesson",
+      "body": {
+        "title": "Causal review",
+        "task_id": "causal-test",
+        "source_hash": "sha256:d48e24c1fb1e09b854fefb2c98669c5ce0274344bd96d6e7ef2ef6f9249317d1",
+        "error": "Unproven failure",
+        "pattern": "Review before claiming causality",
+        "cause": "UNPROVEN",
+        "knowledge_type": "lesson",
+        "instruction_kind": "UNRESOLVED",
+        "scope": "project",
+        "authority_level": "UNRESOLVED",
+        "disposition": "propose",
+        "duplicates": [],
+        "conflicts": []
+      },
+      "policy_promotion": false,
+      "required_approvals": [
+        "governance-owner"
+      ],
+      "review_required": true
+    },
+    "checks": {
+      "validate": {
+        "status": "NOT_RUN",
+        "evidence": [],
+        "reason": "Required check has not run for this proposal version."
+      },
+      "lint": {
+        "status": "NOT_RUN",
+        "evidence": [],
+        "reason": "Required check has not run for this proposal version."
+      },
+      "skill_states": {
+        "status": "NOT_RUN",
+        "evidence": [],
+        "reason": "Required check has not run for this proposal version."
+      },
+      "generate": {
+        "status": "NOT_RUN",
+        "evidence": [],
+        "reason": "Required check has not run for this proposal version."
+      },
+      "doctor": {
+        "status": "NOT_RUN",
+        "evidence": [],
+        "reason": "Required check has not run for this proposal version."
+      },
+      "eval": {
+        "status": "NOT_RUN",
+        "evidence": [],
+        "reason": "Required check has not run for this proposal version."
+      }
+    },
+    "generation": null,
+    "ci_comparison": null,
+    "required_approvals": [
+      "governance-owner"
+    ],
+    "approvals": [],
+    "approval_history": [],
+    "blockers": [
+      {
+        "code": "CHECK_VALIDATE",
+        "message": "Required check has not run for this proposal version.",
+        "severity": "warning"
+      },
+      {
+        "code": "CHECK_LINT",
+        "message": "Required check has not run for this proposal version.",
+        "severity": "warning"
+      },
+      {
+        "code": "CHECK_GENERATE",
+        "message": "Required check has not run for this proposal version.",
+        "severity": "warning"
+      },
+      {
+        "code": "CHECK_DOCTOR",
+        "message": "Required check has not run for this proposal version.",
+        "severity": "warning"
+      }
+    ],
+    "created_by": "contract-owner",
+    "created_at": "2026-10-24T18:11:20.505Z",
+    "updated_at": "2026-10-24T18:11:20.505Z"
+  },
+  "source_written": false,
+  "state_written": false
+}

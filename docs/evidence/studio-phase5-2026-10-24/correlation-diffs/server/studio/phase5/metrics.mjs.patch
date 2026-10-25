@@ -1,0 +1,13 @@
+diff --git a/docs/evidence/studio-phase5-2026-10-24/correlation-before/server/studio/phase5/metrics.mjs.raw b/server/studio/phase5/metrics.mjs
+index 331b0e7..00258af 100644
+--- a/docs/evidence/studio-phase5-2026-10-24/correlation-before/server/studio/phase5/metrics.mjs.raw
++++ b/server/studio/phase5/metrics.mjs
+@@ -8,7 +8,7 @@ function metric(rows,predicate,unit='percent'){
+ export function calculateMetrics({project,host,version,period,observations,items=[],capabilities=[],at=new Date().toISOString()}){
+  const o=observations.filter(x=>x.project===project&&x.host===host&&x.version===version&&x.at>=period.from&&x.at<=period.to),group=k=>o.filter(x=>x.type===k);
+  const p0=items.filter(i=>i.priority?.startsWith('P0')),caps=capabilities.filter(c=>c.priority?.startsWith('P0'));
+- const known=(rows,predicate)=>metric(rows.filter(x=>x.observable!==false),predicate);
++ const known=(rows,predicate)=>({...metric(rows.filter(x=>x.observable!==false),predicate),excluded_unobservable:rows.filter(x=>x.observable===false).length});
+  const m={policy_coverage_pct:known(group('critical_path'),x=>x.covering_items?.length>0),eval_pass_rate_pct:known(group('behavioral'),passed),
+  exception_half_life_days:{value:null,status:'NOT_RUN',numerator:null,denominator:null,unit:'days',evidence:group('exception')},
+  drift_rate_pct:known(group('pr_generate_check'),x=>x.status==='FAIL'),calibration_coverage_pct:metric(p0,x=>x.impact_evidence==='repo-measured'),

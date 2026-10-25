@@ -1,0 +1,72 @@
+{
+  "scope": "Required fixes for this delivery; initial failed outputs retained",
+  "cases": [
+    {
+      "classification": "PRODUCT_DEFECT",
+      "issue": "Unknown grant could reach JSON input checking and return400",
+      "fix": "Check server-owned live grant and action/workspace/namespace before body parsing;403; revalidate at effect",
+      "evidence": "draft-checkpoint.initial-failed.txt"
+    },
+    {
+      "classification": "PRODUCT_DEFECT",
+      "issue": "Buffered stdin daemon held an interpreter shutdown lock",
+      "fix": "Raw OS pipe control reader, deterministic termination and watchdog lifecycle",
+      "evidence": "resources-checkpoint.initial-failed.txt"
+    },
+    {
+      "classification": "TEST_DEFECT / UNSUPPORTED_ASSUMPTION",
+      "issue": "Assumed PeakJobMemoryUsed must be <= configured cap; observed raw counter ~132MiB for128MiB",
+      "fix": "Keep raw diagnostic; require exact hard-limit readback/flags, actual allocation rejection, observed native memory-limit event and zero survivors. Internal counter interpretation remainsUNKNOWN",
+      "evidence": "resources-checkpoint.peak-failed.txt; memory-readback.txt; memory-allocation-diagnostic.json"
+    },
+    {
+      "classification": "TEST_DEFECT",
+      "issue": "1s/3s fixture deadlines expired during parallel Python startup in full suite",
+      "fix": "Fixture-only normal budget15s, tree-timeout10s; production600s/3600s/2GiB unchanged. Still assert actual deadline, partial output and full tree termination",
+      "evidence": "npm-test.initial-failed.txt"
+    },
+    {
+      "classification": "PRODUCT_DEFECT",
+      "issue": "E2 bare digest projected into contract Hash without sha256 prefix",
+      "fix": "Normalize and validate at adapter boundary; CP/schema and JavaScript JCS regression",
+      "evidence": "before/API_CONTRACTS.initial-failed.raw"
+    },
+    {
+      "classification": "TEST_DEFECT",
+      "issue": "Windows directory-only notifications classified as writes without metadata/content checks",
+      "fix": "Only exclude directories when birthtime, last-write-time and exact entries unchanged; verify built asset digests; all file/unknown events fail",
+      "evidence": "before/browser-initial/BROWSER_SENTINEL.json.raw"
+    },
+    {
+      "classification": "PRODUCT_DEFECT",
+      "issue": "Prior denied attempt for same CP could be selected as creation provenance",
+      "fix": "Select only immutable SUCCESS cp.create record; regression428 then201 on same intent/grant"
+    },
+    {
+      "classification": "PRODUCT_DEFECT",
+      "issue": "Editing inputs during asynchronous preparation could display a different proposal from prepared intent",
+      "fix": "Disable proposal inputs during requests; every subsequent edit clears intent/grant"
+    },
+    {
+      "classification": "PRODUCT_DEFECT",
+      "issue": "Repeated cold Python/schema imports exhausted the15s request deadline under test load; safe diagnostic confirmed DRAFT_PARSER_TIMEOUT",
+      "fix": "One read-only Python parser/schema process per Draft session;30s bounded bootstrap and unchanged15s per request; single active request; fail closed, no automatic restart. Earlier uninstrumented503 retains its unobserved cause",
+      "evidence": "npm-test.bounded-cold-worker-failed.txt; draft-worker-checkpoint.txt"
+    },
+    {
+      "classification": "PRODUCT_DEFECT",
+      "issue": "Initial canonical CP POST used an intent_id body instead of locked Create",
+      "fix": "Keep exact Create request schema. Bind its deep-equal already-validated bytes to server intent chosen by scoped grant; verify request+response schemas",
+      "evidence": "HTTP_CREATE_REQUEST.json; API_CONTRACTS.json"
+    },
+    {
+      "classification": "PRODUCT_DEFECT_PREVENTED_DURING_REVIEW",
+      "issue": "Streaming UTF8 could split multibyte characters between pipe chunks",
+      "fix": "Node UTF8 stream decoder, canonical payload consistency check, large Arabic/emoji regression"
+    }
+  ],
+  "tests_waived": 0,
+  "production_limits_weakened": false,
+  "independent_review": "NOT_PERFORMED",
+  "test_gate": "npm test uses two concurrent test files; no assertions skipped or weakened and no production resource limits changed."
+}

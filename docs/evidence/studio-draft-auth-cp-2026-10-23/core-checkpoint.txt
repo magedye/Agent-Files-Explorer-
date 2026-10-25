@@ -1,0 +1,17 @@
+(node:71452) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ T14 explicit disk mode persists/reopens 12 tables and truthful audit; no default activation (176.7556ms)
+✔ T14 migration is atomic: real SQLite denial rolls back, then authorized retry succeeds (17.3407ms)
+✔ T14 detects incompatible schemas and keeps approval history constraints (23.0661ms)
+✔ T13 server capabilities bind actor/project/action/resource/hash; labels and clones grant nothing (28.4772ms)
+✔ T13 expiry and revocation are rechecked at the effect; developer cannot issue grants (2.6135ms)
+✔ T13 actual HTTP checks server identity, denies role headers and scope-mismatched tokens (257.6815ms)
+✔ T13 importing backend and refusing legacy writes keeps the zero-write profile (864.2371ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1922.2742

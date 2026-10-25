@@ -140,6 +140,13 @@ export async function handleApiRequest(req, res) {
     return send(404, { error: "API route not found" });
   }
 
+  // Legacy mutation controllers are not connected to server-issued grants.
+  // Keep them closed; client role/token fields cannot activate this profile.
+  const previews = new Set(["/api/adoption/inspect", "/api/adoption/prepare"]);
+  if (req.method !== "GET" && !previews.has(u.pathname)) {
+    return send(403, { error: "Legacy writes disabled; a server-authorized mutation controller is required." });
+  }
+
   try {
     // -------------------------------------------------------------------------
     // 1. Core Health & Explorer Roots

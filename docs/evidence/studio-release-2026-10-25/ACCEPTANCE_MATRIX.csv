@@ -1,0 +1,23 @@
+gate,result,evidence,scope_or_gap
+T36,ACCEPTED_BY_OWNER,docs/governance/STUDIO_T37_T40_OWNER_DECISION_2026_10_25.md,Windows Edge local Draft only; retained59API169schema and16screen receipts
+T37_JS_LINE_COVERAGE,PASS_83.44_PERCENT,T37_CLOSURE.json,4642of5563lines across61server JS/MJS files; unloaded files included
+T37_PYTHON_COVERAGE,NOT_MEASURED,KNOWN_LIMITATIONS_AR.md,JS percentage does not establish Python or all-language backend coverage
+T37_PERFORMANCE,OWNER_ACCEPTED_ENVIRONMENTAL_LIMITATION,docs/evidence/studio-t37-2026-10-25/run-1792947697167/BENCHMARK.json,Original timing thresholds not met;8.400s cold6.235s validate11.458s index500; no optimization
+T37_CONCURRENCY,OWNER_ACCEPTED_DESIGN_LIMITATION,docs/evidence/studio-t37-2026-10-25/run-1792947697167/CP50.json,One active CP validation;1success49rate-limited; no queue added
+T37_REGRESSION,COMPOSED_VERIFICATION,T37_CLOSURE.json,npm168of169 then corrected affected1of1 plus3of3new legacy tests; no final full-green npm claim
+T37_RESOURCE_ENFORCEMENT,PASS_SCOPED_UNCHANGED_LIMITS,NPM_TEST_COVERAGE.log,Actual T15 timeout memory cancellation and process cleanup tests pass;30s600s3600s2GiB unchanged
+T38,ACCEPTED_BY_OWNER,docs/evidence/studio-t38-2026-10-25/SMOKE.json,Fresh Windows application pipx environment; startup403and token rotation; not cleanOSVM
+T39_FROZEN_SOURCE,PASS,FROZEN_CANDIDATE.json,568sourcefiles;280installer payload files; dirty-tree candidate bound by hashes
+T39_SELF_AUDIT,COMPLETED,T39_SELF_AUDIT_AR.md,Implementer audit; cannot establish independent review or release acceptance
+T39_INDEPENDENT_REVIEW,APPROVE_FOR_FROZEN_LOCAL_DRAFT,T39_INDEPENDENT_REVIEW.md,Fresh-context read-only agent; exact candidate hash; same infrastructure limits; no release or production acceptance
+T40_PACKET,PREPARED_PENDING_OWNER_SIGNATURE,T40_REPORT_AR.md,Owner decides internal Windows Draft delivery; no public release performed
+PUBLISHER_SIGNATURE,UNSIGNED_OWNER_ACCEPTED_WARNING,SIGNATURES.json,Hashes establish integrity only; owner signature remains pending
+DEVELOPMENT_DEPENDENCIES,DEFERRED_NOT_WAIVED,DEPENDENCIES.json,Two High dev dependencies from npm audit; production npm audit0; Python advisory scan not performed
+LEGACY_EVALUATION_STATUS,DEFERRED_NOT_WAIVED,T39_INDEPENDENT_REVIEW.md,Parsed stdout PASS can conflict with nonzero exit in legacy service; legacy POST routes disabled403; no product fix
+NATIVE_HOSTS,REQUIRED_NOT_RUN_NOT_WAIVED,KNOWN_LIMITATIONS_AR.md,Codex Antigravity live qualification absent; local-process proof does not substitute
+HOSTED_CI,REQUIRED_NOT_RUN_NOT_WAIVED,KNOWN_LIMITATIONS_AR.md,Hosted publication absent; sandbox CI and synthetic signatures remain scoped
+PRODUCTION_CALIBRATION,NOT_QUALIFIED_NOT_WAIVED,KNOWN_LIMITATIONS_AR.md,Section18.4production profile remains unqualified
+T06_T12_T19,CLOSED_FOR_OWNER_APPROVED_MOCK_ONLY,KNOWN_LIMITATIONS_AR.md,Real SEC001 remains blocked outside explicit fixtures
+REFERENCE_1_2_0,PRESERVED,BEFORE_AFTER.json,278tracked files unchanged; no promotion
+LINUX_MACOS,OUT_OF_SCOPE_BY_OWNER,docs/governance/STUDIO_WINDOWS_SCOPE_2026_10_25.md,Windows AMD64 CPython3.12Node24.11Edge only
+PUBLIC_RELEASE,NOT_AUTHORIZED,T40_REPORT_AR.md,No PyPI public hosting push or merge; stop for owner decision

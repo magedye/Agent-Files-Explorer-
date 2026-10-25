@@ -1,0 +1,49 @@
+{
+  "scope": "Observed local command results; hashes are not approval signatures",
+  "runs": [
+    {
+      "command": "npm test",
+      "exit_code": 0,
+      "raw": "npm-test.txt",
+      "passed": 77,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run build",
+      "exit_code": 0,
+      "raw": "build.txt",
+      "warning": "Existing large legacy bundle"
+    },
+    {
+      "command": "node tools/test_draft_studio_edge.mjs",
+      "exit_code": 0,
+      "raw": "browser-run.txt"
+    },
+    {
+      "command": "python -X utf8 -B verify_api_contracts.py",
+      "exit_code": 0,
+      "raw": "api-contracts.txt",
+      "contracts": 3
+    },
+    {
+      "command": "node activate_default_storage.mjs",
+      "exit_code": 0,
+      "raw": "storage-activation.txt"
+    },
+    {
+      "command": "node tools/check_context_health.mjs",
+      "exit_code": 0,
+      "raw": "context-health.txt",
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "command": "python -X utf8 -B verify_delivery.py",
+      "exit_code": 0,
+      "raw": "delivery-verification.txt",
+      "checks": 1600
+    }
+  ],
+  "initial_failures": "Retained with classifications in ROOT_CAUSES.json; no waiver"
+}

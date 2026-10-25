@@ -1,0 +1,1319 @@
+{
+  "status": "PASS",
+  "approval_fixture": "IMPORTED_TEST_ONLY; no T18 product approval",
+  "results": [
+    {
+      "phase": "validated",
+      "cp": {
+        "id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+        "workspace_id": "rc3-local",
+        "title": "E5 lifecycle",
+        "kind": "OBSERVATION",
+        "target_item_id": null,
+        "status": "validated",
+        "source": {
+          "type": "request",
+          "ref": "isolated-e5"
+        },
+        "base_package_version": "1.0.0-rc.3",
+        "base_candidate_hash": "sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2",
+        "proposed_yaml": "{\n  \"id\": \"OBS-E5-001\",\n  \"title\": \"رصد المرجع الافتراضي المعلن في مصدر التطبيق\",\n  \"kind\": \"OBSERVATION\",\n  \"force\": \"INFORMATIVE\",\n  \"severity\": \"info\",\n  \"scope\": {\n    \"paths\": [\n      \"server/security.js\"\n    ]\n  },\n  \"rule\": \"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\",\n  \"impact\": {\n    \"band\": \"info\",\n    \"evidence\": \"assumed\"\n  }\n}\r\n",
+        "proposal_version_hash": "sha256:e1112df5b38497ea993d068b3d43d4fa4a4c989e45229fd57790d23d8b275e13",
+        "checks": {
+          "validate": {
+            "status": "PASS",
+            "at": "2026-10-23T18:41:29.775Z",
+            "run_id": "VR-2c735bb8-fb8b-4b6f-86b5-1ee6b86c3aa8",
+            "evidence": [
+              {
+                "path": "sqlite:verification_runs/VR-2c735bb8-fb8b-4b6f-86b5-1ee6b86c3aa8",
+                "content_hash": "sha256:ce00ea72d61603b6baf1dd4e6bf168b48b2adb235fd6b0503b42ade2b5c19004",
+                "bytes": 5839
+              }
+            ]
+          },
+          "lint": {
+            "status": "PASS",
+            "at": "2026-10-23T18:41:29.775Z",
+            "run_id": "VR-2c735bb8-fb8b-4b6f-86b5-1ee6b86c3aa8",
+            "evidence": [
+              {
+                "path": "sqlite:verification_runs/VR-2c735bb8-fb8b-4b6f-86b5-1ee6b86c3aa8",
+                "content_hash": "sha256:ce00ea72d61603b6baf1dd4e6bf168b48b2adb235fd6b0503b42ade2b5c19004",
+                "bytes": 5839
+              }
+            ]
+          },
+          "skill_states": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "generate": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "doctor": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "eval": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          }
+        },
+        "generation": null,
+        "ci_comparison": null,
+        "required_approvals": [
+          "governance-owner"
+        ],
+        "approvals": [],
+        "approval_history": [],
+        "blockers": [
+          {
+            "code": "DRAFT_ONLY",
+            "message": "Draft/review only. Downstream E3/E4, T18 approvals and export remain gated.",
+            "severity": "warning"
+          }
+        ],
+        "created_by": "isolated-e5-owner",
+        "created_at": "2026-10-23T18:41:22.161Z",
+        "updated_at": "2026-10-23T18:41:29.775Z"
+      }
+    },
+    {
+      "phase": "submitted_not_approved",
+      "cp": {
+        "id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+        "workspace_id": "rc3-local",
+        "title": "E5 lifecycle",
+        "kind": "OBSERVATION",
+        "target_item_id": null,
+        "status": "in_review",
+        "source": {
+          "type": "request",
+          "ref": "isolated-e5"
+        },
+        "base_package_version": "1.0.0-rc.3",
+        "base_candidate_hash": "sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2",
+        "proposed_yaml": "{\n  \"id\": \"OBS-E5-001\",\n  \"title\": \"رصد المرجع الافتراضي المعلن في مصدر التطبيق\",\n  \"kind\": \"OBSERVATION\",\n  \"force\": \"INFORMATIVE\",\n  \"severity\": \"info\",\n  \"scope\": {\n    \"paths\": [\n      \"server/security.js\"\n    ]\n  },\n  \"rule\": \"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\",\n  \"impact\": {\n    \"band\": \"info\",\n    \"evidence\": \"assumed\"\n  }\n}\r\n",
+        "proposal_version_hash": "sha256:e1112df5b38497ea993d068b3d43d4fa4a4c989e45229fd57790d23d8b275e13",
+        "checks": {
+          "validate": {
+            "status": "PASS",
+            "at": "2026-10-23T18:41:29.775Z",
+            "run_id": "VR-2c735bb8-fb8b-4b6f-86b5-1ee6b86c3aa8",
+            "evidence": [
+              {
+                "path": "sqlite:verification_runs/VR-2c735bb8-fb8b-4b6f-86b5-1ee6b86c3aa8",
+                "content_hash": "sha256:ce00ea72d61603b6baf1dd4e6bf168b48b2adb235fd6b0503b42ade2b5c19004",
+                "bytes": 5839
+              }
+            ]
+          },
+          "lint": {
+            "status": "PASS",
+            "at": "2026-10-23T18:41:29.775Z",
+            "run_id": "VR-2c735bb8-fb8b-4b6f-86b5-1ee6b86c3aa8",
+            "evidence": [
+              {
+                "path": "sqlite:verification_runs/VR-2c735bb8-fb8b-4b6f-86b5-1ee6b86c3aa8",
+                "content_hash": "sha256:ce00ea72d61603b6baf1dd4e6bf168b48b2adb235fd6b0503b42ade2b5c19004",
+                "bytes": 5839
+              }
+            ]
+          },
+          "skill_states": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "generate": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "doctor": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "eval": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          }
+        },
+        "generation": null,
+        "ci_comparison": null,
+        "required_approvals": [
+          "governance-owner"
+        ],
+        "approvals": [],
+        "approval_history": [],
+        "blockers": [
+          {
+            "code": "DRAFT_ONLY",
+            "message": "Draft/review only. Downstream E3/E4, T18 approvals and export remain gated.",
+            "severity": "warning"
+          }
+        ],
+        "created_by": "isolated-e5-owner",
+        "created_at": "2026-10-23T18:41:22.161Z",
+        "updated_at": "2026-10-23T18:41:29.937Z"
+      }
+    },
+    {
+      "phase": "edited_invalidated",
+      "cp": {
+        "id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+        "workspace_id": "rc3-local",
+        "title": "E5 lifecycle",
+        "kind": "OBSERVATION",
+        "target_item_id": null,
+        "status": "draft",
+        "source": {
+          "type": "request",
+          "ref": "isolated-e5"
+        },
+        "base_package_version": "1.0.0-rc.3",
+        "base_candidate_hash": "sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2",
+        "proposed_yaml": "{\n  \"id\": \"OBS-E5-001\",\n  \"title\": \"رصد المرجع الافتراضي المعلن في مصدر التطبيق\",\n  \"kind\": \"OBSERVATION\",\n  \"force\": \"INFORMATIVE\",\n  \"severity\": \"info\",\n  \"scope\": {\n    \"paths\": [\n      \"server/security.js\"\n    ]\n  },\n  \"rule\": \"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT. New evidence pending.\",\n  \"impact\": {\n    \"band\": \"info\",\n    \"evidence\": \"assumed\"\n  }\n}\r\n",
+        "proposal_version_hash": "sha256:116cf816527f54dc1effb99711ac8d52137223d1737a3c60f24207f78af91f00",
+        "checks": {
+          "validate": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "lint": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "skill_states": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "generate": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "doctor": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "eval": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          }
+        },
+        "generation": null,
+        "ci_comparison": null,
+        "required_approvals": [
+          "governance-owner"
+        ],
+        "approvals": [],
+        "approval_history": [
+          {
+            "decision": {
+              "id": 1,
+              "package_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+              "role": "governance-owner",
+              "approver": "fixture-owner",
+              "decision": "approve",
+              "approved_version_hash": "sha256:e1112df5b38497ea993d068b3d43d4fa4a4c989e45229fd57790d23d8b275e13",
+              "reason": "IMPORTED_TEST_ONLY",
+              "at": "2026-10-23T00:00:00Z"
+            },
+            "invalidated_at": "2026-10-23T18:41:30.523Z",
+            "invalidation_reason": "proposal_changed"
+          }
+        ],
+        "blockers": [
+          {
+            "code": "DRAFT_ONLY",
+            "message": "Draft/review only. Downstream E3/E4, T18 approvals and export remain gated.",
+            "severity": "warning"
+          }
+        ],
+        "created_by": "isolated-e5-owner",
+        "created_at": "2026-10-23T18:41:22.161Z",
+        "updated_at": "2026-10-23T18:41:30.523Z"
+      }
+    },
+    {
+      "phase": "native_blocked_no_mock",
+      "cp": {
+        "id": "CP-2026-097fbe6d-7ef1-4ad5-b445-ad195983297a",
+        "workspace_id": "rc3-local",
+        "title": "E5 lifecycle",
+        "kind": "PRINCIPLE",
+        "target_item_id": null,
+        "status": "draft",
+        "source": {
+          "type": "request",
+          "ref": "isolated-e5"
+        },
+        "base_package_version": "1.0.0-rc.3",
+        "base_candidate_hash": "sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2",
+        "proposed_yaml": "{\n  \"id\": \"AGHR-001\",\n  \"title\": \"مرجعية المطور التقنية\",\n  \"kind\": \"PRINCIPLE\",\n  \"force\": \"MUST\",\n  \"severity\": \"high\",\n  \"scope\": {\n    \"paths\": [\n      \"**\"\n    ]\n  },\n  \"rule\": \"Applies when: Always.\\nUse applicable official model and host developer references as the first technical authority; classify recommendations and examples by scope.\",\n  \"authority\": {\n    \"source\": \"drafting/OWNER_DIRECTIVE.json\",\n    \"level\": \"project\",\n    \"owner\": \"Platform Governance Team\",\n    \"approvedBy\": \"PROVISIONAL_OWNER_REVIEW\",\n    \"status\": \"draft\",\n    \"effectiveFrom\": \"2026-10-23\"\n  },\n  \"rationale\": \"اختيار مرجع تقني غير مناسب يفسد قرارات التطوير. PROVISIONAL_OWNER_REVIEW\",\n  \"enforcement\": {\n    \"textual\": true,\n    \"failureAction\": \"review\",\n    \"mergeEffect\": \"advisory\"\n  },\n  \"verification\": {\n    \"evalFixtures\": [\n      \"drafting/eval-fixtures.json#/AGHR-001\"\n    ]\n  },\n  \"impact\": {\n    \"band\": \"high\",\n    \"evidence\": \"assumed\"\n  },\n  \"reviewCadence\": \"Owner review before activation and after material changes\",\n  \"nextReview\": \"2027-01-21\",\n  \"exceptions\": {\n    \"allowed\": false\n  },\n  \"references\": [\n    \"drafting/OWNER_DIRECTIVE.json\"\n  ]\n}\r\n",
+        "proposal_version_hash": "sha256:43198e0d9970a6a68d158899d5dd9b4a6dc2035b3513abb71c5a0e540a339882",
+        "checks": {
+          "validate": {
+            "status": "FAIL",
+            "at": "2026-10-23T18:41:42.337Z",
+            "run_id": "VR-eed2ec74-5a00-4b8c-bf72-5b8a2c344be4",
+            "evidence": [
+              {
+                "path": "sqlite:verification_runs/VR-eed2ec74-5a00-4b8c-bf72-5b8a2c344be4",
+                "content_hash": "sha256:4abe92373c56dd3cd234eae5cbe682c4bed59bbd915ee6f5bfc547becafeaef1",
+                "bytes": 6727
+              }
+            ],
+            "reason": "BLOCKED: AUTHORITY_SOURCE_UNVERIFIED, AUTHORITY_NOT_ACTIVE"
+          },
+          "lint": {
+            "status": "FAIL",
+            "at": "2026-10-23T18:41:42.337Z",
+            "run_id": "VR-eed2ec74-5a00-4b8c-bf72-5b8a2c344be4",
+            "evidence": [
+              {
+                "path": "sqlite:verification_runs/VR-eed2ec74-5a00-4b8c-bf72-5b8a2c344be4",
+                "content_hash": "sha256:4abe92373c56dd3cd234eae5cbe682c4bed59bbd915ee6f5bfc547becafeaef1",
+                "bytes": 6727
+              }
+            ],
+            "reason": "BLOCKED: AUTHORITY_SOURCE_UNVERIFIED, AUTHORITY_NOT_ACTIVE"
+          },
+          "skill_states": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "generate": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "doctor": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "eval": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          }
+        },
+        "generation": null,
+        "ci_comparison": null,
+        "required_approvals": [
+          "governance-owner"
+        ],
+        "approvals": [],
+        "approval_history": [],
+        "blockers": [
+          {
+            "code": "DRAFT_ONLY",
+            "message": "Draft/review only. Downstream E3/E4, T18 approvals and export remain gated.",
+            "severity": "warning"
+          }
+        ],
+        "created_by": "isolated-e5-owner",
+        "created_at": "2026-10-23T18:41:36.713Z",
+        "updated_at": "2026-10-23T18:41:42.337Z"
+      }
+    }
+  ],
+  "audit": [
+    {
+      "id": 1,
+      "at": "2026-10-23T18:41:17.887Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "storage.initialize",
+      "workspace_id": "rc3-local",
+      "resource_type": "storage",
+      "resource_id": "C:\\Users\\Majed\\AppData\\Local\\Temp\\aghr-e5-XGRJsx\\studio.sqlite",
+      "payload_json": "{\"migrationHash\":\"d5ab6a5fa8dc3be95927d3f9871ed393a3d7f7206e102dae6f2721492dde2159\",\"version\":1}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 2,
+      "at": "2026-10-23T18:41:17.906Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "draft.workspace.initialize",
+      "workspace_id": "rc3-local",
+      "resource_type": "workspace",
+      "resource_id": "rc3-local",
+      "payload_json": "{\"result\":\"SUCCESS\",\"read_only\":true}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 3,
+      "at": "2026-10-23T18:41:21.984Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "draft.preview",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"28342eeb-f2bb-4e47-868d-8489d968281f\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 4,
+      "at": "2026-10-23T18:41:22.080Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "draft.preview",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":200,\"reason\":\"Structural preview only; waiting for trusted operator grant\",\"request_id\":\"28342eeb-f2bb-4e47-868d-8489d968281f\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 5,
+      "at": "2026-10-23T18:41:22.113Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "authorization.grant",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"GRANT_ISSUED\",\"status\":200,\"reason\":\"Trusted local operator approved exact draft intent\",\"request_id\":\"313f7a5e-06d8-4221-be27-2fc7ca4a0a71\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 6,
+      "at": "2026-10-23T18:41:22.144Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.create",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"7cc7703d-c2fb-4bf3-861f-5c902e8d1bf2\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 7,
+      "at": "2026-10-23T18:41:22.164Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.create",
+      "workspace_id": "rc3-local",
+      "resource_type": "package",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"SUCCESS\",\"base_candidate_hash\":\"sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2\",\"source\":{\"type\":\"request\",\"ref\":\"isolated-e5\"},\"structural_check\":\"PASS\",\"strict_check\":\"NOT_RUN\",\"request_id\":\"28342eeb-f2bb-4e47-868d-8489d968281f\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 8,
+      "at": "2026-10-23T18:41:22.183Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"9fa4b276-d060-4f56-b103-85a5053679e7\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 9,
+      "at": "2026-10-23T18:41:22.254Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "authorization.grant",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"GRANT_ISSUED\",\"status\":200,\"reason\":\"Trusted local operator approved exact draft intent\",\"request_id\":\"22a27a08-5bc3-4bbc-bb0d-d869709f4dcc\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 10,
+      "at": "2026-10-23T18:41:22.274Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"da6857bf-46a1-4e90-add7-1bc49fb72523\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 11,
+      "at": "2026-10-23T18:41:22.290Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.submit",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"ERROR\",\"status\":409,\"reason\":\"VALIDATION_FAILED\",\"request_id\":\"da6857bf-46a1-4e90-add7-1bc49fb72523\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 12,
+      "at": "2026-10-23T18:41:22.321Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"6e1154a9-0b11-4a28-972e-79b5c12d07c6\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 13,
+      "at": "2026-10-23T18:41:22.371Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "authorization.grant",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"GRANT_ISSUED\",\"status\":200,\"reason\":\"Trusted local operator approved exact draft intent\",\"request_id\":\"47ef0717-8970-4a82-874e-427474b4f9a4\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 14,
+      "at": "2026-10-23T18:41:22.389Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"54b1a447-b29d-4746-8fb5-538614019b4b\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 15,
+      "at": "2026-10-23T18:41:29.777Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.validate",
+      "workspace_id": "rc3-local",
+      "resource_type": "package",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"SUCCESS\",\"validation_result\":\"VALID\",\"run_id\":\"VR-2c735bb8-fb8b-4b6f-86b5-1ee6b86c3aa8\",\"proposal_version_hash\":\"sha256:e1112df5b38497ea993d068b3d43d4fa4a4c989e45229fd57790d23d8b275e13\",\"report_hash\":\"sha256:ce00ea72d61603b6baf1dd4e6bf168b48b2adb235fd6b0503b42ade2b5c19004\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 16,
+      "at": "2026-10-23T18:41:29.808Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"016d559f-c0ce-4d31-b092-f9cd3013f0ab\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 17,
+      "at": "2026-10-23T18:41:29.890Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "authorization.grant",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"GRANT_ISSUED\",\"status\":200,\"reason\":\"Trusted local operator approved exact draft intent\",\"request_id\":\"1dcc15c6-5f9c-4a16-815f-7a25ef2a8a8e\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 18,
+      "at": "2026-10-23T18:41:29.913Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"b8ddab94-8bc6-418c-9146-04cd5c61ebb8\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 19,
+      "at": "2026-10-23T18:41:29.939Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.submit",
+      "workspace_id": "rc3-local",
+      "resource_type": "package",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"SUCCESS\",\"proposal_version_hash\":\"sha256:e1112df5b38497ea993d068b3d43d4fa4a4c989e45229fd57790d23d8b275e13\",\"approval\":\"NOT_GRANTED\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 20,
+      "at": "2026-10-23T18:41:29.955Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"c9108ae6-665b-4fac-b28d-3edf2835748a\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 21,
+      "at": "2026-10-23T18:41:29.967Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"DENY\",\"status\":403,\"reason\":\"FORBIDDEN\",\"request_id\":\"c9108ae6-665b-4fac-b28d-3edf2835748a\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 22,
+      "at": "2026-10-23T18:41:29.989Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"5a9a8068-9d39-4a2e-8a47-f2f406fb7281\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 23,
+      "at": "2026-10-23T18:41:30.001Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"DENY\",\"status\":403,\"reason\":\"FORBIDDEN\",\"request_id\":\"5a9a8068-9d39-4a2e-8a47-f2f406fb7281\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 24,
+      "at": "2026-10-23T18:41:30.072Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"9af74388-8183-4e71-bcfa-b083a06dabaa\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 25,
+      "at": "2026-10-23T18:41:30.144Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "authorization.grant",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"GRANT_ISSUED\",\"status\":200,\"reason\":\"Trusted local operator approved exact draft intent\",\"request_id\":\"7c927db6-18e4-4d6c-bea6-6d9bdd8d0e0c\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 26,
+      "at": "2026-10-23T18:41:30.161Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"94d06c3b-0889-450b-bd09-5a1d1b083ec9\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 27,
+      "at": "2026-10-23T18:41:30.174Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.edit_any",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"ERROR\",\"status\":428,\"reason\":\"STALE_PROPOSAL\",\"request_id\":\"94d06c3b-0889-450b-bd09-5a1d1b083ec9\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 28,
+      "at": "2026-10-23T18:41:30.202Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"832e88c1-8512-4fc1-9ee3-33eb28b9d331\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 29,
+      "at": "2026-10-23T18:41:30.219Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.edit_any",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"ERROR\",\"status\":412,\"reason\":\"STALE_PROPOSAL\",\"request_id\":\"832e88c1-8512-4fc1-9ee3-33eb28b9d331\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 30,
+      "at": "2026-10-23T18:41:30.247Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"278d32ef-5546-4ecf-a963-583029ae7c13\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 31,
+      "at": "2026-10-23T18:41:30.274Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.edit_any",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"ERROR\",\"status\":503,\"reason\":\"INTERNAL_ERROR\",\"request_id\":\"278d32ef-5546-4ecf-a963-583029ae7c13\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 32,
+      "at": "2026-10-23T18:41:30.305Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"a5bb6d29-1e02-4b29-b82d-e938f0f57198\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 33,
+      "at": "2026-10-23T18:41:30.379Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "authorization.grant",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"GRANT_ISSUED\",\"status\":200,\"reason\":\"Trusted local operator approved exact draft intent\",\"request_id\":\"093e96b3-7dc5-437b-a270-07d1d7f01bb7\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 34,
+      "at": "2026-10-23T18:41:30.403Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"d444207e-d5ac-421f-92e5-953ede491c2c\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 35,
+      "at": "2026-10-23T18:41:30.470Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "authorization.grant",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"GRANT_ISSUED\",\"status\":200,\"reason\":\"Trusted local operator approved exact draft intent\",\"request_id\":\"028ab708-2019-46e8-9728-f2df42362796\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 36,
+      "at": "2026-10-23T18:41:30.492Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"9b6e69aa-3095-47c9-9aad-771423e9d1b5\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 37,
+      "at": "2026-10-23T18:41:30.525Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.edit_any",
+      "workspace_id": "rc3-local",
+      "resource_type": "package",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"SUCCESS\",\"before_hash\":\"sha256:e1112df5b38497ea993d068b3d43d4fa4a4c989e45229fd57790d23d8b275e13\",\"after_hash\":\"sha256:116cf816527f54dc1effb99711ac8d52137223d1737a3c60f24207f78af91f00\",\"invalidated\":true}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 38,
+      "at": "2026-10-23T18:41:30.541Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"1ca03d51-d1ec-4b1d-ad69-ab0ac1aa04ee\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 39,
+      "at": "2026-10-23T18:41:30.560Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.edit_any",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"DENY\",\"status\":403,\"reason\":\"FORBIDDEN\",\"request_id\":\"1ca03d51-d1ec-4b1d-ad69-ab0ac1aa04ee\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 40,
+      "at": "2026-10-23T18:41:30.577Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"fe0a3ab3-d7b9-40ba-a902-06dae5d1f19d\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 41,
+      "at": "2026-10-23T18:41:30.591Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.edit_any",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"ERROR\",\"status\":412,\"reason\":\"STALE_PROPOSAL\",\"request_id\":\"fe0a3ab3-d7b9-40ba-a902-06dae5d1f19d\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 42,
+      "at": "2026-10-23T18:41:30.608Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"4f87490f-41df-4ce1-9314-e6d33ca79f8c\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 43,
+      "at": "2026-10-23T18:41:30.704Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "authorization.grant",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"GRANT_ISSUED\",\"status\":200,\"reason\":\"Trusted local operator approved exact draft intent\",\"request_id\":\"7d7289f9-9fda-4f91-aa75-8ebba73a5a8c\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 44,
+      "at": "2026-10-23T18:41:30.738Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"8753fb74-9411-4161-92d6-dd70ed735425\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 45,
+      "at": "2026-10-23T18:41:30.770Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.submit",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"ERROR\",\"status\":409,\"reason\":\"VALIDATION_FAILED\",\"request_id\":\"8753fb74-9411-4161-92d6-dd70ed735425\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 46,
+      "at": "2026-10-23T18:41:30.789Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"ff1bdb6c-dd1b-4988-9e55-8a13d2c82bcd\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 47,
+      "at": "2026-10-23T18:41:30.889Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "authorization.grant",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"GRANT_ISSUED\",\"status\":200,\"reason\":\"Trusted local operator approved exact draft intent\",\"request_id\":\"3bc8e887-07d8-4cf5-8849-6d72f467742f\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 48,
+      "at": "2026-10-23T18:41:30.935Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"bdcab0a2-0f2d-4ef1-bf57-093394c46b24\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 49,
+      "at": "2026-10-23T18:41:30.970Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.edit_any",
+      "workspace_id": "rc3-local",
+      "resource_type": "package",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"SUCCESS\",\"before_hash\":\"sha256:116cf816527f54dc1effb99711ac8d52137223d1737a3c60f24207f78af91f00\",\"after_hash\":\"sha256:116cf816527f54dc1effb99711ac8d52137223d1737a3c60f24207f78af91f00\",\"invalidated\":false}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 50,
+      "at": "2026-10-23T18:41:31.038Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"3ea992fa-9a2e-436a-b771-a3d19481ab39\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 51,
+      "at": "2026-10-23T18:41:31.138Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "authorization.grant",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"GRANT_ISSUED\",\"status\":200,\"reason\":\"Trusted local operator approved exact draft intent\",\"request_id\":\"626962f2-38f7-4d21-93a2-1622363ed365\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 52,
+      "at": "2026-10-23T18:41:31.158Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"1ade0817-0c8e-47b7-960a-74a4e0e0b11f\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 53,
+      "at": "2026-10-23T18:41:36.437Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.validate",
+      "workspace_id": "rc3-local",
+      "resource_type": "package",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"SUCCESS\",\"validation_result\":\"VALID\",\"run_id\":\"VR-f99bc4ed-fc2d-4761-9f17-a1280e781c89\",\"proposal_version_hash\":\"sha256:116cf816527f54dc1effb99711ac8d52137223d1737a3c60f24207f78af91f00\",\"report_hash\":\"sha256:8cb8d057adce8f64e711eed782236d2ef53c3be11ba44cb619f617b8979537db\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 54,
+      "at": "2026-10-23T18:41:36.456Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"e77a4002-7f04-443d-bfd6-d8884799b41b\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 55,
+      "at": "2026-10-23T18:41:36.524Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "authorization.grant",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"GRANT_ISSUED\",\"status\":200,\"reason\":\"Trusted local operator approved exact draft intent\",\"request_id\":\"e4784f2a-a017-4c45-98f6-22db9d6782d4\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 56,
+      "at": "2026-10-23T18:41:36.540Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"5a598e05-0927-4d26-9981-4231fdcbbe72\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 57,
+      "at": "2026-10-23T18:41:36.575Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.submit",
+      "workspace_id": "rc3-local",
+      "resource_type": "package",
+      "resource_id": "CP-2026-dcd4f420-a5e6-44bb-beef-e67cf9053db2",
+      "payload_json": "{\"result\":\"SUCCESS\",\"proposal_version_hash\":\"sha256:116cf816527f54dc1effb99711ac8d52137223d1737a3c60f24207f78af91f00\",\"approval\":\"NOT_GRANTED\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 58,
+      "at": "2026-10-23T18:41:36.595Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "draft.preview",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"87ce82d1-463d-420a-8b00-1f47659bafb6\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 59,
+      "at": "2026-10-23T18:41:36.666Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "draft.preview",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":200,\"reason\":\"Structural preview only; waiting for trusted operator grant\",\"request_id\":\"87ce82d1-463d-420a-8b00-1f47659bafb6\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 60,
+      "at": "2026-10-23T18:41:36.680Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "authorization.grant",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": "CP-2026-097fbe6d-7ef1-4ad5-b445-ad195983297a",
+      "payload_json": "{\"result\":\"GRANT_ISSUED\",\"status\":200,\"reason\":\"Trusted local operator approved exact draft intent\",\"request_id\":\"ead1d52f-5ce3-4930-a380-5bcef395c616\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 61,
+      "at": "2026-10-23T18:41:36.701Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.create",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"627d8ee4-e80f-47f5-a0c0-2c3237030fd3\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 62,
+      "at": "2026-10-23T18:41:36.716Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.create",
+      "workspace_id": "rc3-local",
+      "resource_type": "package",
+      "resource_id": "CP-2026-097fbe6d-7ef1-4ad5-b445-ad195983297a",
+      "payload_json": "{\"result\":\"SUCCESS\",\"base_candidate_hash\":\"sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2\",\"source\":{\"type\":\"request\",\"ref\":\"isolated-e5\"},\"structural_check\":\"PASS\",\"strict_check\":\"NOT_RUN\",\"request_id\":\"87ce82d1-463d-420a-8b00-1f47659bafb6\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 63,
+      "at": "2026-10-23T18:41:36.733Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"d0a40fa1-b6ed-492b-b120-21064793f0fc\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 64,
+      "at": "2026-10-23T18:41:36.803Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "authorization.grant",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": "CP-2026-097fbe6d-7ef1-4ad5-b445-ad195983297a",
+      "payload_json": "{\"result\":\"GRANT_ISSUED\",\"status\":200,\"reason\":\"Trusted local operator approved exact draft intent\",\"request_id\":\"9dc458e5-3f27-4a5b-8014-47380ba1fdb5\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 65,
+      "at": "2026-10-23T18:41:36.821Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"006bb8a2-266e-4191-973f-f04ea0bdd514\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 66,
+      "at": "2026-10-23T18:41:42.340Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.validate",
+      "workspace_id": "rc3-local",
+      "resource_type": "package",
+      "resource_id": "CP-2026-097fbe6d-7ef1-4ad5-b445-ad195983297a",
+      "payload_json": "{\"result\":\"SUCCESS\",\"validation_result\":\"BLOCKED\",\"run_id\":\"VR-eed2ec74-5a00-4b8c-bf72-5b8a2c344be4\",\"proposal_version_hash\":\"sha256:43198e0d9970a6a68d158899d5dd9b4a6dc2035b3513abb71c5a0e540a339882\",\"report_hash\":\"sha256:4abe92373c56dd3cd234eae5cbe682c4bed59bbd915ee6f5bfc547becafeaef1\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 67,
+      "at": "2026-10-23T18:41:42.358Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"e9815e1f-5533-4df6-96b0-edc3e92d1cb2\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 68,
+      "at": "2026-10-23T18:41:42.445Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "authorization.grant",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": "CP-2026-097fbe6d-7ef1-4ad5-b445-ad195983297a",
+      "payload_json": "{\"result\":\"GRANT_ISSUED\",\"status\":200,\"reason\":\"Trusted local operator approved exact draft intent\",\"request_id\":\"ec328cb0-ffa9-44cb-b9aa-99c20e772ab2\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 69,
+      "at": "2026-10-23T18:41:42.461Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "write.unsupported",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": null,
+      "payload_json": "{\"result\":\"ATTEMPT\",\"status\":null,\"reason\":\"Request received; authorization not yet established\",\"request_id\":\"0a115f65-5b36-4129-bc53-caee19bd496b\"}",
+      "ip_address": null,
+      "user_agent": null
+    },
+    {
+      "id": 70,
+      "at": "2026-10-23T18:41:42.475Z",
+      "actor": "isolated-e5-owner",
+      "actor_role": "governance-owner",
+      "simulated_role": null,
+      "event_type": "cp.submit",
+      "workspace_id": "rc3-local",
+      "resource_type": "draft",
+      "resource_id": "CP-2026-097fbe6d-7ef1-4ad5-b445-ad195983297a",
+      "payload_json": "{\"result\":\"ERROR\",\"status\":409,\"reason\":\"VALIDATION_FAILED\",\"request_id\":\"0a115f65-5b36-4129-bc53-caee19bd496b\"}",
+      "ip_address": null,
+      "user_agent": null
+    }
+  ]
+}

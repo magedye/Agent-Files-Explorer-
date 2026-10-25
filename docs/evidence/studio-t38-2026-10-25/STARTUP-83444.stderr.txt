@@ -1,0 +1,22 @@
+INTERNAL DRAFT CANDIDATE � GPG NOT_CONFIGURED; unsigned warning; no public/release acceptance.
+(node:72724) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node.EXE --trace-warnings ...` to show where the warning was created)
+node:fs:560
+  return binding.open(
+                 ^
+
+Error: ENOENT: no such file or directory, open 'D:\APP\Agent-Files-Explorer\temp\t38-pipx-smoke-v3\venvs\aghr-studio\Lib\site-packages\aghr_studio\payload\docs\evidence\studio-draft-auth-cp-2026-10-23\resources-checkpoint.txt'
+    at Object.openSync (node:fs:560:18)
+    at Object.readFileSync (node:fs:444:35)
+    at createVerificationService (file:///D:/APP/Agent-Files-Explorer/temp/t38-pipx-smoke-v3/venvs/aghr-studio/Lib/site-packages/aghr_studio/payload/server/studio/verification-service.js:18:117)
+    at createDraftStudio (file:///D:/APP/Agent-Files-Explorer/temp/t38-pipx-smoke-v3/venvs/aghr-studio/Lib/site-packages/aghr_studio/payload/server/studio/draft-runtime.js:53:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async createUnifiedStudio (file:///D:/APP/Agent-Files-Explorer/temp/t38-pipx-smoke-v3/venvs/aghr-studio/Lib/site-packages/aghr_studio/payload/server/studio/unified-runtime.mjs:18:15)
+    at async file:///D:/APP/Agent-Files-Explorer/temp/t38-pipx-smoke-v3/venvs/aghr-studio/Lib/site-packages/aghr_studio/payload/server/studio/serve-studio.mjs:37:14 {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'D:\\APP\\Agent-Files-Explorer\\temp\\t38-pipx-smoke-v3\\venvs\\aghr-studio\\Lib\\site-packages\\aghr_studio\\payload\\docs\\evidence\\studio-draft-auth-cp-2026-10-23\\resources-checkpoint.txt'
+}
+
+Node.js v24.11.0

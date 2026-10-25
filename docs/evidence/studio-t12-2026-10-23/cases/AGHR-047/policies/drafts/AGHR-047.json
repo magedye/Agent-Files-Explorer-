@@ -1,0 +1,44 @@
+{
+  "id": "AGHR-047",
+  "title": "انطباق المعايير وحدود ادعاء المطابقة",
+  "kind": "REQUIREMENT",
+  "force": "MUST",
+  "severity": "high",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: When using external standards, frameworks or sector guidance.\nIdentify edition, amendments, document type, scope and competent applicability decision; distinguish source text from original engineering synthesis. Teaching layers do not establish authority; no full compliance, certification or clause-level claims from metadata-only review. Apply humanitarian guidance only where relevant.",
+  "authority": {
+    "source": "drafting/OWNER_DIRECTIVE.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "PROVISIONAL_OWNER_REVIEW",
+    "status": "draft",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "دعوى امتثال من بيانات وصفية قد تنتج التزاماً تعاقدياً غير مثبت. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "review",
+    "mergeEffect": "advisory"
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-047"
+    ]
+  },
+  "impact": {
+    "band": "high",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2027-01-21",
+  "exceptions": {
+    "allowed": false
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

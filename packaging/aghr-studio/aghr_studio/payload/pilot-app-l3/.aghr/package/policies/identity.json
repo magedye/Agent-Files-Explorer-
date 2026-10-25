@@ -1,0 +1,31 @@
+{
+  "kind": "CONSTRAINT",
+  "force": "MUST",
+  "severity": "medium",
+  "scope": {
+    "paths": [
+      "**/*"
+    ]
+  },
+  "rationale": "Owner-authorized sandbox adoption; no authority outside this project.",
+  "authority": {
+    "source": "owner://T34-T35/2026-10-25/pilot-app-l3",
+    "level": "project",
+    "owner": "Sandbox Project Owner",
+    "approvedBy": "OWNER_T34_T35_20261025",
+    "status": "active",
+    "effectiveFrom": "2026-10-25"
+  },
+  "impact": {
+    "band": "medium",
+    "evidence": "assumed"
+  },
+  "verification": {
+    "commands": [
+      "python -B checks.py"
+    ]
+  },
+  "id": "PILOT-IDENTITY-001",
+  "title": "Project identity in public read responses",
+  "rule": "Read API responses MUST identify this sandbox project. Do not claim authority over another project."
+}

@@ -1,0 +1,19 @@
+diff --git "a/docs\\evidence\\studio-phase1-2026-10-23\\before\\.gitattributes.raw" b/.gitattributes
+index c88cb21..9840a23 100644
+--- "a/docs\\evidence\\studio-phase1-2026-10-23\\before\\.gitattributes.raw"
++++ b/.gitattributes
+@@ -43,3 +43,14 @@
+ /tools/t06/** -text
+ /tests/studio_t06_mock.test.mjs -text
+ /.gitignore -text
++
++# Phase 1 read-only source and evidence custody.
++/src/features/instructions/** -text
++/src/features/capabilities/** -text
++/src/features/profiles/** -text
++/tests/studio_phase1_read.test.mjs -text
++/tools/prepare_phase1_sample.mjs -text
++/tools/phase1_browser_cases.mjs -text
++/tools/test_phase1_edge.mjs -text
++/docs/features/STUDIO_PHASE1_READ_ONLY.md -text
++/tools/seal_phase1_evidence.mjs -text

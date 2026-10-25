@@ -1,0 +1,66 @@
+
+> aghr-governance-studio@1.0.0 test
+> node --test tests/*.test.mjs
+
+✔ M2 Reference Explorer: Default summary uses AGHR 1.2.0 with exact counts (102.7883ms)
+✔ M2 Reference Explorer: Rules search and filtering (2.0409ms)
+✔ M2 Reference Explorer: Rule details with basis sources and coverage (8.9674ms)
+✔ M2 Reference Explorer: Packages endpoint returns all registered governance packages (4.2037ms)
+✔ M2 Reference Explorer: Omitted package uses 1.2.0 while historical IDs stay explicit (18.2068ms)
+✔ M2 Reference Explorer: Compare AGHR 1.0.0 vs AGHR 1.1.0 returns typed structural delta (3.8062ms)
+✔ M2 Reference Explorer: Updated 1.2.0 is registered with scoped reference status (1.3929ms)
+✔ M2 Reference Explorer: Impact analysis for modified rule (1.2441ms)
+✔ M3 Intake: Compound statement decomposition (2.1204ms)
+✔ M3 Intake: 2-Layer classification of domain concern and normative force (11.0526ms)
+✔ M3 Intake: Conflict detection against existing rules triggers REJECT proposal (3.3848ms)
+✔ M3 Intake: Submit intake request generates persistent ChangePacket (17.0589ms)
+✔ M4 Adoption: Empty discovery when data/ was removed (3.7468ms)
+✔ M4 Adoption: Prepares adoption plan without silent destruction (5.1639ms)
+✔ M6 Governed Staging & Apply: Staging, Precondition Drift, and Authorized Apply (73.418ms)
+✔ UI locales: every message has Arabic/English copy and matching parameters (10.9193ms)
+✔ UI locales: stored preference chooses language and matching direction (1.9026ms)
+✔ UI locales: absent, corrupt or unavailable storage preserves the Arabic default (0.9268ms)
+✔ UI locales: interpolation preserves mixed input, dollar signs and zero counts (0.7799ms)
+✔ INBOX custody receipt detects changed bytes or file set (853.3622ms)
+✔ M1 Security: Approved Roots Listing (8.4906ms)
+✔ M1 Security: Reject Path Traversal via rootId + rel (3.1082ms)
+✔ M1 Security: Reject Null Byte Injection (0.7723ms)
+✔ M1 Security: Reject Absolute Path in relPath (0.7183ms)
+✔ M1 Security: Reject Arbitrary Client Path outside Approved Roots (1.3834ms)
+✔ M1 Security: Reject Protected Files (.git, .env) (3.5381ms)
+✔ M1 API Endpoint: GET /api/roots returns approved roots safely (10.2838ms)
+✔ M1 API Endpoint: GET /api/tree with traversal attempt returns 403 (12.8787ms)
+✔ M1 API Endpoint: GET /api/file within approved root succeeds (4.5327ms)
+✔ M1 API Endpoint: GET /api/file requesting protected file returns 403 (9.4735ms)
+✔ T02 source identity and command injection boundary (9002.5403ms)
+✔ T02 audited Python launcher denies filesystem, subprocess and network effects (12466.2776ms)
+✔ T02 malformed, absent, forged status/exit and foreign engine reject (1.8126ms)
+✔ T06 candidate selection keeps engine pinned, refuses invalid structures and does not fabricate critical acceptance (35385.5426ms)
+(node:46468) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ T03 real scan, twelve memory tables, immutable raw source and absence (9090.0262ms)
+✔ T03 synthetic due/future lifecycle, capability absence states and atomic rollback (42.6162ms)
+✔ Contract JSONL: multiple lines round-trip without changing original bytes or granting trust (12.3894ms)
+✔ Contract JSONL: CRLF and optional final newline preserve source bytes and line locations (1.3083ms)
+✔ Contract JSONL: duplicate records are reported, never counted as extra successful use (5.4145ms)
+✔ Contract JSONL: duplicate JSON keys and noncanonical foreign JSON remain unsupported originals (1.8065ms)
+✔ Contract JSONL: task or immutable session mismatch blocks import of the entire file (2.0512ms)
+✔ Contract JSONL: a session can acquire an end time, but cannot rewrite it (3.8515ms)
+✔ Contract JSONL: malformed UTF-8, BOM, YAML and blank records keep their original bytes (1.6641ms)
+✔ Contract JSONL: multiple events on one line cannot overwrite the SQL source-line identity (2.9833ms)
+✔ Contract JSONL: byte, line and record-count limits reject bounded inputs explicitly (2.5398ms)
+✔ Contract canonical JSON: UTF-16 ordering, array order and Unicode text are stable (2.8663ms)
+✔ Contract schema bundling preserves literal dollar properties and opaque JSON instance values (4.3922ms)
+(node:57992) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ T04 actual HTTP session, list/detail, query, identity, mutation and origin rejection (12104.6634ms)
+✔ T04 synthetic pagination preserves every ID and binds cursor to filters (492.3792ms)
+✔ T04 credential rotation and expiry (12.1583ms)
+ℹ tests 50
+ℹ suites 0
+ℹ pass 50
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 59093.8763

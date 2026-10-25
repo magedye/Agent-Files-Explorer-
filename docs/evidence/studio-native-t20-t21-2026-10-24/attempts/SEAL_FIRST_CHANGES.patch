@@ -1,0 +1,1109 @@
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/server/studio/draft-runtime.js.raw b/server/studio/draft-runtime.js
+index f61b9d7..c3fd0ac 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/server/studio/draft-runtime.js.raw
++++ b/server/studio/draft-runtime.js
+@@ -5,8 +5,12 @@ import {openPersistentStore,storageScope} from './db/persistent.js';
+ import {createBoundedValidator as createDraftValidator} from './aghr/bounded-validator.js';
+ import {createDraftRoutes} from './draft-routes.js';
+ import {engineRoot} from './aghr/cli-bridge.js';
++import {createSchemaReader} from './schema-reader.js';
++import {createVerificationService} from './verification-service.js';
++import {createEvidenceReader} from './evidence-reader.js';
++import {createExecutionRoutes} from './execution-routes.js';
+ 
+-export async function createDraftStudio({python,storageRoot,actor,clock=Date.now}={}){
++export async function createDraftStudio({python,storageRoot,actor,clock=Date.now,evidenceProjectRoot=null,e4Config}={}){
+  if(typeof actor!=='string'||!actor.trim())throw Error('TRUSTED_OPERATOR_REQUIRED');
+  const read=await createStudio({python,actor,bounded:true});let store,validator;
+  try{
+@@ -37,8 +41,11 @@ export async function createDraftStudio({python,storageRoot,actor,clock=Date.now
+    const result=await validator.attestRun(payload,actor);store.attestSource(cp.id,cp.proposal_version_hash,actor,result.data);return {id,proposal_version_hash:cp.proposal_version_hash,level:result.data.level};
+   };
+   const revokeIntent=id=>{const intent=intents.get(id);if(!intent)throw Error('INTENT_UNAVAILABLE');if(intent.grant)authority.revoke({issuer:owner.principal,token:intent.grant});intent.revoked=true;store.recordAttempt({actor,role:'governance-owner',action:'authorization.revoke',resourceId:intent.prepared.id,result:'DENY',status:403,reason:'Trusted operator revoked draft intent',requestId:id});};
+-  return {session:{token:owner.token},workspace,authority,store,intents,approveIntent,revokeIntent,attestSource,
+-   handle:createDraftRoutes({authority,store,intents,validate,validator,workspace,clock,audit,read:read.handle}),
+-   close(){validator.close();store.close();read.close();}};
++  const schema=createSchemaReader({python}),evidence=createEvidenceReader({projectRoot:evidenceProjectRoot,schema});
++  const verification=createVerificationService({python,workspace,store,validator,schema,e4Config});
++  const fallback=createDraftRoutes({authority,store,intents,validate,validator,workspace,clock,audit,read:read.handle});
++  return {session:{token:owner.token},workspace,authority,store,intents,approveIntent,revokeIntent,attestSource,verification,
++   handle:createExecutionRoutes({workspace,authority,store,intents,verification,evidence,clock,audit,fallback}),
++   close(){const finish=()=>{validator.close();store.close();read.close();};const pending=verification.close();if(pending)return pending.then(finish);finish();}};
+  }catch(error){validator?.close();store?.close();read.close();throw error;}
+ }
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/server/studio/db/persistent.js.raw b/server/studio/db/persistent.js
+index 36b30ee..1a072c3 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/server/studio/db/persistent.js.raw
++++ b/server/studio/db/persistent.js
+@@ -247,6 +247,28 @@ export function openPersistentStore(config,authorization){
+    if(!row)throw new StudioError(404,'NOT_FOUND','No current patch artifact.');
+    const event=JSON.parse(row.payload_json);return {bytes:artifacts.read(event.artifact),name:path.basename(event.artifact.path)};
+   },
++  beginVerification(receipt,run,grantScope){
++   const actor=consumeAuthorization(receipt,{...scope,action:grantScope.action,resource_id:run.id,proposal_version_hash:run.inputs_hash});
++   if(!/^verify\.run\./.test(actor.action)||run.workspace_id!==scope.workspace_id||run.status!=='running')throw Error('VERIFICATION_SCOPE_MISMATCH');
++   transaction(()=>{
++    db.prepare('INSERT INTO verification_runs(id,workspace_id,command,args_json,status,started_at,summary_json,raw_stdout,raw_stderr,raw_output,triggered_by,triggered_by_user) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)')
++     .run(run.id,scope.workspace_id,run.command,JSON.stringify(run.args),run.status,run.started_at,JSON.stringify({studio_t20:run}),run.raw_stdout,run.raw_stderr,run.raw_output,'user',actor.authenticated_actor);
++    append(actor,{event_type:actor.action,resource_type:'verification',payload:{result:'SUCCESS',inputs_hash:run.inputs_hash,run_id:run.id,status:'running'}});
++   });
++   let closed=false;
++   // The capability is held only by the server queue; the client cannot update
++   // a run, forge raw output, or turn it into a CP approval/eval projection.
++   return (snapshot,receiptRaw=null)=>{
++    if(closed||snapshot.id!==run.id||snapshot.inputs_hash!==run.inputs_hash||snapshot.workspace_id!==scope.workspace_id)throw Error('VERIFICATION_CUSTODY_MISMATCH');
++    transaction(()=>{
++     db.prepare('UPDATE verification_runs SET status=?,exit_code=?,finished_at=?,duration_ms=?,resource_peak_mb=?,summary_json=?,raw_stdout=?,raw_stderr=?,raw_output=? WHERE id=? AND workspace_id=?')
++      .run(snapshot.status,snapshot.exit_code,snapshot.finished_at,snapshot.duration_ms,snapshot.resource_peak_mib,JSON.stringify({studio_t20:snapshot,receipt_raw:receiptRaw}),snapshot.raw_stdout,snapshot.raw_stderr,snapshot.raw_output,run.id,scope.workspace_id);
++     if(snapshot.status!=='running')append(actor,{event_type:actor.action,resource_type:'verification',payload:{result:'SUCCESS',run_id:run.id,status:snapshot.status,exit_code:snapshot.exit_code,inputs_hash:snapshot.inputs_hash}});
++    });
++    if(snapshot.status!=='running')closed=true;
++   };
++  },
++  verificationRuns(){return db.prepare('SELECT summary_json FROM verification_runs WHERE workspace_id=? ORDER BY started_at DESC,id DESC LIMIT 500').all(scope.workspace_id).map(r=>{try{return JSON.parse(r.summary_json||'{}').studio_t20;}catch{return null;}}).filter(Boolean);},
+   drafts(){return db.prepare('SELECT * FROM change_packages WHERE workspace_id=? ORDER BY created_at DESC,id LIMIT 100').all(scope.workspace_id).map(cpView);},
+   draft(id){return cpView(db.prepare('SELECT * FROM change_packages WHERE workspace_id=? AND id=?').get(scope.workspace_id,id));},
+   close(){db.close();},
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/server/studio/serve-draft.mjs.raw b/server/studio/serve-draft.mjs
+index 13459de..e825b0f 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/server/studio/serve-draft.mjs.raw
++++ b/server/studio/serve-draft.mjs
+@@ -8,7 +8,7 @@ import {repository} from './aghr/cli-bridge.js';
+ import {createJobRunner,resourceProfiles} from './aghr/job-runner.js';
+ 
+ const args=new Map(process.argv.slice(2).map(arg=>{const i=arg.indexOf('=');if(i<0)throw Error('Use --name=value');return [arg.slice(0,i),arg.slice(i+1)];}));
+-if([...args.keys()].some(k=>!['--python','--port','--storage-root'].includes(k)))throw Error('Unknown Draft startup option');
++if([...args.keys()].some(k=>!['--python','--port','--storage-root','--evidence-project'].includes(k)))throw Error('Unknown Draft startup option');
+ const python=args.get('--python')||process.env.AGHR_STUDIO_PYTHON;
+ const port=Number(args.get('--port')||5182);if(!Number.isInteger(port)||port<0||port>65535)throw Error('Invalid port');
+ // Bootstrap is an explicit local operator action. No HTTP identity/role/grant
+@@ -25,7 +25,7 @@ createJobRunner({python});
+ const assets=new Map(),dist=path.join(repository,'dist');
+ function preload(dir){for(const e of fs.readdirSync(dir,{withFileTypes:true})){const p=path.join(dir,e.name);if(e.isSymbolicLink())throw Error('Static reparse point');if(e.isDirectory())preload(p);else assets.set('/'+path.relative(dist,p).split(path.sep).join('/'),fs.readFileSync(p));}}
+ preload(dist);if(!assets.has('/draft.html'))throw Error('Build Draft Studio before startup');
+-const studio=await createDraftStudio({python,storageRoot,actor});
++const studio=await createDraftStudio({python,storageRoot,actor,evidenceProjectRoot:args.get('--evidence-project')||null});
+ const server=http.createServer((req,res)=>{
+  if(req.url?.startsWith('/api/'))return studio.handle(req,res);
+  if(req.method!=='GET'||!['127.0.0.1','::ffff:127.0.0.1'].includes(req.socket.remoteAddress)||!/^127\.0\.0\.1:\d+$/.test(req.headers.host||'')){res.writeHead(403);return res.end();}
+@@ -35,7 +35,7 @@ const server=http.createServer((req,res)=>{
+  res.writeHead(200,{'Content-Type':route.endsWith('.html')?'text/html; charset=utf-8':route.endsWith('.js')?'text/javascript; charset=utf-8':route.endsWith('.css')?'text/css; charset=utf-8':'application/octet-stream','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Content-Security-Policy':"default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; object-src 'none'; frame-ancestors 'none'"});res.end(bytes);
+ });
+ let closing=false;
+-function stop(){if(closing)return;closing=true;server.close(()=>{studio.close();process.exit(0);});}
++function stop(){if(closing)return;closing=true;server.close(async()=>{await studio.close();process.exit(0);});}
+ server.on('error',error=>{studio.close();console.error(error.code);process.exit(1);});
+ server.listen(port,'127.0.0.1',()=>{
+  const ready={event:'ready',port:server.address().port,token:studio.session.token,storage:studio.store.file,tables:studio.store.tables.length,actor,mode:'DRAFT',resourceProfiles};
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/src/features/changes/DraftStudio.jsx.raw b/src/features/changes/DraftStudio.jsx
+index d96d237..d1b56f0 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/src/features/changes/DraftStudio.jsx.raw
++++ b/src/features/changes/DraftStudio.jsx
+@@ -1,7 +1,10 @@
+-import {useRef,useState} from 'react';
++import {useCallback,useRef,useState} from 'react';
+ import {useI18n} from '../../i18n/I18nProvider.jsx';
+ import {Badge,Empty,useText} from '../phase0/common.jsx';
+ import ReviewPanel from './ReviewPanel.jsx';
++import Verification from '../verification/Verification.jsx';
++import RuntimeEvidence from '../runtime/RuntimeEvidence.jsx';
++import '../verification/execution.css';
+ 
+ const kinds=['OBSERVATION','PRINCIPLE','CONSTRAINT','REQUIREMENT','PROCEDURE','GUIDELINE','POLICY','RULE','STANDARD','CONTROL','DECISION','EXCEPTION','CAPABILITY'];
+ export default function DraftStudio(){
+@@ -11,10 +14,10 @@ export default function DraftStudio(){
+  const [intent,setIntent]=useState(null),[grant,setGrant]=useState(null),[packages,setPackages]=useState([]),[selected,setSelected]=useState(null),[audit,setAudit]=useState([]),[tab,setTab]=useState('drafts');
+  const [editYaml,setEditYaml]=useState(''),[artifact,setArtifact]=useState(null);
+  const base=status?'/workspaces/'+status.workspace.id+'/change-packages':null;
+- const api=async(route,method='GET',body,headers={})=>{
++ const api=useCallback(async(route,method='GET',body,headers={})=>{
+   const response=await fetch('/api/v1'+route,{method,headers:{'X-Studio-Token':token.current,...(body===undefined?{}:{'Content-Type':'application/json'}),...headers},...(body===undefined?{}:{body:JSON.stringify(body)})});
+   const result=await response.json();if(!response.ok)throw Error(`${response.status} · ${result.meta?.error?.code||'REQUEST_FAILED'} · ${result.meta?.error?.message||''}`);return result.data;
+- };
++ },[]);
+  const work=async run=>{setBusy(true);setError('');try{await run();}catch(e){setError(e.message);}finally{setBusy(false);}};
+  const connect=event=>{event.preventDefault();token.current=credential;setCredential('');work(async()=>{const s=await api('/session'),profile=await api('/draft-status');setSession(s);setStatus(profile);setPackages(await api('/workspaces/'+profile.workspace.id+'/change-packages'));});};
+  const changed=setter=>event=>{setter(event.target.value);setIntent(null);setGrant(null);};
+@@ -33,11 +36,11 @@ export default function DraftStudio(){
+  });
+  const openAudit=()=>work(async()=>{setAudit(await api('/audit-events'));setTab('audit');});
+  return <div className="p0-shell"><a className="p0-skip" href="#draft-main">{t('انتقل إلى المحتوى','Skip to content')}</a>
+- <header className="p0-header"><div><span className="p0-kicker">AGHR · GOVERNANCE STUDIO</span><h1>{t('حزم التغيير','Change packages')}</h1><p>{t('مسودات محفوظة، وصلاحية محددة لكل عملية.','Saved drafts, with scoped authorization for each change.')}</p></div><label>{t('لغة الواجهة','Interface language')} <select data-testid="draft-locale" value={locale} onChange={e=>setLocale(e.target.value)}><option value="ar">العربية</option><option value="en">English</option></select></label></header>
++ <header className="p0-header"><div><span className="p0-kicker">AGHR · GOVERNANCE STUDIO</span><h1>{t('حزم التغيير','Change packages')}</h1><p>{t('مسودات محفوظة، وصلاحية محددة لكل عملية.','Saved drafts, with scoped authorization for each change.')}</p></div><label>{t('لغة الواجهة','Interface language')} <select id="draft-locale" data-testid="draft-locale" value={locale} onChange={e=>setLocale(e.target.value)}><option value="ar">العربية</option><option value="en">English</option></select></label></header>
+  <div className="p0-banner"><Badge code="DRAFT">{t('مسودات فقط','Drafts only')}</Badge> {t('المرجع 1.2.0 محفوظ. الحفظ لا يعتمد قاعدة أو ينشر حزمة.','Reference 1.2.0 is preserved. Saving neither adopts a rule nor publishes a package.')}</div>
+  {!session?<main id="draft-main" className="p0-login"><h2>{t('جلسة المشغل المحلي','Local operator session')}</h2><form onSubmit={connect}><label htmlFor="draft-token">{t('رمز الجلسة من الخادم','Session credential from server')}</label><input id="draft-token" type="password" autoComplete="off" required value={credential} onChange={e=>setCredential(e.target.value)}/><button disabled={busy}>{t('اتصال','Connect')}</button></form></main>:<main id="draft-main" className="p0-content draft-content">
+- <div className="draft-toolbar"><span><bdi>{session.authenticated_actor}</bdi> · <Badge code={session.server_resolved_role}/></span><span>{t('SQLite دائمة · 12 جدولًا','Persistent SQLite · 12 tables')}</span><nav aria-label={t('عرض المسودات والتدقيق','Draft and audit views')}><button aria-pressed={tab==='drafts'} onClick={()=>setTab('drafts')}>{t('المسودات','Drafts')}</button><button aria-pressed={tab==='audit'} onClick={openAudit} disabled={busy}>{t('سجل التدقيق','Audit log')}</button></nav></div>
+- {tab==='audit'?<section><h2>{t('محاولات الكتابة وقراراتها','Write attempts and outcomes')}</h2><div className="p0-table-wrap"><table><thead><tr>{[t('الوقت','Time'),t('الفاعل','Actor'),t('العملية','Action'),t('النتيجة','Outcome')].map(v=><th key={v}>{v}</th>)}</tr></thead><tbody>{audit.slice().reverse().map(e=><tr key={e.id}><td><bdi>{e.at}</bdi></td><td>{e.actor}</td><td><bdi>{e.event_type}</bdi></td><td><bdi>{JSON.parse(e.payload_json||'{}')?.result||'SUCCESS'}</bdi></td></tr>)}</tbody></table></div></section>:<div className="draft-grid">
++ <div className="draft-toolbar"><span><bdi>{session.authenticated_actor}</bdi> · <Badge code={session.server_resolved_role}/></span><span>{t('SQLite دائمة · 12 جدولًا','Persistent SQLite · 12 tables')}</span><nav aria-label={t('عرض المسودات والتدقيق','Draft and audit views')}><button aria-pressed={tab==='drafts'} onClick={()=>setTab('drafts')}>{t('المسودات','Drafts')}</button><button aria-pressed={tab==='audit'} onClick={openAudit} disabled={busy}>{t('سجل التدقيق','Audit log')}</button><button data-testid="verification-nav" aria-pressed={tab==='verification'} onClick={()=>setTab('verification')}>{t('التحقق','Verification')}</button><button data-testid="runtime-nav" aria-pressed={tab==='runtime'} onClick={()=>setTab('runtime')}>{t('الأدلة التشغيلية','Runtime evidence')}</button></nav></div>
++ {tab==='verification'?<Verification api={api} workspace={status.workspace.id}/>:tab==='runtime'?<RuntimeEvidence api={api} workspace={status.workspace.id}/>:tab==='audit'?<section><h2>{t('محاولات الكتابة وقراراتها','Write attempts and outcomes')}</h2><div className="p0-table-wrap"><table><thead><tr>{[t('الوقت','Time'),t('الفاعل','Actor'),t('العملية','Action'),t('النتيجة','Outcome')].map(v=><th key={v}>{v}</th>)}</tr></thead><tbody>{audit.slice().reverse().map(e=><tr key={e.id}><td><bdi>{e.at}</bdi></td><td>{e.actor}</td><td><bdi>{e.event_type}</bdi></td><td><bdi>{JSON.parse(e.payload_json||'{}')?.result||'SUCCESS'}</bdi></td></tr>)}</tbody></table></div></section>:<div className="draft-grid">
+  <section><h2>{t('مسودة جديدة','New draft')}</h2><p className="p0-hint">{t('يعالج E5 المقترح وبصمته في Python. الحفظ يفحص البنية؛ زر التحقق يشغّل سياسات E2 دون منح سلطة للمقترح.','Python E5 processes the proposal and hash. Save checks structure; validation runs E2 policy without granting authority to the proposal.')}</p>
+  <form onSubmit={prepare} className="draft-form"><label htmlFor="cp-title">{t('العنوان','Title')}</label><input id="cp-title" disabled={busy} required value={title} onChange={changed(setTitle)} maxLength={500}/><label htmlFor="cp-kind">{t('نوع البند','Item kind')}</label><select id="cp-kind" disabled={busy} value={kind} onChange={changed(setKind)}>{kinds.map(k=><option key={k}>{k}</option>)}</select><label htmlFor="cp-origin">{t('مرجع الطلب','Request reference')}</label><input id="cp-origin" disabled={busy} required value={origin} onChange={changed(setOrigin)} maxLength={1000}/><label htmlFor="cp-yaml">{t('مقترح البند · YAML أو JSON','Item proposal · YAML or JSON')}</label><textarea id="cp-yaml" disabled={busy} dir="ltr" rows={16} required spellCheck="false" value={yaml} onChange={changed(setYaml)} aria-describedby="cp-limit"/><small id="cp-limit">{t('بند واحد، حتى 64 KiB مع بيانات الطلب. لا تعديلات على المصدر.','One item, up to 64 KiB including request metadata. Source files stay unchanged.')}</small><button disabled={busy} data-testid="prepare-draft">{t('فحص المسودة وإعدادها','Check and prepare draft')}</button></form>
+  {intent&&<div className="draft-intent" role="status"><Badge code={intent.status}/><p><bdi>{intent.scope.action}</bdi></p><p>{t('راجع العملية، ثم فوّضها من طرفية الخادم على هذه البصمة:','Review the action, then authorize this hash from the server terminal:')}</p><code className="draft-hash">{intent.scope.proposal_version_hash}</code><pre dir="ltr">approve {intent.id}</pre><p>{t('تفويض عملية واحدة لمدة دقيقتين؛ ليس موافقة حوكمة على الحزمة.','One action, two minutes. This is not governance approval of the package.')}</p><div className="draft-actions"><button onClick={check} disabled={busy}>{t('التحقق من التفويض','Check authorization')}</button><button onClick={save} data-testid="save-draft" disabled={busy||!grant}>{intent.operation?t('تنفيذ العملية المفوضة','Run authorized action'):t('حفظ المسودة','Save draft')}</button></div></div>}
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/docs/status/CURRENT.md.raw b/docs/status/CURRENT.md
+index 4caf8b5..8a632b9 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/docs/status/CURRENT.md.raw
++++ b/docs/status/CURRENT.md
+@@ -11,12 +11,16 @@
+ - [E3/T17/T18 local delivery](../evidence/studio-e3-t19-2026-10-24/README.md): bounded real local doctor, four-stage generation/readonly lookup, actual approval/history and patch transaction. Prior evidence remains sealed.
+ - [T19 owner-authorized MOCK delivery](../evidence/studio-t19-mock-2026-10-24/README.md): SEC-001 cycle/export exit0 in a separate MOCK Draft SQLite; simulated enterprise SourceGrant, GitHub gate and P0 eval bound to the exact proposal hash. Two MOCK reviewer identities; edit invalidation/history and stale rejection proven. T19 CLOSED_OWNER_AUTHORIZED_MOCK_ONLY; Phase2 workflow closed within this authorized mock scope.
+ - T19/Phase2 MOCK closure formally ACCEPTED_BY_OWNER. Canonical/native SEC-001 remains BLOCKED/3; its source/GitHub/reviewer requirements are not satisfied by the mock cycle or a local E4 test.
+-- E4.a-e plan ACCEPTED_BY_OWNER. [E4 delivery](../evidence/studio-e4-2026-10-24/README.md): separate local core IMPLEMENTED/TESTED;93/93,8 public CLI cases,7 real local honesty guards and8 workflow scenarios passed. Capability-mismatch/stale-selection defect reproduced, fixed and regressed on the final pin. Native Codex/Antigravity qualification NOT_RUN; no independent/release acceptance.
++- E4.a-e local core ACCEPTED_BY_OWNER. [E4 delivery](../evidence/studio-e4-2026-10-24/README.md): separate local core IMPLEMENTED/TESTED;93/93,8 public CLI cases,7 real local honesty guards and8 workflow scenarios passed. Capability-mismatch/stale-selection defect reproduced, fixed and regressed on the final pin. Native Codex/Antigravity qualification NOT_RUN; no independent/release acceptance.
+ 
+ ## Preserved boundaries
+ 
+-Reference1.2.0, E2, accepted E5/E3 source and locked contracts unchanged. E4 is a separate extension; actual execution uses T15 controls and read-only drivers. Imported evidence and returned JSON cannot create live execution proofs. No source apply, final package, default Draft DB, state.json or runtime_evidence writes; no T01 re-evaluation or release/independent acceptance. Native host checks remain REQUIRED / NOT_RUN / NOT_WAIVED until actually observed.
++Reference1.2.0, E2, accepted E5/E3 source and locked contracts unchanged. E4 is a separate extension; actual execution uses T15 controls and read-only drivers. Imported evidence and returned JSON cannot create live execution proofs. Draft-only writes remain authorized; no source apply, final package, default Draft DB, state.json or runtime_evidence writes; no T01 re-evaluation or release/independent acceptance. Native host checks remain REQUIRED / NOT_RUN / NOT_WAIVED until actually observed.
++
++## Current authorized extension
++
++Owner authorized native adapters then T20/T21. Separate Codex app-server and Antigravity agy transport code implemented; actual Codex initialize timed out before discovery, and agy was absent. Native skill execution/7 honesty gates remain NOT_RUN, not waived. T20 adds scoped run/cancel grants, bounded FIFO execution, raw output and authenticated polling in persistent Draft SQLite. T21 reads registered project JSONL with byte custody/schema checks; imported claims never qualify execution. [Delivery](../evidence/studio-native-t20-t21-2026-10-24/README.md):105/105 passed, actual local eval, Edge bilingual/responsive UI and source sentinel passed; native runtime qualification remains NOT_RUN.
+ 
+ ## Exact next action
+ 
+-Reopen final custody/verification, then implement and connect native host adapters and run actual T23 profiles. Codex app-server is a documented channel but was not connected; Antigravity2.25 was found outside PATH and still needs a supported native observation/execution channel. Owner was asked for that connection. Do not substitute local qualification or reopen SEC-001 acceptance from these fixture results. No automatic T20/T24 or release.
++Reopen the new delivery/custody and current Git before resuming. T20/T21 are locally tested in Draft; owner acceptance is not self-granted. Native next action is diagnosis of the observed Codex initialize timeout under T15 and provision of an isolated agy channel. No automatic T24, native qualification, SEC-001 acceptance or release.
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/docs/status/HANDOFF.md.raw b/docs/status/HANDOFF.md
+index 1745781..b58eb1b 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/docs/status/HANDOFF.md.raw
++++ b/docs/status/HANDOFF.md
+@@ -1,7 +1,9 @@
+ # Studio handoff —2026-10-24, derived position
+ 
+-Owner formally accepted T19/Phase2 MOCK closure and E4.a-e plan, then authorized real implementation. [E4 delivery](../evidence/studio-e4-2026-10-24/README.md); [T19 MOCK](../evidence/studio-t19-mock-2026-10-24/README.md). Reopen CURRENT, live Git, source lock and exact custody before resuming.
++Owner formally accepted E4.a-e local core and authorized native adapters followed by T20/T21. Reopen CURRENT, live Git and [new delivery](../evidence/studio-native-t20-t21-2026-10-24/README.md), its custody and HTTP/browser evidence. Branch main, base133746a; substantial earlier dirty work was preserved. No commit or push in this task.
+ 
+-E4 core is a separate Python/Node extension over immutable E1-E3/E5: imported JSONL custody, actual registered local process discovery/load/execute/criteria verifier, private process-owned proofs, bounded eval/qualify. Final93/93,8 CLI cases,7 local honesty guards and8 workflow scenarios passed. Initial92/92 and a later failing capability-edge test are preserved; the corrected source passed the final run. Returned JSON cannot mutate private state. Qualification binds host/version/scope/content/driver/engine; no cached JSON import grants trust. Public CLI rejects serialized host/execution claims; entry.py is private trusted-host RPC, never an HTTP producer authentication boundary.
++T20/T21 implemented and locally tested:105/105 full tests; actual strict CLI3 run and registered local three-execution eval; scoped start/cancel grants and mandatory audit,12-table Draft history, deadlines/memory/tree controls, authenticated GET polling, schema-checked original JSONL read and source sentinel, Arabic/English Edge at320/768/1024/1440. Completion-audit failure cannot return PASS. Fast source switching keeps the latest selection. Imported producer/event claims remain untrusted and do not qualify execution. Evidence timeline explicitly shows first500 events, with full original bytes available.
+ 
+-Local host is aghr-local-process, not Codex/Antigravity. Codex CLI version is observable but native skill execution is NOT_RUN; Antigravity2.25 was found outside PATH but no native skill observation channel is configured. Its connection was requested asynchronously. Native honesty/qualification gates remain REQUIRED / NOT_RUN / NOT_WAIVED. Next: native adapter integration and actual T23 profiles, using the documented Codex app-server channel and the supplied Antigravity channel. No automatic T20/T24, source apply, state publication, independent/release acceptance or default Draft DB restoration. Original SEC-001 remains BLOCKED/3; local fixture eval is not its P0 acceptance.
++Native transport code is separate from immutable E1-E3/E4. Codex0.162.0-alpha.2 version/help observed; actual app-server initialize timed out before discovery within the bounded temporary-project attempt. Further cause UNPROVEN. Antigravity2.25 desktop exists but agy headless CLI was absent. Native execution,7 honesty checks and8 scenarios remain REQUIRED / NOT_RUN / NOT_WAIVED for each host; no transfer of local-process qualification. No existing conversation or credential extraction.
++
++Next: diagnose that observed Codex handshake failure within T15 and supply an isolated authenticated agy channel before real T23 trials. No automatic T24/CI publisher, source apply/state update, release or independent acceptance. Reference1.2.0 and engine pins remain unchanged; four app integration files have authorized before/after custody. Default owner Draft DB was not used or restored. Original SEC-001 remains BLOCKED/3; standalone local eval is not its P0 acceptance.
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/docs/plans/STUDIO_UPGRADE_TASKS_AR.md.raw b/docs/plans/STUDIO_UPGRADE_TASKS_AR.md
+index 61469d2..7b3d145 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/docs/plans/STUDIO_UPGRADE_TASKS_AR.md.raw
++++ b/docs/plans/STUDIO_UPGRADE_TASKS_AR.md
+@@ -124,14 +124,14 @@
+ | [x] T18 — الموافقات وإبطال القديم | E5/E3؛ TESTED_LOCAL_PROFILE | قرارات فعلية في SQLite، منح وأدوار وIf-Match وتاريخ محفوظ | stale412؛ تعديل يبطل checks/preview/approvals ذريًا؛ مراجعان متميزان للسياسات. هويات الاختبار لا تثبت مراجعة بشرية مستقلة؛ المصدر الفعلي لهوية المراجع مطلوب للحزمة الحقيقية |
+ | [x] T19 — تصدير SEC-001 والفرق | E3/T18؛ CLOSED_OWNER_AUTHORIZED_MOCK_ONLY | [تسليم محاكاة T19](../evidence/studio-t19-mock-2026-10-24/README.md)؛ SEC-001.T19_APPROVED_MOCK.patch، exit0 | تفويض صريح لمحاكاة enterprise SourceGrant وGitHub gate وP0 eval، مع ربط hash ووسم الملفات/DB؛ الدورة مغلقة في هذا النطاق فقط. الأصل BLOCKED/3، والموافقة/التصدير الأصليان يرفضان قاعدة المحاكاة؛ E4 الحقيقي NOT_RUN |
+ 
+-**نقاط فحص C:** بعد T13–T15 تثبت صلاحية وضع الكتابة وضبط الموارد؛ بعد T16–T18 يختبر إبطال الموافقات؛ T19 يغلق دورة بند واحد فقط. Phase2 مغلقة لدورة المحاكاة المصرح بها، دون استيفاء بوابات المصدر/المضيف/الإصدار الحقيقية. [خطة E4 المقترحة](STUDIO_E4_EXECUTION_PROPOSAL_AR.md) تنتظر اعتماد المالك؛ لا كود E4 الآن. تحتاج الفحوص المطلوبة إلى المحرك ومحول T15 قبل تشغيلها، حتى إن جاءت واجهة المهام المتقدمة لاحقًا.
++**نقاط فحص C:** بعد T13–T15 تثبت صلاحية وضع الكتابة وضبط الموارد؛ بعد T16–T18 يختبر إبطال الموافقات؛ T19 يغلق دورة بند واحد فقط. Phase2 مغلقة لدورة المحاكاة المصرح بها، دون استيفاء بوابات المصدر/المضيف/الإصدار الحقيقية. [خطة E4](STUDIO_E4_EXECUTION_PROPOSAL_AR.md) ونواتها المحلية مقبولتان من المالك؛ تأهيل المضيفين الأصليين يبقى NOT_RUN. تحتاج الفحوص المطلوبة إلى المحرك ومحول T15 قبل تشغيلها، حتى إن جاءت واجهة المهام المتقدمة لاحقًا.
+ 
+ ## D. Phase 3 — المهارات والأدلة وCI
+ 
+ | المهمة | التبعيات والحجم | المخرج والملفات المتوقعة | القبول والتحقق |
+ | --- | --- | --- | --- |
+-| [ ] T20 — إدارة تشغيل التحقق | T15 وT19؛ M | verify routes/service وشاشة 8 واختبارات queue/stream | validate/lint/generate/check/eval/qualify/doctor عبر الجسر؛ raw stdout/stderr/output وSARIF وتاريخ؛ cancel وتجاوز الموارد صادقان. اختبار تشغيل وفشل وتزامن وبث موثق أو polling وفق العقد دون URL token |
+-| [ ] T21 — قراءة الأدلة التشغيلية | T20؛ M | evidence-reader/service وشاشة 9 واختبار JSONL | قراءة أصل `.aghr/runtime_evidence/` فقط وفق البروتوكول والحدود؛ hash ومهمة وجلسة وخط زمني؛ malformed/foreign evidence لا تصبح نجاحًا. اختبار البايتات وsentinel وحالات halt/NOT_OBSERVABLE |
++| [x] T20 — إدارة تشغيل التحقق | TESTED_LOCAL_DRAFT؛ T15 وT19؛ M | verify routes/service وشاشة 8 واختبارات queue/stream | validate/lint/generate/check/eval/qualify/doctor عبر الجسر؛ raw stdout/stderr/output وSARIF وتاريخ؛ cancel وتجاوز الموارد صادقان. اختبار تشغيل وفشل وتزامن وبث موثق أو polling وفق العقد دون URL token |
++| [x] T21 — قراءة الأدلة التشغيلية | TESTED_LOCAL_READ_ONLY؛ T20؛ M | evidence-reader/service وشاشة 9 واختبار JSONL | قراءة أصل `.aghr/runtime_evidence/` فقط وفق البروتوكول والحدود؛ hash ومهمة وجلسة وخط زمني؛ malformed/foreign evidence لا تصبح نجاحًا. اختبار البايتات وsentinel وحالات halt/NOT_OBSERVABLE |
+ | [ ] T22 — دورة اختيار وتأهيل المهارة | T08–T09،T20–T21 وE4 إن لزم؛ M | bridge discovery/qualification وعرض الحالة واختبارات المحتوى | حالات الاختيار/التحميل/الملاحظة/التنفيذ/التحقق مستقلة؛ task_criteria والمخرجات الفعلية والأدلة مستخدمة؛ UNKNOWN_ID وNO_SKILL_MATCH وDISCOVERY_UNAVAILABLE وBLOCKED منفصلة. اختبارات عربية/إنجليزية وصلاحيات ومحتوى فارغ أو خاطئ ومفاتيح التأهيل |
+ | [ ] T23 — سيناريوهات الصدق وتجارب المضيف | T22؛ M لكل مضيف | eval fixtures وتجارب Codex وAntigravity وسجلات تأهيل منفصلة | سيناريوهات rc.3 §11.2 الثمانية، و7 honesty checks، وHS-01..HS-05 المفصلة في §9 من الخطة؛ host/version/scope/contentHash وqualifiedAt وأدلة تاريخية قابلة للمراجعة؛ لا اختراع تاريخ أو HOST_SIGNAL عند الغياب. نتائج الوحدة لا ترقى إلى native، وتأهيل مضيف لا ينتقل لآخر |
+ | [ ] T24 — الأدلة وناشر CI والتطابق | T18،T21–T23 وE6 إن لزم؛ M | evidence submit integration وCI workflow وpublisher/tests | PR يرفق الأصل؛ post-merge CI موثوق وحده ينشر state بعد التحقق؛ نفس المحرك والمدخلات والأحكام. اختبار تزوير publisher والتوقيع/مصدر CI، و100 بند ببذرة محفوظة؛ divergence يمنع القبول والنشر |
+@@ -234,3 +234,7 @@
+ بعد كل نقطة فحص تحفظ القرارات والبصمات والأدلة الصالحة والفجوة والخطوة التالية فقط. تحدث CURRENT/HANDOFF باختصار عند تغير موضع التنفيذ، وتبقى حدود السياق سليمة؛ لا ينقل سجل الأوامر إليهما. عند استئناف العمل يراجع Git والمصدر والدليل المتأثر قبل اعتماد الحالة المسجلة.
+ 
+ **موضع الاستئناف 2026-10-24:** اعتمد المالك T19/Phase2 في نطاق المحاكاة ثم خطة E4.a–e. [تسليم E4](../evidence/studio-e4-2026-10-24/README.md) يفصل نجاح النواة وفحوص الصدق الفعلية المحلية عن التأهيل الأصلي لكل مضيف، الذي يبقى REQUIRED / NOT_RUN / NOT_WAIVED عند غياب القناة. لا ربط تلقائي لنتيجة fixture محلي بـP0 في SEC-001؛ الأصل يبقى BLOCKED/3 لمتطلباته الحقيقية. المرجع 1.2.0 والعقود وE1–E3 محفوظة؛ التطبيق Draft ولا نشر أو تطبيق patch.
++
++### تسليم T20/T21 المحلي
++
++[الأدلة والحدود](../evidence/studio-native-t20-t21-2026-10-24/README.md): تشغيل وصلاحيات وإلغاء ومخرجات فعلية في Draft؛ polling موثق بدل WebSocket في المتصفح، وقراءة JSONL دون منح ثقة للادعاءات. المصدر 1.2.0 وE1–E3/E4 محفوظة. موائما النقل مكتوبان؛ Codex توقف قبل initialize وagy غير موجود. فحوص الصدق الأصلية السبعة لكل مضيف NOT_RUN/NOT_WAIVED. لا إغلاق T23 أو بدء T24 أو تأهيل/إصدار تلقائي.
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/docs/INDEX.md.raw b/docs/INDEX.md
+index cdd14b0..a75f374 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/docs/INDEX.md.raw
++++ b/docs/INDEX.md
+@@ -63,3 +63,5 @@ node tools/check_context_health.mjs
+ - [E5 proposal core, T16 lifecycle and T17 dry-run evidence](evidence/studio-e5-t16-preview-2026-10-23/README.md) — current authorized Draft delivery; no source export or release acceptance.
+ 
+ - [E3/T17/T18 local execution and T19 canonical blockers](evidence/studio-e3-t19-2026-10-24/README.md) — actual bounded controls/approvals/patches; no E4 waiver or release acceptance.
++
++- [Native adapters and T20/T21 Draft delivery](evidence/studio-native-t20-t21-2026-10-24/README.md):105 tests, authenticated run polling, runtime evidence, native NOT_RUN boundaries.
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw b/server/studio/hosts/native-process.py
+index e69de29..1653311 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw
++++ b/server/studio/hosts/native-process.py
+@@ -0,0 +1,102 @@
++"""Trusted native transport, always launched inside the T15 Windows Job.
++
++No input may select arbitrary commands or import execution evidence. Child
++processes inherit the Job, its deadline, memory and process-tree cleanup.
++"""
++import json
++from pathlib import Path
++import queue
++import subprocess
++import sys
++import threading
++
++def emit(value):
++    print(json.dumps(value, ensure_ascii=False, separators=(',', ':')), flush=True)
++
++config = json.loads(Path(sys.argv[1]).read_text(encoding='utf-8'))
++binary, cwd = config['binary'], config['cwd']
++operation, host = config['operation'], config['host']
++if operation in ('version', 'help'):
++    child = subprocess.run([binary, '--version' if operation == 'version' else '--help'], cwd=cwd, capture_output=True, creationflags=subprocess.CREATE_NO_WINDOW)
++    sys.stdout.buffer.write(child.stdout)
++    sys.stderr.buffer.write(child.stderr)
++    sys.exit(child.returncode)
++if host == 'codex':
++    state = Path(config['state_directory'])
++    overrides = ['sqlite_home=' + json.dumps((state / 'sqlite').as_posix()), 'log_dir=' + json.dumps((state / 'logs').as_posix()), 'history.persistence="none"', 'analytics.enabled=false']
++    command = [binary]
++    for override in overrides:
++        command.extend(['--config', override])
++    command.extend(['app-server', '--listen', 'stdio://'])
++    child = subprocess.Popen(command, cwd=cwd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, creationflags=subprocess.CREATE_NO_WINDOW)
++    incoming = queue.Queue()
++    def reader():
++        for line in child.stdout:
++            if len(line) > 1024 * 1024:
++                incoming.put(RuntimeError('NATIVE_FRAME_LIMIT'))
++                return
++            try:
++                incoming.put(json.loads(line))
++            except ValueError:
++                incoming.put(RuntimeError('NATIVE_PROTOCOL_INVALID'))
++        incoming.put(RuntimeError('NATIVE_CHANNEL_CLOSED'))
++    threading.Thread(target=reader, daemon=True).start()
++    # Avoid leaking diagnostics containing host account/configuration data.
++    threading.Thread(target=lambda: [None for _ in child.stderr], daemon=True).start()
++    def send(method, params, identifier=None):
++        frame = {'method': method, 'params': params}
++        if identifier is not None:
++            frame['id'] = identifier
++        child.stdin.write((json.dumps(frame) + '\n').encode('utf-8'))
++        child.stdin.flush()
++    def receive(identifier):
++        while True:
++            frame = incoming.get(timeout=25)
++            if isinstance(frame, Exception):
++                raise frame
++            if frame.get('id') == identifier:
++                if 'error' in frame:
++                    raise RuntimeError('NATIVE_RPC_ERROR ' + str(frame['error'].get('code')))
++                return frame['result']
++            if 'method' in frame and 'id' in frame:
++                # Never grant native tool approval automatically.
++                child.stdin.write((json.dumps({'id': frame['id'], 'error': {'code': -32000, 'message': 'AGHR native tool approval not granted'}}) + '\n').encode('utf-8'))
++                child.stdin.flush()
++            elif 'method' in frame:
++                emit({'kind': 'notification', 'frame': frame})
++    try:
++        send('initialize', {'clientInfo': {'name': 'aghr_governance_studio', 'title': 'AGHR', 'version': '0.1.0'}}, 1)
++        emit({'kind': 'initialized', 'result': receive(1)})
++        send('initialized', {})
++        send('skills/list', {'cwds': [cwd], 'forceReload': True}, 2)
++        emit({'kind': 'discovery', 'result': receive(2)})
++        if operation == 'execute':
++            send('thread/start', {'cwd': cwd, 'ephemeral': True, 'approvalPolicy': 'never', 'sandbox': 'read-only'}, 3)
++            thread = receive(3)['thread']['id']
++            emit({'kind': 'thread', 'id': thread})
++            send('turn/start', {'threadId': thread, 'input': [{'type': 'text', 'text': config['prompt']}, {'type': 'skill', 'name': config['skill_name'], 'path': config['skill_path']}]}, 4)
++            emit({'kind': 'turn', 'result': receive(4)})
++            while True:
++                frame = incoming.get(timeout=25)
++                if isinstance(frame, Exception):
++                    raise frame
++                if 'id' in frame and 'method' in frame:
++                    raise RuntimeError('NATIVE_APPROVAL_REQUIRED')
++                emit({'kind': 'notification', 'frame': frame})
++                if frame.get('method') == 'turn/completed':
++                    status = frame.get('params', {}).get('turn', {}).get('status')
++                    sys.exit(0 if status == 'completed' else 1)
++    finally:
++        child.terminate()
++        child.wait(timeout=5)
++elif host == 'antigravity' and operation == 'execute':
++    # Official agy headless CLI, never the Electron IDE/language_server binary.
++    child = subprocess.Popen([binary, '-p', config['prompt'], '--output-format', 'stream-json', '--permission-mode', 'request-review'], cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, creationflags=subprocess.CREATE_NO_WINDOW)
++    threading.Thread(target=lambda: [None for _ in child.stderr], daemon=True).start()
++    for line in child.stdout:
++        if len(line) > 1024 * 1024:
++            raise RuntimeError('NATIVE_FRAME_LIMIT')
++        emit({'kind': 'native', 'frame': json.loads(line)})
++    sys.exit(child.wait())
++else:
++    raise RuntimeError('NATIVE_CHANNEL_UNAVAILABLE')
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw b/server/studio/hosts/native-adapters.mjs
+index e69de29..15f643d 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw
++++ b/server/studio/hosts/native-adapters.mjs
+@@ -0,0 +1,45 @@
++import fs from 'node:fs';
++import os from 'node:os';
++import path from 'node:path';
++import crypto from 'node:crypto';
++import {createJobRunner} from '../aghr/job-runner.js';
++import {repository} from '../aghr/cli-bridge.js';
++const sha=b=>'sha256:'+crypto.createHash('sha256').update(b).digest('hex');
++// Trusted startup configuration only. The UI cannot choose a binary, identity,
++// working directory, skill path, or supply native frames/receipts.
++export function createNativeAdapter({host,python,binary,cwd,isolated=false,stateDirectory=null,skill=null}){
++ if(!['codex','antigravity'].includes(host)||!path.isAbsolute(cwd)||binary&&!path.isAbsolute(binary))throw Error('NATIVE_CONFIG_INVALID');
++ const runner=createJobRunner({python}),receipts=new WeakMap();let current;
++ const binaryHash=binary&&fs.existsSync(binary)?sha(fs.readFileSync(binary)):null;
++ const driver=path.join(repository,'server/studio/hosts/native-process.py'),driverHash=sha(fs.readFileSync(driver));
++ async function run(operation,{signal,onOutput=()=>{},prompt}={}){
++  if(!binaryHash)throw Error('NATIVE_CHANNEL_UNAVAILABLE');
++  if(operation!=='version'&&operation!=='help'&&!isolated)throw Error('ISOLATED_NATIVE_SESSION_REQUIRED');
++  if(operation!=='version'&&operation!=='help'&&host==='codex'&&(!stateDirectory||!path.isAbsolute(stateDirectory)))throw Error('ISOLATED_NATIVE_STATE_REQUIRED');
++  if(!['version','help','discover','execute'].includes(operation)||current)throw Error('NATIVE_OPERATION_UNAVAILABLE');
++  if(operation==='execute'&&(!skill||typeof prompt!=='string'||!prompt.trim()||prompt.length>32768))throw Error('NATIVE_SKILL_INPUT_REQUIRED');
++  if(sha(fs.readFileSync(binary))!==binaryHash||sha(fs.readFileSync(driver))!==driverHash)throw Error('NATIVE_SOURCE_DRIFT');
++  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'aghr-native-')),input=path.join(dir,'input.json');current=new AbortController();
++  const cancel=()=>current?.abort();signal?.addEventListener('abort',cancel,{once:true});if(signal?.aborted)cancel();
++  try{
++   const config={host,binary,cwd,operation,state_directory:stateDirectory,...(operation==='execute'?{prompt,skill_name:skill.name,skill_path:skill.path}:{})};
++   fs.writeFileSync(input,JSON.stringify(config),{flag:'wx'});
++   const job=await runner.run(operation==='execute'?'qualify':'check',{executable:python,args:['-I','-B','-S','-X','utf8',driver,input],cwd,signal:current.signal,onOutput,maxOutputBytes:4*1024**2});
++   if(sha(fs.readFileSync(binary))!==binaryHash||sha(fs.readFileSync(driver))!==driverHash)throw Error('NATIVE_SOURCE_DRIFT');
++   const receipt=Object.freeze({});receipts.set(receipt,{job:structuredClone(job),operation,input_hash:sha(JSON.stringify(config)),binary_hash:binaryHash,driver_hash:driverHash});
++   return {receipt,host,operation,job:structuredClone(job),qualification:'NOT_RUN'};
++  }finally{signal?.removeEventListener('abort',cancel);current=null;fs.unlinkSync(input);fs.rmdirSync(dir);}
++ }
++ return {host,run,cancel:()=>current?.abort(),
++  observation(receipt){
++   const stored=receipts.get(receipt);if(!stored)throw Error('UNTRUSTED_NATIVE_RECEIPT');const proof=structuredClone(stored);
++   const {job,operation}=proof;
++   const frames=[];if(!['help','version'].includes(operation))for(const line of job.stdout.trim().split('\n').filter(Boolean))frames.push(JSON.parse(line));
++   // Actual host completion is recorded independently of skill execution. No
++   // native event is upgraded to VERIFIED: per-skill criteria still need E4.
++   const completed=host==='codex'?frames.some(x=>x.frame?.method==='turn/completed'&&x.frame.params?.turn?.status==='completed'):frames.some(x=>x.frame?.event==='result'&&x.frame?.result?.status==='SUCCESS');
++   return {...proof,host,frames,turn_completed:completed&&job.status==='passed',skill_execution:'NOT_OBSERVABLE',verified:'NOT_RUN',qualification:'NOT_RUN',reason:'Native turn completion alone does not prove skill execution or task criteria.'};
++  }};
++}
++export const createCodexAdapter=config=>createNativeAdapter({...config,host:'codex'});
++export const createAntigravityAdapter=config=>createNativeAdapter({...config,host:'antigravity'});
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw b/server/studio/aghr/contract-reader.py
+index e69de29..5d748fe 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw
++++ b/server/studio/aghr/contract-reader.py
+@@ -0,0 +1,22 @@
++"""Read-only schema evaluation using the unchanged E2 validators."""
++import json
++from pathlib import Path
++import sys
++ROOT = Path(__file__).resolve().parents[3]
++sys.path.insert(0, str(ROOT / 'governance_packages/candidates/AGHR_rc3_Core_Candidate/tools'))
++from validate import SchemaChecks
++checks = SchemaChecks()
++request = json.loads(Path(sys.argv[1]).read_text(encoding='utf-8'))
++validator = checks.validators[request['schema']]
++if request.get('definition'):
++    validator = validator.evolve(schema={'$ref': validator.schema['$id'] + '#/$defs/' + request['definition']})
++issues = []
++for index, value in enumerate(request['values']):
++    for error in validator.iter_errors(value):
++        issues.append({'index': index, 'code': 'SCHEMA_INVALID', 'pointer': '/' + '/'.join(map(str, error.absolute_path)), 'message': error.message[:300]})
++        if len(issues) >= 50:
++            break
++    if len(issues) >= 50:
++        break
++print(json.dumps({'valid': not issues, 'issues': issues}, ensure_ascii=False))
++sys.exit(1 if issues else 0)
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw b/server/studio/schema-reader.js
+index e69de29..4c68bf6 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw
++++ b/server/studio/schema-reader.js
+@@ -0,0 +1,17 @@
++import fs from 'node:fs';
++import os from 'node:os';
++import path from 'node:path';
++import {repository,verifySource} from './aghr/cli-bridge.js';
++import {createJobRunner} from './aghr/job-runner.js';
++export function createSchemaReader({python}){
++ const runner=createJobRunner({python});
++ return async(schema,definition,values)=>{
++  verifySource();const dir=fs.mkdtempSync(path.join(os.tmpdir(),'aghr-schema-')),input=path.join(dir,'input.json');
++  try{
++   fs.writeFileSync(input,JSON.stringify({schema,definition,values}),{flag:'wx'});
++   const job=await runner.run('check',{executable:python,args:['-I','-B','-S','-X','utf8',path.join(repository,'server/studio/aghr/read-only-launcher.py'),path.join(repository,'server/studio/aghr/contract-reader.py'),input],cwd:repository,maxOutputBytes:256*1024});
++   verifySource();if(!['passed','failed'].includes(job.status)||![0,1].includes(job.exit_code))throw Error('SCHEMA_READER_UNAVAILABLE');
++   const report=JSON.parse(job.stdout);if(report.valid!==(job.exit_code===0))throw Error('SCHEMA_READER_FALSE_SUCCESS');return report;
++  }finally{fs.unlinkSync(input);fs.rmdirSync(dir);}
++ };
++}
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw b/server/studio/evidence-reader.js
+index e69de29..b0ce985 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw
++++ b/server/studio/evidence-reader.js
+@@ -0,0 +1,40 @@
++import fs from 'node:fs';
++import path from 'node:path';
++import {decodeJsonl,EVIDENCE_LIMITS} from '../../tools/contracts/evidence_jsonl.mjs';
++import {StudioError} from './auth.js';
++const safeId=id=>typeof id==='string'&&/^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/.test(id);
++// Project root is registered by the trusted operator, never chosen in HTTP.
++export function createEvidenceReader({projectRoot,schema}){
++ if(projectRoot&&!path.isAbsolute(projectRoot))throw Error('EVIDENCE_ROOT_INVALID');
++ const resolve=()=>{
++  if(!projectRoot)return null;
++  const root=path.resolve(projectRoot);let current=path.parse(root).root;
++  for(const bit of path.relative(current,root).split(path.sep).concat(['.aghr','runtime_evidence'])){
++   current=path.join(current,bit);const st=fs.lstatSync(current,{throwIfNoEntry:false});if(!st)return null;if(st.isSymbolicLink()||!st.isDirectory())throw new StudioError(422,'VALIDATION_FAILED','Evidence directory is unsafe.');
++  }return current;
++ };
++ async function detail(id){
++  if(!safeId(id))throw new StudioError(400,'INVALID_REQUEST','Invalid task identifier.');
++  const root=resolve();if(!root)throw new StudioError(404,'NOT_FOUND','No runtime evidence source.');
++  const name=id+'.jsonl',file=path.join(root,name),st=fs.lstatSync(file,{throwIfNoEntry:false});
++  if(!st)throw new StudioError(404,'UNKNOWN_ID','Unknown task.');
++  if(st.isSymbolicLink()||!st.isFile()||st.nlink!==1||st.size>EVIDENCE_LIMITS.maxBytes)throw new StudioError(422,'VALIDATION_FAILED','Evidence source exceeds limits or is unsafe.');
++  const fd=fs.openSync(file,'r');let bytes;
++  try{
++   const opened=fs.fstatSync(fd);if(opened.ino!==st.ino||opened.dev!==st.dev)throw Error('EVIDENCE_CHANGED');
++   // Bounded descriptor read, including a growing file. Never unbounded readFile.
++   const buffer=Buffer.alloc(EVIDENCE_LIMITS.maxBytes+1),n=fs.readSync(fd,buffer,0,buffer.length,0);if(n>EVIDENCE_LIMITS.maxBytes)throw Error('EVIDENCE_SIZE_LIMIT');bytes=buffer.subarray(0,n);
++   const after=fs.fstatSync(fd);if(after.size!==opened.size||after.mtimeMs!==opened.mtimeMs||n!==after.size)throw Error('EVIDENCE_CHANGED');
++  }finally{fs.closeSync(fd);}
++  const decoded=decodeJsonl(bytes,{expectedTaskId:id});
++  const validation=decoded.syntax_status==='PASS'?await schema('evidence.schema.json',null,decoded.records.map(x=>x.record)):{valid:false,issues:[]};
++  const valid=decoded.syntax_status==='PASS'&&validation.valid,records=valid?decoded.records:[];
++  const events=records.map(({record,source_line})=>({task_id:id,source_file:'.aghr/runtime_evidence/'+name,source_line,source_hash:decoded.source_hash,event:record.events[0]}));
++  const flags=new Set();if(!valid)flags.add('INVALID_EVIDENCE');
++  for(const {event}of events){if(event.type==='skill.blocked'||event.type==='authorization.denied')flags.add('BLOCKED');if(event.outcome==='UNKNOWN_ID'||event.outcome==='DISCOVERY_UNAVAILABLE')flags.add(event.outcome);}
++  const first=decoded.records[0]?.record;
++  return {task:{task_id:id,agent:first?.session?.agent||'UNKNOWN',agent_version:first?.session?.agent_version||'UNKNOWN',event_count:events.length,attention_flags:[...flags],parse_status:valid?'VALID':decoded.syntax_status==='UNSUPPORTED_SERIALIZATION'?'UNSUPPORTED_SERIALIZATION':'INVALID'},source_file:'.aghr/runtime_evidence/'+name,source_hash:decoded.source_hash,raw_source_base64:bytes.toString('base64'),source_bytes:bytes.length,
++   issues:[...decoded.issues,...validation.issues].map(x=>({code:x.code,message:x.message||x.code,severity:'error',...(x.line?{line:x.line}:{})})),events};
++ }
++ return {detail,async list(){const root=resolve();if(!root)return [];const names=fs.readdirSync(root).filter(n=>n.endsWith('.jsonl')&&safeId(n.slice(0,-6))).sort();if(names.length>500)throw new StudioError(413,'PAYLOAD_TOO_LARGE','At most 500 task sources per registered project.');const rows=[];for(const n of names)rows.push((await detail(n.slice(0,-6))).task);return rows;}};
++}
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw b/server/studio/verification-service.js
+index e69de29..dc74907 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw
++++ b/server/studio/verification-service.js
+@@ -0,0 +1,112 @@
++import crypto from 'node:crypto';
++import fs from 'node:fs';
++import path from 'node:path';
++import {StringDecoder} from 'node:string_decoder';
++import {repository,engineRoot,verifySource,decodeResult,sourceHash as e2Hash} from './aghr/cli-bridge.js';
++import {createJobRunner,resourceProfiles} from './aghr/job-runner.js';
++import {createE4Engine,sourceHash as e4Hash,verifyE4} from './aghr/e4-bridge.js';
++import {StudioError} from './auth.js';
++import {createBoundedValidator} from './aghr/bounded-validator.js';
++const sha=b=>'sha256:'+crypto.createHash('sha256').update(b).digest('hex');
++const issue=(code,message)=>({code,message,severity:'error'});
++const artifact=(name,bytes)=>({path:name,content_hash:sha(bytes),bytes:Buffer.byteLength(bytes)});
++const clone=structuredClone;
++export function createVerificationService({python,workspace,store,validator,schema,e4Config={skills:[],permissions:[]}}){
++ const runner=createJobRunner({python}),runs=new Map(),queue=[];let current,closed=false;
++ const pin=fs.readFileSync(path.join(repository,'server/studio/aghr/e4/SOURCE.lock.json'));
++ const distribution=artifact('server/studio/aghr/e4/SOURCE.lock.json',pin);
++ const controlEvidencePath='docs/evidence/studio-draft-auth-cp-2026-10-23/resources-checkpoint.txt',controlProof=fs.readFileSync(path.join(repository,controlEvidencePath));
++ if(sha(controlProof)!=='sha256:a80a4da311db0d10791c5eba1ad16e9c05b4c15428f7abf7fbff6df5cabd8248')throw Error('CONTROL_QUALIFICATION_DRIFT');
++ const engine={implementation:'pinned_python_aghr',status:'PINNED',executable:python,shell:false,identity:{version:'rc3+e4-local.1',content_hash:'sha256:'+e4Hash,schema_version:'1.2',distribution},reason:'Local command profile only; native host qualification is independent.'};
++ const controls={platform:'win32',adapter:'windows-job-list',status:'QUALIFIED',process_tree:true,wall_clock:true,memory:true,evidence:[artifact(controlEvidencePath,controlProof)]};
++ const configHash=sha(JSON.stringify({limits:resourceProfiles,engine:e4Hash,skills:e4Config.skills,permissions:e4Config.permissions}));
++ const bind=request=>sha(JSON.stringify({request,config_hash:configHash,candidate:e2Hash}));
++ const action=request=>'verify.run.'+(['eval','qualify'].includes(request.command)?request.command:'fast');
++ const options=request=>{
++  const args={};for(const text of request.args){const m=text.match(/^--([a-z_]+)(?:=(.*))?$/s);if(!m||Object.hasOwn(args,m[1]))throw new StudioError(400,'INVALID_REQUEST','Only declared structured options are accepted.');args[m[1]]=m[2]??true;}
++  const allowed=['validate','lint'].includes(request.command)?['strict','path','agent','host_version','environment','stage','task_type','language']:['eval','qualify'].includes(request.command)?['skill','task','criteria','input','runs']:['cp'];
++  for(const [k,v]of Object.entries(args))if(!allowed.includes(k)||(v===true&&k!=='strict'))throw new StudioError(400,'INVALID_REQUEST','Unknown command option.');
++  if(args.strict&&request.command!=='validate')throw new StudioError(400,'INVALID_REQUEST','Strict is valid only for validate.');
++  if(['generate','doctor','check'].includes(request.command)&&!/^CP-[\w-]+$/.test(args.cp||''))throw new StudioError(400,'INVALID_REQUEST','A saved Draft CP is required.');
++  if(['eval','qualify'].includes(request.command)){
++   if(!/^[\w.-]{1,128}$/.test(args.skill||'')||!/^[\w.-]{1,128}$/.test(args.task||'')||typeof args.criteria!=='string')throw new StudioError(400,'INVALID_REQUEST','Skill, task and task criteria are required.');
++   try{JSON.parse(args.criteria);if(args.input)JSON.parse(args.input);}catch{throw new StudioError(400,'INVALID_REQUEST','Criteria and input must be JSON.');}
++   if(args.runs&&(!/^\d+$/.test(args.runs)||Number(args.runs)<3||Number(args.runs)>20))throw new StudioError(400,'INVALID_REQUEST','Runs must be between 3 and 20.');
++  }return args;
++ };
++ const frame=(r,type,value)=>{r.frames.push({run_id:r.view.id,sequence:r.frames.length,at:new Date().toISOString(),type,...(type==='status'?{status:value}:{text:value})});};
++ const get=id=>{const r=runs.get(id);if(r)return clone(r.view);const saved=store.verificationRuns().find(x=>x.id===id);if(!saved)throw new StudioError(404,'UNKNOWN_ID','Unknown verification run.');if(saved.status==='running'){saved.status='errored';saved.termination_reason='engine_error';saved.finished_at=new Date().toISOString();saved.summary.errors.push(issue('INTERRUPTED_RUN','Run belonged to a previous server process; completion was not observed.'));}return saved;};
++ async function execute(r){
++  const v=r.view,args=options(v),decoders={stdout:new StringDecoder('utf8'),stderr:new StringDecoder('utf8')};
++  const deadline=setTimeout(()=>{r.deadlineExceeded=true;r.controller.abort();},resourceProfiles[v.command].timeoutMs);
++  let lastSaved=0;
++  const output=({stream,bytes})=>{const text=decoders[stream].write(bytes);v['raw_'+stream]+=text;v.raw_output+=text;frame(r,stream,text);if(Date.now()-lastSaved>1000){r.save(clone(v));lastSaved=Date.now();}};
++  let job,exit;
++  try{
++   verifyE4();
++   if(['validate','lint'].includes(v.command)){
++    const commandArgs=[v.command,...(v.command==='validate'?['--strict']:[]),...Object.entries(args).filter(([k])=>k!=='strict').map(([k,value])=>'--'+k.replaceAll('_','-')+'='+value)];
++    job=await runner.run(v.command,{executable:python,args:['-I','-B','-S','-X','utf8',path.join(repository,'server/studio/aghr/read-only-launcher.py'),path.join(engineRoot,'tools/cli.py'),...commandArgs],cwd:engineRoot,signal:r.controller.signal,onOutput:output,maxOutputBytes:4*1024**2});
++    verifySource();if(['passed','failed'].includes(job.status))decodeResult(job.stdout,job.stderr,job.exit_code,v.command);
++    exit=job.exit_code;
++   }else if(['eval','qualify'].includes(v.command)){
++    r.e4=createE4Engine({python,...e4Config});r.controller.signal.addEventListener('abort',()=>r.e4.close(),{once:true});
++    const task=r.e4.createTask({task_id:args.task});
++    const result=await r.e4[v.command](task,args.skill,{input:args.input?JSON.parse(args.input):{},task_criteria:args.criteria,runs:Number(args.runs||3)});
++    for(const receipt of r.e4.records){if(receipt.stdout)output({stream:'stdout',bytes:Buffer.from(receipt.stdout)});if(receipt.stderr)output({stream:'stderr',bytes:Buffer.from(receipt.stderr)});}
++    job=result.receipt;exit=job.exit_code;
++    // SELECTED/NO_SKILL_MATCH or loading is not an evaluation PASS.
++    if(!['PASS','QUALIFIED'].includes(result.data.status))exit=exit||3;
++   }else{
++    const cp=store.draft(args.cp);if(!cp)throw new StudioError(404,'UNKNOWN_ID','Unknown draft.');
++    const payload={title:cp.title,kind:cp.kind,proposed_yaml:cp.proposed_yaml,...(cp.source?{source:cp.source}:{}),...(cp.target_item_id?{target_item_id:cp.target_item_id}:{})};
++    r.validator=await createBoundedValidator({python,base:{base_package_version:cp.base_package_version,base_candidate_hash:cp.base_candidate_hash}});
++    r.controller.signal.addEventListener('abort',()=>r.validator.close(),{once:true});
++    const result=v.command==='generate'?await r.validator.generateRun(payload,{agent:'codex',profile:'draft-l1',dry_run:true}):v.command==='doctor'?await r.validator.doctorRun(payload):await (async()=>{const report=await r.validator.check(payload);return {data:report,receipt:report.resource_receipt};})();
++    job=result.receipt;exit=job?.exit_code??(result.data?.result==='VALID'||result.data?.status==='PASS'?0:3);
++    if(job?.stdout)output({stream:'stdout',bytes:Buffer.from(job.stdout)});if(job?.stderr)output({stream:'stderr',bytes:Buffer.from(job.stderr)});
++   }
++   for(const s of ['stdout','stderr']){const text=decoders[s].end();if(text){v['raw_'+s]+=text;v.raw_output+=text;frame(r,s,text);}}
++   if(r.deadlineExceeded){v.status='resource_limit_exceeded';v.termination_reason='timeout';v.exit_code=null;}
++   else if(r.controller.signal.aborted){v.status='errored';v.termination_reason='user_cancelled';v.exit_code=null;}
++   else if(job?.status==='resource_limit_exceeded'&&['timeout','memory_limit'].includes(job.reason)){v.status='resource_limit_exceeded';v.termination_reason=job.reason;v.exit_code=null;}
++   else if(job?.reason==='output_limit'){v.status='errored';v.termination_reason='engine_error';v.summary.errors.push(issue('OUTPUT_LIMIT_EXCEEDED','Output capture limit exceeded.'));}
++   else{
++    v.status=exit===0?'passed':'failed';v.exit_code=exit;v.termination_reason='completed';
++    if(exit!==0)v.summary.errors.push(issue('ENGINE_REJECTED','Engine exit '+exit+'; inspect raw output.'));
++   }
++   const raw=JSON.stringify({job,executions:r.e4?structuredClone(r.e4.records):[],exit_code:exit,inputs_hash:v.inputs_hash});r.receiptRaw=raw;
++   v.evidence=[artifact('sqlite:verification_runs/'+v.id+'#receipt_raw',raw)];
++   if(v.status==='passed')v.engine={...engine,status:'QUALIFIED',qualification_evidence:v.evidence};
++   v.resource_peak_mib=job?.resource_peak_mb??null;
++  }catch(error){
++   if(error.receipt){r.receiptRaw=JSON.stringify(error.receipt);if(error.receipt.stdout)output({stream:'stdout',bytes:Buffer.from(error.receipt.stdout)});if(error.receipt.stderr)output({stream:'stderr',bytes:Buffer.from(error.receipt.stderr)});}
++   if(r.e4)for(const receipt of r.e4.records){if(receipt.stdout)output({stream:'stdout',bytes:Buffer.from(receipt.stdout)});if(receipt.stderr)output({stream:'stderr',bytes:Buffer.from(receipt.stderr)});}
++   const limited=error.message.match(/resource_limit_exceeded:(timeout|memory_limit)/);
++   v.status=r.deadlineExceeded||limited?'resource_limit_exceeded':'errored';v.termination_reason=r.deadlineExceeded?'timeout':limited?limited[1]:r.controller.signal.aborted?'user_cancelled':'engine_error';v.summary.errors.push(issue('RUN_FAILED',error instanceof StudioError?error.message:error.message.slice(0,200)));
++  }
++  finally{
++   clearTimeout(deadline);r.e4?.close();r.validator?.close();v.finished_at=new Date().toISOString();v.duration_ms=Date.now()-r.created;
++   frame(r,'status',v.status);
++   try{r.save(clone(v),r.receiptRaw??null);}catch(error){
++    // Completion without its durable audit receipt cannot be a successful run.
++    v.status='errored';v.termination_reason='engine_error';v.summary.errors.push(issue('PERSISTENCE_FAILED','Completion could not be committed with its audit record.'));frame(r,'status',v.status);
++    try{r.save(clone(v),r.receiptRaw??null);}catch{/* In-memory error remains visible; no PASS is returned. */}
++   }
++  }
++ }
++ async function pump(){if(current||closed)return;const r=queue.shift();if(!r)return;current=r;try{if(!r.controller.signal.aborted)await execute(r);}finally{current=null;queueMicrotask(()=>pump().catch(()=>{}));}}
++ return {bind,action,options,
++  async validate(request){const result=await schema('api.execution.schema.json','VerifyRequest',[request]);if(!result.valid)throw new StudioError(400,'INVALID_REQUEST','Invalid command request.');options(request);return clone(request);},
++  start(receipt,request,id,scope){
++   if(closed||queue.length>=16)throw new StudioError(429,'RATE_LIMITED','Verification queue is full.');
++   const at=new Date().toISOString(),profile=resourceProfiles[request.command];
++   const view={id,workspace_id:workspace.id,command:request.command,args:clone(request.args),status:'running',exit_code:null,started_at:at,finished_at:null,duration_ms:null,resource_peak_mib:null,limits:{timeout_ms:profile.timeoutMs,memory_mib:profile.memoryBytes/1024**2},engine:clone(engine),control_adapter:clone(controls),termination_reason:null,raw_stdout:'',raw_stderr:'',raw_output:'',summary:{errors:[],warnings:[],p0_issues:0},linked_package_id:null,candidate_hash:'sha256:'+e2Hash,inputs_hash:bind(request),config_hash:configHash,evidence:[]};
++   const r={view,frames:[],controller:new AbortController(),created:Date.now(),save:store.beginVerification(receipt,view,scope)};runs.set(id,r);frame(r,'status','running');queue.push(r);setImmediate(()=>pump().catch(()=>{}));return {run_id:id};
++  },get,
++  list(){const ids=new Set([...runs.keys(),...store.verificationRuns().map(x=>x.id)]);return [...ids].map(get).sort((a,b)=>b.started_at.localeCompare(a.started_at));},
++  cancel(id){const r=runs.get(id);if(!r||r.view.status!=='running')throw new StudioError(409,'CONFLICT','Run is not active.');r.controller.abort();if(r!==current){r.view.status='errored';r.view.termination_reason='user_cancelled';r.view.finished_at=new Date().toISOString();r.view.duration_ms=Date.now()-r.created;frame(r,'status','errored');r.save(clone(r.view));}return get(id);},
++  frames:id=>clone(runs.get(id)?.frames||[]),
++  close(){closed=true;for(const r of runs.values())if(r.view.status==='running')r.controller.abort();if(!current)return;return (async()=>{while(current)await new Promise(resolve=>setTimeout(resolve,50));})();},
++ };
++}
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw b/server/studio/execution-routes.js
+index e69de29..774143e 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw
++++ b/server/studio/execution-routes.js
+@@ -0,0 +1,71 @@
++import crypto from 'node:crypto';
++import {isDeepStrictEqual} from 'node:util';
++import {StudioError} from './auth.js';
++import {consumeAuthorization} from './write-authorization.js';
++const invalid=message=>new StudioError(400,'INVALID_REQUEST',message);
++async function json(req){
++ if(!/^application\/json(?:;|$)/i.test(req.headers['content-type']||''))throw invalid('JSON required.');
++ let size=0;const parts=[];for await(const b of req){size+=b.length;if(size>65536)throw new StudioError(413,'PAYLOAD_TOO_LARGE','Request exceeds limit.');parts.push(b);}
++ try{return JSON.parse(new TextDecoder('utf8',{fatal:true}).decode(Buffer.concat(parts)));}catch{throw invalid('Valid UTF-8 JSON required.');}
++}
++export function createExecutionRoutes({workspace,authority,store,intents,verification,evidence,clock,audit,fallback}){
++ const prefix='/api/v1/workspaces/'+workspace.id;
++ return async(req,res)=>{
++  let url;try{url=new URL(req.url,'http://127.0.0.1');}catch{return fallback(req,res);}
++  if(!url.pathname.startsWith(prefix+'/verify/')&&!url.pathname.startsWith(prefix+'/evidence/')&&url.pathname!=='/api/v1/verification-intents')return fallback(req,res);
++  const requestId=crypto.randomUUID(),mutation=req.method!=='GET';let action='verify.run.unsupported',resourceId=null;
++  const record=(result,status,reason)=>audit(req,{action,resourceId,result,status,reason,requestId});
++  const send=(status,data,extra={})=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(JSON.stringify({data,meta:{request_id:requestId,recorded_at:new Date().toISOString(),contract_revision:'contract.1',...extra}}));};
++  const page=rows=>{
++   const known=['limit','cursor'];for(const [key]of url.searchParams)if(!known.includes(key)||url.searchParams.getAll(key).length!==1)throw invalid('Unsupported query.');
++   const limit=Number(url.searchParams.get('limit')||100),cursor=url.searchParams.get('cursor')||'';
++   if(!Number.isInteger(limit)||limit<1||limit>500||cursor&&!/^\d+$/.test(cursor))throw invalid('Invalid pagination.');
++   const start=Number(cursor||0);if(!Number.isSafeInteger(start)||start>rows.length)throw invalid('Invalid cursor.');return send(200,rows.slice(start,start+limit),{total:rows.length,limit,next_cursor:start+limit<rows.length?String(start+limit):null});
++  };
++  try{
++   if(mutation)record('ATTEMPT',null,'Verification mutation received');
++   const principal=authority.authenticate(req);
++   if(req.url.length>8192)throw invalid('URL exceeds limit.');
++   if(req.method==='GET'&&(Number(req.headers['content-length'])>0||req.headers['transfer-encoding']))throw invalid('No GET body allowed.');
++   if(req.method==='POST'&&url.pathname==='/api/v1/verification-intents'){
++    if(url.search)throw invalid('No query allowed.');
++    const input=await json(req);let request,cancel;
++    if(input&&Object.keys(input).length===1&&Object.hasOwn(input,'request'))request=await verification.validate(input.request);
++    else if(input&&Object.keys(input).length===1&&typeof input.cancel==='string'){cancel=verification.get(input.cancel);if(cancel.status!=='running')throw new StudioError(409,'CONFLICT','Run is complete.');request={command:cancel.command,args:cancel.args};}
++    else throw invalid('Expected request or cancel identifier.');
++    for(const [id,i]of intents)if(clock()>=i.expires)intents.delete(id);if(intents.size>=128)throw new StudioError(429,'RATE_LIMITED','Too many pending intents.');
++    resourceId=cancel?.id||'VR-'+crypto.randomUUID();action=verification.action(request);
++    const scope={workspace_id:workspace.id,target_project:'studio-drafts',action,resource_id:resourceId,proposal_version_hash:verification.bind(request)};
++    const id=crypto.randomUUID(),intent={principal,payload:request,operation:cancel?'verification.cancel':'verification.run',prepared:{id:resourceId,title:request.command},scope,expires:clock()+120000,grant:null};
++    intents.set(id,intent);record('ATTEMPT',200,'Intent prepared; no operation authorized');return send(200,{id,scope,status:'AWAITING_OPERATOR',expires_at:new Date(intent.expires).toISOString()});
++   }
++   if(req.method==='POST'){
++    if(url.search)throw invalid('No query allowed.');
++    const cancel=url.pathname.match(new RegExp('^'+prefix+'/verify/runs/(VR-[\\w-]+)/cancel$'));
++    if(!cancel&&url.pathname!==prefix+'/verify/run')throw new StudioError(403,'FORBIDDEN','Unsupported mutation.');
++    const token=req.headers['x-write-grant'],entry=[...intents].find(([,i])=>i.grant===token&&i.principal===principal),intent=entry?.[1];
++    if(!intent||intent.revoked||clock()>=intent.expires||intent.operation!==(cancel?'verification.cancel':'verification.run'))throw new StudioError(403,'FORBIDDEN','Scoped verification grant required.');
++    resourceId=intent.scope.resource_id;action=intent.scope.action;
++    if(!req.headers['if-match'])throw new StudioError(428,'STALE_PROPOSAL','If-Match required.');
++    if(req.headers['if-match']!==JSON.stringify(intent.scope.proposal_version_hash))throw new StudioError(412,'STALE_PROPOSAL','Request hash is stale.');
++    if(cancel){if(cancel[1]!==resourceId)throw new StudioError(403,'FORBIDDEN','Grant is scoped to another run.');for await(const b of req)if(b.length)throw invalid('Cancel has no body.');}
++    else{const request=await verification.validate(await json(req));if(!isDeepStrictEqual(request,intent.payload)||verification.bind(request)!==intent.scope.proposal_version_hash)throw new StudioError(412,'STALE_PROPOSAL','Request differs from the grant.');}
++    const receipt=authority.authorize(principal,intent.scope,token);
++    let result;if(cancel){consumeAuthorization(receipt,intent.scope);result=verification.cancel(resourceId);store.appendAudit(receipt,{event_type:action,resource_type:'verification',payload:{result:'SUCCESS',operation:'cancel',run_id:resourceId}});}else result=verification.start(receipt,intent.payload,resourceId,intent.scope);
++    intents.delete(entry[0]);return send(cancel?200:202,result);
++   }
++   if(req.method!=='GET')throw new StudioError(403,'FORBIDDEN','Unsupported mutation.');
++   if(url.pathname===prefix+'/verify/runs')return page(verification.list());
++   const run=url.pathname.match(new RegExp('^'+prefix+'/verify/runs/(VR-[\\w-]+)(?:/(sarif|stream))?$'));
++   if(run){if(url.search)throw invalid('No query allowed.');if(run[2]==='sarif')throw new StudioError(409,'NOT_SUPPORTED','Selected engine emits JSON diagnostics, not SARIF.');if(run[2]==='stream')throw new StudioError(409,'NOT_SUPPORTED','Use authenticated GET polling; browser WebSocket cannot attach the required header.');return send(200,verification.get(run[1]));}
++   if(url.pathname===prefix+'/evidence/tasks')return page(await evidence.list());
++   const task=url.pathname.match(new RegExp('^'+prefix+'/evidence/tasks/([^/]+)(?:/(events))?$'));
++   if(task){let id;try{id=decodeURIComponent(task[1]);}catch{throw invalid('Invalid task.');}const detail=await evidence.detail(id);if(task[2])return page(detail.events);if(url.search)throw invalid('No query allowed.');const {events,...view}=detail;return send(200,view);}
++   throw new StudioError(404,'NOT_FOUND','Unknown execution resource.');
++  }catch(error){
++   const status=error instanceof StudioError?error.status:503;
++   try{if(mutation||status===403)record(status===403?'DENY':'ERROR',status,error instanceof StudioError?error.code:'EXECUTION_UNAVAILABLE');}catch{return send(503,null,{error:{code:'INTERNAL_ERROR',message:'Audit unavailable; operation halted.',halted:true,issues:[]}});}
++   return send(status,null,{error:{code:error instanceof StudioError?error.code:'INTERNAL_ERROR',message:error instanceof StudioError?error.message:'Execution service unavailable.',halted:true,issues:[]}});
++  }
++ };
++}
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw b/src/features/verification/Verification.jsx
+index e69de29..a04e540 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw
++++ b/src/features/verification/Verification.jsx
+@@ -0,0 +1,36 @@
++import {useEffect,useState} from 'react';
++import {Badge,Empty,useText} from '../phase0/common.jsx';
++export default function Verification({api,workspace}){
++ const t=useText(),base='/workspaces/'+workspace+'/verify';
++ const [command,setCommand]=useState('validate'),[args,setArgs]=useState('--strict'),[runs,setRuns]=useState([]),[selected,setSelected]=useState(null),[intent,setIntent]=useState(null),[grant,setGrant]=useState(null),[busy,setBusy]=useState(false),[error,setError]=useState('');
++ const work=async action=>{setBusy(true);setError('');try{await action();}catch(e){setError(e.message);}finally{setBusy(false);}};
++ const refresh=async()=>setRuns(await api(base+'/runs?limit=100'));
++ useEffect(()=>{let active=true;api(base+'/runs?limit=100').then(r=>{if(active)setRuns(r);}).catch(e=>{if(active)setError(e.message);});return()=>{active=false;};},[api,base]);
++ useEffect(()=>{
++  if(!selected||selected.status!=='running')return;
++  let active=true;const timer=setInterval(()=>api(base+'/runs/'+selected.id).then(r=>{if(active){setSelected(r);if(r.status!=='running')refresh().catch(e=>setError(e.message));}}).catch(e=>{if(active)setError(e.message);}),750);
++  return()=>{active=false;clearInterval(timer);};
++ },[selected?.id,selected?.status,api,base]);
++ const reset=()=>{setIntent(null);setGrant(null);};
++ const prepare=cancel=>work(async()=>{reset();const request={command,args:args.split('\n').map(x=>x.trim()).filter(Boolean)};const body=cancel?{cancel:selected.id}:{request};setIntent({...await api('/verification-intents','POST',body),request:cancel?null:request,cancel:!!cancel});});
++ const authorize=()=>work(async()=>{const r=await api('/draft-intents/'+intent.id);setGrant(r.status==='GRANTED'?r.grant:null);setIntent({...intent,status:r.status});});
++ const execute=()=>work(async()=>{
++  const result=await api(intent.cancel?base+'/runs/'+selected.id+'/cancel':base+'/run','POST',intent.request??undefined,{'X-Write-Grant':grant,'If-Match':JSON.stringify(intent.scope.proposal_version_hash)});
++  setSelected(intent.cancel?result:await api(base+'/runs/'+result.run_id));reset();await refresh();
++ });
++ return <section data-testid="verification-screen"><h2>{t('تشغيل التحقق','Verification runs')}</h2><p>{t('مخرجات المحرك الفعلية، مع تحديث مباشر عبر الاستطلاع الموثق. كل تشغيل وإلغاء يحتاج تفويضًا محددًا.','Actual engine output, updated through authenticated polling. Each run and cancellation needs scoped authorization.')}</p>
++ <div className="draft-grid"><section><h3>{t('تشغيل جديد','New run')}</h3><form className="draft-form" onSubmit={e=>{e.preventDefault();prepare(false);}}>
++ <label htmlFor="verify-command">{t('الأمر','Command')}</label><select id="verify-command" value={command} onChange={e=>{setCommand(e.target.value);setArgs(e.target.value==='validate'?'--strict':'');reset();}}>{['validate','lint','generate','check','eval','qualify','doctor'].map(x=><option key={x}>{x}</option>)}</select>
++ <label htmlFor="verify-args">{t('الوسائط: وسيط واحد في كل سطر','Arguments: one per line')}</label><textarea id="verify-args" rows={5} dir="ltr" value={args} onChange={e=>{setArgs(e.target.value);reset();}}/>
++ <small>{t('generate/check/doctor: استخدم --cp=معرف. eval/qualify: --skill و--task و--criteria؛ المهارات تسجل من المشغل، ولا يختار المتصفح ملفات تنفيذ.','generate/check/doctor: use --cp=ID. eval/qualify: --skill, --task, --criteria; the operator registers skills. The browser cannot choose executable files.')}</small>
++ <p>{t('حدود التشغيل: eval ‏600 ثانية، qualify ‏3600 ثانية، وبقية الأوامر 30 ثانية؛ الذاكرة 2 GiB.','Limits: eval 600 s, qualify 3600 s, other commands 30 s; memory 2 GiB.')}</p><button disabled={busy} data-testid="verify-prepare">{t('إعداد التشغيل للتفويض','Prepare run authorization')}</button></form>
++ {intent&&<div className="draft-intent" role="status"><Badge code={intent.status}/><p>{t('فوّض العملية من طرفية الخادم ثم تحقق من التفويض.','Authorize the action in the server terminal, then check authorization.')}</p><pre dir="ltr">approve {intent.id}</pre><code className="draft-hash">{intent.scope.proposal_version_hash}</code><div className="draft-actions"><button onClick={authorize} disabled={busy} data-testid="verify-authorization">{t('التحقق من التفويض','Check authorization')}</button><button onClick={execute} disabled={busy||!grant} data-testid="verify-execute">{intent.cancel?t('إلغاء التشغيل المفوض','Cancel authorized run'):t('تشغيل مفوض','Run authorized command')}</button></div></div>}
++ <h3>{t('سجل التشغيل','Run history')}</h3><button onClick={()=>work(refresh)} disabled={busy}>{t('تحديث','Refresh')}</button>{!runs.length?<Empty>{t('لا توجد عمليات تشغيل بعد.','No verification runs yet.')}</Empty>:<ul className="draft-list">{runs.map(r=><li key={r.id}><button onClick={()=>{reset();work(async()=>setSelected(await api(base+'/runs/'+r.id)));}}><strong><bdi>{r.command}</bdi></strong> <Badge code={r.status}/><code>{r.id}</code></button></li>)}</ul>}
++ </section><section aria-live="polite" aria-atomic="false">{!selected?<Empty>{t('اختر تشغيلًا لعرض المخرجات.','Choose a run to inspect output.')}</Empty>:<article data-testid="verification-result"><h3><bdi>{selected.command}</bdi> · <Badge code={selected.status}/></h3><p>{t('رمز الخروج','Exit code')}: <bdi>{selected.exit_code??'—'}</bdi> · {t('سبب التوقف','Termination')}: <bdi>{selected.termination_reason??'—'}</bdi></p><p>{t('المدة بالمللي ثانية','Duration (ms)')}: {selected.duration_ms??'—'} · {t('ذروة الذاكرة MiB','Peak memory MiB')}: {selected.resource_peak_mib??'—'}</p>
++ {selected.status==='running'&&<button data-testid="verify-cancel" disabled={busy} onClick={()=>prepare(true)}>{t('إعداد الإلغاء للتفويض','Prepare cancellation authorization')}</button>}
++ <p className="p0-hint">{t('نجاح المحرك المحلي لا يؤهل Codex أو Antigravity، ولا يعتمد المقترح أو ينشره.','A local engine pass does not qualify Codex or Antigravity, approve a proposal, or publish it.')}</p>
++ {selected.summary.errors.map((e,i)=><p className="p0-notice" key={i}><bdi>{e.code}: {e.message}</bdi></p>)}
++ <h4>stdout</h4><pre dir="ltr" data-testid="verify-stdout">{selected.raw_stdout||t('لم تصل مخرجات بعد.','No output received yet.')}</pre><h4>stderr</h4><pre dir="ltr">{selected.raw_stderr||t('لا توجد مخرجات خطأ.','No stderr output.')}</pre><details><summary>{t('البصمات والأدلة','Hashes and evidence')}</summary><pre dir="ltr">{JSON.stringify({inputs_hash:selected.inputs_hash,candidate_hash:selected.candidate_hash,config_hash:selected.config_hash,evidence:selected.evidence},null,2)}</pre></details>
++ </article>}</section></div>{busy&&<p role="status">{t('جارٍ تنفيذ الطلب…','Processing…')}</p>}{error&&<p role="alert" className="p0-notice">{error}</p>}
++ </section>;
++}
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw b/src/features/verification/execution.css
+index e69de29..bdced25 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw
++++ b/src/features/verification/execution.css
+@@ -0,0 +1,4 @@
++[data-testid=verification-screen] pre,[data-testid=runtime-screen] pre{max-height:26rem;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font:0.8rem/1.6 Consolas,monospace;padding:1rem;background:var(--paper,#f0f2ef);border:1px solid var(--line)}
++[data-testid=runtime-screen] dd{margin-inline-start:0;overflow-wrap:anywhere}
++.draft-toolbar nav{flex-wrap:wrap}
++@media(max-width:480px){.draft-toolbar nav{width:100%}.draft-toolbar nav button{flex:1 1 40%;white-space:normal}.draft-header{flex-wrap:wrap}}
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw b/src/features/runtime/RuntimeEvidence.jsx
+index e69de29..d4daddd 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw
++++ b/src/features/runtime/RuntimeEvidence.jsx
+@@ -0,0 +1,18 @@
++import {useEffect,useRef,useState} from 'react';
++import {Badge,Empty,useText} from '../phase0/common.jsx';
++export default function RuntimeEvidence({api,workspace}){
++ const t=useText(),base='/workspaces/'+workspace+'/evidence/tasks';
++ const requestVersion=useRef(0);
++ const [tasks,setTasks]=useState([]),[detail,setDetail]=useState(null),[events,setEvents]=useState([]),[error,setError]=useState(''),[busy,setBusy]=useState(false);
++ const refresh=()=>{setBusy(true);setError('');api(base+'?limit=500').then(setTasks).catch(e=>setError(e.message)).finally(()=>setBusy(false));};
++ useEffect(()=>{let active=true;api(base+'?limit=500').then(r=>{if(active)setTasks(r);}).catch(e=>{if(active)setError(e.message);});return()=>{active=false;};},[api,base]);
++ const open=async id=>{const version=++requestVersion.current;setBusy(true);setError('');setDetail(null);setEvents([]);try{const d=await api(base+'/'+encodeURIComponent(id));const rows=await api(base+'/'+encodeURIComponent(id)+'/events?limit=500');if(version===requestVersion.current){setDetail(d);setEvents(rows);}}catch(e){if(version===requestVersion.current)setError(e.message);}finally{if(version===requestVersion.current)setBusy(false);}};
++ let raw='';if(detail)try{raw=new TextDecoder('utf-8').decode(Uint8Array.from(atob(detail.raw_source_base64),x=>x.charCodeAt(0)));}catch{raw=t('تعذر عرض النص؛ البصمة محفوظة.','Text cannot be displayed; its hash is retained.');}
++ return <section data-testid="runtime-screen"><h2>{t('الأدلة التشغيلية','Runtime evidence')}</h2><p>{t('قراءة فقط من ‎.aghr/runtime_evidence/‎ للمشروع المسجل. لا تعديل للأصل أو state.json.','Read only from the registered project’s .aghr/runtime_evidence/. Source and state.json stay unchanged.')}</p><p className="p0-notice">{t('الأحداث المستوردة ادعاءات من المصدر. صلاحية البنية لا تثبت التنفيذ أو هوية المنتج؛ التأهيل مستقل.','Imported events are source claims. Valid structure proves neither execution nor producer identity; qualification is separate.')}</p>
++ <button disabled={busy} onClick={refresh}>{t('تحديث الأدلة','Refresh evidence')}</button><div className="draft-grid"><section><h3>{t('المهام','Tasks')}</h3>{!tasks.length?<Empty>{t('لا توجد أدلة. يسجل المشغل مسار المشروع عند تشغيل الخادم.','No evidence found. The operator registers a project path when starting the server.')}</Empty>:<ul className="draft-list">{tasks.map(task=><li key={task.task_id}><button onClick={()=>open(task.task_id)}><strong><bdi>{task.task_id}</bdi></strong><Badge code={task.parse_status}/><span>{task.agent} · {task.event_count} {t('حدث','events')}</span>{task.attention_flags.map(x=><Badge key={x} code={x}/>)}</button></li>)}</ul>}</section>
++ <section>{!detail?<Empty>{t('اختر مهمة لعرض أصلها وخطها الزمني.','Choose a task to inspect its source and timeline.')}</Empty>:<article data-testid="runtime-detail"><h3><bdi>{detail.task.task_id}</bdi> · <Badge code={detail.task.parse_status}/></h3>{detail.task.attention_flags.length>0&&<p role="status">{t('حالة توقف أو دليل غير صالح','Halt or invalid evidence')} · {detail.task.attention_flags.map(x=><Badge key={x} code={x}/>)}</p>}
++ <div className="draft-checks">{[['selected','الاختيار','Selected'],['loaded','التحميل','Loaded'],['executed','التنفيذ','Executed'],['verified','التحقق','Verified']].map(([code,ar,en])=><span key={code}>{t(ar,en)}: <bdi>{events.filter(x=>x.event.type==='skill.'+code).length}</bdi></span>)}</div><p>{t('أعداد أحداث معلنة في أول 500 حدث، وليست شهادة نجاح.','Counts of declared events in the first 500, not a success certificate.')} <Badge code="NOT_OBSERVABLE"/></p>
++ <dl><dt>{t('المصدر','Source')}</dt><dd><bdi>{detail.source_file}</bdi></dd><dt>{t('البصمة','Hash')}</dt><dd><code className="draft-hash">{detail.source_hash}</code></dd><dt>{t('البايتات','Bytes')}</dt><dd>{detail.source_bytes}</dd></dl>
++ {detail.issues.map((e,i)=><p className="p0-notice" key={i}><bdi>{e.code}: {e.message}</bdi></p>)}<h4>{t('الخط الزمني: أول 500 حدث','Timeline: first 500 events')}</h4>{events.map(e=><div key={e.source_line} className="draft-intent"><bdi>{e.event.at}</bdi> · <Badge code={e.event.type}/><small> {t('السطر','Line')} {e.source_line}</small><pre dir="ltr">{JSON.stringify(e.event,null,2)}</pre></div>)}<details><summary>{t('النص الأصلي','Original text')}</summary><pre dir="ltr">{raw}</pre></details>
++ </article>}</section></div>{busy&&<p role="status">{t('جارٍ قراءة الأدلة…','Reading evidence…')}</p>}{error&&<p role="alert" className="p0-notice">{error}</p>}</section>;
++}
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw b/tests/studio_execution.test.mjs
+index e69de29..2461768 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw
++++ b/tests/studio_execution.test.mjs
+@@ -0,0 +1,101 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import fs from 'node:fs';
++import path from 'node:path';
++import os from 'node:os';
++import http from 'node:http';
++import crypto from 'node:crypto';
++import {DatabaseSync} from 'node:sqlite';
++import {createDraftStudio} from '../server/studio/draft-runtime.js';
++import {createSchemaReader} from '../server/studio/schema-reader.js';
++import {encodeJsonl} from '../tools/contracts/evidence_jsonl.mjs';
++import {createCodexAdapter,createAntigravityAdapter} from '../server/studio/hosts/native-adapters.mjs';
++const python=path.resolve('temp/aghr-e1a-20261022-01/venv/Scripts/python.exe');
++const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
++const sleep=ms=>new Promise(r=>setTimeout(r,ms));
++const sourcePaths=['server/studio/verification-service.js','server/studio/execution-routes.js','server/studio/evidence-reader.js','server/studio/schema-reader.js','server/studio/aghr/contract-reader.py','server/studio/db/persistent.js','server/studio/draft-runtime.js','server/studio/hosts/native-adapters.mjs','server/studio/hosts/native-process.py'];
++const sourceAtLoad=Object.fromEntries(sourcePaths.map(p=>[p,sha(fs.readFileSync(p))]));
++test('Native adapter denies missing transport, unsafe session and forged receipt without qualification',async()=>{
++ const anti=createAntigravityAdapter({python,binary:null,cwd:process.cwd()});
++ await assert.rejects(anti.run('execute',{prompt:'test'}),/NATIVE_CHANNEL_UNAVAILABLE/);
++ const codex=createCodexAdapter({python,binary:python,cwd:process.cwd()});
++ await assert.rejects(codex.run('discover'),/ISOLATED_NATIVE_SESSION_REQUIRED/);
++ assert.throws(()=>codex.observation({job:{status:'passed',stdout:'VERIFIED'}}),/UNTRUSTED_NATIVE_RECEIPT/);
++});
++test('T20/T21 actual HTTP, E2 CLI3, grants, queue, cancellation, evidence and persistence',async t=>{
++ const root=fs.mkdtempSync(path.join(os.tmpdir(),'aghr-execution-')),storageRoot=path.join(root,'db'),project=path.join(root,'project'),sources=path.join(project,'.aghr/runtime_evidence');fs.mkdirSync(storageRoot);fs.mkdirSync(sources,{recursive:true});
++ const at=new Date().toISOString(),session={agent:'DECLARED_TEST_ONLY',agent_version:'1',host_os:'windows',started_at:at};
++ const bytes=encodeJsonl([
++  {task_id:'claims',session,events:[{at,type:'skill.loaded',skill_id:'test',instruction_hash:'sha256:'+'a'.repeat(64)}],submit_to_ci:false},
++  {task_id:'claims',session,events:[{at,type:'discovery.outcome',task_language:'ar',outcome:'DISCOVERY_UNAVAILABLE',reason:'Test source claim only.'}],submit_to_ci:false},
++ ]);fs.writeFileSync(path.join(sources,'claims.jsonl'),bytes);fs.writeFileSync(path.join(sources,'foreign.jsonl'),'not json\n');
++ const before=Object.fromEntries(fs.readdirSync(sources).map(n=>[n,sha(fs.readFileSync(path.join(sources,n)))]));
++ const skillRoot=path.resolve('tests/fixtures/studio-e4/json-audit');
++ const e4Config={skills:[{id:'json-audit',source:'project',skillPath:skillRoot+'/SKILL.md',entry:skillRoot+'/worker.py',requires:[]}],permissions:[]};
++ let studio=await createDraftStudio({python,storageRoot,actor:'execution-test-owner',evidenceProjectRoot:project,e4Config});
++ let server=http.createServer(studio.handle);await new Promise(r=>server.listen(0,'127.0.0.1',r));let origin='http://127.0.0.1:'+server.address().port;
++ const base='/api/v1/workspaces/rc3-local',schema=createSchemaReader({python}),observed=[];
++ const request=async(method,url,body,headers={})=>{const response=await fetch(origin+url,{method,headers:{'X-Studio-Token':studio.session.token,...(body===undefined?{}:{'Content-Type':'application/json'}),...headers},...(body===undefined?{}:{body:JSON.stringify(body)})});const data=await response.json();return {status:response.status,...data};};
++ const authorize=async input=>{const r=await request('POST','/api/v1/verification-intents',input);assert.equal(r.status,200,JSON.stringify(r));studio.approveIntent(r.data.id);const g=await request('GET','/api/v1/draft-intents/'+r.data.id);return {grant:g.data.grant,hash:r.data.scope.proposal_version_hash};};
++ const run=async payload=>{const g=await authorize({request:payload});const r=await request('POST',base+'/verify/run',payload,{'X-Write-Grant':g.grant,'If-Match':JSON.stringify(g.hash)});assert.equal(r.status,202,JSON.stringify(r));return {id:r.data.run_id,g};};
++ const finish=async id=>{const end=Date.now()+600000;let last;while(Date.now()<end){const r=await request('GET',base+'/verify/runs/'+id);assert.equal(r.status,200);const fingerprint=sha(JSON.stringify(r.data));if(fingerprint!==last){observed.push(r.data);last=fingerprint;}if(r.data.status!=='running')return r.data;await sleep(150);}throw Error('Run did not terminate');};
++ let passedId;
++ try{
++  await t.test('All starts/cancels reject missing grants, URL tokens and untrusted identity with403; denial is audited',async()=>{
++   for(const headers of [{},{'X-Studio-Token':'bad'},{'X-Write-Grant':'a'.repeat(64)}])assert.equal((await request('POST',base+'/verify/run',{command:'validate',args:[]},headers)).status,403);
++   assert.equal((await request('GET',base+'/verify/runs?token=bad')).status,400);
++   assert(studio.store.auditEvents().some(e=>e.actor==='unauthenticated'&&JSON.parse(e.payload_json).result==='DENY'));
++  });
++  await t.test('Unknown argv, injected executable and shell syntax cannot enter the command queue',async()=>{
++   for(const payload of [{command:'validate',args:['--exec=cmd.exe']},{command:'validate',args:['--path=x; whoami'] ,executable:'cmd.exe'},{command:'unknown',args:[]},{command:'eval',args:[]}])assert.equal((await request('POST','/api/v1/verification-intents',{request:payload})).status,400);
++  });
++  await t.test('Real strict validate streams output and passes with protocol3; replay/mismatch grants fail',async()=>{
++   const payload={command:'validate',args:['--strict']},started=await run(payload);passedId=started.id;
++   const r=await finish(started.id);assert.equal(r.status,'passed',JSON.stringify(r));assert.equal(r.exit_code,0);assert.equal(JSON.parse(r.raw_stdout).protocol_version,'3');assert(r.evidence.length);assert(studio.verification.frames(r.id).some(x=>x.type==='stdout'));
++   assert.equal((await request('POST',base+'/verify/run',payload,{'X-Write-Grant':started.g.grant,'If-Match':JSON.stringify(started.g.hash)})).status,403);
++   const g=await authorize({request:payload});assert.equal((await request('POST',base+'/verify/run',{command:'lint',args:[]},{'X-Write-Grant':g.grant,'If-Match':JSON.stringify(g.hash)})).status,412);
++  });
++  await t.test('Unknown skill rejects eval with1 and retains real raw output; no direct-execution fallback',async()=>{
++   const started=await run({command:'eval',args:['--skill=missing','--task=no-skill','--criteria={"format":"json","all":[{"pointer":"/ok","op":"equals","value":true}]}']});const r=await finish(started.id);assert.equal(r.status,'failed',JSON.stringify(r));assert.equal(r.exit_code,1);assert.match(r.raw_stdout,/UNKNOWN_ID/);assert.equal(r.limits.timeout_ms,600000);
++  });
++  await t.test('Actual registered local skill eval passes three executions under600s/2GiB without native qualification',async()=>{
++   const started=await run({command:'eval',args:['--skill=json-audit','--task=real-eval','--input={"document":{"name":"actual"},"required":["name"]}','--criteria={"all":[{"pointer":"/valid","op":"equals","value":true}]}']});const r=await finish(started.id);assert.equal(r.status,'passed',JSON.stringify(r));assert.equal(r.exit_code,0);assert.match(r.raw_stdout,/aghr-local-process/);assert.doesNotMatch(r.raw_stdout,/"host":"codex"/);assert.equal(r.limits.memory_mib,2048);
++  });
++  await t.test('FIFO queue cancellation is scoped and persists errored/user_cancelled, never resource_limit_exceeded',async()=>{
++   const payload={command:'lint',args:[]};
++   // Trusted harness enqueues two exact grants without HTTP/schema scheduling
++   // delays so queue contention is real and deterministic, not a mock runner.
++   const p=studio.authority.createPrincipal({actor:'queue-owner',role:'governance-owner',installationOwnerVerified:true});
++   const start=()=>{const id='VR-'+crypto.randomUUID(),scope={workspace_id:'rc3-local',target_project:'studio-drafts',action:'verify.run.fast',resource_id:id,proposal_version_hash:studio.verification.bind(payload)},token=studio.authority.issueGrant({issuer:p.principal,principal:p.principal,scope,expiresAt:Date.now()+60000});return studio.verification.start(studio.authority.authorize(p.principal,scope,token),payload,id,scope).run_id;};
++   const a=start(),b=start();assert.equal((await request('POST',base+'/verify/runs/'+b+'/cancel')).status,403);
++   const g=await authorize({cancel:b});const cancelled=await request('POST',base+'/verify/runs/'+b+'/cancel',undefined,{'X-Write-Grant':g.grant,'If-Match':JSON.stringify(g.hash)});assert.equal(cancelled.status,200,JSON.stringify(cancelled));assert.equal(cancelled.data.termination_reason,'user_cancelled');assert.equal(cancelled.data.status,'errored');await finish(a);
++  });
++  await t.test('T21 original bytes/hash, declared loading and halt; malformed data never exposes a valid prefix',async()=>{
++   const d=await request('GET',base+'/evidence/tasks/claims');assert.equal(d.status,200,JSON.stringify(d));assert.equal(d.data.task.parse_status,'VALID');assert.equal(d.data.source_hash,'sha256:'+sha(bytes));assert.equal(Buffer.from(d.data.raw_source_base64,'base64').compare(bytes),0);assert(d.data.task.attention_flags.includes('DISCOVERY_UNAVAILABLE'));
++   const e=await request('GET',base+'/evidence/tasks/claims/events');assert.equal(e.data.length,2);assert(!e.data.some(x=>x.event.type==='skill.executed'));
++   const bad=await request('GET',base+'/evidence/tasks/foreign');assert.equal(bad.data.task.parse_status,'INVALID');assert.equal(bad.data.task.event_count,0);assert(bad.data.task.attention_flags.includes('INVALID_EVIDENCE'));
++   for(const [definition,values]of [['EvidenceDetail',[d.data,bad.data]],['EvidenceEvents',[e.data]]])assert.equal((await schema('api.read.schema.json',definition,values)).valid,true);
++   assert.equal((await request('GET',base+'/evidence/tasks/claims?path=C:/Windows')).status,400);
++  });
++  await t.test('Typed run snapshots validate against frozen schemas; 12 tables remain; tokens absent from audit',async()=>{
++   const report=await schema('api.execution.schema.json','VerificationRun',observed);assert.equal(report.valid,true,JSON.stringify(report));assert.equal(studio.store.tables.length,12);assert(!JSON.stringify(studio.store.auditEvents()).includes(studio.session.token));
++  });
++  await t.test('Failed durable completion audit cannot return passed; transaction rolls back then records errored',async()=>{
++   const connection=new DatabaseSync(studio.store.file);
++   try{
++    connection.exec("CREATE TRIGGER t20_test_fail_pass BEFORE INSERT ON audit_events WHEN json_extract(NEW.payload_json,'$.status')='passed' BEGIN SELECT RAISE(ABORT,'T20_TEST_AUDIT_FAILURE'); END");
++    const r=await finish((await run({command:'lint',args:[]})).id);assert.equal(r.status,'errored');assert(r.summary.errors.some(x=>x.code==='PERSISTENCE_FAILED'));
++   }finally{connection.exec('DROP TRIGGER t20_test_fail_pass');connection.close();}
++  });
++  await t.test('Restart retains raw runs and evidence sources stay byte-identical',async()=>{
++   await new Promise(r=>server.close(r));await studio.close();studio=await createDraftStudio({python,storageRoot,actor:'execution-test-owner',evidenceProjectRoot:project});server=http.createServer(studio.handle);await new Promise(r=>server.listen(0,'127.0.0.1',r));origin='http://127.0.0.1:'+server.address().port;
++   const saved=await request('GET',base+'/verify/runs/'+passedId);assert.equal(saved.data.status,'passed');assert.equal(JSON.parse(saved.data.raw_stdout).protocol_version,'3');
++   for(const [name,h]of Object.entries(before))assert.equal(sha(fs.readFileSync(path.join(sources,name))),h);assert(!fs.existsSync(path.join(project,'.aghr/state.json')));
++  });
++  if(process.env.AGHR_T20_EVIDENCE_OUT){
++   const db=new DatabaseSync(studio.store.file,{readOnly:true});let rows;try{rows=db.prepare('SELECT * FROM verification_runs ORDER BY started_at,id').all();}finally{db.close();}
++   assert.deepEqual(Object.fromEntries(sourcePaths.map(p=>[p,sha(fs.readFileSync(p))])),sourceAtLoad,'Loaded source changed during verification');
++   fs.writeFileSync(path.join(process.env.AGHR_T20_EVIDENCE_OUT,'HTTP_ACCEPTANCE.json'),JSON.stringify({status:'PASS_FOR_LOCAL_T20_T21',source_at_load:sourceAtLoad,observed,raw_rows:rows,source_before:before,source_after:Object.fromEntries(fs.readdirSync(sources).map(n=>[n,sha(fs.readFileSync(path.join(sources,n)))])),host_qualification:{codex:'NOT_RUN',antigravity:'NOT_RUN'},tables:studio.store.tables.length},null,2),{flag:'wx'});
++  }
++ }finally{await new Promise(r=>server.close(r));await studio.close();}
++});
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw b/tools/native/browser.mjs
+index e69de29..5a910d9 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw
++++ b/tools/native/browser.mjs
+@@ -0,0 +1,61 @@
++// Isolated Draft DB and Edge browser context. No owner browser/profile changes.
++import fs from 'node:fs';
++import path from 'node:path';
++import crypto from 'node:crypto';
++import assert from 'node:assert/strict';
++import {spawn} from 'node:child_process';
++import readline from 'node:readline';
++import {encodeJsonl} from '../contracts/evidence_jsonl.mjs';
++import {out as evidenceRoot} from './prepare.mjs';
++const out=evidenceRoot+'/'+(process.argv[2]||'browser-final');fs.mkdirSync(out);
++const root=process.cwd(),temp=fs.mkdtempSync(path.resolve('temp/native-browser-')),db=path.join(temp,'db'),project=path.join(temp,'project'),evidence=path.join(project,'.aghr/runtime_evidence');fs.mkdirSync(db);fs.mkdirSync(evidence,{recursive:true});
++const now=new Date().toISOString(),session={agent:'UI_SOURCE_CLAIM_ONLY',agent_version:'1',host_os:'windows',started_at:now};
++const raw=encodeJsonl([{task_id:'ui-halt',session,events:[{at:now,type:'skill.loaded',skill_id:'example',instruction_hash:'sha256:'+'a'.repeat(64)}],submit_to_ci:false},{task_id:'ui-halt',session,events:[{at:now,type:'skill.blocked',skill_id:'example',status:'BLOCKED',reason:'UI fixture only; execution was not observed.'}],submit_to_ci:false}]);
++fs.writeFileSync(path.join(evidence,'ui-halt.jsonl'),raw);fs.writeFileSync(path.join(evidence,'bad.jsonl'),'foreign input\n');
++const sha=b=>crypto.createHash('sha256').update(b).digest('hex'),before={raw:sha(raw),bad:sha(fs.readFileSync(path.join(evidence,'bad.jsonl')))};
++const parent=JSON.parse(fs.readFileSync('docs/evidence/studio-e4-2026-10-24/CUSTODY.lock.json','utf8'));
++const immutable=Object.fromEntries(Object.keys(parent.files).filter(p=>!p.startsWith('docs/status/')&&!p.startsWith('docs/plans/')&&p!=='docs/INDEX.md').map(p=>[p,sha(fs.readFileSync(p))]));
++const server=spawn(process.execPath,['server/studio/serve-draft.mjs','--python='+path.resolve('temp/aghr-e1a-20261022-01/venv/Scripts/python.exe'),'--port=0','--storage-root='+db,'--evidence-project='+project],{cwd:root,windowsHide:true,stdio:['pipe','pipe','pipe','ipc']});server.stdout.resume();server.stderr.resume();
++const receive=predicate=>new Promise((resolve,reject)=>{const timer=setTimeout(()=>{server.off('message',handler);reject(Error('Server timeout'));},90000);function handler(m){if(predicate(m)){clearTimeout(timer);server.off('message',handler);resolve(m);}}server.on('message',handler);});
++const ready=await receive(m=>m.event==='ready'),token=ready.token,origin='http://127.0.0.1:'+ready.port;
++const version=await (await fetch('http://127.0.0.1:9223/json/version')).json();
++const socket=new WebSocket(version.webSocketDebuggerUrl);await new Promise((r,j)=>{socket.onopen=r;socket.onerror=j;});
++const pending=new Map();let n=0,context,sessionId;const errors=[];
++socket.onmessage=message=>{const value=JSON.parse(message.data);if(value.id){const p=pending.get(value.id);if(p){pending.delete(value.id);clearTimeout(p.timer);value.error?p.reject(Error(JSON.stringify(value.error))):p.resolve(value.result);}}else if(value.sessionId===sessionId&&value.method==='Runtime.exceptionThrown')errors.push(value.params.exceptionDetails.text);};
++const cdp=(method,params={},sid)=>new Promise((resolve,reject)=>{const id=++n,timer=setTimeout(()=>{pending.delete(id);reject(Error('CDP timeout '+method));},30000);pending.set(id,{resolve,reject,timer});socket.send(JSON.stringify({id,method,params,...(sid?{sessionId:sid}:{})}));});
++const evaluate=async expression=>{const r=await cdp('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true},sessionId);if(r.exceptionDetails)throw Error(r.exceptionDetails.text);return r.result.value;};
++const wait=ms=>new Promise(r=>setTimeout(r,ms));
++const until=async(expression,timeout=90000)=>{const end=Date.now()+timeout;while(Date.now()<end){const value=await evaluate(expression);if(value)return value;await wait(150);}throw Error('UI timeout '+expression);};
++const click=async selector=>{await until(`!!document.querySelector(${JSON.stringify(selector)})`);await evaluate(`document.querySelector(${JSON.stringify(selector)}).click()`);};
++const fill=async(selector,value)=>evaluate(`(()=>{const e=document.querySelector(${JSON.stringify(selector)});Object.getOwnPropertyDescriptor(e.tagName==='TEXTAREA'?HTMLTextAreaElement.prototype:HTMLInputElement.prototype,'value').set.call(e,${JSON.stringify(value)});e.dispatchEvent(new Event('input',{bubbles:true}));})()`);
++const snapshot=async name=>{fs.writeFileSync(out+'/'+name+'.txt',await evaluate('document.body.innerText'),{flag:'wx'});const image=await cdp('Page.captureScreenshot',{format:'png',captureBeyondViewport:true},sessionId);fs.writeFileSync(out+'/'+name+'.png',Buffer.from(image.data,'base64'),{flag:'wx'});};
++const checks=[];let failure;
++try{
++ context=(await cdp('Target.createBrowserContext')).browserContextId;
++ const target=(await cdp('Target.createTarget',{url:'about:blank',browserContextId:context})).targetId;sessionId=(await cdp('Target.attachToTarget',{targetId:target,flatten:true})).sessionId;
++ await cdp('Runtime.enable',{},sessionId);await cdp('Page.enable',{},sessionId);await cdp('Page.navigate',{url:origin},sessionId);await until('!!document.querySelector("#draft-token")');
++ assert.match(await evaluate('navigator.userAgent'),/Edg\//);checks.push('Actual isolated Microsoft Edge context');
++ await fill('#draft-token',token);await click('form button');await until('!!document.querySelector("[data-testid=verification-nav]")');
++ await click('[data-testid=verification-nav]');await until('!!document.querySelector("[data-testid=verification-screen]")');await snapshot('verification-ar-before');
++ await click('[data-testid=verify-prepare]');const intent=await until('document.querySelector(".draft-intent pre")?.innerText.match(/approve ([a-f0-9-]+)/)?.[1]');
++ const control=receive(m=>m.event==='control');server.send({command:'approve',id:intent,request_id:'browser-approve'});const granted=await control;assert(!granted.error,granted.error);
++ await click('[data-testid=verify-authorization]');await until('document.querySelector("[data-testid=verify-execute]")?.disabled===false');await click('[data-testid=verify-execute]');
++ await until('document.querySelector("[data-testid=verification-result]")?.innerText.includes("passed")');assert.match(await evaluate('document.querySelector("[data-testid=verify-stdout]").innerText'),/"protocol_version":"3"/);checks.push('Authorized real validate runs via UI, polls and renders CLI3 stdout/exit0');await snapshot('verification-ar-pass');
++ await click('[data-testid=runtime-nav]');await until('document.querySelector("[data-testid=runtime-screen]")?.innerText.includes("ui-halt")');await click('.draft-list button:last-child');
++ // Select by rendered task text rather than trusting source data as a selector.
++ await evaluate('Array.from(document.querySelectorAll(".draft-list button")).find(e=>e.innerText.includes("ui-halt")).click()');await until('document.querySelector("[data-testid=runtime-detail]")?.innerText.startsWith("ui-halt")');assert.match(await evaluate('document.querySelector("[data-testid=runtime-detail]").innerText'),/BLOCKED/);assert.match(await evaluate('document.querySelector("[data-testid=runtime-detail]").innerText'),/NOT_OBSERVABLE/);await snapshot('runtime-ar-halt');checks.push('Rapid source switch keeps the latest task; loaded, halt and NOT_OBSERVABLE separate');
++ await evaluate('(()=>{const e=document.querySelector("[data-testid=draft-locale]");Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype,"value").set.call(e,"en");e.dispatchEvent(new Event("change",{bubbles:true}));})()');await until('document.documentElement.dir==="ltr"');await snapshot('runtime-en-halt');assert.match(await evaluate('document.body.innerText'),/Runtime evidence/);checks.push('Arabic RTL and English LTR');
++ for(const width of [320,768,1024,1440]){await cdp('Emulation.setDeviceMetricsOverride',{width,height:900,deviceScaleFactor:1,mobile:false},sessionId);await wait(100);assert.equal(await evaluate('document.documentElement.scrollWidth>window.innerWidth'),false,'Horizontal overflow '+width);checks.push('No page overflow '+width);}
++ await snapshot('runtime-en-desktop');await cdp('Emulation.setDeviceMetricsOverride',{width:320,height:900,deviceScaleFactor:1,mobile:true},sessionId);await snapshot('runtime-en-mobile');
++ assert.deepEqual(errors,[]);checks.push('No runtime JavaScript exceptions');
++ console.log(JSON.stringify({event:'browser_ready_for_inspection',origin,context,checks}));
++ // Let the tool inspect this exact page before disposing only our context.
++ await new Promise(resolve=>{const input=readline.createInterface({input:process.stdin});const marker=path.join(out,'finish.marker');const timer=setInterval(()=>{if(fs.existsSync(marker)){clearInterval(timer);input.close();resolve();}},250);input.once('line',()=>{clearInterval(timer);input.close();resolve();});});
++}catch(error){failure=error.stack;console.error(error.message);}
++finally{
++ const after={raw:sha(fs.readFileSync(path.join(evidence,'ui-halt.jsonl'))),bad:sha(fs.readFileSync(path.join(evidence,'bad.jsonl')))};
++ for(const [file,h]of Object.entries(immutable))assert.equal(sha(fs.readFileSync(file)),h,'Protected source changed: '+file);assert.deepEqual(before,after);assert(!fs.existsSync(path.join(project,'.aghr/state.json')));
++ fs.writeFileSync(out+'/BROWSER_ACCEPTANCE.json',JSON.stringify({status:failure?'FAIL':'PASS',failure,checks,browser:'Microsoft Edge isolated context via127.0.0.1:9223',source_before:before,source_after:after,protected_files:Object.keys(immutable).length,state_written:false,source_written:false,draft_storage:db,errors},null,2),{flag:'wx'});
++ if(context)await cdp('Target.disposeBrowserContext',{browserContextId:context});socket.close();server.send('stop');
++}
++if(failure)process.exitCode=1;
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw b/tools/native/codex-live.mjs
+index e69de29..ab593ee 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw
++++ b/tools/native/codex-live.mjs
+@@ -0,0 +1,18 @@
++import fs from 'node:fs';
++import path from 'node:path';
++import {createCodexAdapter} from '../../server/studio/hosts/native-adapters.mjs';
++import {out} from './prepare.mjs';
++const root=fs.mkdtempSync(path.resolve('temp/native-codex-')),state=path.join(root,'state'),cwd=path.join(root,'project');fs.mkdirSync(state);fs.mkdirSync(cwd);
++const dir=path.join(cwd,'.agents/skills/aghr-native-probe');fs.mkdirSync(dir,{recursive:true});const skillPath=path.join(dir,'SKILL.md');
++fs.writeFileSync(skillPath,'---\nname: aghr-native-probe\ndescription: AGHR isolated native observation probe.\n---\nRead probe.txt using an available read-only tool, then return its exact text. Do not write files, use the network or launch other agents.\n');
++fs.writeFileSync(path.join(cwd,'probe.txt'),'AGHR_NATIVE_READ_PROBE_20261024\n');
++const adapter=createCodexAdapter({python:path.resolve('temp/aghr-e1a-20261022-01/venv/Scripts/python.exe'),binary:'C:/Users/Majed/.vscode/extensions/openai.chatgpt-26.1002.51308-win32-x64/bin/windows-x86_64/codex.exe',cwd,stateDirectory:state,isolated:true,skill:{name:'aghr-native-probe',path:skillPath}});
++const results={at:new Date().toISOString(),cwd,state_directory:state,environment_overrides:false,existing_thread_access:false,native_qualification:'NOT_RUN'};
++for(const operation of ['discover','execute']){
++ try{
++  const r=await adapter.run(operation,{prompt:'$aghr-native-probe Read probe.txt with a read-only tool as instructed. Do not write, access the network, or start any other agents.'});
++  const observation=adapter.observation(r.receipt);fs.writeFileSync(out+'/codex-live-'+operation+'.json',JSON.stringify(observation,null,2),{flag:'wx'});results[operation]={status:r.job.status,exit_code:r.job.exit_code,turn_completed:observation.turn_completed,skill_execution:observation.skill_execution};
++  if(r.job.status!=='passed')break;
++ }catch(error){results[operation]={status:'ENVIRONMENT_BLOCKED',reason:error.message};break;}
++}
++fs.writeFileSync(out+'/CODEX_LIVE_RESULTS.json',JSON.stringify(results,null,2),{flag:'wx'});console.log(JSON.stringify(results));
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw b/tools/native/finalize-docs.mjs
+index e69de29..fa84921 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw
++++ b/tools/native/finalize-docs.mjs
+@@ -0,0 +1,20 @@
++import fs from 'node:fs';
++import {out} from './prepare.mjs';
++const log=fs.readFileSync(out+'/NPM_TEST.log','utf8');if(!/pass 105/.test(log)||!/fail 0/.test(log))throw Error('TEST_GATE_PENDING');
++const browser=JSON.parse(fs.readFileSync(out+'/browser-verified/BROWSER_ACCEPTANCE.json'));if(browser.status!=='PASS')throw Error('BROWSER_GATE_PENDING');
++let p='docs/status/CURRENT.md',s=fs.readFileSync(p,'utf8');s=s.replace('Verification and final evidence are in progress.','[Delivery](../evidence/studio-native-t20-t21-2026-10-24/README.md):105/105 passed, actual local eval, Edge bilingual/responsive UI and source sentinel passed; native runtime qualification remains NOT_RUN.');s=s.replace('Complete T20/T21 verification and seal the new delivery; reopen its exact custody and current Git before resuming.','Reopen the new delivery/custody and current Git before resuming. T20/T21 are locally tested in Draft; owner acceptance is not self-granted.');fs.writeFileSync(p,s);
++p='docs/status/HANDOFF.md';fs.writeFileSync(p,`# Studio handoff —2026-10-24, derived position
++
++Owner formally accepted E4.a-e local core and authorized native adapters followed by T20/T21. Reopen CURRENT, live Git and [new delivery](../evidence/studio-native-t20-t21-2026-10-24/README.md), its custody and HTTP/browser evidence. Branch main, base133746a; substantial earlier dirty work was preserved. No commit or push in this task.
++
++T20/T21 implemented and locally tested:105/105 full tests; actual strict CLI3 run and registered local three-execution eval; scoped start/cancel grants and mandatory audit,12-table Draft history, deadlines/memory/tree controls, authenticated GET polling, schema-checked original JSONL read and source sentinel, Arabic/English Edge at320/768/1024/1440. Completion-audit failure cannot return PASS. Fast source switching keeps the latest selection. Imported producer/event claims remain untrusted and do not qualify execution. Evidence timeline explicitly shows first500 events, with full original bytes available.
++
++Native transport code is separate from immutable E1-E3/E4. Codex0.162.0-alpha.2 version/help observed; actual app-server initialize timed out before discovery within the bounded temporary-project attempt. Further cause UNPROVEN. Antigravity2.25 desktop exists but agy headless CLI was absent. Native execution,7 honesty checks and8 scenarios remain REQUIRED / NOT_RUN / NOT_WAIVED for each host; no transfer of local-process qualification. No existing conversation or credential extraction.
++
++Next: diagnose that observed Codex handshake failure within T15 and supply an isolated authenticated agy channel before real T23 trials. No automatic T24/CI publisher, source apply/state update, release or independent acceptance. Reference1.2.0 and engine pins remain unchanged; four app integration files have authorized before/after custody. Default owner Draft DB was not used or restored. Original SEC-001 remains BLOCKED/3; standalone local eval is not its P0 acceptance.
++`);
++p='docs/plans/STUDIO_UPGRADE_TASKS_AR.md';s=fs.readFileSync(p,'utf8').replace('| [ ] T20 — إدارة تشغيل التحقق | IMPLEMENTED_VERIFYING؛','| [x] T20 — إدارة تشغيل التحقق | TESTED_LOCAL_DRAFT؛').replace('| [ ] T21 — قراءة الأدلة التشغيلية | IMPLEMENTED_VERIFYING؛','| [x] T21 — قراءة الأدلة التشغيلية | TESTED_LOCAL_READ_ONLY؛');fs.writeFileSync(p,s);
++p='docs/INDEX.md';s=fs.readFileSync(p,'utf8');if(!s.includes('studio-native-t20-t21-2026-10-24/README.md'))s+='\n- [Native adapters and T20/T21 Draft delivery](evidence/studio-native-t20-t21-2026-10-24/README.md):105 tests, authenticated run polling, runtime evidence, native NOT_RUN boundaries.\n';fs.writeFileSync(p,s);
++p=out+'/README.md';s=fs.readFileSync(p,'utf8').replace('Final verification is in progress; see raw artifacts for observed results.','Local implementation/testing complete:105/105 tests passed, no failures/skips; final Edge/Sentinel and context checks are recorded below. Owner acceptance and native qualification are not self-granted.').replace('and final `CUSTODY.lock.json` will record final outcomes.','and final `CUSTODY.lock.json` record final outcomes.');s+='\n## Final local results\n\n- Full suite:105/105,0 failures/skips; `HTTP_ACCEPTANCE.json` retains exact loaded-source hashes, raw runs/receipts and byte sentinel. Includes actual local eval success, unknown-ID rejection, scoped cancellation, stale/replay denial and failed completion-audit rollback.\n- Edge final:9 automated checks plus DevTools inspection, Arabic/English, four widths, no horizontal overflow; final console has no error/warning/issue. `browser-verified/` is final; earlier attempts are retained.\n- `PRESERVATION.json`:1916 unchanged files from the accepted E3 custody, four explicitly authorized app integration changes with matching original raw snapshots, four derived-document exceptions; E1-E3/E4 pins preserved.\n- No native honesty check is marked PASS. Codex initialize failure is observed; skill execution NOT_RUN. Antigravity headless runtime NOT_RUN.\n';fs.writeFileSync(p,s);
++const native={codex:{adapter:'IMPLEMENTED',version_help:'OBSERVED_PASS',channel_attempt:'INITIALIZE_TIMEOUT_BEFORE_DISCOVERY',root_cause:'UNPROVEN',skill_execution:'NOT_RUN',qualification:'NOT_RUN'},antigravity:{adapter:'IMPLEMENTED',desktop:'FOUND_2.25',headless_agy:'NOT_FOUND',skill_execution:'NOT_RUN',qualification:'NOT_RUN'},honesty:Object.fromEntries(['codex','antigravity'].map(host=>[host,Array.from({length:7},(_,i)=>({id:'H'+(i+1),required:true,status:'NOT_RUN',waived:false}))])),local_core:'Previously owner accepted; full regression105 passed; never transferred to native profiles'};
++fs.writeFileSync(out+'/NATIVE_FINAL_STATUS.json',JSON.stringify(native,null,2),{flag:'wx'});
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw b/tools/native/fix-snapshots.mjs
+index e69de29..fcca7d2 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw
++++ b/tools/native/fix-snapshots.mjs
+@@ -0,0 +1,13 @@
++import fs from 'node:fs';
++import path from 'node:path';
++import {out,sha} from './prepare.mjs';
++const file=out+'/PREFLIGHT.json',raw=fs.readFileSync(file),p=JSON.parse(raw);fs.mkdirSync(out+'/attempts',{recursive:true});
++fs.writeFileSync(out+'/attempts/PREFLIGHT_PATHS_BEFORE.json',raw,{flag:'wx'});
++const corrections=[];
++for(const [source,record]of Object.entries(p.before)){
++ if(record.copy.endsWith('.raw'))continue;
++ const previous=path.resolve(out,record.copy),next=previous+'.raw';
++ if(!previous.startsWith(path.resolve(out)+path.sep)||sha(fs.readFileSync(previous))!==record.sha256)throw Error('SNAPSHOT_CUSTODY_MISMATCH');
++ fs.renameSync(previous,next);corrections.push({source,before:record.copy,after:record.copy+'.raw',sha256:record.sha256});record.copy+='.raw';
++}
++fs.writeFileSync(file,JSON.stringify(p,null,2));fs.writeFileSync(out+'/SNAPSHOT_PATH_CORRECTION.json',JSON.stringify({reason:'Custody bytes are raw originals, not relocated active Markdown documents. The context/link check correctly rejects relative links interpreted at snapshot locations.',source_bytes_changed:false,corrections},null,2),{flag:'wx'});
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw b/tools/native/prepare.mjs
+index e69de29..816bdfc 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw
++++ b/tools/native/prepare.mjs
+@@ -0,0 +1,20 @@
++import fs from 'node:fs';
++import crypto from 'node:crypto';
++import path from 'node:path';
++import {execFileSync} from 'node:child_process';
++import {verifyE4} from '../../server/studio/aghr/e4-bridge.js';
++export const out='docs/evidence/studio-native-t20-t21-2026-10-24';
++export const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
++export const changes=['server/studio/draft-runtime.js','server/studio/db/persistent.js','server/studio/serve-draft.mjs','src/features/changes/DraftStudio.jsx','docs/status/CURRENT.md','docs/status/HANDOFF.md','docs/plans/STUDIO_UPGRADE_TASKS_AR.md','docs/INDEX.md'];
++if(process.argv[1]?.endsWith('prepare.mjs')){
++ if(fs.existsSync(out))throw Error('EVIDENCE_ALREADY_EXISTS');
++ const parentPath='docs/evidence/studio-e4-2026-10-24/CUSTODY.lock.json',raw=fs.readFileSync(parentPath),parent=JSON.parse(raw);
++ if(sha(raw)!=='f57daf24577be0c40f007328dedb335f755e57a9bea5133efc501399b8effb9f')throw Error('PARENT_PIN');
++ for(const [name,record]of Object.entries(parent.files))if(sha(fs.readFileSync(name))!==record.sha256)throw Error('PARENT_DRIFT '+name);
++ verifyE4();
++ fs.mkdirSync(out+'/before',{recursive:true});
++ const before={};for(const f of changes){const b=fs.readFileSync(f),copy='before/'+f+'.raw';fs.mkdirSync(path.dirname(out+'/'+copy),{recursive:true});fs.writeFileSync(out+'/'+copy,b,{flag:'wx'});before[f]={sha256:sha(b),bytes:b.length,copy};}
++ const git=args=>execFileSync('git',args,{encoding:'utf8',windowsHide:true});
++ fs.writeFileSync(out+'/PREFLIGHT.json',JSON.stringify({at:new Date().toISOString(),head:git(['rev-parse','HEAD']).trim(),branch:git(['branch','--show-current']).trim(),status:git(['status','--short']),parent:{path:parentPath,sha256:sha(raw),verified_files:Object.keys(parent.files).length},before,authority:'Owner accepts E4 local core; authorizes native adapters then T20/T21; no reference/E1-E3 changes'},null,2));
++ console.log('Parent verified, snapshots saved.');
++}
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw b/tools/native/probe.mjs
+index e69de29..71c654e 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw
++++ b/tools/native/probe.mjs
+@@ -0,0 +1,23 @@
++import fs from 'node:fs';
++import path from 'node:path';
++import {execFileSync} from 'node:child_process';
++import {createCodexAdapter,createAntigravityAdapter} from '../../server/studio/hosts/native-adapters.mjs';
++import {out} from './prepare.mjs';
++const python=path.resolve('temp/aghr-e1a-20261022-01/venv/Scripts/python.exe');
++const codex='C:/Users/Majed/.vscode/extensions/openai.chatgpt-26.1002.51308-win32-x64/bin/windows-x86_64/codex.exe';
++const result={at:new Date().toISOString(),codex:{},antigravity:{},qualification:'NOT_RUN',honesty:'REQUIRED / NOT_RUN / NOT_WAIVED'};
++const adapter=createCodexAdapter({python,binary:codex,cwd:process.cwd()});
++for(const operation of ['version','help']){
++ const saved=out+'/codex-'+operation+'.json';
++ if(fs.existsSync(saved)){const r=JSON.parse(fs.readFileSync(saved,'utf8'));result.codex[operation]={status:r.job.status,exit_code:r.job.exit_code};continue;}
++ const r=await adapter.run(operation);fs.writeFileSync(out+'/codex-'+operation+'.json',JSON.stringify({...r,receipt:undefined},null,2),{flag:'wx'});
++ result.codex[operation]={status:r.job.status,exit_code:r.job.exit_code};
++}
++try{await adapter.run('discover');throw Error('Unexpected unisolated access');}catch(error){result.codex.discovery={status:'NOT_RUN',reason:error.message};}
++result.codex.native_execution='NOT_RUN';
++result.codex.gap='Installed CLI confirmed. An isolated authenticated native session is not configured; owner profile/authentication is not read, copied or changed. Metadata/help cannot qualify native skill execution.';
++let agy='';try{agy=execFileSync('powershell.exe',['-NoProfile','-NonInteractive','-Command','Get-Command agy -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source'],{encoding:'utf8',windowsHide:true}).trim();}catch(error){if(error.status!==1||error.stdout?.length||error.stderr?.length)throw error;}
++result.antigravity={desktop_found:fs.existsSync('C:/Users/Majed/AppData/Local/Programs/Antigravity/Antigravity.exe'),headless_cli:agy||null,native_execution:'NOT_RUN',gap:'Desktop installation is not the documented agy headless channel. No agy runtime/isolated authenticated session is configured.'};
++const anti=createAntigravityAdapter({python,binary:agy||null,cwd:process.cwd()});
++if(!agy)try{await anti.run('execute',{prompt:'noop'});}catch(error){result.antigravity.rejection=error.message;}
++fs.writeFileSync(out+'/NATIVE_HOST_RESULTS.json',JSON.stringify(result,null,2),{flag:'wx'});console.log(JSON.stringify(result));
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw b/tools/native/seal.mjs
+index e69de29..f94d2c1 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw
++++ b/tools/native/seal.mjs
+@@ -0,0 +1,48 @@
++import fs from 'node:fs';
++import path from 'node:path';
++import crypto from 'node:crypto';
++import {spawnSync} from 'node:child_process';
++import {out,changes,sha} from './prepare.mjs';
++import {verifyE4} from '../../server/studio/aghr/e4-bridge.js';
++const newFiles=[
++ 'server/studio/hosts/native-process.py','server/studio/hosts/native-adapters.mjs',
++ 'server/studio/aghr/contract-reader.py','server/studio/schema-reader.js','server/studio/evidence-reader.js','server/studio/verification-service.js','server/studio/execution-routes.js',
++ 'src/features/verification/Verification.jsx','src/features/verification/execution.css','src/features/runtime/RuntimeEvidence.jsx',
++ 'tests/studio_execution.test.mjs',...fs.readdirSync('tools/native').filter(n=>n.endsWith('.mjs')).map(n=>'tools/native/'+n),
++];
++if(fs.existsSync(out+'/CUSTODY.lock.json'))throw Error('ALREADY_SEALED');
++const preflight=JSON.parse(fs.readFileSync(out+'/PREFLIGHT.json'));
++const acceptance=JSON.parse(fs.readFileSync(out+'/HTTP_ACCEPTANCE.json'));
++for(const [p,h]of Object.entries(acceptance.source_at_load))if(sha(fs.readFileSync(p))!==h)throw Error('TESTED_SOURCE_DRIFT '+p);
++verifyE4();
++const preserved=JSON.parse(fs.readFileSync(out+'/PRESERVATION.json'));
++if(preserved.status!=='PASS'||preserved.immutable_files_verified!==1916||preserved.authorized_application_changes.length!==4)throw Error('PRESERVATION_FAILED');
++const browser=JSON.parse(fs.readFileSync(out+'/browser-verified/BROWSER_ACCEPTANCE.json'));
++if(browser.status!=='PASS'||JSON.stringify(browser.source_before)!==JSON.stringify(browser.source_after))throw Error('BROWSER_FAILED');
++const health=fs.readFileSync(out+'/CONTEXT_HEALTH_FINAL.log','utf8');if(!health.includes('Errors: 0, Warnings: 0'))throw Error('CONTEXT_FAILED');
++const log=fs.readFileSync(out+'/NPM_TEST.log','utf8');if(!log.includes('pass 105')||!log.includes('fail 0'))throw Error('TEST_FAILED');
++const decoder=new TextDecoder('utf8',{fatal:true});for(const p of [...changes,...newFiles])decoder.decode(fs.readFileSync(p));
++fs.mkdirSync(out+'/after',{recursive:true});
++const exceptions={};const diff=[],diffChecks=[];
++const empty=out+'/before/EMPTY.raw';fs.writeFileSync(empty,'',{flag:'wx'});
++for(const p of [...changes,...newFiles]){
++ const bytes=fs.readFileSync(p),copy='after/'+p+'.raw';fs.mkdirSync(path.dirname(out+'/'+copy),{recursive:true});fs.writeFileSync(out+'/'+copy,bytes,{flag:'wx'});
++ const after={sha256:sha(bytes),bytes:bytes.length,copy},before=preflight.before[p]||null;
++ if(before)exceptions[p]={before,after};diff.push({path:p,before,after});
++ const result=spawnSync('git',['-c','core.whitespace=blank-at-eol,blank-at-eof','diff','--no-index','--check',before?out+'/'+before.copy:empty,p],{encoding:'utf8',windowsHide:true});
++ diffChecks.push({path:p,status:result.status,output:result.stdout+result.stderr});
++ const patch=spawnSync('git',['diff','--no-index','--',before?out+'/'+before.copy:empty,p],{encoding:'utf8',windowsHide:true});
++ fs.appendFileSync(out+'/CHANGES.patch',patch.stdout);
++}
++fs.writeFileSync(out+'/BEFORE_AFTER.json',JSON.stringify(diff,null,2),{flag:'wx'});
++fs.writeFileSync(out+'/SCOPED_DIFF_CHECK.json',JSON.stringify(diffChecks,null,2),{flag:'wx'});
++if(diffChecks.some(r=>r.output.trim()||![0,1].includes(r.status)))throw Error('SCOPED_DIFF_CHECK_FAILED');
++const git=args=>spawnSync('git',args,{encoding:'utf8',windowsHide:true}).stdout.trim();
++fs.writeFileSync(out+'/VERIFICATION.json',JSON.stringify({status:'PASS_FOR_LOCAL_DRAFT',tests:{passed:105,failed:0,skipped:0,raw:'NPM_TEST.log'},browser:{status:browser.status,checks:browser.checks,console:'no errors/warnings/issues',raw:'browser-verified/BROWSER_ACCEPTANCE.json'},context:{errors:0,warnings:0},native:{codex:'NOT_RUN_INITIALIZE_TIMEOUT',antigravity:'NOT_RUN_AGY_UNAVAILABLE',honesty:'REQUIRED / NOT_RUN / NOT_WAIVED'},preservation:{files:1916,authorized_app_edits:4},build:'PASS_WITH_EXISTING_LEGACY_BUNDLE_ADVISORY',head:git(['rev-parse','HEAD']),branch:git(['branch','--show-current']),independent_review:'NOT_PERFORMED',owner_release_acceptance:'NOT_GRANTED',source_apply:false,state_written:false,default_draft_db_used:false},null,2),{flag:'wx'});
++const receipt=b=>({sha256:sha(b),bytes:b.length}),files={};
++const own=p=>{for(const e of fs.readdirSync(p,{withFileTypes:true})){const name=p+'/'+e.name;if(e.isSymbolicLink())throw Error('REPARSE_POINT');if(e.isDirectory())own(name);else if(!name.endsWith('/CUSTODY.lock.json'))files[name]=receipt(fs.readFileSync(name));}};
++own(out);for(const p of [...changes,...newFiles])files[p]=receipt(fs.readFileSync(p));
++const parent=preflight.parent;
++fs.writeFileSync(out+'/CUSTODY.lock.json',JSON.stringify({algorithm:'SHA256 raw bytes; not an owner/publisher signature',scope:'Native adapter code + local Draft T20/T21. Native profiles remain NOT_RUN.',parent,exceptions,files:Object.fromEntries(Object.entries(files).sort(([a],[b])=>a.localeCompare(b)))},null,2),{flag:'wx'});
++const seal=fs.readFileSync(out+'/CUSTODY.lock.json'),parsed=JSON.parse(seal);for(const [p,r]of Object.entries(parsed.files))if(sha(fs.readFileSync(p))!==r.sha256)throw Error('POST_SEAL_DRIFT '+p);
++console.log(JSON.stringify({status:'SEALED',files:Object.keys(files).length,sha256:sha(seal)}));
+diff --git a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw b/tools/native/verify-preservation.mjs
+index e69de29..6d5af4f 100644
+--- a/docs/evidence/studio-native-t20-t21-2026-10-24/before/EMPTY.raw
++++ b/tools/native/verify-preservation.mjs
+@@ -0,0 +1,21 @@
++import fs from 'node:fs';
++import {out,sha} from './prepare.mjs';
++import {verifyE4} from '../../server/studio/aghr/e4-bridge.js';
++const p='docs/evidence/studio-e3-t19-2026-10-24/CUSTODY.lock.json',raw=fs.readFileSync(p);
++if(sha(raw)!=='2869e66bf9ada6b7471bfbdb2060ae12ed9890c76057be8898678610a1251c9a')throw Error('E3_CUSTODY_DRIFT');
++const exceptions=['docs/status/CURRENT.md','docs/status/HANDOFF.md','docs/plans/STUDIO_UPGRADE_TASKS_AR.md','docs/INDEX.md'];
++const custody=JSON.parse(raw),mismatches=[],applicationChanges=[];let verified=0;
++const preflight=JSON.parse(fs.readFileSync(out+'/PREFLIGHT.json'));
++const authorizedApplicationChanges=['server/studio/db/persistent.js','server/studio/draft-runtime.js','server/studio/serve-draft.mjs','src/features/changes/DraftStudio.jsx'];
++for(const [name,entry]of Object.entries(custody.files)){
++ if(exceptions.includes(name))continue;
++ if(authorizedApplicationChanges.includes(name)){
++  const before=preflight.before[name],copy=fs.readFileSync(out+'/'+before.copy);
++  if(sha(copy)!==entry.sha256||sha(copy)!==before.sha256)throw Error('APPLICATION_BEFORE_CUSTODY_DRIFT '+name);
++  applicationChanges.push({path:name,before:entry.sha256,after:sha(fs.readFileSync(name)),before_copy:before.copy,authority:'Current owner instruction: implement T20/T21 in Draft app; immutable E1-E3 engine modules excluded'});continue;
++ }
++ if(sha(fs.readFileSync(name))!==entry.sha256)mismatches.push(name);else verified++;
++}
++verifyE4();
++const result={status:mismatches.length?'FAIL':'PASS',custody:{path:p,sha256:sha(raw)},immutable_files_verified:verified,mismatches,authorized_application_changes:applicationChanges,derived_document_exceptions:exceptions,e4_source_unchanged:true,reference_120:'unchanged within accepted transitive custody',note:'Explicit sealed file lists only; no governance package crawl. Four owner-authorized app integration edits are not E1-E3 engine mutations.'};
++fs.writeFileSync(out+'/PRESERVATION.json',JSON.stringify(result,null,2),{flag:'wx'});console.log(JSON.stringify(result));if(mismatches.length)process.exitCode=1;

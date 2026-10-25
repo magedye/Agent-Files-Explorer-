@@ -1,0 +1,44 @@
+{
+  "id": "AGHR-026",
+  "title": "حالة مشروع مرجعية مستدامة",
+  "kind": "REQUIREMENT",
+  "force": "MUST",
+  "severity": "medium",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: For resumable work.\nKeep current state and decisions in approved project records; generate maps as views and recheck repository facts at resume.",
+  "authority": {
+    "source": ".t12/SourceGrant.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "OWNER_T12_OVERRIDE",
+    "status": "active",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "الاعتماد على ذاكرة المحادثة قد يفقد حالة التنفيذ والقرارات. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "review",
+    "mergeEffect": "advisory"
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-026"
+    ]
+  },
+  "impact": {
+    "band": "medium",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2027-01-21",
+  "exceptions": {
+    "allowed": false
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

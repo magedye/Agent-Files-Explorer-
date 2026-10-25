@@ -1,0 +1,61 @@
+{
+  "status": "PASS",
+  "scope": "LOCAL_CONTRACT_INTEGRITY_AND_SQL_ONLY",
+  "checks": [
+    {
+      "name": "json_documents_parse",
+      "status": "PASS"
+    },
+    {
+      "name": "all_local_json_references_resolve",
+      "status": "PASS"
+    },
+    {
+      "name": "api_covers_every_canonical_operation_and_declared_extension",
+      "status": "PASS"
+    },
+    {
+      "name": "instruction_query_contract_has_no_language_filter",
+      "status": "PASS"
+    },
+    {
+      "name": "canonical_state_and_runtime_evidence_have_no_write_endpoint",
+      "status": "PASS"
+    },
+    {
+      "name": "evidence_profile_matches_bounded_reference_codec",
+      "status": "PASS"
+    },
+    {
+      "name": "contract_lock_matches_all_artifacts_and_canonical_sources",
+      "status": "PASS"
+    },
+    {
+      "name": "sql_exactly_matches_six_source_blocks",
+      "status": "PASS"
+    },
+    {
+      "name": "migration_version_and_foreign_keys_applied_in_memory",
+      "status": "PASS"
+    },
+    {
+      "name": "twelve_tables_created_in_memory",
+      "status": "PASS"
+    },
+    {
+      "name": "qualification_primary_key_preserves_all_four_dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "approval_uniqueness_includes_exact_proposal_hash",
+      "status": "PASS"
+    },
+    {
+      "name": "evidence_source_line_cannot_be_silently_overwritten",
+      "status": "PASS"
+    }
+  ],
+  "runtime_engine": "NOT_RUN",
+  "http_and_browser": "NOT_RUN",
+  "phase_0_exit": "NOT_RUN"
+}

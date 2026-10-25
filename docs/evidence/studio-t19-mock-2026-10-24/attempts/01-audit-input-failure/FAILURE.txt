@@ -1,0 +1,1 @@
+TOOL_DEFECT: run_cycle.mjs used result=T19_OWNER_APPROVED_MOCK in recordAttempt; allowed enum is ATTEMPT/DENY/ERROR/GRANT_ISSUED. Backend correctly rejected AUDIT_INPUT_INVALID. Cycle reached mock patch export, then final evidence collection failed. Original DB and patch retained. Fix only tool result=ATTEMPT; keep MOCK tag in reason.

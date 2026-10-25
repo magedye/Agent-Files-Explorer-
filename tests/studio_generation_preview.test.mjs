@@ -1,0 +1,21 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import {spawn} from 'node:child_process';
+test('T17 pure Python four stages, byte budget, P0, genuine PRIN-007 and missing lookup refusal',async()=>{
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),'aghr-gen-fixture-'));fs.mkdirSync(path.join(dir,'policies'));
+ const root='governance_packages/candidates/AGHR_rc3_Core_Candidate';
+ fs.copyFileSync(root+'/aghr.json',path.join(dir,'aghr.json'));
+ const original=JSON.parse(fs.readFileSync(root+'/policies/observations/reference-state.json','utf8'));
+ const hard={...original,id:'OBS-P0-FIXTURE',defaultTier:'P0-Integrity',rule:'P0 fixture obligation. '.repeat(200)};
+ fs.writeFileSync(path.join(dir,'policies/hard.json'),JSON.stringify(hard));
+ const low={...original,id:'OBS-P2-FIXTURE',defaultTier:'P2-Quality',rule:'وصف اختباري 😀 '.repeat(4000)};
+ fs.writeFileSync(path.join(dir,'policies/low.json'),JSON.stringify(low));
+ const child=spawn(path.resolve('temp/aghr-e1a-20261022-01/venv/Scripts/python.exe'),['-I','-B','-S','-X','utf8',path.resolve('server/studio/aghr/read-only-launcher.py'),path.resolve('tests/helpers/e5_generation_cases.py'),process.cwd(),dir],{windowsHide:true});
+ const out=[],err=[];child.stdout.on('data',b=>out.push(b));child.stderr.on('data',b=>err.push(b));
+ const timer=setTimeout(()=>child.kill(),60000);const code=await new Promise((r,j)=>{child.on('error',j);child.on('exit',r);});clearTimeout(timer);
+ assert.equal(code,0,Buffer.concat(err).toString('utf8'));const raw=Buffer.concat(out);assert.equal(JSON.parse(raw).status,'PASS');
+ if(process.env.AGHR_EVIDENCE_OUT)fs.writeFileSync(path.join(process.env.AGHR_EVIDENCE_OUT,'GENERATION_CASES.json'),raw);
+});

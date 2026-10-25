@@ -1,0 +1,95 @@
+{
+  "id": "CP-2026-5a97e848-5330-4570-bd00-e3a83b36bc3c",
+  "workspace_id": "rc3-local",
+  "title": "دورة الموافقات الفعلية · Actual approvals",
+  "kind": "OBSERVATION",
+  "target_item_id": null,
+  "status": "draft",
+  "source": {
+    "type": "request",
+    "ref": "local-request"
+  },
+  "base_package_version": "1.0.0-rc.3",
+  "base_candidate_hash": "sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2",
+  "proposed_yaml": "{\n  \"id\": \"OBS-EDGE-T18\",\n  \"title\": \"رصد المرجع الافتراضي المعلن في مصدر التطبيق\",\n  \"kind\": \"OBSERVATION\",\n  \"force\": \"INFORMATIVE\",\n  \"severity\": \"info\",\n  \"scope\": {\n    \"paths\": [\n      \"server/security.js\"\n    ]\n  },\n  \"rule\": \"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT. Updated proposal invalidates approval.\",\n  \"impact\": {\n    \"band\": \"info\",\n    \"evidence\": \"assumed\"\n  }\n}",
+  "proposal_version_hash": "sha256:ff135e9bfe468c87b43bacb279720f26ca1e776434a9ea2d50cca13e889e2c25",
+  "checks": {
+    "validate": {
+      "status": "NOT_RUN",
+      "evidence": [],
+      "reason": "Required check has not run for this proposal version."
+    },
+    "lint": {
+      "status": "NOT_RUN",
+      "evidence": [],
+      "reason": "Required check has not run for this proposal version."
+    },
+    "skill_states": {
+      "status": "NOT_RUN",
+      "evidence": [],
+      "reason": "Required check has not run for this proposal version."
+    },
+    "generate": {
+      "status": "NOT_RUN",
+      "evidence": [],
+      "reason": "Required check has not run for this proposal version."
+    },
+    "doctor": {
+      "status": "NOT_RUN",
+      "evidence": [],
+      "reason": "Required check has not run for this proposal version."
+    },
+    "eval": {
+      "status": "NOT_RUN",
+      "evidence": [],
+      "reason": "Required check has not run for this proposal version."
+    }
+  },
+  "generation": null,
+  "ci_comparison": null,
+  "required_approvals": [
+    "governance-owner"
+  ],
+  "approvals": [],
+  "approval_history": [
+    {
+      "decision": {
+        "id": 1,
+        "package_id": "CP-2026-5a97e848-5330-4570-bd00-e3a83b36bc3c",
+        "role": "governance-owner",
+        "approver": "Majed",
+        "decision": "approve",
+        "approved_version_hash": "sha256:b46e80c1e5f7391718f289c676a2cb8c7dc92380444559301942c7a321a3187f",
+        "reason": "موافقة اختبار محلية ضمن تفويض التنفيذ؛ لا اعتماد إصدار",
+        "at": "2026-10-23T23:02:26.537Z"
+      },
+      "invalidated_at": "2026-10-23T23:02:32.750Z",
+      "invalidation_reason": "proposal_changed"
+    }
+  ],
+  "blockers": [
+    {
+      "code": "CHECK_VALIDATE",
+      "message": "Required check has not run for this proposal version.",
+      "severity": "warning"
+    },
+    {
+      "code": "CHECK_LINT",
+      "message": "Required check has not run for this proposal version.",
+      "severity": "warning"
+    },
+    {
+      "code": "CHECK_GENERATE",
+      "message": "Required check has not run for this proposal version.",
+      "severity": "warning"
+    },
+    {
+      "code": "CHECK_DOCTOR",
+      "message": "Required check has not run for this proposal version.",
+      "severity": "warning"
+    }
+  ],
+  "created_by": "Majed",
+  "created_at": "2026-10-23T23:02:01.626Z",
+  "updated_at": "2026-10-23T23:02:32.750Z"
+}

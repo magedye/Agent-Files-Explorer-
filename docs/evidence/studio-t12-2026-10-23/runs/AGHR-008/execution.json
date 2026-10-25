@@ -1,0 +1,56 @@
+{
+  "name": "AGHR-008",
+  "started_at": "2026-10-23T13:50:07.129770+00:00",
+  "finished_at": "2026-10-23T13:50:15.416570+00:00",
+  "wall_seconds": 8.286067400011234,
+  "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+  "argv": [
+    "-X",
+    "utf8",
+    "-B",
+    "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+    "validate",
+    "--strict",
+    "--format",
+    "json"
+  ],
+  "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-008",
+  "process_exit_code": 3,
+  "protocol_version": "3",
+  "result": "BLOCKED",
+  "structure": "PASS",
+  "diagnostics": {
+    "AUTHORITY_SOURCE_UNVERIFIED": 1,
+    "AUTHORITY_NOT_ACTIVE": 1
+  },
+  "item_ids": [
+    "AGHR-008"
+  ],
+  "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+  "inputs": {
+    "candidate_hash": "af7efc1f812ed82b41891fb6d20cbdc4f35f2930bf713377c00911128220e082",
+    "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+    "inputs_hash": "9ff4b780c22a7c6ced44c850852e06942140496bc8ecc0b4ad8a2559ac69bdfc",
+    "catalog": [
+      {
+        "path": "aghr.json",
+        "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "role": "manifest"
+      },
+      {
+        "path": "policies/drafts/AGHR-008.json",
+        "sha256": "a473fccc275409af604035fe8125f2f40e30881396322627e593d3eaa8bf71f0",
+        "role": "item"
+      }
+    ]
+  },
+  "input_before": {
+    "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+    "drafting/eval-fixtures.json": "a80aef7de49220ad6af4468fe3182dbca6f30df079cde9d30e811215885af06b",
+    "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+    "policies/drafts/AGHR-008.json": "a473fccc275409af604035fe8125f2f40e30881396322627e593d3eaa8bf71f0"
+  },
+  "input_after_unchanged": true,
+  "stdout_sha256": "120e73145bf909054d4ed4febad1fb0085f3e2b2ff39ed1f6260cb0f1558bc57",
+  "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+}

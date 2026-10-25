@@ -16,6 +16,7 @@ function apiServerMiddleware() {
 }
 
 export default defineConfig({
+    build: { rollupOptions: { input: { main: 'index.html', phase0: 'phase0.html', draft: 'draft.html', studio: 'studio.html' } } },
   plugins: [
     react(),
     {
@@ -39,4 +40,3 @@ export default defineConfig({
     strictPort: true,
   },
 });
-

@@ -1,0 +1,28 @@
+{
+  "event": "finished",
+  "status": "failed",
+  "reason": null,
+  "exit_code": 1,
+  "resource_peak_mb": 29.66796875,
+  "duration_ms": 5000,
+  "active_processes_after": 0,
+  "observed_pids": [
+    110364,
+    117352,
+    114956
+  ],
+  "memory_events": [],
+  "started": {
+    "event": "started",
+    "pid": 110364,
+    "adapter": "windows-job-list",
+    "hard_memory_bytes": 2147483648,
+    "limit_flags": 8704
+  },
+  "stdout": "{\"valid\": false, \"reason\": \"[{\\\"pointer\\\": \\\"/\\\", \\\"message\\\": \\\"'dry_run' is a required property\\\"}]\"}\r\n",
+  "stderr": "",
+  "limits": {
+    "timeoutMs": 600000,
+    "memoryBytes": 2147483648
+  }
+}

@@ -1,0 +1,581 @@
+--- before/docs/INDEX.md
++++ after/docs/INDEX.md
+@@ -32,7 +32,7 @@
+ - [Owner-accepted AGHR rc.3 and Studio designs](specs/aghr-rc3/README.md) — last-app baseline with full prior-requirement coverage; [adoption and archive receipt](governance/LAST_APP_ADOPTION_2026_10_22.md).
+ - [Arabic and English interface](features/INTERFACE_LANGUAGES.md) — language selector, saved preference, translation catalog and verification.
+ - [Phase 1 read-only Studio](features/STUDIO_PHASE1_READ_ONLY.md) — five bilingual screens, 16 routes, actual Python scope, frozen sample and zero-write evidence.
+-- [T12 provisional drafts](evidence/studio-t12-2026-10-23/README.md) — 47 rules, before/after, native strict blockers; [owner-accepted T11b](evidence/studio-t11b-2026-10-23/T11B_REVIEW_AR.md) and quarantine preserved; no Active import.
++- [T12 mock / T13–T14 core](evidence/studio-t12-mock-write-core-2026-10-23/README.md) — signed 47-rule mock, real scoped authorization and isolated SQLite; [original drafts](evidence/studio-t12-2026-10-23/README.md) and accepted T11 preserved; no live writes.
+ - [PROJECT_MAP.md](../PROJECT_MAP.md) — Current file tree and service responsibilities.
+ - [Skill Steward SACP proposal](specs/SKILL_STEWARD_SACP_PROPOSAL_AR.md) — separate proposed product and supplementary design source.
+ - [Governance package layout](../governance_packages/README.md) — references, candidates, historical copies, and incoming proposals.
+--- before/docs/status/CURRENT.md
++++ after/docs/status/CURRENT.md
+@@ -5,18 +5,18 @@
+ ## Current scope
+ 
+ - E1/E2.a–e **ACCEPTED_BY_OWNER**. [E2](../evidence/studio-e2-2026-10-22/README.md): unchanged engine, 141/141; CLI 3; owner/license PROVISIONAL, publisher UNKNOWN.
+-- [T01/Phase 0](../evidence/studio-phase0-runtime-2026-10-23/README.md): **T01 CLOSED_UNBLOCKED / ACCEPTED_BY_OWNER** for local catalog/strict/lint. T02–T05 ACCEPTED_BY_OWNER: pinned Python bridge, 12-table SQLite :memory:, authenticated read API and routing.
+-- [Phase 0 launch/limits](../features/STUDIO_PHASE0_READ_ONLY.md): Node/Python/SQLite write guards; legacy writes excluded from this profile.
++- [T01–T05](../evidence/studio-phase0-runtime-2026-10-23/README.md) **OWNER_ACCEPTED / T01_UNBLOCKED**: local catalog/strict/lint, read API and :memory:. [Read launch](../features/STUDIO_PHASE0_READ_ONLY.md).
+ - [T06](../evidence/studio-t06-mock-2026-10-23/README.md) **ACCEPTED_BY_OWNER / MOCK_ONLY_CLOSED**: fixture/adapter VALID/0; original CLI BLOCKED/3. No real enterprise/enforcement/release qualification.
+ - [T07–T10](../evidence/studio-phase1-2026-10-23/README.md) **ACCEPTED_BY_OWNER**: five read screens, sixteen bilingual routes, Python scope. Prior Sentinel: 106 unchanged files, zero app writes; 57/57 tests, 7/7 HTTP schemas. [Launch](../features/STUDIO_PHASE1_READ_ONLY.md).
+-- [T11a](../evidence/studio-t11a-2026-10-23/T11A_REVIEW_AR.md)/[T11b](../evidence/studio-t11b-2026-10-23/T11B_REVIEW_AR.md) **ACCEPTED_BY_OWNER / CLOSED**: 1,608 dispositions, legacy quarantine retained. [T12 drafting](../evidence/studio-t12-2026-10-23/README.md) **DRAFTED_47 / STRICT_BLOCKED**: 47 provisional project-level drafts, all structure PASS, all native strict BLOCKED/3. Source authority unverified (47), mandatory authority draft (44), E3 evidence absent (3). Zero admitted/Active; complete before/after and field tags retained.
++- [T11](../evidence/studio-t11b-2026-10-23/T11B_REVIEW_AR.md) **OWNER_ACCEPTED / CLOSED**: 1,608 dispositions/quarantine retained. [T12–T14 delivery](../evidence/studio-t12-mock-write-core-2026-10-23/README.md): **T12 CLOSED_FOR_OWNER_APPROVED_MOCK_ONLY**; signed 47-rule fixture strict/lint VALID/0, unchanged native CLI BLOCKED/3. 44 active overrides are simulation-only; original drafts untouched.
++- **T13/T14 CORE_TESTED_ISOLATED**: server-owned, scoped/revocable grants; legacy mutation HTTP 403; staging requires private receipts. Explicit SQLite factory: 12 tables, migration rollback/reopen/audit tested in temporary storage. Current application remains read-only/:memory:; live mutation integration not activated. Latest suite 68/68.
+ 
+ ## Preserved boundaries
+ 
+ - [Contracts](../contracts/aghr-rc3/README.md): contract.1 and 46-file engine unchanged. UI remains the historical frozen view; reviews and T12 drafts are separate evidence. No host discovery, qualification or usage claim.
+-- [Source review workspace](../reviews/aghr-items-2026-10-22/README.md): historical PENDING_REVIEW register unchanged; T11b disposition overlay verifies all 140 sources. No target project, adopted selection or import; source assurance profiles remain review material.
++- Source register/UI remain frozen historical views; no target project or Active adoption. Mock SourceGrants cannot issue real backend permissions.
+ - [Reference 1.2.0](../governance/REFERENCE_UPDATE_1_2_0.md) remains the application default; consumer adoption is separate. [Candidate 1.3.0](../governance/SKILLS_CANDIDATE_1_3_0.md), INBOX originals and prior evidence preserved. references/candidates/archive/INBOX retain distinct roles.
+ 
+ ## Exact next action
+ 
+-Owner review of [T12 proposed values and blockers](../evidence/studio-t12-2026-10-23/README.md). Strict/0 requires approved actual values, a trusted host SourceGrant path (not supported by native CLI), and real E3 enforcement evidence. STOP before activation, app import/CRUD, generation, engine changes, E3 or promotion. Seven E4 checks remain REQUIRED / NOT_RUN / NOT_WAIVED; [real E3 prerequisites](../evidence/studio-t06-2026-10-23/GAPS.json) remain open.
++Review T13/T14 core before completing interactive identity/grant/audit integration and selecting a persistent app store. Current instruction forbids live application writes; no store/controller activation. No T15/T16, generation, real E3 or promotion. Seven E4 checks remain REQUIRED / NOT_RUN / NOT_WAIVED; [real E3 prerequisites](../evidence/studio-t06-2026-10-23/GAPS.json) remain open.
+--- before/docs/status/HANDOFF.md
++++ after/docs/status/HANDOFF.md
+@@ -17,7 +17,7 @@
+ ---
+ 
+ ## 2. Recent Architectural Decisions
+-- **2026-10-23 (T12 drafts)**: Owner accepted T11b / closed inventory and authorized drafting 47 rules. [Delivery](../evidence/studio-t12-2026-10-23/README.md): AGHR_T12_Candidate contains 47 PROVISIONAL_OWNER_REVIEW drafts; native CLI structure PASS, strict/validate/lint BLOCKED/3. Missing source grants (47), draft authority (44), E3 (3); malformed controls INVALID/1. No active admission, mocks or engine/schema changes. Review proposed values and real trust/enforcement prerequisites before further work. T11b dispositions/quarantine remain immutable; T12 strict-success gate remains open.
++- **2026-10-23 (T12 mock / T13–T14 core)**: Owner authorized signed simulation and conditionally accepted passing T12. [Delivery](../evidence/studio-t12-mock-write-core-2026-10-23/README.md): 47-rule strict/lint VALID/0 in T12_OWNER_APPROVED_MOCK; native CLI still BLOCKED/3. T12 CLOSED_MOCK_ONLY. Real backend grants reject mock data; legacy mutations default 403, staging uses scoped private receipts. SQLite 12-table factory tested on temporary disk; app remains read-only/:memory:. Suite 68/68. T13/T14 interactive grant/audit integration remains open; no activation, E3/E4, generation or promotion.
+ - **2026-10-23 (Phase 1 read-only UI)**: Owner formally accepted T06 mock-only closure, then authorized T07–T10. [Delivery](../evidence/studio-phase1-2026-10-23/README.md): five reading screens, sixteen ar/en routes, real Python scope and no CRUD/generation. 57/57 tests, 7/7 HTTP schemas, isolated Edge and Sentinel PASS on 106 files. T11a has a frozen 50-ID presentation sample, NOT a measured review; all 1,608 decisions remain pending. No new host qualification or reference promotion. CURRENT holds the next proposed scope.
+ - **2026-10-23 (T06 owner-authorized mock closure)**: [Evidence](../evidence/studio-t06-mock-2026-10-23/README.md): owner expressly permits a mock/local signature, conditionally accepting a successful template proof. Actual YAML + Ed25519 fixture + isolated tools/t06 adapter run unchanged E2 API: VALID/0, checks.reason=T06_MOCK_ONLY. Original CLI remains BLOCKED/3 on identical files; no real enterprise/gate qualification, no E3 doctor/CRUD/generation. T06 CLOSED_FOR_OWNER_AUTHORIZED_MOCK_PROFILE_ONLY supersedes the earlier incomplete template-only status; real E3 prerequisites persist.
+ - **2026-10-23 (original T06 attempt)**: [Native control](../evidence/studio-t06-2026-10-23/README.md): structure PASS, strict BLOCKED/3, missing-field cases INVALID/1. Historical incomplete status is superseded only within the later authorized mock profile.
+--- before/docs/plans/STUDIO_UPGRADE_TASKS_AR.md
++++ after/docs/plans/STUDIO_UPGRADE_TASKS_AR.md
+@@ -1,6 +1,6 @@
+ # قائمة مهام تحديث AGHR Governance Studio
+ 
+-**التاريخ:** 2026-10-23. **الحالة:** `E1/E2 ACCEPTED_BY_OWNER / T01 CLOSED_UNBLOCKED / T02–T05 ACCEPTED_BY_OWNER / T06 MOCK_ONLY ACCEPTED_BY_OWNER / T07–T10 ACCEPTED_BY_OWNER / T11a–T11b ACCEPTED_BY_OWNER / T12 DRAFTED_47_STRICT_BLOCKED`.
++**التاريخ:** 2026-10-23. **الحالة:** `E1/E2 ACCEPTED_BY_OWNER / T01 CLOSED_UNBLOCKED / T02–T05 ACCEPTED_BY_OWNER / T06 MOCK_ONLY ACCEPTED_BY_OWNER / T07–T10 ACCEPTED_BY_OWNER / T11a–T11b ACCEPTED_BY_OWNER / T12 OWNER_APPROVED_MOCK_CLOSED / T13–T14 CORE_TESTED_ISOLATED`.
+ **الخطة:** [التحديث الكامل](STUDIO_FULL_PROJECT_UPGRADE_AR.md). **المتطلبات:** [المواصفة المعتمدة](../specs/aghr-rc3/STUDIO_SPECIFICATION.md)، و[العقود](../contracts/aghr-rc3/README.md). استكمال تعريف العقود عمل سابق؛ المهام أدناه لتفعيل المنتج، ولا تمنح قبول إصدار.
+ 
+ **مراجعة r2:** [تقييم الملاحظات](../reviews/STUDIO_UPGRADE_PLAN_REVIEW_2026_10_22_AR.md). شروط T00 وقرارات المالك وأصحاب المسؤوليات في §1.1 و§1.2 و§2.1 من الخطة. لم تنفذ مهام المنتج بهذه المراجعة.
+@@ -54,6 +54,8 @@
+ **تسليم القراءة فقط:** [T07–T10 وأدلتها](../evidence/studio-phase1-2026-10-23/README.md)، 57/57 وEdge/Sentinel ناجح. إغلاق التنفيذ أدناه مقيد بالمصادر المتاحة وواجهة القراءة: المصدر الفعلي بند واحد، والعينة 50 وحدة غير معتمدة بينها خمس مهارات. لا مشروع مسجل أو تأهيل مضيف؛ المسارات المؤجلة صريحة. كانت T11a آنذاك عينة عرض فقط؛ المراجعة الفعلية اللاحقة موثقة أدناه.
+ 
+ **القرار اللاحق:** اعتمد المالك [T11a](../evidence/studio-t11a-2026-10-23/T11A_REVIEW_AR.md) و[نتائج T11b](../evidence/studio-t11b-2026-10-23/T11B_REVIEW_AR.md) وأغلق الجرد، ثم فوض صياغة الـ47 وتغليف T12 فقط. [تسليم T12](../evidence/studio-t12-2026-10-23/README.md): جميع المسودات PROVISIONAL_OWNER_REVIEW وبنيتها PASS، لكنها native strict BLOCKED/3 لغياب مصدر السلطة واعتماد القيم وE3. مرجع 1.2.0 والسجل والتطبيق محفوظة؛ لا ترحيل Active أو تعديل محرك أو نجاح strict مختلق.
++
++**التوجيه الأحدث:** أجاز المالك SourceGrant وتفعيل 44 سلطة وE3 محاكاة، ثم بدء T13/T14 عند النجاح. [تسليم المحاكاة ونواة الكتابة](../evidence/studio-t12-mock-write-core-2026-10-23/README.md): strict/lint محاكيان VALID/0 للـ47، CLI الأصلي BLOCKED/3؛ شرط قبول T12 تحقق في النطاق المحاكى فقط. نواة T13/T14 مختبرة (68/68)، ووضع التطبيق للقراءة لم يتغير؛ لم تُفعّل مسارات CRUD أو مخزن دائم. بوابات T19 والإصدار الفعلية لا تُستوفى بمحاكاة T12.
+ 
+ | المهمة | التبعيات والحجم | المخرج والملفات المتوقعة | القبول والتحقق |
+ | --- | --- | --- | --- |
+@@ -67,7 +69,7 @@
+ | [x] T11 — بوابة مراجعة وحدات الجرد | T11a وT11b؛ معرف جامع | ACCEPTED_BY_OWNER / CLOSED | اعتمد المالك جميع تصرفات الـ1,608 ومصادرها؛ المؤجل يبقى مؤجلاً ولا يتحول إلى سياسة نافذة |
+ | [x] T11a — عينة 50 وحدة وإعادة التقدير | T06؛ M لكل جلسة مراجعة | ACCEPTED_BY_OWNER / CLOSED؛ [الدليل الأصلي](../evidence/studio-t11a-2026-10-23/T11A_REVIEW_AR.md) | قبول المالك صريح؛ حسم التعامل مع الـ26 إلى Defer دون تخمين أو أثر حاكم؛ فروق السياسة محفوظة في تسليم T11b |
+ | [x] T11b — تنفيذ الدفعات المسجلة | T11a؛ S/M لكل دفعة مسجلة | ACCEPTED_BY_OWNER / CLOSED؛ [الدليل](../evidence/studio-t11b-2026-10-23/T11B_REVIEW_AR.md) | 43 دفعة/1,558 وحدة مع العينة 1,608 بلا فقد أو تكرار؛ 554 Reject و1,054 Defer؛ لا اعتماد تلقائي للقيم الناقصة أو ترحيل |
+-| [ ] T12 — مرشح الترحيل والاستيراد التجريبي | T11 وT07–T09؛ صياغة الـ47 مخولة | DRAFTED_47 / STRICT_BLOCKED؛ [التسليم](../evidence/studio-t12-2026-10-23/README.md) | حزمة AGHR_T12_Candidate تحوي 47 مسودة موسومة وبنيتها PASS؛ strict/validate/lint كلها BLOCKED/3. قبل/بعد محفوظ؛ لا اعتماد أو import. إغلاق شرط Exit 0 ينتظر اعتماد القيم ومصدر سلطة موثوق ودليل E3، دون تعديل المحرك ضمن هذه الشريحة |
++| [x] T12 — مرشح الترحيل والاستيراد التجريبي | T11 وT07–T09؛ نطاق المحاكاة المعدل بقرار المالك | CLOSED_FOR_OWNER_APPROVED_MOCK_ONLY؛ [الدليل](../evidence/studio-t12-mock-write-core-2026-10-23/README.md) | 47 بنداً، موائم strict/lint VALID/0، وnative control BLOCKED/3؛ قبل/بعد وتوقيع محلي ووسوم T12 واضحة. لا قبول إنتاجي أو Active؛ المصدر الحقيقي وE3 الحقيقي ما زالا مطلوبين للمراحل الفعلية |
+ 
+ **نقاط فحص B:** بعد T07–T08 وظيفتا البنود والمهارات؛ بعد T09–T10 تغطية التنقل والنطاق؛ بعد كل دفعة T11–T12 مراجعة توازن التصنيف والتحقق من عدم إسقاط مصادر. مراجعة 47 قاعدة وحدها لا تغطي بقية الجرد.
+ 
+@@ -111,8 +113,8 @@
+ 
+ | المهمة | التبعيات والحجم | المخرج والملفات المتوقعة | القبول والتحقق |
+ | --- | --- | --- | --- |
+-| [ ] T13 — تفويض عمليات الكتابة | T10؛ M | `server/security.js`، `server/staging.js`، Studio auth واختبارات التفويض | الفاعل والدور والمنحة من الخادم ومقيدة بالمشروع/الفعل/التغيير؛ النص الثابت AUTHORIZED_BY_PROJECT_OWNER لا يمنح إذنًا؛ المسارات القديمة لا تتجاوز الفحص. اختبارات منح صحيحة وتزوير أدوار/رموز ورفض 403 |
+-| [ ] T14 — التخزين الدائم المصرح به | T05 وT13، وتفويض وضع التخزين؛ M | `server/studio/db/` وaudit repository واختبار migration | SQL بلا انحراف وجدول زائد؛ transaction/user_version/checksum؛ حفظ تاريخ الموافقات والقيود. اختبار فشل migration والتعافي ببيانات مؤقتة، دون استعادة بيانات مالك تلقائية |
++| [ ] T13 — تفويض عمليات الكتابة | T10؛ CORE_IMPLEMENTED_TESTED | `write-authorization.js` وstaging/API واختبارات HTTP؛ [الدليل](../evidence/studio-t12-mock-write-core-2026-10-23/README.md) | منح خادمية مقيدة بالفاعل/المشروع/الفعل/المورد/البصمة؛ إبطال/انتهاء وإعادة فحص عند الأثر. رفض fallback والمحاكاة؛ legacy mutation HTTP 403. بقي تكامل الهوية وإصدار المنح والمسارات التفاعلية وسجلها قبل إغلاق المهمة كاملة |
++| [ ] T14 — التخزين الدائم المصرح به | T05 وT13؛ CORE_TESTED_TEMP_DISK | `persistent.js` وaudit factory واختبارات migration/reopen؛ [الدليل](../evidence/studio-t12-mock-write-core-2026-10-23/README.md) | 12 جدولاً وفق SQL المقفل، checksum/transaction/user_version وDDL fingerprint، audit خادمي وFK. rollback وإعادة فتح فعليان في مساحة مؤقتة. بقي اختيار مخزن التطبيق وربط وضع الكتابة المصرح به؛ الافتراضي :memory: ولا استعادة تلقائية |
+ | [ ] T15 — محول الموارد قبل eval | T02؛ M | `server/studio/aghr/job-runner.js` ومحول Windows واختباراته | eval 600s وqualify 3600s و2 GiB؛ قتل الشجرة فعليًا؛ جزئي محفوظ وحالة تجاوز منفصلة عن الإلغاء. اختبار عمليات تجريبية تتجاوز الزمن/الذاكرة وتولد أبناء؛ غياب المحول يمنع التنفيذ المعتمد عليه |
+ | [ ] T16 — إنشاء CP وتحريره وإرساله | T07،T13–T14، وE5 إن لزم؛ M | CP service/routes ومحرر schemas وشاشتا 10/11 واختباراتها | draft→validated→in_review فقط عند الشروط؛ اقتراح JCS وبصمة ثابتة؛ البند الملزم الناقص لا يقبل حفظه كبند صالح، وتظل المسودة غير مؤهلة. اختبارات submit والنوع والانتقالات ونواقص الحقول |
+ | [ ] T17 — التوليد والمعاينة | T16 وE3 إن لزم؛ M | generation bridge/routes وشاشة 7 واختبارات المراحل | full/compress/compact/fail، byte budget وP0 وPRIN-007 في L1+؛ فشل أي شرط يمنع كل export؛ compact بإقرار واسترجاع مؤهلين. اختبارات حدود البايت والمبدأ المفقود والاختزال |
+--- before/server/api.js
++++ after/server/api.js
+@@ -140,6 +140,13 @@
+     return send(404, { error: "API route not found" });
+   }
+ 
++  // Legacy mutation controllers are not connected to server-issued grants.
++  // Keep them closed; client role/token fields cannot activate this profile.
++  const previews = new Set(["/api/adoption/inspect", "/api/adoption/prepare"]);
++  if (req.method !== "GET" && !previews.has(u.pathname)) {
++    return send(403, { error: "Legacy writes disabled; a server-authorized mutation controller is required." });
++  }
++
+   try {
+     // -------------------------------------------------------------------------
+     // 1. Core Health & Explorer Roots
+--- before/server/staging.js
++++ after/server/staging.js
+@@ -1,14 +1,11 @@
+ import crypto from "node:crypto";
+ import fs from "node:fs";
+ import path from "node:path";
+-import { PROJECT_ROOT, isProtectedPath } from "./security.js";
+-
+-const STAGING_DIR = path.join(PROJECT_ROOT, ".governance", "staging");
+-const BACKUP_DIR = path.join(PROJECT_ROOT, ".governance", "backups");
+-const AUDIT_FILE = path.join(PROJECT_ROOT, ".governance", "audit.jsonl");
+-
+-function ensureDirs() {
+-  for (const d of [STAGING_DIR, BACKUP_DIR]) {
++import { PROJECT_ROOT, GOVERNANCE_PACKAGES_ROOT, isProtectedPath } from "./security.js";
++import {consumeAuthorization} from './studio/write-authorization.js';
++
++function ensureDirs(dirs) {
++  for (const d of dirs) {
+     if (!fs.existsSync(d)) fs.mkdirSync(d, { recursive: true });
+   }
+ }
+@@ -20,6 +17,17 @@
+ function fileSha256(filePath) {
+   if (!fs.existsSync(filePath)) return null;
+   return sha256(fs.readFileSync(filePath));
++}
++
++export function stagingScope(action,resourceId,projectDir,proposal) {
++  const root=fs.realpathSync(projectDir);
++  if(root===GOVERNANCE_PACKAGES_ROOT||root.startsWith(GOVERNANCE_PACKAGES_ROOT+path.sep))throw Error('Protected governance root');
++  return {workspace_id:'legacy-local',target_project:root,action,resource_id:resourceId,proposal_version_hash:'sha256:'+sha256(JSON.stringify(proposal))};
++}
++function safeFile(root,name) {
++  if(typeof name!=='string'||path.isAbsolute(name)||name.includes('\\')||name.split('/').some(p=>!p||p==='.'||p==='..')||isProtectedPath(name))throw Error('Unsafe staged path');
++  let p=path.parse(path.resolve(root)).root;for(const bit of path.relative(p,path.resolve(root)).split(path.sep)){p=path.join(p,bit);if(fs.lstatSync(p,{throwIfNoEntry:false})?.isSymbolicLink())throw Error('Staging reparse point');}
++  for(const bit of name.split('/')){p=path.join(p,bit);if(fs.lstatSync(p,{throwIfNoEntry:false})?.isSymbolicLink())throw Error('Staging reparse point');}return p;
+ }
+ 
+ /**
+@@ -54,18 +62,25 @@
+ /**
+  * Governed Staging and Apply Service.
+  */
+-class StagingService {
+-  constructor() {
+-    ensureDirs();
++export class StagingService {
++  constructor({storageRoot=path.join(PROJECT_ROOT,'.governance')}={}) {
++    if(!path.isAbsolute(storageRoot)||storageRoot===GOVERNANCE_PACKAGES_ROOT||storageRoot.startsWith(GOVERNANCE_PACKAGES_ROOT+path.sep))throw Error('Unsafe staging storage');
++    this.stagingDir=path.join(storageRoot,'staging');this.backupDir=path.join(storageRoot,'backups');this.auditFile=path.join(storageRoot,'audit.jsonl');
+   }
+ 
+   /**
+    * Stage planned changes into an isolated staging workspace.
+    */
+-  createStagingWorkspace({ packetId, targetProjectDir, plannedFiles = [] }) {
+-    ensureDirs();
++  createStagingWorkspace({ packetId, targetProjectDir, plannedFiles = [] }, authorization) {
++    if(packetId&&!/^[\w-]+$/.test(packetId))throw Error('Unsafe packet id');
++    for(const f of plannedFiles)safeFile(path.resolve(targetProjectDir),f.path);
++    safeFile(this.stagingDir,'staging-manifest.json');
++    consumeAuthorization(authorization,stagingScope('staging.create',packetId||'new-staging',targetProjectDir,plannedFiles));
++    ensureDirs([this.stagingDir,this.backupDir]);
+     const stagingId = `STAGE-${packetId || Date.now().toString(36).toUpperCase()}`;
+-    const workspaceDir = path.join(STAGING_DIR, stagingId);
++    if(!/^STAGE-[\w-]+$/.test(stagingId))throw Error('Unsafe staging id');
++    const workspaceDir = path.join(this.stagingDir, stagingId);
++    safeFile(this.stagingDir,stagingId);
+     if (!fs.existsSync(workspaceDir)) fs.mkdirSync(workspaceDir, { recursive: true });
+ 
+     const absProject = path.resolve(targetProjectDir);
+@@ -76,13 +91,13 @@
+         throw new Error(`Cannot stage protected path: ${item.path}`);
+       }
+ 
+-      const targetPath = path.join(absProject, item.path);
++      const targetPath = safeFile(absProject, item.path);
+       const currentExists = fs.existsSync(targetPath);
+       const currentContent = currentExists ? fs.readFileSync(targetPath, "utf8") : "";
+       const currentSha = currentExists ? fileSha256(targetPath) : null;
+ 
+       // Write to isolated staging directory
+-      const stagedFilePath = path.join(workspaceDir, item.path);
++      const stagedFilePath = safeFile(workspaceDir, item.path);
+       const stagedFileDir = path.dirname(stagedFilePath);
+       if (!fs.existsSync(stagedFileDir)) fs.mkdirSync(stagedFileDir, { recursive: true });
+       fs.writeFileSync(stagedFilePath, item.proposedContent, "utf8");
+@@ -112,7 +127,8 @@
+   }
+ 
+   getStagingManifest(stagingId) {
+-    const manifestPath = path.join(STAGING_DIR, stagingId, "staging-manifest.json");
++    if(!/^STAGE-[\w-]+$/.test(stagingId))throw Error('Unsafe staging id');
++    const manifestPath = path.join(this.stagingDir, stagingId, "staging-manifest.json");
+     if (!fs.existsSync(manifestPath)) return null;
+     return JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+   }
+@@ -120,9 +136,10 @@
+   /**
+    * Issue a short-lived, cryptographically secure authorization token for a staged workspace.
+    */
+-  issueAuthorizationToken(stagingId, approverIdentity = "PROJECT_OWNER") {
++  issueAuthorizationToken(stagingId, authorization) {
+     const manifest = this.getStagingManifest(stagingId);
+     if (!manifest) throw new Error(`Staging workspace not found: ${stagingId}`);
++    const actor=consumeAuthorization(authorization,stagingScope('staging.authorize',stagingId,manifest.targetProjectDir,manifest.files));
+ 
+     const nonce = crypto.randomBytes(16).toString("hex");
+     const payload = `${stagingId}:${manifest.createdAt}:${nonce}`;
+@@ -132,11 +149,11 @@
+     manifest.activeAuthorization = {
+       token,
+       issuedAt: new Date().toISOString(),
+-      approverIdentity,
++      approverIdentity:actor.authenticated_actor,
+       expiresAt: new Date(Date.now() + 15 * 60 * 1000).toISOString(), // 15 min expiry
+     };
+ 
+-    const workspaceDir = path.join(STAGING_DIR, stagingId);
++    const workspaceDir = path.join(this.stagingDir, stagingId);
+     fs.writeFileSync(path.join(workspaceDir, "staging-manifest.json"), JSON.stringify(manifest, null, 2), "utf8");
+     return token;
+   }
+@@ -144,27 +161,26 @@
+   /**
+    * Apply staged changes with strict precondition and authorization checks.
+    */
+-  applyStagedChanges({ stagingId, authorizationToken }) {
++  applyStagedChanges({ stagingId, authorizationToken }, authorization) {
+     const manifest = this.getStagingManifest(stagingId);
+     if (!manifest) throw new Error(`Staging workspace not found: ${stagingId}`);
+ 
+-    // Verify authorization: either dynamic issued token or explicit test fallback
++    // A dynamic token is additional binding; it never replaces server authority.
+     const isDynamicValid = manifest.activeAuthorization &&
+       manifest.activeAuthorization.token === authorizationToken &&
+       new Date(manifest.activeAuthorization.expiresAt) > new Date();
+ 
+-    const isTestLegacyValid = authorizationToken === "AUTHORIZED_BY_PROJECT_OWNER";
+-
+-    if (!isDynamicValid && !isTestLegacyValid) {
++    if (!isDynamicValid) {
+       throw new Error("Authorization denied: valid authorizationToken required for apply.");
+     }
+ 
+     const absProject = path.resolve(manifest.targetProjectDir);
+-    const workspaceDir = path.join(STAGING_DIR, stagingId);
++    const workspaceDir = path.join(this.stagingDir, stagingId);
+ 
+     // 1. Precondition verification: ensure no target file drifted
+     for (const f of manifest.files) {
+-      const targetPath = path.join(absProject, f.relPath);
++      const targetPath = safeFile(absProject, f.relPath);
++      if(fileSha256(safeFile(workspaceDir,f.relPath))!==f.stagedSha256)throw Error('STAGED_CONTENT_CHANGED');
+       const currentSha = fileSha256(targetPath);
+       if (currentSha !== f.preconditionSha256) {
+         throw new Error(
+@@ -173,13 +189,15 @@
+       }
+     }
+ 
++    const actor=consumeAuthorization(authorization,stagingScope('adoption.apply',stagingId,absProject,manifest.files));
+     // 2. Create recovery backup snapshot
+     const backupId = `BACKUP-${Date.now().toString(36).toUpperCase()}`;
+-    const backupDir = path.join(BACKUP_DIR, backupId);
++    const backupDir = path.join(this.backupDir, backupId);
++    safeFile(this.backupDir,backupId);
+     fs.mkdirSync(backupDir, { recursive: true });
+ 
+     for (const f of manifest.files) {
+-      const targetPath = path.join(absProject, f.relPath);
++      const targetPath = safeFile(absProject, f.relPath);
+       if (fs.existsSync(targetPath)) {
+         const backupFilePath = path.join(backupDir, f.relPath);
+         const backupFileParent = path.dirname(backupFilePath);
+@@ -191,8 +209,8 @@
+     // 3. Atomically apply staged changes to target project
+     const appliedFiles = [];
+     for (const f of manifest.files) {
+-      const stagedFilePath = path.join(workspaceDir, f.relPath);
+-      const targetPath = path.join(absProject, f.relPath);
++      const stagedFilePath = safeFile(workspaceDir, f.relPath);
++      const targetPath = safeFile(absProject, f.relPath);
+       const targetParent = path.dirname(targetPath);
+       if (!fs.existsSync(targetParent)) fs.mkdirSync(targetParent, { recursive: true });
+ 
+@@ -208,9 +226,10 @@
+       backupId,
+       targetProject: manifest.targetProjectDir,
+       filesApplied: appliedFiles,
+-      authorizedBy: authorizationToken,
+-    };
+-    fs.appendFileSync(AUDIT_FILE, JSON.stringify(auditRecord) + "\n", "utf8");
++      authorizedBy: actor.authenticated_actor,
++      actorRole: actor.server_resolved_role,
++    };
++    fs.appendFileSync(this.auditFile, JSON.stringify(auditRecord) + "\n", "utf8");
+ 
+     // 5. Update staging status
+     manifest.status = "APPLIED";
+@@ -229,14 +248,21 @@
+   /**
+    * Rollback changes from a backup snapshot.
+    */
+-  rollbackBackup({ backupId }) {
+-    const backupDir = path.join(BACKUP_DIR, backupId);
++  backupProposal(backupId) {
++    if(!/^BACKUP-[\w-]+$/.test(backupId))throw Error('Unsafe backup id');
++    const root=path.join(this.backupDir,backupId),files=[];
++    const walk=(dir,prefix='')=>{if(fs.lstatSync(dir).isSymbolicLink())throw Error('Backup reparse point');for(const e of fs.readdirSync(dir,{withFileTypes:true})){const rel=prefix?prefix+'/'+e.name:e.name,p=safeFile(root,rel);e.isDirectory()?walk(p,rel):files.push({path:rel,sha256:fileSha256(p)});}};
++    walk(root);files.sort((a,b)=>a.path<b.path?-1:a.path>b.path?1:0);return {backupId,files};
++  }
++  rollbackBackup({ backupId }, authorization) {
++    if(!/^BACKUP-[\w-]+$/.test(backupId))throw Error('Unsafe backup id');
++    const backupDir = path.join(this.backupDir, backupId);
+     if (!fs.existsSync(backupDir)) throw new Error(`Backup snapshot not found: ${backupId}`);
+ 
+     // Read audit log to find target project
+     let targetProject = null;
+-    if (fs.existsSync(AUDIT_FILE)) {
+-      const lines = fs.readFileSync(AUDIT_FILE, "utf8").split(/\r?\n/).filter(Boolean);
++    if (fs.existsSync(this.auditFile)) {
++      const lines = fs.readFileSync(this.auditFile, "utf8").split(/\r?\n/).filter(Boolean);
+       for (const line of lines.reverse()) {
+         try {
+           const rec = JSON.parse(line);
+@@ -249,6 +275,7 @@
+     }
+ 
+     if (!targetProject) throw new Error("Could not determine target project from audit log for rollback");
++    const actor=consumeAuthorization(authorization,stagingScope('adoption.rollback',backupId,targetProject,this.backupProposal(backupId)));
+ 
+     // Restore files
+     const restored = [];
+@@ -259,7 +286,7 @@
+         const rel = relBase ? relBase + "/" + e.name : e.name;
+         if (e.isDirectory()) walkBackup(full, rel);
+         else {
+-          const target = path.join(targetProject, rel);
++          const target = safeFile(targetProject, rel);
+           fs.copyFileSync(full, target);
+           restored.push(rel);
+         }
+@@ -269,13 +296,15 @@
+ 
+     // Audit rollback
+     fs.appendFileSync(
+-      AUDIT_FILE,
++      this.auditFile,
+       JSON.stringify({
+         timestamp: new Date().toISOString(),
+         action: "GOVERNED_ROLLBACK",
+         backupId,
+         targetProject,
+         filesRestored: restored,
++        authorizedBy: actor.authenticated_actor,
++        actorRole: actor.server_resolved_role,
+       }) + "\n",
+       "utf8"
+     );
+--- before/tests/governance_studio.test.mjs
++++ after/tests/governance_studio.test.mjs
+@@ -2,10 +2,12 @@
+ import assert from "node:assert/strict";
+ import fs from "node:fs";
+ import path from "node:path";
++import os from 'node:os';
+ import { handleApiRequest } from "../server/api.js";
+ import { decomposeIntoAtomicStatements, classifyStatement, reconcileWithRules, intakeService } from "../server/intake.js";
+ import { adoptionService } from "../server/adoption.js";
+-import { stagingService } from "../server/staging.js";
++import { StagingService,stagingScope } from "../server/staging.js";
++import {createWriteAuthority} from '../server/studio/write-authorization.js';
+ import { governanceService } from "../server/governance.js";
+ import { PROJECT_ROOT } from "../server/security.js";
+ 
+@@ -208,7 +210,7 @@
+   assert.ok(rec.conflictDetected);
+ });
+ 
+-test("M3 Intake: Submit intake request generates persistent ChangePacket", async () => {
++test("M3 Intake: Legacy submit without server grant is rejected before persistence", async () => {
+   const { req, res, getJSON, getStatusCode } = makeMockRequest({
+     url: "/api/intake/submit",
+     method: "POST",
+@@ -219,12 +221,9 @@
+     },
+   });
+   await handleApiRequest(req, res);
+-  assert.equal(getStatusCode(), 201);
+-  const data = getJSON();
+-  assert.ok(data.packet.packetId.startsWith("CP-"));
+-  assert.equal(data.packet.status, "PROPOSED_READY_FOR_REVIEW");
+-  assert.ok(data.packet.changeItems.length >= 2);
+-  assert.ok(data.packet.changeItems.every((it) => it.status === "PROPOSED"));
++  assert.equal(getStatusCode(), 403);
++  const data = getJSON();
++  assert.match(data.error,/Legacy writes disabled/);
+ });
+ 
+ // =============================================================================
+@@ -265,14 +264,18 @@
+ // Milestone 6 Tests: Governed Staging and Apply
+ // =============================================================================
+ test("M6 Governed Staging & Apply: Staging, Precondition Drift, and Authorized Apply", () => {
+-  const fixtureDir = path.join(PROJECT_ROOT, ".governance", "test-fixtures-project");
++  const testRoot=fs.mkdtempSync(path.join(os.tmpdir(),'aghr-staging-'));
++  const stagingService=new StagingService({storageRoot:path.join(testRoot,'storage')});
++  const authority=createWriteAuthority(),owner=authority.createPrincipal({actor:'fixture-owner',role:'governance-owner',installationOwnerVerified:true});
++  const permit=scope=>authority.authorize(owner.principal,scope,authority.issueGrant({issuer:owner.principal,principal:owner.principal,scope,expiresAt:Date.now()+60000}));
++  const fixtureDir = path.join(testRoot,'project');
+   if (!fs.existsSync(fixtureDir)) fs.mkdirSync(fixtureDir, { recursive: true });
+ 
+   const initialFile = path.join(fixtureDir, "README.md");
+   fs.writeFileSync(initialFile, "# Initial Project\nVersion 1.0\n", "utf8");
+ 
+   // 1. Stage changes
+-  const staged = stagingService.createStagingWorkspace({
++  const stageRequest={
+     packetId: "TEST-CP-01",
+     targetProjectDir: fixtureDir,
+     plannedFiles: [
+@@ -281,7 +284,8 @@
+         proposedContent: "# Initial Project\nVersion 1.0\n## Governed with AGHR\n",
+       },
+     ],
+-  });
++  };
++  const staged = stagingService.createStagingWorkspace(stageRequest,permit(stagingScope('staging.create','TEST-CP-01',fixtureDir,stageRequest.plannedFiles)));
+   assert.equal(staged.status, "STAGED_READY_FOR_AUTHORIZATION");
+   assert.equal(staged.files.length, 1);
+ 
+@@ -294,6 +298,9 @@
+       }),
+     /Authorization denied/
+   );
++  assert.throws(()=>stagingService.applyStagedChanges({stagingId:staged.stagingId,authorizationToken:'AUTHORIZED_BY_PROJECT_OWNER'}),/Authorization denied/);
++  const dynamicToken=stagingService.issueAuthorizationToken(staged.stagingId,permit(stagingScope('staging.authorize',staged.stagingId,fixtureDir,staged.files)));
++  assert.throws(()=>stagingService.applyStagedChanges({stagingId:staged.stagingId,authorizationToken:dynamicToken}),/grant/);
+ 
+   // 3. Stale precondition detection: mutate live target before apply
+   fs.writeFileSync(initialFile, "# Altered live content while reviewing\n", "utf8");
+@@ -301,7 +308,7 @@
+     () =>
+       stagingService.applyStagedChanges({
+         stagingId: staged.stagingId,
+-        authorizationToken: "AUTHORIZED_BY_PROJECT_OWNER",
++        authorizationToken: dynamicToken,
+       }),
+     /STALE_PRECONDITION/
+   );
+@@ -312,8 +319,8 @@
+   // 4. Authorized apply succeeds
+   const applyRes = stagingService.applyStagedChanges({
+     stagingId: staged.stagingId,
+-    authorizationToken: "AUTHORIZED_BY_PROJECT_OWNER",
+-  });
++    authorizationToken: dynamicToken,
++  },permit(stagingScope('adoption.apply',staged.stagingId,fixtureDir,staged.files)));
+   assert.equal(applyRes.status, "APPLY_SUCCESS");
+ 
+   // Verify file on disk has updated content
+@@ -321,11 +328,19 @@
+   assert.ok(appliedContent.includes("Governed with AGHR"));
+ 
+   // 5. Rollback restores original state
+-  const rollbackRes = stagingService.rollbackBackup({ backupId: applyRes.backupId });
++  const rollbackRes = stagingService.rollbackBackup({ backupId: applyRes.backupId },permit(stagingScope('adoption.rollback',applyRes.backupId,fixtureDir,stagingService.backupProposal(applyRes.backupId))));
+   assert.equal(rollbackRes.status, "ROLLBACK_SUCCESS");
+   const rolledBackContent = fs.readFileSync(initialFile, "utf8");
+   assert.equal(rolledBackContent, "# Initial Project\nVersion 1.0\n");
+ 
+   // Clean fixture
+-  fs.rmSync(fixtureDir, { recursive: true, force: true });
+-});
++  assert.ok(path.resolve(testRoot).startsWith(path.resolve(os.tmpdir())+path.sep+'aghr-staging-'));
++  fs.rmSync(testRoot, { recursive: true, force: true });
++});
++
++test('T13 every legacy mutation route rejects before reading an untrusted body',async()=>{
++  for(const url of ['/api/intake/submit','/api/staging/create','/api/governed-apply','/api/governed-apply/rollback','/api/evaluation/run-suite','/api/evaluation/check-package']){
++    const f=makeMockRequest({url,method:'POST',body:{role:'governance-owner',authorizationToken:'AUTHORIZED_BY_PROJECT_OWNER',profile:'T12_OWNER_APPROVED_MOCK'}});
++    f.req.on=()=>{throw Error('Forbidden body must not be read');};await handleApiRequest(f.req,f.res);assert.equal(f.getStatusCode(),403,url);
++  }
++});
+--- before/server/intake.js
++++ after/server/intake.js
+@@ -184,10 +184,6 @@
+  * Intake and Change Management Service.
+  */
+ class IntakeService {
+-  constructor() {
+-    ensureStorageDir();
+-  }
+-
+   submitIntake({ rawText, author = "USER", source = "UI_INTAKE", metadata = {} }) {
+     if (!rawText || !rawText.trim()) {
+       throw new Error("Intake text cannot be empty");
+@@ -239,6 +235,7 @@
+     };
+ 
+     // Save to disk
++    ensureStorageDir();
+     const filePath = path.join(INTAKE_STORAGE_DIR, `${packetId}.json`);
+     fs.writeFileSync(filePath, JSON.stringify(packet, null, 2), "utf8");
+ 
+@@ -246,7 +243,7 @@
+   }
+ 
+   listPackets() {
+-    ensureStorageDir();
++    if (!fs.existsSync(INTAKE_STORAGE_DIR)) return [];
+     const files = fs.readdirSync(INTAKE_STORAGE_DIR).filter((f) => f.endsWith(".json"));
+     const packets = [];
+     for (const f of files) {
+@@ -260,7 +257,7 @@
+   }
+ 
+   getPacket(packetId) {
+-    ensureStorageDir();
++    if (!fs.existsSync(INTAKE_STORAGE_DIR)) return null;
+     const filePath = path.join(INTAKE_STORAGE_DIR, `${packetId}.json`);
+     if (!fs.existsSync(filePath)) return null;
+     try {
+--- before/server/evaluation.js
++++ after/server/evaluation.js
+@@ -67,9 +67,6 @@
+  * Compliance and Evaluation Center Service.
+  */
+ class EvaluationService {
+-  constructor() {
+-    ensureStorageDir();
+-  }
+ 
+   /**
+    * Run the authoritative AGHR unittest suite.
+@@ -104,6 +101,7 @@
+     };
+ 
+     // Save evidence
++    ensureStorageDir();
+     fs.writeFileSync(path.join(EVAL_STORAGE_DIR, `${runId}.json`), JSON.stringify(report, null, 2), "utf8");
+ 
+     return report;
+@@ -135,13 +133,14 @@
+     };
+ 
+     // Save evidence
++    ensureStorageDir();
+     fs.writeFileSync(path.join(EVAL_STORAGE_DIR, `${runId}.json`), JSON.stringify(report, null, 2), "utf8");
+ 
+     return report;
+   }
+ 
+   listEvaluationHistory() {
+-    ensureStorageDir();
++    if (!fs.existsSync(EVAL_STORAGE_DIR)) return [];
+     const files = fs.readdirSync(EVAL_STORAGE_DIR).filter((f) => f.endsWith(".json"));
+     const history = [];
+     for (const f of files) {
+--- before/.gitattributes
++++ after/.gitattributes
+@@ -54,3 +54,14 @@
+ /tools/test_phase1_edge.mjs -text
+ /docs/features/STUDIO_PHASE1_READ_ONLY.md -text
+ /tools/seal_phase1_evidence.mjs -text
++
++# T12 signed mock and T13/T14 source/evidence must retain their raw hashes.
++/tools/t12/** -text
++/tests/studio_t12_mock.test.mjs -text
++/tests/studio_write_authorization.test.mjs -text
++/tests/studio_persistence.test.mjs -text
++/tests/governance_studio.test.mjs -text
++/server/api.js -text
++/server/staging.js -text
++/server/intake.js -text
++/server/evaluation.js -text

@@ -1,0 +1,68 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "AGHR Governance Studio",
+          "version": "phase5-local.1",
+          "informationUri": "https://github.com/magedye/Agent-Files-Explorer-"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "OBS-REFERENCE-STATE-001",
+          "level": "warning",
+          "message": {
+            "text": "NOT_RUN: Source indexing is not runtime compliance verification."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "policies/observations/reference-state.json",
+                  "uriBaseId": "%SRCROOT%"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "source_hash": "sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0",
+            "status": "NOT_RUN",
+            "evidence": []
+          }
+        }
+      ],
+      "properties": {
+        "profile": "phase5-local.1",
+        "type": "compliance",
+        "project": "agent-files-explorer",
+        "candidate_hash": "sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2",
+        "generated_at": "2026-10-24T20:19:13.205Z",
+        "status": "DRAFT_REPORT_ONLY",
+        "entries": [
+          {
+            "id": "OBS-REFERENCE-STATE-001",
+            "authority": null,
+            "impact": {
+              "band": "info",
+              "evidence": "assumed"
+            },
+            "source_path": "policies/observations/reference-state.json",
+            "source_hash": "sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0",
+            "status": "NOT_RUN",
+            "reason": "Source indexing is not runtime compliance verification.",
+            "evidence": []
+          }
+        ],
+        "evidence": [],
+        "limitations": [
+          "Draft only; reference1.2.0 and canonical state unchanged.",
+          "Imported/historical evidence cannot grant live qualification.",
+          "Native and hosted CI qualification NOT_RUN."
+        ]
+      }
+    }
+  ]
+}

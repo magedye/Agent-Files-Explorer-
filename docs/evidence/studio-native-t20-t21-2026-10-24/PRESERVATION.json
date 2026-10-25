@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "custody": {
+    "path": "docs/evidence/studio-e3-t19-2026-10-24/CUSTODY.lock.json",
+    "sha256": "2869e66bf9ada6b7471bfbdb2060ae12ed9890c76057be8898678610a1251c9a"
+  },
+  "immutable_files_verified": 1916,
+  "mismatches": [],
+  "authorized_application_changes": [
+    {
+      "path": "server/studio/db/persistent.js",
+      "before": "888a3bf20c52d1ae66540ff570530dabc7fdaa6bfd8c618a175266c16ba1589d",
+      "after": "bd8e730e9f9b0af9c1e67a041fa7ca329178c7079cc0018128c7a71e30ba776c",
+      "before_copy": "before/server/studio/db/persistent.js.raw",
+      "authority": "Current owner instruction: implement T20/T21 in Draft app; immutable E1-E3 engine modules excluded"
+    },
+    {
+      "path": "server/studio/draft-runtime.js",
+      "before": "ab667b70f2c25fde213415e6fdf145c9066b63c5fd71e9c151606dddedb67cc3",
+      "after": "a39b65cfd29f06bbbb33221dec8b8822eabc2f8b14301f08b585aa43dd06f93a",
+      "before_copy": "before/server/studio/draft-runtime.js.raw",
+      "authority": "Current owner instruction: implement T20/T21 in Draft app; immutable E1-E3 engine modules excluded"
+    },
+    {
+      "path": "server/studio/serve-draft.mjs",
+      "before": "d32d2fa5fbbc5aee51bc1e2373ec04e51a55d450b87eba1df6f16677e904ded4",
+      "after": "ffe5ece7a3933d55b05a8ce71853c7af48d41c8f022839d25f75d25c1b1b3cce",
+      "before_copy": "before/server/studio/serve-draft.mjs.raw",
+      "authority": "Current owner instruction: implement T20/T21 in Draft app; immutable E1-E3 engine modules excluded"
+    },
+    {
+      "path": "src/features/changes/DraftStudio.jsx",
+      "before": "e68e0f16af90d3725e207422f950d98e1c49a17b8a39d5ef2a40e472fd33414f",
+      "after": "40a281ae3a79c1e434947c13eae240c1bf862dd90127363b3b8228ca42dd7d3e",
+      "before_copy": "before/src/features/changes/DraftStudio.jsx.raw",
+      "authority": "Current owner instruction: implement T20/T21 in Draft app; immutable E1-E3 engine modules excluded"
+    }
+  ],
+  "derived_document_exceptions": [
+    "docs/status/CURRENT.md",
+    "docs/status/HANDOFF.md",
+    "docs/plans/STUDIO_UPGRADE_TASKS_AR.md",
+    "docs/INDEX.md"
+  ],
+  "e4_source_unchanged": true,
+  "reference_120": "unchanged within accepted transitive custody",
+  "note": "Explicit sealed file lists only; no governance package crawl. Four owner-authorized app integration edits are not E1-E3 engine mutations."
+}

@@ -1,0 +1,148 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "hash",
+      "command": [
+        "change-hash"
+      ],
+      "exit_code": 0,
+      "result": "READ",
+      "stdout_sha256": "60eea414dc281033c778cf91b4e8bef9b3407ba3e4e3fd48140f609ebbd67409",
+      "stderr_bytes": 0,
+      "source": {
+        "implementation_id": "aghr-e5-proposal-extension",
+        "revision": "1",
+        "content_hash": "7199b1d5d06f51e08de3d4dda89a193aef17d3fe48089b3406ad6b3ef6756a83",
+        "parent_e2": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+        "publisher_authentication": "UNKNOWN"
+      }
+    },
+    {
+      "name": "strict-valid",
+      "command": [
+        "validate",
+        "--strict"
+      ],
+      "exit_code": 0,
+      "result": "VALID",
+      "stdout_sha256": "5074a29c80d2d32395c6b7b03fbfb1c7f76038b13ae60149b7d810c71f3e7f72",
+      "stderr_bytes": 0,
+      "source": {
+        "implementation_id": "aghr-e5-proposal-extension",
+        "revision": "1",
+        "content_hash": "7199b1d5d06f51e08de3d4dda89a193aef17d3fe48089b3406ad6b3ef6756a83",
+        "parent_e2": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+        "publisher_authentication": "UNKNOWN"
+      }
+    },
+    {
+      "name": "lint-valid",
+      "command": [
+        "lint"
+      ],
+      "exit_code": 0,
+      "result": "VALID",
+      "stdout_sha256": "adcd71d9d5657c98c8d86e2cab22bf8ab5a20d9d9b47f9825ca47049fd2a3b68",
+      "stderr_bytes": 0,
+      "source": {
+        "implementation_id": "aghr-e5-proposal-extension",
+        "revision": "1",
+        "content_hash": "7199b1d5d06f51e08de3d4dda89a193aef17d3fe48089b3406ad6b3ef6756a83",
+        "parent_e2": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+        "publisher_authentication": "UNKNOWN"
+      }
+    },
+    {
+      "name": "missing-authority",
+      "command": [
+        "validate",
+        "--strict"
+      ],
+      "exit_code": 1,
+      "result": "INVALID",
+      "stdout_sha256": "b6a0932181cd3df9759ae19daebbab64caecb80a91bbce9eaaa03b44d190664a",
+      "stderr_bytes": 0,
+      "source": {
+        "implementation_id": "aghr-e5-proposal-extension",
+        "revision": "1",
+        "content_hash": "7199b1d5d06f51e08de3d4dda89a193aef17d3fe48089b3406ad6b3ef6756a83",
+        "parent_e2": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+        "publisher_authentication": "UNKNOWN"
+      }
+    },
+    {
+      "name": "missing-scope",
+      "command": [
+        "validate",
+        "--strict"
+      ],
+      "exit_code": 1,
+      "result": "INVALID",
+      "stdout_sha256": "cc3948d526781572084fa9f9583fee01808462aa5eaf37bae3d603c9310d730e",
+      "stderr_bytes": 0,
+      "source": {
+        "implementation_id": "aghr-e5-proposal-extension",
+        "revision": "1",
+        "content_hash": "7199b1d5d06f51e08de3d4dda89a193aef17d3fe48089b3406ad6b3ef6756a83",
+        "parent_e2": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+        "publisher_authentication": "UNKNOWN"
+      }
+    },
+    {
+      "name": "unverified-authority",
+      "command": [
+        "validate",
+        "--strict"
+      ],
+      "exit_code": 3,
+      "result": "BLOCKED",
+      "stdout_sha256": "6504d1f17f53ef83ac35b3994468ae0121ae5c725e9504fcd5563982aa01eee5",
+      "stderr_bytes": 0,
+      "source": {
+        "implementation_id": "aghr-e5-proposal-extension",
+        "revision": "1",
+        "content_hash": "7199b1d5d06f51e08de3d4dda89a193aef17d3fe48089b3406ad6b3ef6756a83",
+        "parent_e2": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+        "publisher_authentication": "UNKNOWN"
+      }
+    },
+    {
+      "name": "unsupported",
+      "command": [
+        "doctor"
+      ],
+      "exit_code": 2,
+      "result": "ERROR",
+      "stdout_sha256": "d1743a19d3ce2e0b75b4d9343e89771cbc3865ffbe4e6b9aaa89aeada90201ad",
+      "stderr_bytes": 0,
+      "source": {
+        "implementation_id": "aghr-e5-proposal-extension",
+        "revision": "1",
+        "content_hash": "7199b1d5d06f51e08de3d4dda89a193aef17d3fe48089b3406ad6b3ef6756a83",
+        "parent_e2": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+        "publisher_authentication": "UNKNOWN"
+      }
+    },
+    {
+      "name": "invalid-json",
+      "command": [
+        "validate",
+        "--strict"
+      ],
+      "exit_code": 1,
+      "result": "INVALID",
+      "stdout_sha256": "2e1a3368fcf72620bac746c87e0ad73a2ffb353598d31940145b199b4cde042e",
+      "stderr_bytes": 0,
+      "source": {
+        "implementation_id": "aghr-e5-proposal-extension",
+        "revision": "1",
+        "content_hash": "7199b1d5d06f51e08de3d4dda89a193aef17d3fe48089b3406ad6b3ef6756a83",
+        "parent_e2": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+        "publisher_authentication": "UNKNOWN"
+      }
+    }
+  ],
+  "source_files_unchanged": 46,
+  "e4": "REQUIRED / NOT_RUN / NOT_WAIVED"
+}

@@ -1,59 +1,12 @@
-# Multi-Agent Session Handoff Checkpoint
+# PROJECT CLOSED — Owner sign-off saved
 
-> **Document ID**: HANDOFF-CHECKPOINT-01  
-> **Status**: STABLE  
-> **Updated**: 2026-10-23
-> **Purpose**: Seamless handoff between Codex, Claude, Gemini, or Antigravity agents.
+Updated2026-10-26 Asia/Aden. This is a locator, not a substitute for current authority or hashes.
 
----
+- [Owner signature](../evidence/studio-signoff-2026-10-26/OWNER_SIGNOFF_AR.md): Studio v1.0.0 is official for Windows/local and closed institutional use. T40 and T39 APPROVE accepted; no public release or further development.
+- Git main/133746a0ad99d10568a44c8d225219df8454271c; preserve all prior dirty/untracked work. No commit/push/merge/reset.
+- rc.3 is the new-project/catalog default aghr_rc3; Legacy1.2.0 stays available and unchanged. Existing projects/data are not migrated. Engine46-file source pin/E1–E4 remain unchanged; registration preserves the physical candidate path to protect locked imports.
+- Accepted ZIP SHA256 f9d06cf3cdfd4ad3cae29059f30c330f70b3f36e9d9d82507be27f19193601e6 and wheel9086c12a67511a20bffc7319e803ef9cf90cea614745c4a3ddf494633941b238 are unchanged. Owner signature supersedes historical PENDING fields without overwriting accepted evidence.
+- [Closure record](../evidence/studio-signoff-2026-10-26/README.md) separates post-sign-off default verification from original T39/T40 evidence. Historical default1.2 calibration now correctly fails; do not relabel or requalify it.
+- Python/native/hosted/production/signature/security limitations remain explicit. T06/T12/T19 MOCK-only; no Active or production qualification inferred.
 
-## 1. Handoff Protocol
-When switching agent models or starting a new session:
-1. Read [AGENTS.md](../../AGENTS.md) first (determines constraints and scope).
-2. Read [docs/status/CURRENT.md](CURRENT.md) (restores current state and blockers).
-3. Check actual Git/dirty state and preserve owner work.
-4. Resume the next authorized action from CURRENT; retain blocked gates.
-
----
-
-## 2. Recent Architectural Decisions
-- **2026-10-23 (E2)**: [Delivery](../evidence/studio-e2-2026-10-22/README.md): E1 owner-accepted; E2.a–e tested 141/141, Studio 41/41, protocol 3. T01 BLOCKED, T02 NOT_STARTED; seven honesty checks deferred E4. License PROVISIONAL; default 1.2.0.
-- **2026-10-22 (Item review)**: [Register](../reviews/aghr-items-2026-10-22/README.md): 1,608 units; reviews pending, sources preserved, no import.
-- **Decision 2026-10-22 (Owner-accepted last-app designs)**:
-  - [Designs](../specs/aghr-rc3/README.md) and [receipt](../governance/LAST_APP_ADOPTION_2026_10_22.md): prior-baseline coverage; originals/previous baseline archived. Runtime reference 1.2.0 and candidate 1.3.0 retain their states.
-- **Decision 2026-10-21 (Repository checkpoint)**:
-  - Owner authorized committing and pushing the accumulated project, reference, interface and candidate changes. Git determines the saved revision and remote state. This authorization does not promote candidate 1.3.0 or grant release acceptance.
-  - Git attributes preserve exact package/evidence bytes across Windows checkouts; recorded verification logs are included while runtime logs remain ignored.
-- **Decision 2026-10-21 (Isolated skills candidate)**:
-  - Owner authorized P0/P1/P2 in `candidates/AGHR_Candidate_1.3.0/`, preserving reference 1.2.0, native host responsibilities and global skills/settings. No promotion/publication or new governing AGHR-038 obligation.
-  - [Plan and acceptance matrix](../plans/SKILLS_GOVERNANCE_CANDIDATE_1_3_0.md); final suite passed 320/320 and Studio 30/30 after preserving the eight originals and updating the INBOX test's receipt. Frozen manifest/package check and ZIP-byte comparison passed. [Delivery and exact hashes](../governance/SKILLS_CANDIDATE_1_3_0.md); CURRENT identifies any final closeout action.
-  - Native Codex/Antigravity qualification NOT_RUN; some attribution NOT_OBSERVABLE; independent review NOT_PERFORMED; release acceptance NOT_GRANTED. Candidate implementation is complete; reference promotion remains a separate decision.
-- **Decision 2026-10-20 (English interface)**:
-  - Shared Arabic/English catalog and top-bar selector; saved preference controls document language, direction, UI copy and dates. Source/user text and governance IDs keep their original values.
-  - [Feature and evidence](../features/INTERFACE_LANGUAGES.md): 30/30 Studio tests, successful build and isolated Edge checks of all six screens, persistence, draft preservation, graph/flow and responsive layouts. The existing 1.2.0 default and consumer authority are unchanged.
-- **Decision 2026-10-20 (Application default 1.2.0)**:
-  - Owner explicitly selected 1.2.0 as the Studio default. Server defaults, Explorer, Reference Manager, comparison target, evaluation root and newly prepared adoption headers now agree; historical IDs retain their original versions.
-  - [Before/after evidence](../evidence/default-reference-1.2.0/after.json): 26/26 Studio tests, successful frontend build and isolated Edge verification. Package distribution hashes stayed unchanged; consumer activation and acceptance remain separate actions.
-- **Decision 2026-10-20 (Latest reference only)**:
-  - Owner clarified that references/ must contain the latest completed edition only. Full/minimal 1.1.0 folders and ZIPs now live in archive/; their stable catalog IDs remain usable for comparison.
-  - Current 1.2.0 folder, ZIP and digest are the only reference entries. [Before/after custody](../evidence/reference-layout-2026-10-20/after.json) verifies unchanged old/new bytes; Studio tests passed 25/25.
-- **Decision 2026-10-20 (Updated 1.2.0 reference)**:
-  - The owner authorized all-input reconciliation, governed learning improvements and local reference promotion. Delivery details, before/after diff and verification are in [the update record](../governance/REFERENCE_UPDATE_1_2_0.md).
-  - The original candidate and ZIP are preserved in archive; all eight INBOX originals keep their recorded hashes. Consumer activation, native qualification and package-wide independent acceptance remain separate decisions.
-  - Bounded skill review found three issues; fixes passed nine independent synthetic cases. Reopen exact delivered hashes before relying on that scoped review.
-- **Decision 2026-10-20 (Directory Separation)**:
-  - Governance packages are grouped under `governance_packages/references/`, `candidates/`, and `archive/`; `governance_packages/INBOX/` remains the incoming-documents location.
-  - Both historical 1.0.0 copies were preserved separately. The repository baseline keeps the historical `aghr` ID; the later explicit default decision above supersedes the initial selector choice.
-  - Product plans and the separate proposed Skill Steward specification now reside in `docs/`. See `governance_packages/README.md` and `docs/INDEX.md`.
-- **Decision 2026-10-15 (Governance Isolation)**:
-  - Began moving governance reference packages and distribution ZIPs to `D:\APP\Agent-Files-Explorer\governance_packages\`.
-  - Updated `server/security.js` with `GOVERNANCE_PACKAGES_ROOT`.
-- **Decision 2026-10-15 (Context Optimization)**:
-  - Adopted 5-layer documentation architecture from the historical `docs/archive/new-plan.md`.
-  - Established `.agentignore` and progressive disclosure policies to limit agent bootstrap context to < 2,500 tokens.
-
----
-
-## 3. Contact & Ownership
-- **Maintainer**: Local Workspace Engineer / AGHR Governance Studio Team
-- **Assurance profile**: the reference defaults to STANDARD; each consumer selects its applicable profile. A candidate/reference folder does not select LITE or grant authority.
+STOP: PROJECT CLOSED. No next task. Any reopening needs new explicit owner authority.

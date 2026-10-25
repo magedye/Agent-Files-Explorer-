@@ -1,0 +1,426 @@
+{
+  "status": "PASS",
+  "profile": "LOCAL_SANDBOX_CONTROLS_ONLY",
+  "frozen_e3": {
+    "status": "BLOCKED",
+    "run_id": "DOC-d6e69176-30f6-4ed6-b69a-867787d2d500",
+    "at": "2026-10-25T12:01:33.079355+00:00",
+    "proposal_version_hash": "sha256:efa3dea2ff157c34f843949f9b12b574b3e33be4e9a9af469a622396adf286e1",
+    "control_hash": "sha256:2303c1a7898916d413f46b2c5f6de1e929d0d676c6b214c0971674e20ac10412",
+    "observations": [
+      {
+        "item_id": "PILOT-SQL-001",
+        "status": "NOT_OBSERVABLE",
+        "code": "GATE_NOT_REGISTERED",
+        "gate_type": "pilot-sql-readonly-v1",
+        "reason": "No authenticated host observation proves this gate. A file/declaration is not branch protection."
+      }
+    ],
+    "e4": "REQUIRED / NOT_RUN / NOT_WAIVED"
+  },
+  "branch_gate": {
+    "status": "REJECTED",
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "remote: ENOENT: no such file or directory, open 'D:\\APP\\Agent-Files-Explorer\\pilot-app-l3\\.aghr\\ci-private\\merge-permit.json'        \nTo D:\\APP\\Agent-Files-Explorer\\pilot-app-l3/.aghr/ci-private/remote.git\n ! [remote rejected] HEAD -> main (pre-receive hook declined)\nerror: failed to push some refs to 'D:\\APP\\Agent-Files-Explorer\\pilot-app-l3/.aghr/ci-private/remote.git'\n"
+  },
+  "permissions": {
+    "filesystem_write": "DENIED",
+    "network": "DENIED",
+    "subprocess": "DENIED"
+  },
+  "p0_checks": {
+    "eval": {
+      "result": "VALID",
+      "status": "PASS",
+      "runs": 3,
+      "minimum_runs": 3,
+      "violations": 0,
+      "violation_rate": 0,
+      "max_violation_rate": 0,
+      "outcomes": [
+        {
+          "run_id": "E4-099d10ec-6d93-4169-b958-a061259d082e",
+          "verified": true,
+          "verifier": {
+            "state": "VERIFIED",
+            "instruction_hash": "sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e",
+            "identity": {
+              "task_id": "pilot-app-l3-p0-qualification",
+              "session_id": "91e45d2a-1cca-4b41-baad-0a88b3806e19",
+              "host": "aghr-local-process",
+              "host_version": "v24.11.0",
+              "scope": "pilot-app-l3/**",
+              "skill_id": "pilot-sql-readonly",
+              "phase": "implementation"
+            },
+            "host_signal": "NOT_OBSERVABLE",
+            "execution": "EXECUTED",
+            "execution_run_id": "E4-099d10ec-6d93-4169-b958-a061259d082e",
+            "result": "VALID",
+            "verified": true,
+            "criteria_hash": "sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06",
+            "criteria_results": [
+              {
+                "pointer": "/valid",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              },
+              {
+                "pointer": "/project",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca"
+              },
+              {
+                "pointer": "/rows",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+              },
+              {
+                "pointer": "/denied",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+              },
+              {
+                "pointer": "/unchanged",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              }
+            ],
+            "output_hash": "sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a"
+          }
+        },
+        {
+          "run_id": "E4-12bed29e-9ab5-4d05-8419-a1031afc19c0",
+          "verified": true,
+          "verifier": {
+            "state": "VERIFIED",
+            "instruction_hash": "sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e",
+            "identity": {
+              "task_id": "pilot-app-l3-p0-qualification",
+              "session_id": "91e45d2a-1cca-4b41-baad-0a88b3806e19",
+              "host": "aghr-local-process",
+              "host_version": "v24.11.0",
+              "scope": "pilot-app-l3/**",
+              "skill_id": "pilot-sql-readonly",
+              "phase": "implementation"
+            },
+            "host_signal": "NOT_OBSERVABLE",
+            "execution": "EXECUTED",
+            "execution_run_id": "E4-12bed29e-9ab5-4d05-8419-a1031afc19c0",
+            "result": "VALID",
+            "verified": true,
+            "criteria_hash": "sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06",
+            "criteria_results": [
+              {
+                "pointer": "/valid",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              },
+              {
+                "pointer": "/project",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca"
+              },
+              {
+                "pointer": "/rows",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+              },
+              {
+                "pointer": "/denied",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+              },
+              {
+                "pointer": "/unchanged",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              }
+            ],
+            "output_hash": "sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a"
+          }
+        },
+        {
+          "run_id": "E4-b4efb667-2630-49b5-9ae4-c1572615ea39",
+          "verified": true,
+          "verifier": {
+            "state": "VERIFIED",
+            "instruction_hash": "sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e",
+            "identity": {
+              "task_id": "pilot-app-l3-p0-qualification",
+              "session_id": "91e45d2a-1cca-4b41-baad-0a88b3806e19",
+              "host": "aghr-local-process",
+              "host_version": "v24.11.0",
+              "scope": "pilot-app-l3/**",
+              "skill_id": "pilot-sql-readonly",
+              "phase": "implementation"
+            },
+            "host_signal": "NOT_OBSERVABLE",
+            "execution": "EXECUTED",
+            "execution_run_id": "E4-b4efb667-2630-49b5-9ae4-c1572615ea39",
+            "result": "VALID",
+            "verified": true,
+            "criteria_hash": "sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06",
+            "criteria_results": [
+              {
+                "pointer": "/valid",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              },
+              {
+                "pointer": "/project",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca"
+              },
+              {
+                "pointer": "/rows",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+              },
+              {
+                "pointer": "/denied",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+              },
+              {
+                "pointer": "/unchanged",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              }
+            ],
+            "output_hash": "sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a"
+          }
+        }
+      ],
+      "host": "aghr-local-process",
+      "profile": "ACTUAL_LOCAL_PROCESS_PROCEDURE",
+      "native_agent_qualification": "NOT_GRANTED"
+    },
+    "qualification": {
+      "result": "VALID",
+      "status": "QUALIFIED",
+      "runs": 3,
+      "minimum_runs": 3,
+      "violations": 0,
+      "violation_rate": 0,
+      "max_violation_rate": 0,
+      "outcomes": [
+        {
+          "run_id": "E4-56fa7c5d-2c87-470c-958c-6720c5f44a13",
+          "verified": true,
+          "verifier": {
+            "state": "VERIFIED",
+            "instruction_hash": "sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e",
+            "identity": {
+              "task_id": "pilot-app-l3-p0-qualification",
+              "session_id": "91e45d2a-1cca-4b41-baad-0a88b3806e19",
+              "host": "aghr-local-process",
+              "host_version": "v24.11.0",
+              "scope": "pilot-app-l3/**",
+              "skill_id": "pilot-sql-readonly",
+              "phase": "implementation"
+            },
+            "host_signal": "NOT_OBSERVABLE",
+            "execution": "EXECUTED",
+            "execution_run_id": "E4-56fa7c5d-2c87-470c-958c-6720c5f44a13",
+            "result": "VALID",
+            "verified": true,
+            "criteria_hash": "sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06",
+            "criteria_results": [
+              {
+                "pointer": "/valid",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              },
+              {
+                "pointer": "/project",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca"
+              },
+              {
+                "pointer": "/rows",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+              },
+              {
+                "pointer": "/denied",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+              },
+              {
+                "pointer": "/unchanged",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              }
+            ],
+            "output_hash": "sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a"
+          }
+        },
+        {
+          "run_id": "E4-a9715e9a-ae63-4a99-9506-403a3cb8bddf",
+          "verified": true,
+          "verifier": {
+            "state": "VERIFIED",
+            "instruction_hash": "sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e",
+            "identity": {
+              "task_id": "pilot-app-l3-p0-qualification",
+              "session_id": "91e45d2a-1cca-4b41-baad-0a88b3806e19",
+              "host": "aghr-local-process",
+              "host_version": "v24.11.0",
+              "scope": "pilot-app-l3/**",
+              "skill_id": "pilot-sql-readonly",
+              "phase": "implementation"
+            },
+            "host_signal": "NOT_OBSERVABLE",
+            "execution": "EXECUTED",
+            "execution_run_id": "E4-a9715e9a-ae63-4a99-9506-403a3cb8bddf",
+            "result": "VALID",
+            "verified": true,
+            "criteria_hash": "sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06",
+            "criteria_results": [
+              {
+                "pointer": "/valid",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              },
+              {
+                "pointer": "/project",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca"
+              },
+              {
+                "pointer": "/rows",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+              },
+              {
+                "pointer": "/denied",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+              },
+              {
+                "pointer": "/unchanged",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              }
+            ],
+            "output_hash": "sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a"
+          }
+        },
+        {
+          "run_id": "E4-dd9827cc-914a-4b44-9372-85d0c8320cba",
+          "verified": true,
+          "verifier": {
+            "state": "VERIFIED",
+            "instruction_hash": "sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e",
+            "identity": {
+              "task_id": "pilot-app-l3-p0-qualification",
+              "session_id": "91e45d2a-1cca-4b41-baad-0a88b3806e19",
+              "host": "aghr-local-process",
+              "host_version": "v24.11.0",
+              "scope": "pilot-app-l3/**",
+              "skill_id": "pilot-sql-readonly",
+              "phase": "implementation"
+            },
+            "host_signal": "NOT_OBSERVABLE",
+            "execution": "EXECUTED",
+            "execution_run_id": "E4-dd9827cc-914a-4b44-9372-85d0c8320cba",
+            "result": "VALID",
+            "verified": true,
+            "criteria_hash": "sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06",
+            "criteria_results": [
+              {
+                "pointer": "/valid",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              },
+              {
+                "pointer": "/project",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca"
+              },
+              {
+                "pointer": "/rows",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+              },
+              {
+                "pointer": "/denied",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+              },
+              {
+                "pointer": "/unchanged",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              }
+            ],
+            "output_hash": "sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a"
+          }
+        }
+      ],
+      "host": "aghr-local-process",
+      "profile": "ACTUAL_LOCAL_PROCESS_PROCEDURE",
+      "native_agent_qualification": "NOT_GRANTED",
+      "qualification": {
+        "skillId": "pilot-sql-readonly",
+        "host": "aghr-local-process",
+        "hostVersion": "v24.11.0",
+        "scope": "pilot-app-l3/**",
+        "contentHash": "sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e",
+        "driverHash": "sha256:2558abae5048f035fe8f1d4374b53fd61241eede6cb35ea9972ec784547074ca",
+        "engineHash": "sha256:811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+        "status": "QUALIFIED",
+        "qualifiedAt": "2026-10-25T12:01:25.211175+00:00",
+        "evidence": [
+          {
+            "run_id": "E4-56fa7c5d-2c87-470c-958c-6720c5f44a13",
+            "content_hash": "sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a"
+          },
+          {
+            "run_id": "E4-a9715e9a-ae63-4a99-9506-403a3cb8bddf",
+            "content_hash": "sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a"
+          },
+          {
+            "run_id": "E4-dd9827cc-914a-4b44-9372-85d0c8320cba",
+            "content_hash": "sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a"
+          }
+        ],
+        "profile": "ACTUAL_LOCAL_PROCESS_PROCEDURE",
+        "native_agent_qualification": "NOT_GRANTED"
+      }
+    }
+  },
+  "hosted_ci": "NOT_RUN"
+}

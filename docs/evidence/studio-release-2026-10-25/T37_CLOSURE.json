@@ -1,0 +1,111 @@
+{
+  "at": "2026-10-25T20:54:08.077Z",
+  "status": "CLOSED_BY_OWNER_CRITERIA",
+  "authority": {
+    "path": "docs/governance/STUDIO_T37_T40_OWNER_DECISION_2026_10_25.md",
+    "sha256": "36ad2cdad60465831550b3183b6210b97914ecc94d7e58a0cf78cedc64633a1f"
+  },
+  "coverage": {
+    "profile": "ALL_SERVER_JS_MJS_LINES",
+    "all": true,
+    "files": 61,
+    "threshold": 80,
+    "scope": "Every server JS/MJS file including unloaded files at0; Python NOT_MEASURED",
+    "lines": {
+      "total": 5563,
+      "covered": 4642,
+      "skipped": 0,
+      "pct": 83.44
+    },
+    "statements": {
+      "total": 5563,
+      "covered": 4642,
+      "skipped": 0,
+      "pct": 83.44
+    },
+    "functions": {
+      "total": 468,
+      "covered": 436,
+      "skipped": 0,
+      "pct": 93.16
+    },
+    "branches": {
+      "total": 3761,
+      "covered": 2761,
+      "skipped": 0,
+      "pct": 73.41
+    },
+    "branchesTrue": {
+      "total": 0,
+      "covered": 0,
+      "skipped": 0,
+      "pct": 100
+    }
+  },
+  "measurement": {
+    "tool": "c8@12.0.0",
+    "full_command": "node temp/t37-coverage-tool/node_modules/c8/bin/c8.js --config tools/t37/coverage.config.json --reports-dir docs/evidence/studio-release-2026-10-25/coverage --temp-directory temp/t40-v8-coverage npm test",
+    "supplement": "c8 --clean=false over the same NEW temp/t40-v8-coverage; node --test tests/studio_legacy_services.test.mjs; separate intermediate report not used as final gate",
+    "source": "Same unchanged backend for both runs; no legacy T37 fragments imported"
+  },
+  "verification": {
+    "npm_test": {
+      "tests": 169,
+      "pass": 168,
+      "fail": 1,
+      "exit_code": 1,
+      "failure": "INBOX stale23-file receipt; exact pre-existing addition and no original drift proved by INBOX_TRIAGE.json"
+    },
+    "affected_after_test_fix": {
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "log": "INBOX_AFFECTED_FINAL.log"
+    },
+    "new_legacy_supplement": {
+      "tests": 3,
+      "pass": 3,
+      "fail": 0,
+      "log": "T37_LEGACY_COVERAGE.log"
+    },
+    "composed_result": "169 unique baseline/boundary cases covered by168 unchanged passes plus1 affected pass;3 additional legacy cases pass. NOT a claim that a final full npm run was green."
+  },
+  "dispositions": {
+    "initial_native_test_failure": "TEST_DEFECT: omitted required Python config in test; corrected,3/3 boundary checks passed",
+    "intermediate_supplement_coverage_exit1": "EXPECTED_PARTIAL_COVERAGE:3/3 tests passed, partial aggregate65.73%; final complete union83.44%",
+    "performance": "KNOWN_ENVIRONMENTAL_LIMITATION_ACCEPTED_BY_OWNER; old thresholds remain FAILED_MEASUREMENTS",
+    "concurrency": "KNOWN_DESIGN_LIMITATION_ACCEPTED_BY_OWNER; single active validation,1/50 prior result"
+  },
+  "evidence": [
+    {
+      "path": "docs/evidence/studio-release-2026-10-25/NPM_TEST_COVERAGE.log",
+      "sha256": "cf4a846ba92d60feafbd8f282e746beba18c1f11fd4e96b464f2558ab3868730"
+    },
+    {
+      "path": "docs/evidence/studio-release-2026-10-25/INBOX_AFFECTED_FINAL.log",
+      "sha256": "7e3f565b532e2053375b630aaa5d9278de04f45dcb9bcc754db861b6b5230390"
+    },
+    {
+      "path": "docs/evidence/studio-release-2026-10-25/T37_LEGACY_COVERAGE.log",
+      "sha256": "16e9b48a75d323711a8d1641044f45a008677244f8f18060fa46d2f68aa52bfc"
+    },
+    {
+      "path": "docs/evidence/studio-release-2026-10-25/T37_FOCUSED.log",
+      "sha256": "b6f3c343446b17967b81956639282d2230f47060ffb2285156ba24c2f04ad804"
+    },
+    {
+      "path": "docs/evidence/studio-release-2026-10-25/T37_FOCUSED_FINAL.log",
+      "sha256": "7b560a6618043d229c97ad077fc24c435c2f692eb13f15c05661add535c3534d"
+    },
+    {
+      "path": "docs/evidence/studio-release-2026-10-25/coverage/coverage-final.json",
+      "sha256": "70c5bc910d73c2b57e60c9cf57bef47ce93be0d7b5991f6fb77a1a42ff532d35"
+    },
+    {
+      "path": "docs/evidence/studio-release-2026-10-25/coverage/coverage-summary.json",
+      "sha256": "ef9af6a44e3bac90ab118936e5ac9c3f1ad173959b7acd31bf90267e571ea24e"
+    }
+  ],
+  "release_acceptance": "NOT_GRANTED",
+  "public_release": "NOT_AUTHORIZED"
+}

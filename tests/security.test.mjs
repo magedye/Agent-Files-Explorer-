@@ -61,8 +61,9 @@ test("M1 Security: Approved Roots Listing", () => {
   assert.ok(rootIds.includes("aghr_minimal_1_1_0"), "Minimal 1.1.0 reference must be registered");
   assert.ok(rootIds.includes("aghr_1_2_0"), "Updated 1.2.0 reference must be registered");
   assert.equal(roots.find((root) => root.id === "aghr_1_2_0").readOnly, true);
-  assert.deepEqual(roots.filter((root) => root.isDefault).map((root) => root.id), ["aghr_1_2_0"]);
-  assert.equal(AGHR_ROOT, AGHR_1_2_0_ROOT, "Evaluation must use the current default reference");
+  assert.deepEqual(roots.filter((root) => root.isDefault).map((root) => root.id), ["aghr_rc3"]);
+  assert.equal(roots.find((root) => root.id === "aghr_rc3").readOnly, true);
+  assert.equal(AGHR_ROOT, AGHR_1_2_0_ROOT, "Disabled legacy evaluation retains its explicit legacy source binding");
   assert.ok(!rootIds.some((id) => id.startsWith("data-")), "Removed data projects must not remain registered");
 });
 

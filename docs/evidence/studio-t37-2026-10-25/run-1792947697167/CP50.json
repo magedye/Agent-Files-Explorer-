@@ -1,0 +1,277 @@
+[
+  {
+    "id": 0,
+    "result": "VALID",
+    "exit_code": 0,
+    "receipt": {
+      "operation": "validate",
+      "protocol_version": "3",
+      "engine_hash": "c76c6d5987eca7a5108230f846f52149675fcd5aa54d3bc51b0ae5d18a24b650",
+      "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "input_hash": "sha256:921048d4904a3693cf85ceaeb5c20c3a5cbcb7b734a3d717f6228570257b2b1a",
+      "stdout": "{\"protocol_version\":\"3\",\"command\":\"validate\",\"result\":\"VALID\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e3-local-draft\",\"revision\":\"e3.1\",\"content_hash\":\"c76c6d5987eca7a5108230f846f52149675fcd5aa54d3bc51b0ae5d18a24b650\",\"publisher_authentication\":\"UNKNOWN\"},\"checks\":{\"status\":\"COMPLETE\"},\"diagnostics\":[],\"data\":{\"result\":\"VALID\",\"exit_code\":0,\"proposal_version_hash\":\"sha256:d3d9c117ab7d528d621bbcc37501c94899a846f8a2083c9668ed6a7b0ce8d882\",\"findings\":[],\"validation\":{\"profile\":\"E3_LOCAL_DRAFT_PIPELINE\",\"result\":\"VALID\",\"exit_code\":0,\"findings\":[{\"code\":\"OPTIONAL_FIELD_ABSENT\",\"disposition\":\"WARNING\",\"message\":\"OPTIONAL_FIELD_ABSENT at /reviewCadence.\",\"path\":\"policies/observations/reference-state.json\",\"line\":1,\"column\":1,\"byte_offset\":0,\"pointer\":\"/reviewCadence\",\"item_id\":\"OBS-REFERENCE-STATE-001\"},{\"code\":\"OPTIONAL_FIELD_ABSENT\",\"disposition\":\"WARNING\",\"message\":\"OPTIONAL_FIELD_ABSENT at /nextReview.\",\"path\":\"policies/observations/reference-state.json\",\"line\":1,\"column\":1,\"byte_offset\":0,\"pointer\":\"/nextReview\",\"item_id\":\"OBS-REFERENCE-STATE-001\"},{\"code\":\"OPTIONAL_FIELD_ABSENT\",\"disposition\":\"WARNING\",\"message\":\"OPTIONAL_FIELD_ABSENT at /reviewCadence.\",\"path\":\"policies/drafts/proposal.yaml\",\"line\":1,\"column\":1,\"byte_offset\":0,\"pointer\":\"/reviewCadence\",\"item_id\":\"OBS-T37-0\"},{\"code\":\"OPTIONAL_FIELD_ABSENT\",\"disposition\":\"WARNING\",\"message\":\"OPTIONAL_FIELD_ABSENT at /nextReview.\",\"path\":\"policies/drafts/proposal.yaml\",\"line\":1,\"column\":1,\"byte_offset\":0,\"pointer\":\"/nextReview\",\"item_id\":\"OBS-T37-0\"}],\"stages\":{\"structure\":{\"status\":\"PASS\"},\"scope\":{\"status\":\"PASS\"},\"authority\":{\"status\":\"PASS\"},\"conflicts\":{\"status\":\"PASS\"},\"evidence\":{\"status\":\"PASS\"},\"documentation\":{\"status\":\"NOT_APPLICABLE\",\"reason\":\"No packaged skill library, CAPABILITY or documentation mapping\"}},\"items\":[{\"id\":\"OBS-REFERENCE-STATE-001\",\"location\":{\"path\":\"policies/observations/reference-state.json\",\"document\":0,\"pointer\":\"\",\"line\":1,\"column\":1,\"start_byte\":0,\"end_byte\":534},\"applicability\":{\"status\":\"NOT_REQUESTED\",\"reason\":\"Static package validation; no task target selected\"},\"presentation\":{\"rule\":\"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\",\"translation_unavailable\":true,\"requested_language\":\"en\",\"original_rule\":\"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\"}},{\"id\":\"OBS-T37-0\",\"location\":{\"path\":\"policies/drafts/proposal.yaml\",\"document\":0,\"pointer\":\"\",\"line\":1,\"column\":1,\"start_byte\":0,\"end_byte\":451},\"applicability\":{\"status\":\"NOT_REQUESTED\",\"reason\":\"Static package validation; no task target selected\"},\"presentation\":{\"rule\":\"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\",\"translation_unavailable\":true,\"requested_language\":\"en\",\"original_rule\":\"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\"}}],\"authority\":{\"OBS-REFERENCE-STATE-001\":{\"status\":\"UNCLAIMED\",\"level\":null,\"evidence_ref\":null},\"OBS-T37-0\":{\"status\":\"UNCLAIMED\",\"level\":null,\"evidence_ref\":null}},\"resolutions\":[],\"conflict_coverage\":\"Explicit relationships only; free-text semantic conflicts not claimed resolved\",\"qualification\":\"NOT_RUN\",\"runtime_honesty\":\"7 REQUIRED / NOT_RUN / NOT_WAIVED; E4 deferred\",\"publisher_authentication\":\"UNKNOWN\",\"governance_release_acceptance\":\"NOT_GRANTED\",\"e3_resolved\":[]},\"lint\":{\"profile\":\"E3_LOCAL_DRAFT_PIPELINE\",\"result\":\"VALID\",\"exit_code\":0,\"findings\":[{\"code\":\"OPTIONAL_FIELD_ABSENT\",\"disposition\":\"WARNING\",\"message\":\"OPTIONAL_FIELD_ABSENT at /reviewCadence.\",\"path\":\"policies/observations/reference-state.json\",\"line\":1,\"column\":1,\"byte_offset\":0,\"pointer\":\"/reviewCadence\",\"item_id\":\"OBS-REFERENCE-STATE-001\"},{\"code\":\"OPTIONAL_FIELD_ABSENT\",\"disposition\":\"WARNING\",\"message\":\"OPTIONAL_FIELD_ABSENT at /nextReview.\",\"path\":\"policies/observations/reference-state.json\",\"line\":1,\"column\":1,\"byte_offset\":0,\"pointer\":\"/nextReview\",\"item_id\":\"OBS-REFERENCE-STATE-001\"},{\"code\":\"OPTIONAL_FIELD_ABSENT\",\"disposition\":\"WARNING\",\"message\":\"OPTIONAL_FIELD_ABSENT at /reviewCadence.\",\"path\":\"policies/drafts/proposal.yaml\",\"line\":1,\"column\":1,\"byte_offset\":0,\"pointer\":\"/reviewCadence\",\"item_id\":\"OBS-T37-0\"},{\"code\":\"OPTIONAL_FIELD_ABSENT\",\"disposition\":\"WARNING\",\"message\":\"OPTIONAL_FIELD_ABSENT at /nextReview.\",\"path\":\"policies/drafts/proposal.yaml\",\"line\":1,\"column\":1,\"byte_offset\":0,\"pointer\":\"/nextReview\",\"item_id\":\"OBS-T37-0\"}],\"stages\":{\"structure\":{\"status\":\"PASS\"},\"scope\":{\"status\":\"PASS\"},\"authority\":{\"status\":\"PASS\"},\"conflicts\":{\"status\":\"PASS\"},\"evidence\":{\"status\":\"PASS\"},\"documentation\":{\"status\":\"NOT_APPLICABLE\",\"reason\":\"No packaged skill library, CAPABILITY or documentation mapping\"}},\"items\":[{\"id\":\"OBS-REFERENCE-STATE-001\",\"location\":{\"path\":\"policies/observations/reference-state.json\",\"document\":0,\"pointer\":\"\",\"line\":1,\"column\":1,\"start_byte\":0,\"end_byte\":534},\"applicability\":{\"status\":\"NOT_REQUESTED\",\"reason\":\"Static package validation; no task target selected\"},\"presentation\":{\"rule\":\"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\",\"translation_unavailable\":true,\"requested_language\":\"en\",\"original_rule\":\"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\"}},{\"id\":\"OBS-T37-0\",\"location\":{\"path\":\"policies/drafts/proposal.yaml\",\"document\":0,\"pointer\":\"\",\"line\":1,\"column\":1,\"start_byte\":0,\"end_byte\":451},\"applicability\":{\"status\":\"NOT_REQUESTED\",\"reason\":\"Static package validation; no task target selected\"},\"presentation\":{\"rule\":\"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\",\"translation_unavailable\":true,\"requested_language\":\"en\",\"original_rule\":\"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\"}}],\"authority\":{\"OBS-REFERENCE-STATE-001\":{\"status\":\"UNCLAIMED\",\"level\":null,\"evidence_ref\":null},\"OBS-T37-0\":{\"status\":\"UNCLAIMED\",\"level\":null,\"evidence_ref\":null}},\"resolutions\":[],\"conflict_coverage\":\"Explicit relationships only; free-text semantic conflicts not claimed resolved\",\"qualification\":\"NOT_RUN\",\"runtime_honesty\":\"7 REQUIRED / NOT_RUN / NOT_WAIVED; E4 deferred\",\"publisher_authentication\":\"UNKNOWN\",\"governance_release_acceptance\":\"NOT_GRANTED\",\"e3_resolved\":[]},\"e2_before_e3\":{\"profile\":\"E2_PACKAGE_READ_VALIDATE_LINT\",\"result\":\"VALID\",\"exit_code\":0,\"findings\":[{\"code\":\"OPTIONAL_FIELD_ABSENT\",\"disposition\":\"WARNING\",\"message\":\"OPTIONAL_FIELD_ABSENT at /reviewCadence.\",\"path\":\"policies/observations/reference-state.json\",\"line\":1,\"column\":1,\"byte_offset\":0,\"pointer\":\"/reviewCadence\",\"item_id\":\"OBS-REFERENCE-STATE-001\"},{\"code\":\"OPTIONAL_FIELD_ABSENT\",\"disposition\":\"WARNING\",\"message\":\"OPTIONAL_FIELD_ABSENT at /nextReview.\",\"path\":\"policies/observations/reference-state.json\",\"line\":1,\"column\":1,\"byte_offset\":0,\"pointer\":\"/nextReview\",\"item_id\":\"OBS-REFERENCE-STATE-001\"},{\"code\":\"OPTIONAL_FIELD_ABSENT\",\"disposition\":\"WARNING\",\"message\":\"OPTIONAL_FIELD_ABSENT at /reviewCadence.\",\"path\":\"policies/drafts/proposal.yaml\",\"line\":1,\"column\":1,\"byte_offset\":0,\"pointer\":\"/reviewCadence\",\"item_id\":\"OBS-T37-0\"},{\"code\":\"OPTIONAL_FIELD_ABSENT\",\"disposition\":\"WARNING\",\"message\":\"OPTIONAL_FIELD_ABSENT at /nextReview.\",\"path\":\"policies/drafts/proposal.yaml\",\"line\":1,\"column\":1,\"byte_offset\":0,\"pointer\":\"/nextReview\",\"item_id\":\"OBS-T37-0\"}],\"stages\":{\"structure\":{\"status\":\"PASS\"},\"scope\":{\"status\":\"PASS\"},\"authority\":{\"status\":\"PASS\"},\"conflicts\":{\"status\":\"PASS\"},\"evidence\":{\"status\":\"PASS\"},\"documentation\":{\"status\":\"NOT_APPLICABLE\",\"reason\":\"No packaged skill library, CAPABILITY or documentation mapping\"}},\"items\":[{\"id\":\"OBS-REFERENCE-STATE-001\",\"location\":{\"path\":\"policies/observations/reference-state.json\",\"document\":0,\"pointer\":\"\",\"line\":1,\"column\":1,\"start_byte\":0,\"end_byte\":534},\"applicability\":{\"status\":\"NOT_REQUESTED\",\"reason\":\"Static package validation; no task target selected\"},\"presentation\":{\"rule\":\"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\",\"translation_unavailable\":true,\"requested_language\":\"en\",\"original_rule\":\"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\"}},{\"id\":\"OBS-T37-0\",\"location\":{\"path\":\"policies/drafts/proposal.yaml\",\"document\":0,\"pointer\":\"\",\"line\":1,\"column\":1,\"start_byte\":0,\"end_byte\":451},\"applicability\":{\"status\":\"NOT_REQUESTED\",\"reason\":\"Static package validation; no task target selected\"},\"presentation\":{\"rule\":\"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\",\"translation_unavailable\":true,\"requested_language\":\"en\",\"original_rule\":\"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\"}}],\"authority\":{\"OBS-REFERENCE-STATE-001\":{\"status\":\"UNCLAIMED\",\"level\":null,\"evidence_ref\":null},\"OBS-T37-0\":{\"status\":\"UNCLAIMED\",\"level\":null,\"evidence_ref\":null}},\"resolutions\":[],\"conflict_coverage\":\"Explicit relationships only; free-text semantic conflicts not claimed resolved\",\"qualification\":\"NOT_RUN\",\"runtime_honesty\":\"7 REQUIRED / NOT_RUN / NOT_WAIVED; E4 deferred\",\"publisher_authentication\":\"UNKNOWN\",\"governance_release_acceptance\":\"NOT_GRANTED\"},\"doctor\":{\"status\":\"PASS\",\"run_id\":\"DOC-103a05a8-2bdb-43b5-9467-a540c892a0a3\",\"at\":\"2026-10-25T17:02:14.717128+00:00\",\"proposal_version_hash\":\"sha256:d3d9c117ab7d528d621bbcc37501c94899a846f8a2083c9668ed6a7b0ce8d882\",\"control_hash\":\"sha256:2303c1a7898916d413f46b2c5f6de1e929d0d676c6b214c0971674e20ac10412\",\"observations\":[],\"e4\":\"REQUIRED / NOT_RUN / NOT_WAIVED\"},\"required_approvals\":[\"governance-owner\",\"security-owner\"],\"eval_required\":false,\"skill_required\":false}}\r\n",
+      "stderr": "",
+      "exit_code": 0,
+      "limits": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      },
+      "termination_reason": "completed",
+      "duration_ms": 10078,
+      "resource_peak_mb": 29.6953125,
+      "active_processes_after": 0,
+      "started": {
+        "event": "started",
+        "pid": 140648,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      }
+    }
+  },
+  {
+    "id": 1,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 2,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 3,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 4,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 5,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 6,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 7,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 8,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 9,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 10,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 11,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 12,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 13,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 14,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 15,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 16,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 17,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 18,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 19,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 20,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 21,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 22,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 23,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 24,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 25,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 26,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 27,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 28,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 29,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 30,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 31,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 32,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 33,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 34,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 35,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 36,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 37,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 38,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 39,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 40,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 41,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 42,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 43,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 44,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 45,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 46,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 47,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 48,
+    "error": "RATE_LIMITED",
+    "status": 429
+  },
+  {
+    "id": 49,
+    "error": "RATE_LIMITED",
+    "status": 429
+  }
+]

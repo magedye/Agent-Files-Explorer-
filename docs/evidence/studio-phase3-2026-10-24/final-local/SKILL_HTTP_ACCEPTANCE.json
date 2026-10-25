@@ -1,0 +1,1869 @@
+{
+  "status": "PASS_FOR_LOCAL_LIFECYCLE",
+  "results": [
+    {
+      "run_id": "VR-a8dc972e-b9f3-436c-a715-97700b4e473d",
+      "task": {
+        "task_id": "actual",
+        "session_id": "e2dda31d-ab5d-4936-bc40-f852a9082427",
+        "phase": "implementation",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "revision": 1,
+        "skill_id": "json-audit",
+        "availability": {
+          "registry": "available",
+          "installed": true,
+          "available": true,
+          "content_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f"
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "SELECTED",
+          "loaded": "NOT_RUN",
+          "executed": "NOT_RUN",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "SELECTED",
+          "instruction_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f",
+          "identity": {
+            "task_id": "actual",
+            "session_id": "d79804f4-e615-418a-be94-3d5221a9f897",
+            "host": "aghr-local-process",
+            "host_version": "v24.11.0",
+            "scope": "**/*",
+            "skill_id": "json-audit",
+            "phase": "implementation"
+          },
+          "host_signal": "NOT_OBSERVABLE",
+          "execution": "NOT_RUN"
+        },
+        "outcome": "SELECTED",
+        "halt": false,
+        "reason": null,
+        "last_run_id": "VR-a8dc972e-b9f3-436c-a715-97700b4e473d"
+      },
+      "result": {
+        "result": "VALID",
+        "status": "SELECTED",
+        "selected": [
+          "json-audit"
+        ],
+        "alternatives_not_loaded": [
+          "restricted",
+          "unavailable"
+        ],
+        "halt": false,
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "phase": "implementation"
+      },
+      "error": null,
+      "records": [
+        {
+          "operation": "discover",
+          "command": "check",
+          "protocol_version": "3",
+          "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+          "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+          "input_hash": "sha256:4a796be12a056a1f72eb016812f497a7096046e9d9c0c1e346bd2f9afc90f4ae",
+          "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"VALID\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"result\":\"VALID\",\"status\":\"SELECTED\",\"selected\":[\"json-audit\"],\"alternatives_not_loaded\":[\"restricted\",\"unavailable\"],\"halt\":false,\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"phase\":\"implementation\"},\"diagnostics\":[]}\r\n",
+          "stderr": "",
+          "event": "finished",
+          "status": "passed",
+          "reason": null,
+          "exit_code": 0,
+          "resource_peak_mb": 15.7578125,
+          "duration_ms": 656,
+          "active_processes_after": 0,
+          "observed_pids": [
+            119084,
+            120756,
+            113676
+          ],
+          "memory_events": [],
+          "started": {
+            "event": "started",
+            "pid": 119084,
+            "adapter": "windows-job-list",
+            "hard_memory_bytes": 2147483648,
+            "limit_flags": 8704
+          },
+          "limits": {
+            "timeoutMs": 30000,
+            "memoryBytes": 2147483648
+          }
+        }
+      ],
+      "source_written": false,
+      "state_written": false
+    },
+    {
+      "run_id": "VR-604adb5b-f6c9-4fe2-8513-964777ff9cda",
+      "task": {
+        "task_id": "actual",
+        "session_id": "e2dda31d-ab5d-4936-bc40-f852a9082427",
+        "phase": "implementation",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "revision": 2,
+        "skill_id": "json-audit",
+        "availability": {
+          "registry": "available",
+          "installed": true,
+          "available": true,
+          "content_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f"
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "SELECTED",
+          "loaded": "LOADED",
+          "executed": "NOT_RUN",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "LOADED",
+          "instruction_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f",
+          "identity": {
+            "task_id": "actual",
+            "session_id": "d79804f4-e615-418a-be94-3d5221a9f897",
+            "host": "aghr-local-process",
+            "host_version": "v24.11.0",
+            "scope": "**/*",
+            "skill_id": "json-audit",
+            "phase": "implementation"
+          },
+          "host_signal": "NOT_OBSERVABLE",
+          "execution": "NOT_RUN"
+        },
+        "outcome": "LOADED",
+        "halt": false,
+        "reason": null,
+        "last_run_id": "VR-604adb5b-f6c9-4fe2-8513-964777ff9cda"
+      },
+      "result": {
+        "state": "LOADED",
+        "instruction_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f",
+        "identity": {
+          "task_id": "actual",
+          "session_id": "d79804f4-e615-418a-be94-3d5221a9f897",
+          "host": "aghr-local-process",
+          "host_version": "v24.11.0",
+          "scope": "**/*",
+          "skill_id": "json-audit",
+          "phase": "implementation"
+        },
+        "host_signal": "NOT_OBSERVABLE",
+        "execution": "NOT_RUN"
+      },
+      "error": null,
+      "records": [
+        {
+          "operation": "transition",
+          "command": "check",
+          "protocol_version": "3",
+          "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+          "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+          "input_hash": "sha256:cdb38c693e2ce4ae4f22bcf941add6c2459a201a74f15f898cdd6906115e3d9b",
+          "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"READ\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"state\":\"LOADED\",\"instruction_hash\":\"sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f\",\"identity\":{\"task_id\":\"actual\",\"session_id\":\"d79804f4-e615-418a-be94-3d5221a9f897\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"**/*\",\"skill_id\":\"json-audit\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"NOT_RUN\"},\"diagnostics\":[]}\r\n",
+          "stderr": "",
+          "event": "finished",
+          "status": "passed",
+          "reason": null,
+          "exit_code": 0,
+          "resource_peak_mb": 16.01171875,
+          "duration_ms": 813,
+          "active_processes_after": 0,
+          "observed_pids": [
+            112420,
+            117828,
+            115192
+          ],
+          "memory_events": [],
+          "started": {
+            "event": "started",
+            "pid": 112420,
+            "adapter": "windows-job-list",
+            "hard_memory_bytes": 2147483648,
+            "limit_flags": 8704
+          },
+          "limits": {
+            "timeoutMs": 30000,
+            "memoryBytes": 2147483648
+          }
+        }
+      ],
+      "source_written": false,
+      "state_written": false
+    },
+    {
+      "run_id": "VR-45864b4e-6d99-4474-970e-4ab0b50b2b97",
+      "task": {
+        "task_id": "actual",
+        "session_id": "e2dda31d-ab5d-4936-bc40-f852a9082427",
+        "phase": "implementation",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "revision": 3,
+        "skill_id": "json-audit",
+        "availability": {
+          "registry": "available",
+          "installed": true,
+          "available": true,
+          "content_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f"
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "SELECTED",
+          "loaded": "LOADED",
+          "executed": "NOT_RUN",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "LOADED",
+          "instruction_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f",
+          "identity": {
+            "task_id": "actual",
+            "session_id": "d79804f4-e615-418a-be94-3d5221a9f897",
+            "host": "aghr-local-process",
+            "host_version": "v24.11.0",
+            "scope": "**/*",
+            "skill_id": "json-audit",
+            "phase": "implementation"
+          },
+          "host_signal": "NOT_OBSERVABLE",
+          "execution": "NOT_RUN"
+        },
+        "outcome": "REJECTED",
+        "halt": true,
+        "reason": "EXECUTION_EVIDENCE_REQUIRED",
+        "last_run_id": "VR-45864b4e-6d99-4474-970e-4ab0b50b2b97"
+      },
+      "result": null,
+      "error": "EXECUTION_EVIDENCE_REQUIRED",
+      "records": [
+        {
+          "operation": "transition",
+          "command": "check",
+          "protocol_version": "3",
+          "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+          "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+          "input_hash": "sha256:21930de452648aa4253128a91d034ca6e957b769972310f6084522c3c5eceba4",
+          "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"INVALID\",\"exit_code\":1,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":null,\"diagnostics\":[{\"code\":\"E4_REJECTED\",\"message\":\"EXECUTION_EVIDENCE_REQUIRED\"}]}\r\n",
+          "stderr": "",
+          "event": "finished",
+          "status": "failed",
+          "reason": null,
+          "exit_code": 1,
+          "resource_peak_mb": 15.76171875,
+          "duration_ms": 656,
+          "active_processes_after": 0,
+          "observed_pids": [
+            120496,
+            111024,
+            85216
+          ],
+          "memory_events": [],
+          "started": {
+            "event": "started",
+            "pid": 120496,
+            "adapter": "windows-job-list",
+            "hard_memory_bytes": 2147483648,
+            "limit_flags": 8704
+          },
+          "limits": {
+            "timeoutMs": 30000,
+            "memoryBytes": 2147483648
+          }
+        }
+      ],
+      "source_written": false,
+      "state_written": false
+    },
+    {
+      "run_id": "VR-84e5b6db-27d4-4e0f-89b0-ea8230d40f66",
+      "task": {
+        "task_id": "actual",
+        "session_id": "e2dda31d-ab5d-4936-bc40-f852a9082427",
+        "phase": "implementation",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "revision": 4,
+        "skill_id": "json-audit",
+        "availability": {
+          "registry": "available",
+          "installed": true,
+          "available": true,
+          "content_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f"
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "SELECTED",
+          "loaded": "LOADED",
+          "executed": "EXECUTED",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "EXECUTED",
+          "instruction_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f",
+          "identity": {
+            "task_id": "actual",
+            "session_id": "d79804f4-e615-418a-be94-3d5221a9f897",
+            "host": "aghr-local-process",
+            "host_version": "v24.11.0",
+            "scope": "**/*",
+            "skill_id": "json-audit",
+            "phase": "implementation"
+          },
+          "host_signal": "NOT_OBSERVABLE",
+          "execution": "EXECUTED",
+          "execution_run_id": "E4-c8c20497-b5a8-46ca-a224-17913bc36aa5"
+        },
+        "outcome": "EXECUTED",
+        "halt": false,
+        "reason": null,
+        "last_run_id": "VR-84e5b6db-27d4-4e0f-89b0-ea8230d40f66"
+      },
+      "result": {
+        "state": "EXECUTED",
+        "instruction_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f",
+        "identity": {
+          "task_id": "actual",
+          "session_id": "d79804f4-e615-418a-be94-3d5221a9f897",
+          "host": "aghr-local-process",
+          "host_version": "v24.11.0",
+          "scope": "**/*",
+          "skill_id": "json-audit",
+          "phase": "implementation"
+        },
+        "host_signal": "NOT_OBSERVABLE",
+        "execution": "EXECUTED",
+        "execution_run_id": "E4-c8c20497-b5a8-46ca-a224-17913bc36aa5"
+      },
+      "error": null,
+      "records": [
+        {
+          "operation": "execute",
+          "resource_profile": "check",
+          "run_id": "E4-c8c20497-b5a8-46ca-a224-17913bc36aa5",
+          "identity": {
+            "task_id": "actual",
+            "session_id": "d79804f4-e615-418a-be94-3d5221a9f897",
+            "host": "aghr-local-process",
+            "host_version": "v24.11.0",
+            "scope": "**/*",
+            "skill_id": "json-audit",
+            "phase": "implementation"
+          },
+          "driver_hash": "sha256:00f011399d7d34e4705ac0d9570795f2cef4e79a08e345b3637518bce9c38fc6",
+          "input_hash": "sha256:1ffecfa599fd61b81c03e47e2dce50755b5b6996fd5050a9dea2a3be8b667145",
+          "input_base64": "eyJkb2N1bWVudCI6eyJuYW1lIjoicmVhbCJ9LCJyZXF1aXJlZCI6WyJuYW1lIl19",
+          "event": "finished",
+          "status": "passed",
+          "reason": null,
+          "exit_code": 0,
+          "resource_peak_mb": 14.12109375,
+          "duration_ms": 625,
+          "active_processes_after": 0,
+          "observed_pids": [
+            108724,
+            5048,
+            114828
+          ],
+          "memory_events": [],
+          "started": {
+            "event": "started",
+            "pid": 108724,
+            "adapter": "windows-job-list",
+            "hard_memory_bytes": 2147483648,
+            "limit_flags": 8704
+          },
+          "stdout": "{\"valid\": true, \"keys\": [\"name\"], \"missing\": [], \"document\": {\"name\": \"real\"}}\r\n",
+          "stderr": "",
+          "limits": {
+            "timeoutMs": 30000,
+            "memoryBytes": 2147483648
+          },
+          "stdout_base64": "eyJ2YWxpZCI6IHRydWUsICJrZXlzIjogWyJuYW1lIl0sICJtaXNzaW5nIjogW10sICJkb2N1bWVudCI6IHsibmFtZSI6ICJyZWFsIn19DQo=",
+          "stderr_base64": ""
+        },
+        {
+          "operation": "transition",
+          "command": "check",
+          "protocol_version": "3",
+          "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+          "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+          "input_hash": "sha256:c958a4f13230fa05af75f63ab82e0098c28dd978ce630b2b6fe8e996c4f64384",
+          "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"READ\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"state\":\"EXECUTED\",\"instruction_hash\":\"sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f\",\"identity\":{\"task_id\":\"actual\",\"session_id\":\"d79804f4-e615-418a-be94-3d5221a9f897\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"**/*\",\"skill_id\":\"json-audit\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-c8c20497-b5a8-46ca-a224-17913bc36aa5\"},\"diagnostics\":[]}\r\n",
+          "stderr": "",
+          "event": "finished",
+          "status": "passed",
+          "reason": null,
+          "exit_code": 0,
+          "resource_peak_mb": 15.921875,
+          "duration_ms": 641,
+          "active_processes_after": 0,
+          "observed_pids": [
+            113728,
+            119124,
+            111144
+          ],
+          "memory_events": [],
+          "started": {
+            "event": "started",
+            "pid": 113728,
+            "adapter": "windows-job-list",
+            "hard_memory_bytes": 2147483648,
+            "limit_flags": 8704
+          },
+          "limits": {
+            "timeoutMs": 30000,
+            "memoryBytes": 2147483648
+          }
+        }
+      ],
+      "source_written": false,
+      "state_written": false
+    },
+    {
+      "run_id": "VR-37a0f4f0-40ab-4514-b23b-daa4a6767e4a",
+      "task": {
+        "task_id": "actual",
+        "session_id": "e2dda31d-ab5d-4936-bc40-f852a9082427",
+        "phase": "implementation",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "revision": 5,
+        "skill_id": "json-audit",
+        "availability": {
+          "registry": "available",
+          "installed": true,
+          "available": true,
+          "content_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f"
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "SELECTED",
+          "loaded": "LOADED",
+          "executed": "EXECUTED",
+          "verified": "VERIFIED",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "VERIFIED",
+          "instruction_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f",
+          "identity": {
+            "task_id": "actual",
+            "session_id": "d79804f4-e615-418a-be94-3d5221a9f897",
+            "host": "aghr-local-process",
+            "host_version": "v24.11.0",
+            "scope": "**/*",
+            "skill_id": "json-audit",
+            "phase": "implementation"
+          },
+          "host_signal": "NOT_OBSERVABLE",
+          "execution": "EXECUTED",
+          "execution_run_id": "E4-c8c20497-b5a8-46ca-a224-17913bc36aa5",
+          "result": "VALID",
+          "verified": true,
+          "criteria_hash": "sha256:4ab2bb2c50b7511570d661bc722057831a1e438aa70edc7ab6ff53ea11314b64",
+          "criteria_results": [
+            {
+              "pointer": "/valid",
+              "op": "equals",
+              "passed": true,
+              "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+            }
+          ],
+          "output_hash": "sha256:cbc6d42766e7c5ca7a0ec4940f1a6b852853fce06da01b79490ab31eaa8f6d56"
+        },
+        "outcome": "VERIFIED",
+        "halt": false,
+        "reason": null,
+        "last_run_id": "VR-37a0f4f0-40ab-4514-b23b-daa4a6767e4a"
+      },
+      "result": {
+        "state": "VERIFIED",
+        "instruction_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f",
+        "identity": {
+          "task_id": "actual",
+          "session_id": "d79804f4-e615-418a-be94-3d5221a9f897",
+          "host": "aghr-local-process",
+          "host_version": "v24.11.0",
+          "scope": "**/*",
+          "skill_id": "json-audit",
+          "phase": "implementation"
+        },
+        "host_signal": "NOT_OBSERVABLE",
+        "execution": "EXECUTED",
+        "execution_run_id": "E4-c8c20497-b5a8-46ca-a224-17913bc36aa5",
+        "result": "VALID",
+        "verified": true,
+        "criteria_hash": "sha256:4ab2bb2c50b7511570d661bc722057831a1e438aa70edc7ab6ff53ea11314b64",
+        "criteria_results": [
+          {
+            "pointer": "/valid",
+            "op": "equals",
+            "passed": true,
+            "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+          }
+        ],
+        "output_hash": "sha256:cbc6d42766e7c5ca7a0ec4940f1a6b852853fce06da01b79490ab31eaa8f6d56"
+      },
+      "error": null,
+      "records": [
+        {
+          "operation": "transition",
+          "command": "check",
+          "protocol_version": "3",
+          "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+          "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+          "input_hash": "sha256:2f140e7d45410711d5b9b8f608eb6e124453017f84e9f3438047d3aa7241ec10",
+          "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"VALID\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"state\":\"VERIFIED\",\"instruction_hash\":\"sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f\",\"identity\":{\"task_id\":\"actual\",\"session_id\":\"d79804f4-e615-418a-be94-3d5221a9f897\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"**/*\",\"skill_id\":\"json-audit\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-c8c20497-b5a8-46ca-a224-17913bc36aa5\",\"result\":\"VALID\",\"verified\":true,\"criteria_hash\":\"sha256:4ab2bb2c50b7511570d661bc722057831a1e438aa70edc7ab6ff53ea11314b64\",\"criteria_results\":[{\"pointer\":\"/valid\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"}],\"output_hash\":\"sha256:cbc6d42766e7c5ca7a0ec4940f1a6b852853fce06da01b79490ab31eaa8f6d56\"},\"diagnostics\":[]}\r\n",
+          "stderr": "",
+          "event": "finished",
+          "status": "passed",
+          "reason": null,
+          "exit_code": 0,
+          "resource_peak_mb": 16.05078125,
+          "duration_ms": 891,
+          "active_processes_after": 0,
+          "observed_pids": [
+            118404,
+            116340,
+            115220
+          ],
+          "memory_events": [],
+          "started": {
+            "event": "started",
+            "pid": 118404,
+            "adapter": "windows-job-list",
+            "hard_memory_bytes": 2147483648,
+            "limit_flags": 8704
+          },
+          "limits": {
+            "timeoutMs": 30000,
+            "memoryBytes": 2147483648
+          }
+        }
+      ],
+      "source_written": false,
+      "state_written": false
+    },
+    {
+      "run_id": "VR-8ed94198-7526-4877-9604-f102ff009531",
+      "task": {
+        "task_id": "simple",
+        "session_id": "461a5330-e4fe-4c4a-809d-197fc7c93524",
+        "phase": "implementation",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "revision": 1,
+        "skill_id": null,
+        "availability": {
+          "registry": "available",
+          "installed": false,
+          "available": false,
+          "content_hash": null
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "NOT_RUN",
+          "loaded": "NOT_RUN",
+          "executed": "NOT_RUN",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "NO_SKILL_MATCH"
+        },
+        "outcome": "NO_SKILL_MATCH",
+        "halt": false,
+        "reason": null,
+        "last_run_id": "VR-8ed94198-7526-4877-9604-f102ff009531"
+      },
+      "result": {
+        "result": "VALID",
+        "status": "NO_SKILL_MATCH",
+        "selected": [],
+        "halt": false
+      },
+      "error": null,
+      "records": [
+        {
+          "operation": "discover",
+          "command": "check",
+          "protocol_version": "3",
+          "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+          "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+          "input_hash": "sha256:1483c72d3cab63d0e945c7e62e91021fff9c76ced387f3a3da1bc261eaa32975",
+          "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"VALID\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"result\":\"VALID\",\"status\":\"NO_SKILL_MATCH\",\"selected\":[],\"halt\":false},\"diagnostics\":[]}\r\n",
+          "stderr": "",
+          "event": "finished",
+          "status": "passed",
+          "reason": null,
+          "exit_code": 0,
+          "resource_peak_mb": 15.76171875,
+          "duration_ms": 719,
+          "active_processes_after": 0,
+          "observed_pids": [
+            115068,
+            107648,
+            116528
+          ],
+          "memory_events": [],
+          "started": {
+            "event": "started",
+            "pid": 115068,
+            "adapter": "windows-job-list",
+            "hard_memory_bytes": 2147483648,
+            "limit_flags": 8704
+          },
+          "limits": {
+            "timeoutMs": 30000,
+            "memoryBytes": 2147483648
+          }
+        }
+      ],
+      "source_written": false,
+      "state_written": false
+    },
+    {
+      "run_id": "VR-c9e9c82e-49a1-4119-bc2e-26c6732040f6",
+      "task": {
+        "task_id": "unknown",
+        "session_id": "e5187ae1-cd63-4be9-a809-28900cbd45e7",
+        "phase": "implementation",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "revision": 1,
+        "skill_id": null,
+        "availability": {
+          "registry": "available",
+          "installed": false,
+          "available": false,
+          "content_hash": null
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "NOT_RUN",
+          "loaded": "NOT_RUN",
+          "executed": "NOT_RUN",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "UNKNOWN_ID"
+        },
+        "outcome": "UNKNOWN_ID",
+        "halt": true,
+        "reason": null,
+        "last_run_id": "VR-c9e9c82e-49a1-4119-bc2e-26c6732040f6"
+      },
+      "result": {
+        "result": "INVALID",
+        "status": "UNKNOWN_ID",
+        "selected": [],
+        "halt": true
+      },
+      "error": null,
+      "records": [
+        {
+          "operation": "discover",
+          "command": "check",
+          "protocol_version": "3",
+          "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+          "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+          "input_hash": "sha256:100d9b713c9f12820b359d53807abf8b7d0564d9d4d4992d89b34122f36ff6c6",
+          "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"INVALID\",\"exit_code\":1,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"result\":\"INVALID\",\"status\":\"UNKNOWN_ID\",\"selected\":[],\"halt\":true},\"diagnostics\":[]}\r\n",
+          "stderr": "",
+          "event": "finished",
+          "status": "failed",
+          "reason": null,
+          "exit_code": 1,
+          "resource_peak_mb": 15.96484375,
+          "duration_ms": 672,
+          "active_processes_after": 0,
+          "observed_pids": [
+            115088,
+            110572,
+            109464
+          ],
+          "memory_events": [],
+          "started": {
+            "event": "started",
+            "pid": 115088,
+            "adapter": "windows-job-list",
+            "hard_memory_bytes": 2147483648,
+            "limit_flags": 8704
+          },
+          "limits": {
+            "timeoutMs": 30000,
+            "memoryBytes": 2147483648
+          }
+        }
+      ],
+      "source_written": false,
+      "state_written": false
+    },
+    {
+      "run_id": "VR-91e98903-c67c-4626-99ba-f6e1dcd228c8",
+      "task": {
+        "task_id": "unavailable",
+        "session_id": "20c82882-d1f1-4e7d-8698-f30ce4b225e2",
+        "phase": "implementation",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "revision": 1,
+        "skill_id": null,
+        "availability": {
+          "registry": "available",
+          "installed": false,
+          "available": false,
+          "content_hash": null
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "NOT_RUN",
+          "loaded": "NOT_RUN",
+          "executed": "NOT_RUN",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "NOT_OBSERVABLE"
+        },
+        "outcome": "NOT_OBSERVABLE",
+        "halt": true,
+        "reason": "Installed content is not executable in this host session.",
+        "last_run_id": "VR-91e98903-c67c-4626-99ba-f6e1dcd228c8"
+      },
+      "result": {
+        "result": "BLOCKED",
+        "status": "NOT_OBSERVABLE",
+        "selected": [],
+        "halt": true,
+        "skill_id": "unavailable",
+        "reason": "Installed content is not executable in this host session."
+      },
+      "error": null,
+      "records": [
+        {
+          "operation": "discover",
+          "command": "check",
+          "protocol_version": "3",
+          "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+          "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+          "input_hash": "sha256:4a2cf544ce17ec45ec2259afb95c7d2d2d9584a77d667bf6b7dd3efd44ef8d0a",
+          "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"BLOCKED\",\"exit_code\":3,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"result\":\"BLOCKED\",\"status\":\"NOT_OBSERVABLE\",\"selected\":[],\"halt\":true,\"skill_id\":\"unavailable\",\"reason\":\"Installed content is not executable in this host session.\"},\"diagnostics\":[]}\r\n",
+          "stderr": "",
+          "event": "finished",
+          "status": "failed",
+          "reason": null,
+          "exit_code": 3,
+          "resource_peak_mb": 16.0390625,
+          "duration_ms": 765,
+          "active_processes_after": 0,
+          "observed_pids": [
+            113228,
+            115028,
+            105296
+          ],
+          "memory_events": [],
+          "started": {
+            "event": "started",
+            "pid": 113228,
+            "adapter": "windows-job-list",
+            "hard_memory_bytes": 2147483648,
+            "limit_flags": 8704
+          },
+          "limits": {
+            "timeoutMs": 30000,
+            "memoryBytes": 2147483648
+          }
+        }
+      ],
+      "source_written": false,
+      "state_written": false
+    },
+    {
+      "run_id": "VR-f9281ef3-a950-42fa-b5f3-f46cca52f9c7",
+      "task": {
+        "task_id": "permission",
+        "session_id": "c00c807e-b415-4ce6-8564-caf06b373d87",
+        "phase": "implementation",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "revision": 1,
+        "skill_id": null,
+        "availability": {
+          "registry": "available",
+          "installed": false,
+          "available": false,
+          "content_hash": null
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "NOT_RUN",
+          "loaded": "NOT_RUN",
+          "executed": "NOT_RUN",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "BLOCKED"
+        },
+        "outcome": "BLOCKED",
+        "halt": true,
+        "reason": "Required permissions not granted; no direct-execution fallback.",
+        "last_run_id": "VR-f9281ef3-a950-42fa-b5f3-f46cca52f9c7"
+      },
+      "result": {
+        "result": "BLOCKED",
+        "status": "BLOCKED",
+        "selected": [],
+        "halt": true,
+        "skill_id": "restricted",
+        "reason": "Required permissions not granted; no direct-execution fallback."
+      },
+      "error": null,
+      "records": [
+        {
+          "operation": "discover",
+          "command": "check",
+          "protocol_version": "3",
+          "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+          "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+          "input_hash": "sha256:7fe9a55d71c666c9e005a5cf70f4abf941696054d80df613b048762bcaa2028b",
+          "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"BLOCKED\",\"exit_code\":3,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"result\":\"BLOCKED\",\"status\":\"BLOCKED\",\"selected\":[],\"halt\":true,\"skill_id\":\"restricted\",\"reason\":\"Required permissions not granted; no direct-execution fallback.\"},\"diagnostics\":[]}\r\n",
+          "stderr": "",
+          "event": "finished",
+          "status": "failed",
+          "reason": null,
+          "exit_code": 3,
+          "resource_peak_mb": 15.96875,
+          "duration_ms": 625,
+          "active_processes_after": 0,
+          "observed_pids": [
+            114760,
+            115948,
+            120168
+          ],
+          "memory_events": [],
+          "started": {
+            "event": "started",
+            "pid": 114760,
+            "adapter": "windows-job-list",
+            "hard_memory_bytes": 2147483648,
+            "limit_flags": 8704
+          },
+          "limits": {
+            "timeoutMs": 30000,
+            "memoryBytes": 2147483648
+          }
+        }
+      ],
+      "source_written": false,
+      "state_written": false
+    },
+    {
+      "run_id": "VR-d042d603-19a2-415a-b2ba-ef47ebfa7c46",
+      "task": {
+        "task_id": "actual",
+        "session_id": "e2dda31d-ab5d-4936-bc40-f852a9082427",
+        "phase": "implementation",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "revision": 6,
+        "skill_id": "json-audit",
+        "availability": {
+          "registry": "available",
+          "installed": true,
+          "available": true,
+          "content_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f"
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "SELECTED",
+          "loaded": "LOADED",
+          "executed": "EXECUTED",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "EXECUTED",
+          "instruction_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f",
+          "identity": {
+            "task_id": "actual",
+            "session_id": "d79804f4-e615-418a-be94-3d5221a9f897",
+            "host": "aghr-local-process",
+            "host_version": "v24.11.0",
+            "scope": "**/*",
+            "skill_id": "json-audit",
+            "phase": "implementation"
+          },
+          "host_signal": "NOT_OBSERVABLE",
+          "execution": "EXECUTED",
+          "execution_run_id": "E4-c8c20497-b5a8-46ca-a224-17913bc36aa5",
+          "result": "INVALID",
+          "verified": false,
+          "criteria_hash": "sha256:39a6d494a54e2ad19196bc04ef63e954ab056cf55e1034817786643a08da3aac",
+          "criteria_results": [
+            {
+              "pointer": "/valid",
+              "op": "equals",
+              "passed": false,
+              "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+            }
+          ],
+          "output_hash": "sha256:cbc6d42766e7c5ca7a0ec4940f1a6b852853fce06da01b79490ab31eaa8f6d56"
+        },
+        "outcome": "EXECUTED",
+        "halt": false,
+        "reason": null,
+        "last_run_id": "VR-d042d603-19a2-415a-b2ba-ef47ebfa7c46"
+      },
+      "result": {
+        "state": "EXECUTED",
+        "instruction_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f",
+        "identity": {
+          "task_id": "actual",
+          "session_id": "d79804f4-e615-418a-be94-3d5221a9f897",
+          "host": "aghr-local-process",
+          "host_version": "v24.11.0",
+          "scope": "**/*",
+          "skill_id": "json-audit",
+          "phase": "implementation"
+        },
+        "host_signal": "NOT_OBSERVABLE",
+        "execution": "EXECUTED",
+        "execution_run_id": "E4-c8c20497-b5a8-46ca-a224-17913bc36aa5",
+        "result": "INVALID",
+        "verified": false,
+        "criteria_hash": "sha256:39a6d494a54e2ad19196bc04ef63e954ab056cf55e1034817786643a08da3aac",
+        "criteria_results": [
+          {
+            "pointer": "/valid",
+            "op": "equals",
+            "passed": false,
+            "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+          }
+        ],
+        "output_hash": "sha256:cbc6d42766e7c5ca7a0ec4940f1a6b852853fce06da01b79490ab31eaa8f6d56"
+      },
+      "error": null,
+      "records": [
+        {
+          "operation": "transition",
+          "command": "check",
+          "protocol_version": "3",
+          "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+          "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+          "input_hash": "sha256:b5cd9c77a878bd1ea31444438c6f7974ec86ad714c2493da43b093c93222eb8c",
+          "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"INVALID\",\"exit_code\":1,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"state\":\"EXECUTED\",\"instruction_hash\":\"sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f\",\"identity\":{\"task_id\":\"actual\",\"session_id\":\"d79804f4-e615-418a-be94-3d5221a9f897\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"**/*\",\"skill_id\":\"json-audit\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-c8c20497-b5a8-46ca-a224-17913bc36aa5\",\"result\":\"INVALID\",\"verified\":false,\"criteria_hash\":\"sha256:39a6d494a54e2ad19196bc04ef63e954ab056cf55e1034817786643a08da3aac\",\"criteria_results\":[{\"pointer\":\"/valid\",\"op\":\"equals\",\"passed\":false,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"}],\"output_hash\":\"sha256:cbc6d42766e7c5ca7a0ec4940f1a6b852853fce06da01b79490ab31eaa8f6d56\"},\"diagnostics\":[]}\r\n",
+          "stderr": "",
+          "event": "finished",
+          "status": "failed",
+          "reason": null,
+          "exit_code": 1,
+          "resource_peak_mb": 15.5546875,
+          "duration_ms": 687,
+          "active_processes_after": 0,
+          "observed_pids": [
+            116264,
+            117464,
+            117624
+          ],
+          "memory_events": [],
+          "started": {
+            "event": "started",
+            "pid": 116264,
+            "adapter": "windows-job-list",
+            "hard_memory_bytes": 2147483648,
+            "limit_flags": 8704
+          },
+          "limits": {
+            "timeoutMs": 30000,
+            "memoryBytes": 2147483648
+          }
+        }
+      ],
+      "source_written": false,
+      "state_written": false
+    },
+    {
+      "run_id": "VR-d93ad3b0-a1f0-4b5a-be95-20f5c6c8c600",
+      "task": {
+        "task_id": "native-codex",
+        "session_id": "50aaea67-e916-449e-bc7f-286200a5cd99",
+        "phase": "implementation",
+        "host": "codex",
+        "host_version": null,
+        "revision": 1,
+        "skill_id": null,
+        "availability": {
+          "registry": "DISCOVERY_UNAVAILABLE",
+          "installed": false,
+          "available": false,
+          "content_hash": null
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "NOT_RUN",
+          "loaded": "NOT_RUN",
+          "executed": "NOT_RUN",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "BLOCKED"
+        },
+        "outcome": "BLOCKED",
+        "halt": true,
+        "reason": "DISCOVERY_UNAVAILABLE",
+        "last_run_id": "VR-d93ad3b0-a1f0-4b5a-be95-20f5c6c8c600"
+      },
+      "result": {
+        "status": "BLOCKED",
+        "halt": true,
+        "reason": "DISCOVERY_UNAVAILABLE",
+        "engine_execution": "NOT_RUN"
+      },
+      "error": null,
+      "records": [],
+      "source_written": false,
+      "state_written": false
+    },
+    {
+      "run_id": "VR-2b72c25a-e717-41ab-809d-28367ee963f0",
+      "task": {
+        "task_id": "native-antigravity",
+        "session_id": "cb16433a-d68e-4eed-8d11-48989e865d7d",
+        "phase": "implementation",
+        "host": "antigravity",
+        "host_version": null,
+        "revision": 1,
+        "skill_id": null,
+        "availability": {
+          "registry": "DISCOVERY_UNAVAILABLE",
+          "installed": false,
+          "available": false,
+          "content_hash": null
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "NOT_RUN",
+          "loaded": "NOT_RUN",
+          "executed": "NOT_RUN",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "BLOCKED"
+        },
+        "outcome": "BLOCKED",
+        "halt": true,
+        "reason": "DISCOVERY_UNAVAILABLE",
+        "last_run_id": "VR-2b72c25a-e717-41ab-809d-28367ee963f0"
+      },
+      "result": {
+        "status": "BLOCKED",
+        "halt": true,
+        "reason": "DISCOVERY_UNAVAILABLE",
+        "engine_execution": "NOT_RUN"
+      },
+      "error": null,
+      "records": [],
+      "source_written": false,
+      "state_written": false
+    },
+    {
+      "run_id": "VR-ba324822-d92b-48ec-aa70-38a741c67bba",
+      "task": {
+        "task_id": "actual",
+        "session_id": "e2dda31d-ab5d-4936-bc40-f852a9082427",
+        "phase": "review",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "revision": 7,
+        "skill_id": null,
+        "availability": {
+          "registry": "available",
+          "installed": false,
+          "available": false,
+          "content_hash": null
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "NOT_RUN",
+          "loaded": "NOT_RUN",
+          "executed": "NOT_RUN",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "REASSESS_REQUIRED"
+        },
+        "outcome": "REASSESS_REQUIRED",
+        "halt": false,
+        "reason": null,
+        "last_run_id": "VR-ba324822-d92b-48ec-aa70-38a741c67bba"
+      },
+      "result": {
+        "status": "REASSESS_REQUIRED",
+        "phase": "review"
+      },
+      "error": null,
+      "records": [],
+      "source_written": false,
+      "state_written": false
+    }
+  ],
+  "history": [
+    {
+      "run_id": "VR-f99e6141-7fef-45e5-849b-2b63a8b6f28e",
+      "task_id": "ci-task",
+      "operation": "ci_bundle",
+      "status": "passed",
+      "view": {
+        "profile": "CI_BUNDLE_PREPARATION_ONLY",
+        "submitted": false,
+        "published": false,
+        "state_written": false
+      },
+      "source_hash": "sha256:7fbe9826553652de418f4288bba29ffa42dc9b8f40c5383771873ddad7e367bb",
+      "trust": "HISTORICAL_ONLY; cannot restore live E4 proofs"
+    },
+    {
+      "run_id": "VR-ba324822-d92b-48ec-aa70-38a741c67bba",
+      "task_id": "actual",
+      "operation": "phase",
+      "status": "passed",
+      "view": {
+        "task_id": "actual",
+        "session_id": "e2dda31d-ab5d-4936-bc40-f852a9082427",
+        "phase": "review",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "revision": 7,
+        "skill_id": null,
+        "availability": {
+          "registry": "available",
+          "installed": false,
+          "available": false,
+          "content_hash": null
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "NOT_RUN",
+          "loaded": "NOT_RUN",
+          "executed": "NOT_RUN",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "REASSESS_REQUIRED"
+        },
+        "outcome": "REASSESS_REQUIRED",
+        "halt": false,
+        "reason": null,
+        "last_run_id": "VR-ba324822-d92b-48ec-aa70-38a741c67bba"
+      },
+      "source_hash": "sha256:cc4fd97e22311f8fc6146d5b0883c741e60226eb27593933e1913fdf1e2a4ef3",
+      "trust": "HISTORICAL_ONLY; cannot restore live E4 proofs"
+    },
+    {
+      "run_id": "VR-2b72c25a-e717-41ab-809d-28367ee963f0",
+      "task_id": "native-antigravity",
+      "operation": "select",
+      "status": "failed",
+      "view": {
+        "task_id": "native-antigravity",
+        "session_id": "cb16433a-d68e-4eed-8d11-48989e865d7d",
+        "phase": "implementation",
+        "host": "antigravity",
+        "host_version": null,
+        "revision": 1,
+        "skill_id": null,
+        "availability": {
+          "registry": "DISCOVERY_UNAVAILABLE",
+          "installed": false,
+          "available": false,
+          "content_hash": null
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "NOT_RUN",
+          "loaded": "NOT_RUN",
+          "executed": "NOT_RUN",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "BLOCKED"
+        },
+        "outcome": "BLOCKED",
+        "halt": true,
+        "reason": "DISCOVERY_UNAVAILABLE",
+        "last_run_id": "VR-2b72c25a-e717-41ab-809d-28367ee963f0"
+      },
+      "source_hash": "sha256:a35a9b008c48f2afddd4295ca8f5ebd7e9cbd94e96cb4c87990cc7f212f15cf7",
+      "trust": "HISTORICAL_ONLY; cannot restore live E4 proofs"
+    },
+    {
+      "run_id": "VR-d93ad3b0-a1f0-4b5a-be95-20f5c6c8c600",
+      "task_id": "native-codex",
+      "operation": "select",
+      "status": "failed",
+      "view": {
+        "task_id": "native-codex",
+        "session_id": "50aaea67-e916-449e-bc7f-286200a5cd99",
+        "phase": "implementation",
+        "host": "codex",
+        "host_version": null,
+        "revision": 1,
+        "skill_id": null,
+        "availability": {
+          "registry": "DISCOVERY_UNAVAILABLE",
+          "installed": false,
+          "available": false,
+          "content_hash": null
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "NOT_RUN",
+          "loaded": "NOT_RUN",
+          "executed": "NOT_RUN",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "BLOCKED"
+        },
+        "outcome": "BLOCKED",
+        "halt": true,
+        "reason": "DISCOVERY_UNAVAILABLE",
+        "last_run_id": "VR-d93ad3b0-a1f0-4b5a-be95-20f5c6c8c600"
+      },
+      "source_hash": "sha256:988166ae8f22ea3e2ea26fa83880f114fdc3525db101ed2541768824bf5886cf",
+      "trust": "HISTORICAL_ONLY; cannot restore live E4 proofs"
+    },
+    {
+      "run_id": "VR-d042d603-19a2-415a-b2ba-ef47ebfa7c46",
+      "task_id": "actual",
+      "operation": "verify",
+      "status": "failed",
+      "view": {
+        "task_id": "actual",
+        "session_id": "e2dda31d-ab5d-4936-bc40-f852a9082427",
+        "phase": "implementation",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "revision": 6,
+        "skill_id": "json-audit",
+        "availability": {
+          "registry": "available",
+          "installed": true,
+          "available": true,
+          "content_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f"
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "SELECTED",
+          "loaded": "LOADED",
+          "executed": "EXECUTED",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "EXECUTED",
+          "instruction_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f",
+          "identity": {
+            "task_id": "actual",
+            "session_id": "d79804f4-e615-418a-be94-3d5221a9f897",
+            "host": "aghr-local-process",
+            "host_version": "v24.11.0",
+            "scope": "**/*",
+            "skill_id": "json-audit",
+            "phase": "implementation"
+          },
+          "host_signal": "NOT_OBSERVABLE",
+          "execution": "EXECUTED",
+          "execution_run_id": "E4-c8c20497-b5a8-46ca-a224-17913bc36aa5",
+          "result": "INVALID",
+          "verified": false,
+          "criteria_hash": "sha256:39a6d494a54e2ad19196bc04ef63e954ab056cf55e1034817786643a08da3aac",
+          "criteria_results": [
+            {
+              "pointer": "/valid",
+              "op": "equals",
+              "passed": false,
+              "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+            }
+          ],
+          "output_hash": "sha256:cbc6d42766e7c5ca7a0ec4940f1a6b852853fce06da01b79490ab31eaa8f6d56"
+        },
+        "outcome": "EXECUTED",
+        "halt": false,
+        "reason": null,
+        "last_run_id": "VR-d042d603-19a2-415a-b2ba-ef47ebfa7c46"
+      },
+      "source_hash": "sha256:f808ddb37bc5963190d0cab7d78d019fcb1e1fce1279c20a788b0daf62b8b90c",
+      "trust": "HISTORICAL_ONLY; cannot restore live E4 proofs"
+    },
+    {
+      "run_id": "VR-f9281ef3-a950-42fa-b5f3-f46cca52f9c7",
+      "task_id": "permission",
+      "operation": "select",
+      "status": "failed",
+      "view": {
+        "task_id": "permission",
+        "session_id": "c00c807e-b415-4ce6-8564-caf06b373d87",
+        "phase": "implementation",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "revision": 1,
+        "skill_id": null,
+        "availability": {
+          "registry": "available",
+          "installed": false,
+          "available": false,
+          "content_hash": null
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "NOT_RUN",
+          "loaded": "NOT_RUN",
+          "executed": "NOT_RUN",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "BLOCKED"
+        },
+        "outcome": "BLOCKED",
+        "halt": true,
+        "reason": "Required permissions not granted; no direct-execution fallback.",
+        "last_run_id": "VR-f9281ef3-a950-42fa-b5f3-f46cca52f9c7"
+      },
+      "source_hash": "sha256:b4643fc123b1f87430b015a7fb4cecfd67b61a7eafe72bb8b09e48f607642669",
+      "trust": "HISTORICAL_ONLY; cannot restore live E4 proofs"
+    },
+    {
+      "run_id": "VR-91e98903-c67c-4626-99ba-f6e1dcd228c8",
+      "task_id": "unavailable",
+      "operation": "select",
+      "status": "failed",
+      "view": {
+        "task_id": "unavailable",
+        "session_id": "20c82882-d1f1-4e7d-8698-f30ce4b225e2",
+        "phase": "implementation",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "revision": 1,
+        "skill_id": null,
+        "availability": {
+          "registry": "available",
+          "installed": false,
+          "available": false,
+          "content_hash": null
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "NOT_RUN",
+          "loaded": "NOT_RUN",
+          "executed": "NOT_RUN",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "NOT_OBSERVABLE"
+        },
+        "outcome": "NOT_OBSERVABLE",
+        "halt": true,
+        "reason": "Installed content is not executable in this host session.",
+        "last_run_id": "VR-91e98903-c67c-4626-99ba-f6e1dcd228c8"
+      },
+      "source_hash": "sha256:4db50db5193ed989a6d19bd031705729a603e04d9db22134311f6ca7836f47c5",
+      "trust": "HISTORICAL_ONLY; cannot restore live E4 proofs"
+    },
+    {
+      "run_id": "VR-c9e9c82e-49a1-4119-bc2e-26c6732040f6",
+      "task_id": "unknown",
+      "operation": "select",
+      "status": "failed",
+      "view": {
+        "task_id": "unknown",
+        "session_id": "e5187ae1-cd63-4be9-a809-28900cbd45e7",
+        "phase": "implementation",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "revision": 1,
+        "skill_id": null,
+        "availability": {
+          "registry": "available",
+          "installed": false,
+          "available": false,
+          "content_hash": null
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "NOT_RUN",
+          "loaded": "NOT_RUN",
+          "executed": "NOT_RUN",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "UNKNOWN_ID"
+        },
+        "outcome": "UNKNOWN_ID",
+        "halt": true,
+        "reason": null,
+        "last_run_id": "VR-c9e9c82e-49a1-4119-bc2e-26c6732040f6"
+      },
+      "source_hash": "sha256:061b76934461784655af30b8e3a112185b90aff13ec9bde427daf4a231c20559",
+      "trust": "HISTORICAL_ONLY; cannot restore live E4 proofs"
+    },
+    {
+      "run_id": "VR-8ed94198-7526-4877-9604-f102ff009531",
+      "task_id": "simple",
+      "operation": "select",
+      "status": "passed",
+      "view": {
+        "task_id": "simple",
+        "session_id": "461a5330-e4fe-4c4a-809d-197fc7c93524",
+        "phase": "implementation",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "revision": 1,
+        "skill_id": null,
+        "availability": {
+          "registry": "available",
+          "installed": false,
+          "available": false,
+          "content_hash": null
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "NOT_RUN",
+          "loaded": "NOT_RUN",
+          "executed": "NOT_RUN",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "NO_SKILL_MATCH"
+        },
+        "outcome": "NO_SKILL_MATCH",
+        "halt": false,
+        "reason": null,
+        "last_run_id": "VR-8ed94198-7526-4877-9604-f102ff009531"
+      },
+      "source_hash": "sha256:c32f3c33bfbc37342ed3aef62605b08277751b09a9a5079f652d64544029c94a",
+      "trust": "HISTORICAL_ONLY; cannot restore live E4 proofs"
+    },
+    {
+      "run_id": "VR-37a0f4f0-40ab-4514-b23b-daa4a6767e4a",
+      "task_id": "actual",
+      "operation": "verify",
+      "status": "passed",
+      "view": {
+        "task_id": "actual",
+        "session_id": "e2dda31d-ab5d-4936-bc40-f852a9082427",
+        "phase": "implementation",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "revision": 5,
+        "skill_id": "json-audit",
+        "availability": {
+          "registry": "available",
+          "installed": true,
+          "available": true,
+          "content_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f"
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "SELECTED",
+          "loaded": "LOADED",
+          "executed": "EXECUTED",
+          "verified": "VERIFIED",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "VERIFIED",
+          "instruction_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f",
+          "identity": {
+            "task_id": "actual",
+            "session_id": "d79804f4-e615-418a-be94-3d5221a9f897",
+            "host": "aghr-local-process",
+            "host_version": "v24.11.0",
+            "scope": "**/*",
+            "skill_id": "json-audit",
+            "phase": "implementation"
+          },
+          "host_signal": "NOT_OBSERVABLE",
+          "execution": "EXECUTED",
+          "execution_run_id": "E4-c8c20497-b5a8-46ca-a224-17913bc36aa5",
+          "result": "VALID",
+          "verified": true,
+          "criteria_hash": "sha256:4ab2bb2c50b7511570d661bc722057831a1e438aa70edc7ab6ff53ea11314b64",
+          "criteria_results": [
+            {
+              "pointer": "/valid",
+              "op": "equals",
+              "passed": true,
+              "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+            }
+          ],
+          "output_hash": "sha256:cbc6d42766e7c5ca7a0ec4940f1a6b852853fce06da01b79490ab31eaa8f6d56"
+        },
+        "outcome": "VERIFIED",
+        "halt": false,
+        "reason": null,
+        "last_run_id": "VR-37a0f4f0-40ab-4514-b23b-daa4a6767e4a"
+      },
+      "source_hash": "sha256:55fed69c3919674ef3567daf0cf02431d5a24102d5719edce8f912158f379d4e",
+      "trust": "HISTORICAL_ONLY; cannot restore live E4 proofs"
+    },
+    {
+      "run_id": "VR-84e5b6db-27d4-4e0f-89b0-ea8230d40f66",
+      "task_id": "actual",
+      "operation": "execute",
+      "status": "passed",
+      "view": {
+        "task_id": "actual",
+        "session_id": "e2dda31d-ab5d-4936-bc40-f852a9082427",
+        "phase": "implementation",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "revision": 4,
+        "skill_id": "json-audit",
+        "availability": {
+          "registry": "available",
+          "installed": true,
+          "available": true,
+          "content_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f"
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "SELECTED",
+          "loaded": "LOADED",
+          "executed": "EXECUTED",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "EXECUTED",
+          "instruction_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f",
+          "identity": {
+            "task_id": "actual",
+            "session_id": "d79804f4-e615-418a-be94-3d5221a9f897",
+            "host": "aghr-local-process",
+            "host_version": "v24.11.0",
+            "scope": "**/*",
+            "skill_id": "json-audit",
+            "phase": "implementation"
+          },
+          "host_signal": "NOT_OBSERVABLE",
+          "execution": "EXECUTED",
+          "execution_run_id": "E4-c8c20497-b5a8-46ca-a224-17913bc36aa5"
+        },
+        "outcome": "EXECUTED",
+        "halt": false,
+        "reason": null,
+        "last_run_id": "VR-84e5b6db-27d4-4e0f-89b0-ea8230d40f66"
+      },
+      "source_hash": "sha256:c332d7ecff1fb09af0f0a2fb9619d33f447c4270e970eb576cf9ee276f498b95",
+      "trust": "HISTORICAL_ONLY; cannot restore live E4 proofs"
+    },
+    {
+      "run_id": "VR-45864b4e-6d99-4474-970e-4ab0b50b2b97",
+      "task_id": "actual",
+      "operation": "verify",
+      "status": "failed",
+      "view": {
+        "task_id": "actual",
+        "session_id": "e2dda31d-ab5d-4936-bc40-f852a9082427",
+        "phase": "implementation",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "revision": 3,
+        "skill_id": "json-audit",
+        "availability": {
+          "registry": "available",
+          "installed": true,
+          "available": true,
+          "content_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f"
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "SELECTED",
+          "loaded": "LOADED",
+          "executed": "NOT_RUN",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "LOADED",
+          "instruction_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f",
+          "identity": {
+            "task_id": "actual",
+            "session_id": "d79804f4-e615-418a-be94-3d5221a9f897",
+            "host": "aghr-local-process",
+            "host_version": "v24.11.0",
+            "scope": "**/*",
+            "skill_id": "json-audit",
+            "phase": "implementation"
+          },
+          "host_signal": "NOT_OBSERVABLE",
+          "execution": "NOT_RUN"
+        },
+        "outcome": "REJECTED",
+        "halt": true,
+        "reason": "EXECUTION_EVIDENCE_REQUIRED",
+        "last_run_id": "VR-45864b4e-6d99-4474-970e-4ab0b50b2b97"
+      },
+      "source_hash": "sha256:e0d1b3884dbb516ffa909f29b7931a3f6c377bf164ae9a24a04a34f76b1b348c",
+      "trust": "HISTORICAL_ONLY; cannot restore live E4 proofs"
+    },
+    {
+      "run_id": "VR-604adb5b-f6c9-4fe2-8513-964777ff9cda",
+      "task_id": "actual",
+      "operation": "load",
+      "status": "passed",
+      "view": {
+        "task_id": "actual",
+        "session_id": "e2dda31d-ab5d-4936-bc40-f852a9082427",
+        "phase": "implementation",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "revision": 2,
+        "skill_id": "json-audit",
+        "availability": {
+          "registry": "available",
+          "installed": true,
+          "available": true,
+          "content_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f"
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "SELECTED",
+          "loaded": "LOADED",
+          "executed": "NOT_RUN",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "LOADED",
+          "instruction_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f",
+          "identity": {
+            "task_id": "actual",
+            "session_id": "d79804f4-e615-418a-be94-3d5221a9f897",
+            "host": "aghr-local-process",
+            "host_version": "v24.11.0",
+            "scope": "**/*",
+            "skill_id": "json-audit",
+            "phase": "implementation"
+          },
+          "host_signal": "NOT_OBSERVABLE",
+          "execution": "NOT_RUN"
+        },
+        "outcome": "LOADED",
+        "halt": false,
+        "reason": null,
+        "last_run_id": "VR-604adb5b-f6c9-4fe2-8513-964777ff9cda"
+      },
+      "source_hash": "sha256:c8598fc086df2cd13b2c4d35a3a84300e6c8e6133cbd806f7252efd6d83f8541",
+      "trust": "HISTORICAL_ONLY; cannot restore live E4 proofs"
+    },
+    {
+      "run_id": "VR-a8dc972e-b9f3-436c-a715-97700b4e473d",
+      "task_id": "actual",
+      "operation": "select",
+      "status": "passed",
+      "view": {
+        "task_id": "actual",
+        "session_id": "e2dda31d-ab5d-4936-bc40-f852a9082427",
+        "phase": "implementation",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "revision": 1,
+        "skill_id": "json-audit",
+        "availability": {
+          "registry": "available",
+          "installed": true,
+          "available": true,
+          "content_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f"
+        },
+        "qualification": {
+          "status": "NOT_RUN",
+          "record": null,
+          "historical": null,
+          "reason": "No current live qualification for this host/version/scope/content/driver/engine tuple."
+        },
+        "usage": {
+          "selected": "SELECTED",
+          "loaded": "NOT_RUN",
+          "executed": "NOT_RUN",
+          "verified": "NOT_RUN",
+          "host_signal": "NOT_OBSERVABLE"
+        },
+        "state": {
+          "state": "SELECTED",
+          "instruction_hash": "sha256:1ce40ac4743b38c2d8760c6491a141b0667e71f78acd738dd58fe22a73cb148f",
+          "identity": {
+            "task_id": "actual",
+            "session_id": "d79804f4-e615-418a-be94-3d5221a9f897",
+            "host": "aghr-local-process",
+            "host_version": "v24.11.0",
+            "scope": "**/*",
+            "skill_id": "json-audit",
+            "phase": "implementation"
+          },
+          "host_signal": "NOT_OBSERVABLE",
+          "execution": "NOT_RUN"
+        },
+        "outcome": "SELECTED",
+        "halt": false,
+        "reason": null,
+        "last_run_id": "VR-a8dc972e-b9f3-436c-a715-97700b4e473d"
+      },
+      "source_hash": "sha256:978bc738f4c593852503affe7ddcca94e544d0cb6620dd04d2d2ba1ca6b072e7",
+      "trust": "HISTORICAL_ONLY; cannot restore live E4 proofs"
+    }
+  ],
+  "native": "NOT_RUN",
+  "source_written": false,
+  "state_written": false
+}

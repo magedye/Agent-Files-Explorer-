@@ -1,0 +1,44 @@
+{
+  "id": "AGHR-023",
+  "title": "موافقة محددة النطاق",
+  "kind": "PROCEDURE",
+  "force": "MUST",
+  "severity": "critical",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: When an action needs approval.\nBind approval to authenticated authority, exact scope and expiry. Explain consequential or context-changing effects and confirm intent when they are not clearly covered; revalidate existing matching grants rather than asking twice. Approval cannot override a hard deny or be reused beyond its grant.",
+  "authority": {
+    "source": "drafting/OWNER_DIRECTIVE.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "PROVISIONAL_OWNER_REVIEW",
+    "status": "draft",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "إعادة استخدام موافقة خارج نطاقها قد تتجاوز الحظر. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "review",
+    "mergeEffect": "advisory"
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-023"
+    ]
+  },
+  "impact": {
+    "band": "critical",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2026-11-22",
+  "exceptions": {
+    "allowed": false
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

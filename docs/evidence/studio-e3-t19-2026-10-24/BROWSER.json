@@ -1,0 +1,359 @@
+{
+  "status": "PASS",
+  "browser": "Edg/155.0.4283.62",
+  "transport": "direct CDP; DevTools MCP unavailable",
+  "cdp": "127.0.0.1:9224",
+  "profile": "isolated Edge",
+  "ready": {
+    "event": "ready",
+    "port": 6963,
+    "storage": "D:\\APP\\Agent-Files-Explorer\\temp\\draft-browser-F3z7ub\\db\\studio.sqlite",
+    "tables": 12,
+    "actor": "Majed",
+    "mode": "DRAFT",
+    "resourceProfiles": {
+      "eval": {
+        "timeoutMs": 600000,
+        "memoryBytes": 2147483648
+      },
+      "qualify": {
+        "timeoutMs": 3600000,
+        "memoryBytes": 2147483648
+      },
+      "catalog": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      },
+      "lint": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      },
+      "prepare": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      },
+      "edit": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      },
+      "validate": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      },
+      "generate": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      },
+      "doctor": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      },
+      "check": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      },
+      "approval": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      },
+      "preview": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      },
+      "export": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      },
+      "lookup": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      },
+      "attestation": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      }
+    }
+  },
+  "checks": [
+    "Real UI creates authorized persistent Draft",
+    "Actual backend-issued approval persisted; editing invalidates it and retains original decision/hash/history",
+    "SEC-001 native source/GitHub/P0 blockers remain; approved export disabled; explicit review-only patch exists without state/source application",
+    "Arabic/English RTL/LTR and responsive390px; review/export labels explicit"
+  ],
+  "network": [
+    {
+      "url": "http://127.0.0.1:6963/",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/assets/phase0-Co7YwFfF.css",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/assets/draft-Bi8MJOCv.css",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/assets/draft-DFZyhL8-.js",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/assets/phase0-DbiZjaYJ.js",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/assets/I18nProvider-Blp-JX6A.js",
+      "status": 200
+    },
+    {
+      "url": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0xLjI2IDkuNkE2Ljk3IDYuOTcgMCAwMTggNGMzLjIgMCA2LjA2IDIuMzMgNi43NCA1LjZhLjUuNSAwIDAwLjk4LS4yQTcuOTcgNy45NyAwIDAwOCAzIDcuOTcgNy45NyAwIDAwLjI4IDkuNGEuNS41IDAgMDAuOTguMnoiIGZpbGw9IldpbmRvd1RleHQiLz48cGF0aCBkPSJNOCA2YTMuNSAzLjUgMCAxMDAgNyAzLjUgMy41IDAgMDAwLTd6TTUuNSA5LjVhMi41IDIuNSAwIDExNSAwIDIuNSAyLjUgMCAwMS01IDB6IiBmaWxsPSJXaW5kb3dUZXh0Ii8+DQo8L3N2Zz4=",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/favicon.ico",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/session",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/draft-status",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/draft-intents",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/draft-intents/50da3e3b-501b-42b8-ae46-850ede08123e",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/change-packages",
+      "status": 201
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-5a97e848-5330-4570-bd00-e3a83b36bc3c/intents",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/draft-intents/0bd02261-716b-4790-9a3e-1e9ec57eb150",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-5a97e848-5330-4570-bd00-e3a83b36bc3c/validate",
+      "status": 202
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-5a97e848-5330-4570-bd00-e3a83b36bc3c/intents",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/draft-intents/2e1b2d69-bd75-4008-8e10-e1ad83286b03",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/generate/preview",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-5a97e848-5330-4570-bd00-e3a83b36bc3c",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-5a97e848-5330-4570-bd00-e3a83b36bc3c/intents",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/draft-intents/4cd3ce6e-58c2-4696-a4a3-ef4e8397b28a",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-5a97e848-5330-4570-bd00-e3a83b36bc3c/preview",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-5a97e848-5330-4570-bd00-e3a83b36bc3c",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-5a97e848-5330-4570-bd00-e3a83b36bc3c/intents",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/draft-intents/64e6f85c-f0d2-482d-9191-e1f9b3f0d110",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-5a97e848-5330-4570-bd00-e3a83b36bc3c/submit",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-5a97e848-5330-4570-bd00-e3a83b36bc3c/intents",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/draft-intents/95c52762-fc14-4c4f-8847-2ba2f0effd33",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-5a97e848-5330-4570-bd00-e3a83b36bc3c/approve",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-5a97e848-5330-4570-bd00-e3a83b36bc3c/intents",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/draft-intents/9625c77b-0fe5-4f42-becb-6f07157e9cf3",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-5a97e848-5330-4570-bd00-e3a83b36bc3c",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/draft-intents",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/draft-intents/ea736912-a2b1-4dc4-9823-ee28c98d6b3e",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/change-packages",
+      "status": 201
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-38a22d7c-f05c-49bb-b50a-f480bfdaf58a/intents",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/draft-intents/642ec850-7189-4e10-9944-c2090fadd75f",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-38a22d7c-f05c-49bb-b50a-f480bfdaf58a/validate",
+      "status": 202
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-38a22d7c-f05c-49bb-b50a-f480bfdaf58a/intents",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/draft-intents/e2b20305-fbc4-427b-842e-7d61320352bc",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-38a22d7c-f05c-49bb-b50a-f480bfdaf58a/doctor",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-38a22d7c-f05c-49bb-b50a-f480bfdaf58a/intents",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/draft-intents/f9112f22-d63a-4ee1-8572-9eedb7518a3d",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/generate/preview",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-38a22d7c-f05c-49bb-b50a-f480bfdaf58a",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-38a22d7c-f05c-49bb-b50a-f480bfdaf58a/intents",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/draft-intents/4a35148f-6534-4b40-8037-fb0477eae125",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-38a22d7c-f05c-49bb-b50a-f480bfdaf58a/preview",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-38a22d7c-f05c-49bb-b50a-f480bfdaf58a",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-38a22d7c-f05c-49bb-b50a-f480bfdaf58a/intents",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/draft-intents/c74f7412-cbe5-4dd7-9345-ee752ba63c04",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-38a22d7c-f05c-49bb-b50a-f480bfdaf58a/draft-patch",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/cps/CP-2026-38a22d7c-f05c-49bb-b50a-f480bfdaf58a",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:6963/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    }
+  ],
+  "console_errors": [],
+  "browser_storage_writes": []
+}

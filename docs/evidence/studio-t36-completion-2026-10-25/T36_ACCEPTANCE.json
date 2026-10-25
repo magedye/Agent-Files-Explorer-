@@ -1,0 +1,62 @@
+{
+  "status": "TECHNICALLY_VERIFIED_FOR_WINDOWS_EDGE_LOCAL_DRAFT",
+  "task": "T36a-e",
+  "at": "2026-10-25T16:59:42.439Z",
+  "source": {
+    "path": "v3/TESTED_SOURCE.lock.json",
+    "sha256": "5b7b9ce437f5e9821f5bcde99b7093de5fcf26da73d220cfa693bc02aeafc976",
+    "files": 380
+  },
+  "receipts": {
+    "api": {
+      "path": "api-1792945287583/ACCEPTANCE.json",
+      "sha256": "d03e47463a8c9d03b7ad184aca4e03d31ac3f139ab97b434bb5d190a21c0227c"
+    },
+    "screens": {
+      "path": "browser-1792946959941/ACCEPTANCE.json",
+      "sha256": "11feac5cc7ab1dad34909f19e7459ed5c192998ec61a4aa8293f4a1e55b4de1c"
+    },
+    "live": {
+      "path": "v2/browser-live-1792947096397/ACCEPTANCE.json",
+      "sha256": "564e24dd7bdf62c537600e18fbf3c240b5af0357c90e49756c300a57e539a667"
+    },
+    "legacy": {
+      "path": "v3/legacy-1792947484608/ACCEPTANCE.json",
+      "sha256": "df78c7fcf9362a2babb1d4cb5b18da9c0f5895c0c5772809f67751c081c90b39"
+    }
+  },
+  "api": {
+    "definitions": 59,
+    "http": 58,
+    "websocket": 1,
+    "schema_checks": 169
+  },
+  "browser": {
+    "flows": 4,
+    "main_checks": 37,
+    "legacy_navigation_checks": 12,
+    "screens": 16,
+    "local_skill": "ACTUALLY_EXECUTED_VERIFIED_QUALIFIED",
+    "native_hosts": "NOT_RUN",
+    "protected_files": 204,
+    "source_differences": 0,
+    "source_write_events": 0
+  },
+  "regression": {
+    "broad": "162/164 on V1; schema failure original cause UNRESOLVED; not a full green run",
+    "affected": "15/15 on working V2; final6/6 on V2, includes previously failing schema case; unchanged backend inherited to V3",
+    "prior_failures": "RETAINED_NOT_ERASED"
+  },
+  "limitations": [
+    "Local Draft/Sandbox profile only",
+    "Historical L2/L3 not native qualification",
+    "Legacy six modes navigation/read/error states plus retained backend regression; legacy writes disabled",
+    "No owner/release/independent acceptance",
+    "No public release",
+    "GPG unsigned warning accepted by owner"
+  ],
+  "additional_test_hashes": {
+    "tools/t36/legacy.spec.mjs": "26639414f99cf5221104d126167f0cde91b10257cc6f3010069affe6212be2fb",
+    "tools/t36/playwright-legacy.config.mjs": "79a107a57a8023f0203fb4aad6f533cc63474e9ce74353c19d2c55bc15975d6c"
+  }
+}

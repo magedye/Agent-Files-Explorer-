@@ -1,0 +1,85 @@
+## Latest page snapshot
+uid=1_0 RootWebArea "AGHR Governance Studio" url="http://127.0.0.1:17384/"
+  uid=1_1 link "Skip to content" url="http://127.0.0.1:17384/#draft-main"
+  uid=1_3 banner
+    uid=1_4 "AGHR · GOVERNANCE STUDIO"
+    uid=1_5 heading "Change packages" level="1"
+    uid=1_6 "Saved drafts, with scoped authorization for each change."
+    uid=1_7 "Interface language"
+    uid=1_8 combobox "Interface language" expandable haspopup="menu" value="English"
+      uid=1_9 option "العربية"
+      uid=1_10 option "English" selected
+  uid=1_11 "DRAFT"
+  uid=1_12 " · "
+  uid=1_13 "Drafts only"
+  uid=1_14 "Reference 1.2.0 is preserved. Saving neither adopts a rule nor publishes a package."
+  uid=1_15 main
+    uid=1_16 "Majed"
+    uid=1_17 " · "
+    uid=1_18 "governance-owner"
+    uid=1_19 "Persistent SQLite · 12 tables"
+    uid=1_20 navigation "Draft and audit views"
+      uid=1_21 button "Drafts"
+      uid=1_22 button "Audit log"
+      uid=1_23 button "Verification"
+      uid=1_24 button "Runtime evidence" pressed
+    uid=1_25 heading "Runtime evidence" level="2"
+    uid=1_26 "Read only from the registered project’s .aghr/runtime_evidence/. Source and state.json stay unchanged."
+    uid=1_27 "Imported events are source claims. Valid structure proves neither execution nor producer identity; qualification is separate."
+    uid=1_28 button "Refresh evidence"
+    uid=1_29 heading "Tasks" level="3"
+    uid=1_30 button "bad INVALID UNKNOWN · 0 events INVALID_EVIDENCE"
+    uid=1_31 button "ui-halt VALID UI_SOURCE_CLAIM_ONLY · 2 events BLOCKED"
+    uid=1_32 heading "ui-halt · VALID" level="3"
+    uid=1_33 status atomic live="polite" relevant="additions text"
+      uid=1_34 "Halt or invalid evidence"
+      uid=1_35 " · "
+      uid=1_36 "BLOCKED"
+    uid=1_37 "Selected"
+    uid=1_38 ": "
+    uid=1_39 "0"
+    uid=1_40 "Loaded"
+    uid=1_41 ": "
+    uid=1_42 "1"
+    uid=1_43 "Executed"
+    uid=1_44 ": "
+    uid=1_45 "0"
+    uid=1_46 "Verified"
+    uid=1_47 ": "
+    uid=1_48 "0"
+    uid=1_49 "Counts of declared events in the first 500, not a success certificate."
+    uid=1_50 "NOT_OBSERVABLE"
+    uid=1_51 "Source"
+    uid=1_52 ".aghr/runtime_evidence/ui-halt.jsonl"
+    uid=1_53 "Hash"
+    uid=1_54 "sha256:d277398d73686dc18f9f910f13808a4ed3716d8b5600fd1baa3f96f69d44b9c3"
+    uid=1_55 "Bytes"
+    uid=1_56 "677"
+    uid=1_57 heading "Timeline: first 500 events" level="4"
+    uid=1_58 "2026-10-24T12:39:10.169Z"
+    uid=1_59 " · "
+    uid=1_60 "skill.loaded"
+    uid=1_61 "Line"
+    uid=1_62 " "
+    uid=1_63 "1"
+    uid=1_64 "{
+  "at": "2026-10-24T12:39:10.169Z",
+  "instruction_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "skill_id": "example",
+  "type": "skill.loaded"
+}"
+    uid=1_65 "2026-10-24T12:39:10.169Z"
+    uid=1_66 " · "
+    uid=1_67 "skill.blocked"
+    uid=1_68 "Line"
+    uid=1_69 " "
+    uid=1_70 "2"
+    uid=1_71 "{
+  "at": "2026-10-24T12:39:10.169Z",
+  "reason": "UI fixture only; execution was not observed.",
+  "skill_id": "example",
+  "status": "BLOCKED",
+  "type": "skill.blocked"
+}"
+    uid=1_72 DisclosureTriangle "Original text" expandable
+

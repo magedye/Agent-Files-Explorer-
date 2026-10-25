@@ -1,0 +1,6 @@
+{
+  "status": "FAIL",
+  "original_receipt_valid": false,
+  "reason": "TEST_DEFECT: browser stopped on tr[data-item-id] selector; actual UI uses data-row-id. Original ACCEPTANCE.json omitted the required final completion flag and incorrectly recorded PASS for the completed prefix only. It is retained unchanged as a superseded invalid receipt and cannot satisfy any gate.",
+  "correction": "New attempts use unique directories, completed=false until every assertion finishes, and require completed=true plus clean Sentinel and console. No product requirement or assertion was waived."
+}

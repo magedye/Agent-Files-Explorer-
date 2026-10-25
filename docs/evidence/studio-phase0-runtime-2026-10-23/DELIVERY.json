@@ -1,0 +1,93 @@
+{
+  "status": "COMPLETE_FOR_PHASE0_READ_ONLY_PROFILE",
+  "owner_acceptance": {
+    "E1": "ACCEPTED_BY_OWNER",
+    "E2": "ACCEPTED_BY_OWNER"
+  },
+  "T01": "CLOSED_UNBLOCKED",
+  "T02": "IMPLEMENTED_AND_TESTED",
+  "T03": "IMPLEMENTED_AND_TESTED",
+  "T04": "IMPLEMENTED_AND_TESTED",
+  "T05": "IMPLEMENTED_AND_TESTED",
+  "T06": "READY_NOT_STARTED",
+  "engine_source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+  "engine_tests": {
+    "passed": 141,
+    "source": "../studio-e2-2026-10-22/TEST_RESULTS.json",
+    "reuse": "All 46 engine files unchanged; no rerun or new native qualification claim"
+  },
+  "studio_tests": {
+    "tests": 49,
+    "passed": 49,
+    "failed": 0,
+    "skipped": 0,
+    "evidence": "npm-test.stdout.txt"
+  },
+  "http_contract_cases": {
+    "passed": 7,
+    "total": 7,
+    "evidence": "HTTP_CONTRACTS.json"
+  },
+  "canonical_contract_checks": {
+    "passed": 13,
+    "exit_code": 0,
+    "evidence": "contracts.stdout.txt"
+  },
+  "build": "BUILD_RECEIPT.json",
+  "sentinel": "sentinel-2026-10-22T22-31-09-180Z/SENTINEL.json",
+  "read_only_profile": "SOURCE-01 PASS_FOR_ISOLATED_PHASE0_APPLICATION_API_BOUNDARY",
+  "legacy_write_modes": "NOT_QUALIFIED_BY_THIS_RECEIPT",
+  "all_runtime_honesty": "7 REQUIRED / NOT_RUN / NOT_WAIVED; E4",
+  "binding": "PINNED; NOT Binding.QUALIFIED",
+  "license": "PROVISIONAL",
+  "signature": "DEFERRED",
+  "native_hosts": "NOT_RUN",
+  "independent_review": "NOT_PERFORMED",
+  "release_acceptance": "NOT_GRANTED",
+  "next": "T06 isolated SEC-001 template; not executed",
+  "gaps": [
+    {
+      "id": "ACTUAL_LIBRARY_EMPTY",
+      "scope": "Actual candidate has no CAPABILITY; UI empty state, no invented qualification"
+    },
+    {
+      "id": "OPTIONAL_LIFECYCLE_ABSENT",
+      "scope": "Actual nextReview absent; synthetic projection due/future cases tested"
+    },
+    {
+      "id": "TRUST_AND_E3_E6",
+      "scope": "Publisher trust UNKNOWN; E3-E6 still required for later features"
+    },
+    {
+      "id": "RUNTIME_BOUNDARY",
+      "scope": "Audit/permission/API and watcher evidence, not kernel-wide native-code interception"
+    },
+    {
+      "id": "LOCAL_SETUP",
+      "scope": "Explicit Windows Python venv required; no automatic installation"
+    }
+  ],
+  "self_review": {
+    "independent": false,
+    "profile": "bounded adversarial self-review",
+    "corrections": [
+      "Reject malformed/non-ASCII credential without timingSafeEqual length error",
+      "Reject GET bodies and malformed encoded item identifiers",
+      "Expand final observer to include all runtime/auth/UI source boundaries",
+      "Explicit seven runtime rows remain UNKNOWN/NOT_RUN in T01 matrix"
+    ]
+  },
+  "final_context": {
+    "exit_code": 0,
+    "errors": 0,
+    "warnings": 0,
+    "estimated_bootstrap_tokens": 4370
+  },
+  "preservation": {
+    "previous_E2_locked_files_checked": 809,
+    "modified_status_docs_with_before_copies": 4,
+    "post_sentinel_protected_files_checked": 65,
+    "reference_and_candidates": "No Git changes in governance_packages"
+  },
+  "finished_at": "2026-10-22T22:34:47.268Z"
+}

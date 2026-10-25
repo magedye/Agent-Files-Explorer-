@@ -1,0 +1,33 @@
+(node:24568) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ T07 frozen sample preserves all 15 categories, actual bytes, missing authority and pending review (291.6338ms)
+✖ T07 actual HTTP source, history, relations and unknown paths reject without filesystem path input (29935.0185ms)
+✔ T08 display projection never transfers recorded qualification across any changed identity key (3.0373ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 30861.6671
+
+✖ failing tests:
+
+test at tests\studio_phase1_read.test.mjs:22:1
+✖ T07 actual HTTP source, history, relations and unknown paths reject without filesystem path input (29935.0185ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  503 !== 422
+  
+      at TestContext.<anonymous> (file:///D:/APP/Agent-Files-Explorer/tests/studio_phase1_read.test.mjs:45:69)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 503,
+    expected: 422,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

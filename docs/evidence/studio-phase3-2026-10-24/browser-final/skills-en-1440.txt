@@ -1,0 +1,105 @@
+Skip to content
+AGHR · GOVERNANCE STUDIO
+Change packages
+
+Saved drafts, with scoped authorization for each change.
+
+Interface language 
+العربية
+English
+DRAFT · Drafts only Reference 1.2.0 is preserved. Saving neither adopts a rule nor publishes a package.
+Majed · governance-owner
+Persistent SQLite · 12 tables
+Drafts
+Audit log
+Verification
+Runtime evidence
+Skills
+Skill lifecycle
+
+Selection, loading, execution and verification are separate. The local host does not represent Codex or Antigravity.
+
+Task selections
+Task ID
+Host
+aghr-local-process
+codex
+antigravity
+Registered skill
+Select by query
+json-audit
+Task in Arabic or English
+Requested operation
+Select
+Load
+Execute
+Verify result
+Change phase
+Observe host
+Evaluate
+Qualify locally
+Task phase
+Prepare scoped authorization
+Skill card
+native-ui · —
+BLOCKED
+
+Halted; blocking a skill does not authorize fallback execution. DISCOVERY_UNAVAILABLE
+
+1 · Availability
+DISCOVERY_UNAVAILABLE
+
+Installed: false · Available to session: false
+
+2 · Qualification
+NOT_RUN
+
+codex · UNKNOWN · implementation
+
+Changing host, version, scope or content invalidates matching; history is not live qualification.
+
+3 · Usage
+
+Selection · NOT_RUN
+
+Loading · NOT_RUN
+
+Execution · NOT_RUN
+
+Verification · NOT_RUN
+
+Host signal · NOT_OBSERVABLE
+
+studio-tasknative-ui
+Operation history; display only (8)
+Eight scenarios and seven honesty checks
+
+Local results use pinned evidence for the same engine; native checks remain required and not run.
+
+Check	Local core	Codex	Antigravity
+S2_SIMPLE_TASK	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+S5_PERMISSION_DENIED	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+S3_OVERLAP	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+S4_INSTALLED_UNAVAILABLE	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+S6_EXECUTION_FAILED	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+S7_ARABIC_ENGLISH_ONLY_TRIGGERS	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+S1_SEQUENTIAL_FEATURE_SKILLS	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+S8_GOVERNED_LEARNING_NO_PROMOTION	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+H1	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+H4	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+H2	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+H3	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+H5	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+H6	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+H7	PASS_FOR_LOCAL_CORE	NOT_RUN	NOT_RUN
+Prepare evidence for PR and CI
+
+Retains original bytes, hash and engine report. Local download only; creates no PR and publishes no state. Only authenticated CI publishes after merge.
+
+Registered evidence task ID
+Prepare authorization
+PREPARED_NOT_SUBMITTED
+.aghr/runtime_evidence/ui-evidence.jsonl · sha256:9d581aeb5cd747bddf967fe8918af61df51a7e4eb7b089a4c3cf6336576e560dDownload bytes
+.aghr/ci-submissions/ui-evidence.json · sha256:9985ab3ec12d8dd0e9b511fc2cc7d1534f7e592b2a53df2e9ccbc50493e72068Download bytes
+
+Attach both files in the PR at the paths above. Native qualification remains NOT_RUN.

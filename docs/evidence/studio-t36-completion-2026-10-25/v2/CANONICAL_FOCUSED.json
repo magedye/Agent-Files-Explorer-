@@ -1,0 +1,115 @@
+[
+  {
+    "method": "GET",
+    "route": "/settings",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/workspaces/rc3-local/metrics/current",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "route": "/workspaces",
+    "status": 403,
+    "error": "FORBIDDEN"
+  },
+  {
+    "method": "POST",
+    "route": "/canonical/intents",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "route": "/workspaces",
+    "status": 201
+  },
+  {
+    "method": "POST",
+    "route": "/workspaces",
+    "status": 403,
+    "error": "FORBIDDEN"
+  },
+  {
+    "method": "POST",
+    "route": "/canonical/intents",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "route": "/workspaces/WS-c1ff7b8f-a2fe-486d-8bc4-70df11627216/projects",
+    "status": 201
+  },
+  {
+    "method": "GET",
+    "route": "/workspaces/WS-c1ff7b8f-a2fe-486d-8bc4-70df11627216/projects/PR-838c695c-e5bd-4d82-9d2a-9011655376a1/config",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "route": "/canonical/intents",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "route": "/workspaces/WS-c1ff7b8f-a2fe-486d-8bc4-70df11627216/projects/PR-838c695c-e5bd-4d82-9d2a-9011655376a1/scan",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "route": "/canonical/intents",
+    "status": 200
+  },
+  {
+    "method": "DELETE",
+    "route": "/workspaces/WS-c1ff7b8f-a2fe-486d-8bc4-70df11627216/projects/PR-838c695c-e5bd-4d82-9d2a-9011655376a1",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "route": "/canonical/intents",
+    "status": 200
+  },
+  {
+    "method": "DELETE",
+    "route": "/workspaces/WS-c1ff7b8f-a2fe-486d-8bc4-70df11627216",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/workspaces",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "route": "/canonical/intents",
+    "status": 200
+  },
+  {
+    "method": "PATCH",
+    "route": "/settings/git",
+    "status": 412,
+    "error": "STALE_PROPOSAL"
+  },
+  {
+    "method": "PATCH",
+    "route": "/settings/git",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "route": "/canonical/intents",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "route": "/settings/test-signing",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/audit/events",
+    "status": 200
+  }
+]

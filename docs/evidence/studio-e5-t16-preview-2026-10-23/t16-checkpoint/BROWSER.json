@@ -1,0 +1,195 @@
+{
+  "status": "PASS",
+  "browser": "Edg/155.0.4283.62",
+  "transport": "direct CDP; DevTools MCP unavailable",
+  "cdp": "127.0.0.1:9224",
+  "profile": "isolated Edge",
+  "ready": {
+    "event": "ready",
+    "port": 5359,
+    "storage": "D:\\APP\\Agent-Files-Explorer\\temp\\draft-browser-1gQAoP\\db\\studio.sqlite",
+    "tables": 12,
+    "actor": "Majed",
+    "mode": "DRAFT",
+    "resourceProfiles": {
+      "eval": {
+        "timeoutMs": 600000,
+        "memoryBytes": 2147483648
+      },
+      "qualify": {
+        "timeoutMs": 3600000,
+        "memoryBytes": 2147483648
+      }
+    }
+  },
+  "checks": [
+    "Arabic RTL; save disabled without operator grant; real API403",
+    "Real UI strict E2 PASS -> in_review without approval -> edit returns draft, new hash and invalidated checks",
+    "Authorized201, draft only/NOT_RUN; missing authority422; auditDENY and SUCCESS; English LTR and responsive390px",
+    "New server/session reopened same SQLite CP; 12tables retained"
+  ],
+  "network": [
+    {
+      "url": "http://127.0.0.1:7885/",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/assets/phase0-Co7YwFfF.css",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/assets/draft-BXr2QBdY.css",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/assets/draft-CmgI1PBZ.js",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/assets/phase0-DbiZjaYJ.js",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/assets/I18nProvider-Blp-JX6A.js",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/favicon.ico",
+      "status": 404
+    },
+    {
+      "url": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0xLjI2IDkuNkE2Ljk3IDYuOTcgMCAwMTggNGMzLjIgMCA2LjA2IDIuMzMgNi43NCA1LjZhLjUuNSAwIDAwLjk4LS4yQTcuOTcgNy45NyAwIDAwOCAzIDcuOTcgNy45NyAwIDAwLjI4IDkuNGEuNS41IDAgMDAuOTguMnoiIGZpbGw9IldpbmRvd1RleHQiLz48cGF0aCBkPSJNOCA2YTMuNSAzLjUgMCAxMDAgNyAzLjUgMy41IDAgMDAwLTd6TTUuNSA5LjVhMi41IDIuNSAwIDExNSAwIDIuNSAyLjUgMCAwMS01IDB6IiBmaWxsPSJXaW5kb3dUZXh0Ii8+DQo8L3N2Zz4=",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/api/v1/session",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/api/v1/draft-status",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/api/v1/draft-intents",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/api/v1/draft-intents/ac2467a0-fdb5-4573-8cb5-35c1ed138386",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/api/v1/workspaces/rc3-local/change-packages",
+      "status": 201
+    },
+    {
+      "url": "http://127.0.0.1:7885/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/api/v1/workspaces/rc3-local/cps/CP-2026-523ff6a4-3e3e-41fd-971d-24dfe4dc746d/intents",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/api/v1/draft-intents/b496b88e-fd35-4aff-b65f-5b9bb47116e0",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/api/v1/workspaces/rc3-local/cps/CP-2026-523ff6a4-3e3e-41fd-971d-24dfe4dc746d/validate",
+      "status": 202
+    },
+    {
+      "url": "http://127.0.0.1:7885/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/api/v1/workspaces/rc3-local/cps/CP-2026-523ff6a4-3e3e-41fd-971d-24dfe4dc746d/intents",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/api/v1/draft-intents/fcb2d1ba-16a2-4693-945a-1fd6dd87efc6",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/api/v1/workspaces/rc3-local/cps/CP-2026-523ff6a4-3e3e-41fd-971d-24dfe4dc746d/submit",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/api/v1/workspaces/rc3-local/cps/CP-2026-523ff6a4-3e3e-41fd-971d-24dfe4dc746d/intents",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/api/v1/draft-intents/4a4864e0-cf4a-4c24-bc44-b1866043c623",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/api/v1/workspaces/rc3-local/cps/CP-2026-523ff6a4-3e3e-41fd-971d-24dfe4dc746d",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:7885/api/v1/draft-intents",
+      "status": 422
+    },
+    {
+      "url": "http://127.0.0.1:7885/api/v1/audit-events",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:5359/",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:5359/assets/phase0-Co7YwFfF.css",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:5359/assets/draft-BXr2QBdY.css",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:5359/assets/draft-CmgI1PBZ.js",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:5359/assets/phase0-DbiZjaYJ.js",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:5359/assets/I18nProvider-Blp-JX6A.js",
+      "status": 200
+    },
+    {
+      "url": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0xLjI2IDkuNkE2Ljk3IDYuOTcgMCAwMTggNGMzLjIgMCA2LjA2IDIuMzMgNi43NCA1LjZhLjUuNSAwIDAwLjk4LS4yQTcuOTcgNy45NyAwIDAwOCAzIDcuOTcgNy45NyAwIDAwLjI4IDkuNGEuNS41IDAgMDAuOTguMnoiIGZpbGw9IldpbmRvd1RleHQiLz48cGF0aCBkPSJNOCA2YTMuNSAzLjUgMCAxMDAgNyAzLjUgMy41IDAgMDAwLTd6TTUuNSA5LjVhMi41IDIuNSAwIDExNSAwIDIuNSAyLjUgMCAwMS01IDB6IiBmaWxsPSJXaW5kb3dUZXh0Ii8+DQo8L3N2Zz4=",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:5359/favicon.ico",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:5359/api/v1/session",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:5359/api/v1/draft-status",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:5359/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    }
+  ],
+  "console_errors": [],
+  "browser_storage_writes": []
+}

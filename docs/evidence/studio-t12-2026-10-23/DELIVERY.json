@@ -1,0 +1,82 @@
+{
+  "at": "2026-10-23T14:06:03.669428+00:00",
+  "task": "Owner-authorized drafting of 47 rules and T12 draft packaging",
+  "status": "DRAFTING_COMPLETE / T12_STRICT_BLOCKED",
+  "T11b": "ACCEPTED_BY_OWNER / CLOSED",
+  "branch": "main",
+  "HEAD": "133746a0ad99d10568a44c8d225219df8454271c",
+  "candidate": "governance_packages/candidates/AGHR_T12_Candidate",
+  "drafts": 47,
+  "provisional_marker": "PROVISIONAL_OWNER_REVIEW",
+  "authority_levels": {
+    "project": 47,
+    "organization": 0,
+    "enterprise": 0
+  },
+  "impact_evidence": {
+    "assumed": 47
+  },
+  "structure_pass": 47,
+  "native_strict_exit_0": 0,
+  "native_strict_blocked": 47,
+  "candidate_structurally_invalid": 0,
+  "package_validate_strict": {
+    "result": "BLOCKED",
+    "exit": 3
+  },
+  "package_validate": {
+    "result": "BLOCKED",
+    "exit": 3
+  },
+  "package_lint": {
+    "result": "BLOCKED",
+    "exit": 3
+  },
+  "blockers": {
+    "AUTHORITY_SOURCE_UNVERIFIED": 47,
+    "AUTHORITY_NOT_ACTIVE": 44,
+    "ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE": 3
+  },
+  "negative_controls": {
+    "missing_authority_level": "INVALID/1",
+    "missing_scope": "INVALID/1"
+  },
+  "actual_CLI_runs": 53,
+  "protocol_version": "3",
+  "checks": {
+    "artifact_assertions": 4153,
+    "npm_tests_passed": 57,
+    "npm_tests_failed": 0,
+    "context_errors": 0,
+    "context_warnings": 0
+  },
+  "prior_custody": {
+    "pinned": 931,
+    "unchanged": 927,
+    "derived_docs_with_before": [
+      "docs/INDEX.md",
+      "docs/plans/STUDIO_UPGRADE_TASKS_AR.md",
+      "docs/status/CURRENT.md",
+      "docs/status/HANDOFF.md"
+    ]
+  },
+  "reference_1_2_0": "UNCHANGED / DEFAULT",
+  "app_source_changes": 0,
+  "engine_schema_changes": 0,
+  "active_or_app_imports": 0,
+  "admitted_ids": [],
+  "generation": 0,
+  "E4": "7 REQUIRED / NOT_RUN / NOT_WAIVED",
+  "independent_review": "NOT_PERFORMED",
+  "license_owner_status": "PROVISIONAL as previously accepted; not a current blocker",
+  "next_action": "Owner review of drafted values; future separately scoped trusted-host authority grant path and real E3 evidence. No further engine/activation work authorized here.",
+  "deliverables": [
+    "README.md",
+    "BEFORE_AFTER_AR.md",
+    "BEFORE_AFTER.json",
+    "RUN_RESULTS.json",
+    "VERIFICATION.json",
+    "DIFFS.json",
+    "CANDIDATE_FINAL_PIN.json"
+  ]
+}

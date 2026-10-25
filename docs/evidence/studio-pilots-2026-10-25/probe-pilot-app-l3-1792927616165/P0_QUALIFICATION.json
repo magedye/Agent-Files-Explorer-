@@ -1,0 +1,1424 @@
+{
+  "eval": {
+    "data": {
+      "result": "VALID",
+      "status": "PASS",
+      "runs": 3,
+      "minimum_runs": 3,
+      "violations": 0,
+      "violation_rate": 0,
+      "max_violation_rate": 0,
+      "outcomes": [
+        {
+          "run_id": "E4-e76da3b7-024f-454e-b949-c283d100ecd2",
+          "verified": true,
+          "verifier": {
+            "state": "VERIFIED",
+            "instruction_hash": "sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e",
+            "identity": {
+              "task_id": "pilot-app-l3-p0-qualification",
+              "session_id": "6b320ff3-5625-4069-bf9e-259d6b778a7a",
+              "host": "aghr-local-process",
+              "host_version": "v24.11.0",
+              "scope": "pilot-app-l3/**",
+              "skill_id": "pilot-sql-readonly",
+              "phase": "implementation"
+            },
+            "host_signal": "NOT_OBSERVABLE",
+            "execution": "EXECUTED",
+            "execution_run_id": "E4-e76da3b7-024f-454e-b949-c283d100ecd2",
+            "result": "VALID",
+            "verified": true,
+            "criteria_hash": "sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06",
+            "criteria_results": [
+              {
+                "pointer": "/valid",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              },
+              {
+                "pointer": "/project",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca"
+              },
+              {
+                "pointer": "/rows",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+              },
+              {
+                "pointer": "/denied",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+              },
+              {
+                "pointer": "/unchanged",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              }
+            ],
+            "output_hash": "sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a"
+          }
+        },
+        {
+          "run_id": "E4-45f7210f-d1d0-42db-87ee-4773a42748b6",
+          "verified": true,
+          "verifier": {
+            "state": "VERIFIED",
+            "instruction_hash": "sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e",
+            "identity": {
+              "task_id": "pilot-app-l3-p0-qualification",
+              "session_id": "6b320ff3-5625-4069-bf9e-259d6b778a7a",
+              "host": "aghr-local-process",
+              "host_version": "v24.11.0",
+              "scope": "pilot-app-l3/**",
+              "skill_id": "pilot-sql-readonly",
+              "phase": "implementation"
+            },
+            "host_signal": "NOT_OBSERVABLE",
+            "execution": "EXECUTED",
+            "execution_run_id": "E4-45f7210f-d1d0-42db-87ee-4773a42748b6",
+            "result": "VALID",
+            "verified": true,
+            "criteria_hash": "sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06",
+            "criteria_results": [
+              {
+                "pointer": "/valid",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              },
+              {
+                "pointer": "/project",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca"
+              },
+              {
+                "pointer": "/rows",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+              },
+              {
+                "pointer": "/denied",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+              },
+              {
+                "pointer": "/unchanged",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              }
+            ],
+            "output_hash": "sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a"
+          }
+        },
+        {
+          "run_id": "E4-533ca192-1aca-402f-a085-a5784b9bd42f",
+          "verified": true,
+          "verifier": {
+            "state": "VERIFIED",
+            "instruction_hash": "sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e",
+            "identity": {
+              "task_id": "pilot-app-l3-p0-qualification",
+              "session_id": "6b320ff3-5625-4069-bf9e-259d6b778a7a",
+              "host": "aghr-local-process",
+              "host_version": "v24.11.0",
+              "scope": "pilot-app-l3/**",
+              "skill_id": "pilot-sql-readonly",
+              "phase": "implementation"
+            },
+            "host_signal": "NOT_OBSERVABLE",
+            "execution": "EXECUTED",
+            "execution_run_id": "E4-533ca192-1aca-402f-a085-a5784b9bd42f",
+            "result": "VALID",
+            "verified": true,
+            "criteria_hash": "sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06",
+            "criteria_results": [
+              {
+                "pointer": "/valid",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              },
+              {
+                "pointer": "/project",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca"
+              },
+              {
+                "pointer": "/rows",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+              },
+              {
+                "pointer": "/denied",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+              },
+              {
+                "pointer": "/unchanged",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              }
+            ],
+            "output_hash": "sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a"
+          }
+        }
+      ],
+      "host": "aghr-local-process",
+      "profile": "ACTUAL_LOCAL_PROCESS_PROCEDURE",
+      "native_agent_qualification": "NOT_GRANTED"
+    },
+    "receipt": {
+      "operation": "eval",
+      "command": "eval",
+      "protocol_version": "3",
+      "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+      "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "input_hash": "sha256:d622a37d8777af03aa3e1455471c89c6d08eaf09b548ab78933149d6bce19168",
+      "stdout": "{\"protocol_version\":\"3\",\"command\":\"eval\",\"result\":\"VALID\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"result\":\"VALID\",\"status\":\"PASS\",\"runs\":3,\"minimum_runs\":3,\"violations\":0,\"violation_rate\":0.0,\"max_violation_rate\":0,\"outcomes\":[{\"run_id\":\"E4-e76da3b7-024f-454e-b949-c283d100ecd2\",\"verified\":true,\"verifier\":{\"state\":\"VERIFIED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-e76da3b7-024f-454e-b949-c283d100ecd2\",\"result\":\"VALID\",\"verified\":true,\"criteria_hash\":\"sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06\",\"criteria_results\":[{\"pointer\":\"/valid\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"},{\"pointer\":\"/project\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca\"},{\"pointer\":\"/rows\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce\"},{\"pointer\":\"/denied\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d\"},{\"pointer\":\"/unchanged\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"}],\"output_hash\":\"sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\"}},{\"run_id\":\"E4-45f7210f-d1d0-42db-87ee-4773a42748b6\",\"verified\":true,\"verifier\":{\"state\":\"VERIFIED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-45f7210f-d1d0-42db-87ee-4773a42748b6\",\"result\":\"VALID\",\"verified\":true,\"criteria_hash\":\"sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06\",\"criteria_results\":[{\"pointer\":\"/valid\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"},{\"pointer\":\"/project\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca\"},{\"pointer\":\"/rows\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce\"},{\"pointer\":\"/denied\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d\"},{\"pointer\":\"/unchanged\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"}],\"output_hash\":\"sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\"}},{\"run_id\":\"E4-533ca192-1aca-402f-a085-a5784b9bd42f\",\"verified\":true,\"verifier\":{\"state\":\"VERIFIED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-533ca192-1aca-402f-a085-a5784b9bd42f\",\"result\":\"VALID\",\"verified\":true,\"criteria_hash\":\"sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06\",\"criteria_results\":[{\"pointer\":\"/valid\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"},{\"pointer\":\"/project\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca\"},{\"pointer\":\"/rows\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce\"},{\"pointer\":\"/denied\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d\"},{\"pointer\":\"/unchanged\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"}],\"output_hash\":\"sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\"}}],\"host\":\"aghr-local-process\",\"profile\":\"ACTUAL_LOCAL_PROCESS_PROCEDURE\",\"native_agent_qualification\":\"NOT_GRANTED\"},\"diagnostics\":[]}\r\n",
+      "stderr": "",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 16.0546875,
+      "duration_ms": 922,
+      "active_processes_after": 0,
+      "observed_pids": [
+        139564,
+        127040,
+        139736
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 139564,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "limits": {
+        "timeoutMs": 600000,
+        "memoryBytes": 2147483648
+      }
+    }
+  },
+  "qualification": {
+    "data": {
+      "result": "VALID",
+      "status": "QUALIFIED",
+      "runs": 3,
+      "minimum_runs": 3,
+      "violations": 0,
+      "violation_rate": 0,
+      "max_violation_rate": 0,
+      "outcomes": [
+        {
+          "run_id": "E4-dc561dd4-c76e-46b0-b6fd-2046b6db51a4",
+          "verified": true,
+          "verifier": {
+            "state": "VERIFIED",
+            "instruction_hash": "sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e",
+            "identity": {
+              "task_id": "pilot-app-l3-p0-qualification",
+              "session_id": "6b320ff3-5625-4069-bf9e-259d6b778a7a",
+              "host": "aghr-local-process",
+              "host_version": "v24.11.0",
+              "scope": "pilot-app-l3/**",
+              "skill_id": "pilot-sql-readonly",
+              "phase": "implementation"
+            },
+            "host_signal": "NOT_OBSERVABLE",
+            "execution": "EXECUTED",
+            "execution_run_id": "E4-dc561dd4-c76e-46b0-b6fd-2046b6db51a4",
+            "result": "VALID",
+            "verified": true,
+            "criteria_hash": "sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06",
+            "criteria_results": [
+              {
+                "pointer": "/valid",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              },
+              {
+                "pointer": "/project",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca"
+              },
+              {
+                "pointer": "/rows",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+              },
+              {
+                "pointer": "/denied",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+              },
+              {
+                "pointer": "/unchanged",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              }
+            ],
+            "output_hash": "sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a"
+          }
+        },
+        {
+          "run_id": "E4-066d8eb4-4263-4c3c-8527-2b04d9fff20b",
+          "verified": true,
+          "verifier": {
+            "state": "VERIFIED",
+            "instruction_hash": "sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e",
+            "identity": {
+              "task_id": "pilot-app-l3-p0-qualification",
+              "session_id": "6b320ff3-5625-4069-bf9e-259d6b778a7a",
+              "host": "aghr-local-process",
+              "host_version": "v24.11.0",
+              "scope": "pilot-app-l3/**",
+              "skill_id": "pilot-sql-readonly",
+              "phase": "implementation"
+            },
+            "host_signal": "NOT_OBSERVABLE",
+            "execution": "EXECUTED",
+            "execution_run_id": "E4-066d8eb4-4263-4c3c-8527-2b04d9fff20b",
+            "result": "VALID",
+            "verified": true,
+            "criteria_hash": "sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06",
+            "criteria_results": [
+              {
+                "pointer": "/valid",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              },
+              {
+                "pointer": "/project",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca"
+              },
+              {
+                "pointer": "/rows",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+              },
+              {
+                "pointer": "/denied",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+              },
+              {
+                "pointer": "/unchanged",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              }
+            ],
+            "output_hash": "sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a"
+          }
+        },
+        {
+          "run_id": "E4-4ac49c43-8a8d-47f6-b2cc-2707dc7babb4",
+          "verified": true,
+          "verifier": {
+            "state": "VERIFIED",
+            "instruction_hash": "sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e",
+            "identity": {
+              "task_id": "pilot-app-l3-p0-qualification",
+              "session_id": "6b320ff3-5625-4069-bf9e-259d6b778a7a",
+              "host": "aghr-local-process",
+              "host_version": "v24.11.0",
+              "scope": "pilot-app-l3/**",
+              "skill_id": "pilot-sql-readonly",
+              "phase": "implementation"
+            },
+            "host_signal": "NOT_OBSERVABLE",
+            "execution": "EXECUTED",
+            "execution_run_id": "E4-4ac49c43-8a8d-47f6-b2cc-2707dc7babb4",
+            "result": "VALID",
+            "verified": true,
+            "criteria_hash": "sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06",
+            "criteria_results": [
+              {
+                "pointer": "/valid",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              },
+              {
+                "pointer": "/project",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca"
+              },
+              {
+                "pointer": "/rows",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+              },
+              {
+                "pointer": "/denied",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+              },
+              {
+                "pointer": "/unchanged",
+                "op": "equals",
+                "passed": true,
+                "actual_hash": "sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+              }
+            ],
+            "output_hash": "sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a"
+          }
+        }
+      ],
+      "host": "aghr-local-process",
+      "profile": "ACTUAL_LOCAL_PROCESS_PROCEDURE",
+      "native_agent_qualification": "NOT_GRANTED",
+      "qualification": {
+        "skillId": "pilot-sql-readonly",
+        "host": "aghr-local-process",
+        "hostVersion": "v24.11.0",
+        "scope": "pilot-app-l3/**",
+        "contentHash": "sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e",
+        "driverHash": "sha256:2558abae5048f035fe8f1d4374b53fd61241eede6cb35ea9972ec784547074ca",
+        "engineHash": "sha256:811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+        "status": "QUALIFIED",
+        "qualifiedAt": "2026-10-25T11:27:44.427047+00:00",
+        "evidence": [
+          {
+            "run_id": "E4-dc561dd4-c76e-46b0-b6fd-2046b6db51a4",
+            "content_hash": "sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a"
+          },
+          {
+            "run_id": "E4-066d8eb4-4263-4c3c-8527-2b04d9fff20b",
+            "content_hash": "sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a"
+          },
+          {
+            "run_id": "E4-4ac49c43-8a8d-47f6-b2cc-2707dc7babb4",
+            "content_hash": "sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a"
+          }
+        ],
+        "profile": "ACTUAL_LOCAL_PROCESS_PROCEDURE",
+        "native_agent_qualification": "NOT_GRANTED"
+      }
+    },
+    "receipt": {
+      "operation": "qualify",
+      "command": "qualify",
+      "protocol_version": "3",
+      "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+      "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "input_hash": "sha256:43bca41a93f3395558cc760d5deded30448cf391be2f198e77bf46494ad1344f",
+      "stdout": "{\"protocol_version\":\"3\",\"command\":\"qualify\",\"result\":\"VALID\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"result\":\"VALID\",\"status\":\"QUALIFIED\",\"runs\":3,\"minimum_runs\":3,\"violations\":0,\"violation_rate\":0.0,\"max_violation_rate\":0,\"outcomes\":[{\"run_id\":\"E4-dc561dd4-c76e-46b0-b6fd-2046b6db51a4\",\"verified\":true,\"verifier\":{\"state\":\"VERIFIED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-dc561dd4-c76e-46b0-b6fd-2046b6db51a4\",\"result\":\"VALID\",\"verified\":true,\"criteria_hash\":\"sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06\",\"criteria_results\":[{\"pointer\":\"/valid\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"},{\"pointer\":\"/project\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca\"},{\"pointer\":\"/rows\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce\"},{\"pointer\":\"/denied\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d\"},{\"pointer\":\"/unchanged\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"}],\"output_hash\":\"sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\"}},{\"run_id\":\"E4-066d8eb4-4263-4c3c-8527-2b04d9fff20b\",\"verified\":true,\"verifier\":{\"state\":\"VERIFIED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-066d8eb4-4263-4c3c-8527-2b04d9fff20b\",\"result\":\"VALID\",\"verified\":true,\"criteria_hash\":\"sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06\",\"criteria_results\":[{\"pointer\":\"/valid\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"},{\"pointer\":\"/project\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca\"},{\"pointer\":\"/rows\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce\"},{\"pointer\":\"/denied\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d\"},{\"pointer\":\"/unchanged\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"}],\"output_hash\":\"sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\"}},{\"run_id\":\"E4-4ac49c43-8a8d-47f6-b2cc-2707dc7babb4\",\"verified\":true,\"verifier\":{\"state\":\"VERIFIED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-4ac49c43-8a8d-47f6-b2cc-2707dc7babb4\",\"result\":\"VALID\",\"verified\":true,\"criteria_hash\":\"sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06\",\"criteria_results\":[{\"pointer\":\"/valid\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"},{\"pointer\":\"/project\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca\"},{\"pointer\":\"/rows\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce\"},{\"pointer\":\"/denied\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d\"},{\"pointer\":\"/unchanged\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"}],\"output_hash\":\"sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\"}}],\"host\":\"aghr-local-process\",\"profile\":\"ACTUAL_LOCAL_PROCESS_PROCEDURE\",\"native_agent_qualification\":\"NOT_GRANTED\",\"qualification\":{\"skillId\":\"pilot-sql-readonly\",\"host\":\"aghr-local-process\",\"hostVersion\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"contentHash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"driverHash\":\"sha256:2558abae5048f035fe8f1d4374b53fd61241eede6cb35ea9972ec784547074ca\",\"engineHash\":\"sha256:811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"status\":\"QUALIFIED\",\"qualifiedAt\":\"2026-10-25T11:27:44.427047+00:00\",\"evidence\":[{\"run_id\":\"E4-dc561dd4-c76e-46b0-b6fd-2046b6db51a4\",\"content_hash\":\"sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\"},{\"run_id\":\"E4-066d8eb4-4263-4c3c-8527-2b04d9fff20b\",\"content_hash\":\"sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\"},{\"run_id\":\"E4-4ac49c43-8a8d-47f6-b2cc-2707dc7babb4\",\"content_hash\":\"sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\"}],\"profile\":\"ACTUAL_LOCAL_PROCESS_PROCEDURE\",\"native_agent_qualification\":\"NOT_GRANTED\"}},\"diagnostics\":[]}\r\n",
+      "stderr": "",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 16.0078125,
+      "duration_ms": 657,
+      "active_processes_after": 0,
+      "observed_pids": [
+        143196,
+        140032,
+        133748
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 143196,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "limits": {
+        "timeoutMs": 3600000,
+        "memoryBytes": 2147483648
+      }
+    }
+  },
+  "source": {
+    "app/security.py": "ffaf51b0e2c96b1f474f64b90898f9a68d26f6af23b86f84ea6bd4415e6b9f99",
+    "app/repository.py": "8bad3c7e1cec3f48fffd82ed3313e0726667bcbfbdccba972fc5cc45a61ec068",
+    "data/inventory.sqlite": "df0913a7caf6f3e5b6fa21476733301a6ed78cb624c710f88073fc4f205ea834",
+    "procedures/sql-readonly/SKILL.md": "6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e",
+    "procedures/sql-readonly/worker.py": "2558abae5048f035fe8f1d4374b53fd61241eede6cb35ea9972ec784547074ca"
+  },
+  "records": [
+    {
+      "operation": "discover",
+      "command": "check",
+      "protocol_version": "3",
+      "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+      "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "input_hash": "sha256:5966ecb247dddfb9e62e4a4811de6c1f3e04be017214d417e1f53794e8e5a48e",
+      "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"VALID\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"result\":\"VALID\",\"status\":\"SELECTED\",\"selected\":[\"pilot-sql-readonly\"],\"alternatives_not_loaded\":[],\"halt\":false,\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"phase\":\"implementation\"},\"diagnostics\":[]}\r\n",
+      "stderr": "",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 16.05859375,
+      "duration_ms": 687,
+      "active_processes_after": 0,
+      "observed_pids": [
+        128268,
+        140632,
+        116268
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 128268,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "limits": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      }
+    },
+    {
+      "operation": "transition",
+      "command": "check",
+      "protocol_version": "3",
+      "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+      "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "input_hash": "sha256:0404fcf7875da1436d60b526f967acafbe31e4fde9d9aceb7cff06ef4c8365a0",
+      "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"READ\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"state\":\"LOADED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"NOT_RUN\"},\"diagnostics\":[]}\r\n",
+      "stderr": "",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 15.9453125,
+      "duration_ms": 625,
+      "active_processes_after": 0,
+      "observed_pids": [
+        116952,
+        135888,
+        142396
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 116952,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "limits": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      }
+    },
+    {
+      "operation": "execute",
+      "resource_profile": "eval",
+      "run_id": "E4-e76da3b7-024f-454e-b949-c283d100ecd2",
+      "identity": {
+        "task_id": "pilot-app-l3-p0-qualification",
+        "session_id": "6b320ff3-5625-4069-bf9e-259d6b778a7a",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "scope": "pilot-app-l3/**",
+        "skill_id": "pilot-sql-readonly",
+        "phase": "implementation"
+      },
+      "driver_hash": "sha256:2558abae5048f035fe8f1d4374b53fd61241eede6cb35ea9972ec784547074ca",
+      "input_hash": "sha256:4c72af5bab78714d6cba83dde51a7350f5efe7283a6db35c39cf0c2909d6781a",
+      "input_base64": "eyJleHBlY3RlZF9yb3dzIjozfQ==",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 16.1875,
+      "duration_ms": 656,
+      "active_processes_after": 0,
+      "observed_pids": [
+        142500,
+        141024,
+        138792
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 142500,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "stdout": "{\"valid\": true, \"project\": \"pilot-app-l3\", \"rows\": 3, \"denied\": 5, \"unchanged\": true, \"source\": {\"app/security.py\": \"ffaf51b0e2c96b1f474f64b90898f9a68d26f6af23b86f84ea6bd4415e6b9f99\", \"app/repository.py\": \"8bad3c7e1cec3f48fffd82ed3313e0726667bcbfbdccba972fc5cc45a61ec068\", \"data/inventory.sqlite\": \"df0913a7caf6f3e5b6fa21476733301a6ed78cb624c710f88073fc4f205ea834\"}, \"cases\": [{\"sql\": \"DELETE FROM inventory\", \"reason\": \"SELECT_ONLY\"}, {\"sql\": \"DROP TABLE inventory\", \"reason\": \"SELECT_ONLY\"}, {\"sql\": \"SELECT * FROM inventory; DROP TABLE inventory\", \"reason\": \"SINGLE_STATEMENT_ONLY\"}, {\"sql\": \"SELECT load_extension('x')\", \"reason\": \"METADATA_OR_EXTENSION_DENIED\"}, {\"sql\": \"PRAGMA journal_mode=WAL\", \"reason\": \"SELECT_ONLY\"}], \"sandbox\": {\"filesystem_write\": \"DENIED\", \"network\": \"DENIED\", \"subprocess\": \"DENIED\"}, \"binding\": null}\r\n",
+      "stderr": "",
+      "limits": {
+        "timeoutMs": 600000,
+        "memoryBytes": 2147483648
+      },
+      "stdout_base64": "eyJ2YWxpZCI6IHRydWUsICJwcm9qZWN0IjogInBpbG90LWFwcC1sMyIsICJyb3dzIjogMywgImRlbmllZCI6IDUsICJ1bmNoYW5nZWQiOiB0cnVlLCAic291cmNlIjogeyJhcHAvc2VjdXJpdHkucHkiOiAiZmZhZjUxYjBlMmM5NmIxZjQ3NGY2NGI5MDg5OGY5YTY4ZDI2ZjZhZjIzYjg2Zjg0ZWE2YmQ0NDE1ZTZiOWY5OSIsICJhcHAvcmVwb3NpdG9yeS5weSI6ICI4YmFkM2M3ZTFjZWMzZjQ4ZmZmZDgyZWQzMzEzZTA3MjY2NjdiY2JmYmRjY2JhOTcyZmM1Y2M0NWE2MWVjMDY4IiwgImRhdGEvaW52ZW50b3J5LnNxbGl0ZSI6ICJkZjA5MTNhN2NhZjZmM2U1YjZmYTIxNDc2NzMzMzAxYTZlZDc4Y2I2MjRjNzEwZjg4MDczZmM0ZjIwNWVhODM0In0sICJjYXNlcyI6IFt7InNxbCI6ICJERUxFVEUgRlJPTSBpbnZlbnRvcnkiLCAicmVhc29uIjogIlNFTEVDVF9PTkxZIn0sIHsic3FsIjogIkRST1AgVEFCTEUgaW52ZW50b3J5IiwgInJlYXNvbiI6ICJTRUxFQ1RfT05MWSJ9LCB7InNxbCI6ICJTRUxFQ1QgKiBGUk9NIGludmVudG9yeTsgRFJPUCBUQUJMRSBpbnZlbnRvcnkiLCAicmVhc29uIjogIlNJTkdMRV9TVEFURU1FTlRfT05MWSJ9LCB7InNxbCI6ICJTRUxFQ1QgbG9hZF9leHRlbnNpb24oJ3gnKSIsICJyZWFzb24iOiAiTUVUQURBVEFfT1JfRVhURU5TSU9OX0RFTklFRCJ9LCB7InNxbCI6ICJQUkFHTUEgam91cm5hbF9tb2RlPVdBTCIsICJyZWFzb24iOiAiU0VMRUNUX09OTFkifV0sICJzYW5kYm94IjogeyJmaWxlc3lzdGVtX3dyaXRlIjogIkRFTklFRCIsICJuZXR3b3JrIjogIkRFTklFRCIsICJzdWJwcm9jZXNzIjogIkRFTklFRCJ9LCAiYmluZGluZyI6IG51bGx9DQo=",
+      "stderr_base64": ""
+    },
+    {
+      "operation": "transition",
+      "command": "check",
+      "protocol_version": "3",
+      "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+      "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "input_hash": "sha256:a5cc6f6c5f01b233463ac771767431ea10ef48012d160e0c6eb8768281873597",
+      "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"READ\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"state\":\"EXECUTED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-e76da3b7-024f-454e-b949-c283d100ecd2\"},\"diagnostics\":[]}\r\n",
+      "stderr": "",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 15.67578125,
+      "duration_ms": 610,
+      "active_processes_after": 0,
+      "observed_pids": [
+        137504,
+        134952,
+        139616
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 137504,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "limits": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      }
+    },
+    {
+      "operation": "discover",
+      "command": "check",
+      "protocol_version": "3",
+      "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+      "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "input_hash": "sha256:5966ecb247dddfb9e62e4a4811de6c1f3e04be017214d417e1f53794e8e5a48e",
+      "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"VALID\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"result\":\"VALID\",\"status\":\"SELECTED\",\"selected\":[\"pilot-sql-readonly\"],\"alternatives_not_loaded\":[],\"halt\":false,\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"phase\":\"implementation\"},\"diagnostics\":[]}\r\n",
+      "stderr": "",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 15.8046875,
+      "duration_ms": 578,
+      "active_processes_after": 0,
+      "observed_pids": [
+        142428,
+        139944,
+        139020
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 142428,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "limits": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      }
+    },
+    {
+      "operation": "transition",
+      "command": "check",
+      "protocol_version": "3",
+      "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+      "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "input_hash": "sha256:0404fcf7875da1436d60b526f967acafbe31e4fde9d9aceb7cff06ef4c8365a0",
+      "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"READ\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"state\":\"LOADED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"NOT_RUN\"},\"diagnostics\":[]}\r\n",
+      "stderr": "",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 15.88671875,
+      "duration_ms": 593,
+      "active_processes_after": 0,
+      "observed_pids": [
+        141196,
+        126236,
+        120384
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 141196,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "limits": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      }
+    },
+    {
+      "operation": "execute",
+      "resource_profile": "eval",
+      "run_id": "E4-45f7210f-d1d0-42db-87ee-4773a42748b6",
+      "identity": {
+        "task_id": "pilot-app-l3-p0-qualification",
+        "session_id": "6b320ff3-5625-4069-bf9e-259d6b778a7a",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "scope": "pilot-app-l3/**",
+        "skill_id": "pilot-sql-readonly",
+        "phase": "implementation"
+      },
+      "driver_hash": "sha256:2558abae5048f035fe8f1d4374b53fd61241eede6cb35ea9972ec784547074ca",
+      "input_hash": "sha256:4c72af5bab78714d6cba83dde51a7350f5efe7283a6db35c39cf0c2909d6781a",
+      "input_base64": "eyJleHBlY3RlZF9yb3dzIjozfQ==",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 16.16796875,
+      "duration_ms": 750,
+      "active_processes_after": 0,
+      "observed_pids": [
+        130428,
+        132448,
+        141376
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 130428,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "stdout": "{\"valid\": true, \"project\": \"pilot-app-l3\", \"rows\": 3, \"denied\": 5, \"unchanged\": true, \"source\": {\"app/security.py\": \"ffaf51b0e2c96b1f474f64b90898f9a68d26f6af23b86f84ea6bd4415e6b9f99\", \"app/repository.py\": \"8bad3c7e1cec3f48fffd82ed3313e0726667bcbfbdccba972fc5cc45a61ec068\", \"data/inventory.sqlite\": \"df0913a7caf6f3e5b6fa21476733301a6ed78cb624c710f88073fc4f205ea834\"}, \"cases\": [{\"sql\": \"DELETE FROM inventory\", \"reason\": \"SELECT_ONLY\"}, {\"sql\": \"DROP TABLE inventory\", \"reason\": \"SELECT_ONLY\"}, {\"sql\": \"SELECT * FROM inventory; DROP TABLE inventory\", \"reason\": \"SINGLE_STATEMENT_ONLY\"}, {\"sql\": \"SELECT load_extension('x')\", \"reason\": \"METADATA_OR_EXTENSION_DENIED\"}, {\"sql\": \"PRAGMA journal_mode=WAL\", \"reason\": \"SELECT_ONLY\"}], \"sandbox\": {\"filesystem_write\": \"DENIED\", \"network\": \"DENIED\", \"subprocess\": \"DENIED\"}, \"binding\": null}\r\n",
+      "stderr": "",
+      "limits": {
+        "timeoutMs": 600000,
+        "memoryBytes": 2147483648
+      },
+      "stdout_base64": "eyJ2YWxpZCI6IHRydWUsICJwcm9qZWN0IjogInBpbG90LWFwcC1sMyIsICJyb3dzIjogMywgImRlbmllZCI6IDUsICJ1bmNoYW5nZWQiOiB0cnVlLCAic291cmNlIjogeyJhcHAvc2VjdXJpdHkucHkiOiAiZmZhZjUxYjBlMmM5NmIxZjQ3NGY2NGI5MDg5OGY5YTY4ZDI2ZjZhZjIzYjg2Zjg0ZWE2YmQ0NDE1ZTZiOWY5OSIsICJhcHAvcmVwb3NpdG9yeS5weSI6ICI4YmFkM2M3ZTFjZWMzZjQ4ZmZmZDgyZWQzMzEzZTA3MjY2NjdiY2JmYmRjY2JhOTcyZmM1Y2M0NWE2MWVjMDY4IiwgImRhdGEvaW52ZW50b3J5LnNxbGl0ZSI6ICJkZjA5MTNhN2NhZjZmM2U1YjZmYTIxNDc2NzMzMzAxYTZlZDc4Y2I2MjRjNzEwZjg4MDczZmM0ZjIwNWVhODM0In0sICJjYXNlcyI6IFt7InNxbCI6ICJERUxFVEUgRlJPTSBpbnZlbnRvcnkiLCAicmVhc29uIjogIlNFTEVDVF9PTkxZIn0sIHsic3FsIjogIkRST1AgVEFCTEUgaW52ZW50b3J5IiwgInJlYXNvbiI6ICJTRUxFQ1RfT05MWSJ9LCB7InNxbCI6ICJTRUxFQ1QgKiBGUk9NIGludmVudG9yeTsgRFJPUCBUQUJMRSBpbnZlbnRvcnkiLCAicmVhc29uIjogIlNJTkdMRV9TVEFURU1FTlRfT05MWSJ9LCB7InNxbCI6ICJTRUxFQ1QgbG9hZF9leHRlbnNpb24oJ3gnKSIsICJyZWFzb24iOiAiTUVUQURBVEFfT1JfRVhURU5TSU9OX0RFTklFRCJ9LCB7InNxbCI6ICJQUkFHTUEgam91cm5hbF9tb2RlPVdBTCIsICJyZWFzb24iOiAiU0VMRUNUX09OTFkifV0sICJzYW5kYm94IjogeyJmaWxlc3lzdGVtX3dyaXRlIjogIkRFTklFRCIsICJuZXR3b3JrIjogIkRFTklFRCIsICJzdWJwcm9jZXNzIjogIkRFTklFRCJ9LCAiYmluZGluZyI6IG51bGx9DQo=",
+      "stderr_base64": ""
+    },
+    {
+      "operation": "transition",
+      "command": "check",
+      "protocol_version": "3",
+      "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+      "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "input_hash": "sha256:a8bf52865996165f05ef8066784092a16e316a0381df58d9999183a7881746bc",
+      "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"READ\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"state\":\"EXECUTED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-45f7210f-d1d0-42db-87ee-4773a42748b6\"},\"diagnostics\":[]}\r\n",
+      "stderr": "",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 15.80078125,
+      "duration_ms": 609,
+      "active_processes_after": 0,
+      "observed_pids": [
+        139344,
+        142288,
+        139236
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 139344,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "limits": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      }
+    },
+    {
+      "operation": "discover",
+      "command": "check",
+      "protocol_version": "3",
+      "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+      "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "input_hash": "sha256:5966ecb247dddfb9e62e4a4811de6c1f3e04be017214d417e1f53794e8e5a48e",
+      "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"VALID\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"result\":\"VALID\",\"status\":\"SELECTED\",\"selected\":[\"pilot-sql-readonly\"],\"alternatives_not_loaded\":[],\"halt\":false,\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"phase\":\"implementation\"},\"diagnostics\":[]}\r\n",
+      "stderr": "",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 16.09375,
+      "duration_ms": 734,
+      "active_processes_after": 0,
+      "observed_pids": [
+        143276,
+        143292,
+        143200
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 143276,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "limits": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      }
+    },
+    {
+      "operation": "transition",
+      "command": "check",
+      "protocol_version": "3",
+      "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+      "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "input_hash": "sha256:0404fcf7875da1436d60b526f967acafbe31e4fde9d9aceb7cff06ef4c8365a0",
+      "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"READ\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"state\":\"LOADED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"NOT_RUN\"},\"diagnostics\":[]}\r\n",
+      "stderr": "",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 15.8046875,
+      "duration_ms": 750,
+      "active_processes_after": 0,
+      "observed_pids": [
+        98548,
+        133036,
+        143324
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 98548,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "limits": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      }
+    },
+    {
+      "operation": "execute",
+      "resource_profile": "eval",
+      "run_id": "E4-533ca192-1aca-402f-a085-a5784b9bd42f",
+      "identity": {
+        "task_id": "pilot-app-l3-p0-qualification",
+        "session_id": "6b320ff3-5625-4069-bf9e-259d6b778a7a",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "scope": "pilot-app-l3/**",
+        "skill_id": "pilot-sql-readonly",
+        "phase": "implementation"
+      },
+      "driver_hash": "sha256:2558abae5048f035fe8f1d4374b53fd61241eede6cb35ea9972ec784547074ca",
+      "input_hash": "sha256:4c72af5bab78714d6cba83dde51a7350f5efe7283a6db35c39cf0c2909d6781a",
+      "input_base64": "eyJleHBlY3RlZF9yb3dzIjozfQ==",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 16.046875,
+      "duration_ms": 1032,
+      "active_processes_after": 0,
+      "observed_pids": [
+        119852,
+        70384,
+        94092
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 119852,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "stdout": "{\"valid\": true, \"project\": \"pilot-app-l3\", \"rows\": 3, \"denied\": 5, \"unchanged\": true, \"source\": {\"app/security.py\": \"ffaf51b0e2c96b1f474f64b90898f9a68d26f6af23b86f84ea6bd4415e6b9f99\", \"app/repository.py\": \"8bad3c7e1cec3f48fffd82ed3313e0726667bcbfbdccba972fc5cc45a61ec068\", \"data/inventory.sqlite\": \"df0913a7caf6f3e5b6fa21476733301a6ed78cb624c710f88073fc4f205ea834\"}, \"cases\": [{\"sql\": \"DELETE FROM inventory\", \"reason\": \"SELECT_ONLY\"}, {\"sql\": \"DROP TABLE inventory\", \"reason\": \"SELECT_ONLY\"}, {\"sql\": \"SELECT * FROM inventory; DROP TABLE inventory\", \"reason\": \"SINGLE_STATEMENT_ONLY\"}, {\"sql\": \"SELECT load_extension('x')\", \"reason\": \"METADATA_OR_EXTENSION_DENIED\"}, {\"sql\": \"PRAGMA journal_mode=WAL\", \"reason\": \"SELECT_ONLY\"}], \"sandbox\": {\"filesystem_write\": \"DENIED\", \"network\": \"DENIED\", \"subprocess\": \"DENIED\"}, \"binding\": null}\r\n",
+      "stderr": "",
+      "limits": {
+        "timeoutMs": 600000,
+        "memoryBytes": 2147483648
+      },
+      "stdout_base64": "eyJ2YWxpZCI6IHRydWUsICJwcm9qZWN0IjogInBpbG90LWFwcC1sMyIsICJyb3dzIjogMywgImRlbmllZCI6IDUsICJ1bmNoYW5nZWQiOiB0cnVlLCAic291cmNlIjogeyJhcHAvc2VjdXJpdHkucHkiOiAiZmZhZjUxYjBlMmM5NmIxZjQ3NGY2NGI5MDg5OGY5YTY4ZDI2ZjZhZjIzYjg2Zjg0ZWE2YmQ0NDE1ZTZiOWY5OSIsICJhcHAvcmVwb3NpdG9yeS5weSI6ICI4YmFkM2M3ZTFjZWMzZjQ4ZmZmZDgyZWQzMzEzZTA3MjY2NjdiY2JmYmRjY2JhOTcyZmM1Y2M0NWE2MWVjMDY4IiwgImRhdGEvaW52ZW50b3J5LnNxbGl0ZSI6ICJkZjA5MTNhN2NhZjZmM2U1YjZmYTIxNDc2NzMzMzAxYTZlZDc4Y2I2MjRjNzEwZjg4MDczZmM0ZjIwNWVhODM0In0sICJjYXNlcyI6IFt7InNxbCI6ICJERUxFVEUgRlJPTSBpbnZlbnRvcnkiLCAicmVhc29uIjogIlNFTEVDVF9PTkxZIn0sIHsic3FsIjogIkRST1AgVEFCTEUgaW52ZW50b3J5IiwgInJlYXNvbiI6ICJTRUxFQ1RfT05MWSJ9LCB7InNxbCI6ICJTRUxFQ1QgKiBGUk9NIGludmVudG9yeTsgRFJPUCBUQUJMRSBpbnZlbnRvcnkiLCAicmVhc29uIjogIlNJTkdMRV9TVEFURU1FTlRfT05MWSJ9LCB7InNxbCI6ICJTRUxFQ1QgbG9hZF9leHRlbnNpb24oJ3gnKSIsICJyZWFzb24iOiAiTUVUQURBVEFfT1JfRVhURU5TSU9OX0RFTklFRCJ9LCB7InNxbCI6ICJQUkFHTUEgam91cm5hbF9tb2RlPVdBTCIsICJyZWFzb24iOiAiU0VMRUNUX09OTFkifV0sICJzYW5kYm94IjogeyJmaWxlc3lzdGVtX3dyaXRlIjogIkRFTklFRCIsICJuZXR3b3JrIjogIkRFTklFRCIsICJzdWJwcm9jZXNzIjogIkRFTklFRCJ9LCAiYmluZGluZyI6IG51bGx9DQo=",
+      "stderr_base64": ""
+    },
+    {
+      "operation": "transition",
+      "command": "check",
+      "protocol_version": "3",
+      "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+      "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "input_hash": "sha256:bfcd97582437f6654b81c3509c6b7e7bf5195f5e479e196040063ef0502d20d4",
+      "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"READ\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"state\":\"EXECUTED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-533ca192-1aca-402f-a085-a5784b9bd42f\"},\"diagnostics\":[]}\r\n",
+      "stderr": "",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 15.81640625,
+      "duration_ms": 719,
+      "active_processes_after": 0,
+      "observed_pids": [
+        112196,
+        141032,
+        139604
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 112196,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "limits": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      }
+    },
+    {
+      "operation": "eval",
+      "command": "eval",
+      "protocol_version": "3",
+      "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+      "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "input_hash": "sha256:d622a37d8777af03aa3e1455471c89c6d08eaf09b548ab78933149d6bce19168",
+      "stdout": "{\"protocol_version\":\"3\",\"command\":\"eval\",\"result\":\"VALID\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"result\":\"VALID\",\"status\":\"PASS\",\"runs\":3,\"minimum_runs\":3,\"violations\":0,\"violation_rate\":0.0,\"max_violation_rate\":0,\"outcomes\":[{\"run_id\":\"E4-e76da3b7-024f-454e-b949-c283d100ecd2\",\"verified\":true,\"verifier\":{\"state\":\"VERIFIED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-e76da3b7-024f-454e-b949-c283d100ecd2\",\"result\":\"VALID\",\"verified\":true,\"criteria_hash\":\"sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06\",\"criteria_results\":[{\"pointer\":\"/valid\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"},{\"pointer\":\"/project\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca\"},{\"pointer\":\"/rows\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce\"},{\"pointer\":\"/denied\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d\"},{\"pointer\":\"/unchanged\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"}],\"output_hash\":\"sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\"}},{\"run_id\":\"E4-45f7210f-d1d0-42db-87ee-4773a42748b6\",\"verified\":true,\"verifier\":{\"state\":\"VERIFIED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-45f7210f-d1d0-42db-87ee-4773a42748b6\",\"result\":\"VALID\",\"verified\":true,\"criteria_hash\":\"sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06\",\"criteria_results\":[{\"pointer\":\"/valid\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"},{\"pointer\":\"/project\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca\"},{\"pointer\":\"/rows\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce\"},{\"pointer\":\"/denied\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d\"},{\"pointer\":\"/unchanged\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"}],\"output_hash\":\"sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\"}},{\"run_id\":\"E4-533ca192-1aca-402f-a085-a5784b9bd42f\",\"verified\":true,\"verifier\":{\"state\":\"VERIFIED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-533ca192-1aca-402f-a085-a5784b9bd42f\",\"result\":\"VALID\",\"verified\":true,\"criteria_hash\":\"sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06\",\"criteria_results\":[{\"pointer\":\"/valid\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"},{\"pointer\":\"/project\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca\"},{\"pointer\":\"/rows\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce\"},{\"pointer\":\"/denied\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d\"},{\"pointer\":\"/unchanged\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"}],\"output_hash\":\"sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\"}}],\"host\":\"aghr-local-process\",\"profile\":\"ACTUAL_LOCAL_PROCESS_PROCEDURE\",\"native_agent_qualification\":\"NOT_GRANTED\"},\"diagnostics\":[]}\r\n",
+      "stderr": "",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 16.0546875,
+      "duration_ms": 922,
+      "active_processes_after": 0,
+      "observed_pids": [
+        139564,
+        127040,
+        139736
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 139564,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "limits": {
+        "timeoutMs": 600000,
+        "memoryBytes": 2147483648
+      }
+    },
+    {
+      "operation": "discover",
+      "command": "check",
+      "protocol_version": "3",
+      "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+      "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "input_hash": "sha256:5966ecb247dddfb9e62e4a4811de6c1f3e04be017214d417e1f53794e8e5a48e",
+      "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"VALID\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"result\":\"VALID\",\"status\":\"SELECTED\",\"selected\":[\"pilot-sql-readonly\"],\"alternatives_not_loaded\":[],\"halt\":false,\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"phase\":\"implementation\"},\"diagnostics\":[]}\r\n",
+      "stderr": "",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 15.69140625,
+      "duration_ms": 719,
+      "active_processes_after": 0,
+      "observed_pids": [
+        139440,
+        123804,
+        118612
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 139440,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "limits": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      }
+    },
+    {
+      "operation": "transition",
+      "command": "check",
+      "protocol_version": "3",
+      "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+      "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "input_hash": "sha256:0404fcf7875da1436d60b526f967acafbe31e4fde9d9aceb7cff06ef4c8365a0",
+      "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"READ\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"state\":\"LOADED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"NOT_RUN\"},\"diagnostics\":[]}\r\n",
+      "stderr": "",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 15.9453125,
+      "duration_ms": 672,
+      "active_processes_after": 0,
+      "observed_pids": [
+        139668,
+        139508,
+        125332
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 139668,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "limits": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      }
+    },
+    {
+      "operation": "execute",
+      "resource_profile": "qualify",
+      "run_id": "E4-dc561dd4-c76e-46b0-b6fd-2046b6db51a4",
+      "identity": {
+        "task_id": "pilot-app-l3-p0-qualification",
+        "session_id": "6b320ff3-5625-4069-bf9e-259d6b778a7a",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "scope": "pilot-app-l3/**",
+        "skill_id": "pilot-sql-readonly",
+        "phase": "implementation"
+      },
+      "driver_hash": "sha256:2558abae5048f035fe8f1d4374b53fd61241eede6cb35ea9972ec784547074ca",
+      "input_hash": "sha256:4c72af5bab78714d6cba83dde51a7350f5efe7283a6db35c39cf0c2909d6781a",
+      "input_base64": "eyJleHBlY3RlZF9yb3dzIjozfQ==",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 15.9921875,
+      "duration_ms": 734,
+      "active_processes_after": 0,
+      "observed_pids": [
+        111000,
+        136904,
+        135892
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 111000,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "stdout": "{\"valid\": true, \"project\": \"pilot-app-l3\", \"rows\": 3, \"denied\": 5, \"unchanged\": true, \"source\": {\"app/security.py\": \"ffaf51b0e2c96b1f474f64b90898f9a68d26f6af23b86f84ea6bd4415e6b9f99\", \"app/repository.py\": \"8bad3c7e1cec3f48fffd82ed3313e0726667bcbfbdccba972fc5cc45a61ec068\", \"data/inventory.sqlite\": \"df0913a7caf6f3e5b6fa21476733301a6ed78cb624c710f88073fc4f205ea834\"}, \"cases\": [{\"sql\": \"DELETE FROM inventory\", \"reason\": \"SELECT_ONLY\"}, {\"sql\": \"DROP TABLE inventory\", \"reason\": \"SELECT_ONLY\"}, {\"sql\": \"SELECT * FROM inventory; DROP TABLE inventory\", \"reason\": \"SINGLE_STATEMENT_ONLY\"}, {\"sql\": \"SELECT load_extension('x')\", \"reason\": \"METADATA_OR_EXTENSION_DENIED\"}, {\"sql\": \"PRAGMA journal_mode=WAL\", \"reason\": \"SELECT_ONLY\"}], \"sandbox\": {\"filesystem_write\": \"DENIED\", \"network\": \"DENIED\", \"subprocess\": \"DENIED\"}, \"binding\": null}\r\n",
+      "stderr": "",
+      "limits": {
+        "timeoutMs": 3600000,
+        "memoryBytes": 2147483648
+      },
+      "stdout_base64": "eyJ2YWxpZCI6IHRydWUsICJwcm9qZWN0IjogInBpbG90LWFwcC1sMyIsICJyb3dzIjogMywgImRlbmllZCI6IDUsICJ1bmNoYW5nZWQiOiB0cnVlLCAic291cmNlIjogeyJhcHAvc2VjdXJpdHkucHkiOiAiZmZhZjUxYjBlMmM5NmIxZjQ3NGY2NGI5MDg5OGY5YTY4ZDI2ZjZhZjIzYjg2Zjg0ZWE2YmQ0NDE1ZTZiOWY5OSIsICJhcHAvcmVwb3NpdG9yeS5weSI6ICI4YmFkM2M3ZTFjZWMzZjQ4ZmZmZDgyZWQzMzEzZTA3MjY2NjdiY2JmYmRjY2JhOTcyZmM1Y2M0NWE2MWVjMDY4IiwgImRhdGEvaW52ZW50b3J5LnNxbGl0ZSI6ICJkZjA5MTNhN2NhZjZmM2U1YjZmYTIxNDc2NzMzMzAxYTZlZDc4Y2I2MjRjNzEwZjg4MDczZmM0ZjIwNWVhODM0In0sICJjYXNlcyI6IFt7InNxbCI6ICJERUxFVEUgRlJPTSBpbnZlbnRvcnkiLCAicmVhc29uIjogIlNFTEVDVF9PTkxZIn0sIHsic3FsIjogIkRST1AgVEFCTEUgaW52ZW50b3J5IiwgInJlYXNvbiI6ICJTRUxFQ1RfT05MWSJ9LCB7InNxbCI6ICJTRUxFQ1QgKiBGUk9NIGludmVudG9yeTsgRFJPUCBUQUJMRSBpbnZlbnRvcnkiLCAicmVhc29uIjogIlNJTkdMRV9TVEFURU1FTlRfT05MWSJ9LCB7InNxbCI6ICJTRUxFQ1QgbG9hZF9leHRlbnNpb24oJ3gnKSIsICJyZWFzb24iOiAiTUVUQURBVEFfT1JfRVhURU5TSU9OX0RFTklFRCJ9LCB7InNxbCI6ICJQUkFHTUEgam91cm5hbF9tb2RlPVdBTCIsICJyZWFzb24iOiAiU0VMRUNUX09OTFkifV0sICJzYW5kYm94IjogeyJmaWxlc3lzdGVtX3dyaXRlIjogIkRFTklFRCIsICJuZXR3b3JrIjogIkRFTklFRCIsICJzdWJwcm9jZXNzIjogIkRFTklFRCJ9LCAiYmluZGluZyI6IG51bGx9DQo=",
+      "stderr_base64": ""
+    },
+    {
+      "operation": "transition",
+      "command": "check",
+      "protocol_version": "3",
+      "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+      "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "input_hash": "sha256:013aa383ff4138efe9e6191be4f739e608251e50ecb87ac649c71e29235e1c3c",
+      "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"READ\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"state\":\"EXECUTED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-dc561dd4-c76e-46b0-b6fd-2046b6db51a4\"},\"diagnostics\":[]}\r\n",
+      "stderr": "",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 15.640625,
+      "duration_ms": 718,
+      "active_processes_after": 0,
+      "observed_pids": [
+        142880,
+        116952,
+        142452
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 142880,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "limits": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      }
+    },
+    {
+      "operation": "discover",
+      "command": "check",
+      "protocol_version": "3",
+      "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+      "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "input_hash": "sha256:5966ecb247dddfb9e62e4a4811de6c1f3e04be017214d417e1f53794e8e5a48e",
+      "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"VALID\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"result\":\"VALID\",\"status\":\"SELECTED\",\"selected\":[\"pilot-sql-readonly\"],\"alternatives_not_loaded\":[],\"halt\":false,\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"phase\":\"implementation\"},\"diagnostics\":[]}\r\n",
+      "stderr": "",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 15.95703125,
+      "duration_ms": 766,
+      "active_processes_after": 0,
+      "observed_pids": [
+        133828,
+        132768,
+        133252
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 133828,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "limits": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      }
+    },
+    {
+      "operation": "transition",
+      "command": "check",
+      "protocol_version": "3",
+      "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+      "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "input_hash": "sha256:0404fcf7875da1436d60b526f967acafbe31e4fde9d9aceb7cff06ef4c8365a0",
+      "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"READ\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"state\":\"LOADED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"NOT_RUN\"},\"diagnostics\":[]}\r\n",
+      "stderr": "",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 15.890625,
+      "duration_ms": 750,
+      "active_processes_after": 0,
+      "observed_pids": [
+        77096,
+        138680,
+        140364
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 77096,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "limits": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      }
+    },
+    {
+      "operation": "execute",
+      "resource_profile": "qualify",
+      "run_id": "E4-066d8eb4-4263-4c3c-8527-2b04d9fff20b",
+      "identity": {
+        "task_id": "pilot-app-l3-p0-qualification",
+        "session_id": "6b320ff3-5625-4069-bf9e-259d6b778a7a",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "scope": "pilot-app-l3/**",
+        "skill_id": "pilot-sql-readonly",
+        "phase": "implementation"
+      },
+      "driver_hash": "sha256:2558abae5048f035fe8f1d4374b53fd61241eede6cb35ea9972ec784547074ca",
+      "input_hash": "sha256:4c72af5bab78714d6cba83dde51a7350f5efe7283a6db35c39cf0c2909d6781a",
+      "input_base64": "eyJleHBlY3RlZF9yb3dzIjozfQ==",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 16.0078125,
+      "duration_ms": 750,
+      "active_processes_after": 0,
+      "observed_pids": [
+        130468,
+        135008,
+        126236
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 130468,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "stdout": "{\"valid\": true, \"project\": \"pilot-app-l3\", \"rows\": 3, \"denied\": 5, \"unchanged\": true, \"source\": {\"app/security.py\": \"ffaf51b0e2c96b1f474f64b90898f9a68d26f6af23b86f84ea6bd4415e6b9f99\", \"app/repository.py\": \"8bad3c7e1cec3f48fffd82ed3313e0726667bcbfbdccba972fc5cc45a61ec068\", \"data/inventory.sqlite\": \"df0913a7caf6f3e5b6fa21476733301a6ed78cb624c710f88073fc4f205ea834\"}, \"cases\": [{\"sql\": \"DELETE FROM inventory\", \"reason\": \"SELECT_ONLY\"}, {\"sql\": \"DROP TABLE inventory\", \"reason\": \"SELECT_ONLY\"}, {\"sql\": \"SELECT * FROM inventory; DROP TABLE inventory\", \"reason\": \"SINGLE_STATEMENT_ONLY\"}, {\"sql\": \"SELECT load_extension('x')\", \"reason\": \"METADATA_OR_EXTENSION_DENIED\"}, {\"sql\": \"PRAGMA journal_mode=WAL\", \"reason\": \"SELECT_ONLY\"}], \"sandbox\": {\"filesystem_write\": \"DENIED\", \"network\": \"DENIED\", \"subprocess\": \"DENIED\"}, \"binding\": null}\r\n",
+      "stderr": "",
+      "limits": {
+        "timeoutMs": 3600000,
+        "memoryBytes": 2147483648
+      },
+      "stdout_base64": "eyJ2YWxpZCI6IHRydWUsICJwcm9qZWN0IjogInBpbG90LWFwcC1sMyIsICJyb3dzIjogMywgImRlbmllZCI6IDUsICJ1bmNoYW5nZWQiOiB0cnVlLCAic291cmNlIjogeyJhcHAvc2VjdXJpdHkucHkiOiAiZmZhZjUxYjBlMmM5NmIxZjQ3NGY2NGI5MDg5OGY5YTY4ZDI2ZjZhZjIzYjg2Zjg0ZWE2YmQ0NDE1ZTZiOWY5OSIsICJhcHAvcmVwb3NpdG9yeS5weSI6ICI4YmFkM2M3ZTFjZWMzZjQ4ZmZmZDgyZWQzMzEzZTA3MjY2NjdiY2JmYmRjY2JhOTcyZmM1Y2M0NWE2MWVjMDY4IiwgImRhdGEvaW52ZW50b3J5LnNxbGl0ZSI6ICJkZjA5MTNhN2NhZjZmM2U1YjZmYTIxNDc2NzMzMzAxYTZlZDc4Y2I2MjRjNzEwZjg4MDczZmM0ZjIwNWVhODM0In0sICJjYXNlcyI6IFt7InNxbCI6ICJERUxFVEUgRlJPTSBpbnZlbnRvcnkiLCAicmVhc29uIjogIlNFTEVDVF9PTkxZIn0sIHsic3FsIjogIkRST1AgVEFCTEUgaW52ZW50b3J5IiwgInJlYXNvbiI6ICJTRUxFQ1RfT05MWSJ9LCB7InNxbCI6ICJTRUxFQ1QgKiBGUk9NIGludmVudG9yeTsgRFJPUCBUQUJMRSBpbnZlbnRvcnkiLCAicmVhc29uIjogIlNJTkdMRV9TVEFURU1FTlRfT05MWSJ9LCB7InNxbCI6ICJTRUxFQ1QgbG9hZF9leHRlbnNpb24oJ3gnKSIsICJyZWFzb24iOiAiTUVUQURBVEFfT1JfRVhURU5TSU9OX0RFTklFRCJ9LCB7InNxbCI6ICJQUkFHTUEgam91cm5hbF9tb2RlPVdBTCIsICJyZWFzb24iOiAiU0VMRUNUX09OTFkifV0sICJzYW5kYm94IjogeyJmaWxlc3lzdGVtX3dyaXRlIjogIkRFTklFRCIsICJuZXR3b3JrIjogIkRFTklFRCIsICJzdWJwcm9jZXNzIjogIkRFTklFRCJ9LCAiYmluZGluZyI6IG51bGx9DQo=",
+      "stderr_base64": ""
+    },
+    {
+      "operation": "transition",
+      "command": "check",
+      "protocol_version": "3",
+      "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+      "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "input_hash": "sha256:3cfe63a5c1ac250ea574c03f25137f2d7939a4b427cfefe0c0433b06046c2394",
+      "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"READ\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"state\":\"EXECUTED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-066d8eb4-4263-4c3c-8527-2b04d9fff20b\"},\"diagnostics\":[]}\r\n",
+      "stderr": "",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 15.98828125,
+      "duration_ms": 719,
+      "active_processes_after": 0,
+      "observed_pids": [
+        137544,
+        134396,
+        123576
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 137544,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "limits": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      }
+    },
+    {
+      "operation": "discover",
+      "command": "check",
+      "protocol_version": "3",
+      "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+      "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "input_hash": "sha256:5966ecb247dddfb9e62e4a4811de6c1f3e04be017214d417e1f53794e8e5a48e",
+      "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"VALID\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"result\":\"VALID\",\"status\":\"SELECTED\",\"selected\":[\"pilot-sql-readonly\"],\"alternatives_not_loaded\":[],\"halt\":false,\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"phase\":\"implementation\"},\"diagnostics\":[]}\r\n",
+      "stderr": "",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 15.91796875,
+      "duration_ms": 640,
+      "active_processes_after": 0,
+      "observed_pids": [
+        136408,
+        123728,
+        106024
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 136408,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "limits": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      }
+    },
+    {
+      "operation": "transition",
+      "command": "check",
+      "protocol_version": "3",
+      "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+      "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "input_hash": "sha256:0404fcf7875da1436d60b526f967acafbe31e4fde9d9aceb7cff06ef4c8365a0",
+      "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"READ\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"state\":\"LOADED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"NOT_RUN\"},\"diagnostics\":[]}\r\n",
+      "stderr": "",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 15.78515625,
+      "duration_ms": 593,
+      "active_processes_after": 0,
+      "observed_pids": [
+        138968,
+        123748,
+        70748
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 138968,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "limits": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      }
+    },
+    {
+      "operation": "execute",
+      "resource_profile": "qualify",
+      "run_id": "E4-4ac49c43-8a8d-47f6-b2cc-2707dc7babb4",
+      "identity": {
+        "task_id": "pilot-app-l3-p0-qualification",
+        "session_id": "6b320ff3-5625-4069-bf9e-259d6b778a7a",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "scope": "pilot-app-l3/**",
+        "skill_id": "pilot-sql-readonly",
+        "phase": "implementation"
+      },
+      "driver_hash": "sha256:2558abae5048f035fe8f1d4374b53fd61241eede6cb35ea9972ec784547074ca",
+      "input_hash": "sha256:4c72af5bab78714d6cba83dde51a7350f5efe7283a6db35c39cf0c2909d6781a",
+      "input_base64": "eyJleHBlY3RlZF9yb3dzIjozfQ==",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 15.93359375,
+      "duration_ms": 688,
+      "active_processes_after": 0,
+      "observed_pids": [
+        24316,
+        116224,
+        133536
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 24316,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "stdout": "{\"valid\": true, \"project\": \"pilot-app-l3\", \"rows\": 3, \"denied\": 5, \"unchanged\": true, \"source\": {\"app/security.py\": \"ffaf51b0e2c96b1f474f64b90898f9a68d26f6af23b86f84ea6bd4415e6b9f99\", \"app/repository.py\": \"8bad3c7e1cec3f48fffd82ed3313e0726667bcbfbdccba972fc5cc45a61ec068\", \"data/inventory.sqlite\": \"df0913a7caf6f3e5b6fa21476733301a6ed78cb624c710f88073fc4f205ea834\"}, \"cases\": [{\"sql\": \"DELETE FROM inventory\", \"reason\": \"SELECT_ONLY\"}, {\"sql\": \"DROP TABLE inventory\", \"reason\": \"SELECT_ONLY\"}, {\"sql\": \"SELECT * FROM inventory; DROP TABLE inventory\", \"reason\": \"SINGLE_STATEMENT_ONLY\"}, {\"sql\": \"SELECT load_extension('x')\", \"reason\": \"METADATA_OR_EXTENSION_DENIED\"}, {\"sql\": \"PRAGMA journal_mode=WAL\", \"reason\": \"SELECT_ONLY\"}], \"sandbox\": {\"filesystem_write\": \"DENIED\", \"network\": \"DENIED\", \"subprocess\": \"DENIED\"}, \"binding\": null}\r\n",
+      "stderr": "",
+      "limits": {
+        "timeoutMs": 3600000,
+        "memoryBytes": 2147483648
+      },
+      "stdout_base64": "eyJ2YWxpZCI6IHRydWUsICJwcm9qZWN0IjogInBpbG90LWFwcC1sMyIsICJyb3dzIjogMywgImRlbmllZCI6IDUsICJ1bmNoYW5nZWQiOiB0cnVlLCAic291cmNlIjogeyJhcHAvc2VjdXJpdHkucHkiOiAiZmZhZjUxYjBlMmM5NmIxZjQ3NGY2NGI5MDg5OGY5YTY4ZDI2ZjZhZjIzYjg2Zjg0ZWE2YmQ0NDE1ZTZiOWY5OSIsICJhcHAvcmVwb3NpdG9yeS5weSI6ICI4YmFkM2M3ZTFjZWMzZjQ4ZmZmZDgyZWQzMzEzZTA3MjY2NjdiY2JmYmRjY2JhOTcyZmM1Y2M0NWE2MWVjMDY4IiwgImRhdGEvaW52ZW50b3J5LnNxbGl0ZSI6ICJkZjA5MTNhN2NhZjZmM2U1YjZmYTIxNDc2NzMzMzAxYTZlZDc4Y2I2MjRjNzEwZjg4MDczZmM0ZjIwNWVhODM0In0sICJjYXNlcyI6IFt7InNxbCI6ICJERUxFVEUgRlJPTSBpbnZlbnRvcnkiLCAicmVhc29uIjogIlNFTEVDVF9PTkxZIn0sIHsic3FsIjogIkRST1AgVEFCTEUgaW52ZW50b3J5IiwgInJlYXNvbiI6ICJTRUxFQ1RfT05MWSJ9LCB7InNxbCI6ICJTRUxFQ1QgKiBGUk9NIGludmVudG9yeTsgRFJPUCBUQUJMRSBpbnZlbnRvcnkiLCAicmVhc29uIjogIlNJTkdMRV9TVEFURU1FTlRfT05MWSJ9LCB7InNxbCI6ICJTRUxFQ1QgbG9hZF9leHRlbnNpb24oJ3gnKSIsICJyZWFzb24iOiAiTUVUQURBVEFfT1JfRVhURU5TSU9OX0RFTklFRCJ9LCB7InNxbCI6ICJQUkFHTUEgam91cm5hbF9tb2RlPVdBTCIsICJyZWFzb24iOiAiU0VMRUNUX09OTFkifV0sICJzYW5kYm94IjogeyJmaWxlc3lzdGVtX3dyaXRlIjogIkRFTklFRCIsICJuZXR3b3JrIjogIkRFTklFRCIsICJzdWJwcm9jZXNzIjogIkRFTklFRCJ9LCAiYmluZGluZyI6IG51bGx9DQo=",
+      "stderr_base64": ""
+    },
+    {
+      "operation": "transition",
+      "command": "check",
+      "protocol_version": "3",
+      "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+      "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "input_hash": "sha256:b0912a26c1dce71770f9168776b71f74dea8dce1383779c4e9ab00c06a801e24",
+      "stdout": "{\"protocol_version\":\"3\",\"command\":\"check\",\"result\":\"READ\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"state\":\"EXECUTED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-4ac49c43-8a8d-47f6-b2cc-2707dc7babb4\"},\"diagnostics\":[]}\r\n",
+      "stderr": "",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 16.04296875,
+      "duration_ms": 641,
+      "active_processes_after": 0,
+      "observed_pids": [
+        139296,
+        143236,
+        143088
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 139296,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "limits": {
+        "timeoutMs": 30000,
+        "memoryBytes": 2147483648
+      }
+    },
+    {
+      "operation": "qualify",
+      "command": "qualify",
+      "protocol_version": "3",
+      "engine_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+      "python_hash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+      "input_hash": "sha256:43bca41a93f3395558cc760d5deded30448cf391be2f198e77bf46494ad1344f",
+      "stdout": "{\"protocol_version\":\"3\",\"command\":\"qualify\",\"result\":\"VALID\",\"exit_code\":0,\"source\":{\"implementation_id\":\"aghr-e4-native-core\",\"revision\":\"e4.e-correction.1\",\"content_hash\":\"811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"publisher_authentication\":\"UNKNOWN\"},\"data\":{\"result\":\"VALID\",\"status\":\"QUALIFIED\",\"runs\":3,\"minimum_runs\":3,\"violations\":0,\"violation_rate\":0.0,\"max_violation_rate\":0,\"outcomes\":[{\"run_id\":\"E4-dc561dd4-c76e-46b0-b6fd-2046b6db51a4\",\"verified\":true,\"verifier\":{\"state\":\"VERIFIED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-dc561dd4-c76e-46b0-b6fd-2046b6db51a4\",\"result\":\"VALID\",\"verified\":true,\"criteria_hash\":\"sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06\",\"criteria_results\":[{\"pointer\":\"/valid\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"},{\"pointer\":\"/project\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca\"},{\"pointer\":\"/rows\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce\"},{\"pointer\":\"/denied\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d\"},{\"pointer\":\"/unchanged\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"}],\"output_hash\":\"sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\"}},{\"run_id\":\"E4-066d8eb4-4263-4c3c-8527-2b04d9fff20b\",\"verified\":true,\"verifier\":{\"state\":\"VERIFIED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-066d8eb4-4263-4c3c-8527-2b04d9fff20b\",\"result\":\"VALID\",\"verified\":true,\"criteria_hash\":\"sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06\",\"criteria_results\":[{\"pointer\":\"/valid\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"},{\"pointer\":\"/project\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca\"},{\"pointer\":\"/rows\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce\"},{\"pointer\":\"/denied\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d\"},{\"pointer\":\"/unchanged\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"}],\"output_hash\":\"sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\"}},{\"run_id\":\"E4-4ac49c43-8a8d-47f6-b2cc-2707dc7babb4\",\"verified\":true,\"verifier\":{\"state\":\"VERIFIED\",\"instruction_hash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"identity\":{\"task_id\":\"pilot-app-l3-p0-qualification\",\"session_id\":\"6b320ff3-5625-4069-bf9e-259d6b778a7a\",\"host\":\"aghr-local-process\",\"host_version\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"skill_id\":\"pilot-sql-readonly\",\"phase\":\"implementation\"},\"host_signal\":\"NOT_OBSERVABLE\",\"execution\":\"EXECUTED\",\"execution_run_id\":\"E4-4ac49c43-8a8d-47f6-b2cc-2707dc7babb4\",\"result\":\"VALID\",\"verified\":true,\"criteria_hash\":\"sha256:134fe5124961ffd6c8eb20c13997bafcc239be9092cff1ef8f6363c8aab00c06\",\"criteria_results\":[{\"pointer\":\"/valid\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"},{\"pointer\":\"/project\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:26f3375afa1bdb5005a01003d5a7b169a3ef109f582a229050db2c739f747dca\"},{\"pointer\":\"/rows\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce\"},{\"pointer\":\"/denied\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d\"},{\"pointer\":\"/unchanged\",\"op\":\"equals\",\"passed\":true,\"actual_hash\":\"sha256:b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b\"}],\"output_hash\":\"sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\"}}],\"host\":\"aghr-local-process\",\"profile\":\"ACTUAL_LOCAL_PROCESS_PROCEDURE\",\"native_agent_qualification\":\"NOT_GRANTED\",\"qualification\":{\"skillId\":\"pilot-sql-readonly\",\"host\":\"aghr-local-process\",\"hostVersion\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"contentHash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"driverHash\":\"sha256:2558abae5048f035fe8f1d4374b53fd61241eede6cb35ea9972ec784547074ca\",\"engineHash\":\"sha256:811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25\",\"status\":\"QUALIFIED\",\"qualifiedAt\":\"2026-10-25T11:27:44.427047+00:00\",\"evidence\":[{\"run_id\":\"E4-dc561dd4-c76e-46b0-b6fd-2046b6db51a4\",\"content_hash\":\"sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\"},{\"run_id\":\"E4-066d8eb4-4263-4c3c-8527-2b04d9fff20b\",\"content_hash\":\"sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\"},{\"run_id\":\"E4-4ac49c43-8a8d-47f6-b2cc-2707dc7babb4\",\"content_hash\":\"sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\"}],\"profile\":\"ACTUAL_LOCAL_PROCESS_PROCEDURE\",\"native_agent_qualification\":\"NOT_GRANTED\"}},\"diagnostics\":[]}\r\n",
+      "stderr": "",
+      "event": "finished",
+      "status": "passed",
+      "reason": null,
+      "exit_code": 0,
+      "resource_peak_mb": 16.0078125,
+      "duration_ms": 657,
+      "active_processes_after": 0,
+      "observed_pids": [
+        143196,
+        140032,
+        133748
+      ],
+      "memory_events": [],
+      "started": {
+        "event": "started",
+        "pid": 143196,
+        "adapter": "windows-job-list",
+        "hard_memory_bytes": 2147483648,
+        "limit_flags": 8704
+      },
+      "limits": {
+        "timeoutMs": 3600000,
+        "memoryBytes": 2147483648
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+✔ T15 Windows job adapter captures normal stdout/stderr and enforces default profiles (1176.4829ms)
+ℹ {"event":"finished","status":"passed","reason":null,"exit_code":0,"resource_peak_mb":11.55859375,"duration_ms":516,"active_processes_after":0,"observed_pids":[70372,65096,65924],"memory_events":[],"started":{"event":"started","pid":70372,"adapter":"windows-job-list","hard_memory_bytes":134217728,"limit_flags":8704},"stdout":"partial-out\r\n","stderr":"partial-err\r\n","limits":{"timeoutMs":3000,"memoryBytes":134217728}}
+✔ T15 actual timeout reaps root and child tree and retains partial output (1931.9933ms)
+ℹ {"event":"finished","status":"resource_limit_exceeded","reason":"timeout","exit_code":null,"resource_peak_mb":22.58203125,"duration_ms":1031,"active_processes_after":0,"observed_pids":[63916,50016,48956,63656,44420],"memory_events":[],"started":{"event":"started","pid":63916,"adapter":"windows-job-list","hard_memory_bytes":134217728,"limit_flags":8704},"stdout":"CHILD:63656\r\n","stderr":"","limits":{"timeoutMs":1000,"memoryBytes":134217728}}
+✔ T15 actual hard memory limit produces memory_limit with no surviving process (1128.1567ms)
+ℹ {"event":"finished","status":"resource_limit_exceeded","reason":"memory_limit","exit_code":null,"resource_peak_mb":131.9140625,"duration_ms":516,"active_processes_after":0,"observed_pids":[34296,52992,70800],"memory_events":[{"message":10}],"started":{"event":"started","pid":34296,"adapter":"windows-job-list","hard_memory_bytes":134217728,"limit_flags":8704},"stdout":"MEMORY_PROBE\r\nALLOCATION_BLOCKED completed_bytes=117440512\r\n","stderr":"","limits":{"timeoutMs":5000,"memoryBytes":134217728}}
+✔ T15 user cancellation differs from resource limit and output is bounded (2039.937ms)
+ℹ {"cancelled":{"event":"finished","status":"errored","reason":"user_cancelled","exit_code":null,"resource_peak_mb":3.7890625,"duration_ms":187,"active_processes_after":0,"observed_pids":[68248,67508],"memory_events":[],"started":{"event":"started","pid":68248,"adapter":"windows-job-list","hard_memory_bytes":134217728,"limit_flags":8704},"stdout":"","stderr":"","limits":{"timeoutMs":3000,"memoryBytes":134217728}},"output":{"event":"finished","status":"resource_limit_exceeded","reason":"output_limit","exit_code":null,"resource_peak_mb":13.5,"duration_ms":531,"active_processes_after":0,"observed_pids":[66276,70848,21256],"memory_events":[],"started":{"event":"started","pid":66276,"adapter":"windows-job-list","hard_memory_bytes":134217728,"limit_flags":8704},"stdout":"omitted 32768 chars","stderr":"","limits":{"timeoutMs":3000,"memoryBytes":134217728}}}
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6977.9763

@@ -1,0 +1,36 @@
+{
+  "attempts": 1,
+  "job": {
+    "event": "finished",
+    "status": "passed",
+    "reason": null,
+    "exit_code": 0,
+    "resource_peak_mb": 64.49609375,
+    "duration_ms": 22641,
+    "active_processes_after": 0,
+    "observed_pids": [
+      119932,
+      116656,
+      120336,
+      116224,
+      117920
+    ],
+    "memory_events": [],
+    "started": {
+      "event": "started",
+      "pid": 119932,
+      "adapter": "windows-job-list",
+      "hard_memory_bytes": 2147483648,
+      "limit_flags": 8704
+    },
+    "stdout": "{\"initialized\": false, \"initialize_response\": null, \"stderr_sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\", \"diagnostics_redacted\": [], \"result\": \"ENVIRONMENT_BLOCKED\", \"qualification\": \"NOT_RUN\"}\r\n",
+    "stderr": "",
+    "limits": {
+      "timeoutMs": 30000,
+      "memoryBytes": 2147483648
+    }
+  },
+  "host": "codex",
+  "honesty": "REQUIRED / NOT_RUN / NOT_WAIVED",
+  "antigravity": "agy was absent in accepted previous observation; no installation attempted"
+}

@@ -1,0 +1,94 @@
+{
+  "status": "TESTED_FOR_SANDBOX_LOCAL_PROFILE",
+  "at": "2026-10-25T12:31:17.631Z",
+  "pilots": [
+    {
+      "id": "pilot-app-l2",
+      "path": "docs/evidence/studio-pilots-2026-10-25/run-pilot-app-l2-1792929246594/ACCEPTANCE.json",
+      "sha256": "3acc0de2017d30dafa839e6c78768b1549fc9311bef9d0d27e3a3cd7cb983247",
+      "status": "PASS_FOR_SANDBOX_LOCAL_PROFILE",
+      "level": "L2",
+      "merge_sha": "bef262c3d4fbc2ebbef2a8909c807fe2956aa379",
+      "metrics": "docs/evidence/studio-pilots-2026-10-25/run-pilot-app-l2-1792929246594/METRICS_CORRECTED.json",
+      "draft_database": {
+        "path": "pilot-app-l2/.aghr/drafts/studio.sqlite",
+        "sha256": "7d621e83c555d62f5db4eb63cdd88b326f50277b9cb07b480c6b801c7be1d3ad"
+      }
+    },
+    {
+      "id": "pilot-app-l3",
+      "path": "docs/evidence/studio-pilots-2026-10-25/run-pilot-app-l3-1792929628781/ACCEPTANCE.json",
+      "sha256": "8106e740b2b88240cabf321d9846f04c70a7aac7554f785da006ed9ed222d9f8",
+      "status": "PASS_FOR_SANDBOX_LOCAL_PROFILE",
+      "level": "L3",
+      "merge_sha": "8968bcbf5963c50dbab75ef0418d0c9827a86df2",
+      "metrics": "docs/evidence/studio-pilots-2026-10-25/run-pilot-app-l3-1792929628781/METRICS.json",
+      "draft_database": {
+        "path": "pilot-app-l3/.aghr/drafts/studio.sqlite",
+        "sha256": "1f026802dcd74dd3191031b0dc11e61a776ea5777d796fd18f0821f1fed85fb1"
+      }
+    }
+  ],
+  "regression": {
+    "command": "npm test",
+    "tests": 151,
+    "pass": 151,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "raw": "docs/evidence/studio-pilots-2026-10-25/NPM_TEST.log",
+    "source_pin": "docs/evidence/studio-pilots-2026-10-25/TESTED_SOURCE.lock.json",
+    "product_source_unchanged_through_regression": true
+  },
+  "project_specific": {
+    "honesty": 7,
+    "scenarios": 8,
+    "eval_actual_runs": 3,
+    "qualification_actual_runs": 3,
+    "mocks": false,
+    "skill_scope": "pilot-app-l3/**",
+    "host": "aghr-local-process",
+    "native_hosts": {
+      "codex": "NOT_RUN",
+      "antigravity": "NOT_RUN"
+    }
+  },
+  "browser": {
+    "path": "docs/evidence/studio-t36-2026-10-25/browser-1792930535064/ACCEPTANCE.json",
+    "sha256": "94568fbe8294a55a3595623a40a789dd33b32fc0b2350e1a36b2d61d5286e1c7",
+    "status": "PASS",
+    "protected_files": 204,
+    "source_state_runtime_writes": 0,
+    "port": 9224,
+    "other_project_9223": "NOT_ATTACHED_NOT_CHANGED"
+  },
+  "context_check": {
+    "status": "PASS",
+    "path": "docs/evidence/studio-pilots-2026-10-25/CONTEXT_FINAL.log",
+    "sha256": "2240d031ca861b631341760dfe32e9a37c2bb0142a76d151246f19878f4b85e1"
+  },
+  "t36": {
+    "status": "STARTED_NOT_CLOSED",
+    "inventory": "docs/evidence/studio-t36-2026-10-25/ACCEPTANCE_INVENTORY.json",
+    "screens": 16,
+    "api_definitions": 59,
+    "http": 58,
+    "ws": 1,
+    "gaps": [
+      "pilot/UI registration and authentic level propagation",
+      "canonical API coverage,aliases,streaming and T36a–e"
+    ]
+  },
+  "remaining": {
+    "external_standard_18_4": "NOT_QUALIFIED_NOT_WAIVED: no production project and0/2 P0 effect calibration",
+    "gpg": "UNCONFIGURED_UNSIGNED_OWNER_ACCEPTED_WARNING",
+    "hosted_ci": "NOT_RUN",
+    "independent_review": "NOT_PERFORMED",
+    "t37_t40": "NOT_STARTED",
+    "release": "NOT_GRANTED"
+  },
+  "preservation": "docs/evidence/studio-pilots-2026-10-25/PRESERVATION_FINAL.json",
+  "owner_acceptance": "AWAITING_OWNER_REVIEW_OF_THIS_DELIVERY",
+  "root_head": "133746a0ad99d10568a44c8d225219df8454271c",
+  "root_branch": "main"
+}

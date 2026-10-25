@@ -1,0 +1,25 @@
+diff --git "a/docs\\evidence\\studio-phase1-2026-10-23\\before\\server\\studio\\aghr\\cli-bridge.js.raw" b/server/studio/aghr/cli-bridge.js
+index ec22fb2..73f26ce 100644
+--- "a/docs\\evidence\\studio-phase1-2026-10-23\\before\\server\\studio\\aghr\\cli-bridge.js.raw"
++++ b/server/studio/aghr/cli-bridge.js
+@@ -37,7 +37,8 @@ export function decodeResult(stdout, stderr, exitCode, command) {
+   const exit = { INFO: 0, READ: 0, VALID: 0, INVALID: 1, ERROR: 2, BLOCKED: 3 };
+   if (report.protocol_version !== '3' || report.command !== command || report.source?.content_hash !== sourceHash ||
+       report.exit_code !== exitCode || exit[report.result] !== exitCode ||
+-      !Array.isArray(report.diagnostics) || !report.checks || !report.data) throw Error('ENGINE_PROTOCOL_MISMATCH');
++      !Array.isArray(report.diagnostics) || !report.checks ||
++      !(report.data&&typeof report.data==='object'||report.result==='ERROR'&&report.data===null&&exitCode===2&&report.diagnostics.length>0&&report.checks.status==='NOT_RUN')) throw Error('ENGINE_PROTOCOL_MISMATCH');
+   if (command === 'catalog' && report.result !== 'READ' && exitCode === 0) throw Error('ENGINE_CATALOG_FALSE_SUCCESS');
+   if (command !== 'catalog' && exitCode === 0 && (report.result !== 'VALID' || report.data.validation?.result !== 'VALID' || report.checks.status !== 'COMPLETE')) throw Error('ENGINE_FALSE_SUCCESS');
+   return { report, stdout, stderr, exitCode };
+@@ -70,8 +71,8 @@ export function createBridge({ python, packageRoot = engineRoot, timeoutMs = 30_
+       if (!allowed.has(command)) throw Error('ENGINE_COMMAND_NOT_ALLOWED');
+       const contextArgs=[];
+       for(const [key,value] of Object.entries(context)) {
+-        if(!['path','agent'].includes(key)||typeof value!=='string'||!value||value.length>1024||/[\x00-\x1f]/.test(value))throw Error('ENGINE_CONTEXT_INVALID');
+-        contextArgs.push(`--${key}=${value}`);
++        if(!['path','agent','host_version','environment','stage','task_type','skill_id','language'].includes(key)||typeof value!=='string'||!value||value.length>1024||/[\x00-\x1f]/.test(value))throw Error('ENGINE_CONTEXT_INVALID');
++        contextArgs.push(`--${key.replaceAll('_','-')}=${value}`);
+       }
+       if(command==='catalog'&&contextArgs.length)throw Error('ENGINE_CONTEXT_INVALID');
+       verifyPackageRoot(selectedRoot);

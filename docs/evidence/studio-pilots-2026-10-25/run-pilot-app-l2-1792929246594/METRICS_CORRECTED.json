@@ -1,0 +1,574 @@
+{
+  "before": {
+    "profile": "phase5-local.1",
+    "project": "pilot-app-l2",
+    "host": "aghr-local-process",
+    "version": "v24.11.0",
+    "period": {
+      "from": "2026-10-25T00:00:00.000Z",
+      "to": "2026-10-25T12:18:59.061Z"
+    },
+    "captured_at": "2026-10-25T12:18:59.064Z",
+    "metrics": {
+      "policy_coverage_pct": {
+        "value": 0,
+        "status": "OBSERVED",
+        "numerator": 0,
+        "denominator": 1,
+        "unit": "percent",
+        "evidence": [
+          {
+            "project": "pilot-app-l2",
+            "host": "aghr-local-process",
+            "version": "v24.11.0",
+            "at": "2026-10-25T12:18:59.061Z",
+            "type": "critical_path",
+            "path": "app.mjs",
+            "covering_items": [],
+            "baseline_commit": "cbc0546318e6c032330e0557e5bef4199f3ae4a4",
+            "source": "Initial application-only Git tree, not the later retry state."
+          }
+        ],
+        "excluded_unobservable": 0
+      },
+      "eval_pass_rate_pct": {
+        "value": null,
+        "status": "NOT_RUN",
+        "numerator": null,
+        "denominator": null,
+        "unit": "percent",
+        "evidence": [],
+        "excluded_unobservable": 0
+      },
+      "exception_half_life_days": {
+        "value": null,
+        "status": "NOT_RUN",
+        "numerator": null,
+        "denominator": null,
+        "unit": "days",
+        "evidence": []
+      },
+      "drift_rate_pct": {
+        "value": null,
+        "status": "NOT_RUN",
+        "numerator": null,
+        "denominator": null,
+        "unit": "percent",
+        "evidence": [],
+        "excluded_unobservable": 0
+      },
+      "calibration_coverage_pct": {
+        "value": null,
+        "status": "NOT_RUN",
+        "numerator": null,
+        "denominator": null,
+        "unit": "percent",
+        "evidence": []
+      },
+      "skill_qualification_coverage_pct": {
+        "value": null,
+        "status": "NOT_RUN",
+        "numerator": null,
+        "denominator": null,
+        "unit": "percent",
+        "evidence": []
+      },
+      "skill_eval_pass_rate_pct": {
+        "value": null,
+        "status": "NOT_RUN",
+        "numerator": null,
+        "denominator": null,
+        "unit": "percent",
+        "evidence": [],
+        "excluded_unobservable": 0
+      },
+      "false_success_rate_pct": {
+        "value": null,
+        "status": "NOT_RUN",
+        "numerator": null,
+        "denominator": null,
+        "unit": "percent",
+        "evidence": [],
+        "excluded_unobservable": 0
+      },
+      "discovery_recall_multilingual_pct": {
+        "value": null,
+        "status": "NOT_RUN",
+        "numerator": null,
+        "denominator": null,
+        "unit": "percent",
+        "evidence": [],
+        "excluded_unobservable": 0
+      },
+      "qualification_drift_count": {
+        "value": null,
+        "status": "NOT_RUN",
+        "numerator": null,
+        "denominator": null,
+        "unit": "count",
+        "evidence": []
+      }
+    },
+    "honesty": {
+      "value": null,
+      "status": "NOT_RUN",
+      "numerator": null,
+      "denominator": null,
+      "unit": "percent",
+      "evidence": [],
+      "excluded_unobservable": 0
+    },
+    "behavioral": {
+      "value": null,
+      "status": "NOT_RUN",
+      "numerator": null,
+      "denominator": null,
+      "unit": "percent",
+      "evidence": [],
+      "excluded_unobservable": 0
+    },
+    "discovery_accuracy": {
+      "value": null,
+      "status": "NOT_RUN",
+      "numerator": null,
+      "denominator": null,
+      "unit": "percent",
+      "evidence": [],
+      "excluded_unobservable": 0
+    },
+    "alerts": [],
+    "raw": {
+      "observations": [
+        {
+          "project": "pilot-app-l2",
+          "host": "aghr-local-process",
+          "version": "v24.11.0",
+          "at": "2026-10-25T12:18:59.061Z",
+          "type": "critical_path",
+          "path": "app.mjs",
+          "covering_items": [],
+          "baseline_commit": "cbc0546318e6c032330e0557e5bef4199f3ae4a4",
+          "source": "Initial application-only Git tree, not the later retry state."
+        }
+      ],
+      "items": [],
+      "capabilities": []
+    },
+    "raw_hash": null,
+    "grouped": {
+      "instructions": {
+        "policy_coverage_pct": {
+          "value": 0,
+          "status": "OBSERVED",
+          "numerator": 0,
+          "denominator": 1,
+          "unit": "percent",
+          "evidence": [
+            {
+              "project": "pilot-app-l2",
+              "host": "aghr-local-process",
+              "version": "v24.11.0",
+              "at": "2026-10-25T12:18:59.061Z",
+              "type": "critical_path",
+              "path": "app.mjs",
+              "covering_items": [],
+              "baseline_commit": "cbc0546318e6c032330e0557e5bef4199f3ae4a4",
+              "source": "Initial application-only Git tree, not the later retry state."
+            }
+          ],
+          "excluded_unobservable": 0
+        },
+        "eval_pass_rate_pct": {
+          "value": null,
+          "status": "NOT_RUN",
+          "numerator": null,
+          "denominator": null,
+          "unit": "percent",
+          "evidence": [],
+          "excluded_unobservable": 0
+        },
+        "exception_half_life_days": {
+          "value": null,
+          "status": "NOT_RUN",
+          "numerator": null,
+          "denominator": null,
+          "unit": "days",
+          "evidence": []
+        },
+        "drift_rate_pct": {
+          "value": null,
+          "status": "NOT_RUN",
+          "numerator": null,
+          "denominator": null,
+          "unit": "percent",
+          "evidence": [],
+          "excluded_unobservable": 0
+        },
+        "calibration_coverage_pct": {
+          "value": null,
+          "status": "NOT_RUN",
+          "numerator": null,
+          "denominator": null,
+          "unit": "percent",
+          "evidence": []
+        }
+      },
+      "skills": {
+        "skill_qualification_coverage_pct": {
+          "value": null,
+          "status": "NOT_RUN",
+          "numerator": null,
+          "denominator": null,
+          "unit": "percent",
+          "evidence": []
+        },
+        "skill_eval_pass_rate_pct": {
+          "value": null,
+          "status": "NOT_RUN",
+          "numerator": null,
+          "denominator": null,
+          "unit": "percent",
+          "evidence": [],
+          "excluded_unobservable": 0
+        },
+        "false_success_rate_pct": {
+          "value": null,
+          "status": "NOT_RUN",
+          "numerator": null,
+          "denominator": null,
+          "unit": "percent",
+          "evidence": [],
+          "excluded_unobservable": 0
+        },
+        "discovery_recall_multilingual_pct": {
+          "value": null,
+          "status": "NOT_RUN",
+          "numerator": null,
+          "denominator": null,
+          "unit": "percent",
+          "evidence": [],
+          "excluded_unobservable": 0
+        },
+        "qualification_drift_count": {
+          "value": null,
+          "status": "NOT_RUN",
+          "numerator": null,
+          "denominator": null,
+          "unit": "count",
+          "evidence": []
+        }
+      }
+    },
+    "limits": {
+      "instruction_level": "L0",
+      "skill_level": "L0",
+      "qualification": "No runtime qualification or adoption level is granted by a metric."
+    }
+  },
+  "after": {
+    "profile": "phase5-local.1",
+    "project": "pilot-app-l2",
+    "host": "aghr-local-process",
+    "version": "v24.11.0",
+    "period": {
+      "from": "2026-10-25T00:00:00.000Z",
+      "to": "2026-10-25T12:18:59.061Z"
+    },
+    "captured_at": "2026-10-25T12:18:59.066Z",
+    "metrics": {
+      "policy_coverage_pct": {
+        "value": 100,
+        "status": "OBSERVED",
+        "numerator": 1,
+        "denominator": 1,
+        "unit": "percent",
+        "evidence": [
+          {
+            "project": "pilot-app-l2",
+            "host": "aghr-local-process",
+            "version": "v24.11.0",
+            "at": "2026-10-25T12:18:59.061Z",
+            "type": "critical_path",
+            "path": "app.mjs",
+            "covering_items": [
+              "PILOT-IDENTITY-001"
+            ],
+            "source": "Explicit declared pilot-critical paths; instructions applicability checked by Python.",
+            "merge_sha": "bef262c3d4fbc2ebbef2a8909c807fe2956aa379"
+          }
+        ],
+        "excluded_unobservable": 0
+      },
+      "eval_pass_rate_pct": {
+        "value": null,
+        "status": "NOT_RUN",
+        "numerator": null,
+        "denominator": null,
+        "unit": "percent",
+        "evidence": [],
+        "excluded_unobservable": 0
+      },
+      "exception_half_life_days": {
+        "value": null,
+        "status": "NOT_RUN",
+        "numerator": null,
+        "denominator": null,
+        "unit": "days",
+        "evidence": []
+      },
+      "drift_rate_pct": {
+        "value": 0,
+        "status": "OBSERVED",
+        "numerator": 0,
+        "denominator": 1,
+        "unit": "percent",
+        "evidence": [
+          {
+            "project": "pilot-app-l2",
+            "host": "aghr-local-process",
+            "version": "v24.11.0",
+            "at": "2026-10-25T12:18:59.061Z",
+            "type": "pr_generate_check",
+            "status": "PASS",
+            "merge_sha": "bef262c3d4fbc2ebbef2a8909c807fe2956aa379"
+          }
+        ],
+        "excluded_unobservable": 0
+      },
+      "calibration_coverage_pct": {
+        "value": null,
+        "status": "NOT_RUN",
+        "numerator": null,
+        "denominator": null,
+        "unit": "percent",
+        "evidence": []
+      },
+      "skill_qualification_coverage_pct": {
+        "value": null,
+        "status": "NOT_RUN",
+        "numerator": null,
+        "denominator": null,
+        "unit": "percent",
+        "evidence": []
+      },
+      "skill_eval_pass_rate_pct": {
+        "value": null,
+        "status": "NOT_RUN",
+        "numerator": null,
+        "denominator": null,
+        "unit": "percent",
+        "evidence": [],
+        "excluded_unobservable": 0
+      },
+      "false_success_rate_pct": {
+        "value": null,
+        "status": "NOT_RUN",
+        "numerator": null,
+        "denominator": null,
+        "unit": "percent",
+        "evidence": [],
+        "excluded_unobservable": 0
+      },
+      "discovery_recall_multilingual_pct": {
+        "value": null,
+        "status": "NOT_RUN",
+        "numerator": null,
+        "denominator": null,
+        "unit": "percent",
+        "evidence": [],
+        "excluded_unobservable": 0
+      },
+      "qualification_drift_count": {
+        "value": null,
+        "status": "NOT_RUN",
+        "numerator": null,
+        "denominator": null,
+        "unit": "count",
+        "evidence": []
+      }
+    },
+    "honesty": {
+      "value": null,
+      "status": "NOT_RUN",
+      "numerator": null,
+      "denominator": null,
+      "unit": "percent",
+      "evidence": [],
+      "excluded_unobservable": 0
+    },
+    "behavioral": {
+      "value": null,
+      "status": "NOT_RUN",
+      "numerator": null,
+      "denominator": null,
+      "unit": "percent",
+      "evidence": [],
+      "excluded_unobservable": 0
+    },
+    "discovery_accuracy": {
+      "value": null,
+      "status": "NOT_RUN",
+      "numerator": null,
+      "denominator": null,
+      "unit": "percent",
+      "evidence": [],
+      "excluded_unobservable": 0
+    },
+    "alerts": [],
+    "raw": {
+      "observations": [
+        {
+          "project": "pilot-app-l2",
+          "host": "aghr-local-process",
+          "version": "v24.11.0",
+          "at": "2026-10-25T12:18:59.061Z",
+          "type": "critical_path",
+          "path": "app.mjs",
+          "covering_items": [
+            "PILOT-IDENTITY-001"
+          ],
+          "source": "Explicit declared pilot-critical paths; instructions applicability checked by Python.",
+          "merge_sha": "bef262c3d4fbc2ebbef2a8909c807fe2956aa379"
+        },
+        {
+          "project": "pilot-app-l2",
+          "host": "aghr-local-process",
+          "version": "v24.11.0",
+          "at": "2026-10-25T12:18:59.061Z",
+          "type": "pr_generate_check",
+          "status": "PASS",
+          "merge_sha": "bef262c3d4fbc2ebbef2a8909c807fe2956aa379"
+        }
+      ],
+      "items": [],
+      "capabilities": []
+    },
+    "raw_hash": null,
+    "grouped": {
+      "instructions": {
+        "policy_coverage_pct": {
+          "value": 100,
+          "status": "OBSERVED",
+          "numerator": 1,
+          "denominator": 1,
+          "unit": "percent",
+          "evidence": [
+            {
+              "project": "pilot-app-l2",
+              "host": "aghr-local-process",
+              "version": "v24.11.0",
+              "at": "2026-10-25T12:18:59.061Z",
+              "type": "critical_path",
+              "path": "app.mjs",
+              "covering_items": [
+                "PILOT-IDENTITY-001"
+              ],
+              "source": "Explicit declared pilot-critical paths; instructions applicability checked by Python.",
+              "merge_sha": "bef262c3d4fbc2ebbef2a8909c807fe2956aa379"
+            }
+          ],
+          "excluded_unobservable": 0
+        },
+        "eval_pass_rate_pct": {
+          "value": null,
+          "status": "NOT_RUN",
+          "numerator": null,
+          "denominator": null,
+          "unit": "percent",
+          "evidence": [],
+          "excluded_unobservable": 0
+        },
+        "exception_half_life_days": {
+          "value": null,
+          "status": "NOT_RUN",
+          "numerator": null,
+          "denominator": null,
+          "unit": "days",
+          "evidence": []
+        },
+        "drift_rate_pct": {
+          "value": 0,
+          "status": "OBSERVED",
+          "numerator": 0,
+          "denominator": 1,
+          "unit": "percent",
+          "evidence": [
+            {
+              "project": "pilot-app-l2",
+              "host": "aghr-local-process",
+              "version": "v24.11.0",
+              "at": "2026-10-25T12:18:59.061Z",
+              "type": "pr_generate_check",
+              "status": "PASS",
+              "merge_sha": "bef262c3d4fbc2ebbef2a8909c807fe2956aa379"
+            }
+          ],
+          "excluded_unobservable": 0
+        },
+        "calibration_coverage_pct": {
+          "value": null,
+          "status": "NOT_RUN",
+          "numerator": null,
+          "denominator": null,
+          "unit": "percent",
+          "evidence": []
+        }
+      },
+      "skills": {
+        "skill_qualification_coverage_pct": {
+          "value": null,
+          "status": "NOT_RUN",
+          "numerator": null,
+          "denominator": null,
+          "unit": "percent",
+          "evidence": []
+        },
+        "skill_eval_pass_rate_pct": {
+          "value": null,
+          "status": "NOT_RUN",
+          "numerator": null,
+          "denominator": null,
+          "unit": "percent",
+          "evidence": [],
+          "excluded_unobservable": 0
+        },
+        "false_success_rate_pct": {
+          "value": null,
+          "status": "NOT_RUN",
+          "numerator": null,
+          "denominator": null,
+          "unit": "percent",
+          "evidence": [],
+          "excluded_unobservable": 0
+        },
+        "discovery_recall_multilingual_pct": {
+          "value": null,
+          "status": "NOT_RUN",
+          "numerator": null,
+          "denominator": null,
+          "unit": "percent",
+          "evidence": [],
+          "excluded_unobservable": 0
+        },
+        "qualification_drift_count": {
+          "value": null,
+          "status": "NOT_RUN",
+          "numerator": null,
+          "denominator": null,
+          "unit": "count",
+          "evidence": []
+        }
+      }
+    },
+    "limits": {
+      "instruction_level": "L0",
+      "skill_level": "L0",
+      "qualification": "No runtime qualification or adoption level is granted by a metric."
+    }
+  },
+  "baseline_commit": "cbc0546318e6c032330e0557e5bef4199f3ae4a4",
+  "critical_paths": [
+    "app.mjs"
+  ],
+  "warning": "Only declared critical paths and observed calls are counted, one execution once. P0 calibration remains assumed; no productivity or causal improvement is claimed."
+}

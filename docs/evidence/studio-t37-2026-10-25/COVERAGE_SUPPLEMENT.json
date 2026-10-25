@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-25T18:39:00.839Z",
+  "inherited_failed_run": "COVERAGE_RUN.json",
+  "source": "Same unchanged T36V3 backend",
+  "steps": [
+    {
+      "args": [
+        "--test",
+        "--test-concurrency=1",
+        "tests/studio_ci_publisher.test.mjs",
+        "tests/studio_ci_parity.test.mjs",
+        "tests/studio_e5_lifecycle.test.mjs",
+        "tests/studio_phase3_skills.test.mjs"
+      ],
+      "exit_code": 1
+    },
+    {
+      "args": [
+        "tools/t36/api.mjs"
+      ],
+      "exit_code": 1
+    }
+  ]
+}

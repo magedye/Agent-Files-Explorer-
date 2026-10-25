@@ -1,0 +1,94 @@
+{
+  "before_run": "PREFLIGHT.json",
+  "changes": [
+    {
+      "path": ".gitattributes",
+      "before": {
+        "path": "before/.gitattributes.snapshot",
+        "sha256": "34e5b0ed02cc4792560319907869de5ab119f710bc109e5b094ecff8171b013b"
+      },
+      "after_sha256": "e6e0968a372d63e849030fdf4a7304d33e1c6063678542f3e6f35a086a1c5fac"
+    },
+    {
+      "path": ".gitignore",
+      "before": {
+        "path": "before/.gitignore.snapshot",
+        "sha256": "9c04e7653d9ddcbfcdd11f5e21862e98de1bb68abe70c331d90e0f6425ff57ee"
+      },
+      "after_sha256": "5e9bbd327ba09678751c2d42137cd71fb68efbfc3b7af3f63004b28d90c84461"
+    },
+    {
+      "path": "docs/status/CURRENT.md",
+      "before": {
+        "path": "before/docs/status/CURRENT.md.snapshot",
+        "sha256": "b55d2d39d83cfa009bed8d2a0f9d8690fe64773c839fed0b4a855f11a1c81946"
+      },
+      "after_sha256": "9b99b5535e68778fbff1fd9ccd2e86c7b9cfb6b5b42b40deab5aaa08733b86dd"
+    },
+    {
+      "path": "docs/status/HANDOFF.md",
+      "before": {
+        "path": "before/docs/status/HANDOFF.md.snapshot",
+        "sha256": "a296fcf8d8ec3c093c9987d35a4dc757793513ff9247275d03646336330a97c3"
+      },
+      "after_sha256": "e8e223c7a3014007f57c03aeb22756ea144ab5845c5624522f1cb0fedddd8c15"
+    },
+    {
+      "path": "docs/plans/STUDIO_UPGRADE_TASKS_AR.md",
+      "before": {
+        "path": "before/docs/plans/STUDIO_UPGRADE_TASKS_AR.md.snapshot",
+        "sha256": "dae3c0537a912c9c78065d3feb25285f473b4622e5367bf28b58ac262ea078ed"
+      },
+      "after_sha256": "9597799eb289bcbae67435ede0c8a88646358b28dfde8c405ffd8c783f4eb295"
+    },
+    {
+      "path": "docs/plans/STUDIO_E1_E2_CORE_SCOPE_AR.md",
+      "before": {
+        "path": "before/docs/plans/STUDIO_E1_E2_CORE_SCOPE_AR.md.snapshot",
+        "sha256": "d36c84be9530a943c54828ecbba25055826ae6504089f18b086fc54a73a8b4c7"
+      },
+      "after_sha256": "76f6854d39d17255221ccc69c5b7f1e28ff436216afdefcf6d87d97417ea080e"
+    },
+    {
+      "path": "docs/features/STUDIO_PHASE0_READ_ONLY.md",
+      "before": {
+        "path": "before/docs/features/STUDIO_PHASE0_READ_ONLY.md.snapshot",
+        "sha256": "09e7f2523f8d0d653f092ad996265aae63ff30604ffca589d12de0270a9b773c"
+      },
+      "after_sha256": "6d36f8327f97043e7463a2c929611b3e8a494259df2128a3856f8885db8cc0b1"
+    },
+    {
+      "path": "governance_packages/candidates/AGHR_T06_SEC001_Candidate/README.md",
+      "before": {
+        "path": "before/governance_packages/candidates/AGHR_T06_SEC001_Candidate/README.md.snapshot",
+        "sha256": "350fcabe1838b62397dc2559314ea8551f92be4213c523dc6608c84393678a83"
+      },
+      "after_sha256": "65b55ae657fc399c3aa0336c4785e5be34272847c8331fefa742319d5d70d22b"
+    },
+    {
+      "path": "tools/t06/mock_bridge.mjs",
+      "before": null,
+      "after_sha256": "fa9464ad0dea9ba1926e51388a450a1c6f98e6a1c8eda5ef6606e6bc6590da7c"
+    },
+    {
+      "path": "tools/t06/mock_engine.py",
+      "before": null,
+      "after_sha256": "8bfafcfa970d8626c1a09d3f08a3162336200e1704fa61dce545790ca3d7a5f0"
+    },
+    {
+      "path": "tools/t06/run_mock_proof.mjs",
+      "before": null,
+      "after_sha256": "fd33b64218be9abc06367faea5006960d95f021c52109c2e33ff20537fb86536"
+    },
+    {
+      "path": "tests/studio_t06_mock.test.mjs",
+      "before": null,
+      "after_sha256": "2bd0c05c28bf7d5945c1c14f607a4c161e81be34206d93f4d04eb4f68c26d608"
+    }
+  ],
+  "candidate": "CANDIDATE_PIN.json",
+  "policy_before": "../studio-t06-2026-10-23/CANDIDATE_INVENTORY.json",
+  "policy_after": "Actual YAML authority.source; no force/severity/gate weakening",
+  "core_engine": "UNCHANGED",
+  "reference_1_2_0": "UNCHANGED"
+}

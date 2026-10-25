@@ -1,0 +1,67 @@
+{
+  "status": "IMPLEMENTED_TESTED_LOCAL_DRAFT",
+  "tests": {
+    "scope": "BASELINE_BEFORE_FINAL_CORRELATION",
+    "total": 149,
+    "pass": 149,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "command": "npm test",
+    "log": "NPM_TEST_FINAL_V2.log",
+    "source": "TESTED_SOURCE_FINAL_V2.json"
+  },
+  "final_affected": {
+    "total": 27,
+    "pass": 27,
+    "fail": 0,
+    "source": "TESTED_SOURCE_FINAL_V3.json",
+    "log": "FINAL_AFFECTED_TESTS.log"
+  },
+  "verification_strategy": "COMPOSED: complete V2 baseline + final V3 affected lifecycle/metrics/API regression + unchanged engine/runtime and browser evidence; not a whole-suite V3 rerun",
+  "focused": {
+    "pass": 20,
+    "scope": "T30–T33, actual-project evaluators, role/auth/persistence/report/math/recall/qualification boundaries"
+  },
+  "browser": {
+    "status": "PASS",
+    "checks": [
+      "Actual project Dashboard: two L0 levels, six risk/source links; no adoption claim",
+      "Ten real API metrics, numerator/denominator, raw/grouped and persistent snapshot",
+      "Real UI SARIF/JSON/MD report generation; actual SARIF browser download preserves rule ID and source hash",
+      "Settings update requires real operator grant; pinned limits and unsigned state displayed",
+      "AR/EN dashboard four widths320/768/1024/1440",
+      "AR/EN metrics four widths320/768/1024/1440",
+      "AR/EN reports four widths320/768/1024/1440",
+      "AR/EN settings four widths320/768/1024/1440",
+      "AR/EN dashboard four widths320/768/1024/1440",
+      "AR/EN metrics four widths320/768/1024/1440",
+      "AR/EN reports four widths320/768/1024/1440",
+      "AR/EN settings four widths320/768/1024/1440"
+    ],
+    "browser": "Edg/155.0.4283.62",
+    "source_written": false,
+    "state_written": false
+  },
+  "project": {
+    "id": "agent-files-explorer",
+    "scope": "D:/APP/Agent-Files-Explorer/**",
+    "profile": "ACTUAL_PROJECT_LOCAL_PROCESS_ONLY",
+    "measurement": "1→1; delta0; observational conformance, no causal/improvement claim",
+    "meta": "additive schemas only; actual examples, authority/scope rejection and L1 PRIN-007 generation",
+    "source_unchanged": true
+  },
+  "preserved": "Reference1.2 and E1–E4; see PRESERVATION_FINAL.json",
+  "resource_profile": {
+    "eval_seconds": 600,
+    "qualify_seconds": 3600,
+    "memory_gib": 2,
+    "settings_override": false
+  },
+  "signing": "NOT_CONFIGURED / verified=false",
+  "native": "REQUIRED / NOT_RUN / NOT_WAIVED",
+  "pilots": "PLAN_ONLY / NOT_RUN",
+  "independent_review": "NOT_PERFORMED",
+  "release_acceptance": "NOT_GRANTED",
+  "git_publish": "NOT_PERFORMED"
+}

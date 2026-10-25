@@ -1,0 +1,44 @@
+{
+  "id": "AGHR-015",
+  "title": "إعادة الإنتاج والتحقق من التراجع",
+  "kind": "PROCEDURE",
+  "force": "MUST",
+  "severity": "high",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: When fixing a defect.\nReproduce safely where practical, or record why not and alternative evidence; verify the fix and affected regressions without claiming unrun suites passed.",
+  "authority": {
+    "source": "drafting/OWNER_DIRECTIVE.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "PROVISIONAL_OWNER_REVIEW",
+    "status": "draft",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "إصلاح غير مثبت قد يبقي العيب أو يسبب تراجعاً. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "review",
+    "mergeEffect": "advisory"
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-015"
+    ]
+  },
+  "impact": {
+    "band": "high",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2027-01-21",
+  "exceptions": {
+    "allowed": true
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

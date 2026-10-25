@@ -1,0 +1,44 @@
+{
+  "id": "AGHR-045",
+  "title": "تواصل واضح وتسليم قابل للتنفيذ",
+  "kind": "REQUIREMENT",
+  "force": "MUST",
+  "severity": "medium",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: In user-facing delivery and session handoffs.\nUse clear concise language, explain unfamiliar terms and identify the exact user decision needed. If recommending a new session, supply a copyable complete request plus a model/effort recommendation checked against the actual host; preserve candidate, branch, evidence, unresolved decisions and the scope of permission. Do not invent timings or future execution.",
+  "authority": {
+    "source": "drafting/OWNER_DIRECTIVE.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "PROVISIONAL_OWNER_REVIEW",
+    "status": "draft",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "تسليم غامض قد يفقد المرشح والقرار وحدود الاستئناف. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "review",
+    "mergeEffect": "advisory"
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-045"
+    ]
+  },
+  "impact": {
+    "band": "medium",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2027-01-21",
+  "exceptions": {
+    "allowed": true
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "AGHR-044",
+  "title": "وضوح الفرع والإغلاق الآمن",
+  "kind": "PROCEDURE",
+  "force": "MUST",
+  "severity": "high",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: When work uses Git.\nReport the observed working branch at start, material switches and handoff; disclose relevant unmerged work and remote freshness. Pursue safe review, merge, synchronization and return to the actual default branch only when ready and authorized. Preserve unrelated branches/worktrees and never infer squash-merge status from ancestry alone.",
+  "authority": {
+    "source": "drafting/OWNER_DIRECTIVE.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "PROVISIONAL_OWNER_REVIEW",
+    "status": "draft",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "عمليات Git دون حالة وتفويض واضحين قد تفقد عملاً أو تدمج خطأ. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "review",
+    "mergeEffect": "advisory"
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-044"
+    ]
+  },
+  "impact": {
+    "band": "high",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2027-01-21",
+  "exceptions": {
+    "allowed": false
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

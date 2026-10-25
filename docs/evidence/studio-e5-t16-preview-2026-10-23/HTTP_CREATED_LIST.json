@@ -1,0 +1,74 @@
+{
+  "data": [
+    {
+      "id": "CP-2026-da82ce24-6b14-404d-89af-115e22ba5bdf",
+      "workspace_id": "rc3-local",
+      "title": "مراجعة الأسرار · Secret handling draft",
+      "kind": "OBSERVATION",
+      "target_item_id": null,
+      "status": "draft",
+      "source": {
+        "type": "request",
+        "ref": "local-request"
+      },
+      "base_package_version": "1.0.0-rc.3",
+      "base_candidate_hash": "sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2",
+      "proposed_yaml": "{\n  \"id\": \"OBS-BROWSER-E5-001\",\n  \"title\": \"رصد المرجع الافتراضي المعلن في مصدر التطبيق\",\n  \"kind\": \"OBSERVATION\",\n  \"force\": \"INFORMATIVE\",\n  \"severity\": \"info\",\n  \"scope\": {\n    \"paths\": [\n      \"server/security.js\"\n    ]\n  },\n  \"rule\": \"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\",\n  \"impact\": {\n    \"band\": \"info\",\n    \"evidence\": \"assumed\"\n  }\n}",
+      "proposal_version_hash": "sha256:acbb519b7d62199f4e212165cf122732f3c2a77738e3e0656a87e8ffeda7d19d",
+      "checks": {
+        "validate": {
+          "status": "NOT_RUN",
+          "evidence": [],
+          "reason": "Required check has not run for this proposal version."
+        },
+        "lint": {
+          "status": "NOT_RUN",
+          "evidence": [],
+          "reason": "Required check has not run for this proposal version."
+        },
+        "skill_states": {
+          "status": "NOT_RUN",
+          "evidence": [],
+          "reason": "Required check has not run for this proposal version."
+        },
+        "generate": {
+          "status": "NOT_RUN",
+          "evidence": [],
+          "reason": "Required check has not run for this proposal version."
+        },
+        "doctor": {
+          "status": "NOT_RUN",
+          "evidence": [],
+          "reason": "Required check has not run for this proposal version."
+        },
+        "eval": {
+          "status": "NOT_RUN",
+          "evidence": [],
+          "reason": "Required check has not run for this proposal version."
+        }
+      },
+      "generation": null,
+      "ci_comparison": null,
+      "required_approvals": [
+        "governance-owner"
+      ],
+      "approvals": [],
+      "approval_history": [],
+      "blockers": [
+        {
+          "code": "DRAFT_ONLY",
+          "message": "Draft/review only. Downstream E3/E4, T18 approvals and export remain gated.",
+          "severity": "warning"
+        }
+      ],
+      "created_by": "Majed",
+      "created_at": "2026-10-23T19:09:51.580Z",
+      "updated_at": "2026-10-23T19:09:51.580Z"
+    }
+  ],
+  "meta": {
+    "request_id": "f48b9930-04e6-422e-a6bc-65e8564a16b6",
+    "contract_revision": "contract.1",
+    "recorded_at": "2026-10-23T19:09:51.706Z"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "host": "codex",
+  "operation": "version",
+  "job": {
+    "event": "finished",
+    "status": "passed",
+    "reason": null,
+    "exit_code": 0,
+    "resource_peak_mb": 22.3203125,
+    "duration_ms": 5922,
+    "active_processes_after": 0,
+    "observed_pids": [
+      117584,
+      113348,
+      87356,
+      87680,
+      109956
+    ],
+    "memory_events": [],
+    "started": {
+      "event": "started",
+      "pid": 117584,
+      "adapter": "windows-job-list",
+      "hard_memory_bytes": 2147483648,
+      "limit_flags": 8704
+    },
+    "stdout": "codex-cli 0.162.0-alpha.2\n",
+    "stderr": "",
+    "limits": {
+      "timeoutMs": 30000,
+      "memoryBytes": 2147483648
+    }
+  },
+  "qualification": "NOT_RUN"
+}

@@ -1,0 +1,56 @@
+{
+  "profile": "SANDBOX_LOCAL_CI_V1",
+  "public_trust": {
+    "project": "pilot-app-l3",
+    "module_hash": "62131b03f22cd8fe27d0839e5c4a6faa20f3cdf077c1ce32ef9bf567e70fab5e",
+    "public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA1n5O5Mle/CxpOCr+FnY1xAG0GSN32y6xCPG2DFXqndU=\n-----END PUBLIC KEY-----\n",
+    "bootstrap_sha": "adbe19e64f5d7385feec9ed8c46ed83b3eee41ec"
+  },
+  "signed_receipt": {
+    "payload": "{\"project\":\"pilot-app-l3\",\"profile\":\"SANDBOX_LOCAL_CI_V1\",\"run_id\":\"e769f4a0-d2f1-410f-90c5-58dc6e93cd4d\",\"expires\":1792930868352,\"before_sha\":\"adbe19e64f5d7385feec9ed8c46ed83b3eee41ec\",\"proposal_sha\":\"fb3418c19b61260dc78752af8d8e258d8b955217\",\"merge_sha\":\"8968bcbf5963c50dbab75ef0418d0c9827a86df2\",\"proposal_version_hash\":\"sha256:99e2c6b3b5d00f41f095690f6fe3a0d72037e5a8766632be2b15c4e8a3ebce31\",\"level\":\"L3\",\"qualifications\":[{\"skillId\":\"pilot-sql-readonly\",\"host\":\"aghr-local-process\",\"hostVersion\":\"v24.11.0\",\"scope\":\"pilot-app-l3/**\",\"contentHash\":\"sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"status\":\"QUALIFIED\",\"qualifiedAt\":\"2026-10-25\",\"evidence\":[\"e4:execution/E4-56fa7c5d-2c87-470c-958c-6720c5f44a13#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\",\"e4:execution/E4-a9715e9a-ae63-4a99-9506-403a3cb8bddf#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\",\"e4:execution/E4-dd9827cc-914a-4b44-9372-85d0c8320cba#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a\"]}],\"unsigned_gpg\":true,\"files\":{\".aghr/package/CHANGELOG.md\":\"6b37f7a1d95a4778471f8a1ee5d70c762bc9cf7d73950d05a747f6c4ae792b81\",\".aghr/package/aghr.json\":\"de505b95b74ee19270bb38ca6f9c2404bed3eb64f6411999428b2ed33c711fe4\",\".aghr/package/policies/capability.json\":\"5f4a273df0a1ebe7c18c7f0eb08ef001a82cef1582ff244c5c2efc8d525c0cea\",\".aghr/package/policies/identity.json\":\"e0517d2f335fe75061c122be7d9444617151a93aa493416498680c9151c80381\",\".aghr/package/policies/principle.json\":\"42f7f5953011c58cde5904a6dd6aa5d7e732dd5b2e8a22fac4cfdd5801c2f7e0\",\".aghr/package/policies/sql.json\":\"d54aa6ecf794fd890f98925bed57e082b4e77a7ba11925a8a13281aa34d6bf22\",\".gitignore\":\"be5147b55b7b4c72869e152eb80b0e2825715d6cf261e91affa0ec0710595e0c\",\"AGENTS.md\":\"8762324723799fd5590c8d9a3652bb593204cbe1107a22778137923db6865d39\",\"README.md\":\"ed0cfdfbf114ad933c9a6deb018d53ce1332df4318024e248682dec9974bdceb\",\"app/repository.py\":\"8bad3c7e1cec3f48fffd82ed3313e0726667bcbfbdccba972fc5cc45a61ec068\",\"app/security.py\":\"ffaf51b0e2c96b1f474f64b90898f9a68d26f6af23b86f84ea6bd4415e6b9f99\",\"app/server.py\":\"e849bf2d957d2ba682f21b292f1a6488a67b9946d4de1243098f7295462e87c9\",\"app/service.py\":\"2519a2f3f26d7ed28b9410d3ea923ca5051a72d7fc314fc3deebad45e8cf24e6\",\"checks.py\":\"27fec974cb6176569129d98007d50bf950fc149a61c96f17f110d591aa6651b0\",\"data/inventory.sqlite\":\"df0913a7caf6f3e5b6fa21476733301a6ed78cb624c710f88073fc4f205ea834\",\"initialize.py\":\"8941354a151f9290d514561f7206105f276cb8157a60fc8ab302cd9eb926b76a\",\"procedures/feature-plan/SKILL.md\":\"273be1cae0513b74c543693270351f62044e681c1572722fd82febe624634efa\",\"procedures/feature-plan/worker.py\":\"b3739b2fbba36d3adcf7b6008d6ad0edb0a32279acfb8e63ee068a26fdf1a3ab\",\"procedures/learning/SKILL.md\":\"c90d44fee82a0518864fbef7c744ab5112b7bedd955e665c7819eff620b816e2\",\"procedures/learning/worker.py\":\"39fd6e4183ff6b6020395db0a7576828a7d2f8a692d191f2a8e00e18f42ad38d\",\"procedures/sql-readonly/SKILL.md\":\"6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e\",\"procedures/sql-readonly/worker.py\":\"2558abae5048f035fe8f1d4374b53fd61241eede6cb35ea9972ec784547074ca\"},\"evidence\":{\"path\":\".aghr/ci-results/pr-evidence-e309cde2-a444-4f57-8a6d-cda0829ec2b0.json\",\"sha256\":\"586e251d43335ff4c9c964f4fc9ca90b6d89b7457c62c8d65cfe4b72a1b1a84d\"},\"checks\":{\"strict\":\"PASS\",\"drift\":\"PASS\",\"skill_states\":\"PASS\",\"doctor\":\"PASS\"}}",
+    "signature": "WPh52Ji45tynn3Lc00jM4ECMXGHCT5byescNMrYiQikYJ9XSliuLDRqsc4/mrcsjHEH0Nhqh9DMXHNyjjQcRAA=="
+  },
+  "published_state": {
+    "schemaVersion": "1.2",
+    "aghrVersion": "1.0.0-rc.3",
+    "adoptionLevel": "L3",
+    "domainLevels": {
+      "instructions": "L3",
+      "skills": "L3"
+    },
+    "evalStatus": "PASS",
+    "skillQualification": [
+      {
+        "skillId": "pilot-sql-readonly",
+        "host": "aghr-local-process",
+        "hostVersion": "v24.11.0",
+        "scope": "pilot-app-l3/**",
+        "contentHash": "sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e",
+        "status": "QUALIFIED",
+        "qualifiedAt": "2026-10-25",
+        "evidence": [
+          "e4:execution/E4-56fa7c5d-2c87-470c-958c-6720c5f44a13#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a",
+          "e4:execution/E4-a9715e9a-ae63-4a99-9506-403a3cb8bddf#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a",
+          "e4:execution/E4-dd9827cc-914a-4b44-9372-85d0c8320cba#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a"
+        ]
+      }
+    ],
+    "exceptions": [],
+    "publication": {
+      "publisher": "ci",
+      "ciRunRef": "local-git-ci:e769f4a0-d2f1-410f-90c5-58dc6e93cd4d",
+      "commitHash": "8968bcbf5963c50dbab75ef0418d0c9827a86df2",
+      "publishedAt": "2026-10-25T12:06:17.299Z",
+      "sourceEvidence": [
+        {
+          "path": ".aghr/ci-results/pr-evidence-e309cde2-a444-4f57-8a6d-cda0829ec2b0.json",
+          "content_hash": "sha256:586e251d43335ff4c9c964f4fc9ca90b6d89b7457c62c8d65cfe4b72a1b1a84d",
+          "bytes": 488257
+        }
+      ]
+    }
+  },
+  "signature_verified_at_seal": true,
+  "private_key": "EXCLUDED",
+  "state_sha256": "ca7d851150ac04b7594302f797e25ca5faaed46a9d6b6a7c09fb332352a7fa0c"
+}

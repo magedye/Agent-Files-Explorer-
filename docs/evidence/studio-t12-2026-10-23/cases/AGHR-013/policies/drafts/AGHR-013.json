@@ -1,0 +1,44 @@
+{
+  "id": "AGHR-013",
+  "title": "سلامة الواجهات والاعتماديات",
+  "kind": "REQUIREMENT",
+  "force": "MUST",
+  "severity": "high",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: When introducing external interfaces or dependencies.\nVerify compatible APIs and dependency provenance; upgrades require impact review and scoped authority, not blind use of latest versions.",
+  "authority": {
+    "source": "drafting/OWNER_DIRECTIVE.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "PROVISIONAL_OWNER_REVIEW",
+    "status": "draft",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "اعتمادية أو واجهة غير موثوقة قد تكسر النظام أو سلسلة التوريد. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "review",
+    "mergeEffect": "advisory"
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-013"
+    ]
+  },
+  "impact": {
+    "band": "high",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2027-01-21",
+  "exceptions": {
+    "allowed": true
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

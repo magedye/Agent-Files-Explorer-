@@ -1,0 +1,42 @@
+{
+  "id": "aghr-t12-candidate",
+  "name": "AGHR T12 — 47 provisional project rule drafts",
+  "version": "1.0.0-rc.3-t12.draft.1",
+  "schemaVersion": "1.2",
+  "owner": "Platform Governance Team",
+  "license": "MIT",
+  "compatibility": {
+    "agents": [
+      "codex",
+      "antigravity"
+    ],
+    "targets": {
+      "codex": {
+        "file": "AGENTS.md",
+        "budgetBytes": 32768
+      },
+      "antigravity": {
+        "dir": ".agents/rules",
+        "budgetBytes": 65536
+      }
+    }
+  },
+  "validation": {
+    "strict": true,
+    "coreKindsOnly": true,
+    "requireEvalForPriority": [
+      "P0-Safety",
+      "P0-Integrity"
+    ],
+    "requireTechnicalEnforcementFor": [
+      "MUST_NOT"
+    ],
+    "requireSkillQualificationFor": [
+      "P0-Safety",
+      "P0-Integrity"
+    ],
+    "enforceSkillStateHonesty": true,
+    "enforceDocumentationConsistency": true,
+    "enforceAuthorityLevel": true
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "id": "CP-2026-5a97e848-5330-4570-bd00-e3a83b36bc3c",
+  "workspace_id": "rc3-local",
+  "title": "دورة الموافقات الفعلية · Actual approvals",
+  "kind": "OBSERVATION",
+  "target_item_id": null,
+  "status": "in_review",
+  "source": {
+    "type": "request",
+    "ref": "local-request"
+  },
+  "base_package_version": "1.0.0-rc.3",
+  "base_candidate_hash": "sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2",
+  "proposed_yaml": "{\n  \"id\": \"OBS-EDGE-T18\",\n  \"title\": \"رصد المرجع الافتراضي المعلن في مصدر التطبيق\",\n  \"kind\": \"OBSERVATION\",\n  \"force\": \"INFORMATIVE\",\n  \"severity\": \"info\",\n  \"scope\": {\n    \"paths\": [\n      \"server/security.js\"\n    ]\n  },\n  \"rule\": \"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\",\n  \"impact\": {\n    \"band\": \"info\",\n    \"evidence\": \"assumed\"\n  }\n}",
+  "proposal_version_hash": "sha256:b46e80c1e5f7391718f289c676a2cb8c7dc92380444559301942c7a321a3187f",
+  "checks": {
+    "validate": {
+      "status": "PASS",
+      "at": "2026-10-23T23:02:10.012Z",
+      "run_id": "VR-59547d3a-7abc-4ab7-8caf-7ac9c674658c",
+      "evidence": [
+        {
+          "path": "sqlite:verification_runs/VR-59547d3a-7abc-4ab7-8caf-7ac9c674658c",
+          "content_hash": "sha256:579d36d6f3b158cabd0a6d9916bec0cb2691217d168530841dfa6204dad3db2c",
+          "bytes": 23169
+        }
+      ]
+    },
+    "lint": {
+      "status": "PASS",
+      "at": "2026-10-23T23:02:10.012Z",
+      "run_id": "VR-59547d3a-7abc-4ab7-8caf-7ac9c674658c",
+      "evidence": [
+        {
+          "path": "sqlite:verification_runs/VR-59547d3a-7abc-4ab7-8caf-7ac9c674658c",
+          "content_hash": "sha256:579d36d6f3b158cabd0a6d9916bec0cb2691217d168530841dfa6204dad3db2c",
+          "bytes": 23169
+        }
+      ]
+    },
+    "skill_states": {
+      "status": "NOT_RUN",
+      "evidence": [],
+      "reason": "Required check has not run for this proposal version."
+    },
+    "generate": {
+      "status": "PASS",
+      "at": "2026-10-23T23:02:15.406Z",
+      "run_id": "VR-65630811-3602-4320-bc8d-f6e96800f883",
+      "evidence": [
+        {
+          "path": "sqlite:verification_runs/VR-65630811-3602-4320-bc8d-f6e96800f883",
+          "content_hash": "sha256:574534c588f2eae295ecc5846c6a23680d8abddc11355a35d23f0534503aceb0",
+          "bytes": 5626
+        }
+      ]
+    },
+    "doctor": {
+      "status": "PASS",
+      "at": "2026-10-23T23:02:10.012Z",
+      "run_id": "VR-59547d3a-7abc-4ab7-8caf-7ac9c674658c",
+      "evidence": [
+        {
+          "path": "sqlite:verification_runs/VR-59547d3a-7abc-4ab7-8caf-7ac9c674658c",
+          "content_hash": "sha256:579d36d6f3b158cabd0a6d9916bec0cb2691217d168530841dfa6204dad3db2c",
+          "bytes": 23169
+        }
+      ]
+    },
+    "eval": {
+      "status": "NOT_RUN",
+      "evidence": [],
+      "reason": "Required check has not run for this proposal version."
+    }
+  },
+  "generation": {
+    "content": "# AGENTS.md\n\n<!-- Candidate output; approval/export require current CP gates. -->\n\n## OBS-REFERENCE-STATE-001\nINFORMATIVE\nفي رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \"aghr_1_2_0\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\n\n## OBS-EDGE-T18\nINFORMATIVE\nفي رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \"aghr_1_2_0\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\n\n## PRIN-007\nMUST\nWhen receiving a software task or crossing a substantive phase boundary,\nthe agent MUST evaluate the fitness of the capabilities actually available\nin the execution environment, and select the minimal effective set for\nthe current phase. Priority is given to native capabilities compatible with\nthe host and project. Repetition, conflict, and authorization bypass MUST\nbe prevented. The agent is NOT obligated to use a skill when direct\nexecution is better, and MUST NOT treat discovery or loading as evidence\nof execution or success. Adoption of new skills, modification of governing\ninstructions, and promotion of lessons into persistent memory remain\nsubject to the approved authority and procedure.\n\n\n",
+    "content_hash": "sha256:a212d51c2db38f5dbef8ddeebd1f3ec3421c3f38238a2bea9d5ad1395483d20d",
+    "stage": "full",
+    "byte_size": 1240,
+    "byte_delta": -31528,
+    "budget_bytes": 32768,
+    "p0_preserved": true,
+    "prin_007_present": true,
+    "adoption_level": "L1",
+    "p0_evidence": [
+      {
+        "path": "preview-item:OBS-REFERENCE-STATE-001",
+        "content_hash": "sha256:13562068285558974250aa08e195cf0041ee6118ff07a052ae6be20dc0984b1b",
+        "bytes": 182
+      },
+      {
+        "path": "preview-item:OBS-EDGE-T18",
+        "content_hash": "sha256:13562068285558974250aa08e195cf0041ee6118ff07a052ae6be20dc0984b1b",
+        "bytes": 182
+      }
+    ],
+    "overflow_items": [],
+    "acknowledgements": [],
+    "lookup": {
+      "status": "PASS",
+      "at": "2026-10-23T23:02:15.263597+00:00",
+      "run_id": "LOOKUP-199843a1-7006-4a31-9ca5-ccbee36b9d63",
+      "evidence": [
+        {
+          "path": "candidate-lookup:sha256:b46e80c1e5f7391718f289c676a2cb8c7dc92380444559301942c7a321a3187f",
+          "content_hash": "sha256:26a7d2c7fb4a66aecf86e5a3e86fc2000fcb84e90ba38b8ab9840719aca90cae",
+          "bytes": 1596
+        }
+      ]
+    },
+    "run_id": "GEN-9aa67c2a-2b40-41cd-9174-18d728e40ff3"
+  },
+  "ci_comparison": null,
+  "required_approvals": [
+    "governance-owner",
+    "security-owner"
+  ],
+  "approvals": [
+    {
+      "id": 1,
+      "package_id": "CP-2026-5a97e848-5330-4570-bd00-e3a83b36bc3c",
+      "role": "governance-owner",
+      "approver": "Majed",
+      "decision": "approve",
+      "approved_version_hash": "sha256:b46e80c1e5f7391718f289c676a2cb8c7dc92380444559301942c7a321a3187f",
+      "reason": "موافقة اختبار محلية ضمن تفويض التنفيذ؛ لا اعتماد إصدار",
+      "at": "2026-10-23T23:02:26.537Z"
+    }
+  ],
+  "approval_history": [],
+  "blockers": [],
+  "preview": {
+    "proposal_version_hash": "sha256:b46e80c1e5f7391718f289c676a2cb8c7dc92380444559301942c7a321a3187f",
+    "diff": "diff --git a/policies/drafts/OBS-EDGE-T18.yaml b/policies/drafts/OBS-EDGE-T18.yaml\nnew file mode 100644\n--- /dev/null\n+++ b/policies/drafts/OBS-EDGE-T18.yaml\n@@ -0,0 +1,17 @@\n+{\n+  \"id\": \"OBS-EDGE-T18\",\n+  \"title\": \"رصد المرجع الافتراضي المعلن في مصدر التطبيق\",\n+  \"kind\": \"OBSERVATION\",\n+  \"force\": \"INFORMATIVE\",\n+  \"severity\": \"info\",\n+  \"scope\": {\n+    \"paths\": [\n+      \"server/security.js\"\n+    ]\n+  },\n+  \"rule\": \"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\",\n+  \"impact\": {\n+    \"band\": \"info\",\n+    \"evidence\": \"assumed\"\n+  }\n+}\n\\ No newline at end of file\n",
+    "files": [
+      {
+        "path": "policies/drafts/OBS-EDGE-T18.yaml",
+        "action": "add",
+        "size": 523
+      }
+    ],
+    "source_written": false,
+    "state_written": false
+  },
+  "created_by": "Majed",
+  "created_at": "2026-10-23T23:02:01.626Z",
+  "updated_at": "2026-10-23T23:02:26.537Z"
+}

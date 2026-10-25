@@ -1,0 +1,199 @@
+{
+  "status": "PROVISIONAL_OWNER_REVIEW",
+  "items": [
+    {
+      "id": "AGHR-001",
+      "before_1_2_0": {
+        "id": "AGHR-001",
+        "title": "Developer-first technical reference",
+        "force": "MUST",
+        "applies_when": "Always",
+        "text": "Use applicable official model and host developer references as the first technical authority; classify recommendations and examples by scope.",
+        "explanation_ref": "CHARTER.md",
+        "basis": [
+          "OA-01",
+          "OA-03",
+          "OA-04"
+        ],
+        "origin": "ORIGINAL_PRIMARY_DESIGN",
+        "waivable": false,
+        "enforcement_class": "PROCEDURE_AND_VERIFICATION",
+        "verification": "See evaluations/SCENARIOS.json and registry/ENFORCEMENT_COVERAGE.json; no universal automatic enforcement is claimed."
+      },
+      "after_rc3": {
+        "id": "AGHR-001",
+        "title": "مرجعية المطور التقنية",
+        "kind": "PRINCIPLE",
+        "force": "MUST",
+        "severity": "high",
+        "scope": {
+          "paths": [
+            "**"
+          ]
+        },
+        "rule": "Applies when: Always.\nUse applicable official model and host developer references as the first technical authority; classify recommendations and examples by scope.",
+        "authority": {
+          "source": "drafting/OWNER_DIRECTIVE.json",
+          "level": "project",
+          "owner": "Platform Governance Team",
+          "approvedBy": "PROVISIONAL_OWNER_REVIEW",
+          "status": "draft",
+          "effectiveFrom": "2026-10-23"
+        },
+        "rationale": "اختيار مرجع تقني غير مناسب يفسد قرارات التطوير. PROVISIONAL_OWNER_REVIEW",
+        "enforcement": {
+          "textual": true,
+          "failureAction": "review",
+          "mergeEffect": "advisory"
+        },
+        "verification": {
+          "evalFixtures": [
+            "drafting/eval-fixtures.json#/AGHR-001"
+          ]
+        },
+        "impact": {
+          "band": "high",
+          "evidence": "assumed"
+        },
+        "reviewCadence": "Owner review before activation and after material changes",
+        "nextReview": "2027-01-21",
+        "exceptions": {
+          "allowed": false
+        },
+        "references": [
+          "drafting/OWNER_DIRECTIVE.json"
+        ]
+      },
+      "field_provenance": {
+        "/id": {
+          "value": "AGHR-001",
+          "status": "SOURCE_VALUE_UNCHANGED",
+          "basis": "Exact source value"
+        },
+        "/title": {
+          "value": "مرجعية المطور التقنية",
+          "status": "PROVISIONAL_OWNER_REVIEW",
+          "basis": "User authorized provisional drafting; project-wide scope with the original trigger preserved in rule text; no assertion of runtime approval or measured effect."
+        },
+        "/kind": {
+          "value": "PRINCIPLE",
+          "status": "PROVISIONAL_OWNER_REVIEW",
+          "basis": "User authorized provisional drafting; project-wide scope with the original trigger preserved in rule text; no assertion of runtime approval or measured effect."
+        },
+        "/force": {
+          "value": "MUST",
+          "status": "SOURCE_VALUE_UNCHANGED",
+          "basis": "Exact source value"
+        },
+        "/severity": {
+          "value": "high",
+          "status": "PROVISIONAL_OWNER_REVIEW",
+          "basis": "اختيار مرجع تقني غير مناسب يفسد قرارات التطوير."
+        },
+        "/scope/paths": {
+          "value": [
+            "**"
+          ],
+          "status": "PROVISIONAL_OWNER_REVIEW",
+          "basis": "User authorized provisional drafting; project-wide scope with the original trigger preserved in rule text; no assertion of runtime approval or measured effect."
+        },
+        "/rule": {
+          "value": "Applies when: Always.\nUse applicable official model and host developer references as the first technical authority; classify recommendations and examples by scope.",
+          "status": "PROVISIONAL_OWNER_REVIEW",
+          "basis": "User authorized provisional drafting; project-wide scope with the original trigger preserved in rule text; no assertion of runtime approval or measured effect."
+        },
+        "/authority/source": {
+          "value": "drafting/OWNER_DIRECTIVE.json",
+          "status": "PROVISIONAL_OWNER_REVIEW",
+          "basis": "User authorized provisional drafting; project-wide scope with the original trigger preserved in rule text; no assertion of runtime approval or measured effect."
+        },
+        "/authority/level": {
+          "value": "project",
+          "status": "PROVISIONAL_OWNER_REVIEW",
+          "basis": "User authorized provisional drafting; project-wide scope with the original trigger preserved in rule text; no assertion of runtime approval or measured effect."
+        },
+        "/authority/owner": {
+          "value": "Platform Governance Team",
+          "status": "PROVISIONAL_OWNER_REVIEW",
+          "basis": "User authorized provisional drafting; project-wide scope with the original trigger preserved in rule text; no assertion of runtime approval or measured effect."
+        },
+        "/authority/approvedBy": {
+          "value": "PROVISIONAL_OWNER_REVIEW",
+          "status": "PROVISIONAL_OWNER_REVIEW",
+          "basis": "User authorized provisional drafting; project-wide scope with the original trigger preserved in rule text; no assertion of runtime approval or measured effect."
+        },
+        "/authority/status": {
+          "value": "draft",
+          "status": "PROVISIONAL_OWNER_REVIEW",
+          "basis": "User authorized provisional drafting; project-wide scope with the original trigger preserved in rule text; no assertion of runtime approval or measured effect."
+        },
+        "/authority/effectiveFrom": {
+          "value": "2026-10-23",
+          "status": "PROVISIONAL_OWNER_REVIEW",
+          "basis": "User authorized provisional drafting; project-wide scope with the original trigger preserved in rule text; no assertion of runtime approval or measured effect."
+        },
+        "/rationale": {
+          "value": "اختيار مرجع تقني غير مناسب يفسد قرارات التطوير. PROVISIONAL_OWNER_REVIEW",
+          "status": "PROVISIONAL_OWNER_REVIEW",
+          "basis": "اختيار مرجع تقني غير مناسب يفسد قرارات التطوير."
+        },
+        "/enforcement/textual": {
+          "value": true,
+          "status": "PROVISIONAL_OWNER_REVIEW",
+          "basis": "User authorized provisional drafting; project-wide scope with the original trigger preserved in rule text; no assertion of runtime approval or measured effect."
+        },
+        "/enforcement/failureAction": {
+          "value": "review",
+          "status": "PROVISIONAL_OWNER_REVIEW",
+          "basis": "User authorized provisional drafting; project-wide scope with the original trigger preserved in rule text; no assertion of runtime approval or measured effect."
+        },
+        "/enforcement/mergeEffect": {
+          "value": "advisory",
+          "status": "PROVISIONAL_OWNER_REVIEW",
+          "basis": "User authorized provisional drafting; project-wide scope with the original trigger preserved in rule text; no assertion of runtime approval or measured effect."
+        },
+        "/verification/evalFixtures": {
+          "value": [
+            "drafting/eval-fixtures.json#/AGHR-001"
+          ],
+          "status": "PROVISIONAL_OWNER_REVIEW",
+          "basis": "User authorized provisional drafting; project-wide scope with the original trigger preserved in rule text; no assertion of runtime approval or measured effect."
+        },
+        "/impact/band": {
+          "value": "high",
+          "status": "PROVISIONAL_OWNER_REVIEW",
+          "basis": "اختيار مرجع تقني غير مناسب يفسد قرارات التطوير."
+        },
+        "/impact/evidence": {
+          "value": "assumed",
+          "status": "PROVISIONAL_OWNER_REVIEW",
+          "basis": "User authorized provisional drafting; project-wide scope with the original trigger preserved in rule text; no assertion of runtime approval or measured effect."
+        },
+        "/reviewCadence": {
+          "value": "Owner review before activation and after material changes",
+          "status": "PROVISIONAL_OWNER_REVIEW",
+          "basis": "User authorized provisional drafting; project-wide scope with the original trigger preserved in rule text; no assertion of runtime approval or measured effect."
+        },
+        "/nextReview": {
+          "value": "2027-01-21",
+          "status": "PROVISIONAL_OWNER_REVIEW",
+          "basis": "User authorized provisional drafting; project-wide scope with the original trigger preserved in rule text; no assertion of runtime approval or measured effect."
+        },
+        "/exceptions/allowed": {
+          "value": false,
+          "status": "PROVISIONAL_OWNER_REVIEW",
+          "basis": "User authorized provisional drafting; project-wide scope with the original trigger preserved in rule text; no assertion of runtime approval or measured effect."
+        },
+        "/references": {
+          "value": [
+            "drafting/OWNER_DIRECTIVE.json"
+          ],
+          "status": "PROVISIONAL_OWNER_REVIEW",
+          "basis": "User authorized provisional drafting; project-wide scope with the original trigger preserved in rule text; no assertion of runtime approval or measured effect."
+        }
+      },
+      "source_package_1_2_and_1_3_equal": true,
+      "semantic_delta": "Original trigger prepended explicitly; original rule body and force retained. Classification, severity, scope and review/authority fields are proposed only."
+    }
+  ]
+}

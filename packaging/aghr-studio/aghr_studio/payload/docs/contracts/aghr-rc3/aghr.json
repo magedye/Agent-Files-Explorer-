@@ -1,0 +1,27 @@
+{
+  "id": "aghr",
+  "name": "AGHR rc.3 contract example — not a registered installation",
+  "version": "1.0.0-rc.3",
+  "schemaVersion": "1.2",
+  "owner": "EXAMPLE_ONLY_NOT_AN_AUTHENTICATED_OWNER",
+  "license": "MIT",
+  "compatibility": {
+    "agents": ["codex", "gemini-cli", "antigravity", "claude-code", "cursor"],
+    "targets": {
+      "codex": { "file": "AGENTS.md", "budgetBytes": 32768 },
+      "gemini-cli": { "file": "GEMINI.md", "budgetBytes": 65536, "imports": ["AGENTS.md"] },
+      "antigravity": { "dir": ".agents/rules", "budgetBytes": 65536 },
+      "claude-code": { "file": "CLAUDE.md", "imports": ["AGENTS.md"] }
+    }
+  },
+  "validation": {
+    "strict": true,
+    "coreKindsOnly": true,
+    "requireEvalForPriority": ["P0-Safety", "P0-Integrity"],
+    "requireTechnicalEnforcementFor": ["MUST_NOT"],
+    "requireSkillQualificationFor": ["P0-Safety", "P0-Integrity"],
+    "enforceSkillStateHonesty": true,
+    "enforceDocumentationConsistency": true,
+    "enforceAuthorityLevel": true
+  }
+}

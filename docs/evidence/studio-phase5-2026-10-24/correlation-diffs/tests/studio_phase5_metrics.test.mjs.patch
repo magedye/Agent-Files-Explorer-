@@ -1,0 +1,29 @@
+diff --git a/docs/evidence/studio-phase5-2026-10-24/correlation-before/tests/studio_phase5_metrics.test.mjs.raw b/tests/studio_phase5_metrics.test.mjs
+index b0ae8c2..9b3a295 100644
+--- a/docs/evidence/studio-phase5-2026-10-24/correlation-before/tests/studio_phase5_metrics.test.mjs.raw
++++ b/tests/studio_phase5_metrics.test.mjs
+@@ -23,10 +23,23 @@ test('T32 SARIF, JSON, MD and metrics CSV preserve identifiers, hashes and absen
+ });
+ test('T30 actual NO_SKILL_MATCH response still contributes to multilingual recall, without claiming an accuracy oracle',()=>{
+  const project={id:'project-a',host:'local',host_version:'v1',scope:'p/**'};
+- const data={runs:[{id:'VR-AR',finished_at:'2026-10-24',raw_output:JSON.stringify({host:'local',project_scope:'p/**',operation:'select',discovery_request:{query_supplied:true,non_english:true},result:{status:'NO_SKILL_MATCH',selected:[]}}),summary_json:JSON.stringify({studio_skill:{view:{state:{state:'NO_SKILL_MATCH'}},status:'passed'}})}]};
++ const data={runs:[{id:'VR-AR',finished_at:'2026-10-24',raw_output:JSON.stringify({host:'local',project_scope:'p/**',operation:'select',discovery_request:{query_supplied:true,non_english:true},result:{status:'NO_SKILL_MATCH',selected:[]}}),summary_json:JSON.stringify({studio_skill:{view:{host_version:'v1',state:{state:'NO_SKILL_MATCH'}},status:'passed'}})}]};
+  const observations=projectObservations(data,project),m=calculateMetrics({...ctx,observations});assert.equal(m.metrics.discovery_recall_multilingual_pct.value,100);assert.equal(m.metrics.discovery_recall_multilingual_pct.denominator,1);assert.equal(m.discovery_accuracy.value,null);
+  assert.equal(projectObservations(data,{...project,scope:'different/**'}).length,0);
+ });
++test('T30 historical host versions are taken from original execution/lifecycle receipts, never relabeled to current',()=>{
++ const project={id:'project-a',host:'local',host_version:'v1',scope:'p/**'},identity={host:'local',host_version:'v0',scope:'p/**'};
++ const records=Array.from({length:3},(_,i)=>({operation:'execute',run_id:'OLD-'+i,identity}));
++ const data={runs:[{id:'VR-OLD',finished_at:'2026-10-24',raw_output:JSON.stringify({run_id:'VR-OLD',scope:'p/**',status:'PASS',outputs:[{behavioral_evals:[{id:'old',status:'PASS'}]}],records})},{id:'VR-OLD-SKILL',finished_at:'2026-10-24',raw_output:JSON.stringify({host:'local',project_scope:'p/**',operation:'eval',result:{status:'PASS'}}),summary_json:JSON.stringify({studio_skill:{status:'passed',view:{host_version:'v0'}}})}]};
++ const observations=projectObservations(data,project);assert(observations.length>0);assert(observations.every(o=>o.version==='v0'));const current=calculateMetrics({...ctx,observations});assert.equal(current.metrics.skill_eval_pass_rate_pct.value,null);assert.equal(current.metrics.eval_pass_rate_pct.value,null);
++ assert.equal(calculateMetrics({...ctx,version:'v0',observations}).metrics.skill_eval_pass_rate_pct.value,100);
++});
++test('T30 a referenced execution beyond the observation window is unknown; explicit missing execution remains false success',()=>{
++ const project={id:'project-a',host:'local',host_version:'v1',scope:'p/**'};
++ const run=(id,reference)=>({id,finished_at:'2026-10-24',raw_output:JSON.stringify({host:'local',project_scope:'p/**',operation:'verify',result:{state:'VERIFIED',verified:true,execution:'EXECUTED',...(reference?{execution_run_id:reference}:{})}}),summary_json:JSON.stringify({studio_skill:{status:'passed',view:{host_version:'v1'}}})});
++ let observations=projectObservations({runs:[run('VR-OLD','EXEC-BEYOND-WINDOW')]},project),m=calculateMetrics({...ctx,observations});assert.equal(m.metrics.false_success_rate_pct.value,null);assert.equal(m.metrics.false_success_rate_pct.excluded_unobservable,1);assert.equal(observations[0].reason,'EXECUTION_OUTSIDE_OBSERVATION_WINDOW');
++ observations=projectObservations({runs:[run('VR-FALSE',null)]},project);m=calculateMetrics({...ctx,observations});assert.equal(m.metrics.false_success_rate_pct.value,100);assert.equal(m.alerts[0].code,'FALSE_SUCCESS');
++});
+ test('T30 live qualified P0 capabilities count for the exact host/project tuple; qualified historical labels cannot restore them',()=>{
+  const project={id:'project-a',host:'local',host_version:'v1',scope:'p/**'},task={skill_id:'skill-a',host:'local',qualification:{status:'QUALIFIED',record:{hostVersion:'v1',scope:'p/**'},historical:{hostVersion:'v1',scope:'p/**',contentHash:'sha256:a',driverHash:'sha256:b'}}};
+  // Adapter unit fixture, not host execution evidence. The production supplier

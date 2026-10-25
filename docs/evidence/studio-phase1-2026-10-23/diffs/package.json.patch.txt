@@ -1,0 +1,14 @@
+diff --git "a/docs\\evidence\\studio-phase1-2026-10-23\\before\\package.json.raw" b/package.json
+index 319a462..283fb82 100644
+--- "a/docs\\evidence\\studio-phase1-2026-10-23\\before\\package.json.raw"
++++ b/package.json
+@@ -9,7 +9,8 @@
+     "preview": "vite preview --port 5180 --strictPort",
+     "test": "node --test tests/*.test.mjs",
+     "studio:read": "node --permission --allow-fs-read=* --allow-child-process server/studio/serve.mjs",
+-    "test:studio-sentinel": "node tools/test_phase0_sentinel.mjs"
++    "test:studio-sentinel": "node tools/test_phase1_edge.mjs",
++    "test:studio-phase0-history": "node tools/test_phase0_sentinel.mjs"
+   },
+   "dependencies": {
+     "react": "^19.2.0",

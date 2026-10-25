@@ -1,0 +1,1152 @@
+{
+  "status": "PASS",
+  "completed": true,
+  "checks": [
+    {
+      "id": "EN-dashboard",
+      "status": "PASS"
+    },
+    {
+      "id": "EN-registry",
+      "status": "PASS"
+    },
+    {
+      "id": "EN-instruction",
+      "status": "PASS"
+    },
+    {
+      "id": "EN-capabilities",
+      "status": "PASS"
+    },
+    {
+      "id": "EN-skill",
+      "status": "PASS"
+    },
+    {
+      "id": "EN-profiles",
+      "status": "PASS"
+    },
+    {
+      "id": "EN-generation",
+      "status": "PASS"
+    },
+    {
+      "id": "EN-verification",
+      "status": "PASS"
+    },
+    {
+      "id": "EN-runtime",
+      "status": "PASS"
+    },
+    {
+      "id": "EN-packages",
+      "status": "PASS"
+    },
+    {
+      "id": "EN-package",
+      "status": "PASS"
+    },
+    {
+      "id": "EN-meta",
+      "status": "PASS"
+    },
+    {
+      "id": "EN-intake",
+      "status": "PASS"
+    },
+    {
+      "id": "EN-audit",
+      "status": "PASS"
+    },
+    {
+      "id": "EN-metrics",
+      "status": "PASS"
+    },
+    {
+      "id": "EN-settings",
+      "status": "PASS"
+    },
+    {
+      "id": "pilot-app-l2-public-UI",
+      "status": "PASS",
+      "historical_level": "L2",
+      "fresh_qualification": "NOT_RUN"
+    },
+    {
+      "id": "pilot-app-l3-public-UI",
+      "status": "PASS",
+      "historical_level": "L3",
+      "fresh_qualification": "NOT_RUN"
+    },
+    {
+      "id": "actual-Draft-create-strict-generate-persisted-detail",
+      "status": "PASS"
+    },
+    {
+      "id": "actual-strict-CLI-WebSocket-browser",
+      "status": "PASS"
+    },
+    {
+      "id": "AR-dashboard",
+      "status": "PASS"
+    },
+    {
+      "id": "AR-registry",
+      "status": "PASS"
+    },
+    {
+      "id": "AR-instruction",
+      "status": "PASS"
+    },
+    {
+      "id": "AR-capabilities",
+      "status": "PASS"
+    },
+    {
+      "id": "AR-skill",
+      "status": "PASS"
+    },
+    {
+      "id": "AR-profiles",
+      "status": "PASS"
+    },
+    {
+      "id": "AR-generation",
+      "status": "PASS"
+    },
+    {
+      "id": "AR-verification",
+      "status": "PASS"
+    },
+    {
+      "id": "AR-runtime",
+      "status": "PASS"
+    },
+    {
+      "id": "AR-packages",
+      "status": "PASS"
+    },
+    {
+      "id": "AR-package",
+      "status": "PASS"
+    },
+    {
+      "id": "AR-meta",
+      "status": "PASS"
+    },
+    {
+      "id": "AR-intake",
+      "status": "PASS"
+    },
+    {
+      "id": "AR-audit",
+      "status": "PASS"
+    },
+    {
+      "id": "AR-metrics",
+      "status": "PASS"
+    },
+    {
+      "id": "AR-settings",
+      "status": "PASS"
+    },
+    {
+      "id": "mobile-RTL-no-horizontal-overflow",
+      "status": "PASS"
+    }
+  ],
+  "responses": [
+    {
+      "path": "/api/v1/session",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/instructions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/metrics/current",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/metrics/history",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/dashboard",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/settings",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/audit/events",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/phase5/items",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/instructions/OBS-REFERENCE-STATE-001/relations",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/instructions/OBS-REFERENCE-STATE-001/history",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/capabilities",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/review-sample/hosts",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/capabilities",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/review-sample/hosts",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/skill-lifecycle",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/skill-lifecycle/scenarios",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/skill-lifecycle/history",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/review-sample/profiles",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/read-profile",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/verify/runs",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/evidence/tasks",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/phase4/packages",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/phase4",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/phase4/packages",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/phase4",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/metrics/current",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/phase5/items",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/metrics/history",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/dashboard",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/settings",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/audit/events",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/metrics/current",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/metrics/history",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/dashboard",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/settings",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/audit/events",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/phase5/items",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/metrics/current",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/metrics/history",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/dashboard",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/settings",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/audit/events",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/phase5/items",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/pilot-app-l2/instructions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/pilot-app-l2/published",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/metrics/current",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/metrics/history",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/dashboard",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/settings",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/audit/events",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/phase5/items",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/pilot-app-l3/instructions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/pilot-app-l3/published",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/instructions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/draft-intents",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/draft-intents/51d82ea9-93f9-468b-9ca6-05d0e536b9df",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/change-packages",
+      "status": 201
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/cps/CP-2026-39afa885-0dc6-40f9-b626-384c80f28ec6/intents",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/draft-intents/ffac8fb5-29e3-4e73-a604-ba8c6882a422",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/cps/CP-2026-39afa885-0dc6-40f9-b626-384c80f28ec6/validate",
+      "status": 202
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/cps/CP-2026-39afa885-0dc6-40f9-b626-384c80f28ec6/intents",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/draft-intents/8acf8463-bbb3-4733-9148-4ce197597ae6",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/generate/preview",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/cps/CP-2026-39afa885-0dc6-40f9-b626-384c80f28ec6",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/verify/runs",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/verification-intents",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/draft-intents/b5a8eac8-80a7-47c0-9595-b82568e051b9",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/verify/run",
+      "status": 202
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/verify/runs/VR-37df2a72-cb60-48ef-9bf7-242a4a0bd2fb",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/verify/runs",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/verify/runs/VR-37df2a72-cb60-48ef-9bf7-242a4a0bd2fb/stream-ticket",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/verify/runs/VR-37df2a72-cb60-48ef-9bf7-242a4a0bd2fb",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/verify/runs/VR-37df2a72-cb60-48ef-9bf7-242a4a0bd2fb",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/verify/runs/VR-37df2a72-cb60-48ef-9bf7-242a4a0bd2fb",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/verify/runs/VR-37df2a72-cb60-48ef-9bf7-242a4a0bd2fb",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/verify/runs/VR-37df2a72-cb60-48ef-9bf7-242a4a0bd2fb",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/verify/runs/VR-37df2a72-cb60-48ef-9bf7-242a4a0bd2fb",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/verify/runs/VR-37df2a72-cb60-48ef-9bf7-242a4a0bd2fb",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/verify/runs/VR-37df2a72-cb60-48ef-9bf7-242a4a0bd2fb",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/verify/runs/VR-37df2a72-cb60-48ef-9bf7-242a4a0bd2fb",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/verify/runs",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/metrics/current",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/metrics/history",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/dashboard",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/phase5/items",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/audit/events",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/settings",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/instructions/OBS-REFERENCE-STATE-001/relations",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/instructions/OBS-REFERENCE-STATE-001/history",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/capabilities",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/review-sample/hosts",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/capabilities",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/review-sample/hosts",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/skill-lifecycle",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/skill-lifecycle/scenarios",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/skill-lifecycle/history",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/review-sample/profiles",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/read-profile",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/verify/runs",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/evidence/tasks",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/change-packages",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/phase4/packages",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/phase4",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/phase4/packages",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/phase4",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/metrics/current",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/metrics/history",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/dashboard",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/settings",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/audit/events",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/phase5/items",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/dashboard",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/metrics/current",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/metrics/history",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/settings",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/audit/events",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/phase5/items",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/dashboard",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/metrics/current",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/metrics/history",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/settings",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/audit/events",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/phase5/items",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/metrics/current",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/metrics/history",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/dashboard",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/settings",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/audit/events",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/rc3-local/phase5/items",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/pilot-app-l3/instructions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/workspaces/pilot-app-l3/published",
+      "status": 200
+    }
+  ],
+  "console_errors": [],
+  "sentinel": {
+    "protected_files": 204,
+    "before": {
+      "docs/evidence/studio-phase5-2026-10-24/BEFORE_AFTER.json": "7c5df1581a783407bcfe610cd65f0c51b9f6fbbc570fdefe05de07a48f52bfde",
+      "docs/evidence/studio-phase5-2026-10-24/BUILD_RECEIPT.json": "af065922e81bef6899f579f0b2d0c6b7f732381be08fcf7b153cd88ed2e2e606",
+      "docs/evidence/studio-phase5-2026-10-24/CONTEXT_FINAL.log": "8c92346d36dc4d32725aa8fc3377b907ecc905fefc6a6c81a79241b3c2d6e071",
+      "docs/evidence/studio-phase5-2026-10-24/CORRELATION_BASE.json": "56ecac6f85f8f1bda02ec935b7437781abe0e6d6d76b1dd1968b56b221752cf4",
+      "docs/evidence/studio-phase5-2026-10-24/CORRELATION_BEFORE_AFTER.json": "9f813604b3fae7cdc1dc0c6395f4bf315ee8017ad1825342a67ff7a04527e8f3",
+      "docs/evidence/studio-phase5-2026-10-24/FINAL_ACCEPTANCE.json": "7d8eba327336abc5d300efe19f1b83ee3e0b08c03271f798e1c48e3ee196f69d",
+      "docs/evidence/studio-phase5-2026-10-24/FINAL_AFFECTED_TESTS.log": "4b8e4abcfd2b81c43fb6339b7d0bb906dc95e77ea74b9fb351912f133651dde1",
+      "docs/evidence/studio-phase5-2026-10-24/FINAL_CORRELATION_TODO.md": "b5201e551d7880721e07fa5c71664acb9ae36bcc66cc66404e64c16f481c83ed",
+      "docs/evidence/studio-phase5-2026-10-24/FINAL_RUNTIME_REPLAY.json": "4f9028142d20b617ea96b0668ccd48e58ad72ac0810ff5654504b13b391bb199",
+      "docs/evidence/studio-phase5-2026-10-24/FOCUSED_FINAL.log": "1044bf215e244001a905eca8a4c14da54b3ecd9e3598695388846caefa195f25",
+      "docs/evidence/studio-phase5-2026-10-24/NPM_TEST_FINAL.log": "22d3b49995e1f57e291c2ae00a184afe72dec397c70dee1bbcb577ee92e11fe5",
+      "docs/evidence/studio-phase5-2026-10-24/NPM_TEST_FINAL_V2.log": "0e548c3d0ad221ccb1118a122e2c26cc2f0eaea036ed59a5e4fe542531a4060e",
+      "docs/evidence/studio-phase5-2026-10-24/PREFLIGHT.json": "5c3eed0f605dbc58a24734a56d9da3736724838adae1753689239a9a3d52966c",
+      "docs/evidence/studio-phase5-2026-10-24/PRESERVATION.json": "6edfb119f68623a7bf5aa70e2c19bdf5bba092a71a8240906c2ff248dfdccd8f",
+      "docs/evidence/studio-phase5-2026-10-24/PRESERVATION_BEFORE_FINAL_DOCS.json": "6edfb119f68623a7bf5aa70e2c19bdf5bba092a71a8240906c2ff248dfdccd8f",
+      "docs/evidence/studio-phase5-2026-10-24/PRESERVATION_FINAL.json": "4b0df7b1d682a1a8014d773dc2dc1bc5bc4a844ec9363d28ed6917130929c8c1",
+      "docs/evidence/studio-phase5-2026-10-24/PROBE_MEASUREMENT.json": "471c996e1ab08518e3e3a3871b7a4f8f6b3948a00379cef30e6716d0c8f36163",
+      "docs/evidence/studio-phase5-2026-10-24/PROBE_META.json": "e3f61c319c3a0187a77dce0f99c6ea5eceb7135966718e2aeeabbaa095da47df",
+      "docs/evidence/studio-phase5-2026-10-24/PROJECT_EVALUATORS_BEFORE_FIX.lock.json": "d0fc897dda6c09f6cd47c07ab39ddb63139cc37eb77911bb8c1fcc385c3815f9",
+      "docs/evidence/studio-phase5-2026-10-24/PROJECT_EVALUATORS_BEFORE_NEGATIVE_PRECISION.lock.json": "b649d4c2c7618c85ad07eb78c5e1665ddadb801e18e4951bf54b3defa9792196",
+      "docs/evidence/studio-phase5-2026-10-24/README.md": "f9f69ae603ebc29f3d2d22d04c9734fe00b6aa256bed4f33cca2c8baa6707774",
+      "docs/evidence/studio-phase5-2026-10-24/REGRESSION_CANCELLED.json": "898d3a5da1f563ffb89c408b990a1c912d12e6c126e8067209ed0a4d98e9ad7c",
+      "docs/evidence/studio-phase5-2026-10-24/SELF_REVIEW.md": "89e9490bf4db9d81df9b96397b34c8fb4569dd4fbae1950792bfd0726eae0928",
+      "docs/evidence/studio-phase5-2026-10-24/TESTED_SOURCE_FINAL.json": "751f81e392c04d3c4c911a34b7536439064f795895c82ae60e6294ed821a40ac",
+      "docs/evidence/studio-phase5-2026-10-24/TESTED_SOURCE_FINAL_V2.json": "8fc37a76086de3ddd4dc32f49c0764be079361a592575b713aa26d24ebdecf8c",
+      "docs/evidence/studio-phase5-2026-10-24/TESTED_SOURCE_FINAL_V3.json": "2b7dc6e12c80938e79c840845a338d648c5f9994baebdf47b8fdbe7edef7ee71",
+      "docs/evidence/studio-phase5-2026-10-24/after/docs/INDEX.md.raw": "a0773ebf74531cb63129ff040d6fd50e852581aac1fb6f1551af48965805f564",
+      "docs/evidence/studio-phase5-2026-10-24/after/docs/plans/STUDIO_UPGRADE_TASKS_AR.md.raw": "e95662c95f518bfa14acc19c0b07951825fe05a3f8a60272885bb24a1ef47d6c",
+      "docs/evidence/studio-phase5-2026-10-24/after/docs/status/CURRENT.md.raw": "306f73a8772e6a956c88a2cbcd99635bd8a90edf5688cdafa62ea8f7f1104c39",
+      "docs/evidence/studio-phase5-2026-10-24/after/docs/status/HANDOFF.md.raw": "067914e9558442d95a7d9fb886a5ae06f73dadb0ea83be19db5061863387a06d",
+      "docs/evidence/studio-phase5-2026-10-24/after/server/studio/db/persistent.js.raw": "02f26e1cebbc92fc39243c11dadfe0bea72587c14bfed88cabe5e4766ab2e636",
+      "docs/evidence/studio-phase5-2026-10-24/after/server/studio/draft-runtime.js.raw": "4e7dc8bea0c2508f8adce69a5c47eb77b6159b38472c2dbaa47236870991dcd9",
+      "docs/evidence/studio-phase5-2026-10-24/after/server/studio/serve-draft.mjs.raw": "232eaecf08ee0b0779f80e3938f796dd539476ef117c797bc7af4ee90ee26d19",
+      "docs/evidence/studio-phase5-2026-10-24/after/server/studio/skills/lifecycle-service.js.raw": "4081901c76783d6b7a858a9c90906ed59858c12b898c3e4641d27e461cd96f27",
+      "docs/evidence/studio-phase5-2026-10-24/after/server/studio/write-authorization.js.raw": "9d601d48bbe1ea811b7c1817d714e7dba55df314cc2a26fe343f1d94c855d77a",
+      "docs/evidence/studio-phase5-2026-10-24/after/src/features/changes/DraftStudio.jsx.raw": "c60f092db5b12943b6a38b7ec4ee710ddd996a1b324d63da1cf164f2869877b9",
+      "docs/evidence/studio-phase5-2026-10-24/after/tests/studio_phase3_skills.test.mjs.raw": "64d15d28693d5d1b5e3909668e21b5055f29c6dbf018a31a1bf3d9eb462c2943",
+      "docs/evidence/studio-phase5-2026-10-24/before/docs/INDEX.md.raw": "b8f36e752b16a65b93d936f98eea5aa7718ffe74c63be4ca3acdf5951ce2bdd2",
+      "docs/evidence/studio-phase5-2026-10-24/before/docs/plans/STUDIO_UPGRADE_TASKS_AR.md.raw": "d18c27a643e75e7ff07d168345ec1e933f3123d9d1743dd1fe67e286cf0fe879",
+      "docs/evidence/studio-phase5-2026-10-24/before/docs/status/CURRENT.md.raw": "f45de0036271dce4158e4f62436275a317946d36aad63c604e3a24aa08832d42",
+      "docs/evidence/studio-phase5-2026-10-24/before/docs/status/HANDOFF.md.raw": "1640df53392e22baf4761211ec6646251383ef70b3150d3c9416d7db7eb5b83f",
+      "docs/evidence/studio-phase5-2026-10-24/before/server/studio/db/persistent.js.raw": "c854d312a9bd8bd94676d80cecf3dc9467ac8401abb5cfd13ba67f335abb8671",
+      "docs/evidence/studio-phase5-2026-10-24/before/server/studio/draft-runtime.js.raw": "9ec0d8efd6b5bb135d9c257a5778da53b5975fea8e440731403453bbc65bce57",
+      "docs/evidence/studio-phase5-2026-10-24/before/server/studio/serve-draft.mjs.raw": "75efdb1de5fc729e0fc617d9f2232d7a8aa31a45c083d218acd4edcb5bd929f0",
+      "docs/evidence/studio-phase5-2026-10-24/before/server/studio/skills/lifecycle-service.js.raw": "10ff55cbed9250950855d308fc92485835307b0f95300d9ad3acf8e946a78dc9",
+      "docs/evidence/studio-phase5-2026-10-24/before/server/studio/write-authorization.js.raw": "c2649e5d9204459d73324cb84cbbce6c057ff20429a512f0b7158d40181938c4",
+      "docs/evidence/studio-phase5-2026-10-24/before/src/features/changes/DraftStudio.jsx.raw": "53d4902be6d970b1a1abb366547de946e013f3c77f07eabbac0efe64f7031063",
+      "docs/evidence/studio-phase5-2026-10-24/before/tests/studio_phase3_skills.test.mjs.raw": "9c15913b692f46cd67c29c41d1105b2ef93858b7f2442ed8246f81eca658e363",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/BROWSER_ACCEPTANCE.json": "6d60951cb0e17b52ac8f1ec524b8ed9c6ad1a2ed2932d189dc0b047a48628b61",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/MCP_INSPECTION.json": "8bdd969c68abb836bd272e6da9683883f887ddaf1b62a31f1643673017ac3b7f",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/aghr-compliance.sarif": "c0c74260b839377e8ab64ae78c05c231f921fe11f7897953be53bb4862279cab",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/dashboard-ar-1440.png": "96e4774970641161853f782cc5fd61cbaab56a93d3a13b245cbf2ec117417596",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/dashboard-ar-1440.txt": "039c8aa9712ae140c762739732e549a48daab92f5263f8b992b764aca06e932a",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/dashboard-ar.png": "f5a80f883c43ae44ab3b7a9f6485b2cb894faa30aa57042b2884a7518cb0aa03",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/dashboard-ar.txt": "8ba8cff2394dfea52f332b8dfeaca47f71b47fa1aec555a31979318b3fcf5390",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/dashboard-en-1440.png": "39453240c6e2770337d74f392ea42f04390a87910d019793405f5c9adc248d31",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/dashboard-en-1440.txt": "6403d3897dc2ce7ff932534797c337d313cbcea53b45f30dce0e638706414e25",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/finish.marker": "7d6befdcb1be2576c3996d9adcd4f3c5b9672aa2caa975bc8d17edbb8e774fe8",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/metrics-ar-1440.png": "851bc7dcbc62d7f24ee2e1b088e2a3a99ca08edb767d2d6dfa3e49b31d216b4d",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/metrics-ar-1440.txt": "c68fdea51205f0e3bcf13fd702a738f9c7f892cce7fe36f9318db40536bb452c",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/metrics-ar.png": "79fbc9be7e8c7cfa7bf793f818c4fcb0562b514d5ee9f1d89a253747ac5db611",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/metrics-ar.txt": "5b8668f9178b466c69493ba474faf52dda4653760218f426b14d587a7940bd36",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/metrics-en-1440.png": "cc316fc9f3fb579f90604ba2f3b8d7507e5a685ecc220a3fa74856da3b764956",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/metrics-en-1440.txt": "435fef16e79b3496ae48daac5b68e7005dd5813a7616833852dad1f1761ead43",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/report-json-ar.png": "869e9205c373d2a356e8c6e9d041315c72b086d89b21fda2c6a233ffc6a01eb3",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/report-json-ar.txt": "553ea86d73b04360c01189630e8de91ff683f4b546b47ce9f05c872c715236ee",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/report-md-ar.png": "60d80ccd0d77e9b779348643087735c4fbef5724d39663e2737a4c07b691f4d4",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/report-md-ar.txt": "10af1f43888598212ba4df3bf6c46cd4ff445becd0a0d006f7294551830f6a25",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/report-sarif-ar.png": "bd3412623c8a1929d9f151a6a1eaa73f1c6bc2a5e24c36b331a991b663ba8c77",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/report-sarif-ar.txt": "d9cae31996fb187d960a9574857517430aaeef6bbc25c6f58eea1faa08793f45",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/reports-ar-1440.png": "78dbbf12fc72c219f45991522b5f3912616f75b0d9cf616d1d635351c57d141b",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/reports-ar-1440.txt": "4f3ec0975a6788e81171f805dd7ad9920acf3756468d7a2dcd666d36f8ad3100",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/reports-en-1440.png": "110fc93b96cc5c64abb92db919b4819e4beaae95e05470b217a4999cad04d726",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/reports-en-1440.txt": "e5c8700b1f78562efe5ab1151217b28b02c147c62d5547223bb9fab11dc4da61",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/settings-ar-1440.png": "89b1dae85b3e74c6b0fa288ff534a2090d8d8feb6e148d793539353aeedcc826",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/settings-ar-1440.txt": "31b203a10eb4007f930eacf3f899ca76878037e8d5109599da5310d1601b4d55",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/settings-ar.png": "3b99f91e5f53c351220d540319cc3efe9168cb3931a16e5e24a3709eddbdca57",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/settings-ar.txt": "31b203a10eb4007f930eacf3f899ca76878037e8d5109599da5310d1601b4d55",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/settings-en-1440.png": "ccb114e3d7d71f4d933071ec5ccea8387261589d0f65bfccca68886cbee0af55",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/settings-en-1440.txt": "6501b8256c0a299c619825b74b9c4735030f6bbba50931dab11bb643903e9640",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final/BROWSER_ACCEPTANCE.json": "27a3a676fa4b354ffa9659b1a3469d1052960b65bb09e281513337d21b2bf53f",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final/dashboard-ar.png": "9f9754182a32b1b7ad69a6d5c7207051ac44dedcea97c8180b5e866dadbb2536",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final/dashboard-ar.txt": "2bae4d68f6554944ee13f8ad3fb4408ebde11338bcdeb3f9a36eedd524122209",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final/metrics-ar.png": "68294d7a9cd592fed7bc8ecc9548d5b5db2ce9900dd274428e3d527280edddd0",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final/metrics-ar.txt": "fe22130608161080b8dcb345deaee3c36bf30683f0240cc098d984cb191b0d70",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/BROWSER_ACCEPTANCE.json": "6d60951cb0e17b52ac8f1ec524b8ed9c6ad1a2ed2932d189dc0b047a48628b61",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/MCP_INSPECTION.json": "a00d74d0e23eb808d61b1fe32a3f6626eb03065884dff8ce52ccb0d81c7e1399",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/aghr-compliance.sarif": "a83e476aabc8a1d6d74dfaea83769c9c48244f03dd5680ccd5b09cb8575de299",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/dashboard-ar-1440.png": "0b84bba2aa3c646bf95355064a1580c8f23cfb8a3aa5f0f18bbd4c82b24b06d2",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/dashboard-ar-1440.txt": "16d8928c32fb6af6489171641fd6e51c60b91cc8283532b50750f78ce3426b19",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/dashboard-ar.png": "7f9328fb3cf5efd74fdff6c18155c2d55659840f1b33865b83d9610849268fdf",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/dashboard-ar.txt": "52ed8dacf5441fb92b7d6a07930b25158ac2419fb4c4a2f3fd672c1396e0a041",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/dashboard-en-1440.png": "4ff5e31487f1f4da05bec0f25d596b099eeb6a753a896951b2eda6d28f4827e5",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/dashboard-en-1440.txt": "3cdadbe09e5a266e3b7768b61b7d4d6ee5ee8e77eb60d6c791010eafdb45907d",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/finish.marker": "7d6befdcb1be2576c3996d9adcd4f3c5b9672aa2caa975bc8d17edbb8e774fe8",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/metrics-ar-1440.png": "86a971988482ecdfad8a4738e28aae0506011857e039d4bf26a109dbe4cbbf82",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/metrics-ar-1440.txt": "3bd7ea497d5cbfea8a04d2d6e9b415575d0250c23240b7a58e75346361f78ab3",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/metrics-ar.png": "60c2039be6fa35dfac9f5f5d276851ff275cf231ab5878cfc7890b67c05d0b7f",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/metrics-ar.txt": "22e7b792ef542e1c8c8d421a97b38cca46993037e94b465805cedb760dfab339",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/metrics-en-1440.png": "7948a7ce451d01a2064bbd3db1a5bcb26124dc04f3ea53569bce6a022636ed40",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/metrics-en-1440.txt": "d675786145d3ecce8a18582c5f2359f961ecc7d5b3989e1c6b669a8d90be97f8",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/report-json-ar.png": "752a2eb7cd8c3990886f7c632cb48a8975bbd12133c7fde844f4b6271b5dedf0",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/report-json-ar.txt": "36f12c6c5758841698cac1607dda037a4b014fbf5a3736d7f6b6ed13272e789b",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/report-md-ar.png": "ea8f2114515089d4f3c4af96bcdfb2f52cbbff5341a38730696bf56d32b816a2",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/report-md-ar.txt": "82032b87fb5a8ee35e808de0bc9b4f21cd2c82337838318fb9e20893bfdbe8a7",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/report-sarif-ar.png": "dc2fb306c282ae1cef27d3ae5199d5e4c2879519a516a3fb1ec6763469ba9bdd",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/report-sarif-ar.txt": "3bd90dd4dccf64aa2f50b346bdb5f427bb9d504ac99fe162d2161af66f83435e",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/reports-ar-1440.png": "474c75b3dc17090be60b7734edc268dd608df5b179fdc36c8b94bfa72bcf8797",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/reports-ar-1440.txt": "b2b068b1663b18650b11f39704d39435e2d3c3595f1f54c70aa36178207dc143",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/reports-en-1440.png": "2eb801d2ac44a72132a76e432372e05b359e10af3bd679beb21c5c8a07169f1c",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/reports-en-1440.txt": "f999770144dda835003358537e3a8c9192f7887042d199c9877a058cf4b8cc58",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/settings-ar-1440.png": "89b1dae85b3e74c6b0fa288ff534a2090d8d8feb6e148d793539353aeedcc826",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/settings-ar-1440.txt": "31b203a10eb4007f930eacf3f899ca76878037e8d5109599da5310d1601b4d55",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/settings-ar.png": "3b99f91e5f53c351220d540319cc3efe9168cb3931a16e5e24a3709eddbdca57",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/settings-ar.txt": "31b203a10eb4007f930eacf3f899ca76878037e8d5109599da5310d1601b4d55",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/settings-en-1440.png": "ccb114e3d7d71f4d933071ec5ccea8387261589d0f65bfccca68886cbee0af55",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/settings-en-1440.txt": "6501b8256c0a299c619825b74b9c4735030f6bbba50931dab11bb643903e9640",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-after/server/studio/phase5/metrics.mjs.raw": "8a8680cfc82fd818864a282e37b41d79ec5c00f36da7610fa39bed767fce0448",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-after/server/studio/phase5/observations.mjs.raw": "a9ac39880cc148cbf0fe62946e5e5e21c6db29a92ff14fe5aeacefddd3494e65",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-after/server/studio/skills/lifecycle-service.js.raw": "4081901c76783d6b7a858a9c90906ed59858c12b898c3e4641d27e461cd96f27",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-after/tests/studio_phase5_metrics.test.mjs.raw": "ae5e712bc2eb9164c6e61f9719a5738fcacb27ce9e6bb1cf370a7517cb3003f9",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-before/server/studio/phase5/metrics.mjs.raw": "780e567fd820c4b490371eebd57c57bf0ba546ae984d40672270f11e36553845",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-before/server/studio/phase5/observations.mjs.raw": "ba724da18c5a590591e8e3071e9d8d2adc8a12f9d253b92c4e4c32b3701e1a87",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-before/server/studio/skills/lifecycle-service.js.raw": "55e1d7fff1aa4c5468ce2cb6e00121e90e8900ff453883998afbe8ff0ae5bee6",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-before/tests/studio_phase5_metrics.test.mjs.raw": "9cdcc19c629a96dfcb7e09f3796e04f83eccff39e3ee0003325193ceb482e0e4",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-diffs/server/studio/phase5/metrics.mjs.patch": "60d561a3cb0f4d5cc563bbf901fb8558c379ebe62a7bc820294dac8fe7481779",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-diffs/server/studio/phase5/observations.mjs.patch": "3693155068a79cdbdbf602a681dfa148bbba891131c12ac1b8199223757dde87",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-diffs/server/studio/skills/lifecycle-service.js.patch": "76252d832d47d4cdbbb144a207f7dc61454d2bbd3c221bcff3243d66f29720ab",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-diffs/tests/studio_phase5_metrics.test.mjs.patch": "19b9df4b8c53d6c0e69c2ff683e0b66cefa9ce5a4918c924fd7c6553074d93b0",
+      "docs/evidence/studio-phase5-2026-10-24/diffs/docs/INDEX.md.patch": "74205d35ba33466663c0fdf2d0c23a8d64b023b699a44d029e1338aaf6fd2099",
+      "docs/evidence/studio-phase5-2026-10-24/diffs/docs/plans/STUDIO_UPGRADE_TASKS_AR.md.patch": "9ca8ec53614bd3ab1e0585277c0fd4c1d9cb1002ce15cbbc5a99b5655b865029",
+      "docs/evidence/studio-phase5-2026-10-24/diffs/docs/status/CURRENT.md.patch": "86d874cd74c1a651fdaf75d57d7c2dbc6290fc8b7be4466b79369d51ee7bef64",
+      "docs/evidence/studio-phase5-2026-10-24/diffs/docs/status/HANDOFF.md.patch": "624c1395d48856aa1cabf28c240fd91312c0d4957b10495845588b20fb02a22b",
+      "docs/evidence/studio-phase5-2026-10-24/diffs/server/studio/db/persistent.js.patch": "b989b3b7bb25f40d13c4d5afe711e70d07234a4654c5dd7e1829c0c0d727e6ef",
+      "docs/evidence/studio-phase5-2026-10-24/diffs/server/studio/draft-runtime.js.patch": "ea513a1de8962023e282aae7912c10f4561bd90b89a66d55916be3fd80997a5c",
+      "docs/evidence/studio-phase5-2026-10-24/diffs/server/studio/serve-draft.mjs.patch": "2ad32ff38338ed38a4c5a07bbc6f4e004b11e66f3cab711d1314afa1daf8e1e1",
+      "docs/evidence/studio-phase5-2026-10-24/diffs/server/studio/skills/lifecycle-service.js.patch": "a483952067385a1f13d9db62c29357210c64a94edb2b674c153d8ba60489449d",
+      "docs/evidence/studio-phase5-2026-10-24/diffs/server/studio/write-authorization.js.patch": "2624cda6dadb610862f18bf38dfbd9429db552b5dab6709f459b78707fdba8f0",
+      "docs/evidence/studio-phase5-2026-10-24/diffs/src/features/changes/DraftStudio.jsx.patch": "0771fc3f843205a94f4662717b59f9bf2dc1f8bff9333ab50866b7c17cf680a9",
+      "docs/evidence/studio-phase5-2026-10-24/diffs/tests/studio_phase3_skills.test.mjs.patch": "b0f4d1381c680f87e6e517aedfffd7d8a3956738122fdf8f8802083cbd66054e",
+      "docs/evidence/studio-phase5-2026-10-24/final-correlation/HTTP_ACCEPTANCE.json": "c1bb72ae2325ec54c675e46b936c29cf95c82f22044af9b70f38de3492d4afb7",
+      "docs/evidence/studio-phase5-2026-10-24/focused-v2/HTTP_ACCEPTANCE.json": "076001dfdfb8b4cd4e61d68340819f67f827a8af2a8e8b71460f9fe530ddbe41",
+      "docs/evidence/studio-phase5-2026-10-24/focused/HTTP_ACCEPTANCE.json": "31bea871d6343ba6d433bb509ee2029de258ce56334cf61699ccf8679a07536b",
+      "docs/evidence/studio-phase5-2026-10-24/full-suite-final-v2/HTTP_ACCEPTANCE.json": "ad82a0110d14e3d2340346d332292a1e520b519122727f792945c8d7093a0b38",
+      "docs/evidence/studio-phase5-2026-10-24/project-final-v2/PROJECT_EVALUATORS.json": "728619e3b4f96356b2689dfdb067bfe4405e1845e9ae5c1a2f1d8a6b64d1089d",
+      "docs/evidence/studio-phase5-2026-10-24/project-fixed/PROJECT_EVALUATORS.json": "207ab03fd6bb43306ddae381260c0a2f863f2a48657e8d98146f30f6514d06d4",
+      "docs/evidence/studio-phase5-2026-10-24/project-focused-v3/PROJECT_EVALUATORS.json": "b370adfc80534f5018d1dd59ac91fa5db54f2fae3d660b76a6376e072260c001",
+      "docs/evidence/studio-phase5-2026-10-24/project-focused/PROJECT_EVALUATORS.json": "5c09659408497d2575cd9110ca91b8ae85369940b335f824fa10269a203bb48e",
+      "docs/features/STUDIO_PHASE5_METRICS_SETTINGS.md": "f7955f47a621acbbe93ea09250b4e8f624661b89d53a42e285da83fb0ab39a76",
+      "server/studio/db/persistent.js": "ce558b5d6a83065334662d2c8f8e2a546cc89f8c8d7c2605798a8e556eb9dc4b",
+      "server/studio/draft-runtime.js": "96c0fdb965adf2db3961ce2cf1c20be3ff86264e24eebb706fa6d9192b4acb6d",
+      "server/studio/phase5/evaluators/SKILL.md": "6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692",
+      "server/studio/phase5/evaluators/SOURCE.lock.json": "0d0fcb2cf1d9cfe433c52e6ab1c86461e0461099718763957dde7efd06fef5e6",
+      "server/studio/phase5/evaluators/worker.py": "ac32f2affbafafeb0d0180e42a284cb6a65bfb44171b51aa865f454dae13335f",
+      "server/studio/phase5/metrics.mjs": "8a8680cfc82fd818864a282e37b41d79ec5c00f36da7610fa39bed767fce0448",
+      "server/studio/phase5/observations.mjs": "a9ac39880cc148cbf0fe62946e5e5e21c6db29a92ff14fe5aeacefddd3494e65",
+      "server/studio/phase5/project.mjs": "f63e92cac83136bc39365d8e8c50f3260e6aaf03fdb0f55692deb8a1b1932f68",
+      "server/studio/phase5/reports.mjs": "5fc8a0aca8d71d5becdfdee1cdec693f67a559b4e356317c5caa6e82193a9767",
+      "server/studio/phase5/routes.mjs": "00ad3281373a58594ed9d1b123fdd3db99dc125da8b2839a238fd90df51f13fa",
+      "server/studio/phase5/service.mjs": "ee1ee3652a6589efb44eeae40878fc39e8b0820b2173339568113a32057e954e",
+      "server/studio/serve-draft.mjs": "232eaecf08ee0b0779f80e3938f796dd539476ef117c797bc7af4ee90ee26d19",
+      "server/studio/skills/lifecycle-service.js": "4081901c76783d6b7a858a9c90906ed59858c12b898c3e4641d27e461cd96f27",
+      "server/studio/write-authorization.js": "d0767a9ac31ec2eaad88b450fe03aa2cf3d9fa12ea9e52b9c0b4e11f0b453ed7",
+      "src/features/changes/DraftStudio.jsx": "4445a9b28afb2571196c987a62fb64af8e9eb8066ac82d4108507803c645deab",
+      "src/features/measurement/Phase5Studio.jsx": "e7529a9758e2528dfe1baac129250678c4b4734c877fd5cb974f9694d2909ee9",
+      "src/features/measurement/phase5.css": "bc32f9ec583d8fe22f31c5f855b25958a42f71590159e6cea63f5491178da83e",
+      "tests/studio_phase3_skills.test.mjs": "64d15d28693d5d1b5e3909668e21b5055f29c6dbf018a31a1bf3d9eb462c2943",
+      "tests/studio_phase5.test.mjs": "e2472fd4ed04539b3de13f731175c87b5c23bc0ae5c2529aeea40722607d6d8f",
+      "tests/studio_phase5_evaluators.test.mjs": "2fa53e03ba25bda44f61522782a7bd15aa16dca0fdf47dd6c23f7c4bdd4112fa",
+      "tests/studio_phase5_metrics.test.mjs": "ae5e712bc2eb9164c6e61f9719a5738fcacb27ce9e6bb1cf370a7517cb3003f9",
+      "tools/phase5/browser.mjs": "7426aceded3cc182e96bacbff8eb2c5e587f29b99b5165231bfc7256ee277fc0",
+      "tools/phase5/build-receipt.mjs": "dea8a0156ec6e1e3b9bf7927baa8a4841c7028e8a574c3fcbd4e274e0464309f",
+      "tools/phase5/complete-docs.mjs": "043b80a3542f8a5c9a12d61a33d004ebaf383a1fb47e858cbd4629d6ac4b646b",
+      "tools/phase5/finalize.mjs": "ef232f2dad2e731a55c9f6689f015ee3386edc885371aad97baeeedea253dcc1",
+      "tools/phase5/freeze.mjs": "ae04784c2ac01ed6a33d8a80986f204f909473fd20544b5a82cf3577900dc7ad",
+      "tools/phase5/pin-evaluators.mjs": "5be2a9eb207a604ad67b4281f0a8db95dbf95b2356a8b289d6088e78c1b3f498",
+      "tools/phase5/prepare-correlation.mjs": "41b969f0a98e27b16b0ddf4ebc4eeaaeaa3e02e63e98797586bcd2be439b9eae",
+      "tools/phase5/prepare.mjs": "d70c0cf172d1bbced5a6503986b102b7d84cfa7396ac9319747eea0d057bb8a6",
+      "tools/phase5/preserve.mjs": "f37f7ecebb616660f95ec20986796ac8d8752a6337115dce0d1f8ca3ca58d5b3",
+      "tools/phase5/probe-evaluators.mjs": "6a47dc8eb0fb0ef748990bbf9bf27552b6d0b0ef85e76e6fc27759c7d7527179",
+      "tools/phase5/seal.mjs": "fc6d1b4da868c864d14cffab388bcccf0bf6bb97a75876239bbe08cf39c2687e",
+      "tools/phase5/stop-obsolete.ps1": "fa4402374a3e5856e50449682213ecb07224947d0f6c399a1f286f225fb42800",
+      "pilot-app-l2/.aghr/state.json": "bda0c08507dd045ce85f726bd811df5e2a43e0776cac87d653d11557bd8ef86e",
+      "pilot-app-l2/AGENTS.md": "4d264947a44a0f8f7000438cb81b694045f3a5c78936d363914e7e56a8aab913",
+      "pilot-app-l2/.aghr/package/aghr.json": "ffd1914b442e1436e62277b3b6e6c2f9fc557ac7d7369b6d81f497520d176db5",
+      "pilot-app-l2/.aghr/package/policies/identity.json": "5ac0bbb24b853d8e347d23892562cb47149f3d09af52afdef77d0904db11a947",
+      "pilot-app-l2/.aghr/package/policies/principle.json": "5ef814c7371ec1aff4202acec66a535c5c73159961847d051ddfe425da59142b",
+      "pilot-app-l2/app.mjs": "db8333471e6be7755cbdccc1ade20670bc5404d76d19a5e1f09392d81dc14ff2",
+      "pilot-app-l2/app.test.mjs": "94bf3fcb786007f94e0142e7a680d42ef58943b03828f1a8f9ba0a752fda558b",
+      "pilot-app-l3/.aghr/state.json": "ca7d851150ac04b7594302f797e25ca5faaed46a9d6b6a7c09fb332352a7fa0c",
+      "pilot-app-l3/AGENTS.md": "8762324723799fd5590c8d9a3652bb593204cbe1107a22778137923db6865d39",
+      "pilot-app-l3/.aghr/package/aghr.json": "de505b95b74ee19270bb38ca6f9c2404bed3eb64f6411999428b2ed33c711fe4",
+      "pilot-app-l3/.aghr/package/policies/capability.json": "5f4a273df0a1ebe7c18c7f0eb08ef001a82cef1582ff244c5c2efc8d525c0cea",
+      "pilot-app-l3/.aghr/package/policies/identity.json": "e0517d2f335fe75061c122be7d9444617151a93aa493416498680c9151c80381",
+      "pilot-app-l3/.aghr/package/policies/principle.json": "42f7f5953011c58cde5904a6dd6aa5d7e732dd5b2e8a22fac4cfdd5801c2f7e0",
+      "pilot-app-l3/.aghr/package/policies/sql.json": "d54aa6ecf794fd890f98925bed57e082b4e77a7ba11925a8a13281aa34d6bf22",
+      "pilot-app-l3/app/security.py": "ffaf51b0e2c96b1f474f64b90898f9a68d26f6af23b86f84ea6bd4415e6b9f99",
+      "pilot-app-l3/app/repository.py": "8bad3c7e1cec3f48fffd82ed3313e0726667bcbfbdccba972fc5cc45a61ec068",
+      "pilot-app-l3/app/service.py": "2519a2f3f26d7ed28b9410d3ea923ca5051a72d7fc314fc3deebad45e8cf24e6",
+      "pilot-app-l3/app/server.py": "e849bf2d957d2ba682f21b292f1a6488a67b9946d4de1243098f7295462e87c9",
+      "pilot-app-l3/checks.py": "27fec974cb6176569129d98007d50bf950fc149a61c96f17f110d591aa6651b0",
+      "pilot-app-l3/data/inventory.sqlite": "df0913a7caf6f3e5b6fa21476733301a6ed78cb624c710f88073fc4f205ea834",
+      "pilot-app-l2/.aghr/runtime_evidence/pilot-app-l2-owner-trial.jsonl": "1b7831980f36773540e5c47d7ad26c77f5af1193633a1b78577c908e57ced525",
+      "pilot-app-l3/.aghr/runtime_evidence/pilot-app-l3-owner-trial.jsonl": "77ee4c478e6f54d99b08c81368bae620478d87dd3ae055a5f94e1e4b1c35169b"
+    },
+    "after": {
+      "docs/evidence/studio-phase5-2026-10-24/BEFORE_AFTER.json": "7c5df1581a783407bcfe610cd65f0c51b9f6fbbc570fdefe05de07a48f52bfde",
+      "docs/evidence/studio-phase5-2026-10-24/BUILD_RECEIPT.json": "af065922e81bef6899f579f0b2d0c6b7f732381be08fcf7b153cd88ed2e2e606",
+      "docs/evidence/studio-phase5-2026-10-24/CONTEXT_FINAL.log": "8c92346d36dc4d32725aa8fc3377b907ecc905fefc6a6c81a79241b3c2d6e071",
+      "docs/evidence/studio-phase5-2026-10-24/CORRELATION_BASE.json": "56ecac6f85f8f1bda02ec935b7437781abe0e6d6d76b1dd1968b56b221752cf4",
+      "docs/evidence/studio-phase5-2026-10-24/CORRELATION_BEFORE_AFTER.json": "9f813604b3fae7cdc1dc0c6395f4bf315ee8017ad1825342a67ff7a04527e8f3",
+      "docs/evidence/studio-phase5-2026-10-24/FINAL_ACCEPTANCE.json": "7d8eba327336abc5d300efe19f1b83ee3e0b08c03271f798e1c48e3ee196f69d",
+      "docs/evidence/studio-phase5-2026-10-24/FINAL_AFFECTED_TESTS.log": "4b8e4abcfd2b81c43fb6339b7d0bb906dc95e77ea74b9fb351912f133651dde1",
+      "docs/evidence/studio-phase5-2026-10-24/FINAL_CORRELATION_TODO.md": "b5201e551d7880721e07fa5c71664acb9ae36bcc66cc66404e64c16f481c83ed",
+      "docs/evidence/studio-phase5-2026-10-24/FINAL_RUNTIME_REPLAY.json": "4f9028142d20b617ea96b0668ccd48e58ad72ac0810ff5654504b13b391bb199",
+      "docs/evidence/studio-phase5-2026-10-24/FOCUSED_FINAL.log": "1044bf215e244001a905eca8a4c14da54b3ecd9e3598695388846caefa195f25",
+      "docs/evidence/studio-phase5-2026-10-24/NPM_TEST_FINAL.log": "22d3b49995e1f57e291c2ae00a184afe72dec397c70dee1bbcb577ee92e11fe5",
+      "docs/evidence/studio-phase5-2026-10-24/NPM_TEST_FINAL_V2.log": "0e548c3d0ad221ccb1118a122e2c26cc2f0eaea036ed59a5e4fe542531a4060e",
+      "docs/evidence/studio-phase5-2026-10-24/PREFLIGHT.json": "5c3eed0f605dbc58a24734a56d9da3736724838adae1753689239a9a3d52966c",
+      "docs/evidence/studio-phase5-2026-10-24/PRESERVATION.json": "6edfb119f68623a7bf5aa70e2c19bdf5bba092a71a8240906c2ff248dfdccd8f",
+      "docs/evidence/studio-phase5-2026-10-24/PRESERVATION_BEFORE_FINAL_DOCS.json": "6edfb119f68623a7bf5aa70e2c19bdf5bba092a71a8240906c2ff248dfdccd8f",
+      "docs/evidence/studio-phase5-2026-10-24/PRESERVATION_FINAL.json": "4b0df7b1d682a1a8014d773dc2dc1bc5bc4a844ec9363d28ed6917130929c8c1",
+      "docs/evidence/studio-phase5-2026-10-24/PROBE_MEASUREMENT.json": "471c996e1ab08518e3e3a3871b7a4f8f6b3948a00379cef30e6716d0c8f36163",
+      "docs/evidence/studio-phase5-2026-10-24/PROBE_META.json": "e3f61c319c3a0187a77dce0f99c6ea5eceb7135966718e2aeeabbaa095da47df",
+      "docs/evidence/studio-phase5-2026-10-24/PROJECT_EVALUATORS_BEFORE_FIX.lock.json": "d0fc897dda6c09f6cd47c07ab39ddb63139cc37eb77911bb8c1fcc385c3815f9",
+      "docs/evidence/studio-phase5-2026-10-24/PROJECT_EVALUATORS_BEFORE_NEGATIVE_PRECISION.lock.json": "b649d4c2c7618c85ad07eb78c5e1665ddadb801e18e4951bf54b3defa9792196",
+      "docs/evidence/studio-phase5-2026-10-24/README.md": "f9f69ae603ebc29f3d2d22d04c9734fe00b6aa256bed4f33cca2c8baa6707774",
+      "docs/evidence/studio-phase5-2026-10-24/REGRESSION_CANCELLED.json": "898d3a5da1f563ffb89c408b990a1c912d12e6c126e8067209ed0a4d98e9ad7c",
+      "docs/evidence/studio-phase5-2026-10-24/SELF_REVIEW.md": "89e9490bf4db9d81df9b96397b34c8fb4569dd4fbae1950792bfd0726eae0928",
+      "docs/evidence/studio-phase5-2026-10-24/TESTED_SOURCE_FINAL.json": "751f81e392c04d3c4c911a34b7536439064f795895c82ae60e6294ed821a40ac",
+      "docs/evidence/studio-phase5-2026-10-24/TESTED_SOURCE_FINAL_V2.json": "8fc37a76086de3ddd4dc32f49c0764be079361a592575b713aa26d24ebdecf8c",
+      "docs/evidence/studio-phase5-2026-10-24/TESTED_SOURCE_FINAL_V3.json": "2b7dc6e12c80938e79c840845a338d648c5f9994baebdf47b8fdbe7edef7ee71",
+      "docs/evidence/studio-phase5-2026-10-24/after/docs/INDEX.md.raw": "a0773ebf74531cb63129ff040d6fd50e852581aac1fb6f1551af48965805f564",
+      "docs/evidence/studio-phase5-2026-10-24/after/docs/plans/STUDIO_UPGRADE_TASKS_AR.md.raw": "e95662c95f518bfa14acc19c0b07951825fe05a3f8a60272885bb24a1ef47d6c",
+      "docs/evidence/studio-phase5-2026-10-24/after/docs/status/CURRENT.md.raw": "306f73a8772e6a956c88a2cbcd99635bd8a90edf5688cdafa62ea8f7f1104c39",
+      "docs/evidence/studio-phase5-2026-10-24/after/docs/status/HANDOFF.md.raw": "067914e9558442d95a7d9fb886a5ae06f73dadb0ea83be19db5061863387a06d",
+      "docs/evidence/studio-phase5-2026-10-24/after/server/studio/db/persistent.js.raw": "02f26e1cebbc92fc39243c11dadfe0bea72587c14bfed88cabe5e4766ab2e636",
+      "docs/evidence/studio-phase5-2026-10-24/after/server/studio/draft-runtime.js.raw": "4e7dc8bea0c2508f8adce69a5c47eb77b6159b38472c2dbaa47236870991dcd9",
+      "docs/evidence/studio-phase5-2026-10-24/after/server/studio/serve-draft.mjs.raw": "232eaecf08ee0b0779f80e3938f796dd539476ef117c797bc7af4ee90ee26d19",
+      "docs/evidence/studio-phase5-2026-10-24/after/server/studio/skills/lifecycle-service.js.raw": "4081901c76783d6b7a858a9c90906ed59858c12b898c3e4641d27e461cd96f27",
+      "docs/evidence/studio-phase5-2026-10-24/after/server/studio/write-authorization.js.raw": "9d601d48bbe1ea811b7c1817d714e7dba55df314cc2a26fe343f1d94c855d77a",
+      "docs/evidence/studio-phase5-2026-10-24/after/src/features/changes/DraftStudio.jsx.raw": "c60f092db5b12943b6a38b7ec4ee710ddd996a1b324d63da1cf164f2869877b9",
+      "docs/evidence/studio-phase5-2026-10-24/after/tests/studio_phase3_skills.test.mjs.raw": "64d15d28693d5d1b5e3909668e21b5055f29c6dbf018a31a1bf3d9eb462c2943",
+      "docs/evidence/studio-phase5-2026-10-24/before/docs/INDEX.md.raw": "b8f36e752b16a65b93d936f98eea5aa7718ffe74c63be4ca3acdf5951ce2bdd2",
+      "docs/evidence/studio-phase5-2026-10-24/before/docs/plans/STUDIO_UPGRADE_TASKS_AR.md.raw": "d18c27a643e75e7ff07d168345ec1e933f3123d9d1743dd1fe67e286cf0fe879",
+      "docs/evidence/studio-phase5-2026-10-24/before/docs/status/CURRENT.md.raw": "f45de0036271dce4158e4f62436275a317946d36aad63c604e3a24aa08832d42",
+      "docs/evidence/studio-phase5-2026-10-24/before/docs/status/HANDOFF.md.raw": "1640df53392e22baf4761211ec6646251383ef70b3150d3c9416d7db7eb5b83f",
+      "docs/evidence/studio-phase5-2026-10-24/before/server/studio/db/persistent.js.raw": "c854d312a9bd8bd94676d80cecf3dc9467ac8401abb5cfd13ba67f335abb8671",
+      "docs/evidence/studio-phase5-2026-10-24/before/server/studio/draft-runtime.js.raw": "9ec0d8efd6b5bb135d9c257a5778da53b5975fea8e440731403453bbc65bce57",
+      "docs/evidence/studio-phase5-2026-10-24/before/server/studio/serve-draft.mjs.raw": "75efdb1de5fc729e0fc617d9f2232d7a8aa31a45c083d218acd4edcb5bd929f0",
+      "docs/evidence/studio-phase5-2026-10-24/before/server/studio/skills/lifecycle-service.js.raw": "10ff55cbed9250950855d308fc92485835307b0f95300d9ad3acf8e946a78dc9",
+      "docs/evidence/studio-phase5-2026-10-24/before/server/studio/write-authorization.js.raw": "c2649e5d9204459d73324cb84cbbce6c057ff20429a512f0b7158d40181938c4",
+      "docs/evidence/studio-phase5-2026-10-24/before/src/features/changes/DraftStudio.jsx.raw": "53d4902be6d970b1a1abb366547de946e013f3c77f07eabbac0efe64f7031063",
+      "docs/evidence/studio-phase5-2026-10-24/before/tests/studio_phase3_skills.test.mjs.raw": "9c15913b692f46cd67c29c41d1105b2ef93858b7f2442ed8246f81eca658e363",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/BROWSER_ACCEPTANCE.json": "6d60951cb0e17b52ac8f1ec524b8ed9c6ad1a2ed2932d189dc0b047a48628b61",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/MCP_INSPECTION.json": "8bdd969c68abb836bd272e6da9683883f887ddaf1b62a31f1643673017ac3b7f",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/aghr-compliance.sarif": "c0c74260b839377e8ab64ae78c05c231f921fe11f7897953be53bb4862279cab",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/dashboard-ar-1440.png": "96e4774970641161853f782cc5fd61cbaab56a93d3a13b245cbf2ec117417596",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/dashboard-ar-1440.txt": "039c8aa9712ae140c762739732e549a48daab92f5263f8b992b764aca06e932a",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/dashboard-ar.png": "f5a80f883c43ae44ab3b7a9f6485b2cb894faa30aa57042b2884a7518cb0aa03",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/dashboard-ar.txt": "8ba8cff2394dfea52f332b8dfeaca47f71b47fa1aec555a31979318b3fcf5390",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/dashboard-en-1440.png": "39453240c6e2770337d74f392ea42f04390a87910d019793405f5c9adc248d31",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/dashboard-en-1440.txt": "6403d3897dc2ce7ff932534797c337d313cbcea53b45f30dce0e638706414e25",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/finish.marker": "7d6befdcb1be2576c3996d9adcd4f3c5b9672aa2caa975bc8d17edbb8e774fe8",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/metrics-ar-1440.png": "851bc7dcbc62d7f24ee2e1b088e2a3a99ca08edb767d2d6dfa3e49b31d216b4d",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/metrics-ar-1440.txt": "c68fdea51205f0e3bcf13fd702a738f9c7f892cce7fe36f9318db40536bb452c",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/metrics-ar.png": "79fbc9be7e8c7cfa7bf793f818c4fcb0562b514d5ee9f1d89a253747ac5db611",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/metrics-ar.txt": "5b8668f9178b466c69493ba474faf52dda4653760218f426b14d587a7940bd36",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/metrics-en-1440.png": "cc316fc9f3fb579f90604ba2f3b8d7507e5a685ecc220a3fa74856da3b764956",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/metrics-en-1440.txt": "435fef16e79b3496ae48daac5b68e7005dd5813a7616833852dad1f1761ead43",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/report-json-ar.png": "869e9205c373d2a356e8c6e9d041315c72b086d89b21fda2c6a233ffc6a01eb3",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/report-json-ar.txt": "553ea86d73b04360c01189630e8de91ff683f4b546b47ce9f05c872c715236ee",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/report-md-ar.png": "60d80ccd0d77e9b779348643087735c4fbef5724d39663e2737a4c07b691f4d4",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/report-md-ar.txt": "10af1f43888598212ba4df3bf6c46cd4ff445becd0a0d006f7294551830f6a25",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/report-sarif-ar.png": "bd3412623c8a1929d9f151a6a1eaa73f1c6bc2a5e24c36b331a991b663ba8c77",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/report-sarif-ar.txt": "d9cae31996fb187d960a9574857517430aaeef6bbc25c6f58eea1faa08793f45",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/reports-ar-1440.png": "78dbbf12fc72c219f45991522b5f3912616f75b0d9cf616d1d635351c57d141b",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/reports-ar-1440.txt": "4f3ec0975a6788e81171f805dd7ad9920acf3756468d7a2dcd666d36f8ad3100",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/reports-en-1440.png": "110fc93b96cc5c64abb92db919b4819e4beaae95e05470b217a4999cad04d726",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/reports-en-1440.txt": "e5c8700b1f78562efe5ab1151217b28b02c147c62d5547223bb9fab11dc4da61",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/settings-ar-1440.png": "89b1dae85b3e74c6b0fa288ff534a2090d8d8feb6e148d793539353aeedcc826",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/settings-ar-1440.txt": "31b203a10eb4007f930eacf3f899ca76878037e8d5109599da5310d1601b4d55",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/settings-ar.png": "3b99f91e5f53c351220d540319cc3efe9168cb3931a16e5e24a3709eddbdca57",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/settings-ar.txt": "31b203a10eb4007f930eacf3f899ca76878037e8d5109599da5310d1601b4d55",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/settings-en-1440.png": "ccb114e3d7d71f4d933071ec5ccea8387261589d0f65bfccca68886cbee0af55",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final-v2/settings-en-1440.txt": "6501b8256c0a299c619825b74b9c4735030f6bbba50931dab11bb643903e9640",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final/BROWSER_ACCEPTANCE.json": "27a3a676fa4b354ffa9659b1a3469d1052960b65bb09e281513337d21b2bf53f",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final/dashboard-ar.png": "9f9754182a32b1b7ad69a6d5c7207051ac44dedcea97c8180b5e866dadbb2536",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final/dashboard-ar.txt": "2bae4d68f6554944ee13f8ad3fb4408ebde11338bcdeb3f9a36eedd524122209",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final/metrics-ar.png": "68294d7a9cd592fed7bc8ecc9548d5b5db2ce9900dd274428e3d527280edddd0",
+      "docs/evidence/studio-phase5-2026-10-24/browser-final/metrics-ar.txt": "fe22130608161080b8dcb345deaee3c36bf30683f0240cc098d984cb191b0d70",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/BROWSER_ACCEPTANCE.json": "6d60951cb0e17b52ac8f1ec524b8ed9c6ad1a2ed2932d189dc0b047a48628b61",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/MCP_INSPECTION.json": "a00d74d0e23eb808d61b1fe32a3f6626eb03065884dff8ce52ccb0d81c7e1399",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/aghr-compliance.sarif": "a83e476aabc8a1d6d74dfaea83769c9c48244f03dd5680ccd5b09cb8575de299",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/dashboard-ar-1440.png": "0b84bba2aa3c646bf95355064a1580c8f23cfb8a3aa5f0f18bbd4c82b24b06d2",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/dashboard-ar-1440.txt": "16d8928c32fb6af6489171641fd6e51c60b91cc8283532b50750f78ce3426b19",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/dashboard-ar.png": "7f9328fb3cf5efd74fdff6c18155c2d55659840f1b33865b83d9610849268fdf",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/dashboard-ar.txt": "52ed8dacf5441fb92b7d6a07930b25158ac2419fb4c4a2f3fd672c1396e0a041",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/dashboard-en-1440.png": "4ff5e31487f1f4da05bec0f25d596b099eeb6a753a896951b2eda6d28f4827e5",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/dashboard-en-1440.txt": "3cdadbe09e5a266e3b7768b61b7d4d6ee5ee8e77eb60d6c791010eafdb45907d",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/finish.marker": "7d6befdcb1be2576c3996d9adcd4f3c5b9672aa2caa975bc8d17edbb8e774fe8",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/metrics-ar-1440.png": "86a971988482ecdfad8a4738e28aae0506011857e039d4bf26a109dbe4cbbf82",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/metrics-ar-1440.txt": "3bd7ea497d5cbfea8a04d2d6e9b415575d0250c23240b7a58e75346361f78ab3",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/metrics-ar.png": "60c2039be6fa35dfac9f5f5d276851ff275cf231ab5878cfc7890b67c05d0b7f",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/metrics-ar.txt": "22e7b792ef542e1c8c8d421a97b38cca46993037e94b465805cedb760dfab339",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/metrics-en-1440.png": "7948a7ce451d01a2064bbd3db1a5bcb26124dc04f3ea53569bce6a022636ed40",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/metrics-en-1440.txt": "d675786145d3ecce8a18582c5f2359f961ecc7d5b3989e1c6b669a8d90be97f8",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/report-json-ar.png": "752a2eb7cd8c3990886f7c632cb48a8975bbd12133c7fde844f4b6271b5dedf0",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/report-json-ar.txt": "36f12c6c5758841698cac1607dda037a4b014fbf5a3736d7f6b6ed13272e789b",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/report-md-ar.png": "ea8f2114515089d4f3c4af96bcdfb2f52cbbff5341a38730696bf56d32b816a2",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/report-md-ar.txt": "82032b87fb5a8ee35e808de0bc9b4f21cd2c82337838318fb9e20893bfdbe8a7",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/report-sarif-ar.png": "dc2fb306c282ae1cef27d3ae5199d5e4c2879519a516a3fb1ec6763469ba9bdd",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/report-sarif-ar.txt": "3bd90dd4dccf64aa2f50b346bdb5f427bb9d504ac99fe162d2161af66f83435e",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/reports-ar-1440.png": "474c75b3dc17090be60b7734edc268dd608df5b179fdc36c8b94bfa72bcf8797",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/reports-ar-1440.txt": "b2b068b1663b18650b11f39704d39435e2d3c3595f1f54c70aa36178207dc143",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/reports-en-1440.png": "2eb801d2ac44a72132a76e432372e05b359e10af3bd679beb21c5c8a07169f1c",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/reports-en-1440.txt": "f999770144dda835003358537e3a8c9192f7887042d199c9877a058cf4b8cc58",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/settings-ar-1440.png": "89b1dae85b3e74c6b0fa288ff534a2090d8d8feb6e148d793539353aeedcc826",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/settings-ar-1440.txt": "31b203a10eb4007f930eacf3f899ca76878037e8d5109599da5310d1601b4d55",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/settings-ar.png": "3b99f91e5f53c351220d540319cc3efe9168cb3931a16e5e24a3709eddbdca57",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/settings-ar.txt": "31b203a10eb4007f930eacf3f899ca76878037e8d5109599da5310d1601b4d55",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/settings-en-1440.png": "ccb114e3d7d71f4d933071ec5ccea8387261589d0f65bfccca68886cbee0af55",
+      "docs/evidence/studio-phase5-2026-10-24/browser-fixed/settings-en-1440.txt": "6501b8256c0a299c619825b74b9c4735030f6bbba50931dab11bb643903e9640",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-after/server/studio/phase5/metrics.mjs.raw": "8a8680cfc82fd818864a282e37b41d79ec5c00f36da7610fa39bed767fce0448",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-after/server/studio/phase5/observations.mjs.raw": "a9ac39880cc148cbf0fe62946e5e5e21c6db29a92ff14fe5aeacefddd3494e65",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-after/server/studio/skills/lifecycle-service.js.raw": "4081901c76783d6b7a858a9c90906ed59858c12b898c3e4641d27e461cd96f27",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-after/tests/studio_phase5_metrics.test.mjs.raw": "ae5e712bc2eb9164c6e61f9719a5738fcacb27ce9e6bb1cf370a7517cb3003f9",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-before/server/studio/phase5/metrics.mjs.raw": "780e567fd820c4b490371eebd57c57bf0ba546ae984d40672270f11e36553845",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-before/server/studio/phase5/observations.mjs.raw": "ba724da18c5a590591e8e3071e9d8d2adc8a12f9d253b92c4e4c32b3701e1a87",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-before/server/studio/skills/lifecycle-service.js.raw": "55e1d7fff1aa4c5468ce2cb6e00121e90e8900ff453883998afbe8ff0ae5bee6",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-before/tests/studio_phase5_metrics.test.mjs.raw": "9cdcc19c629a96dfcb7e09f3796e04f83eccff39e3ee0003325193ceb482e0e4",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-diffs/server/studio/phase5/metrics.mjs.patch": "60d561a3cb0f4d5cc563bbf901fb8558c379ebe62a7bc820294dac8fe7481779",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-diffs/server/studio/phase5/observations.mjs.patch": "3693155068a79cdbdbf602a681dfa148bbba891131c12ac1b8199223757dde87",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-diffs/server/studio/skills/lifecycle-service.js.patch": "76252d832d47d4cdbbb144a207f7dc61454d2bbd3c221bcff3243d66f29720ab",
+      "docs/evidence/studio-phase5-2026-10-24/correlation-diffs/tests/studio_phase5_metrics.test.mjs.patch": "19b9df4b8c53d6c0e69c2ff683e0b66cefa9ce5a4918c924fd7c6553074d93b0",
+      "docs/evidence/studio-phase5-2026-10-24/diffs/docs/INDEX.md.patch": "74205d35ba33466663c0fdf2d0c23a8d64b023b699a44d029e1338aaf6fd2099",
+      "docs/evidence/studio-phase5-2026-10-24/diffs/docs/plans/STUDIO_UPGRADE_TASKS_AR.md.patch": "9ca8ec53614bd3ab1e0585277c0fd4c1d9cb1002ce15cbbc5a99b5655b865029",
+      "docs/evidence/studio-phase5-2026-10-24/diffs/docs/status/CURRENT.md.patch": "86d874cd74c1a651fdaf75d57d7c2dbc6290fc8b7be4466b79369d51ee7bef64",
+      "docs/evidence/studio-phase5-2026-10-24/diffs/docs/status/HANDOFF.md.patch": "624c1395d48856aa1cabf28c240fd91312c0d4957b10495845588b20fb02a22b",
+      "docs/evidence/studio-phase5-2026-10-24/diffs/server/studio/db/persistent.js.patch": "b989b3b7bb25f40d13c4d5afe711e70d07234a4654c5dd7e1829c0c0d727e6ef",
+      "docs/evidence/studio-phase5-2026-10-24/diffs/server/studio/draft-runtime.js.patch": "ea513a1de8962023e282aae7912c10f4561bd90b89a66d55916be3fd80997a5c",
+      "docs/evidence/studio-phase5-2026-10-24/diffs/server/studio/serve-draft.mjs.patch": "2ad32ff38338ed38a4c5a07bbc6f4e004b11e66f3cab711d1314afa1daf8e1e1",
+      "docs/evidence/studio-phase5-2026-10-24/diffs/server/studio/skills/lifecycle-service.js.patch": "a483952067385a1f13d9db62c29357210c64a94edb2b674c153d8ba60489449d",
+      "docs/evidence/studio-phase5-2026-10-24/diffs/server/studio/write-authorization.js.patch": "2624cda6dadb610862f18bf38dfbd9429db552b5dab6709f459b78707fdba8f0",
+      "docs/evidence/studio-phase5-2026-10-24/diffs/src/features/changes/DraftStudio.jsx.patch": "0771fc3f843205a94f4662717b59f9bf2dc1f8bff9333ab50866b7c17cf680a9",
+      "docs/evidence/studio-phase5-2026-10-24/diffs/tests/studio_phase3_skills.test.mjs.patch": "b0f4d1381c680f87e6e517aedfffd7d8a3956738122fdf8f8802083cbd66054e",
+      "docs/evidence/studio-phase5-2026-10-24/final-correlation/HTTP_ACCEPTANCE.json": "c1bb72ae2325ec54c675e46b936c29cf95c82f22044af9b70f38de3492d4afb7",
+      "docs/evidence/studio-phase5-2026-10-24/focused-v2/HTTP_ACCEPTANCE.json": "076001dfdfb8b4cd4e61d68340819f67f827a8af2a8e8b71460f9fe530ddbe41",
+      "docs/evidence/studio-phase5-2026-10-24/focused/HTTP_ACCEPTANCE.json": "31bea871d6343ba6d433bb509ee2029de258ce56334cf61699ccf8679a07536b",
+      "docs/evidence/studio-phase5-2026-10-24/full-suite-final-v2/HTTP_ACCEPTANCE.json": "ad82a0110d14e3d2340346d332292a1e520b519122727f792945c8d7093a0b38",
+      "docs/evidence/studio-phase5-2026-10-24/project-final-v2/PROJECT_EVALUATORS.json": "728619e3b4f96356b2689dfdb067bfe4405e1845e9ae5c1a2f1d8a6b64d1089d",
+      "docs/evidence/studio-phase5-2026-10-24/project-fixed/PROJECT_EVALUATORS.json": "207ab03fd6bb43306ddae381260c0a2f863f2a48657e8d98146f30f6514d06d4",
+      "docs/evidence/studio-phase5-2026-10-24/project-focused-v3/PROJECT_EVALUATORS.json": "b370adfc80534f5018d1dd59ac91fa5db54f2fae3d660b76a6376e072260c001",
+      "docs/evidence/studio-phase5-2026-10-24/project-focused/PROJECT_EVALUATORS.json": "5c09659408497d2575cd9110ca91b8ae85369940b335f824fa10269a203bb48e",
+      "docs/features/STUDIO_PHASE5_METRICS_SETTINGS.md": "f7955f47a621acbbe93ea09250b4e8f624661b89d53a42e285da83fb0ab39a76",
+      "server/studio/db/persistent.js": "ce558b5d6a83065334662d2c8f8e2a546cc89f8c8d7c2605798a8e556eb9dc4b",
+      "server/studio/draft-runtime.js": "96c0fdb965adf2db3961ce2cf1c20be3ff86264e24eebb706fa6d9192b4acb6d",
+      "server/studio/phase5/evaluators/SKILL.md": "6d6cd242f006795f65d84fa1f807b875f34bfb3a72734a8a2fda76c9da7b0692",
+      "server/studio/phase5/evaluators/SOURCE.lock.json": "0d0fcb2cf1d9cfe433c52e6ab1c86461e0461099718763957dde7efd06fef5e6",
+      "server/studio/phase5/evaluators/worker.py": "ac32f2affbafafeb0d0180e42a284cb6a65bfb44171b51aa865f454dae13335f",
+      "server/studio/phase5/metrics.mjs": "8a8680cfc82fd818864a282e37b41d79ec5c00f36da7610fa39bed767fce0448",
+      "server/studio/phase5/observations.mjs": "a9ac39880cc148cbf0fe62946e5e5e21c6db29a92ff14fe5aeacefddd3494e65",
+      "server/studio/phase5/project.mjs": "f63e92cac83136bc39365d8e8c50f3260e6aaf03fdb0f55692deb8a1b1932f68",
+      "server/studio/phase5/reports.mjs": "5fc8a0aca8d71d5becdfdee1cdec693f67a559b4e356317c5caa6e82193a9767",
+      "server/studio/phase5/routes.mjs": "00ad3281373a58594ed9d1b123fdd3db99dc125da8b2839a238fd90df51f13fa",
+      "server/studio/phase5/service.mjs": "ee1ee3652a6589efb44eeae40878fc39e8b0820b2173339568113a32057e954e",
+      "server/studio/serve-draft.mjs": "232eaecf08ee0b0779f80e3938f796dd539476ef117c797bc7af4ee90ee26d19",
+      "server/studio/skills/lifecycle-service.js": "4081901c76783d6b7a858a9c90906ed59858c12b898c3e4641d27e461cd96f27",
+      "server/studio/write-authorization.js": "d0767a9ac31ec2eaad88b450fe03aa2cf3d9fa12ea9e52b9c0b4e11f0b453ed7",
+      "src/features/changes/DraftStudio.jsx": "4445a9b28afb2571196c987a62fb64af8e9eb8066ac82d4108507803c645deab",
+      "src/features/measurement/Phase5Studio.jsx": "e7529a9758e2528dfe1baac129250678c4b4734c877fd5cb974f9694d2909ee9",
+      "src/features/measurement/phase5.css": "bc32f9ec583d8fe22f31c5f855b25958a42f71590159e6cea63f5491178da83e",
+      "tests/studio_phase3_skills.test.mjs": "64d15d28693d5d1b5e3909668e21b5055f29c6dbf018a31a1bf3d9eb462c2943",
+      "tests/studio_phase5.test.mjs": "e2472fd4ed04539b3de13f731175c87b5c23bc0ae5c2529aeea40722607d6d8f",
+      "tests/studio_phase5_evaluators.test.mjs": "2fa53e03ba25bda44f61522782a7bd15aa16dca0fdf47dd6c23f7c4bdd4112fa",
+      "tests/studio_phase5_metrics.test.mjs": "ae5e712bc2eb9164c6e61f9719a5738fcacb27ce9e6bb1cf370a7517cb3003f9",
+      "tools/phase5/browser.mjs": "7426aceded3cc182e96bacbff8eb2c5e587f29b99b5165231bfc7256ee277fc0",
+      "tools/phase5/build-receipt.mjs": "dea8a0156ec6e1e3b9bf7927baa8a4841c7028e8a574c3fcbd4e274e0464309f",
+      "tools/phase5/complete-docs.mjs": "043b80a3542f8a5c9a12d61a33d004ebaf383a1fb47e858cbd4629d6ac4b646b",
+      "tools/phase5/finalize.mjs": "ef232f2dad2e731a55c9f6689f015ee3386edc885371aad97baeeedea253dcc1",
+      "tools/phase5/freeze.mjs": "ae04784c2ac01ed6a33d8a80986f204f909473fd20544b5a82cf3577900dc7ad",
+      "tools/phase5/pin-evaluators.mjs": "5be2a9eb207a604ad67b4281f0a8db95dbf95b2356a8b289d6088e78c1b3f498",
+      "tools/phase5/prepare-correlation.mjs": "41b969f0a98e27b16b0ddf4ebc4eeaaeaa3e02e63e98797586bcd2be439b9eae",
+      "tools/phase5/prepare.mjs": "d70c0cf172d1bbced5a6503986b102b7d84cfa7396ac9319747eea0d057bb8a6",
+      "tools/phase5/preserve.mjs": "f37f7ecebb616660f95ec20986796ac8d8752a6337115dce0d1f8ca3ca58d5b3",
+      "tools/phase5/probe-evaluators.mjs": "6a47dc8eb0fb0ef748990bbf9bf27552b6d0b0ef85e76e6fc27759c7d7527179",
+      "tools/phase5/seal.mjs": "fc6d1b4da868c864d14cffab388bcccf0bf6bb97a75876239bbe08cf39c2687e",
+      "tools/phase5/stop-obsolete.ps1": "fa4402374a3e5856e50449682213ecb07224947d0f6c399a1f286f225fb42800",
+      "pilot-app-l2/.aghr/state.json": "bda0c08507dd045ce85f726bd811df5e2a43e0776cac87d653d11557bd8ef86e",
+      "pilot-app-l2/AGENTS.md": "4d264947a44a0f8f7000438cb81b694045f3a5c78936d363914e7e56a8aab913",
+      "pilot-app-l2/.aghr/package/aghr.json": "ffd1914b442e1436e62277b3b6e6c2f9fc557ac7d7369b6d81f497520d176db5",
+      "pilot-app-l2/.aghr/package/policies/identity.json": "5ac0bbb24b853d8e347d23892562cb47149f3d09af52afdef77d0904db11a947",
+      "pilot-app-l2/.aghr/package/policies/principle.json": "5ef814c7371ec1aff4202acec66a535c5c73159961847d051ddfe425da59142b",
+      "pilot-app-l2/app.mjs": "db8333471e6be7755cbdccc1ade20670bc5404d76d19a5e1f09392d81dc14ff2",
+      "pilot-app-l2/app.test.mjs": "94bf3fcb786007f94e0142e7a680d42ef58943b03828f1a8f9ba0a752fda558b",
+      "pilot-app-l3/.aghr/state.json": "ca7d851150ac04b7594302f797e25ca5faaed46a9d6b6a7c09fb332352a7fa0c",
+      "pilot-app-l3/AGENTS.md": "8762324723799fd5590c8d9a3652bb593204cbe1107a22778137923db6865d39",
+      "pilot-app-l3/.aghr/package/aghr.json": "de505b95b74ee19270bb38ca6f9c2404bed3eb64f6411999428b2ed33c711fe4",
+      "pilot-app-l3/.aghr/package/policies/capability.json": "5f4a273df0a1ebe7c18c7f0eb08ef001a82cef1582ff244c5c2efc8d525c0cea",
+      "pilot-app-l3/.aghr/package/policies/identity.json": "e0517d2f335fe75061c122be7d9444617151a93aa493416498680c9151c80381",
+      "pilot-app-l3/.aghr/package/policies/principle.json": "42f7f5953011c58cde5904a6dd6aa5d7e732dd5b2e8a22fac4cfdd5801c2f7e0",
+      "pilot-app-l3/.aghr/package/policies/sql.json": "d54aa6ecf794fd890f98925bed57e082b4e77a7ba11925a8a13281aa34d6bf22",
+      "pilot-app-l3/app/security.py": "ffaf51b0e2c96b1f474f64b90898f9a68d26f6af23b86f84ea6bd4415e6b9f99",
+      "pilot-app-l3/app/repository.py": "8bad3c7e1cec3f48fffd82ed3313e0726667bcbfbdccba972fc5cc45a61ec068",
+      "pilot-app-l3/app/service.py": "2519a2f3f26d7ed28b9410d3ea923ca5051a72d7fc314fc3deebad45e8cf24e6",
+      "pilot-app-l3/app/server.py": "e849bf2d957d2ba682f21b292f1a6488a67b9946d4de1243098f7295462e87c9",
+      "pilot-app-l3/checks.py": "27fec974cb6176569129d98007d50bf950fc149a61c96f17f110d591aa6651b0",
+      "pilot-app-l3/data/inventory.sqlite": "df0913a7caf6f3e5b6fa21476733301a6ed78cb624c710f88073fc4f205ea834",
+      "pilot-app-l2/.aghr/runtime_evidence/pilot-app-l2-owner-trial.jsonl": "1b7831980f36773540e5c47d7ad26c77f5af1193633a1b78577c908e57ced525",
+      "pilot-app-l3/.aghr/runtime_evidence/pilot-app-l3-owner-trial.jsonl": "77ee4c478e6f54d99b08c81368bae620478d87dd3ae055a5f94e1e4b1c35169b"
+    },
+    "differences": [],
+    "events": []
+  },
+  "credentials": "EXCLUDED; no traces, HAR, video or token persistence",
+  "browser": "Playwright channel msedge; isolated context; no owner browser profile"
+}

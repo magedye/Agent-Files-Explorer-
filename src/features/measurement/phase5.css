@@ -1,0 +1,13 @@
+.p5-screen { min-width: 0; margin-block: 1rem; }
+.p5-screen label { display: block; margin-block: .75rem; }
+.p5-screen label select, .p5-screen label input { display: block; max-width: 100%; }
+.p5-screen textarea { width: 100%; box-sizing: border-box; }
+.p5-screen pre { max-width: 100%; max-height: 32rem; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; padding: .75rem; background: var(--panel, #151d2a); color: var(--text, #edf2f7); }
+.p5-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: .75rem; margin-block: 1rem; }
+.p5-grid article, .p5-risk { border: 1px solid var(--border, #526079); border-radius: .4rem; padding: 1rem; text-align: start; }
+.p5-risk { display: flex; flex-direction: column; gap: .75rem; }
+.p5-risk bdi { font-size: 1.35rem; }
+.p5-spark { display: block; width: 6rem; height: 2rem; }
+.p5-screen button:focus-visible, .p5-screen select:focus-visible, .p5-screen input:focus-visible, .p5-screen textarea:focus-visible { outline: 3px solid #63b3ed; outline-offset: 2px; }
+.p5-screen th { text-align: start; }
+@media (max-width: 480px) { .p5-screen .draft-actions { align-items: stretch; } .p5-screen .draft-actions button { flex: 1 1 45%; } }

@@ -1,0 +1,322 @@
+{
+  "protocol_version": "3",
+  "command": "validate",
+  "profile": "SANDBOX_LOCAL_PROCESS_V1",
+  "project": "pilot-app-l2",
+  "result": "BLOCKED",
+  "exit_code": 3,
+  "raw_e2": {
+    "protocol_version": "3",
+    "command": "validate",
+    "source": {
+      "content_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3"
+    },
+    "profile": "TRUSTED_SANDBOX_HOST_API",
+    "validation": {
+      "profile": "E2_PACKAGE_READ_VALIDATE_LINT",
+      "result": "BLOCKED",
+      "exit_code": 3,
+      "findings": [
+        {
+          "code": "AUTHORITY_SOURCE_UNVERIFIED",
+          "disposition": "BLOCKED",
+          "message": "AUTHORITY_SOURCE_UNVERIFIED at /authority.",
+          "path": "policies/identity.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/authority",
+          "item_id": "PILOT-IDENTITY-001"
+        },
+        {
+          "code": "AUTHORITY_SOURCE_UNVERIFIED",
+          "disposition": "BLOCKED",
+          "message": "AUTHORITY_SOURCE_UNVERIFIED at /authority.",
+          "path": "policies/principle.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/authority",
+          "item_id": "PRIN-007"
+        },
+        {
+          "code": "OPTIONAL_FIELD_ABSENT",
+          "disposition": "WARNING",
+          "message": "OPTIONAL_FIELD_ABSENT at /reviewCadence.",
+          "path": "policies/identity.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/reviewCadence",
+          "item_id": "PILOT-IDENTITY-001"
+        },
+        {
+          "code": "OPTIONAL_FIELD_ABSENT",
+          "disposition": "WARNING",
+          "message": "OPTIONAL_FIELD_ABSENT at /nextReview.",
+          "path": "policies/identity.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/nextReview",
+          "item_id": "PILOT-IDENTITY-001"
+        },
+        {
+          "code": "OPTIONAL_FIELD_ABSENT",
+          "disposition": "WARNING",
+          "message": "OPTIONAL_FIELD_ABSENT at /reviewCadence.",
+          "path": "policies/principle.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/reviewCadence",
+          "item_id": "PRIN-007"
+        },
+        {
+          "code": "OPTIONAL_FIELD_ABSENT",
+          "disposition": "WARNING",
+          "message": "OPTIONAL_FIELD_ABSENT at /nextReview.",
+          "path": "policies/principle.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/nextReview",
+          "item_id": "PRIN-007"
+        }
+      ],
+      "stages": {
+        "structure": {
+          "status": "PASS"
+        },
+        "scope": {
+          "status": "PASS"
+        },
+        "authority": {
+          "status": "BLOCKED"
+        },
+        "conflicts": {
+          "status": "PASS"
+        },
+        "evidence": {
+          "status": "PASS"
+        },
+        "documentation": {
+          "status": "NOT_APPLICABLE",
+          "reason": "No packaged skill library, CAPABILITY or documentation mapping"
+        }
+      },
+      "items": [
+        {
+          "id": "PILOT-IDENTITY-001",
+          "location": {
+            "path": "policies/identity.json",
+            "document": 0,
+            "pointer": "",
+            "line": 1,
+            "column": 1,
+            "start_byte": 0,
+            "end_byte": 800
+          },
+          "applicability": {
+            "status": "APPLIES"
+          },
+          "presentation": {
+            "rule": "Read API responses MUST identify this sandbox project. Do not claim authority over another project.",
+            "translation_unavailable": true,
+            "requested_language": "en",
+            "original_rule": "Read API responses MUST identify this sandbox project. Do not claim authority over another project."
+          }
+        },
+        {
+          "id": "PRIN-007",
+          "location": {
+            "path": "policies/principle.json",
+            "document": 0,
+            "pointer": "",
+            "line": 1,
+            "column": 1,
+            "start_byte": 0,
+            "end_byte": 1392
+          },
+          "applicability": {
+            "status": "APPLIES"
+          },
+          "presentation": {
+            "rule": "When receiving a software task or crossing a substantive phase boundary,\nthe agent MUST evaluate the fitness of the capabilities actually available\nin the execution environment, and select the minimal effective set for\nthe current phase. Priority is given to native capabilities compatible with\nthe host and project. Repetition, conflict, and authorization bypass MUST\nbe prevented. The agent is NOT obligated to use a skill when direct\nexecution is better, and MUST NOT treat discovery or loading as evidence\nof execution or success. Adoption of new skills, modification of governing\ninstructions, and promotion of lessons into persistent memory remain\nsubject to the approved authority and procedure.\n",
+            "translation_unavailable": true,
+            "requested_language": "en",
+            "original_rule": "When receiving a software task or crossing a substantive phase boundary,\nthe agent MUST evaluate the fitness of the capabilities actually available\nin the execution environment, and select the minimal effective set for\nthe current phase. Priority is given to native capabilities compatible with\nthe host and project. Repetition, conflict, and authorization bypass MUST\nbe prevented. The agent is NOT obligated to use a skill when direct\nexecution is better, and MUST NOT treat discovery or loading as evidence\nof execution or success. Adoption of new skills, modification of governing\ninstructions, and promotion of lessons into persistent memory remain\nsubject to the approved authority and procedure.\n"
+          }
+        }
+      ],
+      "authority": {
+        "PILOT-IDENTITY-001": {
+          "status": "UNKNOWN",
+          "level": "project",
+          "evidence_ref": null
+        },
+        "PRIN-007": {
+          "status": "UNKNOWN",
+          "level": "project",
+          "evidence_ref": null
+        }
+      },
+      "resolutions": [],
+      "conflict_coverage": "Explicit relationships only; free-text semantic conflicts not claimed resolved",
+      "qualification": "NOT_RUN",
+      "runtime_honesty": "7 REQUIRED / NOT_RUN / NOT_WAIVED; E4 deferred",
+      "publisher_authentication": "UNKNOWN",
+      "governance_release_acceptance": "NOT_GRANTED"
+    },
+    "doctor": {
+      "status": "PASS",
+      "run_id": "DOC-107fc829-d74c-4b37-9ddd-818e419a0af1",
+      "at": "2026-10-25T11:52:00.742086+00:00",
+      "proposal_version_hash": "sha256:63051e51bbb3875424b4a13debf49b837fb93c080d2c6e3b381b03b4bb82f2ee",
+      "control_hash": "sha256:2303c1a7898916d413f46b2c5f6de1e929d0d676c6b214c0971674e20ac10412",
+      "observations": [],
+      "e4": "REQUIRED / NOT_RUN / NOT_WAIVED"
+    },
+    "items": [
+      {
+        "kind": "CONSTRAINT",
+        "force": "MUST",
+        "severity": "medium",
+        "scope": {
+          "paths": [
+            "**/*"
+          ]
+        },
+        "rationale": "Owner-authorized sandbox adoption; no authority outside this project.",
+        "authority": {
+          "source": "owner://T34-T35/2026-10-25/pilot-app-l2",
+          "level": "project",
+          "owner": "Sandbox Project Owner",
+          "approvedBy": "OWNER_T34_T35_20261025",
+          "status": "active",
+          "effectiveFrom": "2026-10-25"
+        },
+        "impact": {
+          "band": "medium",
+          "evidence": "assumed"
+        },
+        "verification": {
+          "commands": [
+            "node --test app.test.mjs"
+          ]
+        },
+        "id": "PILOT-IDENTITY-001",
+        "title": "Project identity in public read responses",
+        "rule": "Read API responses MUST identify this sandbox project. Do not claim authority over another project."
+      },
+      {
+        "kind": "PRINCIPLE",
+        "force": "MUST",
+        "severity": "medium",
+        "scope": {
+          "paths": [
+            "**/*"
+          ]
+        },
+        "rationale": "Owner-authorized sandbox adoption; no authority outside this project.",
+        "authority": {
+          "source": "owner://T34-T35/2026-10-25/pilot-app-l2",
+          "level": "project",
+          "owner": "Sandbox Project Owner",
+          "approvedBy": "OWNER_T34_T35_20261025",
+          "status": "active",
+          "effectiveFrom": "2026-10-25"
+        },
+        "impact": {
+          "band": "medium",
+          "evidence": "assumed"
+        },
+        "verification": {
+          "commands": [
+            "node --test app.test.mjs"
+          ]
+        },
+        "id": "PRIN-007",
+        "title": "Truthful skill-state reporting",
+        "rule": "When receiving a software task or crossing a substantive phase boundary,\nthe agent MUST evaluate the fitness of the capabilities actually available\nin the execution environment, and select the minimal effective set for\nthe current phase. Priority is given to native capabilities compatible with\nthe host and project. Repetition, conflict, and authorization bypass MUST\nbe prevented. The agent is NOT obligated to use a skill when direct\nexecution is better, and MUST NOT treat discovery or loading as evidence\nof execution or success. Adoption of new skills, modification of governing\ninstructions, and promotion of lessons into persistent memory remain\nsubject to the approved authority and procedure.\n"
+      }
+    ]
+  },
+  "resolved": [],
+  "findings": [
+    {
+      "code": "AUTHORITY_SOURCE_UNVERIFIED",
+      "disposition": "BLOCKED",
+      "message": "AUTHORITY_SOURCE_UNVERIFIED at /authority.",
+      "path": "policies/identity.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/authority",
+      "item_id": "PILOT-IDENTITY-001"
+    },
+    {
+      "code": "AUTHORITY_SOURCE_UNVERIFIED",
+      "disposition": "BLOCKED",
+      "message": "AUTHORITY_SOURCE_UNVERIFIED at /authority.",
+      "path": "policies/principle.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/authority",
+      "item_id": "PRIN-007"
+    },
+    {
+      "code": "OPTIONAL_FIELD_ABSENT",
+      "disposition": "WARNING",
+      "message": "OPTIONAL_FIELD_ABSENT at /reviewCadence.",
+      "path": "policies/identity.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/reviewCadence",
+      "item_id": "PILOT-IDENTITY-001"
+    },
+    {
+      "code": "OPTIONAL_FIELD_ABSENT",
+      "disposition": "WARNING",
+      "message": "OPTIONAL_FIELD_ABSENT at /nextReview.",
+      "path": "policies/identity.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/nextReview",
+      "item_id": "PILOT-IDENTITY-001"
+    },
+    {
+      "code": "OPTIONAL_FIELD_ABSENT",
+      "disposition": "WARNING",
+      "message": "OPTIONAL_FIELD_ABSENT at /reviewCadence.",
+      "path": "policies/principle.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/reviewCadence",
+      "item_id": "PRIN-007"
+    },
+    {
+      "code": "OPTIONAL_FIELD_ABSENT",
+      "disposition": "WARNING",
+      "message": "OPTIONAL_FIELD_ABSENT at /nextReview.",
+      "path": "policies/principle.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/nextReview",
+      "item_id": "PRIN-007"
+    }
+  ],
+  "live_qualification": {
+    "status": "NOT_RUN"
+  },
+  "source_writes": false,
+  "native_hosts": {
+    "codex": "NOT_RUN",
+    "antigravity": "NOT_RUN"
+  }
+}

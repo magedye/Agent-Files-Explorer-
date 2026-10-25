@@ -67,9 +67,6 @@ function runControlledPython(scriptRelPath, args = []) {
  * Compliance and Evaluation Center Service.
  */
 class EvaluationService {
-  constructor() {
-    ensureStorageDir();
-  }
 
   /**
    * Run the authoritative AGHR unittest suite.
@@ -104,6 +101,7 @@ class EvaluationService {
     };
 
     // Save evidence
+    ensureStorageDir();
     fs.writeFileSync(path.join(EVAL_STORAGE_DIR, `${runId}.json`), JSON.stringify(report, null, 2), "utf8");
 
     return report;
@@ -135,13 +133,14 @@ class EvaluationService {
     };
 
     // Save evidence
+    ensureStorageDir();
     fs.writeFileSync(path.join(EVAL_STORAGE_DIR, `${runId}.json`), JSON.stringify(report, null, 2), "utf8");
 
     return report;
   }
 
   listEvaluationHistory() {
-    ensureStorageDir();
+    if (!fs.existsSync(EVAL_STORAGE_DIR)) return [];
     const files = fs.readdirSync(EVAL_STORAGE_DIR).filter((f) => f.endsWith(".json"));
     const history = [];
     for (const f of files) {

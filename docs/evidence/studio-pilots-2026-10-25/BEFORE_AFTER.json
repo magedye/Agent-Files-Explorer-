@@ -1,0 +1,169 @@
+{
+  "status": "PASS",
+  "edits": [
+    {
+      "path": "docs/INDEX.md",
+      "before": "a0773ebf74531cb63129ff040d6fd50e852581aac1fb6f1551af48965805f564",
+      "after": "0c90ca113399d92bfc36a575c92d18e9d1e57c32e866658edef284f19c7e8b53",
+      "copy": "before/docs/INDEX.md.raw"
+    },
+    {
+      "path": "docs/plans/STUDIO_T34_T35_PILOT_STEPS_AR.md",
+      "before": "46660af3e34d4c098c357401b8e2d763886b952875d25a17780046bc6a01d7ec",
+      "after": "a3ce51c5ccb5a54ac29d707a08c2bb936a79022f516a64e2655518e089a2746d",
+      "copy": "before/docs/plans/STUDIO_T34_T35_PILOT_STEPS_AR.md.raw"
+    },
+    {
+      "path": "docs/plans/STUDIO_UPGRADE_TASKS_AR.md",
+      "before": "e95662c95f518bfa14acc19c0b07951825fe05a3f8a60272885bb24a1ef47d6c",
+      "after": "4fa4f87db6bcaaaafe046a66e3367c8d2c2ab37e0f1bbeb636418ea1c6db5a57",
+      "copy": "before/docs/plans/STUDIO_UPGRADE_TASKS_AR.md.raw"
+    },
+    {
+      "path": "docs/status/CURRENT.md",
+      "before": "306f73a8772e6a956c88a2cbcd99635bd8a90edf5688cdafa62ea8f7f1104c39",
+      "after": "4385278df75f55505bef7b8da1c56cfd4a335f0ea825bf9eca5cf84df178f110",
+      "copy": "before/docs/status/CURRENT.md.raw"
+    },
+    {
+      "path": "docs/status/HANDOFF.md",
+      "before": "067914e9558442d95a7d9fb886a5ae06f73dadb0ea83be19db5061863387a06d",
+      "after": "0e4d4b7151f1b1bd663951dc6c18b0bcb2422169c08f2a38d806a842c5f16ce2",
+      "copy": "before/docs/status/HANDOFF.md.raw"
+    }
+  ],
+  "new_components": [
+    "server/studio/pilots/local-profile.mjs",
+    "server/studio/pilots/package-probe.py",
+    "server/studio/pilots/adoption.mjs",
+    "server/studio/pilots/local-ci.mjs"
+  ],
+  "sandbox_source_hashes": {
+    "pilot-app-l2/.aghr/package/CHANGELOG.md": {
+      "sha256": "6b37f7a1d95a4778471f8a1ee5d70c762bc9cf7d73950d05a747f6c4ae792b81",
+      "bytes": 67
+    },
+    "pilot-app-l2/.aghr/package/aghr.json": {
+      "sha256": "ffd1914b442e1436e62277b3b6e6c2f9fc557ac7d7369b6d81f497520d176db5",
+      "bytes": 798
+    },
+    "pilot-app-l2/.aghr/package/policies/identity.json": {
+      "sha256": "5ac0bbb24b853d8e347d23892562cb47149f3d09af52afdef77d0904db11a947",
+      "bytes": 801
+    },
+    "pilot-app-l2/.aghr/package/policies/principle.json": {
+      "sha256": "5ef814c7371ec1aff4202acec66a535c5c73159961847d051ddfe425da59142b",
+      "bytes": 1393
+    },
+    "pilot-app-l2/.gitignore": {
+      "sha256": "be5147b55b7b4c72869e152eb80b0e2825715d6cf261e91affa0ec0710595e0c",
+      "bytes": 121
+    },
+    "pilot-app-l2/AGENTS.md": {
+      "sha256": "4d264947a44a0f8f7000438cb81b694045f3a5c78936d363914e7e56a8aab913",
+      "bytes": 933
+    },
+    "pilot-app-l2/README.md": {
+      "sha256": "15b3982dadb3d2c1af312b82ffc98e8d8911b63e37c286d806fe8b455dcdeb7b",
+      "bytes": 577
+    },
+    "pilot-app-l2/app.mjs": {
+      "sha256": "db8333471e6be7755cbdccc1ade20670bc5404d76d19a5e1f09392d81dc14ff2",
+      "bytes": 726
+    },
+    "pilot-app-l2/app.test.mjs": {
+      "sha256": "94bf3fcb786007f94e0142e7a680d42ef58943b03828f1a8f9ba0a752fda558b",
+      "bytes": 627
+    },
+    "pilot-app-l3/.aghr/package/CHANGELOG.md": {
+      "sha256": "6b37f7a1d95a4778471f8a1ee5d70c762bc9cf7d73950d05a747f6c4ae792b81",
+      "bytes": 67
+    },
+    "pilot-app-l3/.aghr/package/aghr.json": {
+      "sha256": "de505b95b74ee19270bb38ca6f9c2404bed3eb64f6411999428b2ed33c711fe4",
+      "bytes": 798
+    },
+    "pilot-app-l3/.aghr/package/policies/capability.json": {
+      "sha256": "5f4a273df0a1ebe7c18c7f0eb08ef001a82cef1582ff244c5c2efc8d525c0cea",
+      "bytes": 2000
+    },
+    "pilot-app-l3/.aghr/package/policies/identity.json": {
+      "sha256": "e0517d2f335fe75061c122be7d9444617151a93aa493416498680c9151c80381",
+      "bytes": 796
+    },
+    "pilot-app-l3/.aghr/package/policies/principle.json": {
+      "sha256": "42f7f5953011c58cde5904a6dd6aa5d7e732dd5b2e8a22fac4cfdd5801c2f7e0",
+      "bytes": 1388
+    },
+    "pilot-app-l3/.aghr/package/policies/sql.json": {
+      "sha256": "d54aa6ecf794fd890f98925bed57e082b4e77a7ba11925a8a13281aa34d6bf22",
+      "bytes": 2042
+    },
+    "pilot-app-l3/.gitignore": {
+      "sha256": "be5147b55b7b4c72869e152eb80b0e2825715d6cf261e91affa0ec0710595e0c",
+      "bytes": 121
+    },
+    "pilot-app-l3/AGENTS.md": {
+      "sha256": "8762324723799fd5590c8d9a3652bb593204cbe1107a22778137923db6865d39",
+      "bytes": 1269
+    },
+    "pilot-app-l3/README.md": {
+      "sha256": "ed0cfdfbf114ad933c9a6deb018d53ce1332df4318024e248682dec9974bdceb",
+      "bytes": 580
+    },
+    "pilot-app-l3/app/repository.py": {
+      "sha256": "8bad3c7e1cec3f48fffd82ed3313e0726667bcbfbdccba972fc5cc45a61ec068",
+      "bytes": 390
+    },
+    "pilot-app-l3/app/security.py": {
+      "sha256": "ffaf51b0e2c96b1f474f64b90898f9a68d26f6af23b86f84ea6bd4415e6b9f99",
+      "bytes": 734
+    },
+    "pilot-app-l3/app/server.py": {
+      "sha256": "e849bf2d957d2ba682f21b292f1a6488a67b9946d4de1243098f7295462e87c9",
+      "bytes": 851
+    },
+    "pilot-app-l3/app/service.py": {
+      "sha256": "2519a2f3f26d7ed28b9410d3ea923ca5051a72d7fc314fc3deebad45e8cf24e6",
+      "bytes": 331
+    },
+    "pilot-app-l3/checks.py": {
+      "sha256": "27fec974cb6176569129d98007d50bf950fc149a61c96f17f110d591aa6651b0",
+      "bytes": 1157
+    },
+    "pilot-app-l3/data/inventory.sqlite": {
+      "sha256": "df0913a7caf6f3e5b6fa21476733301a6ed78cb624c710f88073fc4f205ea834",
+      "bytes": 12288
+    },
+    "pilot-app-l3/initialize.py": {
+      "sha256": "8941354a151f9290d514561f7206105f276cb8157a60fc8ab302cd9eb926b76a",
+      "bytes": 643
+    },
+    "pilot-app-l3/procedures/feature-plan/SKILL.md": {
+      "sha256": "273be1cae0513b74c543693270351f62044e681c1572722fd82febe624634efa",
+      "bytes": 355
+    },
+    "pilot-app-l3/procedures/feature-plan/worker.py": {
+      "sha256": "b3739b2fbba36d3adcf7b6008d6ad0edb0a32279acfb8e63ee068a26fdf1a3ab",
+      "bytes": 462
+    },
+    "pilot-app-l3/procedures/learning/SKILL.md": {
+      "sha256": "c90d44fee82a0518864fbef7c744ab5112b7bedd955e665c7819eff620b816e2",
+      "bytes": 359
+    },
+    "pilot-app-l3/procedures/learning/worker.py": {
+      "sha256": "39fd6e4183ff6b6020395db0a7576828a7d2f8a692d191f2a8e00e18f42ad38d",
+      "bytes": 602
+    },
+    "pilot-app-l3/procedures/sql-readonly/SKILL.md": {
+      "sha256": "6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e",
+      "bytes": 583
+    },
+    "pilot-app-l3/procedures/sql-readonly/worker.py": {
+      "sha256": "2558abae5048f035fe8f1d4374b53fd61241eede6cb35ea9972ec784547074ca",
+      "bytes": 1773
+    }
+  },
+  "baseline_unchanged": true,
+  "core_engine_changed": false
+}

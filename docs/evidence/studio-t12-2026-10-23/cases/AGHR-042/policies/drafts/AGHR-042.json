@@ -1,0 +1,44 @@
+{
+  "id": "AGHR-042",
+  "title": "بدائل عملية دون استبدال الهدف",
+  "kind": "PROCEDURE",
+  "force": "MUST",
+  "severity": "medium",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: When a defensible materially better approach is identified.\nExplain the requested approach and practical alternatives with benefits, tradeoffs and a recommendation. Preserve user objectives; propose rather than silently implement any material scope, architecture or authority change. No obligation to invent alternatives for routine adequate work.",
+  "authority": {
+    "source": "drafting/OWNER_DIRECTIVE.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "PROVISIONAL_OWNER_REVIEW",
+    "status": "draft",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "استبدال هدف المالك ببديل غير معتمد قد يغير المنتج. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "review",
+    "mergeEffect": "advisory"
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-042"
+    ]
+  },
+  "impact": {
+    "band": "medium",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2027-01-21",
+  "exceptions": {
+    "allowed": true
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

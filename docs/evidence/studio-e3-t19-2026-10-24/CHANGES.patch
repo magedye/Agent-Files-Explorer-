@@ -1,0 +1,618 @@
+--- before/.gitattributes
++++ after/.gitattributes
+@@ -79,3 +79,13 @@
+ /tools/test_e5_studio_edge.mjs -text
+ /tools/verify_e5_cli.mjs -text
+ /tools/verify_e5_delivery.py -text
++
++# E3 local runtime and delivery proof retain exact bytes.
++/tests/studio_e3_approval.test.mjs -text
++/tests/studio_patch_bytes.test.mjs -text
++/tools/aghr_get_rule.mjs -text
++/tools/aghr_studio_cli.mjs -text
++/tools/verify_studio_e3_cli.mjs -text
++/tools/test_e3_studio_edge.mjs -text
++/tools/pin_studio_e3.py -text
++/tools/verify_studio_e3_delivery.py -text
+--- before/docs/INDEX.md
++++ after/docs/INDEX.md
+@@ -59,3 +59,5 @@
+ ```
+ 
+ - [E5 proposal core, T16 lifecycle and T17 dry-run evidence](evidence/studio-e5-t16-preview-2026-10-23/README.md) — current authorized Draft delivery; no source export or release acceptance.
++
++- [E3/T17/T18 local execution and T19 canonical blockers](evidence/studio-e3-t19-2026-10-24/README.md) — actual bounded controls/approvals/patches; no E4 waiver or release acceptance.
+--- before/docs/features/STUDIO_DRAFT_MODE.md
++++ after/docs/features/STUDIO_DRAFT_MODE.md
+@@ -1,6 +1,6 @@
+-# Studio Draft mode — T13–T16 and T17 dry-run
++# Studio Draft mode — local E3/T17/T18 and patch artifacts
+ 
+-This is an explicitly authorized local Draft profile. The existing read-only server and reference1.2.0 remain separate. [Original storage delivery](../evidence/studio-draft-auth-cp-2026-10-23/README.md). [E5/lifecycle/preview delivery](../evidence/studio-e5-t16-preview-2026-10-23/README.md).
++This is an explicitly authorized local Draft profile. The existing read-only server and reference1.2.0 remain separate. [Original storage delivery](../evidence/studio-draft-auth-cp-2026-10-23/README.md). [Accepted E5/lifecycle delivery](../evidence/studio-e5-t16-preview-2026-10-23/README.md). [Current local controls/approval/patch evidence](../evidence/studio-e3-t19-2026-10-24/README.md).
+ 
+ ## Launch and create a draft
+ 
+@@ -15,7 +15,7 @@
+ 4. Choose **Check authorization**, then **Save draft**. The backend requires the exact server-issued grant and quoted `If-Match`. A grant expires two minutes after preparation and is consumed once.
+ 5. Inspect the saved package or **Audit log**. `quit` stops the local server. Restart rotates all session credentials and grants while retaining saved Drafts and audit records.
+ 
+-The pinned Python parser/schemas load once per Draft session under the read-only audit launcher (bootstrap30s, each request15s, one active preparation; busy429). The worker exits with the session; a failed worker halts preparation. UTF-8 streaming and canonical-payload equality preserve large Arabic/emoji input.
++Draft bootstrap and Python operations run under the existing T15 Windows Job adapter:30s/2GiB for catalog/prepare/edit/validate/generate/doctor/check/approval/preview/export/lookup. eval600s/qualify3600s remain unchanged and unrun. Structured inputs use private transient OS temp files, removed after invocation; child Python is audited read-only. Exact unchanged structural preparation can reuse its bounded result in memory; this is not a new strict/eval execution claim. Only one engine request runs per session; busy429. The legacy read-only profile retains its existing transport and memory catalog.
+ 
+ The local OS account identifies the operator at startup. That explicit operator bootstrap owns the governance-owner role for this local installation; it is not an enterprise identity or a package-publisher signature. A host with shared OS credentials is not separately qualified by this profile.
+ 
+@@ -23,7 +23,7 @@
+ 
+ Default application storage: `.governance/studio-drafts/studio.sqlite`, ignored by Git. A trusted `--storage-root=<absolute-existing-directory>` selects a different Draft store. No HTTP parameter selects a database or source path. The owner explicitly authorized this persistence; the historical SQL draft comment did not grant it.
+ 
+-The unchanged pinned migration creates exactly twelve tables, with foreign keys, transactional migration, checksum and DDL fingerprint. Canonical workspace metadata remains read_only=1. No target adoption project is invented: `studio-drafts` is the grant namespace. Each CP insert and its successful audit/provenance record commit together; audit failure rolls back the CP. No application path writes policies, AGENTS.md, state.json or runtime_evidence.
++The unchanged pinned migration creates exactly twelve tables, with foreign keys, transactional migration, checksum and DDL fingerprint. Canonical workspace metadata remains read_only=1. No target adoption project is invented: `studio-drafts` is the grant namespace. Each CP insert and its successful audit/provenance record commit together; audit failure rolls back the CP. No application path applies policies or AGENTS.md to source, or writes state.json/runtime_evidence. Only Draft DB/audit and authorized patch artifacts persist.
+ 
+ Every attempted mutation in this Draft backend is audited, including unsupported/legacy paths. Known sessions retain their server-registered actor on denial; unrecognized credentials are `unauthenticated`, never a body-supplied identity. Authentication failure is not a successful actor verification. Audit bookkeeping and trusted startup/console authorization are internal security operations, not CP grants.
+ 
+@@ -51,13 +51,13 @@
+ | GET `/api/v1/workspaces/rc3-local/change-packages/{id}` | Durable CP detail |
+ | GET `/api/v1/audit-events` | Latest200 attempts/decisions, no credentials |
+ 
+-Draft intent/status/audit routes are documented local profile extensions, not amendments to the locked59-operation public inventory. Other mutations remain403; this slice grants no legacy apply/export path.
++Draft intent/status/audit routes are documented local profile extensions, not amendments to the locked59-operation public inventory. Other/legacy mutations remain403; the new patch-only paths do not grant legacy source apply or commit.
+ 
+ ## T15 resources and T16 limits
+ 
+ `job-runner.js` uses the Windows adapter with eval600000ms / qualify3600000ms / memory2147483648bytes. Atomic JOB_LIST assignment precedes execution; no breakaway, hard aggregate committed-memory limit, independent watchdog and whole-job termination. Partial stdout/stderr remain separate. Timeout/memory/output excess is `resource_limit_exceeded`; cancellation is `errored / user_cancelled`. Missing controls fail closed.
+ 
+-Only controlled fixture processes exercised this adapter. Native E2 still implements catalog/validate/lint; no real eval/qualify, E3 or seven E4 honesty checks ran. Linux/macOS adapters are unavailable. Raw Windows peak memory is retained, including its observed value above the configured small test cap; actual allocation rejection and hard-limit readback are separately recorded.
++Only controlled fixture processes exercised this adapter. Native E2 still implements catalog/validate/lint; no real eval/qualify or seven E4 honesty checks ran; the separately pinned E3 local profile now executes real controls. Linux/macOS adapters are unavailable. Raw Windows peak memory is retained, including its observed value above the configured small test cap; actual allocation rejection and hard-limit readback are separately recorded.
+ 
+ ## E5 proposal core and T16 lifecycle
+ 
+@@ -76,8 +76,33 @@
+ 
+ Every changed proposal returns to draft and clears checks, generation and active approvals atomically. Prior verification_runs stay immutable; approval history retains original identity, decision, reason, hash and timestamp, plus invalidation reason/time. No-op edits do not manufacture a new version. Stale/ungranted requests and transaction failures leave the current proposal intact; consumed grants stay consumed even after transaction rollback. A changed base requires explicit rebase, not silent reassignment.
+ 
+-## T17 preview boundary
++## E3/T17/T18 and patch boundary
+ 
+-The initial server-owned preview profile is Codex/draft-l1, L1,32768 bytes. No HTTP budget, lookup attestation or target path is accepted. Python renders full -> compress -> compact -> fail, measures actual UTF-8 bytes and keeps P0 evidence. Unknown priority is conservatively retained, never guessed into a lower tier. L1+ requires PRIN-007 with the exact governing rule text from the pinned rc.3 specification, not just its identifier. This is rendering evidence, not authority/adoption.
++The separately pinned E3 extension reuses immutable E2/E5. Doctor exercises an implemented local patch secret detector and records control hash/positive and negative controls/actual proposal inspection. It makes no complete-secret-detection or remote GitHub protection claim. A declared unknown gate remains BLOCKED/NOT_OBSERVABLE. Only the exact E2 unavailable-enforcement finding discharged by real E3 evidence is resolved. Mandatory source/E4/qualification findings stay intact; omitting priority cannot evade a canonical P0 obligation.
+ 
+-Compress needs acknowledgement before export; compact also needs qualified hash-bound rule lookup. Runtime lookup is NOT_RUN, so compact cannot be accepted; fixture lookup tests do not qualify a host. Failed output is visible as evidence only. Successful dry-run stays Draft/review and generate check remains NOT_RUN for approval/export. No export, download, clipboard action, source apply, final package or state write is provided. T18 and real E3/E4/CI gates remain open.
++Initial preview: Codex/draft-l1,L1,32768 UTF-8 bytes. All four stages work. Genuine PRIN-007 text is supplied from the pinned normative contract without granting CP authority. Compact independently reads the current proposal from SQLite, recomputes JCS, fetches the actual rules and records matching content hashes. Generated instructions name the real read-only CLI; the source and proposal are bound. Availability is qualified only for this local Codex shell/SQLite profile, not other hosts or deployments.
++
++```powershell
++node tools/aghr_get_rule.mjs --cp-id=<CP-ID> --hash=<proposal-hash> --id=<item-id>
++node tools/aghr_studio_cli.mjs validate --strict --input=<request-json>
++node tools/aghr_studio_cli.mjs doctor --input=<request-json>
++```
++
++CLI input contains payload/base and optional preview/context, never trusted source grants. All Python operations use T15. Local operator `attest <validate-intent-id>` can attest an exact project/component source only when its owner/approvedBy match the authenticated local operator. This records a hash-bound audit attestation, not an enterprise identity or publisher signature. HTTP cannot call that channel or mint identities. A changed proposal invalidates the attestation by hash.
++
++Additional routes, all with session authentication and scoped grants for effects:
++
++| Route | Outcome |
++| --- | --- |
++| POST `/api/v1/workspaces/rc3-local/cps/{id}/doctor` | Actual bounded doctor; unavailable gates remain failing checks |
++| POST `/api/v1/workspaces/rc3-local/cps/{id}/preview` | Source-preserving patch diff, no source apply |
++| POST `/api/v1/workspaces/rc3-local/cps/{id}/approve` | Locked ApprovalRequest; server actor/role, current hash/checks/acknowledgements; actual DB decision |
++| POST `/api/v1/workspaces/rc3-local/cps/{id}/export` | `{format: patch}` only; all required checks and distinct reviewers, exclusive patch file in Draft artifacts, audit rollback |
++| POST `/api/v1/workspaces/rc3-local/cps/{id}/draft-patch` | Explicit local review-only extension; labelled NOT_APPROVED, CP status unchanged; cannot close T19 |
++| GET `/api/v1/workspaces/rc3-local/cps/{id}/artifact` | Exact current-hash saved patch only, hash/regular-file/path checks, no URL credential |
++
++The intent operation set adds doctor/preview/approve/export/draft-patch. Approval/export requests carry their locked bodies; read/doctor/submit have none. A console execution grant is never the CP review decision itself. Policies changes require governance-owner and a distinct security-owner reviewer in this local profile. Trusted identity integration registers the actual reviewer; tests using isolated registered identities do not establish independent human review. The default local UI is the governance-owner session and cannot manufacture a second role through a body.
++
++Approvals and generation acknowledgements bind proposal/content hashes. Editing resets checks/preview/approvals, retains original history and resets the UI decision/acknowledgement form. Approval/export compares the full current CP view after asynchronous Python checks, so concurrent review/check changes cannot silently pass. Approved export is a patch artifact only; never apply, commit, merge, state publication or final package. A failed audit rolls back DB and the newly created artifact. No-op edits do not revive stale evidence.
++
++Canonical SEC-001 remains unapproved: enterprise source and GitHub gate lack actual evidence, while its P0 eval is required and E4 is expressly NOT_RUN. A review-only patch is available without pretending those obligations passed. No E4 or T01 re-evaluation was performed. Production identity/remote controls/CI/release qualification remain outside the local proof.
+--- before/docs/plans/STUDIO_UPGRADE_TASKS_AR.md
++++ after/docs/plans/STUDIO_UPGRADE_TASKS_AR.md
+@@ -1,6 +1,6 @@
+ # قائمة مهام تحديث AGHR Governance Studio
+ 
+-**التاريخ:** 2026-10-23. **الحالة:** `E1/E2 ACCEPTED_BY_OWNER / T01 CLOSED_UNBLOCKED / T02–T05 ACCEPTED_BY_OWNER / T06 MOCK_ONLY ACCEPTED_BY_OWNER / T07–T10 ACCEPTED_BY_OWNER / T11a–T11b ACCEPTED_BY_OWNER / T12 OWNER_APPROVED_MOCK_CLOSED / T13–T15 ACCEPTED_BY_OWNER / T16 LIFECYCLE_TESTED / T17 PREVIEW_ONLY`.
++**التاريخ:** 2026-10-23. **الحالة:** `E1/E2 ACCEPTED_BY_OWNER / T01 CLOSED_UNBLOCKED / T02–T05 ACCEPTED_BY_OWNER / T06 MOCK_ONLY ACCEPTED_BY_OWNER / T07–T10 ACCEPTED_BY_OWNER / T11a–T11b ACCEPTED_BY_OWNER / T12 OWNER_APPROVED_MOCK_CLOSED / T13–T15 ACCEPTED_BY_OWNER / T16 ACCEPTED_BY_OWNER / E3-T17-T18 LOCAL_IMPLEMENTED / T19 CANONICAL_BLOCKED`.
+ **الخطة:** [التحديث الكامل](STUDIO_FULL_PROJECT_UPGRADE_AR.md). **المتطلبات:** [المواصفة المعتمدة](../specs/aghr-rc3/STUDIO_SPECIFICATION.md)، و[العقود](../contracts/aghr-rc3/README.md). استكمال تعريف العقود عمل سابق؛ المهام أدناه لتفعيل المنتج، ولا تمنح قبول إصدار.
+ 
+ **مراجعة r2:** [تقييم الملاحظات](../reviews/STUDIO_UPGRADE_PLAN_REVIEW_2026_10_22_AR.md). شروط T00 وقرارات المالك وأصحاب المسؤوليات في §1.1 و§1.2 و§2.1 من الخطة. لم تنفذ مهام المنتج بهذه المراجعة.
+@@ -120,9 +120,9 @@
+ | [x] T14 — التخزين الدائم المصرح به | T05 وT13؛ IMPLEMENTED/TESTED_LOCAL_DRAFT | SQLite12 فعلية وCP/audit ذريّان؛ [التسليم](../evidence/studio-draft-auth-cp-2026-10-23/README.md) | المسار الافتراضي فُعّل وأعيد فتحه؛ اختبارات CP في مخزن معزول. migration/checksum/DDL/FK؛ فشل audit يلغي CP. وضع القراءة يبقى :memory: |
+ | [x] T15 — محول الموارد قبل eval | T02؛ IMPLEMENTED/TESTED_WINDOWS_FIXTURES | job-runner.js وwindows-job.py؛ [التسليم](../evidence/studio-draft-auth-cp-2026-10-23/README.md) | eval600s/qualify3600s/2GiB؛ بدء Job ذري وقتل الشجرة وذاكرة/timeout/إلغاء ومخرجات جزئية. لا eval/qualify فعليين في E2؛ لا تأهيل شامل للمضيف أو تنفيذ E4 |
+ | [x] T16 — إنشاء CP وتحريره وإرساله | T07،T13–T14،E5 proposal core؛ LOCALLY_TESTED | Python JCS وE2 overlay، create/edit/validate/submit وواجهة ثنائية؛ [الأدلة](../evidence/studio-e5-t16-preview-2026-10-23/README.md) | منح محددة وIf-Match، تعديل يبطل الفحوص/المعاينة/الموافقات ذريًا مع حفظ التاريخ؛ in_review لا تعني approved؛ لا اعتماد إصدار |
+-| [ ] T17 — التوليد والمعاينة | T16؛ PREVIEW_ONLY_STARTED | محرك Python full/compress/compact/fail وAPI/واجهة dry-run | UTF-8/P0/PRIN-007 بنصه؛ full/compress/compact بتركيب اختباري، lookup الحقيقي NOT_RUN؛ لا تصدير قبل T18/E3 |
+-| [ ] T18 — الموافقات وإبطال القديم | T16–T17 وE5 إن لزم؛ M | approvals/history/If-Match داخل CP service والواجهة واختبارها | موافقة خادمية مربوطة بالبصمة؛ تعديل المقترح يبطل checks/preview/approvals مع حفظ السبب والوقت؛ missing/stale hash يرفض. اختبارات تنافس وتعديل بعد الموافقة |
+-| [ ] T19 — تصدير SEC-001 والفرق | T12،T15،T17–T18؛ M | export service/واجهة الفرق واختبار دورة كاملة | author→strict validate→required checks→generate→diff→approval→patch يعمل فعليًا؛ commit فقط بمنحته؛ state/evidence لا تتغير. اختبار end-to-end ورفض تجاوز gate.required والتفويض والأدلة المطلوبة؛ لا ادعاء قبول نشر بلا CI |
++| [x] T17 — التوليد والمعاينة | T16؛ TESTED_LOCAL_PROFILE | Python full/compress/compact/fail واسترجاع SQLite/CLI حقيقي؛ [الأدلة](../evidence/studio-e3-t19-2026-10-24/README.md) | UTF-8/P0/PRIN-007، عرض مرحلي؛ إقرارات ونسخة واسترجاع؛ لا تأهيل مضيف آخر أو تطبيق AGENTS على المصدر |
++| [x] T18 — الموافقات وإبطال القديم | E5/E3؛ TESTED_LOCAL_PROFILE | قرارات فعلية في SQLite، منح وأدوار وIf-Match وتاريخ محفوظ | stale412؛ تعديل يبطل checks/preview/approvals ذريًا؛ مراجعان متميزان للسياسات. هويات الاختبار لا تثبت مراجعة بشرية مستقلة؛ المصدر الفعلي لهوية المراجع مطلوب للحزمة الحقيقية |
++| [ ] T19 — تصدير SEC-001 والفرق | E3/T18؛ BLOCKED_CANONICAL_SEC001 | Patch-only service يعمل؛ SEC-001.REVIEW_ONLY.patch غير معتمد | enterprise/GitHub gate غير مثبتين، E4 P0 NOT_RUN؛ لا تخفيض للقالب ولا قبول تلقائي. نجاح تصدير رصدي اختباري لا يغلق دورة SEC-001 |
+ 
+ **نقاط فحص C:** بعد T13–T15 تثبت صلاحية وضع الكتابة وضبط الموارد؛ بعد T16–T18 يختبر إبطال الموافقات؛ T19 يغلق دورة بند واحد فقط. تحتاج الفحوص المطلوبة إلى المحرك ومحول T15 قبل تشغيلها، حتى إن جاءت واجهة المهام المتقدمة لاحقًا.
+ 
+--- before/docs/status/CURRENT.md
++++ after/docs/status/CURRENT.md
+@@ -1,19 +1,20 @@
+ # Active Project Execution State — Derived View
+ 
+-> Updated: 2026-10-23. Git, source and exact evidence take precedence.
++> Updated: 2026-10-24. Git, source and exact evidence take precedence.
+ 
+ ## Current scope
+ 
+ - E1/E2 ACCEPTED_BY_OWNER; original46-file engine and CLI3 unchanged. License PROVISIONAL; publisher UNKNOWN. [E2](../evidence/studio-e2-2026-10-22/README.md).
+ - T01–T05,T07–T10 owner accepted: read-only backend,12 memory tables, bilingual screens. T06/T12 accepted MOCK_ONLY; native mandatory-rule validation stays BLOCKED/3 without real evidence. T11 inventory accepted; no Active adoption.
+ - T13/T14/T15 formally ACCEPTED_BY_OWNER in current instruction: real scoped grants,12-table persistent Draft SQLite, audit/rollback and Windows resource adapter. [Prior proof](../evidence/studio-draft-auth-cp-2026-10-23/README.md).
+-- [Current delivery](../evidence/studio-e5-t16-preview-2026-10-23/README.md): authorized E5 proposal core and T16 create/edit/strict-check/submit; Python JCS/E2 overlay; exact-hash evidence, atomic invalidation and preserved approval history. T16 Edge checkpoint passed with1632 source files unchanged. Final integrated verification is recorded in delivery evidence.
+-- T17 begun as dry-run only: Python full/compress/compact/fail, UTF-8 budget/P0 and exact PRIN-007 text at L1+. Runtime lookup unavailable; compact cannot be accepted. T18 approval/export not started. [Launch/API](../features/STUDIO_DRAFT_MODE.md).
++- T16 and E5 proposal core formally ACCEPTED_BY_OWNER in the current instruction. [Accepted delivery](../evidence/studio-e5-t16-preview-2026-10-23/README.md):80/80, full Draft lifecycle/hash invalidation; no release acceptance.
++- [Active E3/T17/T18/T19 work](../evidence/studio-e3-t19-2026-10-24/README.md): real local doctor, bounded Python, four-stage generation/actual readonly lookup, real approval DB/history and patch-only export. Focused workflow passed; final full-suite/browser verification recorded in delivery.
++- Canonical SEC-001 remains BLOCKED: enterprise source and GitHub gate unverified, mandatory P0 E4 deferred. Review-only patch is NOT_APPROVED and does not close T19. Real additional reviewer identity is required outside isolated fixtures.
+ 
+ ## Preserved boundaries
+ 
+-Reference1.2.0, E2 and locked contracts unchanged. No source application, final package, AGENTS file export, state.json or runtime_evidence writes. Runtime may write only Draft DB/audit. Generation output is preview, never approval. Approval invalidation tests use imported isolated fixtures, not T18 product approval. Seven E4 honesty checks REQUIRED / NOT_RUN / NOT_WAIVED; no real eval/qualify/doctor or release/independent acceptance.
++Reference1.2.0, E2, accepted E5 source and locked contracts unchanged. Only Draft DB/audit and explicitly authorized patch artifacts may persist; bounded control inputs use transient OS temp files. No source apply, final package, state.json or runtime_evidence writes. No T01 re-evaluation or E4 work. Seven E4 honesty checks REQUIRED / NOT_RUN / NOT_WAIVED; no release/independent acceptance.
+ 
+ ## Exact next action
+ 
+-Read final delivery verification and gaps. Finish real E3 lookup/doctor and T18 approvals under explicit scope before permitting export. E5 calibration and E4/CI qualification remain separate future gates; no automatic adoption or release.
++Read final delivery verification and gaps. Resolve actual authority/gate/reviewer evidence and the E4-before-approved-T19 acceptance dependency with the owner. Do not close T19 from an unapproved review patch or start E4 without a new owner direction. Preserve mutable Draft DB; no automatic adoption or release.
+--- before/docs/status/HANDOFF.md
++++ after/docs/status/HANDOFF.md
+@@ -1,7 +1,7 @@
+-# Studio handoff — derived position
++# Studio handoff —2026-10-24, derived position
+ 
+-Owner accepted T13/T14/T15 and authorized E5 proposal core, full T16 then T17 dry-run. [Current delivery](../evidence/studio-e5-t16-preview-2026-10-23/README.md) retains raw before/after, CLI and browser/HTTP evidence, custody and gaps. Reopen [CURRENT](CURRENT.md), live Git and delivery verification before resuming.
++Owner accepts T16/E5 and authorizes E3/T17/T18 then T19 patch only, with E4 deferred and no T01 reopening. [Current evidence](../evidence/studio-e3-t19-2026-10-24/README.md). Reopen CURRENT, live Git and exact verification before resuming.
+ 
+-T16 lifecycle uses Python-owned JCS and E2 policy on an in-memory overlay; scoped grants/If-Match and transactional edit invalidation preserve approval history. T17 is preview only; full/compress/compact/fail logic, budget/P0, exact PRIN-007 text. Compact lookup remains unqualified. No T18 approval/export and no source writes. Reference1.2.0 and immutable E2/contracts remain preserved; T12 mocks grant no privileges. E4 seven checks REQUIRED / NOT_RUN / NOT_WAIVED.
++Local bounded pipeline/doctor, genuine four-stage generation and readonly lookup, actual approval/history/old-hash denial and patch transaction implemented. Canonical SEC-001 cannot complete approved T19: enterprise source/GitHub gate unverified; P0 eval required but E4 explicitly NOT_RUN. Its patch is REVIEW_ONLY/NOT_APPROVED. Test identities prove server flow, not independent human review. Real reviewer/channel is still needed for an actual package.
+ 
+-Next: resolve recorded E3/T18 gaps before any final export; calibration/E4/CI remain distinct work. Default Draft DB is mutable ignored runtime data: preserve it, never restore/reset from test evidence. Tests use isolated stores/profiles. Check verification before claiming technical completion; no independent/release acceptance is self-granted.
++Next: resolve those authority and ordering decisions with owner. No E4 execution, source apply, T24 publishing or acceptance claims. E2/E5/contracts/reference1.2.0 preserved. Runtime Draft DB is mutable ignored data; never restore/reset it from isolated test snapshots. Raw before/after and final custody belong to the delivery.
+--- before/server/studio/aghr/cli-bridge.js
++++ after/server/studio/aghr/cli-bridge.js
+@@ -61,7 +61,7 @@
+ }
+ 
+ // Configuration comes from the local operator, never an HTTP body or query.
+-export function createBridge({ python, packageRoot = engineRoot, timeoutMs = 30_000, maxBytes = 16 * 1024 * 1024 } = {}) {
++export function createBridge({ python, packageRoot = engineRoot, timeoutMs = 30_000, maxBytes = 16 * 1024 * 1024, jobRunner = null } = {}) {
+   if (!python || !path.isAbsolute(python)) throw Error('ENGINE_EXECUTABLE_REQUIRED');
+   const selectedRoot=verifyPackageRoot(packageRoot);
+   const pythonHash = digest(fs.readFileSync(python));
+@@ -80,7 +80,11 @@
+       if (digest(fs.readFileSync(python)) !== pythonHash) throw Error('ENGINE_EXECUTABLE_DRIFT');
+       const args = ['-I', '-B', '-S', '-X', 'utf8', launcher, path.join(engineRoot, 'tools/cli.py'), ...allowed.get(command), ...contextArgs];
+       const startedAt = new Date().toISOString();
+-      const capture = await new Promise((resolve, reject) => {
++      const capture = jobRunner ? await (async()=>{
++        const job=await jobRunner.run(command,{executable:python,args,cwd:selectedRoot,maxOutputBytes:maxBytes});
++        if(!['passed','failed'].includes(job.status)||job.active_processes_after!==0||job.started.hard_memory_bytes!==job.limits.memoryBytes||(job.started.limit_flags&0x2200)!==0x2200)throw Error('INITIAL_RESOURCE_GATE_FAILED');
++        return {stdout:job.stdout,stderr:job.stderr,code:job.exit_code,resourceReceipt:job};
++      })() : await new Promise((resolve, reject) => {
+         const env = Object.fromEntries(['SystemRoot', 'WINDIR', 'SYSTEMDRIVE'].filter(k => process.env[k]).map(k => [k, process.env[k]]));
+         const child = spawn(python, args, { cwd: selectedRoot, shell: false, windowsHide: true, env, stdio: ['ignore', 'pipe', 'pipe'] });
+         const out = [], err = []; let bytes = 0, failure;
+@@ -92,7 +96,7 @@
+       });
+       verifyPackageRoot(selectedRoot);
+       verifySource();
+-      return { ...decodeResult(capture.stdout, capture.stderr, capture.code, command), startedAt, finishedAt: new Date().toISOString(), invocation: { executable: python, args, cwd: selectedRoot, shell: false, pythonHash, launcherHash: digest(fs.readFileSync(launcher)) } };
++      return { ...decodeResult(capture.stdout, capture.stderr, capture.code, command), startedAt, finishedAt: new Date().toISOString(), ...(capture.resourceReceipt?{resourceReceipt:capture.resourceReceipt}:{}), invocation: { executable: python, args, cwd: selectedRoot, shell: false, pythonHash, launcherHash: digest(fs.readFileSync(launcher)) } };
+     },
+   };
+ }
+--- before/server/studio/aghr/job-runner.js
++++ after/server/studio/aghr/job-runner.js
+@@ -3,7 +3,8 @@
+ import {spawn} from 'node:child_process';
+ import {fileURLToPath} from 'node:url';
+ 
+-export const resourceProfiles=Object.freeze({eval:Object.freeze({timeoutMs:600000,memoryBytes:2*1024**3}),qualify:Object.freeze({timeoutMs:3600000,memoryBytes:2*1024**3})});
++const fast=Object.freeze({timeoutMs:30000,memoryBytes:2*1024**3});
++export const resourceProfiles=Object.freeze({eval:Object.freeze({timeoutMs:600000,memoryBytes:2*1024**3}),qualify:Object.freeze({timeoutMs:3600000,memoryBytes:2*1024**3}),...Object.fromEntries(['catalog','lint','prepare','edit','validate','generate','doctor','check','approval','preview','export','lookup','attestation'].map(k=>[k,fast]))});
+ const adapter=fileURLToPath(new URL('./windows-job.py',import.meta.url));
+ // Only trusted server configuration calls this primitive. No HTTP request can
+ // supply an executable, argv, profile override, cwd or adapter path.
+@@ -11,7 +12,7 @@
+  if(process.platform!=='win32'||!python||!path.isAbsolute(python)||!fs.existsSync(adapter))throw Error('RESOURCE_ADAPTER_UNAVAILABLE');
+  return {run(command,{executable,args=[],cwd,signal,onStarted=()=>{},onOutput=()=>{},maxOutputBytes=16*1024**2}){
+   const limits=profiles[command];
+-  if(!['eval','qualify'].includes(command)||!limits||!path.isAbsolute(executable)||!path.isAbsolute(cwd)||!Array.isArray(args)||args.some(a=>typeof a!=='string'||a.includes('\0'))||!Number.isSafeInteger(limits.timeoutMs)||limits.timeoutMs<1||!Number.isSafeInteger(limits.memoryBytes)||limits.memoryBytes<64*1024**2||!Number.isSafeInteger(maxOutputBytes)||maxOutputBytes<1||maxOutputBytes>16*1024**2)throw Error('RESOURCE_CONFIG_INVALID');
++  if(!Object.hasOwn(resourceProfiles,command)||!limits||!path.isAbsolute(executable)||!path.isAbsolute(cwd)||!Array.isArray(args)||args.some(a=>typeof a!=='string'||a.includes('\0'))||!Number.isSafeInteger(limits.timeoutMs)||limits.timeoutMs<1||!Number.isSafeInteger(limits.memoryBytes)||limits.memoryBytes<64*1024**2||!Number.isSafeInteger(maxOutputBytes)||maxOutputBytes<1||maxOutputBytes>16*1024**2)throw Error('RESOURCE_CONFIG_INVALID');
+   if(signal?.aborted)return Promise.resolve({status:'errored',reason:'user_cancelled',exit_code:null,stdout:'',stderr:'',resource_peak_mb:null,active_processes_after:0});
+   return new Promise((resolve,reject)=>{
+    const env=Object.fromEntries(['SystemRoot','WINDIR','SYSTEMDRIVE'].filter(k=>process.env[k]).map(k=>[k,process.env[k]]));
+--- before/server/studio/db/persistent.js
++++ after/server/studio/db/persistent.js
+@@ -6,6 +6,7 @@
+ import {repository} from '../aghr/cli-bridge.js';
+ import {consumeAuthorization,authorizationDetails} from '../write-authorization.js';
+ import {StudioError} from '../auth.js';
++import {createArtifactStore} from '../artifact-store.js';
+ const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+ export const migrationHash='d5ab6a5fa8dc3be95927d3f9871ed393a3d7f7206e102dae6f2721492dde2159';
+ const sqlPath=path.join(repository,'docs/contracts/aghr-rc3/sqlite/001_initial.sql');
+@@ -36,6 +37,7 @@
+ export function openPersistentStore(config,authorization){
+  contractSQL(); // Fail a bad migration pin before opening or creating a disk file.
+  const scope=storageScope(config),details=consumeAuthorization(authorization,scope),file=scope.resource_id;
++ const artifacts=createArtifactStore(path.dirname(file));
+  const st=fs.lstatSync(file,{throwIfNoEntry:false});if(st&&(st.isSymbolicLink()||!st.isFile()||st.nlink!==1))throw Error('STORAGE_FILE_UNSAFE');
+  const db=new DatabaseSync(file);let info;
+  try{db.exec('PRAGMA foreign_keys=ON; PRAGMA temp_store=MEMORY;');info=migrateDatabase(db);}catch(e){db.close();throw e;}
+@@ -67,8 +69,9 @@
+   return {id:row.id,workspace_id:row.workspace_id,title:row.title,kind:row.kind,target_item_id:row.target_item_id,status:row.status,
+    source:frozen.source,base_package_version:row.base_package_version,base_candidate_hash:frozen.base_candidate_hash,
+    proposed_yaml:row.proposed_yaml,proposal_version_hash:row.proposal_version_hash,
+-   checks,generation:generated?.generation??null,ci_comparison:null,required_approvals:['governance-owner'],approvals,approval_history:history,
+-   blockers:[{code:'DRAFT_ONLY',message:'Draft/review only. Downstream E3/E4, T18 approvals and export remain gated.',severity:'warning'}],
++   checks,generation:generated?.generation??null,ci_comparison:null,required_approvals:Array.isArray(JSON.parse(row.required_approvals_json||'null'))?JSON.parse(row.required_approvals_json):['governance-owner'],approvals,approval_history:history,
++   blockers:Object.entries(checks).filter(([k,c])=>['validate','lint','generate','doctor'].includes(k)&&c.status!=='PASS').map(([k,c])=>({code:'CHECK_'+k.toUpperCase(),message:c.reason||k+' has not passed.',severity:'warning'})),
++   ...(row.preview_diff?{preview:{proposal_version_hash:row.proposal_version_hash,diff:row.preview_diff,files:JSON.parse(row.preview_files_json),source_written:false,state_written:false}}:{}),
+    created_by:row.created_by,created_at:row.created_at,updated_at:row.updated_at};
+  };
+  return Object.freeze({
+@@ -134,8 +137,9 @@
+     const check={status:pass?'PASS':'FAIL',at,run_id:runId,evidence,...(pass?{}:{reason:report.result+': '+report.findings.map(f=>f.code).join(', ')})};
+     db.prepare(`INSERT INTO verification_runs(id,workspace_id,command,status,exit_code,started_at,finished_at,raw_stdout,raw_stderr,raw_output,linked_package_id) VALUES(?,?,'validate',?,?,?,?,?,'',?,?)`)
+      .run(runId,scope.workspace_id,pass?'passed':'failed',report.exit_code,at,at,raw,raw,id);
+-    db.prepare('UPDATE change_packages SET validation_result_json=?,lint_result_json=?,status=?,status_updated_at=?,updated_at=? WHERE id=?')
+-     .run(JSON.stringify(check),JSON.stringify(check),pass?'validated':'draft',at,at,id);
++    const doctor=report.doctor?{...check,status:report.doctor.status==='PASS'?'PASS':'FAIL',...(report.doctor.status==='PASS'?{}:{reason:'Required host gate could not be established.'})}:null;
++    db.prepare('UPDATE change_packages SET validation_result_json=?,lint_result_json=?,doctor_result_json=?,required_approvals_json=?,status=?,status_updated_at=?,updated_at=? WHERE id=?')
++     .run(JSON.stringify(check),JSON.stringify(check),doctor?JSON.stringify(doctor):null,JSON.stringify(report.required_approvals||['governance-owner']),pass?'validated':'draft',at,at,id);
+     append(actor,{event_type:'cp.validate',resource_type:'package',payload:{result:'SUCCESS',validation_result:report.result,run_id:runId,proposal_version_hash:expectedHash,report_hash:evidence[0].content_hash}});
+     return cpView(db.prepare('SELECT * FROM change_packages WHERE id=?').get(id));
+    });
+@@ -151,20 +155,97 @@
+     return cpView(db.prepare('SELECT * FROM change_packages WHERE id=?').get(id));
+    });
+   },
+-  previewDraft(receipt,id,expectedHash,generation){
++  previewDraft(receipt,id,expectedHash,generation,resourceReceipt=null){
+    const actor=consumeAuthorization(receipt,{...scope,action:'cp.generate.preview',resource_id:id,proposal_version_hash:expectedHash});
+    return transaction(()=>{
+     const row=db.prepare('SELECT * FROM change_packages WHERE id=? AND workspace_id=?').get(id,scope.workspace_id);
+     if(!row||row.proposal_version_hash!==expectedHash)throw new StudioError(412,'STALE_PROPOSAL','Proposal changed during preview.');
+-    if(['exported','closed'].includes(row.status))throw new StudioError(409,'CONFLICT','Finalized proposal.');
++    if(['approved','exported','closed'].includes(row.status))throw new StudioError(409,'CONFLICT','Approved/finalized evidence is immutable; edit the proposal first.');
+     const at=new Date().toISOString();
+-    // Preview is evidence of rendering only; never marks generate PASS before
+-    // acknowledgements, real lookup and T18. Failed output remains viewable.
+-    const check={status:generation.stage==='fail'?'FAIL':'NOT_RUN',evidence:[],reason:'Dry-run rendering only. T18 approvals/export and required acknowledgements remain gated.'};
++    const raw=JSON.stringify({generation,resourceReceipt}),runId='VR-'+crypto.randomUUID();
++    const passed=resourceReceipt&&generation.stage!=='fail'&&generation.p0_preserved&&generation.prin_007_present&&generation.byte_size<=generation.budget_bytes;
++    const check={status:passed?'PASS':generation.stage==='fail'?'FAIL':'NOT_RUN',at,run_id:runId,evidence:passed?[{path:'sqlite:verification_runs/'+runId,content_hash:'sha256:'+sha(raw),bytes:Buffer.byteLength(raw)}]:[],...(!passed?{reason:'Generation failed or has no bounded execution receipt.'}:{})};
++    db.prepare(`INSERT INTO verification_runs(id,workspace_id,command,status,exit_code,started_at,finished_at,raw_stdout,raw_stderr,raw_output,linked_package_id) VALUES(?,?,'generate',?,?,?,?,?,'',?,?)`).run(runId,scope.workspace_id,passed?'passed':'failed',passed?0:1,at,at,raw,raw,id);
+     db.prepare('UPDATE change_packages SET generation_result_json=?,updated_at=? WHERE id=?').run(JSON.stringify({proposal_version_hash:expectedHash,generation,check}),at,id);
+     append(actor,{event_type:'cp.generate.preview',resource_type:'package',payload:{result:'SUCCESS',proposal_version_hash:expectedHash,content_hash:generation.content_hash,stage:generation.stage,source_written:false,exported:false}});
+     return generation;
+    });
++  },
++  requirements(id){
++   const row=db.prepare('SELECT proposal_version_hash,validation_result_json FROM change_packages WHERE id=? AND workspace_id=?').get(id,scope.workspace_id);
++   const check=row?.validation_result_json&&JSON.parse(row.validation_result_json),run=check&&db.prepare('SELECT raw_stdout FROM verification_runs WHERE id=? AND linked_package_id=?').get(check.run_id,id);
++   const report=run&&JSON.parse(run.raw_stdout);
++   return report?.proposal_version_hash===row?.proposal_version_hash?{eval_required:report.eval_required??true,skill_required:report.skill_required??true}:{eval_required:true,skill_required:true};
++  },
++  attestSource(cpId,expectedHash,actor,grant){
++   const cp=cpView(db.prepare('SELECT * FROM change_packages WHERE id=? AND workspace_id=?').get(cpId,scope.workspace_id));
++   if(!cp||cp.proposal_version_hash!==expectedHash)throw new StudioError(412,'STALE_PROPOSAL','Source changed.');
++   append({...scope,action:'source.attest',resource_id:cpId,authenticated_actor:actor,server_resolved_role:'governance-owner'},{event_type:'source.attest',resource_type:'package',payload:{result:'SUCCESS',proposal_version_hash:expectedHash,grant,trust:'OS_LOCAL_PROJECT_ONLY; not enterprise/publisher identity'}});
++  },
++  sourceGrants(id,hash){
++   return db.prepare("SELECT payload_json FROM audit_events WHERE event_type='source.attest' AND resource_id=? AND actor_role='governance-owner' ORDER BY id DESC LIMIT 100").all(id).map(r=>JSON.parse(r.payload_json)).filter(r=>r.result==='SUCCESS'&&r.proposal_version_hash===hash).slice(0,1).map(r=>r.grant);
++  },
++  approveDraft(receipt,id,expectedHash,decision,proof,snapshotHash,resourceReceipt){
++   const action={'governance-owner':'cp.approve.governance','security-owner':'cp.approve.security','architecture-board':'cp.approve.architecture'}[decision.role];
++   const actor=consumeAuthorization(receipt,{...scope,action,resource_id:id,proposal_version_hash:expectedHash});
++   return transaction(()=>{
++    const row=db.prepare('SELECT * FROM change_packages WHERE id=? AND workspace_id=?').get(id,scope.workspace_id),cp=cpView(row);
++    if(!row||row.proposal_version_hash!==expectedHash||sha(JSON.stringify(cp))!==snapshotHash)throw new StudioError(412,'STALE_PROPOSAL','Proposal/checks/reviews changed during approval.');
++    if(actor.server_resolved_role!==decision.role||!proof.ready||!['in_review','approved','rejected'].includes(proof.next_status))throw new StudioError(403,'FORBIDDEN','Approval proof does not match the server actor.');
++    if(db.prepare('SELECT id FROM change_package_approvals WHERE package_id=? AND role=? AND approver=? AND approved_version_hash=?').get(id,decision.role,actor.authenticated_actor,expectedHash))throw new StudioError(409,'CONFLICT','Decision already recorded.');
++    const at=new Date().toISOString();db.prepare('INSERT INTO change_package_approvals(package_id,role,approver,decision,approved_version_hash,reason,at) VALUES(?,?,?,?,?,?,?)').run(id,decision.role,actor.authenticated_actor,decision.decision,expectedHash,decision.reason,at);
++    const generated=row.generation_result_json?JSON.parse(row.generation_result_json):null;
++    if(generated)for(const ack of proof.acknowledgements)generated.generation.acknowledgements.push({actor:actor.authenticated_actor,role:actor.server_resolved_role,stage:ack.stage,content_hash:generated.generation.content_hash,at,reason:ack.reason});
++    db.prepare('UPDATE change_packages SET status=?,status_updated_at=?,updated_at=?,generation_result_json=? WHERE id=?').run(proof.next_status,at,at,generated?JSON.stringify(generated):null,id);
++    append(actor,{event_type:action,resource_type:'package',payload:{result:'SUCCESS',proposal_version_hash:expectedHash,decision:decision.decision,next_status:proof.next_status,engine:resourceReceipt.engine_hash,input_hash:resourceReceipt.input_hash}});
++    return cpView(db.prepare('SELECT * FROM change_packages WHERE id=?').get(id));
++   });
++  },
++  savePreview(receipt,id,expectedHash,preview,resourceReceipt){
++   const actor=consumeAuthorization(receipt,{...scope,action:'cp.preview',resource_id:id,proposal_version_hash:expectedHash});
++   return transaction(()=>{
++    const row=db.prepare('SELECT * FROM change_packages WHERE id=? AND workspace_id=?').get(id,scope.workspace_id);
++    if(!row||row.proposal_version_hash!==expectedHash)throw new StudioError(412,'STALE_PROPOSAL','Proposal changed during diff.');
++    db.prepare('UPDATE change_packages SET preview_diff=?,preview_files_json=? WHERE id=?').run(preview.diff,JSON.stringify(preview.files),id);
++    append(actor,{event_type:'cp.preview',resource_type:'package',payload:{result:'SUCCESS',proposal_version_hash:expectedHash,engine:resourceReceipt.engine_hash,diff_hash:'sha256:'+sha(preview.diff),source_written:false}});
++    return preview;
++   });
++  },
++  saveDoctor(receipt,id,expectedHash,run){
++   const actor=consumeAuthorization(receipt,{...scope,action:'cp.doctor',resource_id:id,proposal_version_hash:expectedHash});
++   return transaction(()=>{
++    const row=db.prepare('SELECT * FROM change_packages WHERE id=? AND workspace_id=?').get(id,scope.workspace_id);
++    if(!row||row.proposal_version_hash!==expectedHash||run.data.proposal_version_hash!==expectedHash)throw new StudioError(412,'STALE_PROPOSAL','Doctor result is stale.');
++    if(['approved','exported','closed'].includes(row.status))throw new StudioError(409,'CONFLICT','Approved evidence is immutable.');
++    const at=new Date().toISOString(),raw=JSON.stringify(run),runId='VR-'+crypto.randomUUID(),passed=run.data.status==='PASS';
++    const check={status:passed?'PASS':'FAIL',at,run_id:runId,evidence:[{path:'sqlite:verification_runs/'+runId,content_hash:'sha256:'+sha(raw),bytes:Buffer.byteLength(raw)}],...(!passed?{reason:'Required gate is unavailable, failed, or not observable.'}:{})};
++    db.prepare(`INSERT INTO verification_runs(id,workspace_id,command,status,exit_code,started_at,finished_at,raw_stdout,raw_stderr,raw_output,linked_package_id) VALUES(?,?,'doctor',?,?,?,?,?,'',?,?)`).run(runId,scope.workspace_id,passed?'passed':'failed',passed?0:3,at,at,raw,raw,id);
++    db.prepare('UPDATE change_packages SET doctor_result_json=?,updated_at=? WHERE id=?').run(JSON.stringify(check),at,id);
++    append(actor,{event_type:'cp.doctor',resource_type:'package',payload:{result:'SUCCESS',proposal_version_hash:expectedHash,run_id:runId,status:run.data.status}});
++    return cpView(db.prepare('SELECT * FROM change_packages WHERE id=?').get(id));
++   });
++  },
++  exportDraft(receipt,id,expectedHash,preview,snapshotHash,resourceReceipt,draftOnly=false){
++   const action=draftOnly?'cp.export.draft':'cp.export.patch';
++   const actor=consumeAuthorization(receipt,{...scope,action,resource_id:id,proposal_version_hash:expectedHash});
++   let created;
++   try{return transaction(()=>{
++    const row=db.prepare('SELECT * FROM change_packages WHERE id=? AND workspace_id=?').get(id,scope.workspace_id),cp=cpView(row);
++    if(!row||row.proposal_version_hash!==expectedHash||sha(JSON.stringify(cp))!==snapshotHash||preview.proposal_version_hash!==expectedHash)throw new StudioError(412,'STALE_PROPOSAL','Proposal/checks/reviews changed during export.');
++    if(!draftOnly&&row.status!=='approved')throw new StudioError(409,'VALIDATION_FAILED','Approved exact-version package required.');
++    const prefix=draftOnly?'# AGHR REVIEW-ONLY DRAFT; NOT APPROVED; REQUIRED E4/SOURCE/REVIEW GATES MAY BE NOT_RUN\n# Proposal '+expectedHash+'\n':'';
++    created=artifacts.write({id,versionHash:expectedHash,patch:prefix+preview.diff,draftOnly});
++    const at=new Date().toISOString();
++    if(!draftOnly)db.prepare("UPDATE change_packages SET status='exported',status_updated_at=?,updated_at=?,export_format='patch',export_path=?,export_sha=?,exported_at=? WHERE id=?").run(at,at,created.artifact.path,created.artifact.content_hash,at,id);
++    append(actor,{event_type:action,resource_type:'package',payload:{result:'SUCCESS',proposal_version_hash:expectedHash,artifact:created.artifact,draft_only:draftOnly,engine:resourceReceipt.engine_hash,source_written:false,state_written:false,publication:'NOT_PERFORMED'}});
++    if(draftOnly)return {package_id:id,proposal_version_hash:expectedHash,artifact:created.artifact,approval:'NOT_GRANTED',draft_only:true,source_written:false,state_written:false,publication:'NOT_PERFORMED'};
++    return {package_id:id,proposal_version_hash:expectedHash,format:'patch',artifact:created.artifact,commit_sha:null,signed:false,warnings:['Patch prepared only. No source apply, merge or release acceptance; CI/T24 still required.'],state_written:false,publication:'NOT_PERFORMED'};
++   });}catch(error){created?.rollback();throw error;}
++  },
++  artifact(id,hash){
++   const row=db.prepare("SELECT payload_json FROM audit_events WHERE event_type IN ('cp.export.patch','cp.export.draft') AND resource_id=? AND json_extract(payload_json,'$.result')='SUCCESS' AND json_extract(payload_json,'$.proposal_version_hash')=? ORDER BY id DESC LIMIT 1").get(id,hash);
++   if(!row)throw new StudioError(404,'NOT_FOUND','No current patch artifact.');
++   const event=JSON.parse(row.payload_json);return {bytes:artifacts.read(event.artifact),name:path.basename(event.artifact.path)};
+   },
+   drafts(){return db.prepare('SELECT * FROM change_packages WHERE workspace_id=? ORDER BY created_at DESC,id LIMIT 100').all(scope.workspace_id).map(cpView);},
+   draft(id){return cpView(db.prepare('SELECT * FROM change_packages WHERE workspace_id=? AND id=?').get(scope.workspace_id,id));},
+--- before/server/studio/draft-routes.js
++++ after/server/studio/draft-routes.js
+@@ -38,6 +38,38 @@
+    if(req.method==='GET'&&url.pathname==='/api/v1/draft-status')return send(200,{mode:'DRAFT',workspace,storage:'persistent',tables:store.tables.length,source_written:false,publication:'NOT_PERFORMED',owner_grant_channel:'local operator stdin',strict_validation:'E2_IN_MEMORY_OVERLAY',hash_qualification:'e5-proposal.1'});
+    if(req.method==='GET'&&url.pathname==='/api/v1/audit-events')return send(200,store.auditEvents().slice(-200));
+    if(req.method==='GET'&&url.pathname===base)return send(200,store.drafts());
++   const reviewMatch=url.pathname.startsWith(cpBase+'/')?url.pathname.slice(cpBase.length+1).match(/^(CP-[\w-]+)\/(approve|preview|doctor|export|draft-patch|artifact)$/):null;
++   if(reviewMatch){
++    resourceId=reviewMatch[1];const cp=store.draft(resourceId);if(!cp)throw new StudioError(404,'UNKNOWN_ID','Unknown draft.');
++    const operation=reviewMatch[2];
++    if(req.method==='GET'&&operation==='artifact'){
++     const artifact=store.artifact(cp.id,cp.proposal_version_hash);res.writeHead(200,{'Content-Type':'text/x-diff; charset=utf-8','Content-Disposition':'attachment; filename="'+artifact.name+'"','Cache-Control':'no-store'});res.end(artifact.bytes);return;
++    }
++    if(req.method==='POST'&&operation!=='artifact'){
++     action={approve:{'governance-owner':'cp.approve.governance','security-owner':'cp.approve.security','architecture-board':'cp.approve.architecture'}[principal.server_resolved_role],preview:'cp.preview',doctor:'cp.doctor',export:'cp.export.patch','draft-patch':'cp.export.draft'}[operation];
++     const token=req.headers['x-write-grant'];if(typeof token!=='string'||!/^[a-f0-9]{64}$/.test(token))throw deny();
++     const scoped=authority.grantScope(identity,token),entry=[...intents].find(([,i])=>i.grant===token&&i.principal===identity),intent=entry?.[1];
++     if(!intent||intent.operation!==operation||intent.scope.resource_id!==cp.id||scoped.action!==action||intent.revoked||clock()>=intent.expires)throw deny();
++     ifMatch(req,cp.proposal_version_hash);if(intent.previousHash!==cp.proposal_version_hash)throw new StudioError(412,'STALE_PROPOSAL','Intent is stale.');
++     let input;
++     if(['approve','export','draft-patch'].includes(operation)){input=await readJSON(req);if(!isDeepStrictEqual(input,intent.payload))throw new StudioError(412,'STALE_PROPOSAL','Action differs from authorized intent.');}
++     else for await(const b of req)if(b.length)throw new StudioError(400,'INVALID_REQUEST','No body allowed.');
++     const receipt=authority.authorize(identity,intent.scope,token),snapshot=crypto.createHash('sha256').update(JSON.stringify(cp)).digest('hex');
++     let result;
++     if(operation==='approve'){
++      const run=await validator.approvalRun(cp,input,principal,store.requirements(cp.id));
++      result=store.approveDraft(receipt,cp.id,cp.proposal_version_hash,input,run.data,snapshot,run.receipt);
++     }else if(operation==='doctor')result=store.saveDoctor(receipt,cp.id,cp.proposal_version_hash,await validator.doctorRun(proposal(cp)));
++     else if(operation==='preview'){
++      const run=await validator.previewRun(proposal(cp));result=store.savePreview(receipt,cp.id,cp.proposal_version_hash,run.data,run.receipt);
++     }else{
++      if(!input||Object.keys(input).length!==1||input.format!=='patch')throw new StudioError(400,'NOT_SUPPORTED','Only patch export is implemented.');
++      const run=operation==='export'?await validator.exportRun(proposal(cp),cp,principal,store.requirements(cp.id)):await validator.previewRun(proposal(cp));
++      result=store.exportDraft(receipt,cp.id,cp.proposal_version_hash,run.data,snapshot,run.receipt,operation==='draft-patch');
++     }
++     intents.delete(entry[0]);return send(200,result);
++    }
++   }
+    const cpMatch=url.pathname.startsWith(cpBase+'/')?url.pathname.slice(cpBase.length+1).match(/^(CP-[\w-]+)(?:\/(intents|validate|submit))?$/):null;
+    if(cpMatch){
+     resourceId=cpMatch[1];const cp=store.draft(resourceId);if(!cp)throw new StudioError(404,'UNKNOWN_ID','Unknown draft.');
+@@ -48,10 +80,11 @@
+      for(const [id,i]of intents)if(clock()>=i.expires)intents.delete(id);
+      if(intents.size>=128)throw new StudioError(429,'RATE_LIMITED','Too many pending intents.');
+      const input=await readJSON(req);
+-     if(!input||Object.keys(input).some(k=>!['operation','payload'].includes(k))||!['edit','validate','submit','generate'].includes(input.operation)||(!['edit','generate'].includes(input.operation)&&input.payload!==undefined)||(['edit','generate'].includes(input.operation)&&input.payload===undefined))throw new StudioError(400,'INVALID_REQUEST','Unknown lifecycle intent.');
++     if(!input||Object.keys(input).some(k=>!['operation','payload'].includes(k))||!['edit','validate','submit','generate','approve','preview','doctor','export','draft-patch'].includes(input.operation)||(!['edit','generate','approve','export','draft-patch'].includes(input.operation)&&input.payload!==undefined)||(['edit','generate','approve','export','draft-patch'].includes(input.operation)&&input.payload===undefined))throw new StudioError(400,'INVALID_REQUEST','Unknown lifecycle intent.');
+      const prepared=await validator.prepare(proposal(cp),input.operation==='edit'?{edit:input.payload}:{});
+      if(prepared.base_candidate_hash!==cp.base_candidate_hash||prepared.base_package_version!==cp.base_package_version)throw new StudioError(409,'CONFLICT','Draft base differs from the selected candidate; explicit rebase required.');
+-     const actionName={edit:'cp.edit_any',validate:'cp.validate',submit:'cp.submit',generate:'cp.generate.preview'}[input.operation],id=crypto.randomUUID();
++     const actionName={edit:'cp.edit_any',validate:'cp.validate',submit:'cp.submit',generate:'cp.generate.preview',preview:'cp.preview',doctor:'cp.doctor',export:'cp.export.patch','draft-patch':'cp.export.draft',approve:{'governance-owner':'cp.approve.governance','security-owner':'cp.approve.security','architecture-board':'cp.approve.architecture'}[principal.server_resolved_role]}[input.operation],id=crypto.randomUUID();
++     if(!actionName)throw deny();
+      const scope={workspace_id:workspace.id,target_project:'studio-drafts',action:actionName,resource_id:cp.id,proposal_version_hash:prepared.proposal_version_hash};
+      intents.set(id,{principal:identity,payload:input.payload,operation:input.operation,previousHash:cp.proposal_version_hash,prepared:{...prepared,id:cp.id},scope,expires:clock()+120000,grant:null});
+      return send(200,{id,scope,expires_at:new Date(clock()+120000).toISOString(),status:'AWAITING_OPERATOR',structural_check:'PASS',strict_check:'NOT_RUN'});
+@@ -68,7 +101,7 @@
+       if(!isDeepStrictEqual(await readJSON(req),intent.payload))throw new StudioError(412,'STALE_PROPOSAL','Edit differs from authorized intent.');
+      }else{for await(const b of req)if(b.length)throw new StudioError(400,'INVALID_REQUEST','This action has no request body.');}
+      const receipt=authority.authorize(identity,intent.scope,token);
+-     const result=operation==='edit'?store.editDraft(receipt,cp.id,cp.proposal_version_hash,intent.prepared):operation==='submit'?store.submitDraft(receipt,cp.id,cp.proposal_version_hash):store.checkDraft(receipt,cp.id,cp.proposal_version_hash,await validator.check(proposal(cp),cp.approvals));
++     const result=operation==='edit'?store.editDraft(receipt,cp.id,cp.proposal_version_hash,intent.prepared):operation==='submit'?store.submitDraft(receipt,cp.id,cp.proposal_version_hash):store.checkDraft(receipt,cp.id,cp.proposal_version_hash,await validator.check(proposal(cp),cp.approvals,store.sourceGrants(cp.id,cp.proposal_version_hash)));
+      intents.delete(entry[0]);return send(operation==='validate'?202:200,result);
+     }
+    }
+@@ -79,8 +112,8 @@
+     const cp=store.draft(intent.scope.resource_id);if(!cp)throw new StudioError(404,'UNKNOWN_ID','Unknown draft.');resourceId=cp.id;
+     ifMatch(req,cp.proposal_version_hash);if(intent.previousHash!==cp.proposal_version_hash)throw new StudioError(412,'STALE_PROPOSAL','Preview intent is stale.');
+     const input=await readJSON(req);if(!isDeepStrictEqual(input,intent.payload))throw new StudioError(412,'STALE_PROPOSAL','Preview differs from authorized request.');
+-    const receipt=authority.authorize(identity,intent.scope,token),generation=await validator.generate(proposal(cp),input);
+-    const result=store.previewDraft(receipt,cp.id,cp.proposal_version_hash,generation);intents.delete(entry[0]);return send(200,result);
++    const receipt=authority.authorize(identity,intent.scope,token),run=await validator.generateRun(proposal(cp),input,{cp_id:cp.id,database:store.file});
++    const result=store.previewDraft(receipt,cp.id,cp.proposal_version_hash,run.data,run.receipt);intents.delete(entry[0]);return send(200,result);
+    }
+    if(req.method==='GET'&&url.pathname.startsWith(base+'/')){
+     const id=url.pathname.slice(base.length+1);if(!/^CP-[\w-]+$/.test(id))throw new StudioError(404,'UNKNOWN_ID','Unknown draft.');
+--- before/server/studio/draft-runtime.js
++++ after/server/studio/draft-runtime.js
+@@ -2,13 +2,13 @@
+ import {createStudio} from './runtime.js';
+ import {createWriteAuthority} from './write-authorization.js';
+ import {openPersistentStore,storageScope} from './db/persistent.js';
+-import {createDraftValidator} from './aghr/draft-validator.js';
++import {createBoundedValidator as createDraftValidator} from './aghr/bounded-validator.js';
+ import {createDraftRoutes} from './draft-routes.js';
+ import {engineRoot} from './aghr/cli-bridge.js';
+ 
+ export async function createDraftStudio({python,storageRoot,actor,clock=Date.now}={}){
+  if(typeof actor!=='string'||!actor.trim())throw Error('TRUSTED_OPERATOR_REQUIRED');
+- const read=await createStudio({python,actor});let store,validator;
++ const read=await createStudio({python,actor,bounded:true});let store,validator;
+  try{
+   const authority=createWriteAuthority({clock});
+   const owner=authority.createPrincipal({actor,role:'governance-owner',installationOwnerVerified:true});
+@@ -30,8 +30,14 @@
+    catch(error){authority.revoke({issuer:owner.principal,token:intent.grant});intent.grant=null;throw error;}
+    return {id,scope:intent.scope,expires_at:new Date(intent.expires).toISOString()};
+   };
++  const attestSource=async id=>{
++   const intent=intents.get(id);if(!intent||intent.operation!=='validate'||clock()>=intent.expires)throw Error('ATTESTATION_INTENT_UNAVAILABLE');
++   const cp=store.draft(intent.scope.resource_id);if(!cp||cp.proposal_version_hash!==intent.previousHash)throw Error('STALE_PROPOSAL');
++   const payload={title:cp.title,kind:cp.kind,proposed_yaml:cp.proposed_yaml,...(cp.source?{source:cp.source}:{}),...(cp.target_item_id?{target_item_id:cp.target_item_id}:{})};
++   const result=await validator.attestRun(payload,actor);store.attestSource(cp.id,cp.proposal_version_hash,actor,result.data);return {id,proposal_version_hash:cp.proposal_version_hash,level:result.data.level};
++  };
+   const revokeIntent=id=>{const intent=intents.get(id);if(!intent)throw Error('INTENT_UNAVAILABLE');if(intent.grant)authority.revoke({issuer:owner.principal,token:intent.grant});intent.revoked=true;store.recordAttempt({actor,role:'governance-owner',action:'authorization.revoke',resourceId:intent.prepared.id,result:'DENY',status:403,reason:'Trusted operator revoked draft intent',requestId:id});};
+-  return {session:{token:owner.token},workspace,authority,store,intents,approveIntent,revokeIntent,
++  return {session:{token:owner.token},workspace,authority,store,intents,approveIntent,revokeIntent,attestSource,
+    handle:createDraftRoutes({authority,store,intents,validate,validator,workspace,clock,audit,read:read.handle}),
+    close(){validator.close();store.close();read.close();}};
+  }catch(error){validator?.close();store?.close();read.close();throw error;}
+--- before/server/studio/runtime.js
++++ after/server/studio/runtime.js
+@@ -3,9 +3,10 @@
+ import {createSession} from './auth.js';
+ import {createReadRoutes} from './routes.js';
+ import {createReviewSource} from './review-source.js';
++import {createJobRunner} from './aghr/job-runner.js';
+ 
+-export async function createStudio({python,actor}={}) {
+-  const bridge=createBridge({python}),catalog=createCatalog(),session=createSession({actor});
++export async function createStudio({python,actor,bounded=false}={}) {
++  const bridge=createBridge({python,...(bounded?{jobRunner:createJobRunner({python})}:{})}),catalog=createCatalog(),session=createSession({actor});
+   try {
+     const scan=await catalog.scan(bridge);
+     if(scan.report.result!=='VALID')throw Error('INITIAL_STRICT_SCAN_FAILED');
+--- before/server/studio/serve-draft.mjs
++++ after/server/studio/serve-draft.mjs
+@@ -39,16 +39,17 @@
+ server.on('error',error=>{studio.close();console.error(error.code);process.exit(1);});
+ server.listen(port,'127.0.0.1',()=>{
+  const ready={event:'ready',port:server.address().port,token:studio.session.token,storage:studio.store.file,tables:studio.store.tables.length,actor,mode:'DRAFT',resourceProfiles};
+- if(process.send)process.send(ready);else{console.log(`Draft Studio: http://127.0.0.1:${ready.port}`);console.log('X-Studio-Token (ephemeral; do not save): '+ready.token);console.log('Operator commands: list | approve <intent-id> | revoke <intent-id> | quit');}
++ if(process.send)process.send(ready);else{console.log(`Draft Studio: http://127.0.0.1:${ready.port}`);console.log('X-Studio-Token (ephemeral; do not save): '+ready.token);console.log('Operator commands: list | attest <validate-intent-id> | approve <intent-id> | revoke <intent-id> | quit');}
+ });
+-const control=(command,id)=>{
++const control=async(command,id)=>{
++ if(command==='attest')return studio.attestSource(id);
+  if(command==='approve')return studio.approveIntent(id);
+  if(command==='revoke'){studio.revokeIntent(id);return {revoked:id};}
+  if(command==='list')return [...studio.intents].map(([id,i])=>({id,title:i.prepared.title,scope:i.scope,expires_at:new Date(i.expires).toISOString()}));
+  if(command==='quit'){stop();return {stopping:true};}
+  throw Error('Unknown operator command');
+ };
+-readline.createInterface({input:process.stdin,terminal:false}).on('line',line=>{try{const [command,id]=line.trim().split(/\s+/);console.log(JSON.stringify(control(command,id)));}catch(error){console.error(error.message);}});
++readline.createInterface({input:process.stdin,terminal:false}).on('line',async line=>{try{const [command,id]=line.trim().split(/\s+/);console.log(JSON.stringify(await control(command,id)));}catch(error){console.error(error.message);}});
+ // IPC belongs to the parent operator/test harness, never the HTTP client.
+-process.on('message',message=>{try{if(message==='stop')return stop();if(message?.command){const data=control(message.command,message.id);process.send?.({event:'control',request_id:message.request_id,data});}}catch(error){process.send?.({event:'control',request_id:message.request_id,error:error.message});}});
++process.on('message',async message=>{try{if(message==='stop')return stop();if(message?.command){const data=await control(message.command,message.id);process.send?.({event:'control',request_id:message.request_id,data});}}catch(error){process.send?.({event:'control',request_id:message.request_id,error:error.message});}});
+ process.on('SIGINT',stop);process.on('SIGTERM',stop);
+--- before/server/studio/write-authorization.js
++++ after/server/studio/write-authorization.js
+@@ -9,7 +9,7 @@
+ const markers=/T12_OWNER_APPROVED_MOCK|OWNER_GRANTED_T12|OWNER_T12_OVERRIDE|T06_MOCK_ONLY|AUTHORIZED_BY_PROJECT_OWNER/;
+ const permissions={
+  developer:['cp.create','cp.edit_own','adoption.preview','verify.run.fast'],
+- 'governance-owner':['cp.create','cp.edit_any','cp.validate','cp.submit','cp.generate.preview','cp.approve.governance','adoption.apply','adoption.rollback','verify.run.*','calibrate.*','meta.change.propose','storage.initialize','draft.workspace.initialize','staging.create','staging.authorize'],
++ 'governance-owner':['cp.create','cp.edit_any','cp.validate','cp.submit','cp.generate.preview','cp.preview','cp.export.patch','cp.export.draft','cp.doctor','cp.approve.governance','adoption.apply','adoption.rollback','verify.run.*','calibrate.*','meta.change.propose','storage.initialize','draft.workspace.initialize','staging.create','staging.authorize'],
+  'security-owner':['cp.approve.security','verify.run.*'],
+  'architecture-board':['cp.approve.architecture','exceptions.approve'],
+ };
+--- before/src/features/changes/DraftStudio.jsx
++++ after/src/features/changes/DraftStudio.jsx
+@@ -1,6 +1,7 @@
+ import {useRef,useState} from 'react';
+ import {useI18n} from '../../i18n/I18nProvider.jsx';
+ import {Badge,Empty,useText} from '../phase0/common.jsx';
++import ReviewPanel from './ReviewPanel.jsx';
+ 
+ const kinds=['OBSERVATION','PRINCIPLE','CONSTRAINT','REQUIREMENT','PROCEDURE','GUIDELINE','POLICY','RULE','STANDARD','CONTROL','DECISION','EXCEPTION','CAPABILITY'];
+ export default function DraftStudio(){
+@@ -8,7 +9,7 @@
+  const [credential,setCredential]=useState(''),[session,setSession]=useState(null),[status,setStatus]=useState(null),[busy,setBusy]=useState(false),[error,setError]=useState('');
+  const [title,setTitle]=useState(''),[kind,setKind]=useState('OBSERVATION'),[yaml,setYaml]=useState(''),[origin,setOrigin]=useState('local-request');
+  const [intent,setIntent]=useState(null),[grant,setGrant]=useState(null),[packages,setPackages]=useState([]),[selected,setSelected]=useState(null),[audit,setAudit]=useState([]),[tab,setTab]=useState('drafts');
+- const [editYaml,setEditYaml]=useState('');
++ const [editYaml,setEditYaml]=useState(''),[artifact,setArtifact]=useState(null);
+  const base=status?'/workspaces/'+status.workspace.id+'/change-packages':null;
+  const api=async(route,method='GET',body,headers={})=>{
+   const response=await fetch('/api/v1'+route,{method,headers:{'X-Studio-Token':token.current,...(body===undefined?{}:{'Content-Type':'application/json'}),...headers},...(body===undefined?{}:{body:JSON.stringify(body)})});
+@@ -19,16 +20,16 @@
+  const changed=setter=>event=>{setter(event.target.value);setIntent(null);setGrant(null);};
+  const prepare=event=>{event.preventDefault();work(async()=>{setGrant(null);const payload={title,kind,source:{type:'request',ref:origin},proposed_yaml:yaml};setIntent({...await api('/draft-intents','POST',payload),payload});});};
+  const check=()=>work(async()=>{const r=await api('/draft-intents/'+intent.id);setGrant(r.status==='GRANTED'?r.grant:null);setIntent({...intent,status:r.status});});
+- const choose=cp=>{setSelected(cp);setEditYaml(cp.proposed_yaml);setIntent(null);setGrant(null);};
+- const prepareAction=operation=>work(async()=>{
+-  setGrant(null);const payload=operation==='edit'?{proposed_yaml:editYaml}:operation==='generate'?{agent:'codex',profile:'draft-l1',dry_run:true}:undefined;
++ const choose=cp=>{setArtifact(null);setSelected(cp);setEditYaml(cp.proposed_yaml);setIntent(null);setGrant(null);};
++ const prepareAction=(operation,actionPayload)=>work(async()=>{
++  setGrant(null);const payload=operation==='edit'?{proposed_yaml:editYaml}:operation==='generate'?{agent:'codex',profile:'draft-l1',dry_run:true}:actionPayload;
+   const r=await api('/workspaces/'+status.workspace.id+'/cps/'+selected.id+'/intents','POST',{operation,...(payload?{payload}:{})},{'If-Match':JSON.stringify(selected.proposal_version_hash)});
+   setIntent({...r,operation,payload,cpId:selected.id,previousHash:selected.proposal_version_hash});
+  });
+  const save=()=>work(async()=>{
+   const op=intent.operation,route=op==='generate'?'/workspaces/'+status.workspace.id+'/generate/preview':op?'/workspaces/'+status.workspace.id+'/cps/'+intent.cpId+(op==='edit'?'':'/'+op):base;
+   const cp=await api(route,op==='edit'?'PATCH':'POST',intent.payload,{'X-Write-Grant':grant,'If-Match':JSON.stringify(op?intent.previousHash:intent.scope.proposal_version_hash)});
+-  choose(op==='generate'?await api('/workspaces/'+status.workspace.id+'/cps/'+intent.cpId):cp);setPackages(await api(base));if(!op){setYaml('');setTitle('');}
++  choose(['generate','preview','export','draft-patch'].includes(op)?await api('/workspaces/'+status.workspace.id+'/cps/'+intent.cpId):cp);if(['export','draft-patch'].includes(op))setArtifact(cp);setPackages(await api(base));if(!op){setYaml('');setTitle('');}
+  });
+  const openAudit=()=>work(async()=>{setAudit(await api('/audit-events'));setTab('audit');});
+  return <div className="p0-shell"><a className="p0-skip" href="#draft-main">{t('انتقل إلى المحتوى','Skip to content')}</a>
+@@ -41,16 +42,16 @@
+  <form onSubmit={prepare} className="draft-form"><label htmlFor="cp-title">{t('العنوان','Title')}</label><input id="cp-title" disabled={busy} required value={title} onChange={changed(setTitle)} maxLength={500}/><label htmlFor="cp-kind">{t('نوع البند','Item kind')}</label><select id="cp-kind" disabled={busy} value={kind} onChange={changed(setKind)}>{kinds.map(k=><option key={k}>{k}</option>)}</select><label htmlFor="cp-origin">{t('مرجع الطلب','Request reference')}</label><input id="cp-origin" disabled={busy} required value={origin} onChange={changed(setOrigin)} maxLength={1000}/><label htmlFor="cp-yaml">{t('مقترح البند · YAML أو JSON','Item proposal · YAML or JSON')}</label><textarea id="cp-yaml" disabled={busy} dir="ltr" rows={16} required spellCheck="false" value={yaml} onChange={changed(setYaml)} aria-describedby="cp-limit"/><small id="cp-limit">{t('بند واحد، حتى 64 KiB مع بيانات الطلب. لا تعديلات على المصدر.','One item, up to 64 KiB including request metadata. Source files stay unchanged.')}</small><button disabled={busy} data-testid="prepare-draft">{t('فحص المسودة وإعدادها','Check and prepare draft')}</button></form>
+  {intent&&<div className="draft-intent" role="status"><Badge code={intent.status}/><p><bdi>{intent.scope.action}</bdi></p><p>{t('راجع العملية، ثم فوّضها من طرفية الخادم على هذه البصمة:','Review the action, then authorize this hash from the server terminal:')}</p><code className="draft-hash">{intent.scope.proposal_version_hash}</code><pre dir="ltr">approve {intent.id}</pre><p>{t('تفويض عملية واحدة لمدة دقيقتين؛ ليس موافقة حوكمة على الحزمة.','One action, two minutes. This is not governance approval of the package.')}</p><div className="draft-actions"><button onClick={check} disabled={busy}>{t('التحقق من التفويض','Check authorization')}</button><button onClick={save} data-testid="save-draft" disabled={busy||!grant}>{intent.operation?t('تنفيذ العملية المفوضة','Run authorized action'):t('حفظ المسودة','Save draft')}</button></div></div>}
+  </section><section><h2>{t('قائمة المسودات','Draft queue')} <span dir="ltr">({packages.length})</span></h2>{!packages.length?<Empty>{t('لا توجد حزم تغيير محفوظة.','No saved change packages.')}</Empty>:<ul className="draft-list">{packages.map(cp=><li key={cp.id}><button onClick={()=>choose(cp)}><strong>{cp.title}</strong><span><Badge code={cp.status}/> · {cp.created_by}</span><code>{cp.id}</code></button></li>)}</ul>}
+- {selected&&<article className="draft-detail" data-testid="draft-detail"><h3>{selected.title}</h3><Badge code={selected.status}/><dl><dt>{t('الهوية','ID')}</dt><dd><bdi>{selected.id}</bdi></dd><dt>{t('بصمة المقترح','Proposal hash')}</dt><dd><code className="draft-hash">{selected.proposal_version_hash}</code></dd><dt>{t('المصدر الأساسي','Base source')}</dt><dd><bdi>{selected.base_package_version}</bdi></dd></dl><h3>{t('الفحوص','Checks')}</h3><div className="draft-checks">{Object.entries(selected.checks).map(([name,value])=><Badge key={name} code={value.status}>{name}</Badge>)}</div><p className="p0-hint">{t('الإرسال للمراجعة لا يعتمد الحزمة. فحوص E4 والموافقات والتصدير تبقى محجوبة.','Submission does not approve the package. E4 checks, approvals and export remain gated.')}</p>
++ {selected&&<article className="draft-detail" data-testid="draft-detail"><h3>{selected.title}</h3><Badge code={selected.status}/><dl><dt>{t('الهوية','ID')}</dt><dd><bdi>{selected.id}</bdi></dd><dt>{t('بصمة المقترح','Proposal hash')}</dt><dd><code className="draft-hash">{selected.proposal_version_hash}</code></dd><dt>{t('المصدر الأساسي','Base source')}</dt><dd><bdi>{selected.base_package_version}</bdi></dd></dl><h3>{t('الفحوص','Checks')}</h3><div className="draft-checks">{Object.entries(selected.checks).map(([name,value])=><Badge key={name} code={value.status}>{name}</Badge>)}</div><p className="p0-hint">{t('الإرسال للمراجعة لا يعتمد الحزمة. E4 تبقى NOT_RUN. الموافقات والتصدير يتطلبان بوابات البصمة والمصدر والمراجعين.','Submission does not approve the package. E4 stays NOT_RUN. Approval/export require the version, source and reviewer gates.')}</p>
+ <div className="draft-actions"><button data-testid="validate-draft" disabled={busy} onClick={()=>prepareAction('validate')}>{t('التحقق الصارم وLint','Strict validate and lint')}</button><button data-testid="submit-draft" disabled={busy||selected.status!=='validated'} onClick={()=>prepareAction('submit')}>{t('إرسال للمراجعة','Submit for review')}</button></div>
+ <label htmlFor="edit-yaml">{t('تحرير المقترح','Edit proposal')}</label><textarea id="edit-yaml" data-testid="edit-yaml" dir="ltr" rows={12} disabled={busy} value={editYaml} onChange={e=>{setEditYaml(e.target.value);setIntent(null);setGrant(null);}}/>
+  <button data-testid="prepare-edit" disabled={busy||editYaml===selected.proposed_yaml} onClick={()=>prepareAction('edit')}>{t('إعداد التعديل للتفويض','Prepare edit for authorization')}</button>
+- <h3>{t('معاينة التوليد','Generation preview')}</h3><p>{t('Codex · draft-l1 · 32 KiB. معاينة بلا تصدير؛ المبدأ PRIN-007 مطلوب بنصه الحاكم.','Codex · draft-l1 · 32 KiB. Preview without export; PRIN-007 must retain its governing text.')}</p>
++ <h3>{t('معاينة التوليد','Generation preview')}</h3><p>{t('Codex · draft-l1 · 32 KiB. معاينة بلا تصدير؛ يُدرج PRIN-007 بنصه الحاكم؛ لا يعني العرض اعتماده كسلطة للمقترح.','Codex · draft-l1 · 32 KiB. Preview without export; PRIN-007 uses its governing text; preview does not grant proposal authority.')}</p>
+  <button data-testid="generate-preview" disabled={busy} onClick={()=>prepareAction('generate')}>{t('إعداد معاينة فقط','Prepare dry-run preview')}</button>
+- {selected.generation&&<section data-testid="generation-result"><h4><Badge code={selected.generation.stage}/></h4><p><bdi>{selected.generation.byte_size} / {selected.generation.budget_bytes} bytes</bdi></p><p>PRIN-007: <Badge code={selected.generation.prin_007_present?'PASS':'FAIL'}/> · P0: <Badge code={selected.generation.p0_preserved?'PASS':'FAIL'}/></p><p>{t('الفشل يمنع التصدير. compress يتطلب إقرارًا، وcompact يتطلب أيضًا استرجاعًا مؤهلًا؛ كل التصدير محجوب حتى T18.','Failure blocks export. Compress needs acknowledgement; compact also needs qualified lookup; all export remains gated until T18.')}</p><p><bdi>{selected.generation.lookup.reason}</bdi></p><pre dir="ltr">{selected.generation.content}</pre></section>}
++ {selected.generation&&<section data-testid="generation-result"><h4><Badge code={selected.generation.stage}/></h4><p><bdi>{selected.generation.byte_size} / {selected.generation.budget_bytes} bytes</bdi></p><p>PRIN-007: <Badge code={selected.generation.prin_007_present?'PASS':'FAIL'}/> · P0: <Badge code={selected.generation.p0_preserved?'PASS':'FAIL'}/></p><p>{t('الفشل يمنع التصدير. compress يتطلب إقرارًا، وcompact يتطلب أيضًا استرجاعًا مؤهلًا؛ التصدير المعتمد يحتاج اكتمال كل الموافقات والفحوص.','Failure blocks export. Compress needs acknowledgement; compact also needs qualified lookup; approved export requires all approvals and checks.')}</p><p><bdi>{selected.generation.lookup.reason}</bdi></p><pre dir="ltr">{selected.generation.content}</pre></section>}
+ {selected.approval_history.length>0&&<p role="status">{t('أبطل تعديل المقترح الموافقات السابقة. عدد القرارات المحفوظة:','Proposal changes invalidated earlier approvals. Preserved decisions:')} {selected.approval_history.length}</p>}
+ {Object.entries(selected.checks).filter(([,c])=>c.reason&&c.status==='FAIL').map(([k,c])=><p className="p0-notice" key={k}><bdi>{k}: {c.reason}</bdi></p>)}
+-<h3>{t('المقترح المحفوظ','Saved proposal')}</h3><pre dir="ltr">{selected.proposed_yaml}</pre></article>}
++<ReviewPanel key={selected.id+selected.proposal_version_hash} cp={selected} session={session} busy={busy} prepare={prepareAction} artifact={artifact?.package_id===selected.id&&artifact?.proposal_version_hash===selected.proposal_version_hash?artifact:null}/><h3>{t('المقترح المحفوظ','Saved proposal')}</h3><pre dir="ltr">{selected.proposed_yaml}</pre></article>}
+  </section></div>}
+  </main>}{busy&&<p className="draft-feedback" role="status" aria-busy="true">{t('جارٍ تنفيذ الطلب…','Processing request…')}</p>}{error&&<p className="draft-feedback p0-notice" role="alert">{t('تعذر تنفيذ الطلب','Request could not be completed')} · <bdi>{error}</bdi></p>}
+  </div>;
+--- before/src/features/changes/draft.css
++++ after/src/features/changes/draft.css
+@@ -1,3 +1,5 @@
+ .draft-content{margin:24px 4vw}.draft-toolbar{display:flex;gap:16px;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--line);padding-block-end:16px;margin-block-end:24px}.draft-toolbar nav{display:flex;gap:8px;margin-inline-start:auto}.draft-toolbar button[aria-pressed=true]{background:#dfece5}.draft-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px}.draft-grid>section{min-width:0}.draft-form{display:grid;gap:9px}.draft-form label{font-weight:600;margin-top:8px}.draft-form input,.draft-form select,.draft-form textarea{width:100%;box-sizing:border-box}.draft-form textarea{resize:vertical;line-height:1.6;padding:12px;font:13px/1.6 Consolas,monospace;color:var(--ink);border:1px solid var(--line);border-radius:4px;background:#fff}.draft-form small{color:var(--muted)}.draft-form button{margin-block-start:8px}.draft-intent{padding:16px;margin-block-start:16px;border:1px solid #87a998;background:#f0f6f2}.draft-actions{display:flex;gap:8px;flex-wrap:wrap}.draft-list{list-style:none;margin:0;padding:0}.draft-list li{margin-block-end:10px}.draft-list button{display:grid;gap:8px;width:100%;text-align:start;white-space:normal}.draft-list code,.draft-hash{overflow-wrap:anywhere;word-break:break-word;font-size:12px}.draft-detail{border-top:1px solid var(--line);padding-block-start:16px;margin-block-start:20px}.draft-detail dd{margin:6px 0 18px}.draft-detail pre,.draft-intent pre{max-height:420px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.7;padding:12px;background:#f0f2ef}.draft-checks{display:flex;gap:6px;flex-wrap:wrap}.draft-feedback{margin:16px 4vw;padding:12px}button:disabled{cursor:not-allowed;opacity:.6}@media(max-width:950px){.draft-grid{grid-template-columns:1fr;gap:24px}.draft-content{margin:16px 3vw}.draft-toolbar nav{margin-inline-start:0}}
+ 
+ .draft-detail textarea{display:block;width:100%;box-sizing:border-box;font-family:monospace;margin:.7rem 0;resize:vertical}.draft-detail label{display:block;margin-top:1rem}
++
++.draft-review{border-block-start:1px solid #d6e3df;margin-block-start:1.5rem;padding-block-start:1rem}.draft-review textarea{font-family:inherit}.draft-review input[type=checkbox]{width:auto;margin-inline-end:.6rem}
+--- before/tests/studio_e5_lifecycle.test.mjs
++++ after/tests/studio_e5_lifecycle.test.mjs
+@@ -38,7 +38,7 @@
+   const previewPayload={agent:'codex',profile:'draft-l1',dry_run:true};
+   const gen=await granted(base+'/cps/'+cp.id+'/intents',{operation:'generate',payload:previewPayload},cp.proposal_version_hash);
+   r=await req('POST',base+'/generate/preview',previewPayload,{'x-write-grant':gen.grant,'if-match':JSON.stringify(cp.proposal_version_hash)});
+-  assert.equal(r.status,200,JSON.stringify(r));assert.equal(r.data.stage,'fail');assert.equal(r.data.prin_007_present,false);assert.equal(studio.store.draft(cp.id).generation.stage,'fail');
++  assert.equal(r.status,200,JSON.stringify(r));assert.equal(r.data.stage,'full');assert.equal(r.data.prin_007_present,true);assert.equal(studio.store.draft(cp.id).generation.stage,'full');
+   assert.equal((await req('POST',base+'/cps/'+cp.id+'/approve',{role:'governance-owner'})).status,403);
+   assert.equal((await req('POST',base+'/cps/'+cp.id+'/export',{})).status,403);
+   // Isolated imported approval fixture only: T18 grant/approval API is NOT
+@@ -69,7 +69,7 @@
+   const noChange=await action(cp,'edit',{proposed_yaml:cp.proposed_yaml});assert.equal(noChange.data.approval_history.length,1);
+   r=await action(cp,'validate');assert.equal(r.data.status,'validated');cp=r.data;assert.equal((await action(cp,'submit')).data.status,'in_review');
+   const blocked=await create(mandatory);r=await action(blocked,'validate');assert.equal(r.status,202);assert.equal(r.data.status,'draft');assert.equal(r.data.checks.validate.status,'FAIL');assert.match(r.data.checks.validate.reason,/AUTHORITY_SOURCE_UNVERIFIED/);assert.equal((await action(r.data,'submit')).status,409);results.push({phase:'native_blocked_no_mock',cp:r.data});
+-  assert.equal(db.prepare('SELECT count(*) n FROM verification_runs').get().n,3);db.close();
++  assert.equal(db.prepare('SELECT count(*) n FROM verification_runs WHERE command=\'validate\'').get().n,3);db.close();
+   const reference=fs.readFileSync('docs/specs/aghr-rc3/AGHR_REFERENCE.md','utf8').replaceAll('\r\n','\n');
+   const raw=reference.split('### 9.2 ')[1].split('### 9.3 ')[0].split('```yaml\n')[1].split('```')[0]+'\nrationale: ISOLATED_PREVIEW_ONLY_NOT_ADOPTED\nimpact:\n  band: high\n  evidence: assumed\n';
+   const p={title:'PRIN-007 draft preview only',kind:'PRINCIPLE',source:{type:'request',ref:'ISOLATED_PREVIEW_NOT_ADOPTED'},proposed_yaml:raw};

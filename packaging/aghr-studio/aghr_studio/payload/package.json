@@ -1,0 +1,32 @@
+{
+  "name": "aghr-governance-studio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 5180 --strictPort",
+    "test": "node --test --test-concurrency=2 tests/*.test.mjs",
+    "studio:read": "node --permission --allow-fs-read=* --allow-child-process server/studio/serve.mjs",
+    "studio:draft": "node server/studio/serve-draft.mjs",
+    "test:studio-sentinel": "node tools/test_phase1_edge.mjs",
+    "test:studio-phase0-history": "node tools/test_phase0_sentinel.mjs",
+    "studio": "node server/studio/serve-studio.mjs",
+    "test:studio-api": "node tools/t36/api.mjs",
+    "test:studio-e2e": "playwright test --config tools/t36/playwright.config.mjs"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
+    "vis-network": "^9.1.9",
+    "ws": "8.22.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "@vitejs/plugin-react": "^5.1.1",
+    "vite": "^7.3.1"
+  }
+}

@@ -1,0 +1,25 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import assert from 'node:assert/strict';
+import {runMockValidation} from './mock_bridge.mjs';
+import {createBridge,sourceHash} from '../../server/studio/aghr/cli-bridge.js';
+const ev='docs/evidence/studio-t06-mock-2026-10-23/';
+const pin=JSON.parse(fs.readFileSync(ev+'HOST_FIXTURE_PIN.json','utf8'));
+const root=path.resolve(pin.candidate_root),python=path.resolve('temp/aghr-e1a-20261022-01/venv/Scripts/python.exe');
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+const save=(name,result)=>{
+ fs.writeFileSync(ev+name+'.stdout.json',result.stdout);fs.writeFileSync(ev+name+'.stderr.txt',result.stderr);
+ const receipt={profile:result.profile||'UNMODIFIED_E2_CLI',result:result.report.result,exit_code:result.exitCode,started_at:result.startedAt,finished_at:result.finishedAt,invocation:result.invocation,source_hash:result.report.source.content_hash,checks:result.report.checks,inputs:result.report.inputs,stdout_sha256:sha(Buffer.from(result.stdout)),stderr_sha256:sha(Buffer.from(result.stderr))};
+ fs.writeFileSync(ev+name+'.execution.json',JSON.stringify(receipt,null,2)+'\n');return receipt;
+};
+const normal=await createBridge({python,packageRoot:root}).run('validate');
+assert.equal(normal.exitCode,3);const control=save('normal-data-only-control',normal);
+console.log('Unmodified CLI with real YAML and signed mock files: '+normal.report.result+' exit '+normal.exitCode);
+const mock=await runMockValidation({python,root,pin});
+const mocked=save('mock-pass',mock);
+assert.equal(mock.exitCode,0);assert.equal(mock.report.result,'VALID');assert.equal(mock.report.protocol_version,'3');
+assert.equal(mock.report.source.content_hash,sourceHash);assert.equal(mock.report.data.validation.authority['SEC-001'].status,'CALLER_ATTESTED');
+assert.equal(mock.report.source.publisher_authentication,'UNKNOWN');assert.match(mock.stderr,/T06_MOCK_ONLY/);
+fs.writeFileSync(ev+'RUN_RESULTS.json',JSON.stringify({T06:'CLOSED_FOR_OWNER_AUTHORIZED_MOCK_PROFILE_ONLY',acceptance:'Owner current instruction conditionally accepts successful mock proof; this closure does not replace production enforcement/authority requirements',normal_cli:control,mock_profile:mocked,production_cli_pass:false,generation:'NOT_STARTED',full_E3:'NOT_IMPLEMENTED',E4:'7 REQUIRED / NOT_RUN / NOT_WAIVED'},null,2)+'\n');
+console.log('T06_MOCK_ONLY: '+mock.report.result+' exit '+mock.exitCode+' (not a production verdict)');

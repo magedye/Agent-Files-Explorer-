@@ -1,0 +1,31 @@
+{
+  "kind": "PRINCIPLE",
+  "force": "MUST",
+  "severity": "medium",
+  "scope": {
+    "paths": [
+      "**/*"
+    ]
+  },
+  "rationale": "Owner-authorized sandbox adoption; no authority outside this project.",
+  "authority": {
+    "source": "owner://T34-T35/2026-10-25/pilot-app-l2",
+    "level": "project",
+    "owner": "Sandbox Project Owner",
+    "approvedBy": "OWNER_T34_T35_20261025",
+    "status": "active",
+    "effectiveFrom": "2026-10-25"
+  },
+  "impact": {
+    "band": "medium",
+    "evidence": "assumed"
+  },
+  "verification": {
+    "commands": [
+      "node --test app.test.mjs"
+    ]
+  },
+  "id": "PRIN-007",
+  "title": "Truthful skill-state reporting",
+  "rule": "When receiving a software task or crossing a substantive phase boundary,\nthe agent MUST evaluate the fitness of the capabilities actually available\nin the execution environment, and select the minimal effective set for\nthe current phase. Priority is given to native capabilities compatible with\nthe host and project. Repetition, conflict, and authorization bypass MUST\nbe prevented. The agent is NOT obligated to use a skill when direct\nexecution is better, and MUST NOT treat discovery or loading as evidence\nof execution or success. Adoption of new skills, modification of governing\ninstructions, and promotion of lessons into persistent memory remain\nsubject to the approved authority and procedure.\n"
+}

@@ -1,0 +1,66 @@
+انتقل إلى المحتوى
+AGHR · GOVERNANCE STUDIO
+حزم التغيير
+
+مسودات محفوظة، وصلاحية محددة لكل عملية.
+
+لغة الواجهة 
+العربية
+English
+DRAFT · مسودات فقط المرجع 1.2.0 محفوظ. الحفظ لا يعتمد قاعدة أو ينشر حزمة.
+Majed · governance-owner
+SQLite دائمة · 12 جدولًا
+المسودات
+سجل التدقيق
+التحقق
+الأدلة التشغيلية
+الأدلة التشغيلية
+
+قراءة فقط من ‎.aghr/runtime_evidence/‎ للمشروع المسجل. لا تعديل للأصل أو state.json.
+
+الأحداث المستوردة ادعاءات من المصدر. صلاحية البنية لا تثبت التنفيذ أو هوية المنتج؛ التأهيل مستقل.
+
+تحديث الأدلة
+المهام
+bad
+INVALID
+UNKNOWN · 0 حدث
+INVALID_EVIDENCE
+ui-halt
+VALID
+UI_SOURCE_CLAIM_ONLY · 2 حدث
+BLOCKED
+ui-halt · VALID
+
+حالة توقف أو دليل غير صالح · BLOCKED
+
+الاختيار: 0
+التحميل: 1
+التنفيذ: 0
+التحقق: 0
+
+أعداد أحداث معلنة في أول 500 حدث، وليست شهادة نجاح. NOT_OBSERVABLE
+
+المصدر
+.aghr/runtime_evidence/ui-halt.jsonl
+البصمة
+sha256:50f983915d3a40f5fa3f12da4d9dc7a18b25d7af1761249e851765c5e52260bb
+البايتات
+677
+الخط الزمني: أول 500 حدث
+2026-10-24T12:48:07.907Z · skill.loaded السطر 1
+{
+  "at": "2026-10-24T12:48:07.907Z",
+  "instruction_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "skill_id": "example",
+  "type": "skill.loaded"
+}
+2026-10-24T12:48:07.907Z · skill.blocked السطر 2
+{
+  "at": "2026-10-24T12:48:07.907Z",
+  "reason": "UI fixture only; execution was not observed.",
+  "skill_id": "example",
+  "status": "BLOCKED",
+  "type": "skill.blocked"
+}
+النص الأصلي

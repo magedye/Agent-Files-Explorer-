@@ -1,0 +1,44 @@
+{
+  "id": "AGHR-043",
+  "title": "تسليم متناسب مع دورة الحياة",
+  "kind": "PROCEDURE",
+  "force": "MUST",
+  "severity": "medium",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: When developing, changing, operating or retiring software or an AI system.\nIdentify the applicable lifecycle activities, entry evidence, outputs, verification and transition decisions proportionately. Cover requirements, design, implementation, integration, acceptance, operation and retirement where applicable; security, privacy and data quality cross all relevant activities. Do not impose a fixed waterfall or infer production authorization.",
+  "authority": {
+    "source": "drafting/OWNER_DIRECTIVE.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "PROVISIONAL_OWNER_REVIEW",
+    "status": "draft",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "إغفال نشاط دورة حياة منطبق قد يترك فجوة في التسليم. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "review",
+    "mergeEffect": "advisory"
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-043"
+    ]
+  },
+  "impact": {
+    "band": "medium",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2027-01-21",
+  "exceptions": {
+    "allowed": true
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

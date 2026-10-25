@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-23T14:17:13.494292+00:00",
+  "HEAD": "133746a0ad99d10568a44c8d225219df8454271c",
+  "branch": "main",
+  "git_status": " M .gitattributes\n M .gitignore\n M docs/INDEX.md\n M docs/plans/STUDIO_E1_E2_CORE_SCOPE_AR.md\n M docs/plans/STUDIO_UPGRADE_TASKS_AR.md\n M docs/status/CURRENT.md\n M docs/status/HANDOFF.md\n M package.json\n M src/i18n/I18nProvider.jsx\n M vite.config.mjs\n?? docs/evidence/studio-phase0-runtime-2026-10-23/\n?? docs/evidence/studio-phase1-2026-10-23/\n?? docs/evidence/studio-t06-2026-10-23/\n?? docs/evidence/studio-t06-mock-2026-10-23/\n?? docs/evidence/studio-t11a-2026-10-23/\n?? docs/evidence/studio-t11b-2026-10-23/\n?? docs/evidence/studio-t12-2026-10-23/\n?? docs/evidence/studio-t12-mock-write-core-2026-10-23/\n?? docs/features/STUDIO_PHASE0_READ_ONLY.md\n?? docs/features/STUDIO_PHASE1_READ_ONLY.md\n?? governance_packages/candidates/AGHR_T06_SEC001_Candidate/\n?? governance_packages/candidates/AGHR_T12_Candidate/\n?? phase0.html\n?? server/studio/\n?? src/features/\n?? tests/helpers/\n?? tests/studio_bridge.test.mjs\n?? tests/studio_catalog.test.mjs\n?? tests/studio_phase1_read.test.mjs\n?? tests/studio_read_api.test.mjs\n?? tests/studio_t06_mock.test.mjs\n?? tools/phase1_browser_cases.mjs\n?? tools/prepare_phase1_sample.mjs\n?? tools/seal_phase1_evidence.mjs\n?? tools/t06/\n?? tools/t12/\n?? tools/test_phase0_sentinel.mjs\n?? tools/test_phase1_edge.mjs\n?? tools/verify_phase0_http_contracts.mjs\n?? tools/verify_t06_sec001.mjs\n",
+  "prior_custody": {
+    "path": "docs/evidence/studio-t12-2026-10-23/CUSTODY.lock.json",
+    "sha256": "ac55e8dd4b9425b90f7e1f2800125aefa594390a7568fb207da052261de76bd3",
+    "bytes": 285539,
+    "files_verified": 1387
+  },
+  "before": {
+    "docs/INDEX.md": {
+      "sha256": "ef52cee97da0b04bf5f490ff33c76d5c35e101caeecdf32122e655364b7c251f",
+      "bytes": 4335
+    },
+    "docs/status/CURRENT.md": {
+      "sha256": "8ad3c56bea258f85b370479ae7f5f5ac9b63120ed6bd9b9f61cb3f1867a37e3a",
+      "bytes": 3045
+    },
+    "docs/status/HANDOFF.md": {
+      "sha256": "7d2997c2fa860503c66bf976f3f12f4748f5a46dbc081ec76f3550792641426b",
+      "bytes": 7435
+    },
+    "docs/plans/STUDIO_UPGRADE_TASKS_AR.md": {
+      "sha256": "d182e50c3e312635a324cea1c36ae8ad43bd4dd665a86beba138564d6036558c",
+      "bytes": 43736
+    },
+    "server/api.js": {
+      "sha256": "db78f4c03d4fd0b78d0efe444e0a2dd2b86ec5eb7c74626560cbe36998184b15",
+      "bytes": 15884
+    },
+    "server/staging.js": {
+      "sha256": "684369c8c1fd2c8f3e7b855890da17c7fa7aad1a94ca7459590850dd1a405173",
+      "bytes": 9775
+    },
+    "tests/governance_studio.test.mjs": {
+      "sha256": "0669bedfc2cc151fc4104fa2c366cf000e5227f011c2099ba4e6ce89c9cb55e8",
+      "bytes": 13780
+    }
+  },
+  "owner_scope": "T12 signed SourceGrant / active override / E3 mock explicitly authorized. Conditional owner acceptance only for mock passing candidate. Then implement T13/T14, no live application writes or default storage activation."
+}

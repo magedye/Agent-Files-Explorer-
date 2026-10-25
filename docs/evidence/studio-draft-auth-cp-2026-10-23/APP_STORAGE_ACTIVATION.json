@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "at": "2026-10-23T18:01:56.069Z",
+  "scope": "Owner-authorized default Draft SQLite initialization and reopen; no business CP/source writes",
+  "path": ".governance/studio-drafts/studio.sqlite",
+  "before": {
+    "sha256": "bcb04244407a01aa843978a963bbd78a39513eb8d0ecb87742a7ace5b81ffd07",
+    "bytes": 184320
+  },
+  "after_observed": {
+    "sha256": "a859c572cdc6928e10ca077d6be592df824966f87a7fcbeead0c36fa00a6c4a8",
+    "bytes": 184320
+  },
+  "observations": [
+    {
+      "boot": 1,
+      "mode": "DRAFT",
+      "tables": 12,
+      "actor": "Majed",
+      "drafts": 0,
+      "audit_events_observed": 6,
+      "persistent_file": "D:\\APP\\Agent-Files-Explorer\\.governance\\studio-drafts\\studio.sqlite",
+      "source_written": false
+    },
+    {
+      "boot": 2,
+      "mode": "DRAFT",
+      "tables": 12,
+      "actor": "Majed",
+      "drafts": 0,
+      "audit_events_observed": 8,
+      "persistent_file": "D:\\APP\\Agent-Files-Explorer\\.governance\\studio-drafts\\studio.sqlite",
+      "source_written": false
+    }
+  ],
+  "secrets_persisted": false,
+  "services_left_running": false
+}

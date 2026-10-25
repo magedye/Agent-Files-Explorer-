@@ -1,0 +1,13 @@
+diff --git "a/docs\\evidence\\studio-phase1-2026-10-23\\before\\tests\\studio_bridge.test.mjs.raw" b/tests/studio_bridge.test.mjs
+index e2153dc..287db9c 100644
+--- "a/docs\\evidence\\studio-phase1-2026-10-23\\before\\tests\\studio_bridge.test.mjs.raw"
++++ b/tests/studio_bridge.test.mjs
+@@ -15,6 +15,8 @@ test('T02 source identity and command injection boundary', async () => {
+   assert.equal(result.exitCode, 0); assert.equal(result.report.result, 'VALID');
+   assert.equal(result.report.source.content_hash, sourceHash);
+   assert.equal(result.invocation.shell, false);
++  const rejectedContext=await bridge.run('validate',{path:'../escape'});
++  assert.equal(rejectedContext.exitCode,2);assert.equal(rejectedContext.report.result,'ERROR');assert.equal(rejectedContext.report.data,null);assert.match(rejectedContext.stderr,/INVALID_ARGUMENTS/);
+ });
+ test('T02 audited Python launcher denies filesystem, subprocess and network effects',()=>{
+  const parent=path.resolve('temp'),dir=fs.mkdtempSync(path.join(parent,'studio-bridge-guard-'));

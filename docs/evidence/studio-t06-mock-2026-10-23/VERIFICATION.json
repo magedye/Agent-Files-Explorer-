@@ -1,0 +1,43 @@
+{
+  "T06": "CLOSED_FOR_OWNER_AUTHORIZED_MOCK_PROFILE_ONLY",
+  "acceptance": "Owner explicitly authorizes mock/local-signature fixture and conditionally accepts successful template proof; condition met only for explicit mock profile",
+  "profile": "T06_MOCK_ONLY",
+  "mock": {
+    "result": "VALID",
+    "exit_code": 0,
+    "evidence": "mock-pass.execution.json"
+  },
+  "original_cli": {
+    "result": "BLOCKED",
+    "exit_code": 3,
+    "evidence": "normal-data-only-control.execution.json"
+  },
+  "studio_tests": {
+    "tests": 53,
+    "passed": 53,
+    "failed": 0,
+    "skipped": 0
+  },
+  "regressions": [
+    "Missing scope still INVALID/1 with authorized mock dependency",
+    "Invalid signature and source/receipt/public-key mismatches rejected before Python",
+    "Fixture scope/authority binding mismatches rejected",
+    "Original E2 CLI still blocks critical template; original negative variants still INVALID"
+  ],
+  "CLI_protocol": "3; checked by unchanged CLI_CONTRACT.json in adapter",
+  "core_engine_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+  "engine_tests": {
+    "historical": 141,
+    "source": "../studio-e2-2026-10-22/TEST_RESULTS.json",
+    "reuse": "Unchanged 46-file engine, no new native qualification"
+  },
+  "real_enterprise_authority": "UNKNOWN",
+  "real_gate_enforcement": "NOT_RUN",
+  "E3_doctor": "NOT_IMPLEMENTED",
+  "E4": "7 REQUIRED / NOT_RUN / NOT_WAIVED",
+  "generation": "NOT_STARTED",
+  "CRUD_and_permanent_database": "NOT_STARTED",
+  "reference": "1.2.0 unchanged",
+  "independent_review": "NOT_PERFORMED",
+  "release": "NOT_GRANTED"
+}

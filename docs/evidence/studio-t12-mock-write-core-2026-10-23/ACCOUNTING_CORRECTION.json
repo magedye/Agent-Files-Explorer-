@@ -1,0 +1,15 @@
+{
+  "classification": "TEST_DEFECT",
+  "component": "verify_delivery.py evidence accounting only",
+  "root_cause": "The previous custody lock does not include five backend/test files captured separately at the start of this turn. Comparing all ten before snapshots with changes in the previous lock incorrectly expected those five files to exist in that older lock.",
+  "correction": "Compare previous-lock changes with the intersection of the per-turn baseline and previous-lock paths. Verify all ten raw before snapshots separately and require actual changes to the five additional captured files.",
+  "prior_lock_files": 1387,
+  "prior_lock_unchanged": 1382,
+  "prior_lock_authorized_changed": 5,
+  "additional_per_turn_before_files": 5,
+  "per_turn_total_authorized_changes": 10,
+  "preserved_initial_script": "before/verify_delivery.initial.raw",
+  "preserved_failure": "before/delivery-verification.failed.raw",
+  "product_changes_for_this_correction": 0,
+  "tests_waived_or_skipped": 0
+}

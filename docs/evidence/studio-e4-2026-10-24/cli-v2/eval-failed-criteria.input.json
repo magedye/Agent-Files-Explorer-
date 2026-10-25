@@ -1,0 +1,15 @@
+{
+  "task_id": "e4-public-cli",
+  "skill_id": "json-audit",
+  "operation": "eval",
+  "input": {
+    "document": {
+      "name": "actual"
+    },
+    "required": [
+      "name"
+    ]
+  },
+  "task_criteria": "{\"all\":[{\"pointer\":\"/valid\",\"op\":\"equals\",\"value\":false}]}",
+  "runs": 3
+}

@@ -1,0 +1,110 @@
+{
+  "status": "PASS_FOR_LOCAL_CORE",
+  "source_hash": "811f00c496196afdb32f406f515200d6d43a60cf05c6bd079c826a07ee5a9a25",
+  "results": [
+    {
+      "name": "forged-receipt",
+      "expected": 2,
+      "exit_code": 2,
+      "args": [
+        "tools/aghr_e4_cli.mjs",
+        "--request=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e4-2026-10-24\\cli-v2\\forged-receipt.input.json",
+        "--host-config=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e4-2026-10-24\\cli-v2\\HOST.json"
+      ],
+      "started_at": "2026-10-24T02:26:19.688Z",
+      "finished_at": "2026-10-24T02:26:20.235Z",
+      "status": "PASS"
+    },
+    {
+      "name": "loaded-not-executed",
+      "expected": 1,
+      "exit_code": 1,
+      "args": [
+        "tools/aghr_e4_cli.mjs",
+        "--request=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e4-2026-10-24\\cli-v2\\loaded-not-executed.input.json",
+        "--host-config=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e4-2026-10-24\\cli-v2\\HOST.json"
+      ],
+      "started_at": "2026-10-24T02:26:20.237Z",
+      "finished_at": "2026-10-24T02:26:25.022Z",
+      "status": "PASS"
+    },
+    {
+      "name": "unknown-id",
+      "expected": 1,
+      "exit_code": 1,
+      "args": [
+        "tools/aghr_e4_cli.mjs",
+        "--request=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e4-2026-10-24\\cli-v2\\unknown-id.input.json",
+        "--host-config=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e4-2026-10-24\\cli-v2\\HOST.json"
+      ],
+      "started_at": "2026-10-24T02:26:25.023Z",
+      "finished_at": "2026-10-24T02:26:26.950Z",
+      "status": "PASS"
+    },
+    {
+      "name": "no-skill-needed",
+      "expected": 0,
+      "exit_code": 0,
+      "args": [
+        "tools/aghr_e4_cli.mjs",
+        "--request=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e4-2026-10-24\\cli-v2\\no-skill-needed.input.json",
+        "--host-config=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e4-2026-10-24\\cli-v2\\HOST.json"
+      ],
+      "started_at": "2026-10-24T02:26:26.951Z",
+      "finished_at": "2026-10-24T02:26:29.415Z",
+      "status": "PASS"
+    },
+    {
+      "name": "discovery-unavailable",
+      "expected": 3,
+      "exit_code": 3,
+      "args": [
+        "tools/aghr_e4_cli.mjs",
+        "--request=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e4-2026-10-24\\cli-v2\\discovery-unavailable.input.json",
+        "--host-config=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e4-2026-10-24\\cli-v2\\UNAVAILABLE_HOST.json"
+      ],
+      "started_at": "2026-10-24T02:26:29.416Z",
+      "finished_at": "2026-10-24T02:26:31.835Z",
+      "status": "PASS"
+    },
+    {
+      "name": "eval-failed-criteria",
+      "expected": 1,
+      "exit_code": 1,
+      "args": [
+        "tools/aghr_e4_cli.mjs",
+        "--request=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e4-2026-10-24\\cli-v2\\eval-failed-criteria.input.json",
+        "--host-config=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e4-2026-10-24\\cli-v2\\HOST.json"
+      ],
+      "started_at": "2026-10-24T02:26:31.835Z",
+      "finished_at": "2026-10-24T02:26:51.121Z",
+      "status": "PASS"
+    },
+    {
+      "name": "eval-passed",
+      "expected": 0,
+      "exit_code": 0,
+      "args": [
+        "tools/aghr_e4_cli.mjs",
+        "--request=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e4-2026-10-24\\cli-v2\\eval-passed.input.json",
+        "--host-config=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e4-2026-10-24\\cli-v2\\HOST.json"
+      ],
+      "started_at": "2026-10-24T02:26:51.122Z",
+      "finished_at": "2026-10-24T02:27:18.471Z",
+      "status": "PASS"
+    },
+    {
+      "name": "qualify-local-procedure",
+      "expected": 0,
+      "exit_code": 0,
+      "args": [
+        "tools/aghr_e4_cli.mjs",
+        "--request=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e4-2026-10-24\\cli-v2\\qualify-local-procedure.input.json",
+        "--host-config=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e4-2026-10-24\\cli-v2\\HOST.json"
+      ],
+      "started_at": "2026-10-24T02:27:18.472Z",
+      "finished_at": "2026-10-24T02:27:46.318Z",
+      "status": "PASS"
+    }
+  ]
+}

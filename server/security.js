@@ -28,7 +28,10 @@ export const AGHR_1_2_0_ROOT = path.resolve(
   "references",
   "Agent_Governance_Harness_Reference_1.2.0"
 );
-export const DEFAULT_PACKAGE_ID = "aghr_1_2_0";
+// Owner sign-off2026-10-26 promotes the existing pinned bytes without moving them.
+export const AGHR_RC3_ROOT = path.join(GOVERNANCE_PACKAGES_ROOT, "candidates", "AGHR_rc3_Core_Candidate");
+export const DEFAULT_PACKAGE_ID = "aghr_rc3";
+// Disabled legacy evaluation tools retain their original source binding.
 export const AGHR_ROOT = AGHR_1_2_0_ROOT;
 
 export const MAX_TEXT_BYTES = 2_000_000; // 2 MB
@@ -66,6 +69,10 @@ class RootRegistry {
   }
 
   _initializeDefaultRoots() {
+    if (fs.existsSync(AGHR_RC3_ROOT)) {
+      this.registerRoot({id: "aghr_rc3", name: "AGHR rc.3 — Official Local Reference", path: AGHR_RC3_ROOT,
+        type: "reference", description: "Owner-accepted Studio v1.0.0 local reference; existing projects are not migrated", readOnly: true});
+    }
     // Historical baseline retains its stable ID for explicit selection/comparison.
     if (fs.existsSync(AGHR_1_0_0_ROOT)) {
       this.registerRoot({

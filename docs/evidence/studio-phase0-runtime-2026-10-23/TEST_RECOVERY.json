@@ -1,0 +1,32 @@
+{
+  "classification": "TEST_DEFECT_AND_ENVIRONMENT_DEFECT",
+  "cases": [
+    {
+      "id": "T01_HELPER",
+      "cause": "Evidence helper read report.engine instead of actual protocol-3 report.source; actual six CLI invocations succeeded",
+      "fix": "Read actual source identity; reuse original captured transcripts",
+      "raw_initial_error": "Not separately retained; tool-observed TypeError summary only"
+    },
+    {
+      "id": "HTTP_HELPER",
+      "cause": "OpenAPI local #/components pointer was treated as external schema filename",
+      "fix": "Resolve canonical local pointer before bundling; seven real HTTP responses validate",
+      "raw_initial_stderr": "Not retained on disk; tool-observed PointerToNowhere summary only"
+    },
+    {
+      "id": "EDGE_CDP",
+      "cause": "9223 belongs to another workspace; preserved",
+      "evidence": "sentinel-2026-10-22T22-16-46-784Z/SENTINEL.json",
+      "fix": "Isolated Edge/raw CDP on loopback 9224; no browser engine substitution"
+    },
+    {
+      "id": "CONTEXT_RECEIPT_ORDER",
+      "classification": "TEST_DEFECT",
+      "cause": "Context checker followed the link to its own execution receipt before helper wrote that file",
+      "fix": "Create receipt before invoking checker, then record actual result",
+      "evidence": "attempts/context-before-own-receipt-existed/context-health-final.stdout.txt",
+      "final": "context-health-final.execution.json"
+    }
+  ],
+  "mandatory_gates_waived": []
+}

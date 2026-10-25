@@ -1,0 +1,44 @@
+{
+  "id": "AGHR-034",
+  "title": "أبسط تصميم كافٍ",
+  "kind": "GUIDELINE",
+  "force": "SHOULD",
+  "severity": "low",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: During engineering design.\nUse the simplest complete design satisfying requirements; preserve approved boundaries without compulsory shared layers, micro-files or speculative features.",
+  "authority": {
+    "source": "drafting/OWNER_DIRECTIVE.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "PROVISIONAL_OWNER_REVIEW",
+    "status": "draft",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "التعقيد الاستباقي يزيد الكلفة دون متطلب مثبت. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "review",
+    "mergeEffect": "advisory"
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-034"
+    ]
+  },
+  "impact": {
+    "band": "low",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2027-01-21",
+  "exceptions": {
+    "allowed": true
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

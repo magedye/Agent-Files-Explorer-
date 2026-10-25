@@ -1,0 +1,22 @@
+{
+  "status": "FAIL",
+  "failure": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /BLOCKED/. Input:\n\n'bad · INVALID\\n' +\n  '\\n' +\n  'حالة توقف أو دليل غير صالح · INVALID_EVIDENCE\\n' +\n  '\\n' +\n  'الاختيار: 0\\n' +\n  'التحميل: 0\\n' +\n  'التنفيذ: 0\\n' +\n  'التحقق: 0\\n' +\n  '\\n' +\n  'أعداد أحداث معلنة في أول 500 حدث، وليست شهادة نجاح. NOT_OBSERVABLE\\n' +\n  '\\n' +\n  'المصدر\\n' +\n  '.aghr/runtime_evidence/bad.jsonl\\n' +\n  'البصمة\\n' +\n  'sha256:5de01eb1bfb5a44d0e236e9c21f5433d67aa83cec3ae118cac2d0fd8c2020419\\n' +\n  'البايتات\\n' +\n  '14\\n' +\n  '\\n' +\n  'INVALID_JSON: INVALID_JSON\\n' +\n  '\\n' +\n  'الخط الزمني: أول 500 حدث\\n' +\n  'النص الأصلي'\n\n    at file:///D:/APP/Agent-Files-Explorer/tools/native/browser.mjs:45:208",
+  "checks": [
+    "Actual isolated Microsoft Edge context",
+    "Authorized real validate runs via UI, polls and renders CLI3 stdout/exit0"
+  ],
+  "browser": "Microsoft Edge isolated context via127.0.0.1:9223",
+  "source_before": {
+    "raw": "7463cd66e2439c448c28c589c482f24b27a9bb26dbdd4246ee3d89b2644e6e67",
+    "bad": "5de01eb1bfb5a44d0e236e9c21f5433d67aa83cec3ae118cac2d0fd8c2020419"
+  },
+  "source_after": {
+    "raw": "7463cd66e2439c448c28c589c482f24b27a9bb26dbdd4246ee3d89b2644e6e67",
+    "bad": "5de01eb1bfb5a44d0e236e9c21f5433d67aa83cec3ae118cac2d0fd8c2020419"
+  },
+  "protected_files": 187,
+  "state_written": false,
+  "source_written": false,
+  "draft_storage": "D:\\APP\\Agent-Files-Explorer\\temp\\native-browser-pZH9hW\\db",
+  "errors": []
+}

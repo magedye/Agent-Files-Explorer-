@@ -1,0 +1,255 @@
+--- before/server/studio/write-authorization.js
++++ after/server/studio/write-authorization.js
+@@ -9,7 +9,7 @@
+ const markers=/T12_OWNER_APPROVED_MOCK|OWNER_GRANTED_T12|OWNER_T12_OVERRIDE|T06_MOCK_ONLY|AUTHORIZED_BY_PROJECT_OWNER/;
+ const permissions={
+  developer:['cp.create','cp.edit_own','adoption.preview','verify.run.fast'],
+- 'governance-owner':['cp.create','cp.edit_any','cp.approve.governance','adoption.apply','adoption.rollback','verify.run.*','calibrate.*','meta.change.propose','storage.initialize','staging.create','staging.authorize'],
++ 'governance-owner':['cp.create','cp.edit_any','cp.approve.governance','adoption.apply','adoption.rollback','verify.run.*','calibrate.*','meta.change.propose','storage.initialize','draft.workspace.initialize','staging.create','staging.authorize'],
+  'security-owner':['cp.approve.security','verify.run.*'],
+  'architecture-board':['cp.approve.architecture','exceptions.approve'],
+ };
+@@ -30,6 +30,11 @@
+  const principals=new WeakMap(),sessions=new Map(),grants=new Map();
+  const known=p=>{const v=principals.get(p);if(!v||clock()>=v.expires)throw deny();return v;};
+  const allowed=(role,action)=>permissions[role].some(p=>p===action||p.endsWith('.*')&&action.startsWith(p.slice(0,-1)));
++ const liveGrant=(principal,token)=>{
++  const actor=known(principal),grant=grants.get(token);
++  if(!grant||grant.principal!==principal||grant.revoked||grant.used||clock()>=grant.expiresAt||!allowed(actor.role,grant.bound.action))throw deny();
++  return grant;
++ };
+  return {
+   // Trusted operator bootstrap only. No endpoint exposes principal/grant minting.
+   createPrincipal(spec){
+@@ -43,6 +48,12 @@
+   authenticate(req){
+    const entry=sessions.get(req.headers['x-studio-token']);if(!entry)throw deny();entry.session.authenticate(req);known(entry.principal);return entry.principal;
+   },
++  describe(principal){const p=known(principal);return Object.freeze({authenticated_actor:p.actor,server_resolved_role:p.role,installation_owner_verified:p.installationOwnerVerified});},
++  auditIdentity(req){
++   const entry=sessions.get(req.headers['x-studio-token']),p=entry&&principals.get(entry.principal);
++   return Object.freeze({actor:p?.actor??'unauthenticated',role:p?.role??null});
++  },
++  grantScope(principal,token){return liveGrant(principal,token).bound;},
+   issueGrant({issuer,principal,scope,expiresAt}){
+    const owner=known(issuer),actor=known(principal),bound=tuple(scope);
+    if(owner.role!=='governance-owner'||!owner.installationOwnerVerified||!allowed(actor.role,bound.action)||!Number.isFinite(expiresAt)||expiresAt<=clock()||expiresAt>clock()+900000)throw deny();
+@@ -56,7 +67,7 @@
+    let actor,bound;
+    try{
+     actor=known(principal);bound=tuple(expected);const grant=grants.get(token);
+-    const revalidate=current=>{known(principal);if(!grant||grant.principal!==principal||grant.revoked||grant.used||clock()>=grant.expiresAt||!matches(grant.bound,current)||!allowed(actor.role,current.action))throw deny();};
++    const revalidate=current=>{liveGrant(principal,token);if(!matches(grant.bound,current))throw deny();};
+     revalidate(bound);
+     const receipt=Object.freeze(Object.create(null));const details={authenticated_actor:actor.actor,server_resolved_role:actor.role,...bound,installation_owner_verified:actor.installationOwnerVerified};
+     receipts.set(receipt,{consumed:false,details,revalidate:current=>{
+--- before/server/studio/db/persistent.js
++++ after/server/studio/db/persistent.js
+@@ -5,6 +5,7 @@
+ import {DatabaseSync,constants} from 'node:sqlite';
+ import {repository} from '../aghr/cli-bridge.js';
+ import {consumeAuthorization,authorizationDetails} from '../write-authorization.js';
++import {StudioError} from '../auth.js';
+ const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+ export const migrationHash='d5ab6a5fa8dc3be95927d3f9871ed393a3d7f7206e102dae6f2721492dde2159';
+ const sqlPath=path.join(repository,'docs/contracts/aghr-rc3/sqlite/001_initial.sql');
+@@ -51,11 +52,56 @@
+  };
+  try{append(details,{event_type:'storage.initialize',resource_type:'storage',payload:{migrationHash,version:info.version}});}catch(e){db.close();throw e;}
+  const loggedReceipts=new WeakSet([authorization]);
++ const transaction=run=>{db.exec('BEGIN IMMEDIATE');try{const value=run();db.exec('COMMIT');return value;}catch(error){db.exec('ROLLBACK');throw error;}};
++ const cpView=row=>{
++  if(!row)return null;
++  const origin=db.prepare("SELECT payload_json FROM audit_events WHERE event_type='cp.create' AND resource_id=? AND json_extract(payload_json,'$.result')='SUCCESS' ORDER BY id LIMIT 1").get(row.id);
++  const frozen=origin?JSON.parse(origin.payload_json):null;
++  if(!frozen?.base_candidate_hash)throw Error('CP_PROVENANCE_UNAVAILABLE');
++  const notRun={status:'NOT_RUN',evidence:[],reason:'Draft only; complete strict validation and downstream checks have not run.'};
++  return {id:row.id,workspace_id:row.workspace_id,title:row.title,kind:row.kind,target_item_id:row.target_item_id,status:row.status,
++   source:frozen.source,base_package_version:row.base_package_version,base_candidate_hash:frozen.base_candidate_hash,
++   proposed_yaml:row.proposed_yaml,proposal_version_hash:row.proposal_version_hash,
++   checks:Object.fromEntries(['validate','lint','skill_states','generate','doctor','eval'].map(k=>[k,{...notRun}])),
++   generation:null,ci_comparison:null,required_approvals:['governance-owner'],approvals:[],approval_history:[],
++   blockers:[{code:'DRAFT_NOT_QUALIFIED',message:'Draft saved; native strict validation and downstream lifecycle are not implemented by this slice.',severity:'warning'}],
++   created_by:row.created_by,created_at:row.created_at,updated_at:row.updated_at};
++ };
+  return Object.freeze({
+   ...info,file,
+   // The receipt proves the real grant was consumed at its mutation boundary.
+   appendAudit(receipt,event){if(loggedReceipts.has(receipt))throw Error('AUDIT_RECEIPT_REPLAY');const result=append(authorizationDetails(receipt),event);loggedReceipts.add(receipt);return result;},
+-  auditEvents(){return db.prepare('SELECT * FROM audit_events ORDER BY id').all();},
++  auditEvents(limit=200){if(!Number.isSafeInteger(limit)||limit<1||limit>1000)throw Error('AUDIT_LIMIT_INVALID');return db.prepare('SELECT * FROM (SELECT * FROM audit_events ORDER BY id DESC LIMIT ?) ORDER BY id').all(limit);},
++  recordAttempt({actor,role,action,resourceId=null,result,status,reason,requestId}){
++   // Internal server channel only. No HTTP body is ever mapped to this identity.
++   if(typeof actor!=='string'||!['ATTEMPT','DENY','ERROR','GRANT_ISSUED'].includes(result))throw Error('AUDIT_INPUT_INVALID');
++   return db.prepare('INSERT INTO audit_events (at,actor,actor_role,simulated_role,event_type,workspace_id,resource_type,resource_id,payload_json) VALUES (?,?,?,NULL,?,?,?,?,?)')
++    .run(new Date().toISOString(),actor,role,action,scope.workspace_id,'draft',resourceId,JSON.stringify({result,status,reason,request_id:requestId}));
++  },
++  registerWorkspace(receipt,workspace){
++   const expected={...scope,action:'draft.workspace.initialize',resource_id:workspace.id,proposal_version_hash:'sha256:'+sha(JSON.stringify(workspace))};
++   const actor=consumeAuthorization(receipt,expected);
++   return transaction(()=>{
++    const prior=db.prepare('SELECT * FROM workspaces WHERE id=?').get(workspace.id);
++    if(prior&&(prior.package_path!==workspace.package_path||prior.package_version!==workspace.package_version))throw Error('WORKSPACE_BINDING_CHANGED');
++    if(!prior)db.prepare('INSERT INTO workspaces(id,name,package_path,package_version,schema_version,read_only,created_at) VALUES(?,?,?,?,?,1,?)')
++     .run(workspace.id,workspace.name,workspace.package_path,workspace.package_version,workspace.schema_version,new Date().toISOString());
++    append(actor,{event_type:expected.action,resource_type:'workspace',payload:{result:'SUCCESS',read_only:true}});
++   });
++  },
++  createDraft(receipt,prepared){
++   const expected={...scope,action:'cp.create',resource_id:prepared.id,proposal_version_hash:prepared.proposal_version_hash};
++   const actor=consumeAuthorization(receipt,expected),at=new Date().toISOString();
++   return transaction(()=>{
++    if(db.prepare('SELECT id FROM change_packages WHERE id=?').get(prepared.id))throw new StudioError(409,'CONFLICT','Draft already exists.');
++    db.prepare(`INSERT INTO change_packages(id,workspace_id,title,kind,target_item_id,status,status_updated_at,source_type,source_ref,source_hash,base_package_version,base_item_ids_json,proposed_yaml,proposal_version_hash,required_approvals_json,created_by,created_at,updated_at)
++     VALUES(?,?,?,?,?,'draft',?,?,?,?,?,?,?,?,?,?,?,?)`).run(prepared.id,scope.workspace_id,prepared.title,prepared.kind,prepared.target_item_id,at,prepared.source?.type??null,prepared.source?.ref??null,prepared.source?.hash??null,prepared.base_package_version,JSON.stringify(prepared.target_item_id?[prepared.target_item_id]:[]),prepared.proposed_yaml,prepared.proposal_version_hash,JSON.stringify({'governance-owner':false}),actor.authenticated_actor,at,at);
++    append(actor,{event_type:'cp.create',resource_type:'package',payload:{result:'SUCCESS',base_candidate_hash:prepared.base_candidate_hash,source:prepared.source,structural_check:'PASS',strict_check:'NOT_RUN',request_id:prepared.request_id}});
++    return cpView(db.prepare('SELECT * FROM change_packages WHERE id=?').get(prepared.id));
++   });
++  },
++  drafts(){return db.prepare('SELECT * FROM change_packages WHERE workspace_id=? ORDER BY created_at DESC,id LIMIT 100').all(scope.workspace_id).map(cpView);},
++  draft(id){return cpView(db.prepare('SELECT * FROM change_packages WHERE workspace_id=? AND id=?').get(scope.workspace_id,id));},
+   close(){db.close();},
+  });
+ }
+--- before/package.json
++++ after/package.json
+@@ -7,8 +7,9 @@
+     "dev": "vite",
+     "build": "vite build",
+     "preview": "vite preview --port 5180 --strictPort",
+-    "test": "node --test tests/*.test.mjs",
++    "test": "node --test --test-concurrency=2 tests/*.test.mjs",
+     "studio:read": "node --permission --allow-fs-read=* --allow-child-process server/studio/serve.mjs",
++    "studio:draft": "node server/studio/serve-draft.mjs",
+     "test:studio-sentinel": "node tools/test_phase1_edge.mjs",
+     "test:studio-phase0-history": "node tools/test_phase0_sentinel.mjs"
+   },
+--- before/vite.config.mjs
++++ after/vite.config.mjs
+@@ -16,7 +16,7 @@
+ }
+ 
+ export default defineConfig({
+-  build: { rollupOptions: { input: { main: 'index.html', phase0: 'phase0.html' } } },
++    build: { rollupOptions: { input: { main: 'index.html', phase0: 'phase0.html', draft: 'draft.html' } } },
+   plugins: [
+     react(),
+     {
+--- before/.gitignore
++++ after/.gitignore
+@@ -50,6 +50,7 @@
+ .governance/intake/
+ .governance/evaluations/
+ .governance/audit.jsonl
++.governance/studio-drafts/
+ 
+ # Editor directories and files
+ .vscode/*
+--- before/.gitattributes
++++ after/.gitattributes
+@@ -65,3 +65,9 @@
+ /server/staging.js -text
+ /server/intake.js -text
+ /server/evaluation.js -text
++/tests/studio_draft_runtime.test.mjs -text
++/tests/studio_job_runner.test.mjs -text
++/tools/test_draft_studio_edge.mjs -text
++/src/features/changes/** -text
++/draft.html -text
++/docs/features/STUDIO_DRAFT_MODE.md -text
+--- before/docs/status/CURRENT.md
++++ after/docs/status/CURRENT.md
+@@ -1,22 +1,20 @@
+ # Active Project Execution State — Derived View
+ 
+-> Updated: 2026-10-23. Git, source and exact evidence take precedence over this snapshot.
++> Updated: 2026-10-23. Git, source and exact evidence take precedence.
+ 
+ ## Current scope
+ 
+-- E1/E2.a–e **ACCEPTED_BY_OWNER**. [E2](../evidence/studio-e2-2026-10-22/README.md): unchanged engine, 141/141; CLI 3; owner/license PROVISIONAL, publisher UNKNOWN.
+-- [T01–T05](../evidence/studio-phase0-runtime-2026-10-23/README.md) **OWNER_ACCEPTED / T01_UNBLOCKED**: local catalog/strict/lint, read API and :memory:. [Read launch](../features/STUDIO_PHASE0_READ_ONLY.md).
+-- [T06](../evidence/studio-t06-mock-2026-10-23/README.md) **ACCEPTED_BY_OWNER / MOCK_ONLY_CLOSED**: fixture/adapter VALID/0; original CLI BLOCKED/3. No real enterprise/enforcement/release qualification.
+-- [T07–T10](../evidence/studio-phase1-2026-10-23/README.md) **ACCEPTED_BY_OWNER**: five read screens, sixteen bilingual routes, Python scope. Prior Sentinel: 106 unchanged files, zero app writes; 57/57 tests, 7/7 HTTP schemas. [Launch](../features/STUDIO_PHASE1_READ_ONLY.md).
+-- [T11](../evidence/studio-t11b-2026-10-23/T11B_REVIEW_AR.md) **OWNER_ACCEPTED / CLOSED**: 1,608 dispositions/quarantine retained. [T12–T14 delivery](../evidence/studio-t12-mock-write-core-2026-10-23/README.md): **T12 CLOSED_FOR_OWNER_APPROVED_MOCK_ONLY**; signed 47-rule fixture strict/lint VALID/0, unchanged native CLI BLOCKED/3. 44 active overrides are simulation-only; original drafts untouched.
+-- **T13/T14 CORE_TESTED_ISOLATED**: server-owned, scoped/revocable grants; legacy mutation HTTP 403; staging requires private receipts. Explicit SQLite factory: 12 tables, migration rollback/reopen/audit tested in temporary storage. Current application remains read-only/:memory:; live mutation integration not activated. Latest suite 68/68.
++- E1/E2.a–e ACCEPTED_BY_OWNER. [E2](../evidence/studio-e2-2026-10-22/README.md): unchanged46-file engine, CLI3; license PROVISIONAL, publisher UNKNOWN.
++- [T01–T05](../evidence/studio-phase0-runtime-2026-10-23/README.md) and [T07–T10](../evidence/studio-phase1-2026-10-23/README.md) OWNER_ACCEPTED: read server,12 memory tables, bilingual reading screens, prior Edge/Sentinel. [Read launch](../features/STUDIO_PHASE1_READ_ONLY.md).
++- [T06](../evidence/studio-t06-mock-2026-10-23/README.md) and [T12](../evidence/studio-t12-mock-write-core-2026-10-23/README.md) OWNER_ACCEPTED_MOCK_ONLY. T12 signed47-rule fixture VALID/0; native CLI BLOCKED/3. Mock data grants no real backend privilege.
++- [T11](../evidence/studio-t11b-2026-10-23/T11B_REVIEW_AR.md) OWNER_ACCEPTED/CLOSED:1608 dispositions retained; no automatic Active adoption.
++- [Draft delivery](../evidence/studio-draft-auth-cp-2026-10-23/README.md): owner authorized T13/T14 activation. Draft server has trusted OS identity, scoped expiring one-use grants, denial audit and atomic CP/audit. Default SQLite12 initialized/reopened; no test CP in live store. Read profile stays memory-only. [Draft launch](../features/STUDIO_DRAFT_MODE.md).
++- T15 Windows job adapter configured for eval600s/qualify3600s/2GiB; fixture timeout/memory/tree/cancel probes only. T16 first Draft create/list/detail UI/API implemented; full lifecycle remains open. 77/77 tests passed; real isolated Edge/Sentinel preserved1521 source files.
+ 
+ ## Preserved boundaries
+ 
+-- [Contracts](../contracts/aghr-rc3/README.md): contract.1 and 46-file engine unchanged. UI remains the historical frozen view; reviews and T12 drafts are separate evidence. No host discovery, qualification or usage claim.
+-- Source register/UI remain frozen historical views; no target project or Active adoption. Mock SourceGrants cannot issue real backend permissions.
+-- [Reference 1.2.0](../governance/REFERENCE_UPDATE_1_2_0.md) remains the application default; consumer adoption is separate. [Candidate 1.3.0](../governance/SKILLS_CANDIDATE_1_3_0.md), INBOX originals and prior evidence preserved. references/candidates/archive/INBOX retain distinct roles.
++[Contracts](../contracts/aghr-rc3/README.md), engine, prior candidates and [reference1.2.0](../governance/REFERENCE_UPDATE_1_2_0.md) unchanged;1.2.0 remains original application default. No adoption, source application, final release, AGENTS generation or state/runtime_evidence writes. Draft preparation uses E2 parser/schema and LOCAL_ADAPTER_NOT_E5 hashes; structure is not strict approval. No qualification or independent release review.
+ 
+ ## Exact next action
+ 
+-Review T13/T14 core before completing interactive identity/grant/audit integration and selecting a persistent app store. Current instruction forbids live application writes; no store/controller activation. No T15/T16, generation, real E3 or promotion. Seven E4 checks remain REQUIRED / NOT_RUN / NOT_WAIVED; [real E3 prerequisites](../evidence/studio-t06-2026-10-23/GAPS.json) remain open.
++Continue T16 only through qualified E5 capabilities for engine-owned proposal processing/edit/validate/submit. No T17–T19, real E3 or publication. Seven E4 checks remain REQUIRED / NOT_RUN / NOT_WAIVED; [E3 prerequisites](../evidence/studio-t06-2026-10-23/GAPS.json) remain open.
+--- before/docs/status/HANDOFF.md
++++ after/docs/status/HANDOFF.md
+@@ -17,7 +17,7 @@
+ ---
+ 
+ ## 2. Recent Architectural Decisions
+-- **2026-10-23 (T12 mock / T13–T14 core)**: Owner authorized signed simulation and conditionally accepted passing T12. [Delivery](../evidence/studio-t12-mock-write-core-2026-10-23/README.md): 47-rule strict/lint VALID/0 in T12_OWNER_APPROVED_MOCK; native CLI still BLOCKED/3. T12 CLOSED_MOCK_ONLY. Real backend grants reject mock data; legacy mutations default 403, staging uses scoped private receipts. SQLite 12-table factory tested on temporary disk; app remains read-only/:memory:. Suite 68/68. T13/T14 interactive grant/audit integration remains open; no activation, E3/E4, generation or promotion.
++- **2026-10-23 (authorized Draft activation)**: T12 formally OWNER_ACCEPTED_MOCK_ONLY; native CLI3 remains BLOCKED/3. [Latest delivery](../evidence/studio-draft-auth-cp-2026-10-23/README.md): T13/T14 Draft identity/grants/CP/audit linked, default SQLite12 initialized/reopened; read profile unchanged. T15 Windows resource fixture proofs; initial T16 create/list/detail ar/en UI;77/77 and Edge/Sentinel1521 unchanged. Hashes LOCAL_ADAPTER_NOT_E5, all CP strict/downstream checks NOT_RUN. Full lifecycle needs E5; no source application/E3/E4/generation/promotion. CURRENT is the resumable position.
+ - **2026-10-23 (Phase 1 read-only UI)**: Owner formally accepted T06 mock-only closure, then authorized T07–T10. [Delivery](../evidence/studio-phase1-2026-10-23/README.md): five reading screens, sixteen ar/en routes, real Python scope and no CRUD/generation. 57/57 tests, 7/7 HTTP schemas, isolated Edge and Sentinel PASS on 106 files. T11a has a frozen 50-ID presentation sample, NOT a measured review; all 1,608 decisions remain pending. No new host qualification or reference promotion. CURRENT holds the next proposed scope.
+ - **2026-10-23 (T06 owner-authorized mock closure)**: [Evidence](../evidence/studio-t06-mock-2026-10-23/README.md): owner expressly permits a mock/local signature, conditionally accepting a successful template proof. Actual YAML + Ed25519 fixture + isolated tools/t06 adapter run unchanged E2 API: VALID/0, checks.reason=T06_MOCK_ONLY. Original CLI remains BLOCKED/3 on identical files; no real enterprise/gate qualification, no E3 doctor/CRUD/generation. T06 CLOSED_FOR_OWNER_AUTHORIZED_MOCK_PROFILE_ONLY supersedes the earlier incomplete template-only status; real E3 prerequisites persist.
+ - **2026-10-23 (original T06 attempt)**: [Native control](../evidence/studio-t06-2026-10-23/README.md): structure PASS, strict BLOCKED/3, missing-field cases INVALID/1. Historical incomplete status is superseded only within the later authorized mock profile.
+--- before/docs/INDEX.md
++++ after/docs/INDEX.md
+@@ -25,6 +25,7 @@
+ ### Operational State & Progress
+ - [CURRENT.md](status/CURRENT.md) — Active objectives, blockers, and next steps.
+ - [HANDOFF.md](status/HANDOFF.md) — Multi-agent and cross-session handoff checkpoint.
++- [Draft mode](features/STUDIO_DRAFT_MODE.md) — Authorized CP storage, grants, audit and resource boundaries.
+ 
+ ### Architecture & Specification
+ - [Full upgrade plan](plans/STUDIO_FULL_PROJECT_UPGRADE_AR.md) — phases, tasks and gates; [contracts](contracts/aghr-rc3/README.md); [C1–C12](plans/STUDIO_PRODUCT_AND_CONTRACTS_AR.md).
+--- before/docs/plans/STUDIO_UPGRADE_TASKS_AR.md
++++ after/docs/plans/STUDIO_UPGRADE_TASKS_AR.md
+@@ -1,6 +1,6 @@
+ # قائمة مهام تحديث AGHR Governance Studio
+ 
+-**التاريخ:** 2026-10-23. **الحالة:** `E1/E2 ACCEPTED_BY_OWNER / T01 CLOSED_UNBLOCKED / T02–T05 ACCEPTED_BY_OWNER / T06 MOCK_ONLY ACCEPTED_BY_OWNER / T07–T10 ACCEPTED_BY_OWNER / T11a–T11b ACCEPTED_BY_OWNER / T12 OWNER_APPROVED_MOCK_CLOSED / T13–T14 CORE_TESTED_ISOLATED`.
++**التاريخ:** 2026-10-23. **الحالة:** `E1/E2 ACCEPTED_BY_OWNER / T01 CLOSED_UNBLOCKED / T02–T05 ACCEPTED_BY_OWNER / T06 MOCK_ONLY ACCEPTED_BY_OWNER / T07–T10 ACCEPTED_BY_OWNER / T11a–T11b ACCEPTED_BY_OWNER / T12 OWNER_APPROVED_MOCK_CLOSED / T13–T14 DRAFT_INTEGRATED / T15 WINDOWS_ADAPTER_TESTED / T16 INITIAL_DRAFT_SLICE`.
+ **الخطة:** [التحديث الكامل](STUDIO_FULL_PROJECT_UPGRADE_AR.md). **المتطلبات:** [المواصفة المعتمدة](../specs/aghr-rc3/STUDIO_SPECIFICATION.md)، و[العقود](../contracts/aghr-rc3/README.md). استكمال تعريف العقود عمل سابق؛ المهام أدناه لتفعيل المنتج، ولا تمنح قبول إصدار.
+ 
+ **مراجعة r2:** [تقييم الملاحظات](../reviews/STUDIO_UPGRADE_PLAN_REVIEW_2026_10_22_AR.md). شروط T00 وقرارات المالك وأصحاب المسؤوليات في §1.1 و§1.2 و§2.1 من الخطة. لم تنفذ مهام المنتج بهذه المراجعة.
+@@ -55,7 +55,7 @@
+ 
+ **القرار اللاحق:** اعتمد المالك [T11a](../evidence/studio-t11a-2026-10-23/T11A_REVIEW_AR.md) و[نتائج T11b](../evidence/studio-t11b-2026-10-23/T11B_REVIEW_AR.md) وأغلق الجرد، ثم فوض صياغة الـ47 وتغليف T12 فقط. [تسليم T12](../evidence/studio-t12-2026-10-23/README.md): جميع المسودات PROVISIONAL_OWNER_REVIEW وبنيتها PASS، لكنها native strict BLOCKED/3 لغياب مصدر السلطة واعتماد القيم وE3. مرجع 1.2.0 والسجل والتطبيق محفوظة؛ لا ترحيل Active أو تعديل محرك أو نجاح strict مختلق.
+ 
+-**التوجيه الأحدث:** أجاز المالك SourceGrant وتفعيل 44 سلطة وE3 محاكاة، ثم بدء T13/T14 عند النجاح. [تسليم المحاكاة ونواة الكتابة](../evidence/studio-t12-mock-write-core-2026-10-23/README.md): strict/lint محاكيان VALID/0 للـ47، CLI الأصلي BLOCKED/3؛ شرط قبول T12 تحقق في النطاق المحاكى فقط. نواة T13/T14 مختبرة (68/68)، ووضع التطبيق للقراءة لم يتغير؛ لم تُفعّل مسارات CRUD أو مخزن دائم. بوابات T19 والإصدار الفعلية لا تُستوفى بمحاكاة T12.
++**توجيه سابق:** أجاز المالك SourceGrant وتفعيل 44 سلطة وE3 محاكاة، ثم بدء T13/T14 عند النجاح. [تسليم المحاكاة ونواة الكتابة](../evidence/studio-t12-mock-write-core-2026-10-23/README.md): strict/lint محاكيان VALID/0 للـ47، CLI الأصلي BLOCKED/3؛ شرط قبول T12 تحقق في النطاق المحاكى فقط. نواة T13/T14 مختبرة (68/68)، ووضع التطبيق للقراءة لم يتغير؛ لم تُفعّل مسارات CRUD أو مخزن دائم. بوابات T19 والإصدار الفعلية لا تُستوفى بمحاكاة T12.
+ 
+ | المهمة | التبعيات والحجم | المخرج والملفات المتوقعة | القبول والتحقق |
+ | --- | --- | --- | --- |
+@@ -109,14 +109,17 @@
+ 
+ **إعادة التقدير:** يبين التقرير زمن T11b المتبقي بحسب أعداد الطبقات الفعلية وصعوبتها وقراراتها، ومجالًا تقديريًا وافتراضات وعدد دفعات وتبعيات. لا يعمم متوسط العينة المقصودة مباشرة على 1,608؛ لا تستنتج نسبة أقل من 50% نتيجة 700–900 بند. تبقى كل الوحدات بحاجة تصرف موثق حتى إن لم تنتج تعليمات. غياب مقياس أو تقدير مفسر يبقي T11a مفتوحة. كل هذه قياسات مستقبلية NOT_RUN الآن؛ التقرير الحالي يحددها ولا يولد قيمها.
+ 
++
++**التوجيه الحالي:** اعتمد المالك T12 رسميًا في نطاق المحاكاة، وفوض ربط وتفعيل T13/T14 في Draft، ثم T15 وبداية T16. [التسليم الحالي](../evidence/studio-draft-auth-cp-2026-10-23/README.md) يثبت حدود التخزين والمنح والفحوص؛ لا يرقّي المصدر أو يمنح اعتماد إصدار.
++
+ ## C. Phase 2 — دورة SEC-001 كاملة
+ 
+ | المهمة | التبعيات والحجم | المخرج والملفات المتوقعة | القبول والتحقق |
+ | --- | --- | --- | --- |
+-| [ ] T13 — تفويض عمليات الكتابة | T10؛ CORE_IMPLEMENTED_TESTED | `write-authorization.js` وstaging/API واختبارات HTTP؛ [الدليل](../evidence/studio-t12-mock-write-core-2026-10-23/README.md) | منح خادمية مقيدة بالفاعل/المشروع/الفعل/المورد/البصمة؛ إبطال/انتهاء وإعادة فحص عند الأثر. رفض fallback والمحاكاة؛ legacy mutation HTTP 403. بقي تكامل الهوية وإصدار المنح والمسارات التفاعلية وسجلها قبل إغلاق المهمة كاملة |
+-| [ ] T14 — التخزين الدائم المصرح به | T05 وT13؛ CORE_TESTED_TEMP_DISK | `persistent.js` وaudit factory واختبارات migration/reopen؛ [الدليل](../evidence/studio-t12-mock-write-core-2026-10-23/README.md) | 12 جدولاً وفق SQL المقفل، checksum/transaction/user_version وDDL fingerprint، audit خادمي وFK. rollback وإعادة فتح فعليان في مساحة مؤقتة. بقي اختيار مخزن التطبيق وربط وضع الكتابة المصرح به؛ الافتراضي :memory: ولا استعادة تلقائية |
+-| [ ] T15 — محول الموارد قبل eval | T02؛ M | `server/studio/aghr/job-runner.js` ومحول Windows واختباراته | eval 600s وqualify 3600s و2 GiB؛ قتل الشجرة فعليًا؛ جزئي محفوظ وحالة تجاوز منفصلة عن الإلغاء. اختبار عمليات تجريبية تتجاوز الزمن/الذاكرة وتولد أبناء؛ غياب المحول يمنع التنفيذ المعتمد عليه |
+-| [ ] T16 — إنشاء CP وتحريره وإرساله | T07،T13–T14، وE5 إن لزم؛ M | CP service/routes ومحرر schemas وشاشتا 10/11 واختباراتها | draft→validated→in_review فقط عند الشروط؛ اقتراح JCS وبصمة ثابتة؛ البند الملزم الناقص لا يقبل حفظه كبند صالح، وتظل المسودة غير مؤهلة. اختبارات submit والنوع والانتقالات ونواقص الحقول |
++| [x] T13 — تفويض عمليات الكتابة في Draft | T10؛ IMPLEMENTED/TESTED_LOCAL_DRAFT | الهوية والمنح والطرفية ورفض403 والتدقيق؛ [التسليم](../evidence/studio-draft-auth-cp-2026-10-23/README.md) | ربط أعمال CP فقط؛ جميع الكتابات غير المنفذة محجوبة. لا رموز وهمية أو أدوار عميل؛ صلاحية الفاعل/المشروع/الفعل/المورد/البصمة/المدة ومرة واحدة عند الأثر. ليس قبول إصدار |
++| [x] T14 — التخزين الدائم المصرح به | T05 وT13؛ IMPLEMENTED/TESTED_LOCAL_DRAFT | SQLite12 فعلية وCP/audit ذريّان؛ [التسليم](../evidence/studio-draft-auth-cp-2026-10-23/README.md) | المسار الافتراضي فُعّل وأعيد فتحه؛ اختبارات CP في مخزن معزول. migration/checksum/DDL/FK؛ فشل audit يلغي CP. وضع القراءة يبقى :memory: |
++| [x] T15 — محول الموارد قبل eval | T02؛ IMPLEMENTED/TESTED_WINDOWS_FIXTURES | job-runner.js وwindows-job.py؛ [التسليم](../evidence/studio-draft-auth-cp-2026-10-23/README.md) | eval600s/qualify3600s/2GiB؛ بدء Job ذري وقتل الشجرة وذاكرة/timeout/إلغاء ومخرجات جزئية. لا eval/qualify فعليين في E2؛ لا تأهيل شامل للمضيف أو تنفيذ E4 |
++| [ ] T16 — إنشاء CP وتحريره وإرساله | T07،T13–T14،E5؛ INITIAL_DRAFT_SLICE_TESTED | واجهة create/list/detail عربية/إنجليزية وAPI لحفظ Draft؛ [التسليم](../evidence/studio-draft-auth-cp-2026-10-23/README.md) | البند الناقص يرفض؛ هوية ومنحة وIf-Match وتدقيق. LOCAL_ADAPTER_NOT_E5؛ strict/بقية الفحوص NOT_RUN. بقي E5 والتحرير والتحقق والإرسال للمراجعة؛ لا إغلاق كامل لـT16 |
+ | [ ] T17 — التوليد والمعاينة | T16 وE3 إن لزم؛ M | generation bridge/routes وشاشة 7 واختبارات المراحل | full/compress/compact/fail، byte budget وP0 وPRIN-007 في L1+؛ فشل أي شرط يمنع كل export؛ compact بإقرار واسترجاع مؤهلين. اختبارات حدود البايت والمبدأ المفقود والاختزال |
+ | [ ] T18 — الموافقات وإبطال القديم | T16–T17 وE5 إن لزم؛ M | approvals/history/If-Match داخل CP service والواجهة واختبارها | موافقة خادمية مربوطة بالبصمة؛ تعديل المقترح يبطل checks/preview/approvals مع حفظ السبب والوقت؛ missing/stale hash يرفض. اختبارات تنافس وتعديل بعد الموافقة |
+ | [ ] T19 — تصدير SEC-001 والفرق | T12،T15،T17–T18؛ M | export service/واجهة الفرق واختبار دورة كاملة | author→strict validate→required checks→generate→diff→approval→patch يعمل فعليًا؛ commit فقط بمنحته؛ state/evidence لا تتغير. اختبار end-to-end ورفض تجاوز gate.required والتفويض والأدلة المطلوبة؛ لا ادعاء قبول نشر بلا CI |

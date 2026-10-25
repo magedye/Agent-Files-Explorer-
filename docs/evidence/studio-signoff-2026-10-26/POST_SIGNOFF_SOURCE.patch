@@ -1,0 +1,238 @@
+--- accepted/AGENTS.md
++++ closed/AGENTS.md
+@@ -43,7 +43,9 @@
+ | **Session Handoff & Transfer** | [docs/status/HANDOFF.md](docs/status/HANDOFF.md) | ~800 tokens |
+ | **Full Documentation Index** | [docs/INDEX.md](docs/INDEX.md) | ~1,000 tokens |
+ | **Project Architecture Map** | [PROJECT_MAP.md](PROJECT_MAP.md) | ~2,500 tokens |
+-| **Specific Governance Rules** | [AGHR 1.2.0 RULES.json](governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/registry/RULES.json) | On-demand query; consumer adoption remains scoped |
++| **Owner Release / Project Closure** | [Owner sign-off](docs/evidence/studio-signoff-2026-10-26/OWNER_SIGNOFF_AR.md) | v1.0.0 local; PROJECT CLOSED; no new development/public release |
++| **Current Default Reference** | [Official rc.3 registration](governance_packages/references/AGHR_Studio_1.0.0_rc3_RELEASE.json) | New projects only; existing projects are not migrated |
++| **Legacy 1.2.0 Rules** | [AGHR 1.2.0 RULES.json](governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/registry/RULES.json) | Explicit Legacy selection; no automatic consumer migration |
+ | **Learning & Classified Instructions** | [Governed learning](governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/procedures/GOVERNED_LEARNING.md) | Relevant evidence and owner references only |
+ | **Package Layout & INBOX** | [governance_packages/README.md](governance_packages/README.md) | Directory roles and incoming-document boundary |
+ | **Server Security & Roots** | [server/security.js](server/security.js) | Component level |
+--- accepted/server/governance.js
++++ closed/server/governance.js
+@@ -6,6 +6,8 @@
+   AGHR_1_1_0_ROOT,
+   AGHR_MINIMAL_1_1_0_ROOT,
+   AGHR_1_2_0_ROOT,
++  AGHR_RC3_ROOT,
++  GOVERNANCE_PACKAGES_ROOT,
+ } from "./security.js";
+ 
+ function readJsonFile(rootPath, relPath) {
+@@ -28,8 +30,22 @@
+     this.refresh();
+   }
+ 
+-  refresh() {
+-    this._packages.clear();
++  refresh() {
++    this._packages.clear();
++
++    if (fs.existsSync(AGHR_RC3_ROOT)) {
++      const manifest = readJsonFile(AGHR_RC3_ROOT, "aghr.json");
++      const status = readJsonFile(GOVERNANCE_PACKAGES_ROOT, "references/AGHR_Studio_1.0.0_rc3_RELEASE.json");
++      const observation = readJsonFile(AGHR_RC3_ROOT, "policies/observations/reference-state.json");
++      if (!manifest || !status || !observation) throw new Error("OFFICIAL_RC3_REFERENCE_UNAVAILABLE");
++      this._packages.set("aghr_rc3", {
++        id: "aghr_rc3", name: status.package, version: manifest.version, kind: "OFFICIAL_LOCAL_REFERENCE",
++        rootPath: AGHR_RC3_ROOT, description: status.scope, isDefault: true, status,
++        // Exact Core content in the legacy read view; no invented normative rules or sources.
++        rules: [{...observation, text: observation.rule, basis: []}],
++        sources: [], adapters: [], profiles: {}, enforcement: [],
++      });
++    }
+ 
+     // Historical baseline remains available under its existing IDs.
+     if (fs.existsSync(AGHR_1_0_0_ROOT)) {
+@@ -93,7 +109,7 @@
+         kind: "FULL_REFERENCE",
+         rootPath: AGHR_1_2_0_ROOT,
+         description: "Updated reference with governed learning and classified lesson records",
+-        isDefault: true,
++        isDefault: false,
+         status,
+         rules: (readJsonFile(AGHR_1_2_0_ROOT, "registry/RULES.json") || {}).rules || [],
+         sources: (readJsonFile(AGHR_1_2_0_ROOT, "sources/REGISTER.json") || {}).sources || [],
+@@ -179,7 +195,7 @@
+         sources: pkg.sources.length,
+         adapters: pkg.adapters.length,
+         profiles: Object.keys(pkg.profiles).length,
+-        contracts: 4, // GOVERNANCE, RUNTIME, ENFORCEMENT, EVIDENCE
++        contracts: this.getContracts(pkg.id).length,
+       },
+     };
+   }
+@@ -254,8 +270,9 @@
+     return pkg ? pkg.profiles : {};
+   }
+ 
+-  getContracts(packageId = "") {
+-    const pkg = this._getPackage(packageId);
++  getContracts(packageId = "") {
++    const pkg = this._getPackage(packageId);
++    if (pkg?.id === "aghr_rc3") return []; // rc.3 schemas use the existing Studio contract viewer.
+     const contracts = [
+       { id: "GOVERNANCE", title: "Core Governance Contract", path: "contracts/GOVERNANCE.md" },
+       { id: "RUNTIME", title: "Runtime & Tool Contract", path: "contracts/RUNTIME.md" },
+--- accepted/server/security.js
++++ closed/server/security.js
+@@ -28,7 +28,10 @@
+   "references",
+   "Agent_Governance_Harness_Reference_1.2.0"
+ );
+-export const DEFAULT_PACKAGE_ID = "aghr_1_2_0";
++// Owner sign-off2026-10-26 promotes the existing pinned bytes without moving them.
++export const AGHR_RC3_ROOT = path.join(GOVERNANCE_PACKAGES_ROOT, "candidates", "AGHR_rc3_Core_Candidate");
++export const DEFAULT_PACKAGE_ID = "aghr_rc3";
++// Disabled legacy evaluation tools retain their original source binding.
+ export const AGHR_ROOT = AGHR_1_2_0_ROOT;
+ 
+ export const MAX_TEXT_BYTES = 2_000_000; // 2 MB
+@@ -65,7 +68,11 @@
+     this._initializeDefaultRoots();
+   }
+ 
+-  _initializeDefaultRoots() {
++  _initializeDefaultRoots() {
++    if (fs.existsSync(AGHR_RC3_ROOT)) {
++      this.registerRoot({id: "aghr_rc3", name: "AGHR rc.3 — Official Local Reference", path: AGHR_RC3_ROOT,
++        type: "reference", description: "Owner-accepted Studio v1.0.0 local reference; existing projects are not migrated", readOnly: true});
++    }
+     // Historical baseline retains its stable ID for explicit selection/comparison.
+     if (fs.existsSync(AGHR_1_0_0_ROOT)) {
+       this.registerRoot({
+--- accepted/tests/governance_studio.test.mjs
++++ closed/tests/governance_studio.test.mjs
+@@ -66,25 +66,26 @@
+ // =============================================================================
+ // Milestone 2 Tests: Governance Reference Explorer
+ // =============================================================================
+-test("M2 Reference Explorer: Default summary uses AGHR 1.2.0 with exact counts", async () => {
++test("M2 Reference Explorer: Owner-signed rc.3 is default with exact Core counts", async () => {
+   const { req, res, getJSON, getStatusCode } = makeMockRequest({ url: "/api/governance/summary" });
+   await handleApiRequest(req, res);
+   assert.equal(getStatusCode(), 200);
+   const data = getJSON();
+-  assert.equal(data.packageId, "aghr_1_2_0");
+-  assert.equal(data.version, "1.2.0");
++  assert.equal(data.packageId, "aghr_rc3");
++  assert.equal(data.version, "1.0.0-rc.3");
+   assert.equal(data.default_provider, "OPENAI");
+-  assert.equal(data.counts.rules, 47);
+-  assert.equal(data.counts.sources, 56);
+-  assert.equal(data.counts.adapters, 12);
+-  assert.equal(data.independent_review, "NOT_PERFORMED");
+-  assert.equal(data.release_acceptance, "NOT_GRANTED");
++  assert.equal(data.counts.rules, 1);
++  assert.equal(data.counts.sources, 0);
++  assert.equal(data.counts.adapters, 0);
++  assert.equal(data.independent_review, "APPROVE_FOR_FROZEN_LOCAL_DRAFT");
++  assert.equal(data.release_acceptance, "ACCEPTED_BY_OWNER_FOR_LOCAL_USE");
++  assert.equal(data.reference_state, "OFFICIAL_LOCAL_RELEASE");
+ });
+ 
+ test("M2 Reference Explorer: Rules search and filtering", async () => {
+   // Search for developer reference
+   const { req, res, getJSON, getStatusCode } = makeMockRequest({
+-    url: "/api/governance/rules?search=developer",
++    url: "/api/governance/rules?search=developer&packageId=aghr_1_2_0",
+   });
+   await handleApiRequest(req, res);
+   assert.equal(getStatusCode(), 200);
+@@ -95,7 +96,7 @@
+ 
+ test("M2 Reference Explorer: Rule details with basis sources and coverage", async () => {
+   const { req, res, getJSON, getStatusCode } = makeMockRequest({
+-    url: "/api/governance/rule?id=AGHR-001",
++    url: "/api/governance/rule?id=AGHR-001&packageId=aghr_1_2_0",
+   });
+   await handleApiRequest(req, res);
+   assert.equal(getStatusCode(), 200);
+@@ -117,18 +118,18 @@
+   assert.ok(data.packages.some((p) => p.id === "aghr"));
+   assert.ok(data.packages.some((p) => p.id === "aghr_1_1_0"));
+   assert.ok(data.packages.some((p) => p.id === "aghr_minimal_1_1_0"));
+-  assert.deepEqual(data.packages.filter((p) => p.isDefault).map((p) => p.id), ["aghr_1_2_0"]);
++  assert.deepEqual(data.packages.filter((p) => p.isDefault).map((p) => p.id), ["aghr_rc3"]);
+ });
+ 
+-test("M2 Reference Explorer: Omitted package uses 1.2.0 while historical IDs stay explicit", async () => {
++test("M2 Reference Explorer: Omitted package uses rc.3 while Legacy IDs stay explicit", async () => {
+   for (const [url, verify] of [
+-    ["/api/governance/rules", (data) => assert.equal(data.rules.length, 47)],
+-    ["/api/governance/sources", (data) => assert.equal(data.sources.length, 56)],
++    ["/api/governance/rules", (data) => {assert.equal(data.rules.length, 1);assert.equal(data.rules[0].id,'OBS-REFERENCE-STATE-001');}],
++    ["/api/governance/sources", (data) => assert.equal(data.sources.length, 0)],
+     ["/api/governance/compare", (data) => {
+       assert.equal(data.comparison.base.version, "1.0.0");
+-      assert.equal(data.comparison.target.version, "1.2.0");
++      assert.equal(data.comparison.target.version, "1.0.0-rc.3");
+     }],
+-    ["/api/governance/impact?ruleId=AGHR-001", (data) => assert.equal(data.impact.packageId, "aghr_1_2_0")],
++    ["/api/governance/impact?ruleId=OBS-REFERENCE-STATE-001", (data) => assert.equal(data.impact.packageId, "aghr_rc3")],
+     ["/api/governance/summary?packageId=aghr", (data) => assert.equal(data.version, "1.0.0")],
+     ["/api/governance/summary?packageId=aghr_1_0_0", (data) => assert.equal(data.version, "1.0.0")],
+     ["/api/governance/summary?packageId=aghr_1_1_0", (data) => assert.equal(data.version, "1.1.0")],
+@@ -201,7 +202,9 @@
+   assert.equal(cl2.force, "SHOULD");
+ });
+ 
+-test("M3 Intake: Conflict detection against existing rules triggers REJECT proposal", () => {
++test("M3 Intake: Legacy conflict detection retains the explicitly selected 1.2.0 rules", t => {
++  const legacyRules = governanceService.getRules({packageId:'aghr_1_2_0'});
++  t.mock.method(governanceService,'getRules',()=>legacyRules);
+   // Try to propose overriding developer reference with arbitrary advice
+   const conflictStmt = "لا يجوز الرجوع إلى المراجع الرسمية للمطور ويجب الاعتماد على التخمين.";
+   const cl = classifyStatement(conflictStmt);
+@@ -257,7 +260,7 @@
+   assert.equal(data.plan.profile, "STANDARD");
+   assert.ok(data.plan.plannedFiles.some((f) => f.path === "AGENTS.md"));
+   assert.ok(data.plan.plannedFiles.some((f) => f.path === ".governance/project.json"));
+-  assert.match(data.plan.plannedFiles.find((f) => f.path === "AGENTS.md").proposedContent, /AGHR 1\.2\.0/);
++  assert.match(data.plan.plannedFiles.find((f) => f.path === "AGENTS.md").proposedContent, /AGHR 1\.0\.0-rc\.3/);
+ });
+ 
+ // =============================================================================
+--- accepted/tests/security.test.mjs
++++ closed/tests/security.test.mjs
+@@ -61,8 +61,9 @@
+   assert.ok(rootIds.includes("aghr_minimal_1_1_0"), "Minimal 1.1.0 reference must be registered");
+   assert.ok(rootIds.includes("aghr_1_2_0"), "Updated 1.2.0 reference must be registered");
+   assert.equal(roots.find((root) => root.id === "aghr_1_2_0").readOnly, true);
+-  assert.deepEqual(roots.filter((root) => root.isDefault).map((root) => root.id), ["aghr_1_2_0"]);
+-  assert.equal(AGHR_ROOT, AGHR_1_2_0_ROOT, "Evaluation must use the current default reference");
++  assert.deepEqual(roots.filter((root) => root.isDefault).map((root) => root.id), ["aghr_rc3"]);
++  assert.equal(roots.find((root) => root.id === "aghr_rc3").readOnly, true);
++  assert.equal(AGHR_ROOT, AGHR_1_2_0_ROOT, "Disabled legacy evaluation retains its explicit legacy source binding");
+   assert.ok(!rootIds.some((id) => id.startsWith("data-")), "Removed data projects must not remain registered");
+ });
+ 
+--- accepted/tests/studio_phase5_evaluators.test.mjs
++++ closed/tests/studio_phase5_evaluators.test.mjs
+@@ -21,10 +21,10 @@
+    const i=await request('POST',prefix+'/intents',input);assert.equal(i.status,200,JSON.stringify(i));studio.approveIntent(i.data.id);const r=await request('POST',prefix+'/run',input,{'X-Write-Grant':studio.intents.get(i.data.id).grant,'If-Match':JSON.stringify(i.data.scope.proposal_version_hash)});assert.equal(r.status,200,JSON.stringify(r));assert.equal(r.data.result.status,'NO_SKILL_MATCH');
+    const m=(await request('GET','/api/v1/workspaces/rc3-local/metrics/current')).data;assert.equal(m.metrics.discovery_recall_multilingual_pct.value,100);assert.equal(m.metrics.discovery_recall_multilingual_pct.denominator,1);assert.equal(m.discovery_accuracy.value,null);assert.equal(r.data.task.usage.verified,'NOT_RUN');
+   });
+-  await t.test('actual3-run measurement passes, zero delta is retained, calibration stays a Draft CP',async()=>{
+-   const e=await op('calibration.eval',{item_id:'OBS-REFERENCE-STATE-001',reason:'Measure the declared default from actual source bytes'});assert.equal(e.status,200,JSON.stringify(e));assert.equal(e.data.status,'PASS');assert.equal(e.data.measured_delta,0);
+-   const c=await op('calibration.create',{item_id:'OBS-REFERENCE-STATE-001',eval_run_id:e.data.eval_run_id,reason:'Measure the declared default from actual source bytes',measured_delta:e.data.measured_delta});assert.equal(c.status,200,JSON.stringify(c));assert.equal(c.data.status,'draft');assert.equal(JSON.parse(c.data.proposed_yaml).proposed_item.impact.evidence,'repo-measured');
+-   const raw=studio.phase4.evidence(c.data.id);assert(raw.some(r=>r.raw_output.includes('two actual reads')));
++  await t.test('actual3-run historical1.2 observation fails after owner rc.3 switch and cannot create measured evidence',async()=>{
++   const e=await op('calibration.eval',{item_id:'OBS-REFERENCE-STATE-001',reason:'Measure the declared default from actual source bytes'});assert.equal(e.status,422,JSON.stringify(e));assert.equal(e.meta.error.code,'EVAL_NOT_PASSED');
++   const raw=studio.store.phase5Data().runs;assert(raw.some(r=>r.raw_output.includes('two actual reads')));assert(raw.some(r=>/before_metric\\?":\s*0/.test(r.raw_output)));
++   const c=await op('calibration.create',{item_id:'OBS-REFERENCE-STATE-001',eval_run_id:'VR-no-passed-eval',reason:'Measure the declared default from actual source bytes',measured_delta:0});assert.equal(c.status,422,JSON.stringify(c));assert.equal(c.meta.error.code,'LIVE_PASSED_EVAL_REQUIRED');
+   });
+   await t.test('additive schema meta gate blocks before real eval, passes checks after3 executions and still requires distinct approvals',async()=>{
+    const f={path:'schemas/project-metadata.schema.json',content:JSON.stringify({type:'object',required:['name'],properties:{name:{type:'string'}},'x-aghr-examples':{valid:[{name:'AGHR'}],invalid:[{}, {name:42}]}})};
+@@ -38,7 +38,7 @@
+   });
+   await t.test('registered evaluator rejects unsupported tools and cannot claim broad qualification',async()=>{
+    const c=await op('meta.create',{title:'Unsupported tool change',files:[{path:'tools/proposed.py',content:'raise RuntimeError("MUST_NOT_EXECUTE")\n'}]});assert.equal(c.status,200);const e=await op('meta.evaluate',{},c.data.id);assert.equal(e.status,422);const raw=studio.store.phase5Data().runs;assert(raw.some(r=>r.raw_output.includes('META_EVALUATOR_SCOPE_UNSUPPORTED')));
+-   const m=(await request('GET','/api/v1/workspaces/rc3-local/metrics/current')).data;assert.equal(m.metrics.eval_pass_rate_pct.value,100);assert(Math.abs(m.metrics.skill_eval_pass_rate_pct.value-200/3)<1e-9);assert.equal(m.honesty.value,null);assert.equal(m.discovery_accuracy.value,null);
++   const m=(await request('GET','/api/v1/workspaces/rc3-local/metrics/current')).data;assert.equal(m.metrics.eval_pass_rate_pct.value,100);assert(Math.abs(m.metrics.skill_eval_pass_rate_pct.value-100/3)<1e-9);assert.equal(m.honesty.value,null);assert.equal(m.discovery_accuracy.value,null);
+   });
+  }finally{
+   const data={profile:'ACTUAL_PROJECT_LOCAL_PROCESS_ONLY',project:config.project,source_unchanged:Object.entries(before).every(([p,h])=>sha(fs.readFileSync(p))===h),before,requests:evidence,run_records:studio.store.phase5Data().runs,native:'REQUIRED / NOT_RUN / NOT_WAIVED'};

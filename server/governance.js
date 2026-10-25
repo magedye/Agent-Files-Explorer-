@@ -6,6 +6,8 @@ import {
   AGHR_1_1_0_ROOT,
   AGHR_MINIMAL_1_1_0_ROOT,
   AGHR_1_2_0_ROOT,
+  AGHR_RC3_ROOT,
+  GOVERNANCE_PACKAGES_ROOT,
 } from "./security.js";
 
 function readJsonFile(rootPath, relPath) {
@@ -30,6 +32,20 @@ class GovernanceReferenceService {
 
   refresh() {
     this._packages.clear();
+
+    if (fs.existsSync(AGHR_RC3_ROOT)) {
+      const manifest = readJsonFile(AGHR_RC3_ROOT, "aghr.json");
+      const status = readJsonFile(GOVERNANCE_PACKAGES_ROOT, "references/AGHR_Studio_1.0.0_rc3_RELEASE.json");
+      const observation = readJsonFile(AGHR_RC3_ROOT, "policies/observations/reference-state.json");
+      if (!manifest || !status || !observation) throw new Error("OFFICIAL_RC3_REFERENCE_UNAVAILABLE");
+      this._packages.set("aghr_rc3", {
+        id: "aghr_rc3", name: status.package, version: manifest.version, kind: "OFFICIAL_LOCAL_REFERENCE",
+        rootPath: AGHR_RC3_ROOT, description: status.scope, isDefault: true, status,
+        // Exact Core content in the legacy read view; no invented normative rules or sources.
+        rules: [{...observation, text: observation.rule, basis: []}],
+        sources: [], adapters: [], profiles: {}, enforcement: [],
+      });
+    }
 
     // Historical baseline remains available under its existing IDs.
     if (fs.existsSync(AGHR_1_0_0_ROOT)) {
@@ -93,7 +109,7 @@ class GovernanceReferenceService {
         kind: "FULL_REFERENCE",
         rootPath: AGHR_1_2_0_ROOT,
         description: "Updated reference with governed learning and classified lesson records",
-        isDefault: true,
+        isDefault: false,
         status,
         rules: (readJsonFile(AGHR_1_2_0_ROOT, "registry/RULES.json") || {}).rules || [],
         sources: (readJsonFile(AGHR_1_2_0_ROOT, "sources/REGISTER.json") || {}).sources || [],
@@ -179,7 +195,7 @@ class GovernanceReferenceService {
         sources: pkg.sources.length,
         adapters: pkg.adapters.length,
         profiles: Object.keys(pkg.profiles).length,
-        contracts: 4, // GOVERNANCE, RUNTIME, ENFORCEMENT, EVIDENCE
+        contracts: this.getContracts(pkg.id).length,
       },
     };
   }
@@ -256,6 +272,7 @@ class GovernanceReferenceService {
 
   getContracts(packageId = "") {
     const pkg = this._getPackage(packageId);
+    if (pkg?.id === "aghr_rc3") return []; // rc.3 schemas use the existing Studio contract viewer.
     const contracts = [
       { id: "GOVERNANCE", title: "Core Governance Contract", path: "contracts/GOVERNANCE.md" },
       { id: "RUNTIME", title: "Runtime & Tool Contract", path: "contracts/RUNTIME.md" },

@@ -1,0 +1,62 @@
+{
+  "status": "RECORDED",
+  "correlationDiffs": [
+    {
+      "path": "server/studio/phase5/observations.mjs",
+      "before": {
+        "sha256": "ba724da18c5a590591e8e3071e9d8d2adc8a12f9d253b92c4e4c32b3701e1a87",
+        "bytes": 2601,
+        "copy": "correlation-before/server/studio/phase5/observations.mjs.raw"
+      },
+      "after": {
+        "sha256": "a9ac39880cc148cbf0fe62946e5e5e21c6db29a92ff14fe5aeacefddd3494e65",
+        "bytes": 3446,
+        "copy": "correlation-after/server/studio/phase5/observations.mjs.raw"
+      },
+      "diff": "correlation-diffs/server/studio/phase5/observations.mjs.patch"
+    },
+    {
+      "path": "server/studio/phase5/metrics.mjs",
+      "before": {
+        "sha256": "780e567fd820c4b490371eebd57c57bf0ba546ae984d40672270f11e36553845",
+        "bytes": 3491,
+        "copy": "correlation-before/server/studio/phase5/metrics.mjs.raw"
+      },
+      "after": {
+        "sha256": "8a8680cfc82fd818864a282e37b41d79ec5c00f36da7610fa39bed767fce0448",
+        "bytes": 3564,
+        "copy": "correlation-after/server/studio/phase5/metrics.mjs.raw"
+      },
+      "diff": "correlation-diffs/server/studio/phase5/metrics.mjs.patch"
+    },
+    {
+      "path": "server/studio/skills/lifecycle-service.js",
+      "before": {
+        "sha256": "55e1d7fff1aa4c5468ce2cb6e00121e90e8900ff453883998afbe8ff0ae5bee6",
+        "bytes": 10679,
+        "copy": "correlation-before/server/studio/skills/lifecycle-service.js.raw"
+      },
+      "after": {
+        "sha256": "4081901c76783d6b7a858a9c90906ed59858c12b898c3e4641d27e461cd96f27",
+        "bytes": 10783,
+        "copy": "correlation-after/server/studio/skills/lifecycle-service.js.raw"
+      },
+      "diff": "correlation-diffs/server/studio/skills/lifecycle-service.js.patch"
+    },
+    {
+      "path": "tests/studio_phase5_metrics.test.mjs",
+      "before": {
+        "sha256": "9cdcc19c629a96dfcb7e09f3796e04f83eccff39e3ee0003325193ceb482e0e4",
+        "bytes": 6881,
+        "copy": "correlation-before/tests/studio_phase5_metrics.test.mjs.raw"
+      },
+      "after": {
+        "sha256": "ae5e712bc2eb9164c6e61f9719a5738fcacb27ce9e6bb1cf370a7517cb3003f9",
+        "bytes": 9218,
+        "copy": "correlation-after/tests/studio_phase5_metrics.test.mjs.raw"
+      },
+      "diff": "correlation-diffs/tests/studio_phase5_metrics.test.mjs.patch"
+    }
+  ],
+  "phase3_test": "See BEFORE_AFTER.json; its source was preserved before the final assertion extension."
+}

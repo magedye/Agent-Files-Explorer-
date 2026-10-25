@@ -2,10 +2,12 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
+import os from 'node:os';
 import { handleApiRequest } from "../server/api.js";
 import { decomposeIntoAtomicStatements, classifyStatement, reconcileWithRules, intakeService } from "../server/intake.js";
 import { adoptionService } from "../server/adoption.js";
-import { stagingService } from "../server/staging.js";
+import { StagingService,stagingScope } from "../server/staging.js";
+import {createWriteAuthority} from '../server/studio/write-authorization.js';
 import { governanceService } from "../server/governance.js";
 import { PROJECT_ROOT } from "../server/security.js";
 
@@ -64,25 +66,26 @@ function makeMockRequest({ url, method = "GET", body = null, headers = {} }) {
 // =============================================================================
 // Milestone 2 Tests: Governance Reference Explorer
 // =============================================================================
-test("M2 Reference Explorer: Default summary uses AGHR 1.2.0 with exact counts", async () => {
+test("M2 Reference Explorer: Owner-signed rc.3 is default with exact Core counts", async () => {
   const { req, res, getJSON, getStatusCode } = makeMockRequest({ url: "/api/governance/summary" });
   await handleApiRequest(req, res);
   assert.equal(getStatusCode(), 200);
   const data = getJSON();
-  assert.equal(data.packageId, "aghr_1_2_0");
-  assert.equal(data.version, "1.2.0");
+  assert.equal(data.packageId, "aghr_rc3");
+  assert.equal(data.version, "1.0.0-rc.3");
   assert.equal(data.default_provider, "OPENAI");
-  assert.equal(data.counts.rules, 47);
-  assert.equal(data.counts.sources, 56);
-  assert.equal(data.counts.adapters, 12);
-  assert.equal(data.independent_review, "NOT_PERFORMED");
-  assert.equal(data.release_acceptance, "NOT_GRANTED");
+  assert.equal(data.counts.rules, 1);
+  assert.equal(data.counts.sources, 0);
+  assert.equal(data.counts.adapters, 0);
+  assert.equal(data.independent_review, "APPROVE_FOR_FROZEN_LOCAL_DRAFT");
+  assert.equal(data.release_acceptance, "ACCEPTED_BY_OWNER_FOR_LOCAL_USE");
+  assert.equal(data.reference_state, "OFFICIAL_LOCAL_RELEASE");
 });
 
 test("M2 Reference Explorer: Rules search and filtering", async () => {
   // Search for developer reference
   const { req, res, getJSON, getStatusCode } = makeMockRequest({
-    url: "/api/governance/rules?search=developer",
+    url: "/api/governance/rules?search=developer&packageId=aghr_1_2_0",
   });
   await handleApiRequest(req, res);
   assert.equal(getStatusCode(), 200);
@@ -93,7 +96,7 @@ test("M2 Reference Explorer: Rules search and filtering", async () => {
 
 test("M2 Reference Explorer: Rule details with basis sources and coverage", async () => {
   const { req, res, getJSON, getStatusCode } = makeMockRequest({
-    url: "/api/governance/rule?id=AGHR-001",
+    url: "/api/governance/rule?id=AGHR-001&packageId=aghr_1_2_0",
   });
   await handleApiRequest(req, res);
   assert.equal(getStatusCode(), 200);
@@ -115,18 +118,18 @@ test("M2 Reference Explorer: Packages endpoint returns all registered governance
   assert.ok(data.packages.some((p) => p.id === "aghr"));
   assert.ok(data.packages.some((p) => p.id === "aghr_1_1_0"));
   assert.ok(data.packages.some((p) => p.id === "aghr_minimal_1_1_0"));
-  assert.deepEqual(data.packages.filter((p) => p.isDefault).map((p) => p.id), ["aghr_1_2_0"]);
+  assert.deepEqual(data.packages.filter((p) => p.isDefault).map((p) => p.id), ["aghr_rc3"]);
 });
 
-test("M2 Reference Explorer: Omitted package uses 1.2.0 while historical IDs stay explicit", async () => {
+test("M2 Reference Explorer: Omitted package uses rc.3 while Legacy IDs stay explicit", async () => {
   for (const [url, verify] of [
-    ["/api/governance/rules", (data) => assert.equal(data.rules.length, 47)],
-    ["/api/governance/sources", (data) => assert.equal(data.sources.length, 56)],
+    ["/api/governance/rules", (data) => {assert.equal(data.rules.length, 1);assert.equal(data.rules[0].id,'OBS-REFERENCE-STATE-001');}],
+    ["/api/governance/sources", (data) => assert.equal(data.sources.length, 0)],
     ["/api/governance/compare", (data) => {
       assert.equal(data.comparison.base.version, "1.0.0");
-      assert.equal(data.comparison.target.version, "1.2.0");
+      assert.equal(data.comparison.target.version, "1.0.0-rc.3");
     }],
-    ["/api/governance/impact?ruleId=AGHR-001", (data) => assert.equal(data.impact.packageId, "aghr_1_2_0")],
+    ["/api/governance/impact?ruleId=OBS-REFERENCE-STATE-001", (data) => assert.equal(data.impact.packageId, "aghr_rc3")],
     ["/api/governance/summary?packageId=aghr", (data) => assert.equal(data.version, "1.0.0")],
     ["/api/governance/summary?packageId=aghr_1_0_0", (data) => assert.equal(data.version, "1.0.0")],
     ["/api/governance/summary?packageId=aghr_1_1_0", (data) => assert.equal(data.version, "1.1.0")],
@@ -199,7 +202,9 @@ test("M3 Intake: 2-Layer classification of domain concern and normative force", 
   assert.equal(cl2.force, "SHOULD");
 });
 
-test("M3 Intake: Conflict detection against existing rules triggers REJECT proposal", () => {
+test("M3 Intake: Legacy conflict detection retains the explicitly selected 1.2.0 rules", t => {
+  const legacyRules = governanceService.getRules({packageId:'aghr_1_2_0'});
+  t.mock.method(governanceService,'getRules',()=>legacyRules);
   // Try to propose overriding developer reference with arbitrary advice
   const conflictStmt = "لا يجوز الرجوع إلى المراجع الرسمية للمطور ويجب الاعتماد على التخمين.";
   const cl = classifyStatement(conflictStmt);
@@ -208,7 +213,7 @@ test("M3 Intake: Conflict detection against existing rules triggers REJECT propo
   assert.ok(rec.conflictDetected);
 });
 
-test("M3 Intake: Submit intake request generates persistent ChangePacket", async () => {
+test("M3 Intake: Legacy submit without server grant is rejected before persistence", async () => {
   const { req, res, getJSON, getStatusCode } = makeMockRequest({
     url: "/api/intake/submit",
     method: "POST",
@@ -219,12 +224,9 @@ test("M3 Intake: Submit intake request generates persistent ChangePacket", async
     },
   });
   await handleApiRequest(req, res);
-  assert.equal(getStatusCode(), 201);
+  assert.equal(getStatusCode(), 403);
   const data = getJSON();
-  assert.ok(data.packet.packetId.startsWith("CP-"));
-  assert.equal(data.packet.status, "PROPOSED_READY_FOR_REVIEW");
-  assert.ok(data.packet.changeItems.length >= 2);
-  assert.ok(data.packet.changeItems.every((it) => it.status === "PROPOSED"));
+  assert.match(data.error,/Legacy writes disabled/);
 });
 
 // =============================================================================
@@ -258,21 +260,25 @@ test("M4 Adoption: Prepares adoption plan without silent destruction", async () 
   assert.equal(data.plan.profile, "STANDARD");
   assert.ok(data.plan.plannedFiles.some((f) => f.path === "AGENTS.md"));
   assert.ok(data.plan.plannedFiles.some((f) => f.path === ".governance/project.json"));
-  assert.match(data.plan.plannedFiles.find((f) => f.path === "AGENTS.md").proposedContent, /AGHR 1\.2\.0/);
+  assert.match(data.plan.plannedFiles.find((f) => f.path === "AGENTS.md").proposedContent, /AGHR 1\.0\.0-rc\.3/);
 });
 
 // =============================================================================
 // Milestone 6 Tests: Governed Staging and Apply
 // =============================================================================
 test("M6 Governed Staging & Apply: Staging, Precondition Drift, and Authorized Apply", () => {
-  const fixtureDir = path.join(PROJECT_ROOT, ".governance", "test-fixtures-project");
+  const testRoot=fs.mkdtempSync(path.join(os.tmpdir(),'aghr-staging-'));
+  const stagingService=new StagingService({storageRoot:path.join(testRoot,'storage')});
+  const authority=createWriteAuthority(),owner=authority.createPrincipal({actor:'fixture-owner',role:'governance-owner',installationOwnerVerified:true});
+  const permit=scope=>authority.authorize(owner.principal,scope,authority.issueGrant({issuer:owner.principal,principal:owner.principal,scope,expiresAt:Date.now()+60000}));
+  const fixtureDir = path.join(testRoot,'project');
   if (!fs.existsSync(fixtureDir)) fs.mkdirSync(fixtureDir, { recursive: true });
 
   const initialFile = path.join(fixtureDir, "README.md");
   fs.writeFileSync(initialFile, "# Initial Project\nVersion 1.0\n", "utf8");
 
   // 1. Stage changes
-  const staged = stagingService.createStagingWorkspace({
+  const stageRequest={
     packetId: "TEST-CP-01",
     targetProjectDir: fixtureDir,
     plannedFiles: [
@@ -281,7 +287,8 @@ test("M6 Governed Staging & Apply: Staging, Precondition Drift, and Authorized A
         proposedContent: "# Initial Project\nVersion 1.0\n## Governed with AGHR\n",
       },
     ],
-  });
+  };
+  const staged = stagingService.createStagingWorkspace(stageRequest,permit(stagingScope('staging.create','TEST-CP-01',fixtureDir,stageRequest.plannedFiles)));
   assert.equal(staged.status, "STAGED_READY_FOR_AUTHORIZATION");
   assert.equal(staged.files.length, 1);
 
@@ -294,6 +301,9 @@ test("M6 Governed Staging & Apply: Staging, Precondition Drift, and Authorized A
       }),
     /Authorization denied/
   );
+  assert.throws(()=>stagingService.applyStagedChanges({stagingId:staged.stagingId,authorizationToken:'AUTHORIZED_BY_PROJECT_OWNER'}),/Authorization denied/);
+  const dynamicToken=stagingService.issueAuthorizationToken(staged.stagingId,permit(stagingScope('staging.authorize',staged.stagingId,fixtureDir,staged.files)));
+  assert.throws(()=>stagingService.applyStagedChanges({stagingId:staged.stagingId,authorizationToken:dynamicToken}),/grant/);
 
   // 3. Stale precondition detection: mutate live target before apply
   fs.writeFileSync(initialFile, "# Altered live content while reviewing\n", "utf8");
@@ -301,7 +311,7 @@ test("M6 Governed Staging & Apply: Staging, Precondition Drift, and Authorized A
     () =>
       stagingService.applyStagedChanges({
         stagingId: staged.stagingId,
-        authorizationToken: "AUTHORIZED_BY_PROJECT_OWNER",
+        authorizationToken: dynamicToken,
       }),
     /STALE_PRECONDITION/
   );
@@ -312,8 +322,8 @@ test("M6 Governed Staging & Apply: Staging, Precondition Drift, and Authorized A
   // 4. Authorized apply succeeds
   const applyRes = stagingService.applyStagedChanges({
     stagingId: staged.stagingId,
-    authorizationToken: "AUTHORIZED_BY_PROJECT_OWNER",
-  });
+    authorizationToken: dynamicToken,
+  },permit(stagingScope('adoption.apply',staged.stagingId,fixtureDir,staged.files)));
   assert.equal(applyRes.status, "APPLY_SUCCESS");
 
   // Verify file on disk has updated content
@@ -321,11 +331,19 @@ test("M6 Governed Staging & Apply: Staging, Precondition Drift, and Authorized A
   assert.ok(appliedContent.includes("Governed with AGHR"));
 
   // 5. Rollback restores original state
-  const rollbackRes = stagingService.rollbackBackup({ backupId: applyRes.backupId });
+  const rollbackRes = stagingService.rollbackBackup({ backupId: applyRes.backupId },permit(stagingScope('adoption.rollback',applyRes.backupId,fixtureDir,stagingService.backupProposal(applyRes.backupId))));
   assert.equal(rollbackRes.status, "ROLLBACK_SUCCESS");
   const rolledBackContent = fs.readFileSync(initialFile, "utf8");
   assert.equal(rolledBackContent, "# Initial Project\nVersion 1.0\n");
 
   // Clean fixture
-  fs.rmSync(fixtureDir, { recursive: true, force: true });
+  assert.ok(path.resolve(testRoot).startsWith(path.resolve(os.tmpdir())+path.sep+'aghr-staging-'));
+  fs.rmSync(testRoot, { recursive: true, force: true });
+});
+
+test('T13 every legacy mutation route rejects before reading an untrusted body',async()=>{
+  for(const url of ['/api/intake/submit','/api/staging/create','/api/governed-apply','/api/governed-apply/rollback','/api/evaluation/run-suite','/api/evaluation/check-package']){
+    const f=makeMockRequest({url,method:'POST',body:{role:'governance-owner',authorizationToken:'AUTHORIZED_BY_PROJECT_OWNER',profile:'T12_OWNER_APPROVED_MOCK'}});
+    f.req.on=()=>{throw Error('Forbidden body must not be read');};await handleApiRequest(f.req,f.res);assert.equal(f.getStatusCode(),403,url);
+  }
 });

@@ -1,0 +1,878 @@
+{
+  "population": 50,
+  "screened_unordered_pairs": 1225,
+  "lexical_candidates": 13,
+  "reviewed_candidate_pairs": 39,
+  "pairs": [
+    {
+      "a": "SKILL-agent-tool-security",
+      "b": "SKILL-architecture-options",
+      "screen": "LEXICAL_JACCARD_AT_LEAST_0_28",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "اشتراك قالب السجل/مقدمة المهارة لا يلغي اختلاف الوظيفة: فحص ثقة وصلاحيات الأدوات مقابل مفاضلة البدائل المعمارية. قرئت ملفات SKILL.md المثبتة؛ لا تطابق وظيفي كامل.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/REGISTER.json",
+        "sha256": "5590ff11329dfe1c4d752ad8dbf9316b70ad0d1c1bc74c05efca3245c5ff19b4",
+        "json_pointer": "/skills/0"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/REGISTER.json",
+        "sha256": "5590ff11329dfe1c4d752ad8dbf9316b70ad0d1c1bc74c05efca3245c5ff19b4",
+        "json_pointer": "/skills/1"
+      },
+      "lexical_jaccard": 0.4328
+    },
+    {
+      "a": "SKILL-agent-tool-security",
+      "b": "SKILL-governed-learning",
+      "screen": "LEXICAL_JACCARD_AT_LEAST_0_28",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "اشتراك قالب السجل/مقدمة المهارة لا يلغي اختلاف الوظيفة: فحص ثقة وصلاحيات الأدوات مقابل استخراج الدروس وتصنيف التحسين. قرئت ملفات SKILL.md المثبتة؛ لا تطابق وظيفي كامل.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/REGISTER.json",
+        "sha256": "5590ff11329dfe1c4d752ad8dbf9316b70ad0d1c1bc74c05efca3245c5ff19b4",
+        "json_pointer": "/skills/0"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/REGISTER.json",
+        "sha256": "5590ff11329dfe1c4d752ad8dbf9316b70ad0d1c1bc74c05efca3245c5ff19b4",
+        "json_pointer": "/skills/10"
+      },
+      "lexical_jaccard": 0.4412
+    },
+    {
+      "a": "SKILL-agent-tool-security",
+      "b": "SKILL-incremental-change",
+      "screen": "LEXICAL_JACCARD_AT_LEAST_0_28",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "اشتراك قالب السجل/مقدمة المهارة لا يلغي اختلاف الوظيفة: فحص ثقة وصلاحيات الأدوات مقابل تنفيذ تغيير وكتابة مفوضة. قرئت ملفات SKILL.md المثبتة؛ لا تطابق وظيفي كامل.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/REGISTER.json",
+        "sha256": "5590ff11329dfe1c4d752ad8dbf9316b70ad0d1c1bc74c05efca3245c5ff19b4",
+        "json_pointer": "/skills/0"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/REGISTER.json",
+        "sha256": "5590ff11329dfe1c4d752ad8dbf9316b70ad0d1c1bc74c05efca3245c5ff19b4",
+        "json_pointer": "/skills/2"
+      },
+      "lexical_jaccard": 0.4143
+    },
+    {
+      "a": "SKILL-agent-tool-security",
+      "b": "SKILL-plan-drift-review",
+      "screen": "LEXICAL_JACCARD_AT_LEAST_0_28",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "اشتراك قالب السجل/مقدمة المهارة لا يلغي اختلاف الوظيفة: فحص ثقة وصلاحيات الأدوات مقابل قياس الانحراف والتقدم مقابل الخط الأساس. قرئت ملفات SKILL.md المثبتة؛ لا تطابق وظيفي كامل.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/REGISTER.json",
+        "sha256": "5590ff11329dfe1c4d752ad8dbf9316b70ad0d1c1bc74c05efca3245c5ff19b4",
+        "json_pointer": "/skills/0"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/REGISTER.json",
+        "sha256": "5590ff11329dfe1c4d752ad8dbf9316b70ad0d1c1bc74c05efca3245c5ff19b4",
+        "json_pointer": "/skills/3"
+      },
+      "lexical_jaccard": 0.4923
+    },
+    {
+      "a": "SKILL-architecture-options",
+      "b": "SKILL-governed-learning",
+      "screen": "LEXICAL_JACCARD_AT_LEAST_0_28",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "اشتراك قالب السجل/مقدمة المهارة لا يلغي اختلاف الوظيفة: مفاضلة البدائل المعمارية مقابل استخراج الدروس وتصنيف التحسين. قرئت ملفات SKILL.md المثبتة؛ لا تطابق وظيفي كامل.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/REGISTER.json",
+        "sha256": "5590ff11329dfe1c4d752ad8dbf9316b70ad0d1c1bc74c05efca3245c5ff19b4",
+        "json_pointer": "/skills/1"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/REGISTER.json",
+        "sha256": "5590ff11329dfe1c4d752ad8dbf9316b70ad0d1c1bc74c05efca3245c5ff19b4",
+        "json_pointer": "/skills/10"
+      },
+      "lexical_jaccard": 0.4203
+    },
+    {
+      "a": "SKILL-architecture-options",
+      "b": "SKILL-incremental-change",
+      "screen": "LEXICAL_JACCARD_AT_LEAST_0_28",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "اشتراك قالب السجل/مقدمة المهارة لا يلغي اختلاف الوظيفة: مفاضلة البدائل المعمارية مقابل تنفيذ تغيير وكتابة مفوضة. قرئت ملفات SKILL.md المثبتة؛ لا تطابق وظيفي كامل.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/REGISTER.json",
+        "sha256": "5590ff11329dfe1c4d752ad8dbf9316b70ad0d1c1bc74c05efca3245c5ff19b4",
+        "json_pointer": "/skills/1"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/REGISTER.json",
+        "sha256": "5590ff11329dfe1c4d752ad8dbf9316b70ad0d1c1bc74c05efca3245c5ff19b4",
+        "json_pointer": "/skills/2"
+      },
+      "lexical_jaccard": 0.4143
+    },
+    {
+      "a": "SKILL-architecture-options",
+      "b": "SKILL-plan-drift-review",
+      "screen": "LEXICAL_JACCARD_AT_LEAST_0_28",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "اشتراك قالب السجل/مقدمة المهارة لا يلغي اختلاف الوظيفة: مفاضلة البدائل المعمارية مقابل قياس الانحراف والتقدم مقابل الخط الأساس. قرئت ملفات SKILL.md المثبتة؛ لا تطابق وظيفي كامل.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/REGISTER.json",
+        "sha256": "5590ff11329dfe1c4d752ad8dbf9316b70ad0d1c1bc74c05efca3245c5ff19b4",
+        "json_pointer": "/skills/1"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/REGISTER.json",
+        "sha256": "5590ff11329dfe1c4d752ad8dbf9316b70ad0d1c1bc74c05efca3245c5ff19b4",
+        "json_pointer": "/skills/3"
+      },
+      "lexical_jaccard": 0.4478
+    },
+    {
+      "a": "SKILL-governed-learning",
+      "b": "SKILL-incremental-change",
+      "screen": "LEXICAL_JACCARD_AT_LEAST_0_28",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "اشتراك قالب السجل/مقدمة المهارة لا يلغي اختلاف الوظيفة: استخراج الدروس وتصنيف التحسين مقابل تنفيذ تغيير وكتابة مفوضة. قرئت ملفات SKILL.md المثبتة؛ لا تطابق وظيفي كامل.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/REGISTER.json",
+        "sha256": "5590ff11329dfe1c4d752ad8dbf9316b70ad0d1c1bc74c05efca3245c5ff19b4",
+        "json_pointer": "/skills/10"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/REGISTER.json",
+        "sha256": "5590ff11329dfe1c4d752ad8dbf9316b70ad0d1c1bc74c05efca3245c5ff19b4",
+        "json_pointer": "/skills/2"
+      },
+      "lexical_jaccard": 0.4028
+    },
+    {
+      "a": "SKILL-governed-learning",
+      "b": "SKILL-plan-drift-review",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "التعلم القابل لإعادة الاستخدام والتغيير الحاكم مقابل قياس الانحراف الحالي؛ القالب المشترك لا يلغي الاختلاف.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/REGISTER.json",
+        "sha256": "5590ff11329dfe1c4d752ad8dbf9316b70ad0d1c1bc74c05efca3245c5ff19b4",
+        "json_pointer": "/skills/10"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/REGISTER.json",
+        "sha256": "5590ff11329dfe1c4d752ad8dbf9316b70ad0d1c1bc74c05efca3245c5ff19b4",
+        "json_pointer": "/skills/3"
+      }
+    },
+    {
+      "a": "SKILL-incremental-change",
+      "b": "SKILL-plan-drift-review",
+      "screen": "LEXICAL_JACCARD_AT_LEAST_0_28",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "اشتراك قالب السجل/مقدمة المهارة لا يلغي اختلاف الوظيفة: تنفيذ تغيير وكتابة مفوضة مقابل قياس الانحراف والتقدم مقابل الخط الأساس. قرئت ملفات SKILL.md المثبتة؛ لا تطابق وظيفي كامل.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/REGISTER.json",
+        "sha256": "5590ff11329dfe1c4d752ad8dbf9316b70ad0d1c1bc74c05efca3245c5ff19b4",
+        "json_pointer": "/skills/2"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/REGISTER.json",
+        "sha256": "5590ff11329dfe1c4d752ad8dbf9316b70ad0d1c1bc74c05efca3245c5ff19b4",
+        "json_pointer": "/skills/3"
+      },
+      "lexical_jaccard": 0.4286
+    },
+    {
+      "a": "ADAPTER-ANTHROPIC",
+      "b": "ADAPTER-CLAUDE_CODE",
+      "screen": "LEXICAL_JACCARD_AT_LEAST_0_28",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "موائم PROVIDER مقابل HOST، مع مصادر ومسؤوليات مختلفة. نفس المورد لا يجعل المحورين قدرة واحدة.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/adapters/REGISTER.json",
+        "sha256": "0c6b905d66b01e835b8bdb893ea725b02a202fc75b1b441923c20e0a44262be8",
+        "json_pointer": "/adapters/1"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/adapters/REGISTER.json",
+        "sha256": "0c6b905d66b01e835b8bdb893ea725b02a202fc75b1b441923c20e0a44262be8",
+        "json_pointer": "/adapters/7"
+      },
+      "lexical_jaccard": 0.5625
+    },
+    {
+      "a": "SCHEMA-EVIDENCE",
+      "b": "TEMPLATE-EVIDENCE",
+      "screen": "LEXICAL_JACCARD_AT_LEAST_0_28",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "مخطط يعرّف نوع البيانات مقابل قالب مثيل NOT_RUN يطبّق الشكل؛ علاقة contract/template وليست وحدتين متطابقتين.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/schemas/EVIDENCE.schema.json",
+        "sha256": "3d89a181e072b0ebd398e5218599823a7de2179e4954136abdedcd6dc6105ad7",
+        "json_pointer": ""
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/templates/EVIDENCE.json",
+        "sha256": "ead00ff444716a9b758e1174e765acfa4f3174de415d41e802ee6b947c1c84f9",
+        "json_pointer": ""
+      },
+      "lexical_jaccard": 0.3448
+    },
+    {
+      "a": "ENF-AGHR-001",
+      "b": "ENF-AGHR-002",
+      "screen": "LEXICAL_JACCARD_AT_LEAST_0_28",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "قاعدة/هوية تغطية مختلفة ومجموعة سيناريوهات مختلفة. درجة lexical=1 أسقطت الأرقام؛ لا تثبت تطابق AGHR-001 وAGHR-002.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/ENFORCEMENT_COVERAGE.json",
+        "sha256": "1212b8b9dde8f6846946f687e71d8ee0387d03a0bbeb03e0d78a8b5f7759167c",
+        "json_pointer": "/rules/0"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/ENFORCEMENT_COVERAGE.json",
+        "sha256": "1212b8b9dde8f6846946f687e71d8ee0387d03a0bbeb03e0d78a8b5f7759167c",
+        "json_pointer": "/rules/1"
+      },
+      "lexical_jaccard": 1.0
+    },
+    {
+      "a": "AGHR-001",
+      "b": "AGHR-047",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "PARTIAL_OVERLAP_NOT_FULL_DUPLICATE",
+      "reason_ar": "أولوية مصدر تقني مقابل صلاحية انطباق معايير وحدود ادعاء الامتثال.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/RULES.json",
+        "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db",
+        "json_pointer": "/rules/0"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/RULES.json",
+        "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db",
+        "json_pointer": "/rules/46"
+      }
+    },
+    {
+      "a": "AGHR-005",
+      "b": "AGHR-041",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "PARTIAL_OVERLAP_NOT_FULL_DUPLICATE",
+      "reason_ar": "تعارض مراجع منطبقة مقابل غموض قصد/متطلبات/تفويض؛ اشتراك الاستمرار المستقل تداخل جزئي.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/RULES.json",
+        "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db",
+        "json_pointer": "/rules/4"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/RULES.json",
+        "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db",
+        "json_pointer": "/rules/40"
+      }
+    },
+    {
+      "a": "AGHR-005",
+      "b": "AGHR-010",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "PARTIAL_OVERLAP_NOT_FULL_DUPLICATE",
+      "reason_ar": "فحص مصدر/نسخة/إحلال عند تعارض مقابل حدود الاستمرار والتوقف العامة.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/RULES.json",
+        "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db",
+        "json_pointer": "/rules/4"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/RULES.json",
+        "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db",
+        "json_pointer": "/rules/9"
+      }
+    },
+    {
+      "a": "AGHR-010",
+      "b": "AGHR-041",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "PARTIAL_OVERLAP_NOT_FULL_DUPLICATE",
+      "reason_ar": "حدود التنفيذ المستمر مقابل إجراء إيضاح قرار مؤثر؛ لا تتطابق شروط التشغيل.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/RULES.json",
+        "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db",
+        "json_pointer": "/rules/9"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/RULES.json",
+        "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db",
+        "json_pointer": "/rules/40"
+      }
+    },
+    {
+      "a": "AGHR-011",
+      "b": "AGHR-041",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "PARTIAL_OVERLAP_NOT_FULL_DUPLICATE",
+      "reason_ar": "تخطيط متناسب يحيل إلى إجراء الإيضاح، ولا يعيد تعريفه بكامل شروطه.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/RULES.json",
+        "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db",
+        "json_pointer": "/rules/10"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/RULES.json",
+        "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db",
+        "json_pointer": "/rules/40"
+      }
+    },
+    {
+      "a": "AGHR-006",
+      "b": "AGHR-007",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "PARTIAL_OVERLAP_NOT_FULL_DUPLICATE",
+      "reason_ar": "اقتصاد حجم السياق مقابل حفظ الثقة والتفويض والأسرار أثناء تحويله.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/RULES.json",
+        "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db",
+        "json_pointer": "/rules/5"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/RULES.json",
+        "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db",
+        "json_pointer": "/rules/6"
+      }
+    },
+    {
+      "a": "AGHR-008",
+      "b": "REC-01-03",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "PARTIAL_OVERLAP_NOT_FULL_DUPLICATE",
+      "reason_ar": "تغيير النموذج يتداخل جزئيًا، لكن أحدهما يضيف هوية المضيف والرجوع والآخر فهرس المعرفة؛ القوة والنطاق غير محسومين.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/RULES.json",
+        "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db",
+        "json_pointer": "/rules/7"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/CONTROL_CATALOG.json",
+        "sha256": "f8eefbc71ad97c8a31d9902d2fff1ad8b1182cc6d8a8b440e0657c1f4cced4ca",
+        "json_pointer": "/controls/2"
+      }
+    },
+    {
+      "a": "AGHR-010",
+      "b": "DOC-00d5abd26dfa9dfa",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "PARTIAL_OVERLAP_NOT_FULL_DUPLICATE",
+      "reason_ar": "فقرة حلقة تشغيل مركبة تحتوي استقصاءً وتحققًا وإعادة محاولة إضافة إلى الاستمرار؛ لا تطابق كامل للوحدة.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/RULES.json",
+        "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db",
+        "json_pointer": "/rules/9"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/contracts/RUNTIME.md",
+        "sha256": "ccb0c00d598c446880bff25e5f58ad2518e45dbfd9d6e2236e8e4f0e1afab62b",
+        "json_pointer": "",
+        "line_start": 9,
+        "line_end": 9,
+        "block_type": "PARAGRAPH",
+        "section": [
+          "Runtime Contract",
+          "Loop"
+        ]
+      }
+    },
+    {
+      "a": "AGHR-011",
+      "b": "DOC-00d5abd26dfa9dfa",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "PARTIAL_OVERLAP_NOT_FULL_DUPLICATE",
+      "reason_ar": "التخطيط جزء من فقرة متعددة المراحل؛ لا يصح حذف الفقرة كلها كتكرار قاعدة التخطيط.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/RULES.json",
+        "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db",
+        "json_pointer": "/rules/10"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/contracts/RUNTIME.md",
+        "sha256": "ccb0c00d598c446880bff25e5f58ad2518e45dbfd9d6e2236e8e4f0e1afab62b",
+        "json_pointer": "",
+        "line_start": 9,
+        "line_end": 9,
+        "block_type": "PARAGRAPH",
+        "section": [
+          "Runtime Contract",
+          "Loop"
+        ]
+      }
+    },
+    {
+      "a": "DOC-00d5abd26dfa9dfa",
+      "b": "SKILL-incremental-change",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "المهارة تضيف مدخلات ومخرجات وصلاحيات واختبار قبول؛ الفقرة تلخص حلقة تشغيل عامة.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/REGISTER.json",
+        "sha256": "5590ff11329dfe1c4d752ad8dbf9316b70ad0d1c1bc74c05efca3245c5ff19b4",
+        "json_pointer": "/skills/2"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/contracts/RUNTIME.md",
+        "sha256": "ccb0c00d598c446880bff25e5f58ad2518e45dbfd9d6e2236e8e4f0e1afab62b",
+        "json_pointer": "",
+        "line_start": 9,
+        "line_end": 9,
+        "block_type": "PARAGRAPH",
+        "section": [
+          "Runtime Contract",
+          "Loop"
+        ]
+      }
+    },
+    {
+      "a": "AGHR-041",
+      "b": "DOC-009861be9c35d311",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "PARTIAL_OVERLAP_NOT_FULL_DUPLICATE",
+      "reason_ar": "شرط تفعيل مهارة جزء تابع، لا القاعدة الكاملة للتحري والإيضاح والافتراضات واستمرار العمل.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/RULES.json",
+        "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db",
+        "json_pointer": "/rules/40"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/optional_skills/smart-clarification/SKILL.md",
+        "sha256": "ee9adb3e5f2ec02dd5c80db7b750fbf4d857d88a39254c09ecce0eacab6693ae",
+        "json_pointer": "",
+        "line_start": 11,
+        "line_end": 11,
+        "block_type": "PARAGRAPH",
+        "section": [
+          "الاستيضاح الذكي",
+          "متى تستخدم"
+        ]
+      }
+    },
+    {
+      "a": "AGHR-001",
+      "b": "ENF-AGHR-001",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "التزام تقني مقابل بيان حدود التغطية وعدم التأهيل؛ علاقة rule/coverage.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/RULES.json",
+        "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db",
+        "json_pointer": "/rules/0"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/ENFORCEMENT_COVERAGE.json",
+        "sha256": "1212b8b9dde8f6846946f687e71d8ee0387d03a0bbeb03e0d78a8b5f7759167c",
+        "json_pointer": "/rules/0"
+      }
+    },
+    {
+      "a": "AGHR-002",
+      "b": "ENF-AGHR-002",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "مبدأ سلطة مقابل خريطة تغطية وسيناريوهات غير منفذة؛ لا تكرار سياسة.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/RULES.json",
+        "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db",
+        "json_pointer": "/rules/1"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/ENFORCEMENT_COVERAGE.json",
+        "sha256": "1212b8b9dde8f6846946f687e71d8ee0387d03a0bbeb03e0d78a8b5f7759167c",
+        "json_pointer": "/rules/1"
+      }
+    },
+    {
+      "a": "HOST-Antigravity",
+      "b": "META-067600fc4a27",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "حالة مضيف مفرد مقابل رأس حالة إصدار بعد استبعاد hosts صراحة؛ إسقاطان مختلفان من نفس الملف.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/evaluations/SKILL_HOST_QUALIFICATION.json",
+        "sha256": "5aa70e5893d649e6b3ae5b8d74b81ddcc1bc51c8c88306ef83a587b02648cae3",
+        "json_pointer": "/hosts/1"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/evaluations/SKILL_HOST_QUALIFICATION.json",
+        "sha256": "5aa70e5893d649e6b3ae5b8d74b81ddcc1bc51c8c88306ef83a587b02648cae3",
+        "json_pointer": "",
+        "selection": {
+          "excluded_top_level_keys": [
+            "hosts"
+          ]
+        }
+      }
+    },
+    {
+      "a": "AGHR-006",
+      "b": "SOURCE-AN-01",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "قاعدة مشروع ذات SHOULD مقابل مرجع ببليوغرافي وملخص هندسي؛ المصدر ليس بندًا حاكمًا بديلًا.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/RULES.json",
+        "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db",
+        "json_pointer": "/rules/5"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/sources/REGISTER.json",
+        "sha256": "b0783f5785ec8353761fda38e73b9b4df795d55cf8b83e91cdf0c2be16d4e38f",
+        "json_pointer": "/sources/13"
+      }
+    },
+    {
+      "a": "DELIVERY-BE-01",
+      "b": "DELIVERY-BE-02",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "غموض لا يحسمه المصدر مقابل حقيقة متاحة في مصدر مصرح؛ شروط وسلوك متوقع مختلفان.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/evaluations/DELIVERY_SCENARIOS.json",
+        "sha256": "7e478c54c04f07d0941c9d4374ae452d609b2bf6c129887cc2222baf9882ac52",
+        "json_pointer": "/cases/0"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/evaluations/DELIVERY_SCENARIOS.json",
+        "sha256": "7e478c54c04f07d0941c9d4374ae452d609b2bf6c129887cc2222baf9882ac52",
+        "json_pointer": "/cases/1"
+      }
+    },
+    {
+      "a": "REC-01-01",
+      "b": "REC-01-02",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "نفس بطاقة المعيار، لكن حدود النظام والأطراف تختلف عن أدلة انتقال المراحل. لا تساوي وحدة الموضوع تطابق الالتزام.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/CONTROL_CATALOG.json",
+        "sha256": "f8eefbc71ad97c8a31d9902d2fff1ad8b1182cc6d8a8b440e0657c1f4cced4ca",
+        "json_pointer": "/controls/0"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/CONTROL_CATALOG.json",
+        "sha256": "f8eefbc71ad97c8a31d9902d2fff1ad8b1182cc6d8a8b440e0657c1f4cced4ca",
+        "json_pointer": "/controls/1"
+      }
+    },
+    {
+      "a": "REC-01-01",
+      "b": "REC-01-03",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "نفس بطاقة المعيار، لكن حدود النظام والأطراف تختلف عن تغيير المزود/النموذج/فهرس المعرفة. لا تساوي وحدة الموضوع تطابق الالتزام.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/CONTROL_CATALOG.json",
+        "sha256": "f8eefbc71ad97c8a31d9902d2fff1ad8b1182cc6d8a8b440e0657c1f4cced4ca",
+        "json_pointer": "/controls/0"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/CONTROL_CATALOG.json",
+        "sha256": "f8eefbc71ad97c8a31d9902d2fff1ad8b1182cc6d8a8b440e0657c1f4cced4ca",
+        "json_pointer": "/controls/2"
+      }
+    },
+    {
+      "a": "REC-01-01",
+      "b": "REC-01-04",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "نفس بطاقة المعيار، لكن حدود النظام والأطراف تختلف عن المراقبة والتدخل حسب الضرر. لا تساوي وحدة الموضوع تطابق الالتزام.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/CONTROL_CATALOG.json",
+        "sha256": "f8eefbc71ad97c8a31d9902d2fff1ad8b1182cc6d8a8b440e0657c1f4cced4ca",
+        "json_pointer": "/controls/0"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/CONTROL_CATALOG.json",
+        "sha256": "f8eefbc71ad97c8a31d9902d2fff1ad8b1182cc6d8a8b440e0657c1f4cced4ca",
+        "json_pointer": "/controls/3"
+      }
+    },
+    {
+      "a": "REC-01-01",
+      "b": "REC-01-05",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "نفس بطاقة المعيار، لكن حدود النظام والأطراف تختلف عن تقاعد المكون والاحتفاظ وإلغاء الوصول. لا تساوي وحدة الموضوع تطابق الالتزام.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/CONTROL_CATALOG.json",
+        "sha256": "f8eefbc71ad97c8a31d9902d2fff1ad8b1182cc6d8a8b440e0657c1f4cced4ca",
+        "json_pointer": "/controls/0"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/CONTROL_CATALOG.json",
+        "sha256": "f8eefbc71ad97c8a31d9902d2fff1ad8b1182cc6d8a8b440e0657c1f4cced4ca",
+        "json_pointer": "/controls/4"
+      }
+    },
+    {
+      "a": "REC-01-02",
+      "b": "REC-01-03",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "نفس بطاقة المعيار، لكن أدلة انتقال المراحل تختلف عن تغيير المزود/النموذج/فهرس المعرفة. لا تساوي وحدة الموضوع تطابق الالتزام.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/CONTROL_CATALOG.json",
+        "sha256": "f8eefbc71ad97c8a31d9902d2fff1ad8b1182cc6d8a8b440e0657c1f4cced4ca",
+        "json_pointer": "/controls/1"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/CONTROL_CATALOG.json",
+        "sha256": "f8eefbc71ad97c8a31d9902d2fff1ad8b1182cc6d8a8b440e0657c1f4cced4ca",
+        "json_pointer": "/controls/2"
+      }
+    },
+    {
+      "a": "REC-01-02",
+      "b": "REC-01-04",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "نفس بطاقة المعيار، لكن أدلة انتقال المراحل تختلف عن المراقبة والتدخل حسب الضرر. لا تساوي وحدة الموضوع تطابق الالتزام.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/CONTROL_CATALOG.json",
+        "sha256": "f8eefbc71ad97c8a31d9902d2fff1ad8b1182cc6d8a8b440e0657c1f4cced4ca",
+        "json_pointer": "/controls/1"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/CONTROL_CATALOG.json",
+        "sha256": "f8eefbc71ad97c8a31d9902d2fff1ad8b1182cc6d8a8b440e0657c1f4cced4ca",
+        "json_pointer": "/controls/3"
+      }
+    },
+    {
+      "a": "REC-01-02",
+      "b": "REC-01-05",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "نفس بطاقة المعيار، لكن أدلة انتقال المراحل تختلف عن تقاعد المكون والاحتفاظ وإلغاء الوصول. لا تساوي وحدة الموضوع تطابق الالتزام.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/CONTROL_CATALOG.json",
+        "sha256": "f8eefbc71ad97c8a31d9902d2fff1ad8b1182cc6d8a8b440e0657c1f4cced4ca",
+        "json_pointer": "/controls/1"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/CONTROL_CATALOG.json",
+        "sha256": "f8eefbc71ad97c8a31d9902d2fff1ad8b1182cc6d8a8b440e0657c1f4cced4ca",
+        "json_pointer": "/controls/4"
+      }
+    },
+    {
+      "a": "REC-01-03",
+      "b": "REC-01-04",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "نفس بطاقة المعيار، لكن تغيير المزود/النموذج/فهرس المعرفة تختلف عن المراقبة والتدخل حسب الضرر. لا تساوي وحدة الموضوع تطابق الالتزام.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/CONTROL_CATALOG.json",
+        "sha256": "f8eefbc71ad97c8a31d9902d2fff1ad8b1182cc6d8a8b440e0657c1f4cced4ca",
+        "json_pointer": "/controls/2"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/CONTROL_CATALOG.json",
+        "sha256": "f8eefbc71ad97c8a31d9902d2fff1ad8b1182cc6d8a8b440e0657c1f4cced4ca",
+        "json_pointer": "/controls/3"
+      }
+    },
+    {
+      "a": "REC-01-03",
+      "b": "REC-01-05",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "نفس بطاقة المعيار، لكن تغيير المزود/النموذج/فهرس المعرفة تختلف عن تقاعد المكون والاحتفاظ وإلغاء الوصول. لا تساوي وحدة الموضوع تطابق الالتزام.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/CONTROL_CATALOG.json",
+        "sha256": "f8eefbc71ad97c8a31d9902d2fff1ad8b1182cc6d8a8b440e0657c1f4cced4ca",
+        "json_pointer": "/controls/2"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/CONTROL_CATALOG.json",
+        "sha256": "f8eefbc71ad97c8a31d9902d2fff1ad8b1182cc6d8a8b440e0657c1f4cced4ca",
+        "json_pointer": "/controls/4"
+      }
+    },
+    {
+      "a": "REC-01-04",
+      "b": "REC-01-05",
+      "screen": "AUTHOR_THEMATIC_REVIEW",
+      "verdict": "NOT_EQUIVALENT_AS_WHOLE_UNITS",
+      "reason_ar": "نفس بطاقة المعيار، لكن المراقبة والتدخل حسب الضرر تختلف عن تقاعد المكون والاحتفاظ وإلغاء الوصول. لا تساوي وحدة الموضوع تطابق الالتزام.",
+      "evidence_a": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/CONTROL_CATALOG.json",
+        "sha256": "f8eefbc71ad97c8a31d9902d2fff1ad8b1182cc6d8a8b440e0657c1f4cced4ca",
+        "json_pointer": "/controls/3"
+      },
+      "evidence_b": {
+        "package_version": "1.3.0",
+        "package_status": "CANDIDATE_FOR_REVIEW",
+        "path": "governance_packages/candidates/AGHR_Candidate_1.3.0/standards/CONTROL_CATALOG.json",
+        "sha256": "f8eefbc71ad97c8a31d9902d2fff1ad8b1182cc6d8a8b440e0657c1f4cced4ca",
+        "json_pointer": "/controls/4"
+      }
+    }
+  ],
+  "confirmed_groups": [],
+  "confirmed_duplicate_units": 0,
+  "redundant_units": 0,
+  "confirmed_unit_rate": 0.0,
+  "confirmed_redundancy_rate": 0.0,
+  "limits": "Full-unit confirmed equivalence only, observed in this sample. Partial overlap/structural Merge is separate. No semantic recall proof; not proof of zero duplication in all 1608. No automatic deletion."
+}

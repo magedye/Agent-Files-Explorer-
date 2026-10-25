@@ -1,0 +1,14 @@
+diff --git a/docs/evidence/studio-phase5-2026-10-24/before/tests/studio_phase3_skills.test.mjs.raw b/tests/studio_phase3_skills.test.mjs
+index 5e98933..d5069e0 100644
+--- a/docs/evidence/studio-phase5-2026-10-24/before/tests/studio_phase3_skills.test.mjs.raw
++++ b/tests/studio_phase3_skills.test.mjs
+@@ -37,7 +37,8 @@ test('T22/T23 real HTTP lifecycle keeps three axes, auth, scenarios and native b
+    const v=await run({operation:'verify',task_id:'actual',skill_id:'json-audit',task_criteria:'{"all":[{"pointer":"/valid","op":"equals","value":true}]}'});assert.equal(v.task.usage.verified,'VERIFIED');assert.equal(v.task.qualification.status,'NOT_RUN');assert.equal(v.task.host,'aghr-local-process');
+   });
+   await t.test('No match, unknown ID, installed-unavailable and denied permission remain distinct',async()=>{
+-   for(const [task_id,selection,expected]of [['simple',{query:'hello unrelated task'},'NO_SKILL_MATCH'],['unknown',{skill_id:'unknown'},'UNKNOWN_ID'],['unavailable',{skill_id:'unavailable'},'NOT_OBSERVABLE'],['permission',{skill_id:'restricted'},'BLOCKED']]){const r=await run({operation:'select',task_id,...selection});assert.equal(r.result.status,expected,JSON.stringify(r));assert.equal(r.task.usage.verified,'NOT_RUN');}
++   for(const [task_id,selection,expected]of [['simple',{query:'hello—unrelated task'},'NO_SKILL_MATCH'],['unknown',{skill_id:'unknown'},'UNKNOWN_ID'],['unavailable',{skill_id:'unavailable'},'NOT_OBSERVABLE'],['permission',{skill_id:'restricted'},'BLOCKED']]){const r=await run({operation:'select',task_id,...selection});assert.equal(r.result.status,expected,JSON.stringify(r));assert.equal(r.task.usage.verified,'NOT_RUN');}
++   const simple=studio.store.phase5Data().runs.find(r=>JSON.parse(r.summary_json||'{}').studio_skill?.view?.task_id==='simple'),language=JSON.parse(simple.raw_output).discovery_request;assert.equal(language.non_english,false);assert.equal(language.language_observation,'UNOBSERVED_LANGUAGE');
+   });
+   await t.test('Failed task criteria stay failed in durable history, never VERIFIED',async()=>{
+    const r=await run({operation:'verify',task_id:'actual',skill_id:'json-audit',task_criteria:'{"all":[{"pointer":"/valid","op":"equals","value":false}]}'});

@@ -1,0 +1,53 @@
+{
+  "at": "2026-10-23T13:42:05.441157+00:00",
+  "HEAD": "133746a0ad99d10568a44c8d225219df8454271c",
+  "branch": "main",
+  "git_status": " M .gitattributes\n M .gitignore\n M docs/INDEX.md\n M docs/plans/STUDIO_E1_E2_CORE_SCOPE_AR.md\n M docs/plans/STUDIO_UPGRADE_TASKS_AR.md\n M docs/status/CURRENT.md\n M docs/status/HANDOFF.md\n M package.json\n M src/i18n/I18nProvider.jsx\n M vite.config.mjs\n?? docs/evidence/studio-phase0-runtime-2026-10-23/\n?? docs/evidence/studio-phase1-2026-10-23/\n?? docs/evidence/studio-t06-2026-10-23/\n?? docs/evidence/studio-t06-mock-2026-10-23/\n?? docs/evidence/studio-t11a-2026-10-23/\n?? docs/evidence/studio-t11b-2026-10-23/\n?? docs/evidence/studio-t12-2026-10-23/\n?? docs/features/STUDIO_PHASE0_READ_ONLY.md\n?? docs/features/STUDIO_PHASE1_READ_ONLY.md\n?? governance_packages/candidates/AGHR_T06_SEC001_Candidate/\n?? phase0.html\n?? server/studio/\n?? src/features/\n?? tests/helpers/\n?? tests/studio_bridge.test.mjs\n?? tests/studio_catalog.test.mjs\n?? tests/studio_phase1_read.test.mjs\n?? tests/studio_read_api.test.mjs\n?? tests/studio_t06_mock.test.mjs\n?? tools/phase1_browser_cases.mjs\n?? tools/prepare_phase1_sample.mjs\n?? tools/seal_phase1_evidence.mjs\n?? tools/t06/\n?? tools/test_phase0_sentinel.mjs\n?? tools/test_phase1_edge.mjs\n?? tools/verify_phase0_http_contracts.mjs\n?? tools/verify_t06_sec001.mjs\n",
+  "prior_custody": {
+    "path": "docs/evidence/studio-t11b-2026-10-23/CUSTODY.lock.json",
+    "sha256": "1a79fe012ca21cf3ae48987a0fdd95ca7eaa7ca1f7106775d25201d8cabc31fb",
+    "bytes": 196981,
+    "files_verified": 931
+  },
+  "before": {
+    "docs/INDEX.md": {
+      "sha256": "3651139fa6a3b51cdfa20d42526bb054ad8598a052a2f3ad0d9ec6583aa9bbac",
+      "bytes": 4326
+    },
+    "docs/status/CURRENT.md": {
+      "sha256": "eb9348e120ee12e5bbb20a9a506d9b0d855a39618ac6a73ebd60d5944f6cfab6",
+      "bytes": 3151
+    },
+    "docs/status/HANDOFF.md": {
+      "sha256": "a33ba8d9fc26528c5b05a16a8f10bf3c6488e5da0bed6387a6a2088cc178803a",
+      "bytes": 7394
+    },
+    "docs/plans/STUDIO_UPGRADE_TASKS_AR.md": {
+      "sha256": "8062c6bdca267f0dd996f567bf9b01889f09355418fd6dbab6b1e133d4662a2e",
+      "bytes": 43916
+    }
+  },
+  "inputs": {
+    "docs/reviews/aghr-items-2026-10-22/REVIEW_REGISTER.json": {
+      "sha256": "179d9f3602afc2a8b3d2da9f8241d6edc158bc9bed1c3298dcc1feaca6c8ce5f",
+      "bytes": 5277105
+    },
+    "governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/registry/RULES.json": {
+      "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db",
+      "bytes": 35907
+    },
+    "governance_packages/candidates/AGHR_Candidate_1.3.0/registry/RULES.json": {
+      "sha256": "eda9a4bf14467db891e5f6a8db34c228eac776f8b1bc117e9f8939f9969ad7db",
+      "bytes": 35907
+    },
+    "docs/evidence/studio-e2-2026-10-22/SOURCE_PIN.json": {
+      "sha256": "4f460e4e30e656d133b692c83e40695d4333543764bfdd8d3e49fdabcba830c0",
+      "bytes": 4973
+    },
+    "docs/contracts/aghr-rc3/CONTRACTS.lock.json": {
+      "sha256": "68dc22d168a3698eb7ee3a3e944a2341805816f4ba2695a1fc1403dc49867048",
+      "bytes": 6097
+    }
+  },
+  "owner_acceptance": "T11b accepted / inventory closed. 47 provisional rule drafts and T12 candidate authorized. No application writes or baseline promotion."
+}

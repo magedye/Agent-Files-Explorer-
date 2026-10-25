@@ -1,0 +1,51 @@
+{
+  "status": "PASS_FOR_SANDBOX_LOCAL_PROFILE",
+  "project": "pilot-app-l2",
+  "level": "L2",
+  "profile": "SANDBOX_LOCAL_PROCESS_V1",
+  "actual_data": "Running service with seeded sandbox data; not production customer data",
+  "strict_exit": 0,
+  "negative_validation": [
+    {
+      "missing": "authority.level",
+      "exit_code": 1
+    },
+    {
+      "missing": "scope",
+      "exit_code": 1
+    }
+  ],
+  "doctor": "PASS",
+  "application_source_preserved": true,
+  "studio_state_write": false,
+  "ci_state_write": true,
+  "source_before": {
+    "app.mjs": "db8333471e6be7755cbdccc1ade20670bc5404d76d19a5e1f09392d81dc14ff2",
+    "app.test.mjs": "94bf3fcb786007f94e0142e7a680d42ef58943b03828f1a8f9ba0a752fda558b"
+  },
+  "merged_sha": "bef262c3d4fbc2ebbef2a8909c807fe2956aa379",
+  "state_sha256": "bda0c08507dd045ce85f726bd811df5e2a43e0776cac87d653d11557bd8ef86e",
+  "cp_hash": "sha256:dfd497d91000fed68d342992f5b37c9a7e03daf9ccb4266f7003aae9ef454a50",
+  "honesty_pass": null,
+  "scenarios_pass": null,
+  "false_success_rate": {
+    "value": null,
+    "status": "NOT_RUN",
+    "numerator": null,
+    "denominator": null,
+    "unit": "percent",
+    "evidence": [],
+    "excluded_unobservable": 0
+  },
+  "gpg": "UNSIGNED_OWNER_ACCEPTED_WARNING",
+  "native_hosts": {
+    "codex": "NOT_RUN",
+    "antigravity": "NOT_RUN"
+  },
+  "hosted_ci": "NOT_RUN",
+  "external_standard_18_4": {
+    "status": "NOT_QUALIFIED",
+    "reason": "Owner authorized two sandboxes, not a production pilot; P0 repo-measured >=50% remains a separate external-standard rollout criterion."
+  },
+  "release": "NOT_GRANTED"
+}

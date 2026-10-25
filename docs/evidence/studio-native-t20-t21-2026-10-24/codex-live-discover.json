@@ -1,0 +1,43 @@
+{
+  "job": {
+    "event": "finished",
+    "status": "failed",
+    "reason": null,
+    "exit_code": 1,
+    "resource_peak_mb": 66.375,
+    "duration_ms": 28250,
+    "active_processes_after": 0,
+    "observed_pids": [
+      116432,
+      107900,
+      109016,
+      116000,
+      113320
+    ],
+    "memory_events": [],
+    "started": {
+      "event": "started",
+      "pid": 116432,
+      "adapter": "windows-job-list",
+      "hard_memory_bytes": 2147483648,
+      "limit_flags": 8704
+    },
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\r\n  File \"D:\\APP\\Agent-Files-Explorer\\server\\studio\\hosts\\native-process.py\", line 69, in <module>\r\n    emit({'kind': 'initialized', 'result': receive(1)})\r\n                                           ^^^^^^^^^^\r\n  File \"D:\\APP\\Agent-Files-Explorer\\server\\studio\\hosts\\native-process.py\", line 54, in receive\r\n    frame = incoming.get(timeout=25)\r\n            ^^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"C:\\Users\\Majed\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\queue.py\", line 179, in get\r\n    raise Empty\r\n_queue.Empty\r\n",
+    "limits": {
+      "timeoutMs": 30000,
+      "memoryBytes": 2147483648
+    }
+  },
+  "operation": "discover",
+  "input_hash": "sha256:374e169901f1acdccea008f0a33359d0a247ab7b8b8014c5668090a4230b16b1",
+  "binary_hash": "sha256:d83cc3582592e307df008411f02f61a93fb93580b53dc173608a63202d97bbe4",
+  "driver_hash": "sha256:bc245212207b834422796b9c012f5337d776af228824f82743ea1badbba1920b",
+  "host": "codex",
+  "frames": [],
+  "turn_completed": false,
+  "skill_execution": "NOT_OBSERVABLE",
+  "verified": "NOT_RUN",
+  "qualification": "NOT_RUN",
+  "reason": "Native turn completion alone does not prove skill execution or task criteria."
+}

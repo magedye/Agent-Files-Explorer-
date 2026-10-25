@@ -1,0 +1,30 @@
+{
+  "protocol": "3",
+  "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+  "entrypoint": "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+  "shell": false,
+  "installed_on_PATH": false,
+  "transcripts": [
+    "cli-help.json",
+    "cli-validateHelp.json",
+    "cli-version.json",
+    "cli-catalog.json",
+    "cli-strict.json",
+    "cli-lint.json"
+  ],
+  "implemented": [
+    "help",
+    "version",
+    "catalog",
+    "validate --strict",
+    "lint"
+  ],
+  "blocked": [
+    "generate",
+    "check",
+    "doctor",
+    "eval",
+    "qualify"
+  ],
+  "negative_exit_evidence": "../studio-e2-2026-10-22/CLI_TRANSCRIPT.json"
+}

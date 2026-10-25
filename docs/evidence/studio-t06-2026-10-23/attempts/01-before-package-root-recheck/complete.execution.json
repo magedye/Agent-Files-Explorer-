@@ -1,0 +1,95 @@
+{
+  "result": "BLOCKED",
+  "exit_code": 3,
+  "started_at": "2026-10-22T23:00:35.930Z",
+  "finished_at": "2026-10-22T23:00:42.507Z",
+  "invocation": {
+    "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+    "args": [
+      "-I",
+      "-B",
+      "-S",
+      "-X",
+      "utf8",
+      "D:\\APP\\Agent-Files-Explorer\\server\\studio\\aghr\\read-only-launcher.py",
+      "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+      "validate",
+      "--strict"
+    ],
+    "cwd": "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_T06_SEC001_Candidate\\complete",
+    "shell": false,
+    "pythonHash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+    "launcherHash": "7b0e3c6e92a3d08f4bb804e60c90d633ba4ee8518ee5f2bc2024e9d8f247b236"
+  },
+  "protocol_version": "3",
+  "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+  "inputs": {
+    "candidate_hash": "a1a3f5fcf9b7822cc66cacc0ad09fd1043ad85584f52388aeedff8f07181050b",
+    "config_hash": "5728ccc7a0753bec5c5dd1103a633e11161b55fb1dc16f48231b617db1ee5ee4",
+    "inputs_hash": "11dafb44ba7431ca78617af019d1106a46cfceb255c9391eaa4ca2f8f2847109",
+    "catalog": [
+      {
+        "path": "aghr.json",
+        "sha256": "d72e77992eb12cb2a53edd502c9e2a1b306956da36aad3e5d9fc44b2765d2c95",
+        "role": "manifest"
+      },
+      {
+        "path": "policies/security/secrets.json",
+        "sha256": "86a4ef451ce60ec82144bef07528cbdff05c8cfc8a778e5d2ea7a78a8bbd49ce",
+        "role": "item"
+      }
+    ]
+  },
+  "checks": {
+    "status": "BLOCKED",
+    "reason": "E2 static package profile only; E4 runtime qualification NOT_RUN."
+  },
+  "stages": {
+    "structure": {
+      "status": "PASS"
+    },
+    "scope": {
+      "status": "PASS"
+    },
+    "authority": {
+      "status": "BLOCKED"
+    },
+    "conflicts": {
+      "status": "PASS"
+    },
+    "evidence": {
+      "status": "BLOCKED"
+    },
+    "documentation": {
+      "status": "NOT_APPLICABLE",
+      "reason": "No packaged skill library, CAPABILITY or documentation mapping"
+    }
+  },
+  "findings": [
+    {
+      "code": "AUTHORITY_SOURCE_UNVERIFIED",
+      "disposition": "BLOCKED",
+      "message": "AUTHORITY_SOURCE_UNVERIFIED at /authority.",
+      "path": "policies/security/secrets.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/authority",
+      "item_id": "SEC-001"
+    },
+    {
+      "code": "ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE",
+      "disposition": "BLOCKED",
+      "message": "ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE at /enforcement.",
+      "path": "policies/security/secrets.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/enforcement",
+      "item_id": "SEC-001"
+    }
+  ],
+  "stdout_sha256": "80fad8c1e2b4538911f7145b5183073a28f64a970434f2afd498f2210ff6ec15",
+  "stderr_sha256": "f3760cec30db7cba02ef2e2070d669ceb2f750fd093bf1fab807d978fcbcbca0",
+  "source_written": false
+}

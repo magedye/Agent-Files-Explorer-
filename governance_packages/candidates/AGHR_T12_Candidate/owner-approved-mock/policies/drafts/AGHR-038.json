@@ -1,0 +1,44 @@
+{
+  "id": "AGHR-038",
+  "title": "حوكمة سلسلة توريد التعليمات",
+  "kind": "PROCEDURE",
+  "force": "MUST",
+  "severity": "critical",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: When loading skills, plugins or guidance.\nBefore adopting or loading external skills, plugins, tools or guidance, assess origin, pinned version, license, dependencies, trust, task fit, permissions, side effects and rollback. Distinguish discovery, installation, activation and qualification; use a single canonical project record and prevent silent replacement of governing instructions.",
+  "authority": {
+    "source": ".t12/SourceGrant.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "OWNER_T12_OVERRIDE",
+    "status": "active",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "تعليمات أو مهارة خارجية قد ترفع السلطة أو تستبدل المرجعية. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "review",
+    "mergeEffect": "advisory"
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-038"
+    ]
+  },
+  "impact": {
+    "band": "critical",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2026-11-22",
+  "exceptions": {
+    "allowed": false
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

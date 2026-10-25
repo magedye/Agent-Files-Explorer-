@@ -1,0 +1,39 @@
+{
+  "at": "2026-10-25T14:40:00.452Z",
+  "classification": "ENVIRONMENT_DEFECT",
+  "memory_observation_mib": {
+    "free": 985,
+    "total": 32615,
+    "lowest_observed_free": 712
+  },
+  "first_broad_run": {
+    "command": "npm test",
+    "log": "NPM_TEST_FINAL.log",
+    "status": "CANCELLED_BY_AGENT",
+    "reason": "Concurrent browser run received503 during real schema invocation under severe shared-host resource pressure; simple shell/tasklist queries also timed out. No PASS claimed."
+  },
+  "browser": {
+    "log": "PLAYWRIGHT_FINAL.log",
+    "attempt": "browser-1792938351538",
+    "status": "FAIL",
+    "completed": false,
+    "api_failure": "POST /verify/run returned503",
+    "sentinel204": "PASS;0 byte differences and0 protected write events",
+    "root_cause": "UNRESOLVED:503 coincided with severe shared-host memory pressure and independent shell/tasklist startup timeouts; the exact child failure was not observable. Serial reproduction must pass before closure."
+  },
+  "retry": {
+    "status": "RUNNING",
+    "command": "node --test --test-concurrency=1 tests/*.test.mjs",
+    "log": "NODE_TEST_SERIAL_1792939030989.log",
+    "gates_unchanged": true,
+    "pid": 134192
+  },
+  "wsl": {
+    "status": "ENVIRONMENT_BLOCKED",
+    "reason": "HCS_E_SERVICE_NOT_AVAILABLE"
+  },
+  "macos": {
+    "status": "NOT_RUN",
+    "reason": "No local macOS runner; owner input pending"
+  }
+}

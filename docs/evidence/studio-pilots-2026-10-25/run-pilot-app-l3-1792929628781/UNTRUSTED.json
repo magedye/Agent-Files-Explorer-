@@ -1,0 +1,821 @@
+{
+  "protocol_version": "3",
+  "command": "validate",
+  "profile": "SANDBOX_LOCAL_PROCESS_V1",
+  "project": "pilot-app-l3",
+  "result": "BLOCKED",
+  "exit_code": 3,
+  "raw_e2": {
+    "protocol_version": "3",
+    "command": "validate",
+    "source": {
+      "content_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3"
+    },
+    "profile": "TRUSTED_SANDBOX_HOST_API",
+    "validation": {
+      "profile": "E2_PACKAGE_READ_VALIDATE_LINT",
+      "result": "BLOCKED",
+      "exit_code": 3,
+      "findings": [
+        {
+          "code": "AUTHORITY_SOURCE_UNVERIFIED",
+          "disposition": "BLOCKED",
+          "message": "AUTHORITY_SOURCE_UNVERIFIED at /authority.",
+          "path": "policies/capability.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/authority",
+          "item_id": "CAP-PILOT-SQL"
+        },
+        {
+          "code": "ADVANCED_KIND_REVIEW_REQUIRED",
+          "disposition": "BLOCKED",
+          "message": "ADVANCED_KIND_REVIEW_REQUIRED at /kind.",
+          "path": "policies/capability.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/kind",
+          "item_id": "CAP-PILOT-SQL"
+        },
+        {
+          "code": "AUTHORITY_SOURCE_UNVERIFIED",
+          "disposition": "BLOCKED",
+          "message": "AUTHORITY_SOURCE_UNVERIFIED at /authority.",
+          "path": "policies/identity.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/authority",
+          "item_id": "PILOT-IDENTITY-001"
+        },
+        {
+          "code": "AUTHORITY_SOURCE_UNVERIFIED",
+          "disposition": "BLOCKED",
+          "message": "AUTHORITY_SOURCE_UNVERIFIED at /authority.",
+          "path": "policies/principle.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/authority",
+          "item_id": "PRIN-007"
+        },
+        {
+          "code": "AUTHORITY_SOURCE_UNVERIFIED",
+          "disposition": "BLOCKED",
+          "message": "AUTHORITY_SOURCE_UNVERIFIED at /authority.",
+          "path": "policies/sql.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/authority",
+          "item_id": "PILOT-SQL-001"
+        },
+        {
+          "code": "QUALIFICATION_E4_EVIDENCE_UNAVAILABLE",
+          "disposition": "BLOCKED",
+          "message": "QUALIFICATION_E4_EVIDENCE_UNAVAILABLE at /skillQualification.",
+          "path": "policies/capability.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/skillQualification",
+          "item_id": "CAP-PILOT-SQL"
+        },
+        {
+          "code": "QUALIFICATION_E4_EVIDENCE_UNAVAILABLE",
+          "disposition": "BLOCKED",
+          "message": "QUALIFICATION_E4_EVIDENCE_UNAVAILABLE at /skillQualification.",
+          "path": "policies/sql.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/skillQualification",
+          "item_id": "PILOT-SQL-001"
+        },
+        {
+          "code": "QUALIFICATION_E4_EVIDENCE_UNAVAILABLE",
+          "disposition": "BLOCKED",
+          "message": "QUALIFICATION_E4_EVIDENCE_UNAVAILABLE at /minimumStatus.",
+          "path": "policies/capability.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/minimumStatus",
+          "item_id": "CAP-PILOT-SQL"
+        },
+        {
+          "code": "P0_EVAL_QUALIFICATION_UNAVAILABLE",
+          "disposition": "BLOCKED",
+          "message": "P0_EVAL_QUALIFICATION_UNAVAILABLE at /defaultTier.",
+          "path": "policies/capability.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/defaultTier",
+          "item_id": "CAP-PILOT-SQL"
+        },
+        {
+          "code": "QUALIFICATION_E4_EVIDENCE_UNAVAILABLE",
+          "disposition": "BLOCKED",
+          "message": "QUALIFICATION_E4_EVIDENCE_UNAVAILABLE at /minimumStatus.",
+          "path": "policies/sql.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/minimumStatus",
+          "item_id": "PILOT-SQL-001"
+        },
+        {
+          "code": "ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE",
+          "disposition": "BLOCKED",
+          "message": "ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE at /enforcement.",
+          "path": "policies/sql.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/enforcement",
+          "item_id": "PILOT-SQL-001"
+        },
+        {
+          "code": "P0_EVAL_QUALIFICATION_UNAVAILABLE",
+          "disposition": "BLOCKED",
+          "message": "P0_EVAL_QUALIFICATION_UNAVAILABLE at /defaultTier.",
+          "path": "policies/sql.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/defaultTier",
+          "item_id": "PILOT-SQL-001"
+        },
+        {
+          "code": "OPTIONAL_FIELD_ABSENT",
+          "disposition": "WARNING",
+          "message": "OPTIONAL_FIELD_ABSENT at /reviewCadence.",
+          "path": "policies/capability.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/reviewCadence",
+          "item_id": "CAP-PILOT-SQL"
+        },
+        {
+          "code": "OPTIONAL_FIELD_ABSENT",
+          "disposition": "WARNING",
+          "message": "OPTIONAL_FIELD_ABSENT at /nextReview.",
+          "path": "policies/capability.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/nextReview",
+          "item_id": "CAP-PILOT-SQL"
+        },
+        {
+          "code": "OPTIONAL_FIELD_ABSENT",
+          "disposition": "WARNING",
+          "message": "OPTIONAL_FIELD_ABSENT at /reviewCadence.",
+          "path": "policies/identity.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/reviewCadence",
+          "item_id": "PILOT-IDENTITY-001"
+        },
+        {
+          "code": "OPTIONAL_FIELD_ABSENT",
+          "disposition": "WARNING",
+          "message": "OPTIONAL_FIELD_ABSENT at /nextReview.",
+          "path": "policies/identity.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/nextReview",
+          "item_id": "PILOT-IDENTITY-001"
+        },
+        {
+          "code": "OPTIONAL_FIELD_ABSENT",
+          "disposition": "WARNING",
+          "message": "OPTIONAL_FIELD_ABSENT at /reviewCadence.",
+          "path": "policies/principle.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/reviewCadence",
+          "item_id": "PRIN-007"
+        },
+        {
+          "code": "OPTIONAL_FIELD_ABSENT",
+          "disposition": "WARNING",
+          "message": "OPTIONAL_FIELD_ABSENT at /nextReview.",
+          "path": "policies/principle.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/nextReview",
+          "item_id": "PRIN-007"
+        },
+        {
+          "code": "OPTIONAL_FIELD_ABSENT",
+          "disposition": "WARNING",
+          "message": "OPTIONAL_FIELD_ABSENT at /reviewCadence.",
+          "path": "policies/sql.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/reviewCadence",
+          "item_id": "PILOT-SQL-001"
+        },
+        {
+          "code": "OPTIONAL_FIELD_ABSENT",
+          "disposition": "WARNING",
+          "message": "OPTIONAL_FIELD_ABSENT at /nextReview.",
+          "path": "policies/sql.json",
+          "line": 1,
+          "column": 1,
+          "byte_offset": 0,
+          "pointer": "/nextReview",
+          "item_id": "PILOT-SQL-001"
+        }
+      ],
+      "stages": {
+        "structure": {
+          "status": "PASS"
+        },
+        "scope": {
+          "status": "PASS"
+        },
+        "authority": {
+          "status": "BLOCKED"
+        },
+        "conflicts": {
+          "status": "PASS"
+        },
+        "evidence": {
+          "status": "BLOCKED"
+        },
+        "documentation": {
+          "status": "NOT_APPLICABLE",
+          "reason": "No packaged instruction library or documentation mapping; CAPABILITY declarations do not establish a host library"
+        }
+      },
+      "items": [
+        {
+          "id": "CAP-PILOT-SQL",
+          "location": {
+            "path": "policies/capability.json",
+            "document": 0,
+            "pointer": "",
+            "line": 1,
+            "column": 1,
+            "start_byte": 0,
+            "end_byte": 1999
+          },
+          "applicability": {
+            "status": "APPLIES"
+          },
+          "presentation": {
+            "rule": "Use the registered local read-only procedure when evaluating the inventory SQL boundary. Loading is not execution.",
+            "translation_unavailable": true,
+            "requested_language": "en",
+            "original_rule": "Use the registered local read-only procedure when evaluating the inventory SQL boundary. Loading is not execution."
+          }
+        },
+        {
+          "id": "PILOT-IDENTITY-001",
+          "location": {
+            "path": "policies/identity.json",
+            "document": 0,
+            "pointer": "",
+            "line": 1,
+            "column": 1,
+            "start_byte": 0,
+            "end_byte": 795
+          },
+          "applicability": {
+            "status": "APPLIES"
+          },
+          "presentation": {
+            "rule": "Read API responses MUST identify this sandbox project. Do not claim authority over another project.",
+            "translation_unavailable": true,
+            "requested_language": "en",
+            "original_rule": "Read API responses MUST identify this sandbox project. Do not claim authority over another project."
+          }
+        },
+        {
+          "id": "PRIN-007",
+          "location": {
+            "path": "policies/principle.json",
+            "document": 0,
+            "pointer": "",
+            "line": 1,
+            "column": 1,
+            "start_byte": 0,
+            "end_byte": 1387
+          },
+          "applicability": {
+            "status": "APPLIES"
+          },
+          "presentation": {
+            "rule": "When receiving a software task or crossing a substantive phase boundary,\nthe agent MUST evaluate the fitness of the capabilities actually available\nin the execution environment, and select the minimal effective set for\nthe current phase. Priority is given to native capabilities compatible with\nthe host and project. Repetition, conflict, and authorization bypass MUST\nbe prevented. The agent is NOT obligated to use a skill when direct\nexecution is better, and MUST NOT treat discovery or loading as evidence\nof execution or success. Adoption of new skills, modification of governing\ninstructions, and promotion of lessons into persistent memory remain\nsubject to the approved authority and procedure.\n",
+            "translation_unavailable": true,
+            "requested_language": "en",
+            "original_rule": "When receiving a software task or crossing a substantive phase boundary,\nthe agent MUST evaluate the fitness of the capabilities actually available\nin the execution environment, and select the minimal effective set for\nthe current phase. Priority is given to native capabilities compatible with\nthe host and project. Repetition, conflict, and authorization bypass MUST\nbe prevented. The agent is NOT obligated to use a skill when direct\nexecution is better, and MUST NOT treat discovery or loading as evidence\nof execution or success. Adoption of new skills, modification of governing\ninstructions, and promotion of lessons into persistent memory remain\nsubject to the approved authority and procedure.\n"
+          }
+        },
+        {
+          "id": "PILOT-SQL-001",
+          "location": {
+            "path": "policies/sql.json",
+            "document": 0,
+            "pointer": "",
+            "line": 1,
+            "column": 1,
+            "start_byte": 0,
+            "end_byte": 2041
+          },
+          "applicability": {
+            "status": "APPLIES"
+          },
+          "presentation": {
+            "rule": "The inventory inspection procedure MUST_NOT execute mutating, multiple, extension-loading or metadata SQL. Enforce both SQL authorization and SQLite read-only permissions.",
+            "translation_unavailable": true,
+            "requested_language": "en",
+            "original_rule": "The inventory inspection procedure MUST_NOT execute mutating, multiple, extension-loading or metadata SQL. Enforce both SQL authorization and SQLite read-only permissions."
+          }
+        }
+      ],
+      "authority": {
+        "CAP-PILOT-SQL": {
+          "status": "UNKNOWN",
+          "level": "project",
+          "evidence_ref": null
+        },
+        "PILOT-IDENTITY-001": {
+          "status": "UNKNOWN",
+          "level": "project",
+          "evidence_ref": null
+        },
+        "PRIN-007": {
+          "status": "UNKNOWN",
+          "level": "project",
+          "evidence_ref": null
+        },
+        "PILOT-SQL-001": {
+          "status": "UNKNOWN",
+          "level": "project",
+          "evidence_ref": null
+        }
+      },
+      "resolutions": [],
+      "conflict_coverage": "Explicit relationships only; free-text semantic conflicts not claimed resolved",
+      "qualification": "NOT_RUN",
+      "runtime_honesty": "7 REQUIRED / NOT_RUN / NOT_WAIVED; E4 deferred",
+      "publisher_authentication": "UNKNOWN",
+      "governance_release_acceptance": "NOT_GRANTED"
+    },
+    "doctor": {
+      "status": "BLOCKED",
+      "run_id": "DOC-7659b93e-04a5-4be2-bee9-6d4bde556379",
+      "at": "2026-10-25T12:00:38.430097+00:00",
+      "proposal_version_hash": "sha256:4f73108a4ba1867ad79fb30984d8e8ae45843e8dc86c69d498acdc18e6d832e0",
+      "control_hash": "sha256:2303c1a7898916d413f46b2c5f6de1e929d0d676c6b214c0971674e20ac10412",
+      "observations": [
+        {
+          "item_id": "PILOT-SQL-001",
+          "status": "NOT_OBSERVABLE",
+          "code": "GATE_NOT_REGISTERED",
+          "gate_type": "pilot-sql-readonly-v1",
+          "reason": "No authenticated host observation proves this gate. A file/declaration is not branch protection."
+        }
+      ],
+      "e4": "REQUIRED / NOT_RUN / NOT_WAIVED"
+    },
+    "items": [
+      {
+        "kind": "CAPABILITY",
+        "force": "MAY",
+        "severity": "high",
+        "scope": {
+          "paths": [
+            "**/*"
+          ]
+        },
+        "rationale": "Owner-authorized sandbox adoption; no authority outside this project.",
+        "authority": {
+          "source": "owner://T34-T35/2026-10-25/pilot-app-l3",
+          "level": "project",
+          "owner": "Sandbox Project Owner",
+          "approvedBy": "OWNER_T34_T35_20261025",
+          "status": "active",
+          "effectiveFrom": "2026-10-25"
+        },
+        "impact": {
+          "band": "medium",
+          "evidence": "assumed"
+        },
+        "verification": {
+          "commands": [
+            "python -B checks.py"
+          ]
+        },
+        "id": "CAP-PILOT-SQL",
+        "title": "Project SQL inspection procedure",
+        "rule": "Use the registered local read-only procedure when evaluating the inventory SQL boundary. Loading is not execution.",
+        "skillId": "pilot-sql-readonly",
+        "source": "project",
+        "function": "security",
+        "instructionsPath": "procedures/sql-readonly/SKILL.md",
+        "permissions": {
+          "read": [
+            "app/**",
+            "data/inventory.sqlite"
+          ],
+          "write": [],
+          "network": "deny",
+          "secrets": "deny"
+        },
+        "inputs": [],
+        "outputs": [],
+        "defaultTier": "P0-Safety",
+        "minimumStatus": "QUALIFIED",
+        "requiredOnHosts": [
+          "aghr-local-process"
+        ],
+        "maxAgeDays": 1,
+        "skillQualification": {
+          "skillId": "pilot-sql-readonly",
+          "host": "aghr-local-process",
+          "hostVersion": "v24.11.0",
+          "scope": "pilot-app-l3/**",
+          "contentHash": "sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e",
+          "status": "QUALIFIED",
+          "qualifiedAt": "2026-10-25",
+          "evidence": [
+            "e4:execution/E4-dc561dd4-c76e-46b0-b6fd-2046b6db51a4#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a",
+            "e4:execution/E4-066d8eb4-4263-4c3c-8527-2b04d9fff20b#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a",
+            "e4:execution/E4-4ac49c43-8a8d-47f6-b2cc-2707dc7babb4#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a"
+          ]
+        }
+      },
+      {
+        "kind": "CONSTRAINT",
+        "force": "MUST",
+        "severity": "medium",
+        "scope": {
+          "paths": [
+            "**/*"
+          ]
+        },
+        "rationale": "Owner-authorized sandbox adoption; no authority outside this project.",
+        "authority": {
+          "source": "owner://T34-T35/2026-10-25/pilot-app-l3",
+          "level": "project",
+          "owner": "Sandbox Project Owner",
+          "approvedBy": "OWNER_T34_T35_20261025",
+          "status": "active",
+          "effectiveFrom": "2026-10-25"
+        },
+        "impact": {
+          "band": "medium",
+          "evidence": "assumed"
+        },
+        "verification": {
+          "commands": [
+            "python -B checks.py"
+          ]
+        },
+        "id": "PILOT-IDENTITY-001",
+        "title": "Project identity in public read responses",
+        "rule": "Read API responses MUST identify this sandbox project. Do not claim authority over another project."
+      },
+      {
+        "kind": "PRINCIPLE",
+        "force": "MUST",
+        "severity": "medium",
+        "scope": {
+          "paths": [
+            "**/*"
+          ]
+        },
+        "rationale": "Owner-authorized sandbox adoption; no authority outside this project.",
+        "authority": {
+          "source": "owner://T34-T35/2026-10-25/pilot-app-l3",
+          "level": "project",
+          "owner": "Sandbox Project Owner",
+          "approvedBy": "OWNER_T34_T35_20261025",
+          "status": "active",
+          "effectiveFrom": "2026-10-25"
+        },
+        "impact": {
+          "band": "medium",
+          "evidence": "assumed"
+        },
+        "verification": {
+          "commands": [
+            "python -B checks.py"
+          ]
+        },
+        "id": "PRIN-007",
+        "title": "Truthful skill-state reporting",
+        "rule": "When receiving a software task or crossing a substantive phase boundary,\nthe agent MUST evaluate the fitness of the capabilities actually available\nin the execution environment, and select the minimal effective set for\nthe current phase. Priority is given to native capabilities compatible with\nthe host and project. Repetition, conflict, and authorization bypass MUST\nbe prevented. The agent is NOT obligated to use a skill when direct\nexecution is better, and MUST NOT treat discovery or loading as evidence\nof execution or success. Adoption of new skills, modification of governing\ninstructions, and promotion of lessons into persistent memory remain\nsubject to the approved authority and procedure.\n"
+      },
+      {
+        "kind": "CONSTRAINT",
+        "force": "MUST_NOT",
+        "severity": "critical",
+        "scope": {
+          "paths": [
+            "pilot-app-l3/app/**",
+            "pilot-app-l3/data/**"
+          ],
+          "skillIds": [
+            "pilot-sql-readonly"
+          ]
+        },
+        "rationale": "Owner-authorized sandbox adoption; no authority outside this project.",
+        "authority": {
+          "source": "owner://T34-T35/2026-10-25/pilot-app-l3",
+          "level": "project",
+          "owner": "Sandbox Project Owner",
+          "approvedBy": "OWNER_T34_T35_20261025",
+          "status": "active",
+          "effectiveFrom": "2026-10-25"
+        },
+        "impact": {
+          "band": "medium",
+          "evidence": "assumed"
+        },
+        "verification": {
+          "commands": [
+            "python -B checks.py"
+          ],
+          "evalFixtures": [
+            "procedures/sql-readonly/worker.py"
+          ]
+        },
+        "id": "PILOT-SQL-001",
+        "title": "Read-only inventory boundary",
+        "rule": "The inventory inspection procedure MUST_NOT execute mutating, multiple, extension-loading or metadata SQL. Enforce both SQL authorization and SQLite read-only permissions.",
+        "defaultTier": "P0-Safety",
+        "enforcement": {
+          "textual": true,
+          "technical": [
+            "pilot-sql-readonly-v1"
+          ],
+          "failureAction": "block",
+          "mergeEffect": "blocking",
+          "gate": {
+            "type": "pilot-sql-readonly-v1",
+            "required": true
+          }
+        },
+        "skillQualification": {
+          "skillId": "pilot-sql-readonly",
+          "host": "aghr-local-process",
+          "hostVersion": "v24.11.0",
+          "scope": "pilot-app-l3/**",
+          "contentHash": "sha256:6a0fb7d598527b71e3cc3c16f43b529a3d1813d90e990b35b2d24c1422951b6e",
+          "status": "QUALIFIED",
+          "qualifiedAt": "2026-10-25",
+          "evidence": [
+            "e4:execution/E4-dc561dd4-c76e-46b0-b6fd-2046b6db51a4#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a",
+            "e4:execution/E4-066d8eb4-4263-4c3c-8527-2b04d9fff20b#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a",
+            "e4:execution/E4-4ac49c43-8a8d-47f6-b2cc-2707dc7babb4#sha256:4d8c12a9c17acf317f9715c7646c1d80163d55e591288ed1337442907fcae58a"
+          ]
+        }
+      }
+    ]
+  },
+  "resolved": [],
+  "findings": [
+    {
+      "code": "AUTHORITY_SOURCE_UNVERIFIED",
+      "disposition": "BLOCKED",
+      "message": "AUTHORITY_SOURCE_UNVERIFIED at /authority.",
+      "path": "policies/capability.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/authority",
+      "item_id": "CAP-PILOT-SQL"
+    },
+    {
+      "code": "ADVANCED_KIND_REVIEW_REQUIRED",
+      "disposition": "BLOCKED",
+      "message": "ADVANCED_KIND_REVIEW_REQUIRED at /kind.",
+      "path": "policies/capability.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/kind",
+      "item_id": "CAP-PILOT-SQL"
+    },
+    {
+      "code": "AUTHORITY_SOURCE_UNVERIFIED",
+      "disposition": "BLOCKED",
+      "message": "AUTHORITY_SOURCE_UNVERIFIED at /authority.",
+      "path": "policies/identity.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/authority",
+      "item_id": "PILOT-IDENTITY-001"
+    },
+    {
+      "code": "AUTHORITY_SOURCE_UNVERIFIED",
+      "disposition": "BLOCKED",
+      "message": "AUTHORITY_SOURCE_UNVERIFIED at /authority.",
+      "path": "policies/principle.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/authority",
+      "item_id": "PRIN-007"
+    },
+    {
+      "code": "AUTHORITY_SOURCE_UNVERIFIED",
+      "disposition": "BLOCKED",
+      "message": "AUTHORITY_SOURCE_UNVERIFIED at /authority.",
+      "path": "policies/sql.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/authority",
+      "item_id": "PILOT-SQL-001"
+    },
+    {
+      "code": "QUALIFICATION_E4_EVIDENCE_UNAVAILABLE",
+      "disposition": "BLOCKED",
+      "message": "QUALIFICATION_E4_EVIDENCE_UNAVAILABLE at /skillQualification.",
+      "path": "policies/capability.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/skillQualification",
+      "item_id": "CAP-PILOT-SQL"
+    },
+    {
+      "code": "QUALIFICATION_E4_EVIDENCE_UNAVAILABLE",
+      "disposition": "BLOCKED",
+      "message": "QUALIFICATION_E4_EVIDENCE_UNAVAILABLE at /skillQualification.",
+      "path": "policies/sql.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/skillQualification",
+      "item_id": "PILOT-SQL-001"
+    },
+    {
+      "code": "QUALIFICATION_E4_EVIDENCE_UNAVAILABLE",
+      "disposition": "BLOCKED",
+      "message": "QUALIFICATION_E4_EVIDENCE_UNAVAILABLE at /minimumStatus.",
+      "path": "policies/capability.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/minimumStatus",
+      "item_id": "CAP-PILOT-SQL"
+    },
+    {
+      "code": "P0_EVAL_QUALIFICATION_UNAVAILABLE",
+      "disposition": "BLOCKED",
+      "message": "P0_EVAL_QUALIFICATION_UNAVAILABLE at /defaultTier.",
+      "path": "policies/capability.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/defaultTier",
+      "item_id": "CAP-PILOT-SQL"
+    },
+    {
+      "code": "QUALIFICATION_E4_EVIDENCE_UNAVAILABLE",
+      "disposition": "BLOCKED",
+      "message": "QUALIFICATION_E4_EVIDENCE_UNAVAILABLE at /minimumStatus.",
+      "path": "policies/sql.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/minimumStatus",
+      "item_id": "PILOT-SQL-001"
+    },
+    {
+      "code": "ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE",
+      "disposition": "BLOCKED",
+      "message": "ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE at /enforcement.",
+      "path": "policies/sql.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/enforcement",
+      "item_id": "PILOT-SQL-001"
+    },
+    {
+      "code": "P0_EVAL_QUALIFICATION_UNAVAILABLE",
+      "disposition": "BLOCKED",
+      "message": "P0_EVAL_QUALIFICATION_UNAVAILABLE at /defaultTier.",
+      "path": "policies/sql.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/defaultTier",
+      "item_id": "PILOT-SQL-001"
+    },
+    {
+      "code": "OPTIONAL_FIELD_ABSENT",
+      "disposition": "WARNING",
+      "message": "OPTIONAL_FIELD_ABSENT at /reviewCadence.",
+      "path": "policies/capability.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/reviewCadence",
+      "item_id": "CAP-PILOT-SQL"
+    },
+    {
+      "code": "OPTIONAL_FIELD_ABSENT",
+      "disposition": "WARNING",
+      "message": "OPTIONAL_FIELD_ABSENT at /nextReview.",
+      "path": "policies/capability.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/nextReview",
+      "item_id": "CAP-PILOT-SQL"
+    },
+    {
+      "code": "OPTIONAL_FIELD_ABSENT",
+      "disposition": "WARNING",
+      "message": "OPTIONAL_FIELD_ABSENT at /reviewCadence.",
+      "path": "policies/identity.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/reviewCadence",
+      "item_id": "PILOT-IDENTITY-001"
+    },
+    {
+      "code": "OPTIONAL_FIELD_ABSENT",
+      "disposition": "WARNING",
+      "message": "OPTIONAL_FIELD_ABSENT at /nextReview.",
+      "path": "policies/identity.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/nextReview",
+      "item_id": "PILOT-IDENTITY-001"
+    },
+    {
+      "code": "OPTIONAL_FIELD_ABSENT",
+      "disposition": "WARNING",
+      "message": "OPTIONAL_FIELD_ABSENT at /reviewCadence.",
+      "path": "policies/principle.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/reviewCadence",
+      "item_id": "PRIN-007"
+    },
+    {
+      "code": "OPTIONAL_FIELD_ABSENT",
+      "disposition": "WARNING",
+      "message": "OPTIONAL_FIELD_ABSENT at /nextReview.",
+      "path": "policies/principle.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/nextReview",
+      "item_id": "PRIN-007"
+    },
+    {
+      "code": "OPTIONAL_FIELD_ABSENT",
+      "disposition": "WARNING",
+      "message": "OPTIONAL_FIELD_ABSENT at /reviewCadence.",
+      "path": "policies/sql.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/reviewCadence",
+      "item_id": "PILOT-SQL-001"
+    },
+    {
+      "code": "OPTIONAL_FIELD_ABSENT",
+      "disposition": "WARNING",
+      "message": "OPTIONAL_FIELD_ABSENT at /nextReview.",
+      "path": "policies/sql.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/nextReview",
+      "item_id": "PILOT-SQL-001"
+    }
+  ],
+  "live_qualification": {
+    "status": "NOT_RUN"
+  },
+  "source_writes": false,
+  "native_hosts": {
+    "codex": "NOT_RUN",
+    "antigravity": "NOT_RUN"
+  }
+}

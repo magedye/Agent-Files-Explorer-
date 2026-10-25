@@ -1,0 +1,11 @@
+import fs from 'node:fs';
+const p='tools/phase5/finalize.mjs';let text=fs.readFileSync(p,'utf8');
+text=text.replace('tests:{total,pass,fail:0',"tests:{scope:'BASELINE_BEFORE_FINAL_CORRELATION',total,pass,fail:0");
+text=text.replace('focused:{pass:20,',"final_affected:{total:affected,pass:affected,fail:0,source:'TESTED_SOURCE_FINAL_V3.json',log:'FINAL_AFFECTED_TESTS.log'},verification_strategy:'COMPOSED: complete V2 baseline + final V3 affected lifecycle/metrics/API regression + unchanged engine/runtime and browser evidence; not a whole-suite V3 rerun',focused:{pass:20,");
+text=text.replace("'+pass+'/'+total+' و20/20 مركزة وEdge/Sentinel.","'+pass+'/'+total+' على الأساس V2، ثم '+affected+'/'+affected+' للأجزاء المتأثرة على V3، و20/20 مركزة وEdge/Sentinel.");
+text=text.replace("'** والفحوص المركزة **20/20**", "'** على V2، ثم **'+affected+'/'+affected+'** للأجزاء المتأثرة على V3، والفحوص المركزة **20/20**");
+text=text.replace('source/TESTED_SOURCE_FINAL_V2.json','source/TESTED_SOURCE_FINAL_V3.json');
+text=text.replace("console.log({status:'IMPLEMENTED_TESTED_LOCAL_DRAFT',pass,total});", "console.log({status:'IMPLEMENTED_TESTED_LOCAL_DRAFT',baseline:pass,final_affected:affected});");
+text += `\nlet delivered=fs.readFileSync(out+'/README.md','utf8');delivered+='\\n\\n## تركيب أدلة النسخة النهائية V3\\n\\nالاختبار الشامل149/149 يخص المصدر المثبت V2. بعده أُصلح ربط الإصدارات التاريخية، وغياب التنفيذ خارج نافذة الرصد، وكشف العربية دون اعتبار كل محرف غير ASCII لغة غير إنجليزية. نجحت فحوص دورة المهارات وPhase5 المتأثرة '+affected+'/'+affected+' على V3. أُعيد إسقاط مخرجات المشروع الفعلية المحفوظة على المحسب النهائي دون منح تأهيل حي. أدلة المحركات والواجهة الموروثة لم تتغير افتراضاتها؛ لا ندعي إعادة كامل149 اختبارًا على V3. راجع FINAL_ACCEPTANCE وFINAL_AFFECTED_TESTS وFINAL_RUNTIME_REPLAY وTESTED_SOURCE_FINAL_V3.\\n';fs.writeFileSync(out+'/README.md',delivered);\n`;
+fs.writeFileSync(p,text);
+console.log('Final evidence composition is explicit.');

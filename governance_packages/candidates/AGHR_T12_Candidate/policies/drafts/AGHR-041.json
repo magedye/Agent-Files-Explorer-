@@ -1,0 +1,44 @@
+{
+  "id": "AGHR-041",
+  "title": "استيضاح مؤثر ومحدد",
+  "kind": "PROCEDURE",
+  "force": "MUST",
+  "severity": "high",
+  "scope": {
+    "paths": [
+      "**"
+    ]
+  },
+  "rule": "Applies when: Before an action depends on unresolved material intent, requirements, authority or acceptance.\nInspect authorized available sources first. If material ambiguity remains, ask focused questions with viable options, a reasoned recommendation and the affected scope; do not invent the missing decision. Use explicit reversible noncritical assumptions only, preserve prior valid answers, and continue independent authorized work.",
+  "authority": {
+    "source": "drafting/OWNER_DIRECTIVE.json",
+    "level": "project",
+    "owner": "Platform Governance Team",
+    "approvedBy": "PROVISIONAL_OWNER_REVIEW",
+    "status": "draft",
+    "effectiveFrom": "2026-10-23"
+  },
+  "rationale": "الافتراض في نية أو صلاحية جوهرية قد ينتج أثراً خاطئاً. PROVISIONAL_OWNER_REVIEW",
+  "enforcement": {
+    "textual": true,
+    "failureAction": "review",
+    "mergeEffect": "advisory"
+  },
+  "verification": {
+    "evalFixtures": [
+      "drafting/eval-fixtures.json#/AGHR-041"
+    ]
+  },
+  "impact": {
+    "band": "high",
+    "evidence": "assumed"
+  },
+  "reviewCadence": "Owner review before activation and after material changes",
+  "nextReview": "2027-01-21",
+  "exceptions": {
+    "allowed": false
+  },
+  "references": [
+    "drafting/OWNER_DIRECTIVE.json"
+  ]
+}

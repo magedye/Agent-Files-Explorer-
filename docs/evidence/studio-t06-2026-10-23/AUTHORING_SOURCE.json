@@ -1,0 +1,30 @@
+{
+  "canonical": "docs/specs/aghr-rc3/AGHR_REFERENCE.md §3.2",
+  "canonical_sha256": "064820539a90ffe51ccfd1e6dd4700e82bdd4a1d8edb32ea63e15e642c33ef6b",
+  "schema_source": "governance_packages/candidates/AGHR_rc3_Core_Candidate/schemas/item.schema.json",
+  "schema_sha256": "e101feba90172939f007db9a41b456ce3297473477cb094c24549cc6d712d122",
+  "main_fields": [
+    "id",
+    "title",
+    "kind",
+    "force",
+    "severity",
+    "rationale",
+    "authority",
+    "reviewCadence",
+    "nextReview",
+    "scope",
+    "rule",
+    "enforcement",
+    "verification",
+    "impact",
+    "conflictPolicy",
+    "exceptions",
+    "references"
+  ],
+  "field_count": 17,
+  "format_change": "Canonical YAML mapped to schema-supported JSON; authority.source changed to the candidate JSON path",
+  "claims": "Source owner/approver/enterprise/gate declarations are carried from the canonical template, not authenticated or activated by this authoring run. Missing source evidence must remain blocked.",
+  "reference": "1.2.0 unchanged",
+  "candidate_only": true
+}

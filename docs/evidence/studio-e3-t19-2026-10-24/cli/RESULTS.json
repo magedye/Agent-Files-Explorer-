@@ -1,0 +1,130 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "valid",
+      "invocation": {
+        "executable": "C:\\Program Files\\nodejs\\node.exe",
+        "args": [
+          "tools/aghr_studio_cli.mjs",
+          "validate",
+          "--strict",
+          "--input=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e3-t19-2026-10-24\\cli\\valid.input.json"
+        ],
+        "shell": false
+      },
+      "exit_code": 0,
+      "result": "VALID",
+      "engine_hash": "c76c6d5987eca7a5108230f846f52149675fcd5aa54d3bc51b0ae5d18a24b650"
+    },
+    {
+      "name": "missing-authority",
+      "invocation": {
+        "executable": "C:\\Program Files\\nodejs\\node.exe",
+        "args": [
+          "tools/aghr_studio_cli.mjs",
+          "validate",
+          "--strict",
+          "--input=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e3-t19-2026-10-24\\cli\\missing-authority.input.json"
+        ],
+        "shell": false
+      },
+      "exit_code": 1,
+      "result": "INVALID",
+      "engine_hash": "c76c6d5987eca7a5108230f846f52149675fcd5aa54d3bc51b0ae5d18a24b650"
+    },
+    {
+      "name": "canonical-sec001",
+      "invocation": {
+        "executable": "C:\\Program Files\\nodejs\\node.exe",
+        "args": [
+          "tools/aghr_studio_cli.mjs",
+          "validate",
+          "--strict",
+          "--input=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e3-t19-2026-10-24\\cli\\canonical-sec001.input.json"
+        ],
+        "shell": false
+      },
+      "exit_code": 3,
+      "result": "BLOCKED",
+      "engine_hash": "c76c6d5987eca7a5108230f846f52149675fcd5aa54d3bc51b0ae5d18a24b650"
+    },
+    {
+      "name": "github-unobserved",
+      "invocation": {
+        "executable": "C:\\Program Files\\nodejs\\node.exe",
+        "args": [
+          "tools/aghr_studio_cli.mjs",
+          "doctor",
+          "--input=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e3-t19-2026-10-24\\cli\\github-unobserved.input.json"
+        ],
+        "shell": false
+      },
+      "exit_code": 3,
+      "result": "BLOCKED",
+      "engine_hash": "c76c6d5987eca7a5108230f846f52149675fcd5aa54d3bc51b0ae5d18a24b650"
+    },
+    {
+      "name": "real-local-gate",
+      "invocation": {
+        "executable": "C:\\Program Files\\nodejs\\node.exe",
+        "args": [
+          "tools/aghr_studio_cli.mjs",
+          "doctor",
+          "--input=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e3-t19-2026-10-24\\cli\\real-local-gate.input.json"
+        ],
+        "shell": false
+      },
+      "exit_code": 0,
+      "result": "VALID",
+      "engine_hash": "c76c6d5987eca7a5108230f846f52149675fcd5aa54d3bc51b0ae5d18a24b650"
+    },
+    {
+      "name": "generation",
+      "invocation": {
+        "executable": "C:\\Program Files\\nodejs\\node.exe",
+        "args": [
+          "tools/aghr_studio_cli.mjs",
+          "generate",
+          "--input=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e3-t19-2026-10-24\\cli\\generation.input.json"
+        ],
+        "shell": false
+      },
+      "exit_code": 0,
+      "result": "READ",
+      "engine_hash": "c76c6d5987eca7a5108230f846f52149675fcd5aa54d3bc51b0ae5d18a24b650"
+    },
+    {
+      "name": "untrusted-grant",
+      "invocation": {
+        "executable": "C:\\Program Files\\nodejs\\node.exe",
+        "args": [
+          "tools/aghr_studio_cli.mjs",
+          "validate",
+          "--strict",
+          "--input=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e3-t19-2026-10-24\\cli\\untrusted-grant.input.json"
+        ],
+        "shell": false
+      },
+      "exit_code": 2,
+      "result": "ERROR",
+      "engine_hash": "c76c6d5987eca7a5108230f846f52149675fcd5aa54d3bc51b0ae5d18a24b650"
+    },
+    {
+      "name": "unknown-command",
+      "invocation": {
+        "executable": "C:\\Program Files\\nodejs\\node.exe",
+        "args": [
+          "tools/aghr_studio_cli.mjs",
+          "unknown",
+          "--input=D:\\APP\\Agent-Files-Explorer\\docs\\evidence\\studio-e3-t19-2026-10-24\\cli\\unknown-command.input.json"
+        ],
+        "shell": false
+      },
+      "exit_code": 2,
+      "result": "ERROR",
+      "engine_hash": "c76c6d5987eca7a5108230f846f52149675fcd5aa54d3bc51b0ae5d18a24b650"
+    }
+  ],
+  "e4": "REQUIRED / NOT_RUN / NOT_WAIVED"
+}

@@ -1,0 +1,79 @@
+{
+  "status": "PASS_FOR_MOCK_AND_ISOLATED_CORE",
+  "at": "2026-10-23T15:46:37.926668+00:00",
+  "checks_passed": 1571,
+  "checks_by_category": {
+    "parent_lock_immutable": 1,
+    "authorized_before_snapshot": 5,
+    "prior_files_unchanged": 1382,
+    "only_authorized_old_files_changed": 1,
+    "additional_before_file_changed": 5,
+    "raw_before_valid": 10,
+    "node_mock_checks": 1,
+    "mock_native_results_separate": 1,
+    "no_private_key_or_activation": 1,
+    "mock_candidate_pin": 57,
+    "scoped_authority_changes": 1,
+    "explicit_mock_labels": 47,
+    "approved_mock_override": 44,
+    "68_tests_pass": 1,
+    "new_regression_suite_present": 3,
+    "specific_integration_check_executed": 4,
+    "new_component_present": 4,
+    "real_backend_rejects_mock_marker": 1,
+    "fixed_authorization_fallback_removed": 1,
+    "sql_contract_unchanged": 1
+  },
+  "T12": "OWNER_CONDITIONAL_ACCEPTANCE_MET / MOCK_ONLY_CLOSED",
+  "T13": "CORE_IMPLEMENTED_TESTED; INTERACTIVE_INTEGRATION_OPEN",
+  "T14": "CORE_TESTED_TEMP_DISK; APPLICATION_STORAGE_NOT_ACTIVATED",
+  "mock_strict_exit": 0,
+  "mock_lint_exit": 0,
+  "native_control_exit": 3,
+  "mock_items": 47,
+  "npm_tests": {
+    "passed": 68,
+    "failed": 0,
+    "skipped": 0
+  },
+  "context_health": "PASS",
+  "prior_custody": {
+    "pinned": 1387,
+    "unchanged": 1382,
+    "authorized_changed_with_raw_before": [
+      ".gitattributes",
+      "docs/INDEX.md",
+      "docs/plans/STUDIO_UPGRADE_TASKS_AR.md",
+      "docs/status/CURRENT.md",
+      "docs/status/HANDOFF.md"
+    ]
+  },
+  "per_turn_baseline": {
+    "raw_before_files": 10,
+    "additional_files_absent_from_parent_lock": [
+      "server/api.js",
+      "server/evaluation.js",
+      "server/intake.js",
+      "server/staging.js",
+      "tests/governance_studio.test.mjs"
+    ],
+    "changed_files": [
+      ".gitattributes",
+      "docs/INDEX.md",
+      "docs/plans/STUDIO_UPGRADE_TASKS_AR.md",
+      "docs/status/CURRENT.md",
+      "docs/status/HANDOFF.md",
+      "server/api.js",
+      "server/evaluation.js",
+      "server/intake.js",
+      "server/staging.js",
+      "tests/governance_studio.test.mjs"
+    ]
+  },
+  "reference_1_2_0": "UNCHANGED / DEFAULT",
+  "engine_schema_changes": 0,
+  "live_application_data_writes": 0,
+  "new_Edge_Sentinel": "NOT_RUN; scoped API zero-write regression passed",
+  "independent_review": "NOT_PERFORMED; adversarial self-review only",
+  "E4": "7 REQUIRED / NOT_RUN / NOT_WAIVED"
+}

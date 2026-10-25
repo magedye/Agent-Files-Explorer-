@@ -1,0 +1,139 @@
+{
+  "status": "IMPLEMENTED_TESTED_LOCAL_DRAFT",
+  "full_regression": {
+    "passed": 129,
+    "failed": 0,
+    "skipped": 0,
+    "raw": "NPM_TEST_FINAL.log",
+    "source": "TESTED_SOURCE_FINAL.json",
+    "coverage_notes": [
+      {
+        "path": "server/studio/phase4/service.mjs",
+        "sha256": "524aa905477f2b4c211f7f5b298de851a588948a90e11a0f1952ed98f046d0be",
+        "reason": "Enforce aggregate600s eval/3600s qualify deadlines in addition to immutable T15 per-process limits.",
+        "proof": "PHASE4_TEST_PROCESS.json: affected test process started after final deadline adjustment; final129/129 includes actual eval/qualification."
+      }
+    ]
+  },
+  "focused_phase4": {
+    "passed": 8,
+    "failed": 0,
+    "raw": "FOCUSED_FINAL.log"
+  },
+  "final_contract_guard": {
+    "passed": 1,
+    "failed": 0,
+    "raw": "CONTRACTS_FINAL_V2.log"
+  },
+  "browser": {
+    "status": "PASS",
+    "checks": [
+      "Actual authorized Meta CP from UI; no proposed tool execution or source write",
+      "Seven-step wizard retains one CP and actual3-run qualification; no installation",
+      "Error/evidence/UNPROVEN cause become a Draft CP without policy promotion",
+      "UI-authorized real watcher observes file drop; original preserved and Draft only",
+      "Actual3-run measurement → calibrated CP → owner hash-bound approval, original still assumed",
+      "No overflow ar 320",
+      "No overflow ar 768",
+      "No overflow ar 1024",
+      "No overflow ar 1440",
+      "No overflow en 320",
+      "No overflow en 768",
+      "No overflow en 1024",
+      "No overflow en 1440"
+    ],
+    "source": "browser-final/BROWSER_ACCEPTANCE.json",
+    "console": "No errors/warnings/issues observed"
+  },
+  "context": "0 errors,0 warnings",
+  "build": "PASS; existing legacy chunk-size advisory",
+  "preservation": {
+    "status": "PASS",
+    "parent_unchanged": 145,
+    "parent_total": 153,
+    "immutable_e3_files": 1915,
+    "authorized_edits": [
+      {
+        "path": "docs/INDEX.md",
+        "before": "5ba09c68a0b7039ce457ee8021a8fd9ea38e05934193b90f3f619e50a6db360f",
+        "after": "b8f36e752b16a65b93d936f98eea5aa7718ffe74c63be4ca3acdf5951ce2bdd2",
+        "copy": "before/docs/INDEX.md.raw"
+      },
+      {
+        "path": "docs/plans/STUDIO_UPGRADE_TASKS_AR.md",
+        "before": "53002280603aa59b9696394b8d8307822c20925e3d5631d37d106534eb447170",
+        "after": "d18c27a643e75e7ff07d168345ec1e933f3123d9d1743dd1fe67e286cf0fe879",
+        "copy": "before/docs/plans/STUDIO_UPGRADE_TASKS_AR.md.raw"
+      },
+      {
+        "path": "docs/status/CURRENT.md",
+        "before": "a013eac7ac64f0e7aab5d42ec09189a2b0b06fae22b1ab3f2d61ab85939fc20b",
+        "after": "f45de0036271dce4158e4f62436275a317946d36aad63c604e3a24aa08832d42",
+        "copy": "before/docs/status/CURRENT.md.raw"
+      },
+      {
+        "path": "docs/status/HANDOFF.md",
+        "before": "ced8803fee4b055ebce71dce80a1f59742b7f850f4596798c76a56c22dd93124",
+        "after": "1640df53392e22baf4761211ec6646251383ef70b3150d3c9416d7db7eb5b83f",
+        "copy": "before/docs/status/HANDOFF.md.raw"
+      },
+      {
+        "path": "server/studio/db/persistent.js",
+        "before": "26c1cde8d431c849313f839ed5de8ac7700ce24e98dd8ba30bda377ed184aac3",
+        "after": "c854d312a9bd8bd94676d80cecf3dc9467ac8401abb5cfd13ba67f335abb8671",
+        "copy": "before/server/studio/db/persistent.js.raw"
+      },
+      {
+        "path": "server/studio/draft-runtime.js",
+        "before": "30d564555002b6121d04db1e591f29019044a31a8a307e26ba7b8d15cf7bb41c",
+        "after": "9ec0d8efd6b5bb135d9c257a5778da53b5975fea8e440731403453bbc65bce57",
+        "copy": "before/server/studio/draft-runtime.js.raw"
+      },
+      {
+        "path": "server/studio/serve-draft.mjs",
+        "before": "db25883f9da1e359ae3ddd3581e190b6cfbc90b5edb533ad1adf837e844eabf7",
+        "after": "75efdb1de5fc729e0fc617d9f2232d7a8aa31a45c083d218acd4edcb5bd929f0",
+        "copy": "before/server/studio/serve-draft.mjs.raw"
+      },
+      {
+        "path": "src/features/changes/DraftStudio.jsx",
+        "before": "21f3bc9335898844f80bbcf564471f1381fc27cf14fc54895375f7004978af70",
+        "after": "53d4902be6d970b1a1abb366547de946e013f3c77f07eabbac0efe64f7031063",
+        "copy": "before/src/features/changes/DraftStudio.jsx.raw"
+      },
+      {
+        "path": "server/studio/draft-routes.js",
+        "before": "b736cff1173ae1e2d3f427c609c1eb21ea7efc5f236263ca6adefcc171943193",
+        "after": "80a68ad3b8fb32009bbff2da5600020631eb9b29d2a8db9da0738da00918f393",
+        "copy": "before/server/studio/draft-routes.js.raw"
+      }
+    ],
+    "e1_e4": "UNCHANGED",
+    "reference120": "Unchanged via explicit transitive sealed file lists; no governance package crawl",
+    "default_draft_db_used": false,
+    "state_written": false,
+    "source_apply": false
+  },
+  "operational": {
+    "meta_positive_production_evaluation": "NOT_RUN_NOT_CONFIGURED",
+    "measurement": "ACTUAL_ISOLATED_TEST_REPOSITORY_ONLY",
+    "native": "REQUIRED / NOT_RUN / NOT_WAIVED",
+    "hosted_ci": "NOT_RUN",
+    "default_owner_db_used": false,
+    "policy_promotion": false,
+    "source_apply": false,
+    "state_written": false,
+    "skill_installation": false,
+    "phase5": "NOT_STARTED"
+  },
+  "first_regression": {
+    "classification": "STALE_CONTEXT",
+    "proof": "REGRESSION_FIRST_ROOT_CAUSE.json",
+    "kept": true
+  },
+  "branch": "main",
+  "head": "133746a0ad99d10568a44c8d225219df8454271c",
+  "independent_review": "NOT_PERFORMED",
+  "phase4_owner_acceptance": "NOT_SELF_GRANTED",
+  "release_acceptance": "NOT_GRANTED"
+}

@@ -1,0 +1,917 @@
+[
+  {
+    "operation": "listWorkspaces",
+    "case": "positive",
+    "method": "GET",
+    "route": "/workspaces",
+    "status": 200,
+    "request": null,
+    "response": {
+      "data": [
+        {
+          "id": "rc3-local",
+          "name": "AGHR rc.3 Core — Local Source Candidate",
+          "package_path": "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate",
+          "package_version": "1.0.0-rc.3",
+          "schema_version": "1.2",
+          "read_only": true,
+          "package_signature_verified": false,
+          "signature_identity": null,
+          "signature_verified_at": null,
+          "created_at": "2026-10-25T14:15:30.432Z",
+          "last_scanned_at": "2026-10-25T14:15:30.432Z",
+          "scan_duration_ms": 7651
+        },
+        {
+          "id": "pilot-app-l2",
+          "name": "pilot-app-l2 scoped sandbox package",
+          "package_path": "D:\\APP\\Agent-Files-Explorer\\pilot-app-l2\\.aghr\\package",
+          "package_version": "1.0.0-rc.3",
+          "schema_version": "1.2",
+          "read_only": true,
+          "package_signature_verified": false,
+          "created_at": "2026-10-25T11:56:07.112Z",
+          "last_scanned_at": "2026-10-25T11:56:07.112Z"
+        },
+        {
+          "id": "pilot-app-l3",
+          "name": "pilot-app-l3 scoped sandbox package",
+          "package_path": "D:\\APP\\Agent-Files-Explorer\\pilot-app-l3\\.aghr\\package",
+          "package_version": "1.0.0-rc.3",
+          "schema_version": "1.2",
+          "read_only": true,
+          "package_signature_verified": false,
+          "created_at": "2026-10-25T12:06:17.299Z",
+          "last_scanned_at": "2026-10-25T12:06:17.299Z"
+        }
+      ],
+      "meta": {
+        "request_id": "74a64ab5-a59b-48a7-9b13-e6839340d29c",
+        "recorded_at": "2026-10-25T14:15:39.717Z",
+        "contract_revision": "contract.1",
+        "limit": 500,
+        "total": 3,
+        "next_cursor": null
+      }
+    }
+  },
+  {
+    "operation": "registerWorkspace",
+    "case": "positive",
+    "method": "POST",
+    "route": "/workspaces",
+    "status": 201,
+    "request": {
+      "name": "Contract L2 registration",
+      "package_path": "D:\\APP\\Agent-Files-Explorer\\pilot-app-l2\\.aghr\\package"
+    },
+    "response": {
+      "data": {
+        "id": "WS-f083c1d5-897a-4b79-88dc-17dc10cb6991",
+        "name": "Contract L2 registration",
+        "package_path": "D:\\APP\\Agent-Files-Explorer\\pilot-app-l2\\.aghr\\package",
+        "package_version": "1.0.0-rc.3",
+        "schema_version": "1.2",
+        "read_only": true,
+        "package_signature_verified": false,
+        "created_at": "2026-10-25T14:15:45.528Z",
+        "last_scanned_at": "2026-10-25T14:15:45.528Z"
+      },
+      "meta": {
+        "request_id": "0e08f380-5df0-4702-9369-657402b29919",
+        "contract_revision": "contract.1",
+        "recorded_at": "2026-10-25T14:15:45.541Z"
+      }
+    }
+  },
+  {
+    "operation": "scanWorkspace",
+    "case": "positive",
+    "method": "POST",
+    "route": "/workspaces/WS-f083c1d5-897a-4b79-88dc-17dc10cb6991/scan",
+    "status": 200,
+    "request": null,
+    "response": {
+      "data": {
+        "workspace_id": "WS-f083c1d5-897a-4b79-88dc-17dc10cb6991",
+        "scanned_at": "2026-10-25T14:15:45.757Z",
+        "duration_ms": 81,
+        "counts": {
+          "items": 2
+        },
+        "issues": [],
+        "source_written": false
+      },
+      "meta": {
+        "request_id": "6f9add7f-93bc-4adb-9263-ca8b36e9162b",
+        "contract_revision": "contract.1",
+        "recorded_at": "2026-10-25T14:15:45.773Z"
+      }
+    }
+  },
+  {
+    "operation": "registerProject",
+    "case": "positive",
+    "method": "POST",
+    "route": "/workspaces/WS-f083c1d5-897a-4b79-88dc-17dc10cb6991/projects",
+    "status": 201,
+    "request": {
+      "name": "L2 registered",
+      "path": "D:\\APP\\Agent-Files-Explorer\\pilot-app-l2",
+      "host": "aghr-local-process",
+      "host_version": "v24.11.0"
+    },
+    "response": {
+      "data": {
+        "id": "PR-0fd6f20b-1364-43e8-85ed-55dab725d385",
+        "workspace_id": "WS-f083c1d5-897a-4b79-88dc-17dc10cb6991",
+        "name": "L2 registered",
+        "path": "D:\\APP\\Agent-Files-Explorer\\pilot-app-l2",
+        "host": "aghr-local-process",
+        "host_version": "v24.11.0",
+        "instruction_level": "L2",
+        "skill_level": "L0",
+        "git_commit_sha": "bef262c3d4fbc2ebbef2a8909c807fe2956aa379",
+        "last_scanned_at": "2026-10-25T14:15:51.107Z"
+      },
+      "meta": {
+        "request_id": "33c46ea6-da72-48f0-b94a-9e3a8477d709",
+        "contract_revision": "contract.1",
+        "recorded_at": "2026-10-25T14:15:51.127Z"
+      }
+    }
+  },
+  {
+    "operation": "listProjects",
+    "case": "positive",
+    "method": "GET",
+    "route": "/workspaces/WS-f083c1d5-897a-4b79-88dc-17dc10cb6991/projects",
+    "status": 200,
+    "request": null,
+    "response": {
+      "data": [
+        {
+          "id": "PR-0fd6f20b-1364-43e8-85ed-55dab725d385",
+          "workspace_id": "WS-f083c1d5-897a-4b79-88dc-17dc10cb6991",
+          "name": "L2 registered",
+          "path": "D:\\APP\\Agent-Files-Explorer\\pilot-app-l2",
+          "host": "aghr-local-process",
+          "host_version": "v24.11.0",
+          "instruction_level": "L2",
+          "skill_level": "L0",
+          "git_commit_sha": "bef262c3d4fbc2ebbef2a8909c807fe2956aa379",
+          "last_scanned_at": "2026-10-25T14:15:51.107Z"
+        }
+      ],
+      "meta": {
+        "request_id": "ac1857ce-79a9-4346-b4c4-92b9e8b30c15",
+        "contract_revision": "contract.1",
+        "recorded_at": "2026-10-25T14:15:51.135Z",
+        "total": 1,
+        "limit": 100,
+        "next_cursor": null
+      }
+    }
+  },
+  {
+    "operation": "scanProject",
+    "case": "positive",
+    "method": "POST",
+    "route": "/workspaces/WS-f083c1d5-897a-4b79-88dc-17dc10cb6991/projects/PR-0fd6f20b-1364-43e8-85ed-55dab725d385/scan",
+    "status": 200,
+    "request": null,
+    "response": {
+      "data": {
+        "workspace_id": "WS-f083c1d5-897a-4b79-88dc-17dc10cb6991",
+        "scanned_at": "2026-10-25T14:15:51.260Z",
+        "duration_ms": 60,
+        "counts": {
+          "items": 2
+        },
+        "issues": [],
+        "source_written": false
+      },
+      "meta": {
+        "request_id": "3d7a64b9-7d0d-48d0-b1dd-6c93a7f36891",
+        "contract_revision": "contract.1",
+        "recorded_at": "2026-10-25T14:15:51.290Z"
+      }
+    }
+  },
+  {
+    "operation": "getProjectConfig",
+    "case": "positive",
+    "method": "GET",
+    "route": "/workspaces/WS-f083c1d5-897a-4b79-88dc-17dc10cb6991/projects/PR-0fd6f20b-1364-43e8-85ed-55dab725d385/config",
+    "status": 200,
+    "request": null,
+    "response": {
+      "data": {
+        "project_id": "PR-0fd6f20b-1364-43e8-85ed-55dab725d385",
+        "state": {
+          "schemaVersion": "1.2",
+          "aghrVersion": "1.0.0-rc.3",
+          "adoptionLevel": "L2",
+          "domainLevels": {
+            "instructions": "L2",
+            "skills": "L0"
+          },
+          "evalStatus": "NOT_RUN",
+          "skillQualification": [],
+          "exceptions": [],
+          "publication": {
+            "publisher": "ci",
+            "ciRunRef": "local-git-ci:bf233e81-6d3d-4b6e-86b8-c7f7dc384307",
+            "commitHash": "bef262c3d4fbc2ebbef2a8909c807fe2956aa379",
+            "publishedAt": "2026-10-25T11:56:07.112Z",
+            "sourceEvidence": [
+              {
+                "path": ".aghr/ci-results/pr-evidence-63206aa4-241a-4057-9c69-c36e6b97f6a8.json",
+                "content_hash": "sha256:cdd72d08f829fd47e0c44a160970a869e3f3785971bf7be6d0bf0c75fac7300a",
+                "bytes": 57307
+              }
+            ]
+          }
+        },
+        "source": null,
+        "profile": "SANDBOX_LOCAL_CI_V1",
+        "selections": []
+      },
+      "meta": {
+        "request_id": "0e0caa38-4d6e-4dce-966c-7837c7763f9b",
+        "contract_revision": "contract.1",
+        "recorded_at": "2026-10-25T14:15:51.307Z"
+      }
+    }
+  },
+  {
+    "operation": "listInstructions",
+    "case": "positive",
+    "method": "GET",
+    "route": "/workspaces/rc3-local/instructions",
+    "status": 200,
+    "request": null,
+    "response": {
+      "data": [
+        {
+          "item": {
+            "id": "OBS-REFERENCE-STATE-001",
+            "title": "رصد المرجع الافتراضي المعلن في مصدر التطبيق",
+            "kind": "OBSERVATION",
+            "force": "INFORMATIVE",
+            "severity": "info",
+            "scope": {
+              "paths": [
+                "server/security.js"
+              ]
+            },
+            "rule": "في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \"aghr_1_2_0\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.",
+            "impact": {
+              "band": "info",
+              "evidence": "assumed"
+            }
+          },
+          "source_path": "policies/observations/reference-state.json",
+          "source_hash": "sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0",
+          "source_yaml": "{\n  \"id\": \"OBS-REFERENCE-STATE-001\",\n  \"title\": \"رصد المرجع الافتراضي المعلن في مصدر التطبيق\",\n  \"kind\": \"OBSERVATION\",\n  \"force\": \"INFORMATIVE\",\n  \"severity\": \"info\",\n  \"scope\": {\n    \"paths\": [\n      \"server/security.js\"\n    ]\n  },\n  \"rule\": \"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\",\n  \"impact\": {\n    \"band\": \"info\",\n    \"evidence\": \"assumed\"\n  }\n}\n",
+          "validation_status": "VALID",
+          "diagnostics": [],
+          "translation_unavailable": true,
+          "is_review_due": null,
+          "priority_tier": null,
+          "issuer_trust": {
+            "status": "UNKNOWN",
+            "evidence": [],
+            "reason": "Pinned source digest is not authenticated publisher identity."
+          }
+        }
+      ],
+      "meta": {
+        "request_id": "933503c1-502a-4cef-a443-1e0b921f71c9",
+        "contract_revision": "contract.1",
+        "recorded_at": "2026-10-25T14:15:51.340Z",
+        "total": 1,
+        "limit": 100,
+        "next_cursor": null
+      }
+    }
+  },
+  {
+    "operation": "getInstruction",
+    "case": "positive",
+    "method": "GET",
+    "route": "/workspaces/rc3-local/instructions/OBS-REFERENCE-STATE-001",
+    "status": 200,
+    "request": null,
+    "response": {
+      "data": {
+        "item": {
+          "id": "OBS-REFERENCE-STATE-001",
+          "title": "رصد المرجع الافتراضي المعلن في مصدر التطبيق",
+          "kind": "OBSERVATION",
+          "force": "INFORMATIVE",
+          "severity": "info",
+          "scope": {
+            "paths": [
+              "server/security.js"
+            ]
+          },
+          "rule": "في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \"aghr_1_2_0\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.",
+          "impact": {
+            "band": "info",
+            "evidence": "assumed"
+          }
+        },
+        "source_path": "policies/observations/reference-state.json",
+        "source_hash": "sha256:f89bb22c7c95b42b3889a8725018ca2fe8e91d29ebc1548f5875ecd978e31cc0",
+        "source_yaml": "{\n  \"id\": \"OBS-REFERENCE-STATE-001\",\n  \"title\": \"رصد المرجع الافتراضي المعلن في مصدر التطبيق\",\n  \"kind\": \"OBSERVATION\",\n  \"force\": \"INFORMATIVE\",\n  \"severity\": \"info\",\n  \"scope\": {\n    \"paths\": [\n      \"server/security.js\"\n    ]\n  },\n  \"rule\": \"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\",\n  \"impact\": {\n    \"band\": \"info\",\n    \"evidence\": \"assumed\"\n  }\n}\n",
+        "validation_status": "VALID",
+        "diagnostics": [],
+        "translation_unavailable": true,
+        "is_review_due": null,
+        "priority_tier": null,
+        "issuer_trust": {
+          "status": "UNKNOWN",
+          "evidence": [],
+          "reason": "Pinned source digest is not authenticated publisher identity."
+        }
+      },
+      "meta": {
+        "request_id": "35a65754-073f-4317-8a38-0858fb83edc8",
+        "contract_revision": "contract.1",
+        "recorded_at": "2026-10-25T14:15:51.355Z"
+      }
+    }
+  },
+  {
+    "operation": "getInstructionRelations",
+    "case": "positive",
+    "method": "GET",
+    "route": "/workspaces/rc3-local/instructions/OBS-REFERENCE-STATE-001/relations",
+    "status": 200,
+    "request": null,
+    "response": {
+      "data": [],
+      "meta": {
+        "request_id": "9b826544-6b1d-4868-b41b-f1a30a3bf898",
+        "contract_revision": "contract.1",
+        "recorded_at": "2026-10-25T14:15:51.363Z"
+      }
+    }
+  },
+  {
+    "operation": "getInstructionHistory",
+    "case": "positive",
+    "method": "GET",
+    "route": "/workspaces/rc3-local/instructions/OBS-REFERENCE-STATE-001/history",
+    "status": 200,
+    "request": null,
+    "response": {
+      "data": [],
+      "meta": {
+        "request_id": "9ad3ba63-57df-4311-8979-a3991a93ef83",
+        "contract_revision": "contract.1",
+        "recorded_at": "2026-10-25T14:15:51.373Z"
+      }
+    }
+  },
+  {
+    "operation": "getInstructionEvals",
+    "case": "positive",
+    "method": "GET",
+    "route": "/workspaces/rc3-local/instructions/OBS-REFERENCE-STATE-001/evals",
+    "status": 200,
+    "request": null,
+    "response": {
+      "data": [],
+      "meta": {
+        "request_id": "a9ce265a-b174-4f16-97ec-fd441356e44e",
+        "recorded_at": "2026-10-25T14:15:51.388Z",
+        "contract_revision": "contract.1"
+      }
+    }
+  },
+  {
+    "operation": "getInstructionCalibrations",
+    "case": "positive",
+    "method": "GET",
+    "route": "/workspaces/rc3-local/instructions/OBS-REFERENCE-STATE-001/calibrations",
+    "status": 200,
+    "request": null,
+    "response": {
+      "data": [],
+      "meta": {
+        "request_id": "65165ff4-e7ab-499b-ad11-d09a2eb21d7b",
+        "recorded_at": "2026-10-25T14:15:51.397Z",
+        "contract_revision": "contract.1"
+      }
+    }
+  },
+  {
+    "operation": "listCapabilities",
+    "case": "positive",
+    "method": "GET",
+    "route": "/workspaces/pilot-app-l3/capabilities",
+    "status": 200,
+    "request": null,
+    "response": {
+      "data": [
+        {
+          "item_id": "CAP-PILOT-SQL",
+          "capability": {
+            "skillId": "pilot-sql-readonly",
+            "source": "project",
+            "function": "security",
+            "permissions": {
+              "read": [
+                "app/**",
+                "data/inventory.sqlite"
+              ],
+              "write": [],
+              "network": "deny",
+              "secrets": "deny"
+            },
+            "inputs": [],
+            "outputs": [],
+            "instructionsPath": "procedures/sql-readonly/SKILL.md",
+            "defaultTier": "P0-Safety",
+            "minimumStatus": "QUALIFIED",
+            "requiredOnHosts": [
+              "aghr-local-process"
+            ],
+            "maxAgeDays": 1
+          },
+          "qualifications": [],
+          "availability": [
+            {
+              "state": "DISCOVERED",
+              "evidence": [
+                {
+                  "path": "docs/evidence/studio-pilots-2026-10-25/public-ci/pilot-app-l3.json",
+                  "content_hash": "sha256:bdf4a13b6ba8edca2eb440d1917a8c4c6fff501d6b458ba511b1d2c4a9d84be1",
+                  "bytes": 5844
+                }
+              ],
+              "reason": "Actual operator-registered local inventory; no qualification is inferred."
+            }
+          ],
+          "source_path": ".aghr/package/policies/capability.json",
+          "content_hash": "sha256:5f4a273df0a1ebe7c18c7f0eb08ef001a82cef1582ff244c5c2efc8d525c0cea",
+          "issuer_trust": {
+            "status": "UNKNOWN",
+            "evidence": [],
+            "reason": "Historical sandbox CI is verified; no package signing identity or fresh strict run is asserted."
+          }
+        }
+      ],
+      "meta": {
+        "request_id": "179bc651-4236-4349-936b-e1090248d2b2",
+        "recorded_at": "2026-10-25T14:15:51.412Z",
+        "contract_revision": "contract.1",
+        "total": 1,
+        "limit": 100,
+        "next_cursor": null
+      }
+    }
+  },
+  {
+    "operation": "getCapability",
+    "case": "positive",
+    "method": "GET",
+    "route": "/workspaces/pilot-app-l3/capabilities/CAP-PILOT-SQL",
+    "status": 200,
+    "request": null,
+    "response": {
+      "data": {
+        "item_id": "CAP-PILOT-SQL",
+        "capability": {
+          "skillId": "pilot-sql-readonly",
+          "source": "project",
+          "function": "security",
+          "permissions": {
+            "read": [
+              "app/**",
+              "data/inventory.sqlite"
+            ],
+            "write": [],
+            "network": "deny",
+            "secrets": "deny"
+          },
+          "inputs": [],
+          "outputs": [],
+          "instructionsPath": "procedures/sql-readonly/SKILL.md",
+          "defaultTier": "P0-Safety",
+          "minimumStatus": "QUALIFIED",
+          "requiredOnHosts": [
+            "aghr-local-process"
+          ],
+          "maxAgeDays": 1
+        },
+        "qualifications": [],
+        "availability": [
+          {
+            "state": "DISCOVERED",
+            "evidence": [
+              {
+                "path": "docs/evidence/studio-pilots-2026-10-25/public-ci/pilot-app-l3.json",
+                "content_hash": "sha256:bdf4a13b6ba8edca2eb440d1917a8c4c6fff501d6b458ba511b1d2c4a9d84be1",
+                "bytes": 5844
+              }
+            ],
+            "reason": "Actual operator-registered local inventory; no qualification is inferred."
+          }
+        ],
+        "source_path": ".aghr/package/policies/capability.json",
+        "content_hash": "sha256:5f4a273df0a1ebe7c18c7f0eb08ef001a82cef1582ff244c5c2efc8d525c0cea",
+        "issuer_trust": {
+          "status": "UNKNOWN",
+          "evidence": [],
+          "reason": "Historical sandbox CI is verified; no package signing identity or fresh strict run is asserted."
+        }
+      },
+      "meta": {
+        "request_id": "df4e0bb6-ba10-4c64-84e1-e8e1ba22daed",
+        "recorded_at": "2026-10-25T14:15:51.421Z",
+        "contract_revision": "contract.1"
+      }
+    }
+  },
+  {
+    "operation": "getCapabilityQualification",
+    "case": "positive",
+    "method": "GET",
+    "route": "/workspaces/pilot-app-l3/capabilities/CAP-PILOT-SQL/qualification",
+    "status": 200,
+    "request": null,
+    "response": {
+      "data": [],
+      "meta": {
+        "request_id": "9316d425-89cc-4baf-9c01-82942bc8ba58",
+        "recorded_at": "2026-10-25T14:15:51.429Z",
+        "contract_revision": "contract.1"
+      }
+    }
+  },
+  {
+    "operation": "getCapabilityUsage",
+    "case": "positive",
+    "method": "GET",
+    "route": "/workspaces/pilot-app-l3/capabilities/CAP-PILOT-SQL/usage",
+    "status": 200,
+    "request": null,
+    "response": {
+      "data": [],
+      "meta": {
+        "request_id": "b99cedc2-e240-4ec3-96f5-666c63664f4d",
+        "recorded_at": "2026-10-25T14:15:51.455Z",
+        "contract_revision": "contract.1"
+      }
+    }
+  },
+  {
+    "operation": "getCapability",
+    "case": "positive",
+    "method": "GET",
+    "route": "/workspaces/pilot-app-l3/capabilities/matrix",
+    "status": 200,
+    "request": null,
+    "response": {
+      "data": {
+        "skills": [
+          "pilot-sql-readonly"
+        ],
+        "hosts": [
+          {
+            "host": "aghr-local-process",
+            "host_version": "1.0.0"
+          }
+        ],
+        "cells": []
+      },
+      "meta": {
+        "request_id": "93eefbec-1127-4cd6-a5d4-0eeb8b8fd6f4",
+        "recorded_at": "2026-10-25T14:15:51.469Z",
+        "contract_revision": "contract.1"
+      }
+    }
+  },
+  {
+    "operation": "createChangePackage",
+    "case": "positive",
+    "method": "POST",
+    "route": "/workspaces/rc3-local/cps",
+    "status": 201,
+    "request": {
+      "title": "Actual contract CP",
+      "kind": "OBSERVATION",
+      "source": {
+        "type": "request",
+        "ref": "T36_API_ACTUAL"
+      },
+      "proposed_yaml": "{\n  \"id\": \"OBS-T36-API\",\n  \"title\": \"رصد المرجع الافتراضي المعلن في مصدر التطبيق\",\n  \"kind\": \"OBSERVATION\",\n  \"force\": \"INFORMATIVE\",\n  \"severity\": \"info\",\n  \"scope\": {\n    \"paths\": [\n      \"server/security.js\"\n    ]\n  },\n  \"rule\": \"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\",\n  \"impact\": {\n    \"band\": \"info\",\n    \"evidence\": \"assumed\"\n  }\n}\n"
+    },
+    "response": {
+      "data": {
+        "id": "CP-2026-d29454a4-7b56-47b0-b044-58471cd482e8",
+        "workspace_id": "rc3-local",
+        "title": "Actual contract CP",
+        "kind": "OBSERVATION",
+        "target_item_id": null,
+        "status": "draft",
+        "source": {
+          "type": "request",
+          "ref": "T36_API_ACTUAL"
+        },
+        "base_package_version": "1.0.0-rc.3",
+        "base_candidate_hash": "sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2",
+        "proposed_yaml": "{\n  \"id\": \"OBS-T36-API\",\n  \"title\": \"رصد المرجع الافتراضي المعلن في مصدر التطبيق\",\n  \"kind\": \"OBSERVATION\",\n  \"force\": \"INFORMATIVE\",\n  \"severity\": \"info\",\n  \"scope\": {\n    \"paths\": [\n      \"server/security.js\"\n    ]\n  },\n  \"rule\": \"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\",\n  \"impact\": {\n    \"band\": \"info\",\n    \"evidence\": \"assumed\"\n  }\n}\n",
+        "proposal_version_hash": "sha256:f0a06f9b2c4d46a668bab9179d4fcf34d88398a9ca77910a759a7aa4ed47dba0",
+        "checks": {
+          "validate": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "lint": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "skill_states": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "generate": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "doctor": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "eval": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          }
+        },
+        "generation": null,
+        "ci_comparison": null,
+        "required_approvals": [
+          "governance-owner"
+        ],
+        "approvals": [],
+        "approval_history": [],
+        "blockers": [
+          {
+            "code": "CHECK_VALIDATE",
+            "message": "Required check has not run for this proposal version.",
+            "severity": "warning"
+          },
+          {
+            "code": "CHECK_LINT",
+            "message": "Required check has not run for this proposal version.",
+            "severity": "warning"
+          },
+          {
+            "code": "CHECK_GENERATE",
+            "message": "Required check has not run for this proposal version.",
+            "severity": "warning"
+          },
+          {
+            "code": "CHECK_DOCTOR",
+            "message": "Required check has not run for this proposal version.",
+            "severity": "warning"
+          }
+        ],
+        "created_by": "t36-api-owner",
+        "created_at": "2026-10-25T14:16:02.776Z",
+        "updated_at": "2026-10-25T14:16:02.776Z"
+      },
+      "meta": {
+        "request_id": "be8ebd3b-b81a-4751-a12c-9e9a6cd6571d",
+        "contract_revision": "contract.1",
+        "recorded_at": "2026-10-25T14:16:02.791Z"
+      }
+    }
+  },
+  {
+    "operation": "listChangePackages",
+    "case": "positive",
+    "method": "GET",
+    "route": "/workspaces/rc3-local/cps",
+    "status": 200,
+    "request": null,
+    "response": {
+      "data": [
+        {
+          "id": "CP-2026-d29454a4-7b56-47b0-b044-58471cd482e8",
+          "workspace_id": "rc3-local",
+          "title": "Actual contract CP",
+          "kind": "OBSERVATION",
+          "target_item_id": null,
+          "status": "draft",
+          "source": {
+            "type": "request",
+            "ref": "T36_API_ACTUAL"
+          },
+          "base_package_version": "1.0.0-rc.3",
+          "base_candidate_hash": "sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2",
+          "proposed_yaml": "{\n  \"id\": \"OBS-T36-API\",\n  \"title\": \"رصد المرجع الافتراضي المعلن في مصدر التطبيق\",\n  \"kind\": \"OBSERVATION\",\n  \"force\": \"INFORMATIVE\",\n  \"severity\": \"info\",\n  \"scope\": {\n    \"paths\": [\n      \"server/security.js\"\n    ]\n  },\n  \"rule\": \"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\",\n  \"impact\": {\n    \"band\": \"info\",\n    \"evidence\": \"assumed\"\n  }\n}\n",
+          "proposal_version_hash": "sha256:f0a06f9b2c4d46a668bab9179d4fcf34d88398a9ca77910a759a7aa4ed47dba0",
+          "checks": {
+            "validate": {
+              "status": "NOT_RUN",
+              "evidence": [],
+              "reason": "Required check has not run for this proposal version."
+            },
+            "lint": {
+              "status": "NOT_RUN",
+              "evidence": [],
+              "reason": "Required check has not run for this proposal version."
+            },
+            "skill_states": {
+              "status": "NOT_RUN",
+              "evidence": [],
+              "reason": "Required check has not run for this proposal version."
+            },
+            "generate": {
+              "status": "NOT_RUN",
+              "evidence": [],
+              "reason": "Required check has not run for this proposal version."
+            },
+            "doctor": {
+              "status": "NOT_RUN",
+              "evidence": [],
+              "reason": "Required check has not run for this proposal version."
+            },
+            "eval": {
+              "status": "NOT_RUN",
+              "evidence": [],
+              "reason": "Required check has not run for this proposal version."
+            }
+          },
+          "generation": null,
+          "ci_comparison": null,
+          "required_approvals": [
+            "governance-owner"
+          ],
+          "approvals": [],
+          "approval_history": [],
+          "blockers": [
+            {
+              "code": "CHECK_VALIDATE",
+              "message": "Required check has not run for this proposal version.",
+              "severity": "warning"
+            },
+            {
+              "code": "CHECK_LINT",
+              "message": "Required check has not run for this proposal version.",
+              "severity": "warning"
+            },
+            {
+              "code": "CHECK_GENERATE",
+              "message": "Required check has not run for this proposal version.",
+              "severity": "warning"
+            },
+            {
+              "code": "CHECK_DOCTOR",
+              "message": "Required check has not run for this proposal version.",
+              "severity": "warning"
+            }
+          ],
+          "created_by": "t36-api-owner",
+          "created_at": "2026-10-25T14:16:02.776Z",
+          "updated_at": "2026-10-25T14:16:02.776Z"
+        }
+      ],
+      "meta": {
+        "request_id": "eafd3dba-a6d2-4ad8-8eac-da8b0bade2d1",
+        "contract_revision": "contract.1",
+        "recorded_at": "2026-10-25T14:16:02.800Z"
+      }
+    }
+  },
+  {
+    "operation": "getChangePackage",
+    "case": "positive",
+    "method": "GET",
+    "route": "/workspaces/rc3-local/cps/CP-2026-d29454a4-7b56-47b0-b044-58471cd482e8",
+    "status": 200,
+    "request": null,
+    "response": {
+      "data": {
+        "id": "CP-2026-d29454a4-7b56-47b0-b044-58471cd482e8",
+        "workspace_id": "rc3-local",
+        "title": "Actual contract CP",
+        "kind": "OBSERVATION",
+        "target_item_id": null,
+        "status": "draft",
+        "source": {
+          "type": "request",
+          "ref": "T36_API_ACTUAL"
+        },
+        "base_package_version": "1.0.0-rc.3",
+        "base_candidate_hash": "sha256:a1cd7227315f83dcf4e23d641f6725f8d68086a289da457a98d43f7f34b840d2",
+        "proposed_yaml": "{\n  \"id\": \"OBS-T36-API\",\n  \"title\": \"رصد المرجع الافتراضي المعلن في مصدر التطبيق\",\n  \"kind\": \"OBSERVATION\",\n  \"force\": \"INFORMATIVE\",\n  \"severity\": \"info\",\n  \"scope\": {\n    \"paths\": [\n      \"server/security.js\"\n    ]\n  },\n  \"rule\": \"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT.\",\n  \"impact\": {\n    \"band\": \"info\",\n    \"evidence\": \"assumed\"\n  }\n}\n",
+        "proposal_version_hash": "sha256:f0a06f9b2c4d46a668bab9179d4fcf34d88398a9ca77910a759a7aa4ed47dba0",
+        "checks": {
+          "validate": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "lint": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "skill_states": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "generate": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "doctor": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          },
+          "eval": {
+            "status": "NOT_RUN",
+            "evidence": [],
+            "reason": "Required check has not run for this proposal version."
+          }
+        },
+        "generation": null,
+        "ci_comparison": null,
+        "required_approvals": [
+          "governance-owner"
+        ],
+        "approvals": [],
+        "approval_history": [],
+        "blockers": [
+          {
+            "code": "CHECK_VALIDATE",
+            "message": "Required check has not run for this proposal version.",
+            "severity": "warning"
+          },
+          {
+            "code": "CHECK_LINT",
+            "message": "Required check has not run for this proposal version.",
+            "severity": "warning"
+          },
+          {
+            "code": "CHECK_GENERATE",
+            "message": "Required check has not run for this proposal version.",
+            "severity": "warning"
+          },
+          {
+            "code": "CHECK_DOCTOR",
+            "message": "Required check has not run for this proposal version.",
+            "severity": "warning"
+          }
+        ],
+        "created_by": "t36-api-owner",
+        "created_at": "2026-10-25T14:16:02.776Z",
+        "updated_at": "2026-10-25T14:16:02.776Z"
+      },
+      "meta": {
+        "request_id": "6dd9f7d4-20af-46c1-a42c-8102d76d115d",
+        "contract_revision": "contract.1",
+        "recorded_at": "2026-10-25T14:16:02.810Z"
+      }
+    }
+  },
+  {
+    "operation": "editChangePackage",
+    "case": "positive",
+    "method": "PATCH",
+    "route": "/workspaces/rc3-local/cps/CP-2026-d29454a4-7b56-47b0-b044-58471cd482e8",
+    "status": 412,
+    "request": {
+      "proposed_yaml": "{\n  \"id\": \"OBS-T36-API\",\n  \"title\": \"رصد المرجع الافتراضي المعلن في مصدر التطبيق\",\n  \"kind\": \"OBSERVATION\",\n  \"force\": \"INFORMATIVE\",\n  \"severity\": \"info\",\n  \"scope\": {\n    \"paths\": [\n      \"server/security.js\"\n    ]\n  },\n  \"rule\": \"في رصد المصدر بتاريخ 2026-10-22، يعرّف server/security.js القيمة DEFAULT_PACKAGE_ID = \\\"aghr_1_2_0\\\"، ويربط AGHR_ROOT بالقيمة AGHR_1_2_0_ROOT. Contract revision.\",\n  \"impact\": {\n    \"band\": \"info\",\n    \"evidence\": \"assumed\"\n  }\n}\n"
+    },
+    "response": {
+      "data": null,
+      "meta": {
+        "request_id": "b4e2c3ae-d03d-444a-8e1d-4e03359f85f5",
+        "contract_revision": "contract.1",
+        "recorded_at": "2026-10-25T14:16:14.645Z",
+        "error": {
+          "code": "STALE_PROPOSAL",
+          "message": "Proposal hash differs.",
+          "halted": true,
+          "issues": []
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,41 @@
+{
+  "profile": "SANDBOX_LOCAL_CI_V1",
+  "public_trust": {
+    "project": "pilot-app-l2",
+    "module_hash": "62131b03f22cd8fe27d0839e5c4a6faa20f3cdf077c1ce32ef9bf567e70fab5e",
+    "public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA4rQPgb5fGE8ElwSMogVpFATeQ1YjjMtLwKnlIwWszqE=\n-----END PUBLIC KEY-----\n",
+    "bootstrap_sha": "cbc0546318e6c032330e0557e5bef4199f3ae4a4"
+  },
+  "signed_receipt": {
+    "payload": "{\"project\":\"pilot-app-l2\",\"profile\":\"SANDBOX_LOCAL_CI_V1\",\"run_id\":\"bf233e81-6d3d-4b6e-86b8-c7f7dc384307\",\"expires\":1792930251607,\"before_sha\":\"669e485b6a9a12067b9099265649f983dbd964cf\",\"proposal_sha\":\"fb9b9175f79d5e747ddfe9c9eccfb4623a47a43c\",\"merge_sha\":\"bef262c3d4fbc2ebbef2a8909c807fe2956aa379\",\"proposal_version_hash\":\"sha256:dfd497d91000fed68d342992f5b37c9a7e03daf9ccb4266f7003aae9ef454a50\",\"level\":\"L2\",\"qualifications\":[],\"unsigned_gpg\":true,\"files\":{\".aghr/package/CHANGELOG.md\":\"6b37f7a1d95a4778471f8a1ee5d70c762bc9cf7d73950d05a747f6c4ae792b81\",\".aghr/package/aghr.json\":\"ffd1914b442e1436e62277b3b6e6c2f9fc557ac7d7369b6d81f497520d176db5\",\".aghr/package/policies/identity.json\":\"5ac0bbb24b853d8e347d23892562cb47149f3d09af52afdef77d0904db11a947\",\".aghr/package/policies/principle.json\":\"5ef814c7371ec1aff4202acec66a535c5c73159961847d051ddfe425da59142b\",\".gitignore\":\"be5147b55b7b4c72869e152eb80b0e2825715d6cf261e91affa0ec0710595e0c\",\"AGENTS.md\":\"4d264947a44a0f8f7000438cb81b694045f3a5c78936d363914e7e56a8aab913\",\"README.md\":\"15b3982dadb3d2c1af312b82ffc98e8d8911b63e37c286d806fe8b455dcdeb7b\",\"app.mjs\":\"db8333471e6be7755cbdccc1ade20670bc5404d76d19a5e1f09392d81dc14ff2\",\"app.test.mjs\":\"94bf3fcb786007f94e0142e7a680d42ef58943b03828f1a8f9ba0a752fda558b\"},\"evidence\":{\"path\":\".aghr/ci-results/pr-evidence-63206aa4-241a-4057-9c69-c36e6b97f6a8.json\",\"sha256\":\"cdd72d08f829fd47e0c44a160970a869e3f3785971bf7be6d0bf0c75fac7300a\"},\"checks\":{\"strict\":\"PASS\",\"drift\":\"PASS\",\"skill_states\":\"PASS\",\"doctor\":\"PASS\"}}",
+    "signature": "7DKcTB8vv1tQBFggRMK6o6VIJP3N+P9M0TjO2+1jktYmULp/ckUzkeDqt6tAxRWZ3Ez9Wm5JALKHNXIHHuSQAg=="
+  },
+  "published_state": {
+    "schemaVersion": "1.2",
+    "aghrVersion": "1.0.0-rc.3",
+    "adoptionLevel": "L2",
+    "domainLevels": {
+      "instructions": "L2",
+      "skills": "L0"
+    },
+    "evalStatus": "NOT_RUN",
+    "skillQualification": [],
+    "exceptions": [],
+    "publication": {
+      "publisher": "ci",
+      "ciRunRef": "local-git-ci:bf233e81-6d3d-4b6e-86b8-c7f7dc384307",
+      "commitHash": "bef262c3d4fbc2ebbef2a8909c807fe2956aa379",
+      "publishedAt": "2026-10-25T11:56:07.112Z",
+      "sourceEvidence": [
+        {
+          "path": ".aghr/ci-results/pr-evidence-63206aa4-241a-4057-9c69-c36e6b97f6a8.json",
+          "content_hash": "sha256:cdd72d08f829fd47e0c44a160970a869e3f3785971bf7be6d0bf0c75fac7300a",
+          "bytes": 57307
+        }
+      ]
+    }
+  },
+  "signature_verified_at_seal": true,
+  "private_key": "EXCLUDED",
+  "state_sha256": "bda0c08507dd045ce85f726bd811df5e2a43e0776cac87d653d11557bd8ef86e"
+}

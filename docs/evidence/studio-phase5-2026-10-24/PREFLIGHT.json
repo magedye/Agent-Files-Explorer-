@@ -1,0 +1,70 @@
+{
+  "at": "2026-10-24T19:53:29.435Z",
+  "head": "133746a0ad99d10568a44c8d225219df8454271c",
+  "branch": "main",
+  "status": " M .gitattributes\n M .gitignore\n M docs/INDEX.md\n M docs/plans/STUDIO_E1_E2_CORE_SCOPE_AR.md\n M docs/plans/STUDIO_UPGRADE_TASKS_AR.md\n M docs/status/CURRENT.md\n M docs/status/HANDOFF.md\n M package.json\n M server/api.js\n M server/evaluation.js\n M server/intake.js\n M server/staging.js\n M src/i18n/I18nProvider.jsx\n M tests/governance_studio.test.mjs\n M vite.config.mjs\n?? .github/\n?? docs/evidence/studio-draft-auth-cp-2026-10-23/\n?? docs/evidence/studio-e3-t19-2026-10-24/\n?? docs/evidence/studio-e4-2026-10-24/\n?? docs/evidence/studio-e5-t16-preview-2026-10-23/\n?? docs/evidence/studio-native-t20-t21-2026-10-24/\n?? docs/evidence/studio-phase0-runtime-2026-10-23/\n?? docs/evidence/studio-phase1-2026-10-23/\n?? docs/evidence/studio-phase3-2026-10-24/\n?? docs/evidence/studio-phase4-2026-10-24/\n?? docs/evidence/studio-phase5-2026-10-24/\n?? docs/evidence/studio-t06-2026-10-23/\n?? docs/evidence/studio-t06-mock-2026-10-23/\n?? docs/evidence/studio-t11a-2026-10-23/\n?? docs/evidence/studio-t11b-2026-10-23/\n?? docs/evidence/studio-t12-2026-10-23/\n?? docs/evidence/studio-t12-mock-write-core-2026-10-23/\n?? docs/evidence/studio-t19-mock-2026-10-24/\n?? docs/features/STUDIO_DRAFT_MODE.md\n?? docs/features/STUDIO_PHASE0_READ_ONLY.md\n?? docs/features/STUDIO_PHASE1_READ_ONLY.md\n?? docs/plans/STUDIO_E4_EXECUTION_PROPOSAL_AR.md\n?? draft.html\n?? governance_packages/candidates/AGHR_T06_SEC001_Candidate/\n?? governance_packages/candidates/AGHR_T12_Candidate/\n?? phase0.html\n?? server/studio/\n?? src/features/\n?? tests/fixtures/\n?? tests/helpers/\n?? tests/studio_bridge.test.mjs\n?? tests/studio_catalog.test.mjs\n?? tests/studio_ci_parity.test.mjs\n?? tests/studio_ci_publisher.test.mjs\n?? tests/studio_draft_runtime.test.mjs\n?? tests/studio_e3_approval.test.mjs\n?? tests/studio_e4_cli.test.mjs\n?? tests/studio_e4_discovery.test.mjs\n?? tests/studio_e4_evidence.test.mjs\n?? tests/studio_e4_honesty.test.mjs\n?? tests/studio_e4_results.test.mjs\n?? tests/studio_e5_core.test.mjs\n?? tests/studio_e5_lifecycle.test.mjs\n?? tests/studio_execution.test.mjs\n?? tests/studio_generation_preview.test.mjs\n?? tests/studio_job_runner.test.mjs\n?? tests/studio_patch_bytes.test.mjs\n?? tests/studio_persistence.test.mjs\n?? tests/studio_phase1_read.test.mjs\n?? tests/studio_phase3_skills.test.mjs\n?? tests/studio_phase4.test.mjs\n?? tests/studio_phase4_contracts.test.mjs\n?? tests/studio_read_api.test.mjs\n?? tests/studio_t06_mock.test.mjs\n?? tests/studio_t12_mock.test.mjs\n?? tests/studio_t19_mock.test.mjs\n?? tests/studio_write_authorization.test.mjs\n?? tools/aghr_e4_cli.mjs\n?? tools/aghr_get_rule.mjs\n?? tools/aghr_studio_cli.mjs\n?? tools/e4/\n?? tools/native/\n?? tools/phase1_browser_cases.mjs\n?? tools/phase3/\n?? tools/phase4/\n?? tools/phase5/\n?? tools/pin_studio_e3.py\n?? tools/prepare_phase1_sample.mjs\n?? tools/seal_phase1_evidence.mjs\n?? tools/t06/\n?? tools/t12/\n?? tools/t19/\n?? tools/test_draft_studio_edge.mjs\n?? tools/test_e3_studio_edge.mjs\n?? tools/test_e5_studio_edge.mjs\n?? tools/test_phase0_sentinel.mjs\n?? tools/test_phase1_edge.mjs\n?? tools/verify_e5_cli.mjs\n?? tools/verify_e5_delivery.py\n?? tools/verify_phase0_http_contracts.mjs\n?? tools/verify_studio_e3_cli.mjs\n?? tools/verify_studio_e3_delivery.py\n?? tools/verify_t06_sec001.mjs\n",
+  "parent": {
+    "path": "docs/evidence/studio-phase4-2026-10-24/CUSTODY.lock.json",
+    "sha256": "7f9ae9234086b42747dbf5153fb48c0e7a5c0624c3ded8f02e3f9b6eeac3b43f",
+    "files": 110
+  },
+  "before": {
+    "server/studio/draft-runtime.js": {
+      "sha256": "9ec0d8efd6b5bb135d9c257a5778da53b5975fea8e440731403453bbc65bce57",
+      "bytes": 6767,
+      "copy": "before/server/studio/draft-runtime.js.raw"
+    },
+    "server/studio/serve-draft.mjs": {
+      "sha256": "75efdb1de5fc729e0fc617d9f2232d7a8aa31a45c083d218acd4edcb5bd929f0",
+      "bytes": 6009,
+      "copy": "before/server/studio/serve-draft.mjs.raw"
+    },
+    "server/studio/db/persistent.js": {
+      "sha256": "c854d312a9bd8bd94676d80cecf3dc9467ac8401abb5cfd13ba67f335abb8671",
+      "bytes": 38615,
+      "copy": "before/server/studio/db/persistent.js.raw"
+    },
+    "server/studio/write-authorization.js": {
+      "sha256": "c2649e5d9204459d73324cb84cbbce6c057ff20429a512f0b7158d40181938c4",
+      "bytes": 5855,
+      "copy": "before/server/studio/write-authorization.js.raw"
+    },
+    "src/features/changes/DraftStudio.jsx": {
+      "sha256": "53d4902be6d970b1a1abb366547de946e013f3c77f07eabbac0efe64f7031063",
+      "bytes": 15343,
+      "copy": "before/src/features/changes/DraftStudio.jsx.raw"
+    },
+    "docs/status/CURRENT.md": {
+      "sha256": "f45de0036271dce4158e4f62436275a317946d36aad63c604e3a24aa08832d42",
+      "bytes": 2864,
+      "copy": "before/docs/status/CURRENT.md.raw"
+    },
+    "docs/status/HANDOFF.md": {
+      "sha256": "1640df53392e22baf4761211ec6646251383ef70b3150d3c9416d7db7eb5b83f",
+      "bytes": 2056,
+      "copy": "before/docs/status/HANDOFF.md.raw"
+    },
+    "docs/plans/STUDIO_UPGRADE_TASKS_AR.md": {
+      "sha256": "d18c27a643e75e7ff07d168345ec1e933f3123d9d1743dd1fe67e286cf0fe879",
+      "bytes": 48085,
+      "copy": "before/docs/plans/STUDIO_UPGRADE_TASKS_AR.md.raw"
+    },
+    "docs/INDEX.md": {
+      "sha256": "b8f36e752b16a65b93d936f98eea5aa7718ffe74c63be4ca3acdf5951ce2bdd2",
+      "bytes": 5749,
+      "copy": "before/docs/INDEX.md.raw"
+    },
+    "server/studio/skills/lifecycle-service.js": {
+      "sha256": "10ff55cbed9250950855d308fc92485835307b0f95300d9ad3acf8e946a78dc9",
+      "bytes": 10487,
+      "copy": "before/server/studio/skills/lifecycle-service.js.raw"
+    },
+    "tests/studio_phase3_skills.test.mjs": {
+      "copy": "before/tests/studio_phase3_skills.test.mjs.raw",
+      "bytes": 10004,
+      "sha256": "9c15913b692f46cd67c29c41d1105b2ef93858b7f2442ed8246f81eca658e363",
+      "captured_for": "Final affected-scope test extension; baseline test preserved before mutation"
+    }
+  },
+  "authority": "Owner accepts Phase4; configure actual-project trusted evaluators; implement T30–T33 Draft only; T34/T35 plan only. No canonical/state writes or publishing."
+}

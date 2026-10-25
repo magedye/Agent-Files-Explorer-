@@ -1,0 +1,3902 @@
+{
+  "status": "REAL_NATIVE_CLI_COMPLETE",
+  "engine_modified": false,
+  "protocol_version": "3",
+  "rules": 47,
+  "per_rule": {
+    "strict_exit_0": 0,
+    "strict_blocked": 47,
+    "strict_invalid": 0,
+    "structural_pass": 47
+  },
+  "runs": [
+    {
+      "name": "AGHR-001",
+      "started_at": "2026-10-23T13:49:51.778175+00:00",
+      "finished_at": "2026-10-23T13:50:02.213462+00:00",
+      "wall_seconds": 10.434990200097673,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-001",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-001"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "1d8d559099dd2f15c8256ef847efde8a45ccf0eb03a26e5720e7f6fe613befd4",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "722afd5c54b76e3bc3c59771dd5e0aa25e0d9d204adbf0a4dd2766989877ab23",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-001.json",
+            "sha256": "44042898076495c4f5da68fdbc0bde501b68cfdff2be4f5fdcf59f4e78ea950e",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "7faf6a9eb6314cfcb3a31b019098318a1ac618671a1e2c112e29b48df0d00d07",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-001.json": "44042898076495c4f5da68fdbc0bde501b68cfdff2be4f5fdcf59f4e78ea950e"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "b972a2a1dbec4300b8959d8811b2894698372da5bae4206470fb073b85ba1536",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-002",
+      "started_at": "2026-10-23T13:49:51.822757+00:00",
+      "finished_at": "2026-10-23T13:50:04.166230+00:00",
+      "wall_seconds": 12.343469299958088,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-002",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-002"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "33b6a7c53777e3f30d7a80bf532e53533ec88207640572b63ae07646a18fe1b0",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "2061bb1e083f32242164e9b31947ef33032544429cc9bf7f10795c8588571b59",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-002.json",
+            "sha256": "812d33678de85a4eb9fcbd0aa96340647c9ad4c4947bccd1ce7d849add24c248",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "4ef86dca9c9a1aeec57232214af451db0c2181a16ce2ee76dfaf96bc234f2c41",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-002.json": "812d33678de85a4eb9fcbd0aa96340647c9ad4c4947bccd1ce7d849add24c248"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "c86edf02514d77f718d16da7ac609f980c7e940c1eaeaaabd134712fbcf0a52e",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-003",
+      "started_at": "2026-10-23T13:49:51.856333+00:00",
+      "finished_at": "2026-10-23T13:50:07.121769+00:00",
+      "wall_seconds": 15.264904499985278,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-003",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-003"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "520cbb696d6608729d8c45265fc5e74f818f84c6f086eca7e4c77c43a7e04bd1",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "073d3df1ff49060609e94997551ad292152678503774232c80309f3b5baa3286",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-003.json",
+            "sha256": "0899b7766b14ff3e5fcc5df72773621c73c41eed2d2263bbe47bf00587325043",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "5b06d2dbe500fd079c62df29136902b69312f11a8f18f6a868fc7715454e6eda",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-003.json": "0899b7766b14ff3e5fcc5df72773621c73c41eed2d2263bbe47bf00587325043"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "a6bbc09179b85dfe8d152eba6e2b87374579c389e184b763d472f3a26f042d12",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-004",
+      "started_at": "2026-10-23T13:49:51.881335+00:00",
+      "finished_at": "2026-10-23T13:50:01.095413+00:00",
+      "wall_seconds": 9.213845699909143,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-004",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1,
+        "ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE": 1
+      },
+      "item_ids": [
+        "AGHR-004"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "935efe2b03225c1bd89243349a668a62845a5a56284ced961bd75bb95beb89b7",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "73bf56d9f799de5afa527a14a32f08ba4535d4c4b986c33965017b6acf5f9c45",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-004.json",
+            "sha256": "fd1f869457186d37e2e580a04f01080f93f76135277f668820c020603d778ed8",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "6ba2aa7a0dcd76b893d030dcf55fb5c2d3e93503814a537d1fc168812f44af70",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-004.json": "fd1f869457186d37e2e580a04f01080f93f76135277f668820c020603d778ed8"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "38725d9d8639f5884f1f138bba6236d88446d1b20c897e791fbe3bdfeb865ce9",
+      "stderr_sha256": "ad8cc68417fd1423617e5355065a9032a1d65fb0590a9e63b7b27514db546b2e"
+    },
+    {
+      "name": "AGHR-005",
+      "started_at": "2026-10-23T13:50:01.099412+00:00",
+      "finished_at": "2026-10-23T13:50:12.595753+00:00",
+      "wall_seconds": 11.49672679998912,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-005",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-005"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "c0c926cf006701f44732286f8332dcb349d11c686fdf5ea8a84c94c52dbcca01",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "8bec41d5a832b951905fece13d1179445aa8919408d9703f5d00387449920082",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-005.json",
+            "sha256": "8fda16e47aa85368664d4f43f2ea269a83ad703c4b0c4a5d0f09f5aac97099d3",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "2d6d9371318c2956057bb24e948d65eff1f1264037fe7bfe9f437c3b9f4c9444",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-005.json": "8fda16e47aa85368664d4f43f2ea269a83ad703c4b0c4a5d0f09f5aac97099d3"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "c8ab037cdfa29fa1feafb25bb74c2971e580a003abc2b2162e0f07ffe44aa25a",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-006",
+      "started_at": "2026-10-23T13:50:02.234463+00:00",
+      "finished_at": "2026-10-23T13:50:09.636512+00:00",
+      "wall_seconds": 7.402782199904323,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-006",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1
+      },
+      "item_ids": [
+        "AGHR-006"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "29c76262c92fa5b1823843e6b645a26845e3dbf47fdf0ec4fd32ee0795d1f7a9",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "dafc13ba583150d22672d890519768a587cbac4df360f2a8cc03a9d9324a54a0",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-006.json",
+            "sha256": "f7425a29b002e5f404514d4604c9a25e7a5f27553baf27fade194aff84e3c25d",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "6b7f470ed3d619aa99b6f34bd16dcb7c481ca58f65c59a6aaebb7284bdfb5166",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-006.json": "f7425a29b002e5f404514d4604c9a25e7a5f27553baf27fade194aff84e3c25d"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "df8ce010d834c67ccf80e6bae07d21f5c3f8416ca6ce70e6e30fc263e51c6131",
+      "stderr_sha256": "9729feeaf4d824675cd2458307ca4f21df5b6ef029a030406950853515add870"
+    },
+    {
+      "name": "AGHR-007",
+      "started_at": "2026-10-23T13:50:04.200802+00:00",
+      "finished_at": "2026-10-23T13:50:14.902910+00:00",
+      "wall_seconds": 10.690817299997434,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-007",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-007"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "5a0912e2532c1f74673e045573e0638989d904ee6ad999dadf13085721bdaae0",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "2d3d49b9093bc2ee9b8f36e114e75530f4aad5b5992ac9de31b8b478000b8d55",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-007.json",
+            "sha256": "9e154593c53f6e9616ab17ba41d456aec336430b4fd0a5086e0924161eb3cb0a",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "60a00549e2d30fcff16d2b1bfcb92433df280440d70e1b0f87fd561f6c7912aa",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-007.json": "9e154593c53f6e9616ab17ba41d456aec336430b4fd0a5086e0924161eb3cb0a"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "3b8990c5c401524351aa79743bef5f93b057f0499bb1435c88f3a953084b1bad",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-008",
+      "started_at": "2026-10-23T13:50:07.129770+00:00",
+      "finished_at": "2026-10-23T13:50:15.416570+00:00",
+      "wall_seconds": 8.286067400011234,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-008",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-008"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "af7efc1f812ed82b41891fb6d20cbdc4f35f2930bf713377c00911128220e082",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "9ff4b780c22a7c6ced44c850852e06942140496bc8ecc0b4ad8a2559ac69bdfc",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-008.json",
+            "sha256": "a473fccc275409af604035fe8125f2f40e30881396322627e593d3eaa8bf71f0",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "a80aef7de49220ad6af4468fe3182dbca6f30df079cde9d30e811215885af06b",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-008.json": "a473fccc275409af604035fe8125f2f40e30881396322627e593d3eaa8bf71f0"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "120e73145bf909054d4ed4febad1fb0085f3e2b2ff39ed1f6260cb0f1558bc57",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-009",
+      "started_at": "2026-10-23T13:50:09.660528+00:00",
+      "finished_at": "2026-10-23T13:50:17.247073+00:00",
+      "wall_seconds": 7.586385099915788,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-009",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-009"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "bfdb4306c671c8ddac01c81e4af7279e89188cc867d65e4c53267371981ed8dd",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "03344b473c6caa517b137b5ee6cbbf606dd6388c38f162a2d2fc31200f98f334",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-009.json",
+            "sha256": "8c0885b1d6ed4d3c4576e7d01dfb1fab179733bd8ea3efb3a921d378a24d505d",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "1e2b85d508cb6f64cdce4e4e0e1e6d96a65618c28945de022d1db00222c80f13",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-009.json": "8c0885b1d6ed4d3c4576e7d01dfb1fab179733bd8ea3efb3a921d378a24d505d"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "a27a8011f01ea83c161642967f8a3d7ea4e429774a64e98972a11d76849d1443",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-010",
+      "started_at": "2026-10-23T13:50:12.612755+00:00",
+      "finished_at": "2026-10-23T13:50:19.907286+00:00",
+      "wall_seconds": 7.294496499933302,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-010",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-010"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "9d4c180cfb08b43225de5a495d3720c94dc5446939b98fbf426f04295d1163cc",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "5180f7bbac3d93592336803d796895df63ffc62bc7eb69b0edfcddbbac8f895e",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-010.json",
+            "sha256": "10c383bea75a64bb6686b31f1ab4b0a82de51193b2f1c13d3f7d3ec48693b146",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "060a45b4d661590aad766cb1acdf69f02bba3a8eed45e040386dcc2085c13766",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-010.json": "10c383bea75a64bb6686b31f1ab4b0a82de51193b2f1c13d3f7d3ec48693b146"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "ff0e4b2f2770b896683c1a5fa5b68bd450a99c3c484b9ce5679dce791e064104",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-011",
+      "started_at": "2026-10-23T13:50:14.906918+00:00",
+      "finished_at": "2026-10-23T13:50:21.191932+00:00",
+      "wall_seconds": 6.285380000015721,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-011",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1
+      },
+      "item_ids": [
+        "AGHR-011"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "8f108014a549c22a3218a6bb766f4d143ca33e80418d84823286b00a55dc0353",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "2bede0fa18064e987f022dcf93cc88b649b121c45dbdfc10280033f1117b1570",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-011.json",
+            "sha256": "09736dddc16a1a627560c395b4fc01e052050c102e30be1323f50911416217f6",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "d82bfeeb2e068eeb401fbd6484144eb3bdf01f95bbe24fdada4b76c8e4fafc5e",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-011.json": "09736dddc16a1a627560c395b4fc01e052050c102e30be1323f50911416217f6"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "e019d3b1f64db3d9d4f58a563af28f42c6fff24232b008ce13704e4f4ab9a5a7",
+      "stderr_sha256": "9729feeaf4d824675cd2458307ca4f21df5b6ef029a030406950853515add870"
+    },
+    {
+      "name": "AGHR-012",
+      "started_at": "2026-10-23T13:50:15.426580+00:00",
+      "finished_at": "2026-10-23T13:50:21.378485+00:00",
+      "wall_seconds": 5.952169400057755,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-012",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-012"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "767c979fe63396b3ce822a990d651f5ff0df064629f09a9149ae12fc2885929d",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "52fc4cb5ceaa6ae1807752406919e6aa1d6a1defeca659b3b145084e0a5b3d0e",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-012.json",
+            "sha256": "174700608f908f0230114d7bc3e62208aaeed1d5d3fd8fc9751f3a8d47cf96da",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "b3e389e937963935a9720b1646d640618fa855b9e1ac93417786d24e15666fa8",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-012.json": "174700608f908f0230114d7bc3e62208aaeed1d5d3fd8fc9751f3a8d47cf96da"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "16e170874bdca2e36cba491a582aaf5e63d33612665f29989829891b949a3228",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-013",
+      "started_at": "2026-10-23T13:50:17.269052+00:00",
+      "finished_at": "2026-10-23T13:50:23.902181+00:00",
+      "wall_seconds": 6.63341190002393,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-013",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-013"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "81cc88b7547935c23e42bc9595cc5ff6456e6b4fc99f93cc75cbdac1f0ff0e29",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "0435ee6501df15db9f9ed28a123962035a3af9917ee8fe07560fc25a67450d53",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-013.json",
+            "sha256": "bfd6ad2bd2daf0b6e4cb4978c6902fb64a0bf46ebe8e3f30d9480b21ea58229c",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "36e8147c76d337f86f98f415cfc09b9febffaf92ea1ba9650fceff24b4d8336a",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-013.json": "bfd6ad2bd2daf0b6e4cb4978c6902fb64a0bf46ebe8e3f30d9480b21ea58229c"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "71a13309d462f583834389ebe5d4fa00cf36fe8ee6204f0eded5ace8fbce0780",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-014",
+      "started_at": "2026-10-23T13:50:19.913324+00:00",
+      "finished_at": "2026-10-23T13:50:26.558523+00:00",
+      "wall_seconds": 6.645629000035115,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-014",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1,
+        "ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE": 1
+      },
+      "item_ids": [
+        "AGHR-014"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "db2d8bcf30acc644d3dc94d3ea858f8f02933c1cde2c3e2ed75eb7ae8acb3290",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "eea19eb01cdf767c19a744bad76aabe9416d985acfb0ec49bd2711986a0d3b94",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-014.json",
+            "sha256": "7c1bf43d19853b03efd361183b5589f15d828853e6bb6426ecbd1a9519f3a92c",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "5652a95cc94b90e1470789ef07374c58285c62d2476bd3c5555c5229bd060ae5",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-014.json": "7c1bf43d19853b03efd361183b5589f15d828853e6bb6426ecbd1a9519f3a92c"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "b8ec544f8c048791858bb75df7d7857b1dd826ddc7d587343e1d29f439c5868f",
+      "stderr_sha256": "ad8cc68417fd1423617e5355065a9032a1d65fb0590a9e63b7b27514db546b2e"
+    },
+    {
+      "name": "AGHR-015",
+      "started_at": "2026-10-23T13:50:21.197934+00:00",
+      "finished_at": "2026-10-23T13:50:27.587779+00:00",
+      "wall_seconds": 6.387751100002788,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-015",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-015"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "4af0478c538273c8b8e89b53a7c4617f1afd72d9a47ed0501e246f5312234e1d",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "f8bc6563e4b5664f3012fea307465ebcbd7184f06692ff14bb700353e6270202",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-015.json",
+            "sha256": "96d1a69cd7647073b5095ee859a7cd7265e592726bd1381d0a95b6cddf9a95be",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "91d57a2c5f6c4395df8e48a7c1cf5ea903ba5d977e5cec12c4e6caee20aaf05b",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-015.json": "96d1a69cd7647073b5095ee859a7cd7265e592726bd1381d0a95b6cddf9a95be"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "307abac7cb679c7494fa08310f085b87cd7abfeb8c91a6e360910501652753a6",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-016",
+      "started_at": "2026-10-23T13:50:21.384486+00:00",
+      "finished_at": "2026-10-23T13:50:27.504152+00:00",
+      "wall_seconds": 6.120428900001571,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-016",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1,
+        "ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE": 1
+      },
+      "item_ids": [
+        "AGHR-016"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "0ce65d846aadad099a437789f24f7f1e2de2ec5714966faafe158133aa998ff4",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "0fce68152dc8254aec58816342f72ed5d60751bdfdfb43e5a4c155d808a42dc5",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-016.json",
+            "sha256": "d2b09a8f12310f7299ab6a63670d0d8624855f4fba584ac43223ead764cf0ea4",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "fdc965320c9b5aa7154119dc2596e64d84843f41e7e29019fb990eaaa4fbf74a",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-016.json": "d2b09a8f12310f7299ab6a63670d0d8624855f4fba584ac43223ead764cf0ea4"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "8362083f6ea5939dde3d744a33f47dc56bc1957ca1e6d5e898f48d0ca3ab54d8",
+      "stderr_sha256": "ad8cc68417fd1423617e5355065a9032a1d65fb0590a9e63b7b27514db546b2e"
+    },
+    {
+      "name": "AGHR-017",
+      "started_at": "2026-10-23T13:50:23.910181+00:00",
+      "finished_at": "2026-10-23T13:50:30.887876+00:00",
+      "wall_seconds": 6.97708659991622,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-017",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-017"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "9a6b10676f7616333ca0565c3a06f2147aa534432bfa7149976e072c4addb340",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "5bc8090278e6569b1909ce9ff83a4902976fd9a1774c61a743cda501602d9039",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-017.json",
+            "sha256": "5fe21e8fed101c51f3a43bf91876c53c72d4af5522cdf9a7836cfcfffc711c86",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "daaf6566b6b2b3ecf4ef43d9e0e86f9623745935a6d58e8a7c3a41fe3599e175",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-017.json": "5fe21e8fed101c51f3a43bf91876c53c72d4af5522cdf9a7836cfcfffc711c86"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "0490801a01464e62cc9aac65b5707cc2482af79d4ba90124c159c0e88f45808c",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-018",
+      "started_at": "2026-10-23T13:50:26.566521+00:00",
+      "finished_at": "2026-10-23T13:50:33.126392+00:00",
+      "wall_seconds": 6.559414999908768,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-018",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-018"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "71680a6361ec7dff97553be3eb030372ca6d5ed7387b302da9b6437dc27d9135",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "5cf92dd3b8393b5e46de8b87adb32d0c2e8e99c1d8613e4c839279ee72040479",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-018.json",
+            "sha256": "a68d7cb85a3c4edfa7d4e02f2dbe1172f4b387610282f3c10b0056efe8b0caca",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "3495b6d09b5c2761f203654cced0da2f913efd75448410428e652159f58296b0",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-018.json": "a68d7cb85a3c4edfa7d4e02f2dbe1172f4b387610282f3c10b0056efe8b0caca"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "7f8736554cfa8a244a6640dc11315c77379022d544bbca13326fbec7baa70e5b",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-019",
+      "started_at": "2026-10-23T13:50:27.511196+00:00",
+      "finished_at": "2026-10-23T13:50:34.155927+00:00",
+      "wall_seconds": 6.644121199962683,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-019",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-019"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "25f78e52e042a35aa6b00399a412838da15e591502209d4e2b3d59a31bb70305",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "6f91d0a26ae7a774cf92810b6719890dd13cea4e71558e16a748b82ef114e13a",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-019.json",
+            "sha256": "bf33828aeebe8e6dba17d78d63bd58f46a58e0838115dd00ce044699ed3941d1",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "1ce8e9da30829aa7292dbd0f03c849939e5e629d7e91e52e498669cefec7d9f8",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-019.json": "bf33828aeebe8e6dba17d78d63bd58f46a58e0838115dd00ce044699ed3941d1"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "eea3ab1f24afc5ab9875fa7543e710b0de84a9e264bd6ba93448fcba27d522b9",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-020",
+      "started_at": "2026-10-23T13:50:27.651771+00:00",
+      "finished_at": "2026-10-23T13:50:34.735661+00:00",
+      "wall_seconds": 7.083764299983159,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-020",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-020"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "054bef44a56d48b6518dfd8b7e09de570053458f45401e81c2ed4469498c38e1",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "b3c37e903d6488b9b2df5539da29cd67dfaaa08fbc0c273689704a30cfe78ec8",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-020.json",
+            "sha256": "852173b4c20f45e3d8a512d288a5388d483a9c37757fdba8e16d86c0c6b39095",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "6c1076714c45d6dadb17b3d925b3bb8b83ce55f6cfd8cce27c6d7e3dd9f404ed",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-020.json": "852173b4c20f45e3d8a512d288a5388d483a9c37757fdba8e16d86c0c6b39095"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "3ae8b21e51bf0dfac52d239f9a23b9f9b0f9762c733a808514f894e539a46bd1",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-021",
+      "started_at": "2026-10-23T13:50:30.903431+00:00",
+      "finished_at": "2026-10-23T13:50:39.595619+00:00",
+      "wall_seconds": 8.692080700071529,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-021",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-021"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "17773db5b1da0f364e2886f451ef97355b4109c55713f8dbab1e4d601213c7c7",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "dc9c8f3ea04516e39f1183a5c129c086ef6f2bf51409e496190ceed66754d450",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-021.json",
+            "sha256": "113946fdca251e82d99cde52b09bb614bdbb0e60240843884bf33311b40a8056",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "cf7eb327b74adbec82231d962a16b549e808e1858aa2eb6a52e20d69a0506ef1",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-021.json": "113946fdca251e82d99cde52b09bb614bdbb0e60240843884bf33311b40a8056"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "9332ccb31926637a0c6a5996a558c2be32576175766bf55cfca538f648367614",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-022",
+      "started_at": "2026-10-23T13:50:33.131391+00:00",
+      "finished_at": "2026-10-23T13:50:40.643250+00:00",
+      "wall_seconds": 7.511281899991445,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-022",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-022"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "88a5069615d3c7d74715289eb22d1e979ef995191a620c29a3b73ca4248828b7",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "d24f18927d9bea571ddf69ff37e9516a6be63648ed4fc92ea28133b83ccd2475",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-022.json",
+            "sha256": "752b09751a888d815dc379c1b2e4042bda0fd6fff45b5a488bd10edee43311f8",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "772322fc87037a5dcdbe1d8098ead9c3a96a82cb1b5955dfdc62aa885abb473e",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-022.json": "752b09751a888d815dc379c1b2e4042bda0fd6fff45b5a488bd10edee43311f8"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "c708d9646d7edd3e64c02a600a53213b5c7bb5bc782bb6a54e8f355ef3b0eeca",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-023",
+      "started_at": "2026-10-23T13:50:34.188910+00:00",
+      "finished_at": "2026-10-23T13:50:41.995965+00:00",
+      "wall_seconds": 7.8078855000203475,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-023",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-023"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "d9d8a3dd95ab479629bccee51d914a91bbccdfa526bef863f8e2819c3d37c472",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "038b5e9022a4e2dbc878a053cba4100b349ade636a62edeb234fc29a23df37c6",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-023.json",
+            "sha256": "111f99c29999b73809d47c67151dcf1117f58cbe099c3186a1e6f30855835bfb",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "5d0e7ac14b32af0d470c6907568d3e44da5d65e06b5ae6c9f3071264ccb521ea",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-023.json": "111f99c29999b73809d47c67151dcf1117f58cbe099c3186a1e6f30855835bfb"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "721b143a9c5605da5098a1bcd4d5ff6cd45845b3c832593d0be808defd13a95f",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-024",
+      "started_at": "2026-10-23T13:50:34.749186+00:00",
+      "finished_at": "2026-10-23T13:50:41.044976+00:00",
+      "wall_seconds": 6.295996099943295,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-024",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-024"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "c050513e172054e8cf2d89bce3b2108ec185b3d0f51b9d45d33706aef5c325e7",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "38b49d10df8bfb8d562ba01004a5a94751b229d5e6a72bc50f12262b6460f8dd",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-024.json",
+            "sha256": "935a7a96478862d852b6c18ffef968f623384a78199f0ea32bf6792aaef5779f",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "78de656c33cd2f0d123334626f140b1a66712433e208d9263a989c8b05bcf93c",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-024.json": "935a7a96478862d852b6c18ffef968f623384a78199f0ea32bf6792aaef5779f"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "b41d602c01452d3a7a41a355024f27e24a489643b66f7568541ff68ca0525b5e",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-025",
+      "started_at": "2026-10-23T13:50:39.609623+00:00",
+      "finished_at": "2026-10-23T13:50:46.517462+00:00",
+      "wall_seconds": 6.907825500005856,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-025",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-025"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "3a85ab4a5df12c572bc3090c595ba18878727be2934aa3d51661932008767260",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "fb4694d6ec0acfefbe230f98693828b221611fbb14c274f3305a1df3008dc079",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-025.json",
+            "sha256": "37bcaa68afd2c9819043ea57562ff36cb806807a69abbd0bde5922733b5f788d",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "f38d82790cbac3377f5940826d7a2d318338a2e92c3a2826dc10807094fffb49",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-025.json": "37bcaa68afd2c9819043ea57562ff36cb806807a69abbd0bde5922733b5f788d"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "58182a050e68b248eadc46f46eab04e97fa576ee1b2397caf249b63d2099d42d",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-026",
+      "started_at": "2026-10-23T13:50:40.650246+00:00",
+      "finished_at": "2026-10-23T13:50:50.074467+00:00",
+      "wall_seconds": 9.42388779995963,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-026",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-026"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "c52f9d2ef9e4bd080ed0106cb065480e45f22fea70160d3a5266f4796c7aa281",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "6a56aca9f4d1b8dde56a7d23e2ff3e4c67f7d460aca84bf76c86a2bd6c1222a4",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-026.json",
+            "sha256": "d3e341902833ab66d013c12dc1a93c6776e74ab7685a623659e89a4caa2d9d24",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "8300f8991d35e1cfbec2b75b7833c8bf982ebd7678b3bdd834b71c5172248deb",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-026.json": "d3e341902833ab66d013c12dc1a93c6776e74ab7685a623659e89a4caa2d9d24"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "cad46ea86ddccf9b3fcbbd7c64ada529153c2b2a3114a6c499f1d7c0140d1c1b",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-027",
+      "started_at": "2026-10-23T13:50:41.057963+00:00",
+      "finished_at": "2026-10-23T13:50:52.003745+00:00",
+      "wall_seconds": 10.945596299949102,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-027",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-027"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "0992f9093ff7033dae9a4ad30c6d89cf1c1b906a6423885beea1f90b1c51b7f6",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "9df6014a7f11375783a4a6dc086a9c4a39c20297842eeeae97fab7a7827b998e",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-027.json",
+            "sha256": "4d4314c9f243ccace7e2a427bb0812e50f4053f4ba9d5abad2c89b4ffc4c608a",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "ddf21ad0ea3c55eb0fbe5b5cd38019df51f35373cf5b0c4a46468883a3902390",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-027.json": "4d4314c9f243ccace7e2a427bb0812e50f4053f4ba9d5abad2c89b4ffc4c608a"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "9841b011260ee204297bbd6383c4d64f32c218a91ca3b38fba60ee93f81df576",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-028",
+      "started_at": "2026-10-23T13:50:42.013988+00:00",
+      "finished_at": "2026-10-23T13:50:49.327606+00:00",
+      "wall_seconds": 7.313906199997291,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-028",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-028"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "9fa5cf7108481f876151fcc869daf13d23f406ba9c874f3f1e679046108b0034",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "a35cd4f77d21c01c5f0cca8027d65e054df23fc0bb3ebece16c4c08f36182391",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-028.json",
+            "sha256": "81225994689314a9c80b1c6116c99ec9b1e89e327bbdb7bcbf9aa40f6bcc9af9",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "0bb4e544cc919d9c7acfe15a404c31b07e7692049ac37781dc7773402f11a1ae",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-028.json": "81225994689314a9c80b1c6116c99ec9b1e89e327bbdb7bcbf9aa40f6bcc9af9"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "8b0a9bed71037826b04f79ec4ea6edea66f6188dd1c3c420f9810589c1edfed4",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-029",
+      "started_at": "2026-10-23T13:50:46.537474+00:00",
+      "finished_at": "2026-10-23T13:50:54.495232+00:00",
+      "wall_seconds": 7.958467300049961,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-029",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-029"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "b9dd5bce90edbbe9ed036e4d8ffaa1ba1a02ae2e0f70b11317b828141517b4b4",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "ae2ade698a9343c74bbd9fbbf41e49dee350570fd06bd5cfc8c84095d9182d39",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-029.json",
+            "sha256": "3e0e34dd605e00ce7d88d78a5a01ec0958de6e6b80c4f5188d94eaaad14fbef4",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "de50f7c1f6f9cbae34384c7dcd616c03e8aa1a69cd335bc9b5f82eb4833793f3",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-029.json": "3e0e34dd605e00ce7d88d78a5a01ec0958de6e6b80c4f5188d94eaaad14fbef4"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "2593b468d9a51c0fe58cc9034f48db2ac23fda215ef5a9a1d486c457e0f13282",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-030",
+      "started_at": "2026-10-23T13:50:49.335704+00:00",
+      "finished_at": "2026-10-23T13:50:56.431084+00:00",
+      "wall_seconds": 7.096507299924269,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-030",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-030"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "f4f982d84117b784008358ceb8f5974d86e4c51c86974a9b1232fc3b86f7ac83",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "2697598ba166134746cb2a820a10d8e74df31282ee076887d62f7350bad8e0a9",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-030.json",
+            "sha256": "7931fd31b6de42b925d68ec4258a0b87c928f4ffe666deeddcf506a31d1567ba",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "bc3c60e8e76c938713f54883ba233d9a0e1e1ca6a6371a8299721d58fa6ef555",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-030.json": "7931fd31b6de42b925d68ec4258a0b87c928f4ffe666deeddcf506a31d1567ba"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "81af3c3343df059c6d1f3c42c2b03ebc690193152935525ded9b11d4b0f77ed7",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-031",
+      "started_at": "2026-10-23T13:50:50.084499+00:00",
+      "finished_at": "2026-10-23T13:50:58.694991+00:00",
+      "wall_seconds": 8.610656199976802,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-031",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-031"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "d0844ec206ab1e8b1d7ac1820aa6d859ef15c089b4753ea29888fc86f51d14ff",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "203d81083fcf06125f03e37d55ebb7cc4804ba196a33b14f33489eb3950e1b3f",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-031.json",
+            "sha256": "547f179bba9c228f6efabc6179ecf1130d7c1d73d5ffd2d31e2daa3df8f91894",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "d42e523629d119a05212c234d0a6d8c5f341d317f6251b57f40eaae5435137c7",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-031.json": "547f179bba9c228f6efabc6179ecf1130d7c1d73d5ffd2d31e2daa3df8f91894"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "e83aba3a69f06373c63ae9b219f1e6a4c1f7327a9dc03dd99a38e8778653df29",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-032",
+      "started_at": "2026-10-23T13:50:52.069743+00:00",
+      "finished_at": "2026-10-23T13:51:01.041871+00:00",
+      "wall_seconds": 8.971653999993578,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-032",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-032"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "d3fdfa2223ae4e96ffd99a9517a0d327b9357e86935dbcca168c72eae27fbb3d",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "15812273cd0f8e7015f89f8cf7e6745648f2ed7d18c63ecb0c8a8b3b654956fe",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-032.json",
+            "sha256": "973c4414db969da07f0c8f07c5ef77d34a1d602dc07f69c38f524492bd3728ce",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "bccb21aed6dc2bb9d292b79f71151b11de1819adfe7842b245c52d42eea3a47a",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-032.json": "973c4414db969da07f0c8f07c5ef77d34a1d602dc07f69c38f524492bd3728ce"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "933f4282376a093d7cfc18c68d7219726c61bac99166d567b978797fe63725fb",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-033",
+      "started_at": "2026-10-23T13:50:54.561229+00:00",
+      "finished_at": "2026-10-23T13:51:02.224462+00:00",
+      "wall_seconds": 7.663375600008294,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-033",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-033"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "2559c77fe109c281a2fac69a025d7c9d937e269cdd832101194cce8033a90df4",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "e0bc0fadfa67c8f7e966552426f5115ede394117ed8ed519492f0c0fce93402e",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-033.json",
+            "sha256": "9021a11925ba2b997f4a264c20555565657204ce2dff50afbc58dc3ca8e1afe1",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "276255150198b412e0903f215789e3fe92e25d8fff90a3b1c43d4225a2a95d59",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-033.json": "9021a11925ba2b997f4a264c20555565657204ce2dff50afbc58dc3ca8e1afe1"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "90d4e7b2bd32f8274a1095a6e70d681d23eb568b851f13c88afea9f6827e4926",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-034",
+      "started_at": "2026-10-23T13:50:56.438086+00:00",
+      "finished_at": "2026-10-23T13:51:03.586170+00:00",
+      "wall_seconds": 7.148803599993698,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-034",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1
+      },
+      "item_ids": [
+        "AGHR-034"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "e836067b8c60f55fd620e2abc595cb38bf92f59bfbd4b904f71616e1d31526b9",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "48feb8d37116c7598aa1ac59764e4488600c900caac5576afb7cef453206d3c6",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-034.json",
+            "sha256": "e4af2bc3322204e82660f589817f3e42a0960caacb430a2e584c7483d36b610a",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "961366219920610eb1213100a5ed380147530cf7453d9564920b9f6463e58ef6",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-034.json": "e4af2bc3322204e82660f589817f3e42a0960caacb430a2e584c7483d36b610a"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "5b145b0e1cc873ee728644c60745c60b7ddf6a7a467dcbcf5d3a44846c652708",
+      "stderr_sha256": "9729feeaf4d824675cd2458307ca4f21df5b6ef029a030406950853515add870"
+    },
+    {
+      "name": "AGHR-035",
+      "started_at": "2026-10-23T13:50:58.698990+00:00",
+      "finished_at": "2026-10-23T13:51:06.535037+00:00",
+      "wall_seconds": 7.836220000055619,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-035",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-035"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "a0d035c62035f8a755948254746f2ea988f457b25f3050c540aac4534eb9fadb",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "606e1def9f7d494cf4255c507896c56ad8686133e81e8497ac822b79ec5a6ca9",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-035.json",
+            "sha256": "039e899d50f5651d8d35aacd537dcb05ab0df1f19f3e47581f74542670399dfa",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "728c87786f7cc082e6a9fe5e560f54d75fd4482ebd510441515fa9a4c0161e91",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-035.json": "039e899d50f5651d8d35aacd537dcb05ab0df1f19f3e47581f74542670399dfa"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "40c9b1837de755454bcd00a530055a073aff1194d43b4e729eb349e65bc19562",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-036",
+      "started_at": "2026-10-23T13:51:01.046860+00:00",
+      "finished_at": "2026-10-23T13:51:12.456504+00:00",
+      "wall_seconds": 11.410092500038445,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-036",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-036"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "28249d27a431e1ed35cbc84fafe680d6fead2131fa73aa2bf28febaa5a1a433a",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "d7c4a34a53583aac221b115f4f07df9a01ad2d1aa78c3513ff2fca5d9832643c",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-036.json",
+            "sha256": "a585744d509c2fd575f3cadca2eaa5c894cac1f85d977f47ce8d97fafc5d54c0",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "f812f2914425a9b6db0493fcb849e5d7380eb8bfd9d1abebef8fa8f1a01541d4",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-036.json": "a585744d509c2fd575f3cadca2eaa5c894cac1f85d977f47ce8d97fafc5d54c0"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "3bba42ef2c91e850e4499b6a19becf2b93b4dd23eb163ffb12afeee479c5e2ef",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-037",
+      "started_at": "2026-10-23T13:51:02.262469+00:00",
+      "finished_at": "2026-10-23T13:51:13.462728+00:00",
+      "wall_seconds": 11.200434500002302,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-037",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-037"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "aca721b5125aa5fe23bb4193f3527eb80081ad9e59198b0047c40ab98592217b",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "ced175b735752c32758d15f84e35ee596c0395b27cbbe4ca3660d28da2aa110b",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-037.json",
+            "sha256": "6d41f07e73609eadc1152ce7df96fcef836885699cdd4744c5f461c6e688745c",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "31a3870c734da7d34d6faf8653d095bc7a2ab3a3f4581009818a9da3e4b56784",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-037.json": "6d41f07e73609eadc1152ce7df96fcef836885699cdd4744c5f461c6e688745c"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "443d728488e380cd134ae94d74b31644ce64e1fa3d6acc9660b7e8938e9defc1",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-038",
+      "started_at": "2026-10-23T13:51:03.599168+00:00",
+      "finished_at": "2026-10-23T13:51:12.779079+00:00",
+      "wall_seconds": 9.178966399980709,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-038",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-038"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "b4a0eed79f79a1330c5a701464e285ff9d1b5f0166a20cd903c1cd6db79ced07",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "987c8b79507c75f6ecf2c04712587f5abd8ae5748e0d3eb5eb118398573548e2",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-038.json",
+            "sha256": "75e8483daa3552712a2a965535c08505d40d04dd6b2d10990a6027d1e4fa8865",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "2d565ae228e0d3e6706e332175dc3a6638fd2bf4a7695ebc7a6ed40b69923e25",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-038.json": "75e8483daa3552712a2a965535c08505d40d04dd6b2d10990a6027d1e4fa8865"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "8e1b0575398ff0b008ceeb4add08026a7312358866bbf4252f48f644c7f46dc3",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-039",
+      "started_at": "2026-10-23T13:51:06.543037+00:00",
+      "finished_at": "2026-10-23T13:51:14.417262+00:00",
+      "wall_seconds": 7.874307000078261,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-039",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-039"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "c2b1f04db047dbcaeacae57b51d39789c5077d0bdbeff13908ac91b2e741830f",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "9146e440dc8a806a7f553838061d13e91e0a56fc510829d3cb9e72fecc9a3966",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-039.json",
+            "sha256": "a6b4c985d9e277c94497f84340c34341af354c56e4930074b601337fa33e5a43",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "23289e45aa3ec8f94b291f5ed4be0791f3a2af813727bb38a3db9bfdbf9498be",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-039.json": "a6b4c985d9e277c94497f84340c34341af354c56e4930074b601337fa33e5a43"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "4bbc3c2b235a81daa5ad738be338d160455e306ed92c6f35ab354ef092896e7c",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-040",
+      "started_at": "2026-10-23T13:51:12.465501+00:00",
+      "finished_at": "2026-10-23T13:51:21.378781+00:00",
+      "wall_seconds": 8.913417399977334,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-040",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-040"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "792627da00760f4be9dc6b5cd0aad497b9ff70cb1a2d9ecf26ed573ad4933e8d",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "d1624535ae4d02921435f4c300f2aec68060812df40ea0b60639e73efe1b5839",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-040.json",
+            "sha256": "b60972ac650f403f12b7884354a1be1fff199111b8933809fef8ec9c7119e6c9",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "365a55afc99215148267abc23efccb41b975c66c49d51f5a765c9a9f8c5f688e",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-040.json": "b60972ac650f403f12b7884354a1be1fff199111b8933809fef8ec9c7119e6c9"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "28124dcf7a9f1bef759209210570409405d7bcfeecbb4d17c79e0cf0e79637be",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-041",
+      "started_at": "2026-10-23T13:51:12.787078+00:00",
+      "finished_at": "2026-10-23T13:51:21.510770+00:00",
+      "wall_seconds": 8.723377299960703,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-041",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-041"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "0a4e33ce76980df0cb5b1c7185dba1f1cd20c65afcc434724474ccf0af1076d6",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "7630443eece6b7f12f5ae0ca51ec500f5c3b49fcecd14a7ce5254289d0266103",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-041.json",
+            "sha256": "622820a5dac40e80a077128581efcff747a5111f52eb97c7a9ddf9301a42c5d2",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "90bc77a24191a661d2786fa89754c67cd3b06d5db3a1160a8e9d999279a94deb",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-041.json": "622820a5dac40e80a077128581efcff747a5111f52eb97c7a9ddf9301a42c5d2"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "fec4c9a212b09411107694c7aeca930c56ebebcf7bd75c74c9437c498238475d",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-042",
+      "started_at": "2026-10-23T13:51:13.472729+00:00",
+      "finished_at": "2026-10-23T13:51:22.738633+00:00",
+      "wall_seconds": 9.265815699938685,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-042",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-042"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "7bcfa29844a4387e3b23e78b74f3b38f79a42cee618693c2d37d7749eefe429e",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "8be26851a942ef1e2a1b755a22ee8bcb525426e557cc0b6e9b9fa3eec0f1e26a",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-042.json",
+            "sha256": "7588adb59d44a3dde6f948baa6c8a8a238ec1649b0f6c8814d4dd54cef315708",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "451fc21a7196fe2eec7171307de81572e73f46a44cc543df6143e8a1afee6c6f",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-042.json": "7588adb59d44a3dde6f948baa6c8a8a238ec1649b0f6c8814d4dd54cef315708"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "d27b95c14c35a35b2f0e459851e1ca161a0d523b57d434ed6c9c4a1e01743908",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-043",
+      "started_at": "2026-10-23T13:51:14.425260+00:00",
+      "finished_at": "2026-10-23T13:51:25.835181+00:00",
+      "wall_seconds": 11.41049329994712,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-043",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-043"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "5b7ee6d08461976b8a77f92722f11957f81c6ca9327eec680a291fb5f9cbdb94",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "45f674e05cfae919ea4acc3a0d4b4290f2633ccaa03b94886bead00127fd22be",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-043.json",
+            "sha256": "348e384ceeee6441775de2279acd95d7dc70475fca5380a77ab1b51578f8ddd9",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "83a3027263cfc5558ae52785050b5be4eb30d6add93885adf1e571d115810d2d",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-043.json": "348e384ceeee6441775de2279acd95d7dc70475fca5380a77ab1b51578f8ddd9"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "6bd34611759f8605b78e897f51e7fc1caed4a914b3bca3d38959ea9be25a13ff",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-044",
+      "started_at": "2026-10-23T13:51:21.428781+00:00",
+      "finished_at": "2026-10-23T13:51:32.510433+00:00",
+      "wall_seconds": 11.081038899952546,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-044",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-044"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "e5b10af011eb2b6137da6bac5135af4a6e89997e8c6aff0009ffe97b17354272",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "951df7f8484d45b5494ff2b898055fcf8eafd186bbd86b6644e1bed6a087f1d2",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-044.json",
+            "sha256": "e0bb195e5f7ffabaef5a80c97046cfb98c0570283557059b66821d626ad06ebc",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "8d8a9330711f93f05dc9a6294f4611f8da933d0974f8ff80600869e649dafa14",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-044.json": "e0bb195e5f7ffabaef5a80c97046cfb98c0570283557059b66821d626ad06ebc"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "1d1b95db807ce86ecdd66198881ff34df4a38edbb5aac119f4122e35bf311686",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-045",
+      "started_at": "2026-10-23T13:51:21.513772+00:00",
+      "finished_at": "2026-10-23T13:51:29.017109+00:00",
+      "wall_seconds": 7.5028567999834195,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-045",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-045"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "9efb9564036f352b2d8bf5815137ea6ed2d46557b31050ea627e255b6b26fae4",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "b728fdd7ef99468f354bf4074e00ea53c6e433531d73a5c9a41c42ac4175bd49",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-045.json",
+            "sha256": "65a03c2e24640baca35e765bfa7c689169d1cc889527361a9c489986af2c0462",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "2dc14dd1bdef0bcec1f1909890d4ca86dd10fb61a1e025b08ee402016009586a",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-045.json": "65a03c2e24640baca35e765bfa7c689169d1cc889527361a9c489986af2c0462"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "4ce8a84f4fc6d95768448f6fc8954e4f67fe458e8734bf45bf6dfa7de357bcc0",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-046",
+      "started_at": "2026-10-23T13:51:22.839194+00:00",
+      "finished_at": "2026-10-23T13:51:30.552086+00:00",
+      "wall_seconds": 7.713165900087915,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-046",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-046"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "a3562afb9d87074e7af8884617435eb91cc10937ae2a340920931a500bd05168",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "23d0eca1a04418bc8f5a619cba651a35c5a5ffc58cb984a761c99e4e5f199075",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-046.json",
+            "sha256": "93693f92db2df9615924f15866fc86d3e1b2edb2a734eb1008b26f8466ac12a3",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "0eebced8a407dc8a1dbac8627e79a2bc091cfc65a5905d8a9355dd75fe37bcba",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-046.json": "93693f92db2df9615924f15866fc86d3e1b2edb2a734eb1008b26f8466ac12a3"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "1fe34de6200fba9563ec710c6fecbf5c0c4ad169e7b46cc060535cd9549e52f0",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "AGHR-047",
+      "started_at": "2026-10-23T13:51:25.856197+00:00",
+      "finished_at": "2026-10-23T13:51:35.559227+00:00",
+      "wall_seconds": 9.702969599980861,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/AGHR-047",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 1,
+        "AUTHORITY_NOT_ACTIVE": 1
+      },
+      "item_ids": [
+        "AGHR-047"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "b0e2a68dbb9f1b960485fab6437bbabd64178f9d889d4fcf4fe5e9a0eb34e695",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "b9828c13c7f1a003d16540f391ccbcd24f6f866a11d68f49c458a75066dd22f5",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-047.json",
+            "sha256": "875bacbd6e9217b21ffd5f83fe4ba90725f0f0bad1c30648663e0a8208d400f2",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "ec3e2a70a58fdc38657c0b742efcdd2b96c90571cc0f0208bdb97fcf3ca34a4e",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-047.json": "875bacbd6e9217b21ffd5f83fe4ba90725f0f0bad1c30648663e0a8208d400f2"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "d8a6e0142cb086a181e7d77e5e98d3c3b0c385e81402532370d65670d5e909d6",
+      "stderr_sha256": "8974b52dcfb70cd0cdaf94f9954267b845f215c4951351415f5ad99938ec1f5a"
+    },
+    {
+      "name": "negative-missing-level",
+      "started_at": "2026-10-23T13:51:29.024110+00:00",
+      "finished_at": "2026-10-23T13:51:38.242645+00:00",
+      "wall_seconds": 9.218382899998687,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/negative-missing-level",
+      "process_exit_code": 1,
+      "protocol_version": "3",
+      "result": "INVALID",
+      "structure": "FAIL",
+      "diagnostics": {
+        "SCHEMA_REQUIRED": 2
+      },
+      "item_ids": [],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "802e9694fe543cfa625c0f13b6c22121e38566ef3c0477f80a8971be458fcb2b",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "b7881ba0536ad0c1a3344e6c5bc772fc746a35ae97919610e05d9b66acb258cd",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-001.json",
+            "sha256": "3344ef9a5009358c68b29d65b9db4d9399181f4e6943b5be1e93005aec6e6138",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "7faf6a9eb6314cfcb3a31b019098318a1ac618671a1e2c112e29b48df0d00d07",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-001.json": "3344ef9a5009358c68b29d65b9db4d9399181f4e6943b5be1e93005aec6e6138"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "00724a6ca4894e910680bbb6810156fe834c845b51190b0e2726dccfaf5c0deb",
+      "stderr_sha256": "a511ce6e4f193c0f865d65222a5485cbe678cd0ba864ba1f72f317d90dfd6f3c"
+    },
+    {
+      "name": "negative-missing-scope",
+      "started_at": "2026-10-23T13:51:30.564110+00:00",
+      "finished_at": "2026-10-23T13:51:37.304897+00:00",
+      "wall_seconds": 6.740800999919884,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "docs/evidence/studio-t12-2026-10-23/cases/negative-missing-scope",
+      "process_exit_code": 1,
+      "protocol_version": "3",
+      "result": "INVALID",
+      "structure": "FAIL",
+      "diagnostics": {
+        "SCHEMA_REQUIRED": 1
+      },
+      "item_ids": [],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "373e414b5d25720001faab346acc545eed87b396a30cbd021556bbc96313e073",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "dde7b6032ad35656e05637a12c9f69f0db6d32be71f48abb324b24abfb90f182",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-001.json",
+            "sha256": "3873d9b8273278dab1aaf607278d7a432f8967450c16857fa9622bd86c65aab6",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "drafting/eval-fixtures.json": "7faf6a9eb6314cfcb3a31b019098318a1ac618671a1e2c112e29b48df0d00d07",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-001.json": "3873d9b8273278dab1aaf607278d7a432f8967450c16857fa9622bd86c65aab6"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "50d4d3a6ceea74dcba51b3b00efea979113bac4cec497db47dcdd8f4d485661d",
+      "stderr_sha256": "e552588b38d0ac74349ef07cd7d11a17415f147ff1594a8fdd599070cf006b4a"
+    },
+    {
+      "name": "package-strict",
+      "started_at": "2026-10-23T13:51:32.533461+00:00",
+      "finished_at": "2026-10-23T13:51:42.104532+00:00",
+      "wall_seconds": 9.558217699988745,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--strict",
+        "--format",
+        "json"
+      ],
+      "cwd": "governance_packages/candidates/AGHR_T12_Candidate",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 47,
+        "AUTHORITY_NOT_ACTIVE": 44,
+        "ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE": 3
+      },
+      "item_ids": [
+        "AGHR-001",
+        "AGHR-002",
+        "AGHR-003",
+        "AGHR-004",
+        "AGHR-005",
+        "AGHR-006",
+        "AGHR-007",
+        "AGHR-008",
+        "AGHR-009",
+        "AGHR-010",
+        "AGHR-011",
+        "AGHR-012",
+        "AGHR-013",
+        "AGHR-014",
+        "AGHR-015",
+        "AGHR-016",
+        "AGHR-017",
+        "AGHR-018",
+        "AGHR-019",
+        "AGHR-020",
+        "AGHR-021",
+        "AGHR-022",
+        "AGHR-023",
+        "AGHR-024",
+        "AGHR-025",
+        "AGHR-026",
+        "AGHR-027",
+        "AGHR-028",
+        "AGHR-029",
+        "AGHR-030",
+        "AGHR-031",
+        "AGHR-032",
+        "AGHR-033",
+        "AGHR-034",
+        "AGHR-035",
+        "AGHR-036",
+        "AGHR-037",
+        "AGHR-038",
+        "AGHR-039",
+        "AGHR-040",
+        "AGHR-041",
+        "AGHR-042",
+        "AGHR-043",
+        "AGHR-044",
+        "AGHR-045",
+        "AGHR-046",
+        "AGHR-047"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "94829d5a326a192a0903060a7f49fb2e7641887ebca8109c86ac33c80ad86e9f",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "6036778b7b0413e4c9e43b18c7aafae08f23daaf3770c875f02a7e8ebab61931",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-001.json",
+            "sha256": "44042898076495c4f5da68fdbc0bde501b68cfdff2be4f5fdcf59f4e78ea950e",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-002.json",
+            "sha256": "812d33678de85a4eb9fcbd0aa96340647c9ad4c4947bccd1ce7d849add24c248",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-003.json",
+            "sha256": "0899b7766b14ff3e5fcc5df72773621c73c41eed2d2263bbe47bf00587325043",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-004.json",
+            "sha256": "fd1f869457186d37e2e580a04f01080f93f76135277f668820c020603d778ed8",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-005.json",
+            "sha256": "8fda16e47aa85368664d4f43f2ea269a83ad703c4b0c4a5d0f09f5aac97099d3",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-006.json",
+            "sha256": "f7425a29b002e5f404514d4604c9a25e7a5f27553baf27fade194aff84e3c25d",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-007.json",
+            "sha256": "9e154593c53f6e9616ab17ba41d456aec336430b4fd0a5086e0924161eb3cb0a",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-008.json",
+            "sha256": "a473fccc275409af604035fe8125f2f40e30881396322627e593d3eaa8bf71f0",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-009.json",
+            "sha256": "8c0885b1d6ed4d3c4576e7d01dfb1fab179733bd8ea3efb3a921d378a24d505d",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-010.json",
+            "sha256": "10c383bea75a64bb6686b31f1ab4b0a82de51193b2f1c13d3f7d3ec48693b146",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-011.json",
+            "sha256": "09736dddc16a1a627560c395b4fc01e052050c102e30be1323f50911416217f6",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-012.json",
+            "sha256": "174700608f908f0230114d7bc3e62208aaeed1d5d3fd8fc9751f3a8d47cf96da",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-013.json",
+            "sha256": "bfd6ad2bd2daf0b6e4cb4978c6902fb64a0bf46ebe8e3f30d9480b21ea58229c",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-014.json",
+            "sha256": "7c1bf43d19853b03efd361183b5589f15d828853e6bb6426ecbd1a9519f3a92c",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-015.json",
+            "sha256": "96d1a69cd7647073b5095ee859a7cd7265e592726bd1381d0a95b6cddf9a95be",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-016.json",
+            "sha256": "d2b09a8f12310f7299ab6a63670d0d8624855f4fba584ac43223ead764cf0ea4",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-017.json",
+            "sha256": "5fe21e8fed101c51f3a43bf91876c53c72d4af5522cdf9a7836cfcfffc711c86",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-018.json",
+            "sha256": "a68d7cb85a3c4edfa7d4e02f2dbe1172f4b387610282f3c10b0056efe8b0caca",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-019.json",
+            "sha256": "bf33828aeebe8e6dba17d78d63bd58f46a58e0838115dd00ce044699ed3941d1",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-020.json",
+            "sha256": "852173b4c20f45e3d8a512d288a5388d483a9c37757fdba8e16d86c0c6b39095",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-021.json",
+            "sha256": "113946fdca251e82d99cde52b09bb614bdbb0e60240843884bf33311b40a8056",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-022.json",
+            "sha256": "752b09751a888d815dc379c1b2e4042bda0fd6fff45b5a488bd10edee43311f8",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-023.json",
+            "sha256": "111f99c29999b73809d47c67151dcf1117f58cbe099c3186a1e6f30855835bfb",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-024.json",
+            "sha256": "935a7a96478862d852b6c18ffef968f623384a78199f0ea32bf6792aaef5779f",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-025.json",
+            "sha256": "37bcaa68afd2c9819043ea57562ff36cb806807a69abbd0bde5922733b5f788d",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-026.json",
+            "sha256": "d3e341902833ab66d013c12dc1a93c6776e74ab7685a623659e89a4caa2d9d24",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-027.json",
+            "sha256": "4d4314c9f243ccace7e2a427bb0812e50f4053f4ba9d5abad2c89b4ffc4c608a",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-028.json",
+            "sha256": "81225994689314a9c80b1c6116c99ec9b1e89e327bbdb7bcbf9aa40f6bcc9af9",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-029.json",
+            "sha256": "3e0e34dd605e00ce7d88d78a5a01ec0958de6e6b80c4f5188d94eaaad14fbef4",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-030.json",
+            "sha256": "7931fd31b6de42b925d68ec4258a0b87c928f4ffe666deeddcf506a31d1567ba",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-031.json",
+            "sha256": "547f179bba9c228f6efabc6179ecf1130d7c1d73d5ffd2d31e2daa3df8f91894",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-032.json",
+            "sha256": "973c4414db969da07f0c8f07c5ef77d34a1d602dc07f69c38f524492bd3728ce",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-033.json",
+            "sha256": "9021a11925ba2b997f4a264c20555565657204ce2dff50afbc58dc3ca8e1afe1",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-034.json",
+            "sha256": "e4af2bc3322204e82660f589817f3e42a0960caacb430a2e584c7483d36b610a",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-035.json",
+            "sha256": "039e899d50f5651d8d35aacd537dcb05ab0df1f19f3e47581f74542670399dfa",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-036.json",
+            "sha256": "a585744d509c2fd575f3cadca2eaa5c894cac1f85d977f47ce8d97fafc5d54c0",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-037.json",
+            "sha256": "6d41f07e73609eadc1152ce7df96fcef836885699cdd4744c5f461c6e688745c",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-038.json",
+            "sha256": "75e8483daa3552712a2a965535c08505d40d04dd6b2d10990a6027d1e4fa8865",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-039.json",
+            "sha256": "a6b4c985d9e277c94497f84340c34341af354c56e4930074b601337fa33e5a43",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-040.json",
+            "sha256": "b60972ac650f403f12b7884354a1be1fff199111b8933809fef8ec9c7119e6c9",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-041.json",
+            "sha256": "622820a5dac40e80a077128581efcff747a5111f52eb97c7a9ddf9301a42c5d2",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-042.json",
+            "sha256": "7588adb59d44a3dde6f948baa6c8a8a238ec1649b0f6c8814d4dd54cef315708",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-043.json",
+            "sha256": "348e384ceeee6441775de2279acd95d7dc70475fca5380a77ab1b51578f8ddd9",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-044.json",
+            "sha256": "e0bb195e5f7ffabaef5a80c97046cfb98c0570283557059b66821d626ad06ebc",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-045.json",
+            "sha256": "65a03c2e24640baca35e765bfa7c689169d1cc889527361a9c489986af2c0462",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-046.json",
+            "sha256": "93693f92db2df9615924f15866fc86d3e1b2edb2a734eb1008b26f8466ac12a3",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-047.json",
+            "sha256": "875bacbd6e9217b21ffd5f83fe4ba90725f0f0bad1c30648663e0a8208d400f2",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "LICENSE": "dd92d820f1edbf814873bebe95f4e4e07452e1ae0f701f908e2fb1cb2b8018a9",
+        "PACKAGE_STATUS.json": "aac8825d7e56f4fc07d12d4c83019d6363e0678d93256e2dda7f707a14429f54",
+        "PROVENANCE.json": "643770807574babca815831509daf39db9d7e7c1de078bfbd64de4477a4904ee",
+        "drafting/eval-fixtures.json": "6193913d88a34233aefd4c23499f07f1882371dac58eae7e59253157f4246017",
+        "drafting/FIELD_PROVENANCE.json": "1c3bb4ae94b79e64572fac8c606379bcb50b81d2be1cb21597edf76d916aa215",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-001.json": "44042898076495c4f5da68fdbc0bde501b68cfdff2be4f5fdcf59f4e78ea950e",
+        "policies/drafts/AGHR-002.json": "812d33678de85a4eb9fcbd0aa96340647c9ad4c4947bccd1ce7d849add24c248",
+        "policies/drafts/AGHR-003.json": "0899b7766b14ff3e5fcc5df72773621c73c41eed2d2263bbe47bf00587325043",
+        "policies/drafts/AGHR-004.json": "fd1f869457186d37e2e580a04f01080f93f76135277f668820c020603d778ed8",
+        "policies/drafts/AGHR-005.json": "8fda16e47aa85368664d4f43f2ea269a83ad703c4b0c4a5d0f09f5aac97099d3",
+        "policies/drafts/AGHR-006.json": "f7425a29b002e5f404514d4604c9a25e7a5f27553baf27fade194aff84e3c25d",
+        "policies/drafts/AGHR-007.json": "9e154593c53f6e9616ab17ba41d456aec336430b4fd0a5086e0924161eb3cb0a",
+        "policies/drafts/AGHR-008.json": "a473fccc275409af604035fe8125f2f40e30881396322627e593d3eaa8bf71f0",
+        "policies/drafts/AGHR-009.json": "8c0885b1d6ed4d3c4576e7d01dfb1fab179733bd8ea3efb3a921d378a24d505d",
+        "policies/drafts/AGHR-010.json": "10c383bea75a64bb6686b31f1ab4b0a82de51193b2f1c13d3f7d3ec48693b146",
+        "policies/drafts/AGHR-011.json": "09736dddc16a1a627560c395b4fc01e052050c102e30be1323f50911416217f6",
+        "policies/drafts/AGHR-012.json": "174700608f908f0230114d7bc3e62208aaeed1d5d3fd8fc9751f3a8d47cf96da",
+        "policies/drafts/AGHR-013.json": "bfd6ad2bd2daf0b6e4cb4978c6902fb64a0bf46ebe8e3f30d9480b21ea58229c",
+        "policies/drafts/AGHR-014.json": "7c1bf43d19853b03efd361183b5589f15d828853e6bb6426ecbd1a9519f3a92c",
+        "policies/drafts/AGHR-015.json": "96d1a69cd7647073b5095ee859a7cd7265e592726bd1381d0a95b6cddf9a95be",
+        "policies/drafts/AGHR-016.json": "d2b09a8f12310f7299ab6a63670d0d8624855f4fba584ac43223ead764cf0ea4",
+        "policies/drafts/AGHR-017.json": "5fe21e8fed101c51f3a43bf91876c53c72d4af5522cdf9a7836cfcfffc711c86",
+        "policies/drafts/AGHR-018.json": "a68d7cb85a3c4edfa7d4e02f2dbe1172f4b387610282f3c10b0056efe8b0caca",
+        "policies/drafts/AGHR-019.json": "bf33828aeebe8e6dba17d78d63bd58f46a58e0838115dd00ce044699ed3941d1",
+        "policies/drafts/AGHR-020.json": "852173b4c20f45e3d8a512d288a5388d483a9c37757fdba8e16d86c0c6b39095",
+        "policies/drafts/AGHR-021.json": "113946fdca251e82d99cde52b09bb614bdbb0e60240843884bf33311b40a8056",
+        "policies/drafts/AGHR-022.json": "752b09751a888d815dc379c1b2e4042bda0fd6fff45b5a488bd10edee43311f8",
+        "policies/drafts/AGHR-023.json": "111f99c29999b73809d47c67151dcf1117f58cbe099c3186a1e6f30855835bfb",
+        "policies/drafts/AGHR-024.json": "935a7a96478862d852b6c18ffef968f623384a78199f0ea32bf6792aaef5779f",
+        "policies/drafts/AGHR-025.json": "37bcaa68afd2c9819043ea57562ff36cb806807a69abbd0bde5922733b5f788d",
+        "policies/drafts/AGHR-026.json": "d3e341902833ab66d013c12dc1a93c6776e74ab7685a623659e89a4caa2d9d24",
+        "policies/drafts/AGHR-027.json": "4d4314c9f243ccace7e2a427bb0812e50f4053f4ba9d5abad2c89b4ffc4c608a",
+        "policies/drafts/AGHR-028.json": "81225994689314a9c80b1c6116c99ec9b1e89e327bbdb7bcbf9aa40f6bcc9af9",
+        "policies/drafts/AGHR-029.json": "3e0e34dd605e00ce7d88d78a5a01ec0958de6e6b80c4f5188d94eaaad14fbef4",
+        "policies/drafts/AGHR-030.json": "7931fd31b6de42b925d68ec4258a0b87c928f4ffe666deeddcf506a31d1567ba",
+        "policies/drafts/AGHR-031.json": "547f179bba9c228f6efabc6179ecf1130d7c1d73d5ffd2d31e2daa3df8f91894",
+        "policies/drafts/AGHR-032.json": "973c4414db969da07f0c8f07c5ef77d34a1d602dc07f69c38f524492bd3728ce",
+        "policies/drafts/AGHR-033.json": "9021a11925ba2b997f4a264c20555565657204ce2dff50afbc58dc3ca8e1afe1",
+        "policies/drafts/AGHR-034.json": "e4af2bc3322204e82660f589817f3e42a0960caacb430a2e584c7483d36b610a",
+        "policies/drafts/AGHR-035.json": "039e899d50f5651d8d35aacd537dcb05ab0df1f19f3e47581f74542670399dfa",
+        "policies/drafts/AGHR-036.json": "a585744d509c2fd575f3cadca2eaa5c894cac1f85d977f47ce8d97fafc5d54c0",
+        "policies/drafts/AGHR-037.json": "6d41f07e73609eadc1152ce7df96fcef836885699cdd4744c5f461c6e688745c",
+        "policies/drafts/AGHR-038.json": "75e8483daa3552712a2a965535c08505d40d04dd6b2d10990a6027d1e4fa8865",
+        "policies/drafts/AGHR-039.json": "a6b4c985d9e277c94497f84340c34341af354c56e4930074b601337fa33e5a43",
+        "policies/drafts/AGHR-040.json": "b60972ac650f403f12b7884354a1be1fff199111b8933809fef8ec9c7119e6c9",
+        "policies/drafts/AGHR-041.json": "622820a5dac40e80a077128581efcff747a5111f52eb97c7a9ddf9301a42c5d2",
+        "policies/drafts/AGHR-042.json": "7588adb59d44a3dde6f948baa6c8a8a238ec1649b0f6c8814d4dd54cef315708",
+        "policies/drafts/AGHR-043.json": "348e384ceeee6441775de2279acd95d7dc70475fca5380a77ab1b51578f8ddd9",
+        "policies/drafts/AGHR-044.json": "e0bb195e5f7ffabaef5a80c97046cfb98c0570283557059b66821d626ad06ebc",
+        "policies/drafts/AGHR-045.json": "65a03c2e24640baca35e765bfa7c689169d1cc889527361a9c489986af2c0462",
+        "policies/drafts/AGHR-046.json": "93693f92db2df9615924f15866fc86d3e1b2edb2a734eb1008b26f8466ac12a3",
+        "policies/drafts/AGHR-047.json": "875bacbd6e9217b21ffd5f83fe4ba90725f0f0bad1c30648663e0a8208d400f2"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "fcacfe5e8042140f8abe774bcc08803a6143036ae194518dac761f6b5e8e20af",
+      "stderr_sha256": "ef27490f96e52cc34e185ead198f185eaf7315d1eb8cbaf24344aa95ab8c2dd0"
+    },
+    {
+      "name": "package-validate",
+      "started_at": "2026-10-23T13:51:35.572222+00:00",
+      "finished_at": "2026-10-23T13:51:43.556597+00:00",
+      "wall_seconds": 7.984488399932161,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "validate",
+        "--format",
+        "json"
+      ],
+      "cwd": "governance_packages/candidates/AGHR_T12_Candidate",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 47,
+        "AUTHORITY_NOT_ACTIVE": 44,
+        "ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE": 3
+      },
+      "item_ids": [
+        "AGHR-001",
+        "AGHR-002",
+        "AGHR-003",
+        "AGHR-004",
+        "AGHR-005",
+        "AGHR-006",
+        "AGHR-007",
+        "AGHR-008",
+        "AGHR-009",
+        "AGHR-010",
+        "AGHR-011",
+        "AGHR-012",
+        "AGHR-013",
+        "AGHR-014",
+        "AGHR-015",
+        "AGHR-016",
+        "AGHR-017",
+        "AGHR-018",
+        "AGHR-019",
+        "AGHR-020",
+        "AGHR-021",
+        "AGHR-022",
+        "AGHR-023",
+        "AGHR-024",
+        "AGHR-025",
+        "AGHR-026",
+        "AGHR-027",
+        "AGHR-028",
+        "AGHR-029",
+        "AGHR-030",
+        "AGHR-031",
+        "AGHR-032",
+        "AGHR-033",
+        "AGHR-034",
+        "AGHR-035",
+        "AGHR-036",
+        "AGHR-037",
+        "AGHR-038",
+        "AGHR-039",
+        "AGHR-040",
+        "AGHR-041",
+        "AGHR-042",
+        "AGHR-043",
+        "AGHR-044",
+        "AGHR-045",
+        "AGHR-046",
+        "AGHR-047"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "94829d5a326a192a0903060a7f49fb2e7641887ebca8109c86ac33c80ad86e9f",
+        "config_hash": "bd7913b92c9895fc7bde511e40454fdc09d1ff5412c3e8e16e3ce01361c19e62",
+        "inputs_hash": "6036778b7b0413e4c9e43b18c7aafae08f23daaf3770c875f02a7e8ebab61931",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-001.json",
+            "sha256": "44042898076495c4f5da68fdbc0bde501b68cfdff2be4f5fdcf59f4e78ea950e",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-002.json",
+            "sha256": "812d33678de85a4eb9fcbd0aa96340647c9ad4c4947bccd1ce7d849add24c248",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-003.json",
+            "sha256": "0899b7766b14ff3e5fcc5df72773621c73c41eed2d2263bbe47bf00587325043",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-004.json",
+            "sha256": "fd1f869457186d37e2e580a04f01080f93f76135277f668820c020603d778ed8",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-005.json",
+            "sha256": "8fda16e47aa85368664d4f43f2ea269a83ad703c4b0c4a5d0f09f5aac97099d3",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-006.json",
+            "sha256": "f7425a29b002e5f404514d4604c9a25e7a5f27553baf27fade194aff84e3c25d",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-007.json",
+            "sha256": "9e154593c53f6e9616ab17ba41d456aec336430b4fd0a5086e0924161eb3cb0a",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-008.json",
+            "sha256": "a473fccc275409af604035fe8125f2f40e30881396322627e593d3eaa8bf71f0",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-009.json",
+            "sha256": "8c0885b1d6ed4d3c4576e7d01dfb1fab179733bd8ea3efb3a921d378a24d505d",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-010.json",
+            "sha256": "10c383bea75a64bb6686b31f1ab4b0a82de51193b2f1c13d3f7d3ec48693b146",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-011.json",
+            "sha256": "09736dddc16a1a627560c395b4fc01e052050c102e30be1323f50911416217f6",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-012.json",
+            "sha256": "174700608f908f0230114d7bc3e62208aaeed1d5d3fd8fc9751f3a8d47cf96da",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-013.json",
+            "sha256": "bfd6ad2bd2daf0b6e4cb4978c6902fb64a0bf46ebe8e3f30d9480b21ea58229c",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-014.json",
+            "sha256": "7c1bf43d19853b03efd361183b5589f15d828853e6bb6426ecbd1a9519f3a92c",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-015.json",
+            "sha256": "96d1a69cd7647073b5095ee859a7cd7265e592726bd1381d0a95b6cddf9a95be",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-016.json",
+            "sha256": "d2b09a8f12310f7299ab6a63670d0d8624855f4fba584ac43223ead764cf0ea4",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-017.json",
+            "sha256": "5fe21e8fed101c51f3a43bf91876c53c72d4af5522cdf9a7836cfcfffc711c86",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-018.json",
+            "sha256": "a68d7cb85a3c4edfa7d4e02f2dbe1172f4b387610282f3c10b0056efe8b0caca",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-019.json",
+            "sha256": "bf33828aeebe8e6dba17d78d63bd58f46a58e0838115dd00ce044699ed3941d1",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-020.json",
+            "sha256": "852173b4c20f45e3d8a512d288a5388d483a9c37757fdba8e16d86c0c6b39095",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-021.json",
+            "sha256": "113946fdca251e82d99cde52b09bb614bdbb0e60240843884bf33311b40a8056",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-022.json",
+            "sha256": "752b09751a888d815dc379c1b2e4042bda0fd6fff45b5a488bd10edee43311f8",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-023.json",
+            "sha256": "111f99c29999b73809d47c67151dcf1117f58cbe099c3186a1e6f30855835bfb",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-024.json",
+            "sha256": "935a7a96478862d852b6c18ffef968f623384a78199f0ea32bf6792aaef5779f",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-025.json",
+            "sha256": "37bcaa68afd2c9819043ea57562ff36cb806807a69abbd0bde5922733b5f788d",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-026.json",
+            "sha256": "d3e341902833ab66d013c12dc1a93c6776e74ab7685a623659e89a4caa2d9d24",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-027.json",
+            "sha256": "4d4314c9f243ccace7e2a427bb0812e50f4053f4ba9d5abad2c89b4ffc4c608a",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-028.json",
+            "sha256": "81225994689314a9c80b1c6116c99ec9b1e89e327bbdb7bcbf9aa40f6bcc9af9",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-029.json",
+            "sha256": "3e0e34dd605e00ce7d88d78a5a01ec0958de6e6b80c4f5188d94eaaad14fbef4",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-030.json",
+            "sha256": "7931fd31b6de42b925d68ec4258a0b87c928f4ffe666deeddcf506a31d1567ba",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-031.json",
+            "sha256": "547f179bba9c228f6efabc6179ecf1130d7c1d73d5ffd2d31e2daa3df8f91894",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-032.json",
+            "sha256": "973c4414db969da07f0c8f07c5ef77d34a1d602dc07f69c38f524492bd3728ce",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-033.json",
+            "sha256": "9021a11925ba2b997f4a264c20555565657204ce2dff50afbc58dc3ca8e1afe1",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-034.json",
+            "sha256": "e4af2bc3322204e82660f589817f3e42a0960caacb430a2e584c7483d36b610a",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-035.json",
+            "sha256": "039e899d50f5651d8d35aacd537dcb05ab0df1f19f3e47581f74542670399dfa",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-036.json",
+            "sha256": "a585744d509c2fd575f3cadca2eaa5c894cac1f85d977f47ce8d97fafc5d54c0",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-037.json",
+            "sha256": "6d41f07e73609eadc1152ce7df96fcef836885699cdd4744c5f461c6e688745c",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-038.json",
+            "sha256": "75e8483daa3552712a2a965535c08505d40d04dd6b2d10990a6027d1e4fa8865",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-039.json",
+            "sha256": "a6b4c985d9e277c94497f84340c34341af354c56e4930074b601337fa33e5a43",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-040.json",
+            "sha256": "b60972ac650f403f12b7884354a1be1fff199111b8933809fef8ec9c7119e6c9",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-041.json",
+            "sha256": "622820a5dac40e80a077128581efcff747a5111f52eb97c7a9ddf9301a42c5d2",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-042.json",
+            "sha256": "7588adb59d44a3dde6f948baa6c8a8a238ec1649b0f6c8814d4dd54cef315708",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-043.json",
+            "sha256": "348e384ceeee6441775de2279acd95d7dc70475fca5380a77ab1b51578f8ddd9",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-044.json",
+            "sha256": "e0bb195e5f7ffabaef5a80c97046cfb98c0570283557059b66821d626ad06ebc",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-045.json",
+            "sha256": "65a03c2e24640baca35e765bfa7c689169d1cc889527361a9c489986af2c0462",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-046.json",
+            "sha256": "93693f92db2df9615924f15866fc86d3e1b2edb2a734eb1008b26f8466ac12a3",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-047.json",
+            "sha256": "875bacbd6e9217b21ffd5f83fe4ba90725f0f0bad1c30648663e0a8208d400f2",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "LICENSE": "dd92d820f1edbf814873bebe95f4e4e07452e1ae0f701f908e2fb1cb2b8018a9",
+        "PACKAGE_STATUS.json": "aac8825d7e56f4fc07d12d4c83019d6363e0678d93256e2dda7f707a14429f54",
+        "PROVENANCE.json": "643770807574babca815831509daf39db9d7e7c1de078bfbd64de4477a4904ee",
+        "drafting/eval-fixtures.json": "6193913d88a34233aefd4c23499f07f1882371dac58eae7e59253157f4246017",
+        "drafting/FIELD_PROVENANCE.json": "1c3bb4ae94b79e64572fac8c606379bcb50b81d2be1cb21597edf76d916aa215",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-001.json": "44042898076495c4f5da68fdbc0bde501b68cfdff2be4f5fdcf59f4e78ea950e",
+        "policies/drafts/AGHR-002.json": "812d33678de85a4eb9fcbd0aa96340647c9ad4c4947bccd1ce7d849add24c248",
+        "policies/drafts/AGHR-003.json": "0899b7766b14ff3e5fcc5df72773621c73c41eed2d2263bbe47bf00587325043",
+        "policies/drafts/AGHR-004.json": "fd1f869457186d37e2e580a04f01080f93f76135277f668820c020603d778ed8",
+        "policies/drafts/AGHR-005.json": "8fda16e47aa85368664d4f43f2ea269a83ad703c4b0c4a5d0f09f5aac97099d3",
+        "policies/drafts/AGHR-006.json": "f7425a29b002e5f404514d4604c9a25e7a5f27553baf27fade194aff84e3c25d",
+        "policies/drafts/AGHR-007.json": "9e154593c53f6e9616ab17ba41d456aec336430b4fd0a5086e0924161eb3cb0a",
+        "policies/drafts/AGHR-008.json": "a473fccc275409af604035fe8125f2f40e30881396322627e593d3eaa8bf71f0",
+        "policies/drafts/AGHR-009.json": "8c0885b1d6ed4d3c4576e7d01dfb1fab179733bd8ea3efb3a921d378a24d505d",
+        "policies/drafts/AGHR-010.json": "10c383bea75a64bb6686b31f1ab4b0a82de51193b2f1c13d3f7d3ec48693b146",
+        "policies/drafts/AGHR-011.json": "09736dddc16a1a627560c395b4fc01e052050c102e30be1323f50911416217f6",
+        "policies/drafts/AGHR-012.json": "174700608f908f0230114d7bc3e62208aaeed1d5d3fd8fc9751f3a8d47cf96da",
+        "policies/drafts/AGHR-013.json": "bfd6ad2bd2daf0b6e4cb4978c6902fb64a0bf46ebe8e3f30d9480b21ea58229c",
+        "policies/drafts/AGHR-014.json": "7c1bf43d19853b03efd361183b5589f15d828853e6bb6426ecbd1a9519f3a92c",
+        "policies/drafts/AGHR-015.json": "96d1a69cd7647073b5095ee859a7cd7265e592726bd1381d0a95b6cddf9a95be",
+        "policies/drafts/AGHR-016.json": "d2b09a8f12310f7299ab6a63670d0d8624855f4fba584ac43223ead764cf0ea4",
+        "policies/drafts/AGHR-017.json": "5fe21e8fed101c51f3a43bf91876c53c72d4af5522cdf9a7836cfcfffc711c86",
+        "policies/drafts/AGHR-018.json": "a68d7cb85a3c4edfa7d4e02f2dbe1172f4b387610282f3c10b0056efe8b0caca",
+        "policies/drafts/AGHR-019.json": "bf33828aeebe8e6dba17d78d63bd58f46a58e0838115dd00ce044699ed3941d1",
+        "policies/drafts/AGHR-020.json": "852173b4c20f45e3d8a512d288a5388d483a9c37757fdba8e16d86c0c6b39095",
+        "policies/drafts/AGHR-021.json": "113946fdca251e82d99cde52b09bb614bdbb0e60240843884bf33311b40a8056",
+        "policies/drafts/AGHR-022.json": "752b09751a888d815dc379c1b2e4042bda0fd6fff45b5a488bd10edee43311f8",
+        "policies/drafts/AGHR-023.json": "111f99c29999b73809d47c67151dcf1117f58cbe099c3186a1e6f30855835bfb",
+        "policies/drafts/AGHR-024.json": "935a7a96478862d852b6c18ffef968f623384a78199f0ea32bf6792aaef5779f",
+        "policies/drafts/AGHR-025.json": "37bcaa68afd2c9819043ea57562ff36cb806807a69abbd0bde5922733b5f788d",
+        "policies/drafts/AGHR-026.json": "d3e341902833ab66d013c12dc1a93c6776e74ab7685a623659e89a4caa2d9d24",
+        "policies/drafts/AGHR-027.json": "4d4314c9f243ccace7e2a427bb0812e50f4053f4ba9d5abad2c89b4ffc4c608a",
+        "policies/drafts/AGHR-028.json": "81225994689314a9c80b1c6116c99ec9b1e89e327bbdb7bcbf9aa40f6bcc9af9",
+        "policies/drafts/AGHR-029.json": "3e0e34dd605e00ce7d88d78a5a01ec0958de6e6b80c4f5188d94eaaad14fbef4",
+        "policies/drafts/AGHR-030.json": "7931fd31b6de42b925d68ec4258a0b87c928f4ffe666deeddcf506a31d1567ba",
+        "policies/drafts/AGHR-031.json": "547f179bba9c228f6efabc6179ecf1130d7c1d73d5ffd2d31e2daa3df8f91894",
+        "policies/drafts/AGHR-032.json": "973c4414db969da07f0c8f07c5ef77d34a1d602dc07f69c38f524492bd3728ce",
+        "policies/drafts/AGHR-033.json": "9021a11925ba2b997f4a264c20555565657204ce2dff50afbc58dc3ca8e1afe1",
+        "policies/drafts/AGHR-034.json": "e4af2bc3322204e82660f589817f3e42a0960caacb430a2e584c7483d36b610a",
+        "policies/drafts/AGHR-035.json": "039e899d50f5651d8d35aacd537dcb05ab0df1f19f3e47581f74542670399dfa",
+        "policies/drafts/AGHR-036.json": "a585744d509c2fd575f3cadca2eaa5c894cac1f85d977f47ce8d97fafc5d54c0",
+        "policies/drafts/AGHR-037.json": "6d41f07e73609eadc1152ce7df96fcef836885699cdd4744c5f461c6e688745c",
+        "policies/drafts/AGHR-038.json": "75e8483daa3552712a2a965535c08505d40d04dd6b2d10990a6027d1e4fa8865",
+        "policies/drafts/AGHR-039.json": "a6b4c985d9e277c94497f84340c34341af354c56e4930074b601337fa33e5a43",
+        "policies/drafts/AGHR-040.json": "b60972ac650f403f12b7884354a1be1fff199111b8933809fef8ec9c7119e6c9",
+        "policies/drafts/AGHR-041.json": "622820a5dac40e80a077128581efcff747a5111f52eb97c7a9ddf9301a42c5d2",
+        "policies/drafts/AGHR-042.json": "7588adb59d44a3dde6f948baa6c8a8a238ec1649b0f6c8814d4dd54cef315708",
+        "policies/drafts/AGHR-043.json": "348e384ceeee6441775de2279acd95d7dc70475fca5380a77ab1b51578f8ddd9",
+        "policies/drafts/AGHR-044.json": "e0bb195e5f7ffabaef5a80c97046cfb98c0570283557059b66821d626ad06ebc",
+        "policies/drafts/AGHR-045.json": "65a03c2e24640baca35e765bfa7c689169d1cc889527361a9c489986af2c0462",
+        "policies/drafts/AGHR-046.json": "93693f92db2df9615924f15866fc86d3e1b2edb2a734eb1008b26f8466ac12a3",
+        "policies/drafts/AGHR-047.json": "875bacbd6e9217b21ffd5f83fe4ba90725f0f0bad1c30648663e0a8208d400f2"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "fcacfe5e8042140f8abe774bcc08803a6143036ae194518dac761f6b5e8e20af",
+      "stderr_sha256": "ef27490f96e52cc34e185ead198f185eaf7315d1eb8cbaf24344aa95ab8c2dd0"
+    },
+    {
+      "name": "package-lint",
+      "started_at": "2026-10-23T13:51:37.313898+00:00",
+      "finished_at": "2026-10-23T13:51:44.874720+00:00",
+      "wall_seconds": 7.5608030000003055,
+      "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+      "argv": [
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+        "lint",
+        "--format",
+        "json"
+      ],
+      "cwd": "governance_packages/candidates/AGHR_T12_Candidate",
+      "process_exit_code": 3,
+      "protocol_version": "3",
+      "result": "BLOCKED",
+      "structure": "PASS",
+      "diagnostics": {
+        "AUTHORITY_SOURCE_UNVERIFIED": 47,
+        "AUTHORITY_NOT_ACTIVE": 44,
+        "ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE": 3
+      },
+      "item_ids": [
+        "AGHR-001",
+        "AGHR-002",
+        "AGHR-003",
+        "AGHR-004",
+        "AGHR-005",
+        "AGHR-006",
+        "AGHR-007",
+        "AGHR-008",
+        "AGHR-009",
+        "AGHR-010",
+        "AGHR-011",
+        "AGHR-012",
+        "AGHR-013",
+        "AGHR-014",
+        "AGHR-015",
+        "AGHR-016",
+        "AGHR-017",
+        "AGHR-018",
+        "AGHR-019",
+        "AGHR-020",
+        "AGHR-021",
+        "AGHR-022",
+        "AGHR-023",
+        "AGHR-024",
+        "AGHR-025",
+        "AGHR-026",
+        "AGHR-027",
+        "AGHR-028",
+        "AGHR-029",
+        "AGHR-030",
+        "AGHR-031",
+        "AGHR-032",
+        "AGHR-033",
+        "AGHR-034",
+        "AGHR-035",
+        "AGHR-036",
+        "AGHR-037",
+        "AGHR-038",
+        "AGHR-039",
+        "AGHR-040",
+        "AGHR-041",
+        "AGHR-042",
+        "AGHR-043",
+        "AGHR-044",
+        "AGHR-045",
+        "AGHR-046",
+        "AGHR-047"
+      ],
+      "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "inputs": {
+        "candidate_hash": "94829d5a326a192a0903060a7f49fb2e7641887ebca8109c86ac33c80ad86e9f",
+        "config_hash": "43ad124ac577407c3241bd52256ea047fcbc43ec744475be692c95a9fe89a58a",
+        "inputs_hash": "610a7a8fa28c5b1a7f86ec99133e84b6202e9890be5b6111598d95f94877875f",
+        "catalog": [
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-001.json",
+            "sha256": "44042898076495c4f5da68fdbc0bde501b68cfdff2be4f5fdcf59f4e78ea950e",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-002.json",
+            "sha256": "812d33678de85a4eb9fcbd0aa96340647c9ad4c4947bccd1ce7d849add24c248",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-003.json",
+            "sha256": "0899b7766b14ff3e5fcc5df72773621c73c41eed2d2263bbe47bf00587325043",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-004.json",
+            "sha256": "fd1f869457186d37e2e580a04f01080f93f76135277f668820c020603d778ed8",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-005.json",
+            "sha256": "8fda16e47aa85368664d4f43f2ea269a83ad703c4b0c4a5d0f09f5aac97099d3",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-006.json",
+            "sha256": "f7425a29b002e5f404514d4604c9a25e7a5f27553baf27fade194aff84e3c25d",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-007.json",
+            "sha256": "9e154593c53f6e9616ab17ba41d456aec336430b4fd0a5086e0924161eb3cb0a",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-008.json",
+            "sha256": "a473fccc275409af604035fe8125f2f40e30881396322627e593d3eaa8bf71f0",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-009.json",
+            "sha256": "8c0885b1d6ed4d3c4576e7d01dfb1fab179733bd8ea3efb3a921d378a24d505d",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-010.json",
+            "sha256": "10c383bea75a64bb6686b31f1ab4b0a82de51193b2f1c13d3f7d3ec48693b146",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-011.json",
+            "sha256": "09736dddc16a1a627560c395b4fc01e052050c102e30be1323f50911416217f6",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-012.json",
+            "sha256": "174700608f908f0230114d7bc3e62208aaeed1d5d3fd8fc9751f3a8d47cf96da",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-013.json",
+            "sha256": "bfd6ad2bd2daf0b6e4cb4978c6902fb64a0bf46ebe8e3f30d9480b21ea58229c",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-014.json",
+            "sha256": "7c1bf43d19853b03efd361183b5589f15d828853e6bb6426ecbd1a9519f3a92c",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-015.json",
+            "sha256": "96d1a69cd7647073b5095ee859a7cd7265e592726bd1381d0a95b6cddf9a95be",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-016.json",
+            "sha256": "d2b09a8f12310f7299ab6a63670d0d8624855f4fba584ac43223ead764cf0ea4",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-017.json",
+            "sha256": "5fe21e8fed101c51f3a43bf91876c53c72d4af5522cdf9a7836cfcfffc711c86",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-018.json",
+            "sha256": "a68d7cb85a3c4edfa7d4e02f2dbe1172f4b387610282f3c10b0056efe8b0caca",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-019.json",
+            "sha256": "bf33828aeebe8e6dba17d78d63bd58f46a58e0838115dd00ce044699ed3941d1",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-020.json",
+            "sha256": "852173b4c20f45e3d8a512d288a5388d483a9c37757fdba8e16d86c0c6b39095",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-021.json",
+            "sha256": "113946fdca251e82d99cde52b09bb614bdbb0e60240843884bf33311b40a8056",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-022.json",
+            "sha256": "752b09751a888d815dc379c1b2e4042bda0fd6fff45b5a488bd10edee43311f8",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-023.json",
+            "sha256": "111f99c29999b73809d47c67151dcf1117f58cbe099c3186a1e6f30855835bfb",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-024.json",
+            "sha256": "935a7a96478862d852b6c18ffef968f623384a78199f0ea32bf6792aaef5779f",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-025.json",
+            "sha256": "37bcaa68afd2c9819043ea57562ff36cb806807a69abbd0bde5922733b5f788d",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-026.json",
+            "sha256": "d3e341902833ab66d013c12dc1a93c6776e74ab7685a623659e89a4caa2d9d24",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-027.json",
+            "sha256": "4d4314c9f243ccace7e2a427bb0812e50f4053f4ba9d5abad2c89b4ffc4c608a",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-028.json",
+            "sha256": "81225994689314a9c80b1c6116c99ec9b1e89e327bbdb7bcbf9aa40f6bcc9af9",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-029.json",
+            "sha256": "3e0e34dd605e00ce7d88d78a5a01ec0958de6e6b80c4f5188d94eaaad14fbef4",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-030.json",
+            "sha256": "7931fd31b6de42b925d68ec4258a0b87c928f4ffe666deeddcf506a31d1567ba",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-031.json",
+            "sha256": "547f179bba9c228f6efabc6179ecf1130d7c1d73d5ffd2d31e2daa3df8f91894",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-032.json",
+            "sha256": "973c4414db969da07f0c8f07c5ef77d34a1d602dc07f69c38f524492bd3728ce",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-033.json",
+            "sha256": "9021a11925ba2b997f4a264c20555565657204ce2dff50afbc58dc3ca8e1afe1",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-034.json",
+            "sha256": "e4af2bc3322204e82660f589817f3e42a0960caacb430a2e584c7483d36b610a",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-035.json",
+            "sha256": "039e899d50f5651d8d35aacd537dcb05ab0df1f19f3e47581f74542670399dfa",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-036.json",
+            "sha256": "a585744d509c2fd575f3cadca2eaa5c894cac1f85d977f47ce8d97fafc5d54c0",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-037.json",
+            "sha256": "6d41f07e73609eadc1152ce7df96fcef836885699cdd4744c5f461c6e688745c",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-038.json",
+            "sha256": "75e8483daa3552712a2a965535c08505d40d04dd6b2d10990a6027d1e4fa8865",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-039.json",
+            "sha256": "a6b4c985d9e277c94497f84340c34341af354c56e4930074b601337fa33e5a43",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-040.json",
+            "sha256": "b60972ac650f403f12b7884354a1be1fff199111b8933809fef8ec9c7119e6c9",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-041.json",
+            "sha256": "622820a5dac40e80a077128581efcff747a5111f52eb97c7a9ddf9301a42c5d2",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-042.json",
+            "sha256": "7588adb59d44a3dde6f948baa6c8a8a238ec1649b0f6c8814d4dd54cef315708",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-043.json",
+            "sha256": "348e384ceeee6441775de2279acd95d7dc70475fca5380a77ab1b51578f8ddd9",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-044.json",
+            "sha256": "e0bb195e5f7ffabaef5a80c97046cfb98c0570283557059b66821d626ad06ebc",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-045.json",
+            "sha256": "65a03c2e24640baca35e765bfa7c689169d1cc889527361a9c489986af2c0462",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-046.json",
+            "sha256": "93693f92db2df9615924f15866fc86d3e1b2edb2a734eb1008b26f8466ac12a3",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-047.json",
+            "sha256": "875bacbd6e9217b21ffd5f83fe4ba90725f0f0bad1c30648663e0a8208d400f2",
+            "role": "item"
+          }
+        ]
+      },
+      "input_before": {
+        "aghr.json": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+        "LICENSE": "dd92d820f1edbf814873bebe95f4e4e07452e1ae0f701f908e2fb1cb2b8018a9",
+        "PACKAGE_STATUS.json": "aac8825d7e56f4fc07d12d4c83019d6363e0678d93256e2dda7f707a14429f54",
+        "PROVENANCE.json": "643770807574babca815831509daf39db9d7e7c1de078bfbd64de4477a4904ee",
+        "drafting/eval-fixtures.json": "6193913d88a34233aefd4c23499f07f1882371dac58eae7e59253157f4246017",
+        "drafting/FIELD_PROVENANCE.json": "1c3bb4ae94b79e64572fac8c606379bcb50b81d2be1cb21597edf76d916aa215",
+        "drafting/OWNER_DIRECTIVE.json": "3d402ade04db79c638553c069c42a008c9c294bd33118e2984baded8e5fd96c6",
+        "policies/drafts/AGHR-001.json": "44042898076495c4f5da68fdbc0bde501b68cfdff2be4f5fdcf59f4e78ea950e",
+        "policies/drafts/AGHR-002.json": "812d33678de85a4eb9fcbd0aa96340647c9ad4c4947bccd1ce7d849add24c248",
+        "policies/drafts/AGHR-003.json": "0899b7766b14ff3e5fcc5df72773621c73c41eed2d2263bbe47bf00587325043",
+        "policies/drafts/AGHR-004.json": "fd1f869457186d37e2e580a04f01080f93f76135277f668820c020603d778ed8",
+        "policies/drafts/AGHR-005.json": "8fda16e47aa85368664d4f43f2ea269a83ad703c4b0c4a5d0f09f5aac97099d3",
+        "policies/drafts/AGHR-006.json": "f7425a29b002e5f404514d4604c9a25e7a5f27553baf27fade194aff84e3c25d",
+        "policies/drafts/AGHR-007.json": "9e154593c53f6e9616ab17ba41d456aec336430b4fd0a5086e0924161eb3cb0a",
+        "policies/drafts/AGHR-008.json": "a473fccc275409af604035fe8125f2f40e30881396322627e593d3eaa8bf71f0",
+        "policies/drafts/AGHR-009.json": "8c0885b1d6ed4d3c4576e7d01dfb1fab179733bd8ea3efb3a921d378a24d505d",
+        "policies/drafts/AGHR-010.json": "10c383bea75a64bb6686b31f1ab4b0a82de51193b2f1c13d3f7d3ec48693b146",
+        "policies/drafts/AGHR-011.json": "09736dddc16a1a627560c395b4fc01e052050c102e30be1323f50911416217f6",
+        "policies/drafts/AGHR-012.json": "174700608f908f0230114d7bc3e62208aaeed1d5d3fd8fc9751f3a8d47cf96da",
+        "policies/drafts/AGHR-013.json": "bfd6ad2bd2daf0b6e4cb4978c6902fb64a0bf46ebe8e3f30d9480b21ea58229c",
+        "policies/drafts/AGHR-014.json": "7c1bf43d19853b03efd361183b5589f15d828853e6bb6426ecbd1a9519f3a92c",
+        "policies/drafts/AGHR-015.json": "96d1a69cd7647073b5095ee859a7cd7265e592726bd1381d0a95b6cddf9a95be",
+        "policies/drafts/AGHR-016.json": "d2b09a8f12310f7299ab6a63670d0d8624855f4fba584ac43223ead764cf0ea4",
+        "policies/drafts/AGHR-017.json": "5fe21e8fed101c51f3a43bf91876c53c72d4af5522cdf9a7836cfcfffc711c86",
+        "policies/drafts/AGHR-018.json": "a68d7cb85a3c4edfa7d4e02f2dbe1172f4b387610282f3c10b0056efe8b0caca",
+        "policies/drafts/AGHR-019.json": "bf33828aeebe8e6dba17d78d63bd58f46a58e0838115dd00ce044699ed3941d1",
+        "policies/drafts/AGHR-020.json": "852173b4c20f45e3d8a512d288a5388d483a9c37757fdba8e16d86c0c6b39095",
+        "policies/drafts/AGHR-021.json": "113946fdca251e82d99cde52b09bb614bdbb0e60240843884bf33311b40a8056",
+        "policies/drafts/AGHR-022.json": "752b09751a888d815dc379c1b2e4042bda0fd6fff45b5a488bd10edee43311f8",
+        "policies/drafts/AGHR-023.json": "111f99c29999b73809d47c67151dcf1117f58cbe099c3186a1e6f30855835bfb",
+        "policies/drafts/AGHR-024.json": "935a7a96478862d852b6c18ffef968f623384a78199f0ea32bf6792aaef5779f",
+        "policies/drafts/AGHR-025.json": "37bcaa68afd2c9819043ea57562ff36cb806807a69abbd0bde5922733b5f788d",
+        "policies/drafts/AGHR-026.json": "d3e341902833ab66d013c12dc1a93c6776e74ab7685a623659e89a4caa2d9d24",
+        "policies/drafts/AGHR-027.json": "4d4314c9f243ccace7e2a427bb0812e50f4053f4ba9d5abad2c89b4ffc4c608a",
+        "policies/drafts/AGHR-028.json": "81225994689314a9c80b1c6116c99ec9b1e89e327bbdb7bcbf9aa40f6bcc9af9",
+        "policies/drafts/AGHR-029.json": "3e0e34dd605e00ce7d88d78a5a01ec0958de6e6b80c4f5188d94eaaad14fbef4",
+        "policies/drafts/AGHR-030.json": "7931fd31b6de42b925d68ec4258a0b87c928f4ffe666deeddcf506a31d1567ba",
+        "policies/drafts/AGHR-031.json": "547f179bba9c228f6efabc6179ecf1130d7c1d73d5ffd2d31e2daa3df8f91894",
+        "policies/drafts/AGHR-032.json": "973c4414db969da07f0c8f07c5ef77d34a1d602dc07f69c38f524492bd3728ce",
+        "policies/drafts/AGHR-033.json": "9021a11925ba2b997f4a264c20555565657204ce2dff50afbc58dc3ca8e1afe1",
+        "policies/drafts/AGHR-034.json": "e4af2bc3322204e82660f589817f3e42a0960caacb430a2e584c7483d36b610a",
+        "policies/drafts/AGHR-035.json": "039e899d50f5651d8d35aacd537dcb05ab0df1f19f3e47581f74542670399dfa",
+        "policies/drafts/AGHR-036.json": "a585744d509c2fd575f3cadca2eaa5c894cac1f85d977f47ce8d97fafc5d54c0",
+        "policies/drafts/AGHR-037.json": "6d41f07e73609eadc1152ce7df96fcef836885699cdd4744c5f461c6e688745c",
+        "policies/drafts/AGHR-038.json": "75e8483daa3552712a2a965535c08505d40d04dd6b2d10990a6027d1e4fa8865",
+        "policies/drafts/AGHR-039.json": "a6b4c985d9e277c94497f84340c34341af354c56e4930074b601337fa33e5a43",
+        "policies/drafts/AGHR-040.json": "b60972ac650f403f12b7884354a1be1fff199111b8933809fef8ec9c7119e6c9",
+        "policies/drafts/AGHR-041.json": "622820a5dac40e80a077128581efcff747a5111f52eb97c7a9ddf9301a42c5d2",
+        "policies/drafts/AGHR-042.json": "7588adb59d44a3dde6f948baa6c8a8a238ec1649b0f6c8814d4dd54cef315708",
+        "policies/drafts/AGHR-043.json": "348e384ceeee6441775de2279acd95d7dc70475fca5380a77ab1b51578f8ddd9",
+        "policies/drafts/AGHR-044.json": "e0bb195e5f7ffabaef5a80c97046cfb98c0570283557059b66821d626ad06ebc",
+        "policies/drafts/AGHR-045.json": "65a03c2e24640baca35e765bfa7c689169d1cc889527361a9c489986af2c0462",
+        "policies/drafts/AGHR-046.json": "93693f92db2df9615924f15866fc86d3e1b2edb2a734eb1008b26f8466ac12a3",
+        "policies/drafts/AGHR-047.json": "875bacbd6e9217b21ffd5f83fe4ba90725f0f0bad1c30648663e0a8208d400f2"
+      },
+      "input_after_unchanged": true,
+      "stdout_sha256": "76d704ac618d9cf685bd66f4e9b3e090b2ed2bf604ee05d6f7b207e8e9610a89",
+      "stderr_sha256": "ef27490f96e52cc34e185ead198f185eaf7315d1eb8cbaf24344aa95ab8c2dd0"
+    }
+  ],
+  "qualification": "NOT_RUN",
+  "E4": "7 REQUIRED / NOT_RUN / NOT_WAIVED",
+  "app_writes": 0
+}

@@ -1,0 +1,99 @@
+{
+  "result": "INVALID",
+  "exit_code": 1,
+  "started_at": "2026-10-22T23:06:11.323Z",
+  "finished_at": "2026-10-22T23:06:16.579Z",
+  "invocation": {
+    "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+    "args": [
+      "-I",
+      "-B",
+      "-S",
+      "-X",
+      "utf8",
+      "D:\\APP\\Agent-Files-Explorer\\server\\studio\\aghr\\read-only-launcher.py",
+      "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+      "validate",
+      "--strict"
+    ],
+    "cwd": "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_T06_SEC001_Candidate\\missing-authority-level",
+    "shell": false,
+    "pythonHash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+    "launcherHash": "7b0e3c6e92a3d08f4bb804e60c90d633ba4ee8518ee5f2bc2024e9d8f247b236"
+  },
+  "protocol_version": "3",
+  "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+  "inputs": {
+    "candidate_hash": "fdbcfbccb95f07e7c99b85af16ec919864bd1e6639018b4c3e50afcb9dfa939b",
+    "config_hash": "5728ccc7a0753bec5c5dd1103a633e11161b55fb1dc16f48231b617db1ee5ee4",
+    "inputs_hash": "00d2d60de2aa2f76f940af4977eda55aeedc97a0a464dd586ce9ef1b6416be64",
+    "catalog": [
+      {
+        "path": "aghr.json",
+        "sha256": "d72e77992eb12cb2a53edd502c9e2a1b306956da36aad3e5d9fc44b2765d2c95",
+        "role": "manifest"
+      },
+      {
+        "path": "policies/security/secrets.json",
+        "sha256": "9d573158396fcdba927ff3249390652c75b3c8a930af4040852965ebb66e66c7",
+        "role": "item"
+      }
+    ]
+  },
+  "checks": {
+    "status": "COMPLETE",
+    "reason": "E2 static package profile only; E4 runtime qualification NOT_RUN."
+  },
+  "stages": {
+    "structure": {
+      "status": "FAIL"
+    },
+    "scope": {
+      "status": "NOT_RUN",
+      "reason": "Invalid structure rejected before dependent check"
+    },
+    "authority": {
+      "status": "NOT_RUN",
+      "reason": "Invalid structure rejected before dependent check"
+    },
+    "conflicts": {
+      "status": "NOT_RUN",
+      "reason": "Invalid structure rejected before dependent check"
+    },
+    "evidence": {
+      "status": "NOT_RUN",
+      "reason": "Invalid structure rejected before dependent check"
+    },
+    "documentation": {
+      "status": "NOT_RUN",
+      "reason": "Structure rejected before documentation checks"
+    }
+  },
+  "findings": [
+    {
+      "code": "SCHEMA_REQUIRED",
+      "disposition": "INVALID",
+      "message": "SCHEMA_REQUIRED at /authority/level.",
+      "path": "policies/security/secrets.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/authority/level",
+      "item_id": "SEC-001"
+    },
+    {
+      "code": "SCHEMA_REQUIRED",
+      "disposition": "INVALID",
+      "message": "SCHEMA_REQUIRED at /authority/level.",
+      "path": "policies/security/secrets.json",
+      "line": 1,
+      "column": 1,
+      "byte_offset": 0,
+      "pointer": "/authority/level",
+      "item_id": "SEC-001"
+    }
+  ],
+  "stdout_sha256": "1d8c49f1bd3f28fad5d41acb612b8b3f320ea2625abbc92d0aabc71eccef295f",
+  "stderr_sha256": "a511ce6e4f193c0f865d65222a5485cbe678cd0ba864ba1f72f317d90dfd6f3c",
+  "source_written": false
+}

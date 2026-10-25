@@ -1,0 +1,30 @@
+{
+  "files": {
+    "aghr.json": {
+      "sha256": "d72e77992eb12cb2a53edd502c9e2a1b306956da36aad3e5d9fc44b2765d2c95",
+      "bytes": 905
+    },
+    "policies/security/secrets.yaml": {
+      "sha256": "839c6b1a1f4f72f941e816f1172c5524031b9f5332c43ff4d26e6343d6a36ce9",
+      "bytes": 1385
+    },
+    ".t06/mock-public.pem": {
+      "sha256": "1276b62c126208252edfd277ca43796fe4abe7bb36d46bf0109ddabd3a92bd16",
+      "bytes": 113
+    },
+    ".t06/mock-evidence.json": {
+      "sha256": "b6f641619232e2d6163ef6bcc02eb63d77af7badacdaf79dd6096096f2040cf0",
+      "bytes": 1008
+    },
+    ".t06/source-attestation.json": {
+      "sha256": "a99d333e39128abaf717a1148433647d5f2890fdd67874608838663c0d51f534",
+      "bytes": 389
+    }
+  },
+  "source_original": "../studio-t06-2026-10-23/complete.stdout.json",
+  "modifications": [
+    "JSON template to actual YAML 1.2 flow values; authority.source now actual YAML file",
+    "Added explicitly MOCK_ONLY signed dependency fixture; gate.required remains true, critical severity unchanged"
+  ],
+  "production_trust": "NOT_GRANTED"
+}

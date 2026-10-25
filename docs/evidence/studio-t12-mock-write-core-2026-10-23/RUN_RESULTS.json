@@ -1,0 +1,650 @@
+{
+  "status": "T12_PASSING_CANDIDATE_MOCK_ONLY",
+  "owner_conditional_acceptance_satisfied": true,
+  "actual_native_cli": "BLOCKED/3",
+  "results": {
+    "validate": {
+      "result": "VALID",
+      "exit_code": 0,
+      "profile": "T12_OWNER_APPROVED_MOCK",
+      "startedAt": "2026-10-23T15:11:43.038Z",
+      "finishedAt": "2026-10-23T15:11:52.413Z",
+      "invocation": {
+        "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+        "args": [
+          "-I",
+          "-B",
+          "-S",
+          "-X",
+          "utf8",
+          "D:\\APP\\Agent-Files-Explorer\\server\\studio\\aghr\\read-only-launcher.py",
+          "D:\\APP\\Agent-Files-Explorer\\tools\\t12\\mock_engine.py",
+          "--engine-root=D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate",
+          "validate",
+          "--strict"
+        ],
+        "cwd": "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_T12_Candidate\\owner-approved-mock",
+        "shell": false,
+        "adapter_sha256": "16c020a8921ce416c7638ee7f5f2ef87a8836b1bef3a9718235ad4329677943e",
+        "bridge_sha256": "95b511c081bc1e628c520ddb6c8358976837e0d57ef642e6debde89c89c920b7"
+      },
+      "inputs": {
+        "candidate_hash": "d82c59905a4844f91954e2ec8633360ef42ff55298ddbfb5decad4782652c8ce",
+        "config_hash": "d776bbd31576b3f6d1d8a028b0b5f748a8300c9eaefd3d02d65c5d2dc565b1f2",
+        "inputs_hash": "c3f7adf4a1b32fc4471bfc3d76ac55d803a38a7e0d15f9cbbee32561351dee3f",
+        "catalog": [
+          {
+            "path": ".t12/SourceGrant.json",
+            "sha256": "224fdf84a5dd1d9195f04c0d76d03361f4db229b7a6f4ffcfa73f621a10313bc",
+            "role": "provenance"
+          },
+          {
+            "path": ".t12/mock-public.pem",
+            "sha256": "f4eaa810573621ab97235504895c917a21bcf7f590e9fb7cbe7a4208057dad0b",
+            "role": "provenance"
+          },
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-001.json",
+            "sha256": "9dee0848834955cfa7b97c6eb929203fecb2b503a09948eb47e9f686f5e45903",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-002.json",
+            "sha256": "21b8c6b832c1d4a77b894ac15c0a203f7e9668cba99fe6425b9454da920f4160",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-003.json",
+            "sha256": "b34e94f9f9d40eb669273a35bc99d2d0ba9041e9915c5100e88614ddd6f304f9",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-004.json",
+            "sha256": "8d9e801f0cf0afb99a66ecb34ec6d85babd7a0cb8781af4f8050e28b8f3d451e",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-005.json",
+            "sha256": "2c6c6e1fb060eeb1f439af4f12f92f9c98aeeb36117b73dc87c19f0cce23eaa1",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-006.json",
+            "sha256": "58b821cc704d67c8272ffcf2501fdc1dff7b52110fa7598f466814d1c0ca8292",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-007.json",
+            "sha256": "eccb40c14d9053229c5a7af8e8bf981ae46b75e170697a40066602f9484e4866",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-008.json",
+            "sha256": "456a221f1de2857c15c7d63da24c61681eaf53d73f216eba2b551c77e9785ba4",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-009.json",
+            "sha256": "aab7edd89efcc4ce5ebd8312dad0bfbf4227ffdd81f989eb4105d29cfdff6cab",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-010.json",
+            "sha256": "c386774e72894d5b2a6105a6a0ffab785385cd708a001a3fe5df2c5f3e460a78",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-011.json",
+            "sha256": "f6b93738441cc0a5d4cdf8621de4a0c9072c1a25f6864a5830b37da73982c786",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-012.json",
+            "sha256": "efd81db6ff7fd5fbba41939c67176f215b6c31a1f995150f79197066f2edfb47",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-013.json",
+            "sha256": "fa01e054b6d3c06945c2f2467c226f1074042e146da8f9eb45ae9afdb4570865",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-014.json",
+            "sha256": "8595b3215e7ddb06706de8f8ce7b206cf6c4263ebd6c70f23be5e88ecb59c39d",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-015.json",
+            "sha256": "d50be844fadafb1c0e558472c84a6e7640025913839f89ddd3e902abf15d4d8b",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-016.json",
+            "sha256": "ec636ff5bcc5cc2d3bc12db1b0352e3c43a83b7a35bc486865bf85811526e92f",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-017.json",
+            "sha256": "63782c5400031ce8427d759ff6bc353cb077c57e99721381b1a33a753c9e61de",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-018.json",
+            "sha256": "bc5626719856c2a97ddeff3d81117d3e4a3193ae98fad624e14cadfabb0cd6c0",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-019.json",
+            "sha256": "bfef2140069ebe587346a5298d36c747089c232a280065d4c982199f285d6ace",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-020.json",
+            "sha256": "07fd10609f426bd04799f004e036352a651841d09903a2b66ecaaef7534f9e4b",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-021.json",
+            "sha256": "5e64217aede0321d9d30521fe21d28fd5e21e260dcd190bed8094bc76d57e7df",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-022.json",
+            "sha256": "0131fc2be13a24111614c7f5144d1b7244c043df92953445d5acd38eaae1e712",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-023.json",
+            "sha256": "d2a8ff4eee34fb088e5e4b0d7f65f19ef4b215e99f4e364cfbfe8b3e0f30a0f9",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-024.json",
+            "sha256": "4e97d887645473b2c57555f780e4d0441c3b8e63aeae58e182a4bb73bb194e09",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-025.json",
+            "sha256": "37ab5ef1ee2caa38f6f717b49652c4098e49c08e8487e8799b319cd784e134d3",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-026.json",
+            "sha256": "5dde6d045481b2863461567757dbada5eeaa1c7be8a658db928f5d9618391e94",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-027.json",
+            "sha256": "9e3a5f86ef8e24b01e48bafb7a6bb6ed83d067f95fe0e6c44499447711de13ab",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-028.json",
+            "sha256": "6d3614b866cf697d50957bee8f51d11571ae6ea2f86115da06737338cebe5cde",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-029.json",
+            "sha256": "bd8c8468eb74711cf3a18be8142baed04ab59ccbdbb8a0da26115f661a055961",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-030.json",
+            "sha256": "2b90c2c5ed2a2f5345c527a0e7d92eb00ca0a383a0f9b8499869a5e2dfe70298",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-031.json",
+            "sha256": "054647b3e42aca39d36b45c10f981ff9b8adecce155e1dc1922112d6c731ea0a",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-032.json",
+            "sha256": "a267262dc179d8c31f072ed4138ea6de3fc2e019f8dc44bbb99d5fcae402ebee",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-033.json",
+            "sha256": "8e30d5b0f439f2fdc19a34672c84c8712bd9746a1c575aae7ff52a98c98a9bca",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-034.json",
+            "sha256": "587922747150b29428c52ce0acb01cd7ecf5e2d33f198a4e44607323f5606555",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-035.json",
+            "sha256": "eaef621c042cc3160cb9fd83e51c697a92c1ac5bb150994712f1d35a8d826529",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-036.json",
+            "sha256": "e785f872f43cbd55d1358cd464c0e6aa9e91e209674cfcb9f248a5f4bb54f156",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-037.json",
+            "sha256": "8e9a024afb9fce3475ebceb6a8580475224c206d2218331cb3f9a564b723e7b5",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-038.json",
+            "sha256": "6629cd7ab5a3bb6ce750168fff13cea063aec5713fa0586cff811eebb981156d",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-039.json",
+            "sha256": "1983381664b45e966bbf9cd03fa6386757a5ca00435829b6ee387c0bd15c6bbc",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-040.json",
+            "sha256": "8a08dcdf1301f3b34b4101c32031ec3a6448915fc9aaf8806c7e42aa3b06f802",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-041.json",
+            "sha256": "3c02a4d05236e6b0b28d9d294dc8f0846f049041c75a9ecb4f92c7e3b94cc275",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-042.json",
+            "sha256": "3e2c2386b2c8ee3275b76c7ef3c7b1d28a5c11e6757696403d26808735461b54",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-043.json",
+            "sha256": "133fe2d18dba30749742a6362cc99f64c8c08fd585c76f2446114bfe855bbc1f",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-044.json",
+            "sha256": "0e1fa88a84703daf256eaaade2cdf4ea3355a30856241b8e28969dea6deb715b",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-045.json",
+            "sha256": "db9ab7f2accd9962587803b38d0e22fdf8c35d60de5ebe8a1a8d01a326ae52b5",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-046.json",
+            "sha256": "a8952b8c25ff3f7619799ae07f4785ca66d07aa279c24b8eb3bae7f0855b2310",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-047.json",
+            "sha256": "33016f724e44d610e64dc9e526cd712992f5eca73563892653416b40e7b6180d",
+            "role": "item"
+          }
+        ]
+      },
+      "stdout_sha256": "d387e419740ae83ec09795ac880eb3fb7b70d8b313150ba3715a42b33482600c",
+      "stderr_sha256": "1e7cefb66091d9acbebfd57d2281016b4cf47af6d18469ab8114cfa4e7f2796b"
+    },
+    "lint": {
+      "result": "VALID",
+      "exit_code": 0,
+      "profile": "T12_OWNER_APPROVED_MOCK",
+      "startedAt": "2026-10-23T15:11:52.605Z",
+      "finishedAt": "2026-10-23T15:12:01.382Z",
+      "invocation": {
+        "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+        "args": [
+          "-I",
+          "-B",
+          "-S",
+          "-X",
+          "utf8",
+          "D:\\APP\\Agent-Files-Explorer\\server\\studio\\aghr\\read-only-launcher.py",
+          "D:\\APP\\Agent-Files-Explorer\\tools\\t12\\mock_engine.py",
+          "--engine-root=D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate",
+          "lint"
+        ],
+        "cwd": "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_T12_Candidate\\owner-approved-mock",
+        "shell": false,
+        "adapter_sha256": "16c020a8921ce416c7638ee7f5f2ef87a8836b1bef3a9718235ad4329677943e",
+        "bridge_sha256": "95b511c081bc1e628c520ddb6c8358976837e0d57ef642e6debde89c89c920b7"
+      },
+      "inputs": {
+        "candidate_hash": "d82c59905a4844f91954e2ec8633360ef42ff55298ddbfb5decad4782652c8ce",
+        "config_hash": "9fb5c39a83aa4699b844867a583f15959bdcf990bfc0f38207869f556ca7b1dc",
+        "inputs_hash": "df712da5d52e0e17e75758fc38286088b3b2a0803a43df64a26aced8d2f829e8",
+        "catalog": [
+          {
+            "path": ".t12/SourceGrant.json",
+            "sha256": "224fdf84a5dd1d9195f04c0d76d03361f4db229b7a6f4ffcfa73f621a10313bc",
+            "role": "provenance"
+          },
+          {
+            "path": ".t12/mock-public.pem",
+            "sha256": "f4eaa810573621ab97235504895c917a21bcf7f590e9fb7cbe7a4208057dad0b",
+            "role": "provenance"
+          },
+          {
+            "path": "aghr.json",
+            "sha256": "92230167cd07cc6bfff2df3c8ea7aa2083c9d76dc21542b5200752e83aaa292e",
+            "role": "manifest"
+          },
+          {
+            "path": "policies/drafts/AGHR-001.json",
+            "sha256": "9dee0848834955cfa7b97c6eb929203fecb2b503a09948eb47e9f686f5e45903",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-002.json",
+            "sha256": "21b8c6b832c1d4a77b894ac15c0a203f7e9668cba99fe6425b9454da920f4160",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-003.json",
+            "sha256": "b34e94f9f9d40eb669273a35bc99d2d0ba9041e9915c5100e88614ddd6f304f9",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-004.json",
+            "sha256": "8d9e801f0cf0afb99a66ecb34ec6d85babd7a0cb8781af4f8050e28b8f3d451e",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-005.json",
+            "sha256": "2c6c6e1fb060eeb1f439af4f12f92f9c98aeeb36117b73dc87c19f0cce23eaa1",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-006.json",
+            "sha256": "58b821cc704d67c8272ffcf2501fdc1dff7b52110fa7598f466814d1c0ca8292",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-007.json",
+            "sha256": "eccb40c14d9053229c5a7af8e8bf981ae46b75e170697a40066602f9484e4866",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-008.json",
+            "sha256": "456a221f1de2857c15c7d63da24c61681eaf53d73f216eba2b551c77e9785ba4",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-009.json",
+            "sha256": "aab7edd89efcc4ce5ebd8312dad0bfbf4227ffdd81f989eb4105d29cfdff6cab",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-010.json",
+            "sha256": "c386774e72894d5b2a6105a6a0ffab785385cd708a001a3fe5df2c5f3e460a78",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-011.json",
+            "sha256": "f6b93738441cc0a5d4cdf8621de4a0c9072c1a25f6864a5830b37da73982c786",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-012.json",
+            "sha256": "efd81db6ff7fd5fbba41939c67176f215b6c31a1f995150f79197066f2edfb47",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-013.json",
+            "sha256": "fa01e054b6d3c06945c2f2467c226f1074042e146da8f9eb45ae9afdb4570865",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-014.json",
+            "sha256": "8595b3215e7ddb06706de8f8ce7b206cf6c4263ebd6c70f23be5e88ecb59c39d",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-015.json",
+            "sha256": "d50be844fadafb1c0e558472c84a6e7640025913839f89ddd3e902abf15d4d8b",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-016.json",
+            "sha256": "ec636ff5bcc5cc2d3bc12db1b0352e3c43a83b7a35bc486865bf85811526e92f",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-017.json",
+            "sha256": "63782c5400031ce8427d759ff6bc353cb077c57e99721381b1a33a753c9e61de",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-018.json",
+            "sha256": "bc5626719856c2a97ddeff3d81117d3e4a3193ae98fad624e14cadfabb0cd6c0",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-019.json",
+            "sha256": "bfef2140069ebe587346a5298d36c747089c232a280065d4c982199f285d6ace",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-020.json",
+            "sha256": "07fd10609f426bd04799f004e036352a651841d09903a2b66ecaaef7534f9e4b",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-021.json",
+            "sha256": "5e64217aede0321d9d30521fe21d28fd5e21e260dcd190bed8094bc76d57e7df",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-022.json",
+            "sha256": "0131fc2be13a24111614c7f5144d1b7244c043df92953445d5acd38eaae1e712",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-023.json",
+            "sha256": "d2a8ff4eee34fb088e5e4b0d7f65f19ef4b215e99f4e364cfbfe8b3e0f30a0f9",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-024.json",
+            "sha256": "4e97d887645473b2c57555f780e4d0441c3b8e63aeae58e182a4bb73bb194e09",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-025.json",
+            "sha256": "37ab5ef1ee2caa38f6f717b49652c4098e49c08e8487e8799b319cd784e134d3",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-026.json",
+            "sha256": "5dde6d045481b2863461567757dbada5eeaa1c7be8a658db928f5d9618391e94",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-027.json",
+            "sha256": "9e3a5f86ef8e24b01e48bafb7a6bb6ed83d067f95fe0e6c44499447711de13ab",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-028.json",
+            "sha256": "6d3614b866cf697d50957bee8f51d11571ae6ea2f86115da06737338cebe5cde",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-029.json",
+            "sha256": "bd8c8468eb74711cf3a18be8142baed04ab59ccbdbb8a0da26115f661a055961",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-030.json",
+            "sha256": "2b90c2c5ed2a2f5345c527a0e7d92eb00ca0a383a0f9b8499869a5e2dfe70298",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-031.json",
+            "sha256": "054647b3e42aca39d36b45c10f981ff9b8adecce155e1dc1922112d6c731ea0a",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-032.json",
+            "sha256": "a267262dc179d8c31f072ed4138ea6de3fc2e019f8dc44bbb99d5fcae402ebee",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-033.json",
+            "sha256": "8e30d5b0f439f2fdc19a34672c84c8712bd9746a1c575aae7ff52a98c98a9bca",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-034.json",
+            "sha256": "587922747150b29428c52ce0acb01cd7ecf5e2d33f198a4e44607323f5606555",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-035.json",
+            "sha256": "eaef621c042cc3160cb9fd83e51c697a92c1ac5bb150994712f1d35a8d826529",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-036.json",
+            "sha256": "e785f872f43cbd55d1358cd464c0e6aa9e91e209674cfcb9f248a5f4bb54f156",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-037.json",
+            "sha256": "8e9a024afb9fce3475ebceb6a8580475224c206d2218331cb3f9a564b723e7b5",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-038.json",
+            "sha256": "6629cd7ab5a3bb6ce750168fff13cea063aec5713fa0586cff811eebb981156d",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-039.json",
+            "sha256": "1983381664b45e966bbf9cd03fa6386757a5ca00435829b6ee387c0bd15c6bbc",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-040.json",
+            "sha256": "8a08dcdf1301f3b34b4101c32031ec3a6448915fc9aaf8806c7e42aa3b06f802",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-041.json",
+            "sha256": "3c02a4d05236e6b0b28d9d294dc8f0846f049041c75a9ecb4f92c7e3b94cc275",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-042.json",
+            "sha256": "3e2c2386b2c8ee3275b76c7ef3c7b1d28a5c11e6757696403d26808735461b54",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-043.json",
+            "sha256": "133fe2d18dba30749742a6362cc99f64c8c08fd585c76f2446114bfe855bbc1f",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-044.json",
+            "sha256": "0e1fa88a84703daf256eaaade2cdf4ea3355a30856241b8e28969dea6deb715b",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-045.json",
+            "sha256": "db9ab7f2accd9962587803b38d0e22fdf8c35d60de5ebe8a1a8d01a326ae52b5",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-046.json",
+            "sha256": "a8952b8c25ff3f7619799ae07f4785ca66d07aa279c24b8eb3bae7f0855b2310",
+            "role": "item"
+          },
+          {
+            "path": "policies/drafts/AGHR-047.json",
+            "sha256": "33016f724e44d610e64dc9e526cd712992f5eca73563892653416b40e7b6180d",
+            "role": "item"
+          }
+        ]
+      },
+      "stdout_sha256": "14d47314b86a9f2d8283b666b7a166c55165a1fb6e123cb2ded3cb5d452337af",
+      "stderr_sha256": "1e7cefb66091d9acbebfd57d2281016b4cf47af6d18469ab8114cfa4e7f2796b"
+    },
+    "native_control": {
+      "result": "BLOCKED",
+      "exit_code": 3,
+      "invocation": {
+        "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+        "args": [
+          "-I",
+          "-B",
+          "-S",
+          "-X",
+          "utf8",
+          "D:\\APP\\Agent-Files-Explorer\\server\\studio\\aghr\\read-only-launcher.py",
+          "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate\\tools\\cli.py",
+          "validate",
+          "--strict"
+        ],
+        "cwd": "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_T12_Candidate\\owner-approved-mock",
+        "shell": false,
+        "pythonHash": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+        "launcherHash": "7b0e3c6e92a3d08f4bb804e60c90d633ba4ee8518ee5f2bc2024e9d8f247b236"
+      },
+      "diagnostics": [
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "AUTHORITY_SOURCE_UNVERIFIED",
+        "ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE",
+        "ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE",
+        "ENFORCEMENT_E3_EVIDENCE_UNAVAILABLE"
+      ]
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "tool": "@oai/artifact-tool",
+  "rows": 50,
+  "columns": 24,
+  "format": "UTF-8 BOM, RFC4180 quoted CSV, CRLF",
+  "method": "Workbook block values + documented range getter; CSV serialized from verified authored values. No XLSX requested or emitted.",
+  "literal_text_guard": "Prefix apostrophe for source strings beginning Excel formula control characters; original raw text remains exact in REVIEW_DECISIONS.json",
+  "checks": [
+    "all values equal authoring matrix",
+    "50 unique identities",
+    "all 50 source locations, hashes and reasons retained"
+  ],
+  "review_effect": "NONE; proposal export only"
+}

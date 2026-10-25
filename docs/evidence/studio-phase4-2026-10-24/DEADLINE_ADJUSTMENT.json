@@ -1,0 +1,14 @@
+{
+  "classification": "REQUIRED_FOR_CURRENT_ACCEPTANCE",
+  "path": "server/studio/phase4/service.mjs",
+  "before": {
+    "sha256": "767a990559fb66d9002e946aef581440129b65616866c09976c0474bcc09876d",
+    "bytes": 13487
+  },
+  "after": {
+    "sha256": "524aa905477f2b4c211f7f5b298de851a588948a90e11a0f1952ed98f046d0be",
+    "bytes": 14007
+  },
+  "reason": "Enforce aggregate600s eval/3600s qualify deadlines in addition to immutable T15 per-process limits.",
+  "native": "NOT_RUN"
+}

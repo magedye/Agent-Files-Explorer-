@@ -1,0 +1,55 @@
+{
+  "at": "2026-10-23T16:18:29.118135+00:00",
+  "HEAD": "133746a0ad99d10568a44c8d225219df8454271c",
+  "branch": "main",
+  "git_status": " M .gitattributes\n M .gitignore\n M docs/INDEX.md\n M docs/plans/STUDIO_E1_E2_CORE_SCOPE_AR.md\n M docs/plans/STUDIO_UPGRADE_TASKS_AR.md\n M docs/status/CURRENT.md\n M docs/status/HANDOFF.md\n M package.json\n M server/api.js\n M server/evaluation.js\n M server/intake.js\n M server/staging.js\n M src/i18n/I18nProvider.jsx\n M tests/governance_studio.test.mjs\n M vite.config.mjs\n?? docs/evidence/studio-draft-auth-cp-2026-10-23/\n?? docs/evidence/studio-phase0-runtime-2026-10-23/\n?? docs/evidence/studio-phase1-2026-10-23/\n?? docs/evidence/studio-t06-2026-10-23/\n?? docs/evidence/studio-t06-mock-2026-10-23/\n?? docs/evidence/studio-t11a-2026-10-23/\n?? docs/evidence/studio-t11b-2026-10-23/\n?? docs/evidence/studio-t12-2026-10-23/\n?? docs/evidence/studio-t12-mock-write-core-2026-10-23/\n?? docs/features/STUDIO_PHASE0_READ_ONLY.md\n?? docs/features/STUDIO_PHASE1_READ_ONLY.md\n?? governance_packages/candidates/AGHR_T06_SEC001_Candidate/\n?? governance_packages/candidates/AGHR_T12_Candidate/\n?? phase0.html\n?? server/studio/\n?? src/features/\n?? tests/helpers/\n?? tests/studio_bridge.test.mjs\n?? tests/studio_catalog.test.mjs\n?? tests/studio_persistence.test.mjs\n?? tests/studio_phase1_read.test.mjs\n?? tests/studio_read_api.test.mjs\n?? tests/studio_t06_mock.test.mjs\n?? tests/studio_t12_mock.test.mjs\n?? tests/studio_write_authorization.test.mjs\n?? tools/phase1_browser_cases.mjs\n?? tools/prepare_phase1_sample.mjs\n?? tools/seal_phase1_evidence.mjs\n?? tools/t06/\n?? tools/t12/\n?? tools/test_phase0_sentinel.mjs\n?? tools/test_phase1_edge.mjs\n?? tools/verify_phase0_http_contracts.mjs\n?? tools/verify_t06_sec001.mjs\n",
+  "parent": {
+    "path": "docs/evidence/studio-t12-mock-write-core-2026-10-23/CUSTODY.lock.json",
+    "sha256": "a0e813510d676d9f12c87a6799458ea8120d09d4bcd8d97a7d85fd5869eb62aa",
+    "bytes": 313188,
+    "files_verified": 1521
+  },
+  "before": {
+    "server/studio/write-authorization.js": {
+      "sha256": "b4a6dd1e6723a9f1baabf06abb622cdfb8b2a0067e05944b63b46df872fa2d84",
+      "bytes": 5103
+    },
+    "server/studio/db/persistent.js": {
+      "sha256": "178bdf104e6f7fdddfe9ad7143fde21b5b1256ebf4a9de6bd31b4593a368b34e",
+      "bytes": 5091
+    },
+    "package.json": {
+      "sha256": "2438be4ebead19e3a9f205ad370fef5e3509838ca0846f8f32f9f680141f54c0",
+      "bytes": 758
+    },
+    "vite.config.mjs": {
+      "sha256": "fd22d1bf36b8ba29ef1f1fbdcfcd50b947eb2ee02171550f3eb07a59b350baf9",
+      "bytes": 944
+    },
+    ".gitignore": {
+      "sha256": "5e9bbd327ba09678751c2d42137cd71fb68efbfc3b7af3f63004b28d90c84461",
+      "bytes": 1156
+    },
+    ".gitattributes": {
+      "sha256": "727d9f98cec529c42a38990f0fb604da7eb5a6205641bdc188b5d62152d4daf8",
+      "bytes": 2480
+    },
+    "docs/status/CURRENT.md": {
+      "sha256": "d24ae4821983934b5364573c6ce16cb523b7fa0225ae3104d6c4026fef98514d",
+      "bytes": 2865
+    },
+    "docs/status/HANDOFF.md": {
+      "sha256": "b3f21ad96814b6a6d6474a9c3b410d80d1dabbc13920e1afcd070a6faaa5ff4a",
+      "bytes": 7446
+    },
+    "docs/INDEX.md": {
+      "sha256": "4fbac6edd3e1a4b4948cb7a86fe781620150176e44d1489a8d2d8baa9055a91a",
+      "bytes": 4361
+    },
+    "docs/plans/STUDIO_UPGRADE_TASKS_AR.md": {
+      "sha256": "3a17d4afe6a1b0144f3f8efa4d681b1a2adceab90035cb6814e2fdfb6ff9f00e",
+      "bytes": 44678
+    }
+  },
+  "owner_scope": "T12 formally accepted MOCK ONLY; enable authorized draft backend, identity/grants/all mutation attempts audited, SQLite12; T15 actual resource limits then initial T16 create UI/API. No canonical source edits or final package publication."
+}

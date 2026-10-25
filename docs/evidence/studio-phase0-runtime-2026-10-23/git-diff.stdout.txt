@@ -1,0 +1,237 @@
+diff --git a/.gitattributes b/.gitattributes
+index 3581d0d..4f2fbb0 100644
+--- a/.gitattributes
++++ b/.gitattributes
+@@ -25,3 +25,17 @@
+ /tools/contracts/fixtures.mjs -text
+ /tools/contracts/schema_documents.mjs -text
+ /tools/governance_inventory.mjs -text
++
++# Phase 0 evidence pins raw application source bytes across Windows checkouts.
++/server/studio/** -text
++/src/features/phase0/** -text
++/phase0.html -text
++/src/i18n/I18nProvider.jsx -text
++/vite.config.mjs -text
++/package.json -text
++/tests/studio_bridge.test.mjs -text
++/tests/studio_catalog.test.mjs -text
++/tests/studio_read_api.test.mjs -text
++/tests/helpers/studio_vectors.mjs -text
++/tools/test_phase0_sentinel.mjs -text
++/tools/verify_phase0_http_contracts.mjs -text
+diff --git a/docs/plans/STUDIO_E1_E2_CORE_SCOPE_AR.md b/docs/plans/STUDIO_E1_E2_CORE_SCOPE_AR.md
+index d49c0a9..f01036c 100644
+--- a/docs/plans/STUDIO_E1_E2_CORE_SCOPE_AR.md
++++ b/docs/plans/STUDIO_E1_E2_CORE_SCOPE_AR.md
+@@ -1,7 +1,7 @@
+ # نطاق استكمال نواة rc.3 — E1/E2
+ 
+-**التاريخ:** 2026-10-23. **الحالة:** `E1 ACCEPTED_BY_OWNER / E2 IMPLEMENTED_AND_TESTED / T01 BLOCKED_NOT_CLOSED`.
+-**التوجيه اللاحق:** اعتمد المالك مخرجات E1 بما فيها الترخيص المؤقت، وأجاز E2.a–e؛ [القرار](../evidence/studio-e2-2026-10-22/OWNER_ACCEPTANCE.json). [تسليم E2](../evidence/studio-e2-2026-10-22/README.md): تحقق صارم وانطباق وسلطة وتعارض وحدود أدلة وCLI بروتوكول 3؛ 141/141 مرشح و41/41 تطبيق. T01 BLOCKED_NOT_CLOSED وT02 NOT_STARTED، وفحوص الصدق السبعة مؤجلة E4. التوقيع النهائي مؤجل؛ لا ترقية مرجع.
++**التاريخ:** 2026-10-23. **الحالة:** `E1/E2 ACCEPTED_BY_OWNER / T01 CLOSED_UNBLOCKED / T02–T05 IMPLEMENTED_AND_TESTED / T06 READY_NOT_STARTED`.
++**التوجيه اللاحق:** اعتمد المالك E2.a–e ثم أجاز إعادة T01 وPhase 0 للقراءة فقط. [تسليم T01–T05](../evidence/studio-phase0-runtime-2026-10-23/README.md) يحفظ التقرير السباعي وstrict/lint فعليًا وبروتوكول 3؛ أغلقت T01 محليًا ونفذت T02–T05 مع 12 جدولًا بالذاكرة وSentinel ناجح. الترخيص PROVISIONAL وفحوص الصدق السبعة مؤجلة E4. لا CRUD أو توليد أو ترقية مرجع.
+ 
+ ## 1. سبب اختيار هذا المسار ومصادره
+ 
+@@ -189,4 +189,4 @@ governance_packages/candidates/AGHR_rc3_Core_Candidate/
+ 
+ الافتراضات السابقة قائمة؛ انتظار قرار الترخيص وبيانات المالك غير مقدر زمنيًا، ولا يشمل المجموع E3–E6 أو التطبيق كله. لم تقس أيام هندسية فعلية من زمن تشغيل الاختبارات. يعاد تقدير المتبقي عند E2.c أو تغير مدخلاته؛ لا موعد تسليم أو سقف إيقاف جديد.
+ 
+-**الوضع بعد E2:** E1 ACCEPTED_BY_OWNER؛ E2 IMPLEMENTED_AND_TESTED ضمن الملف الساكن، وقبول E2 من المالك لا يمنحه المنفذ. T01 BLOCKED_NOT_CLOSED وإعادة البوابة NOT_RUN وT02 NOT_STARTED. بيانات المالك/الترخيص PROVISIONAL؛ فحوص الصدق E4 مؤجلة؛ المرجع 1.2.0 والمرشح 1.3.0 والعقود محفوظة.
++**موضع الاستئناف:** E1/E2 ACCEPTED_BY_OWNER؛ T01 CLOSED_UNBLOCKED للقراءة والتحقق المحلي؛ T02–T05 IMPLEMENTED_AND_TESTED. [تسليم T01–T05](../evidence/studio-phase0-runtime-2026-10-23/README.md). T06 READY_NOT_STARTED. فحوص الصدق E4 مؤجلة؛ المرجع 1.2.0 والمرشح 1.3.0 والعقود محفوظة. **STOP قبل T06.**
+diff --git a/docs/plans/STUDIO_UPGRADE_TASKS_AR.md b/docs/plans/STUDIO_UPGRADE_TASKS_AR.md
+index 1ab0460..5ae195f 100644
+--- a/docs/plans/STUDIO_UPGRADE_TASKS_AR.md
++++ b/docs/plans/STUDIO_UPGRADE_TASKS_AR.md
+@@ -1,13 +1,13 @@
+ # قائمة مهام تحديث AGHR Governance Studio
+ 
+-**التاريخ:** 2026-10-23. **الحالة الحالية:** `T00 COMPLETE / E1 ACCEPTED_BY_OWNER / E2 IMPLEMENTED_AND_TESTED / T01 BLOCKED_NOT_CLOSED`.
++**التاريخ:** 2026-10-23. **الحالة:** `E1/E2 ACCEPTED_BY_OWNER / T01 CLOSED_UNBLOCKED / T02–T05 IMPLEMENTED_AND_TESTED / T06 READY_NOT_STARTED`.
+ **الخطة:** [التحديث الكامل](STUDIO_FULL_PROJECT_UPGRADE_AR.md). **المتطلبات:** [المواصفة المعتمدة](../specs/aghr-rc3/STUDIO_SPECIFICATION.md)، و[العقود](../contracts/aghr-rc3/README.md). استكمال تعريف العقود عمل سابق؛ المهام أدناه لتفعيل المنتج، ولا تمنح قبول إصدار.
+ 
+ **مراجعة r2:** [تقييم الملاحظات](../reviews/STUDIO_UPGRADE_PLAN_REVIEW_2026_10_22_AR.md). شروط T00 وقرارات المالك وأصحاب المسؤوليات في §1.1 و§1.2 و§2.1 من الخطة. لم تنفذ مهام المنتج بهذه المراجعة.
+ 
+ **توجيه r3 اللاحق:** قبول تصحيحات التخطيط وبدء T00/T01؛ [إيصال التنفيذ](../evidence/studio-t00-t01-2026-10-22/README.md). معايير T01 السبعة ومقاييس T11a الخمسة أدناه، دون بدء العينة قبل T06.
+ 
+-**طلب ما بعد الفجوات:** [اعتماد المالك](../evidence/studio-e2-2026-10-22/OWNER_ACCEPTANCE.json) أغلق E1 وأجاز E2.a–e. [تسليم E2](../evidence/studio-e2-2026-10-22/README.md): 141/141 مرشح و41/41 تطبيق، CLI/توزيع محلي ببايتات مثبتة. T01 محجوبة، T02 غير مبدوءة، وفحوص الصدق السبعة مؤجلة E4. الترخيص مؤقت والتوقيع النهائي مؤجل.
++**التوجيه اللاحق:** اعتمد المالك E2.a–e ثم أجاز إعادة T01 وPhase 0 للقراءة فقط. [تسليم T01–T05](../evidence/studio-phase0-runtime-2026-10-23/README.md) يحفظ التقرير السباعي وstrict/lint فعليًا وبروتوكول 3؛ أغلقت T01 محليًا ونفذت T02–T05 مع 12 جدولًا بالذاكرة وSentinel ناجح. الترخيص PROVISIONAL وفحوص الصدق السبعة مؤجلة E4. لا CRUD أو توليد أو ترقية مرجع.
+ 
+ ## طريقة استخدام القائمة
+ 
+@@ -22,13 +22,15 @@
+ | المهمة | التبعيات والحجم | المخرج والملفات المتوقعة | القبول والتحقق |
+ | --- | --- | --- | --- |
+ | [x] T00 — تثبيت موضع الدفعة | العقود الحالية؛ S | [T00_PREFLIGHT](../evidence/studio-t00-t01-2026-10-22/T00_PREFLIGHT.json)؛ الموضع وحد الملفات و4 نسخ سابقة و86 مدخلًا محميًا | COMPLETE للفحص؛ main وHEAD وdirty مثبتة، وقفل العقود مطابق؛ لا تغيير فرع أو تضمين عمل سابق في commit |
+-| [ ] T01 — تحديد المحرك والحزمة الفعليين | T00؛ M | القطع السبعة المحددة أدناه و[نتيجة الفحص](../evidence/studio-t00-t01-2026-10-22/07_VERDICT.json) | لا إغلاق بلا provenance ومصدر CLI وتوافق وفجوات وحزمة rc.3 فعلية وvalidate --strict حقيقي وverdict محدد النطاق؛ ملف بحالة NOT_RUN لا يثبت إنجاز شرطه |
+-| [ ] T02 — جسر Python للقراءة والتحقق | T01، وE1/E2 إن لزم؛ M | `server/studio/aghr/cli-bridge.js` ومحول النتائج واختبار الجسر | أوامر allowlist ومعاملات منظمة وبيئة محدودة؛ فشل CLI لا يصبح PASS؛ validate فعلي من المحرك المثبت بلا نسخة سياسة في Node. اختبارات stdout/stderr/exit/absence ورفض الحقن |
+-| [ ] T03 — فهرسة وSQL في الذاكرة | T02؛ M | `server/studio/db/` و`catalog.js` واختبار الإسقاط | إنشاء الجداول الـ12 من SQL المثبت وفق Phase 0، لا خمسة فقط؛ لا يلزم تنفيذ خدمات الجداول كلها الآن. فهرسة مصدر فعلي وحفظ الأصل والبصمة والقيم الغائبة. اختبار in-memory migration والقيود وscan غير فارغ دون تعديل المصدر |
+-| [ ] T04 — API القراءة والجلسة | T03؛ M | `server/api.js`، `server/studio/auth.js` وread routes وHTTP tests | `127.0.0.1` وtoken مؤقت ودور خادمي؛ GET instructions مطابق للعقد مع pagination؛ رفض query/هوية غير معروفة. اختبار طلبات فعلية صحيحة ومرفوضة |
+-| [ ] T05 — العرض الأول وsentinel | T04؛ M | واجهات Registry/Skill Card/nextReview وMetaGov stub؛ اختبار مراقبة الكتابة | تعرض بيانات فعلية لا fixtures فقط؛ 12 جدولًا في الذاكرة؛ صفر كتابة Studio للقرص بما فيها العمليات التابعة. يحضر build خارج نافذة الرصد؛ اختبار Edge وsentinel يغطي مدة التشغيل |
++| [x] T01 — تحديد المحرك والحزمة الفعليين | T00؛ M | القطع السبعة المحددة أدناه و[نتيجة الفحص](../evidence/studio-phase0-runtime-2026-10-23/07_VERDICT.json) | لا إغلاق بلا provenance ومصدر CLI وتوافق وفجوات وحزمة rc.3 فعلية وvalidate --strict حقيقي وverdict محدد النطاق؛ ملف بحالة NOT_RUN لا يثبت إنجاز شرطه |
++| [x] T02 — جسر Python للقراءة والتحقق | T01، وE1/E2 إن لزم؛ M | `server/studio/aghr/cli-bridge.js` ومحول النتائج واختبار الجسر | أوامر allowlist ومعاملات منظمة وبيئة محدودة؛ فشل CLI لا يصبح PASS؛ validate فعلي من المحرك المثبت بلا نسخة سياسة في Node. اختبارات stdout/stderr/exit/absence ورفض الحقن |
++| [x] T03 — فهرسة وSQL في الذاكرة | T02؛ M | `server/studio/db/` و`catalog.js` واختبار الإسقاط | إنشاء الجداول الـ12 من SQL المثبت وفق Phase 0، لا خمسة فقط؛ لا يلزم تنفيذ خدمات الجداول كلها الآن. فهرسة مصدر فعلي وحفظ الأصل والبصمة والقيم الغائبة. اختبار in-memory migration والقيود وscan غير فارغ دون تعديل المصدر |
++| [x] T04 — API القراءة والجلسة | T03؛ M | `server/api.js`، `server/studio/auth.js` وread routes وHTTP tests | `127.0.0.1` وtoken مؤقت ودور خادمي؛ GET instructions مطابق للعقد مع pagination؛ رفض query/هوية غير معروفة. اختبار طلبات فعلية صحيحة ومرفوضة |
++| [x] T05 — العرض الأول وsentinel | T04؛ M | واجهات Registry/Skill Card/nextReview وMetaGov stub؛ اختبار مراقبة الكتابة | تعرض بيانات فعلية لا fixtures فقط؛ 12 جدولًا في الذاكرة؛ صفر كتابة Studio للقرص بما فيها العمليات التابعة. يحضر build خارج نافذة الرصد؛ اختبار Edge وsentinel يغطي مدة التشغيل |
+ | [ ] T06 — إثبات قالب SEC-001 | T05 وE2 إن لزم؛ M | بند مرشح منفصل ومدخلاته ونتائج CLI واختبار سلبي | كل الحقول والمصدر والنطاق والسلطة مكتملة؛ `validate --strict` فعلي يقبل الصحيح ويرفض نقص authority.level وغيره؛ لا تعديل للمرجع. حفظ الخام والبصمات قبل المراجعة الجماعية |
+ 
++**إغلاق T01–T05:** [تسليم T01–T05](../evidence/studio-phase0-runtime-2026-10-23/README.md) يربط كل مهمة بدليلها. T05 مكتملة تقنيًا للعرض المحدود؛ لا تعني قبول إصدار أو تأهيل مضيف. T06 جاهزة ولم تبدأ.
++
+ **نقاط فحص A:** بعد T00–T02 يثبت مصدر المحرك؛ بعد T03–T05 يغلق عرض Phase 0 فقط عند sentinel ناجح؛ ثم يثبت T06 القالب. لا يمنح ذلك تأهيل المضيفين أو تنفيذ الـ59 عملية.
+ 
+ ### مخرجات T01 السبعة وقاعدة إغلاقه
+@@ -180,7 +182,7 @@
+ | المهمة | التبعية وموعد الحاجة | النطاق والقبول |
+ | --- | --- | --- |
+ | [x] E1 — قراءة نماذج rc.3 | E1.a–d؛ ACCEPTED_BY_OWNER | [اعتماد المالك](../evidence/studio-e2-2026-10-22/OWNER_ACCEPTANCE.json) مرتبط ببصمة E1.d؛ الترخيص PROVISIONAL مقبول لاستمرار العمل، والتوقيع النهائي مؤجل |
+-| [x] E2 — validate/lint والنطاق والسلطة | E1؛ IMPLEMENTED_AND_TESTED | [تسليم E2](../evidence/studio-e2-2026-10-22/README.md): 141/141، تحقق صارم فعلي، مصدر/توزيع مثبتان، وحجب الدليل الغائب. الإغلاق هنا تقني؛ T01 تبقى محجوبة وقبول المالك لـE2 غير ممنوح ذاتيًا |
++| [x] E2 — validate/lint والنطاق والسلطة | E1؛ ACCEPTED_BY_OWNER | [التسليم](../evidence/studio-e2-2026-10-22/README.md): 141/141. [تسليم T01–T05](../evidence/studio-phase0-runtime-2026-10-23/README.md) يسجل اعتماد المالك اللاحق وإغلاق T01 المحدد النطاق؛ لا تأهيل مضيف أو قبول إصدار |
+ | [ ] E3 — generate/check/doctor | E2؛ قبل T17/T19 | مراحل التوليد والميزانية وPRIN-007 وP0 والاسترجاع، وdoctor يقيس gate.required والإنفاذ؛ رفض التصدير عند نقص دليل أو تأهيل |
+ | [ ] E4 — eval/qualify ودورة الاستخدام | E2 وT15؛ قبل T22/T23 | اكتشاف المضيف الأصلي والتفويض وحالات الاستخدام والمفاتيح الأربعة وtask_criteria؛ 8 سيناريوهات و7 honesty checks مع أصول رصد مستقلة |
+ | [ ] E5 — فحوص التغيير والمعايرة | E2؛ قبل T16/T18 ثم T29 | JCS/hash وفحوص المقترح والموافقات والمعايرة بحسب العقد؛ تغييره يبطل الدليل القديم؛ الرفض عند تزوير الدور أو unrelated eval |
+@@ -222,4 +224,4 @@
+ 
+ بعد كل نقطة فحص تحفظ القرارات والبصمات والأدلة الصالحة والفجوة والخطوة التالية فقط. تحدث CURRENT/HANDOFF باختصار عند تغير موضع التنفيذ، وتبقى حدود السياق سليمة؛ لا ينقل سجل الأوامر إليهما. عند استئناف العمل يراجع Git والمصدر والدليل المتأثر قبل اعتماد الحالة المسجلة.
+ 
+-**موضع الاستئناف بعد E2:** مراجعة التسليم ثم تفويض إعادة T01 في دفعة مستقلة. T01 BLOCKED_NOT_CLOSED، وT02 وSEC-001 غير مبدوءتين؛ لا انتقال تلقائي. **STOP.**
++**موضع الاستئناف:** E1/E2 ACCEPTED_BY_OWNER؛ T01 CLOSED_UNBLOCKED للقراءة والتحقق المحلي؛ T02–T05 IMPLEMENTED_AND_TESTED. [تسليم T01–T05](../evidence/studio-phase0-runtime-2026-10-23/README.md). T06 READY_NOT_STARTED. فحوص الصدق E4 مؤجلة؛ المرجع 1.2.0 والمرشح 1.3.0 والعقود محفوظة. **STOP قبل T06.**
+diff --git a/docs/status/CURRENT.md b/docs/status/CURRENT.md
+index b0d7c4f..8e05668 100644
+--- a/docs/status/CURRENT.md
++++ b/docs/status/CURRENT.md
+@@ -1,44 +1,21 @@
+-# Active Project Execution State — Derived View
+-
+-> Updated: 2026-10-23. Git, source and exact check evidence take precedence over this snapshot.
++# Active Project Execution State — Derived View
+ 
+-## Active scope — E1 accepted; E2 technically complete
++> Updated: 2026-10-23. Git, source and exact evidence take precedence over this snapshot.
+ 
+-[E2 delivery](../evidence/studio-e2-2026-10-22/README.md): E1 accepted; E2.a–e implemented/tested, Path B; candidate 141/141, Studio 41/41. CLI protocol 3; owner/license PROVISIONAL. T01 re-entry NOT_RUN.
++## Current scope
+ 
+-[T01](../evidence/studio-t00-t01-2026-10-22/README.md) BLOCKED; T02 NOT_STARTED. READ is not validation. Seven runtime honesty checks and whole Studio SOURCE-01 REQUIRED / NOT_RUN / NOT_WAIVED.
++- E1 and E2.a–e **ACCEPTED_BY_OWNER**. [E2 delivery](../evidence/studio-e2-2026-10-22/README.md): unchanged engine source, 141/141 tests; CLI protocol 3; owner/license PROVISIONAL; publisher identity UNKNOWN.
++- [T01 re-evaluation / Phase 0 delivery](../evidence/studio-phase0-runtime-2026-10-23/README.md): **T01 CLOSED_UNBLOCKED** for local catalog/strict/lint only. T02–T05 IMPLEMENTED_AND_TESTED: pinned Python bridge, 12-table SQLite :memory:, authenticated read API, Registry/Skill Card/nextReview/Meta-Governance routing.
++- Phase 0 Edge sentinel PASS: no Studio filesystem mutation observed; tested Node/Python/SQLite boundaries deny writes. Legacy write modes are outside this read-only profile. [Launch and limits](../features/STUDIO_PHASE0_READ_ONLY.md).
++- **T06 READY / NOT_STARTED**. No CRUD or generation enabled. Seven runtime honesty checks remain REQUIRED / NOT_RUN / NOT_WAIVED (E4); native host qualification, independent review and release acceptance remain ungranted.
+ 
+-[Contracts](../contracts/aghr-rc3/README.md): contract.1 definitions complete; runtime qualification pending. T11a's five metrics specified, sample NOT_RUN.
++## Preserved boundaries
+ 
+-[Review workspace](../reviews/aghr-items-2026-10-22/README.md): 1,608 units/140 sources; PENDING_REVIEW, no import. Reference/default 1.2.0, candidate 1.3.0 and 23 INBOX originals preserved.
++- [Contracts](../contracts/aghr-rc3/README.md): contract.1 unchanged. [Task list](../plans/STUDIO_UPGRADE_TASKS_AR.md) holds dependencies; T11a sample NOT_RUN.
++- [Review workspace](../reviews/aghr-items-2026-10-22/README.md): 1,608 units/140 sources, PENDING_REVIEW; no import.
++- [Reference 1.2.0](../governance/REFERENCE_UPDATE_1_2_0.md) remains the application default; consumer adoption is separate. [Candidate 1.3.0](../governance/SKILLS_CANDIDATE_1_3_0.md), INBOX originals and prior evidence preserved. references/candidates/archive/INBOX retain distinct roles.
++- Existing six application modes and [ar/en support](../features/INTERFACE_LANGUAGES.md) remain. data/ deletion was owner-authorized. The static authorization fallback in legacy server/staging.js is deferred and not imported by the Phase 0 server.
+ 
+-## Completed skills candidate
++## Exact next action
+ 
+-[Candidate 1.3.0 delivery](../governance/SKILLS_CANDIDATE_1_3_0.md): historical 320/320 (eight scripted scenarios), Studio 30/30; native NOT_RUN, independent NOT_PERFORMED, release NOT_GRANTED. INBOX receipt `2026-10-21-02`: 23 direct files. Reference/default 1.2.0 preserved.
+-
+-## Completed owner scope
+-
+-English support: saved locale, RTL/LTR and localized chrome across six screens; source/user text stays original. [Feature/evidence](../features/INTERFACE_LANGUAGES.md).
+-
+-The owner requested careful review of all INBOX documents, priority to IMPOERTANT.md and classified lesson extraction, and conversion of the current candidate into an updated local reference. This scope is complete. [Delivery record](../governance/REFERENCE_UPDATE_1_2_0.md) links source custody, the 53-group reconciliation, exact before/after diff and ZIP digest.
+-
+-- Updated reference: governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/; registered read-only as aghr_1_2_0.
+-- Owner's follow-up default selection is complete: 1.2.0 is the Studio default for Explorer, Reference Manager, unqualified governance queries, comparison targets, evaluation and new adoption headers. Historical IDs retain their versions. [Before/after and checks](../evidence/default-reference-1.2.0/after.json).
+-- Latest-only layout correction: references/ contains only the 1.2.0 folder, ZIP and SHA-256 file. Full/minimal 1.1.0 folders and ZIPs moved to archive/ with every recorded digest preserved; the 1.2.0 payload/distribution stayed unchanged. [Relocation custody](../evidence/reference-layout-2026-10-20/after.json).
+-- Original candidate and ZIP: governance_packages/archive/AGHR_Candidate_1.2.0_pre_update_20261020/ and adjacent ZIP; all 260 original files preserved and matched the original archive.
+-- The eight INBOX originals from the reference update and all 21 from candidate intake retain their hashes; checkpoint receipt above covers 23 current files. data/ remains deleted under the earlier owner instruction.
+-- Selecting the Studio default does not activate governance in a consumer project or overwrite existing adoption records.
+-
+-## Actual verification
+-
+-- Historical evidence retains its observed base revision. Git establishes the current revision and working tree state.
+-- Package: 289/289 local tests passed, 0 failed/skipped; exact frozen payload and relocated package checks passed.
+-- Scoped independent learning-skill review: three findings corrected; nine synthetic follow-up cases passed. Whole-package independent review remains NOT_PERFORMED.
+-- Studio localization: [30/30 tests, build and isolated Edge evidence](../evidence/english-ui-2026-10-20/verification.json); all six screens, persistence, RTL/LTR and responsive checks. Reference 1.2.0 remains default.
+-- [Evidence summary](../evidence/reference-1.2.0-update/studio-verification.json) and [package verification](../../governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/VERIFICATION_REPORT.md) preserve results and limits.
+-
+-Native host/model qualification, independent release acceptance, external publication and consumer activation are not granted by these local checks. Antigravity's missing attachment, MARSAD-specific current facts and exact PDF/Markdown equivalence remain source questions; a new lesson-management UI is a separate deferred feature.
+-
+-## Next action boundary
+-
+-Reopen contracts, canonical specs and actual Git/tree next. Consumer adoption requires a named target/scope. The static authorization fallback in server/staging.js remains deferred.
++Review the Phase 0 receipt, then explicitly start T06: an isolated SEC-001 template and real positive/negative strict CLI evidence. No template, generation, release or reference promotion was performed in T01–T05.
+diff --git a/docs/status/HANDOFF.md b/docs/status/HANDOFF.md
+index 5055029..6e26efb 100644
+--- a/docs/status/HANDOFF.md
++++ b/docs/status/HANDOFF.md
+@@ -17,7 +17,7 @@ When switching agent models or starting a new session:
+ ---
+ 
+ ## 2. Recent Architectural Decisions
+-- **2026-10-23 (E2)**: [Delivery](../evidence/studio-e2-2026-10-22/README.md): E1 owner-accepted; E2.a–e tested 141/141, Studio 41/41, protocol 3. T01 BLOCKED, T02 NOT_STARTED; seven honesty checks deferred E4. License PROVISIONAL; default 1.2.0.
++- **2026-10-23 (T01–T05)**: [Delivery](../evidence/studio-phase0-runtime-2026-10-23/README.md): E1/E2 ACCEPTED_BY_OWNER; T01 CLOSED_UNBLOCKED for local strict/lint/read. T02–T05 tested: pinned backend, 12 memory tables, actual rc.3 source, Edge ar/en sentinel PASS. T06 READY_NOT_STARTED. Seven honesty checks deferred E4; no CRUD/generation, native qualification or release acceptance. License PROVISIONAL; default 1.2.0 preserved.
+ - **2026-10-22 (Item review)**: [Register](../reviews/aghr-items-2026-10-22/README.md): 1,608 units; reviews pending, sources preserved, no import.
+ - **Decision 2026-10-22 (Owner-accepted last-app designs)**:
+   - [Designs](../specs/aghr-rc3/README.md) and [receipt](../governance/LAST_APP_ADOPTION_2026_10_22.md): prior-baseline coverage; originals/previous baseline archived. Runtime reference 1.2.0 and candidate 1.3.0 retain their states.
+diff --git a/package.json b/package.json
+index 61f70df..319a462 100644
+--- a/package.json
++++ b/package.json
+@@ -7,7 +7,9 @@
+     "dev": "vite",
+     "build": "vite build",
+     "preview": "vite preview --port 5180 --strictPort",
+-    "test": "node --test tests/*.test.mjs"
++    "test": "node --test tests/*.test.mjs",
++    "studio:read": "node --permission --allow-fs-read=* --allow-child-process server/studio/serve.mjs",
++    "test:studio-sentinel": "node tools/test_phase0_sentinel.mjs"
+   },
+   "dependencies": {
+     "react": "^19.2.0",
+diff --git a/src/i18n/I18nProvider.jsx b/src/i18n/I18nProvider.jsx
+index e6384dd..4a98071 100644
+--- a/src/i18n/I18nProvider.jsx
++++ b/src/i18n/I18nProvider.jsx
+@@ -3,10 +3,10 @@ import { directionFor, LOCALE_STORAGE_KEY, normalizeLocale, readLocale, translat
+ 
+ const I18nContext = createContext(null);
+ 
+-export function I18nProvider({ children }) {
++export function I18nProvider({ children, persist = true }) {
+   const [locale, setLocaleState] = useState(() => {
+     try {
+-      return readLocale(window.localStorage);
++      return persist ? readLocale(window.localStorage) : "ar";
+     } catch {
+       return "ar";
+     }
+@@ -23,11 +23,11 @@ export function I18nProvider({ children }) {
+     document.documentElement.dir = directionFor(locale);
+     document.title = translate(locale, "app.title");
+     try {
+-      window.localStorage.setItem(LOCALE_STORAGE_KEY, locale);
++      if (persist) window.localStorage.setItem(LOCALE_STORAGE_KEY, locale);
+     } catch {
+       // The selector still works when browser storage is unavailable.
+     }
+-  }, [locale]);
++  }, [locale, persist]);
+ 
+   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
+ }
+diff --git a/vite.config.mjs b/vite.config.mjs
+index a7c2182..d44f286 100644
+--- a/vite.config.mjs
++++ b/vite.config.mjs
+@@ -16,6 +16,7 @@ function apiServerMiddleware() {
+ }
+ 
+ export default defineConfig({
++  build: { rollupOptions: { input: { main: 'index.html', phase0: 'phase0.html' } } },
+   plugins: [
+     react(),
+     {
+@@ -39,4 +40,3 @@ export default defineConfig({
+     strictPort: true,
+   },
+ });
+-

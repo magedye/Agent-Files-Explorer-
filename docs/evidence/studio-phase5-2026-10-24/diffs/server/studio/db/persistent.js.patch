@@ -1,0 +1,25 @@
+diff --git a/docs/evidence/studio-phase5-2026-10-24/before/server/studio/db/persistent.js.raw b/server/studio/db/persistent.js
+index 3736b8d..f4729b6 100644
+--- a/docs/evidence/studio-phase5-2026-10-24/before/server/studio/db/persistent.js.raw
++++ b/server/studio/db/persistent.js
+@@ -316,6 +316,20 @@ export function openPersistentStore(config,authorization){
+   verificationRuns(){return db.prepare('SELECT summary_json FROM verification_runs WHERE workspace_id=? ORDER BY started_at DESC,id DESC LIMIT 500').all(scope.workspace_id).map(r=>{try{return JSON.parse(r.summary_json||'{}').studio_t20;}catch{return null;}}).filter(Boolean);},
+   drafts(){return db.prepare('SELECT * FROM change_packages WHERE workspace_id=? ORDER BY created_at DESC,id LIMIT 100').all(scope.workspace_id).map(cpView);},
+   draft(id){return cpView(db.prepare('SELECT * FROM change_packages WHERE workspace_id=? AND id=?').get(scope.workspace_id,id));},
++  phase5Data(){return {runs:db.prepare('SELECT id,command,status,started_at,finished_at,exit_code,raw_output,summary_json,linked_package_id FROM verification_runs WHERE workspace_id=? ORDER BY started_at DESC,id LIMIT 2000').all(scope.workspace_id),audit:db.prepare('SELECT * FROM audit_events WHERE workspace_id=? ORDER BY id DESC LIMIT 10000').all(scope.workspace_id),changes:db.prepare('SELECT * FROM change_packages WHERE workspace_id=? ORDER BY created_at DESC LIMIT 1000').all(scope.workspace_id).map(cpView)};},
++  phase5Settings(){const row=db.prepare("SELECT payload_json FROM audit_events WHERE workspace_id=? AND event_type='settings.update' AND json_extract(payload_json,'$.result')='SUCCESS' ORDER BY id DESC LIMIT 1").get(scope.workspace_id);return row?JSON.parse(row.payload_json).settings:null;},
++  phase5Snapshots(){return db.prepare('SELECT instruction_metrics_json FROM metrics_snapshots WHERE workspace_id=? ORDER BY captured_at DESC,id DESC LIMIT 200').all(scope.workspace_id).map(r=>JSON.parse(r.instruction_metrics_json).capture);},
++  phase5Commit(receipt,bound,value){
++   const actor=consumeAuthorization(receipt,bound);if(bound.workspace_id!==scope.workspace_id||bound.target_project!==scope.target_project||!['settings.update','settings.test-signing','metrics.snapshot','reports.generate'].includes(bound.action))throw Error('PHASE5_SCOPE_MISMATCH');
++   return transaction(()=>{
++    if(bound.action==='metrics.snapshot'){
++     const keys=['policy_coverage_pct','eval_pass_rate_pct','exception_half_life_days','drift_rate_pct','calibration_coverage_pct','skill_qualification_coverage_pct','skill_eval_pass_rate_pct','false_success_rate_pct','discovery_recall_multilingual_pct','qualification_drift_count'];
++     db.prepare('INSERT INTO metrics_snapshots(workspace_id,captured_at,instruction_metrics_json,skill_metrics_json,'+keys.join(',')+') VALUES('+Array(14).fill('?').join(',')+')').run(scope.workspace_id,value.captured_at,JSON.stringify({capture:value}),JSON.stringify(value.grouped.skills),...keys.map(k=>value.metrics[k].value));
++    }
++    const payload=bound.action==='metrics.snapshot'?{result:'SUCCESS',raw_hash:value.raw_hash,profile:value.profile,project:value.project,captured_at:value.captured_at}:bound.action==='reports.generate'?{result:'SUCCESS',name:value.name,sha256:value.sha256,format:value.format}:{result:'SUCCESS',...value};
++    append(actor,{event_type:bound.action,resource_type:'phase5',payload});return value;
++   });
++  },
+   close(){db.close();},
+  });
+ }

@@ -1,0 +1,15 @@
+[
+  {"command":"node tools/e4/prepare.mjs","exit_code":0,"scope":"V0, prior53-file custody and unchanged E3 pin"},
+  {"command":"node --test tests/studio_e4_evidence.test.mjs","exit_code":0,"log":"slices/a/TEST.log"},
+  {"command":"node --test tests/studio_e4_evidence.test.mjs tests/studio_e4_discovery.test.mjs","exit_code":0,"log":"slices/b/TEST.log"},
+  {"command":"node --test tests/studio_e4_results.test.mjs","exit_code":0,"log":"slices/c/TEST.log"},
+  {"command":"node --test tests/studio_e4_cli.test.mjs","exit_code":0,"log":"slices/d/TEST.log"},
+  {"command":"node --test tests/studio_e4_honesty.test.mjs","exit_code":0,"log":"slices/e/TEST.log","profile":"actual local process engine and procedures; no mocked honesty verifier"},
+  {"command":"node tools/e4/verify_cli.mjs","exit_code":0,"log":"CLI.log","cases":8,"scope":"prior e-final pin"},
+  {"command":"npm test","exit_code":0,"log":"NPM_TEST.log","tests":92,"pass":92,"fail":0,"skipped":0,"scope":"prior e-final pin"},
+  {"command":"node --test --test-name-pattern='capability mismatch' tests/studio_e4_discovery.test.mjs","exit_code":1,"log":"attempts/DISCOVERY_EDGE_BEFORE.log","status":"EXPECTED_REGRESSION_REPRODUCTION","classification":"PRODUCT_DEFECT","scope":"prior e-final pin"},
+  {"command":"node --test --test-name-pattern='capability mismatch' tests/studio_e4_discovery.test.mjs","exit_code":0,"log":"slices/e-correction/TEST.log","scope":"corrected final pin"},
+  {"command":"node tools/e4/verify_cli.mjs docs/evidence/studio-e4-2026-10-24/cli-v2","exit_code":0,"log":"CLI_FINAL.log","cases":8,"scope":"corrected final pin"},
+  {"command":"npm test","exit_code":0,"log":"NPM_TEST_FINAL.log","tests":93,"pass":93,"fail":0,"skipped":0,"scope":"corrected final pin"},
+  {"command":"node tools/check_context_health.mjs","exit_code":0,"log":"CONTEXT_HEALTH.log","errors":0,"warnings":0}
+]

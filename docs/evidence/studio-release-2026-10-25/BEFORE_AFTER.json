@@ -1,0 +1,56 @@
+{
+  "at": "2026-10-25T20:56:15.098Z",
+  "before_head": "133746a0ad99d10568a44c8d225219df8454271c",
+  "after_head": "133746a0ad99d10568a44c8d225219df8454271c",
+  "before_branch": "main",
+  "after_branch": "main",
+  "frozen_files": 568,
+  "frozen_source_drift": [],
+  "parent_T36_files": 380,
+  "parent_unchanged": 379,
+  "test_only_parent_change": [
+    {
+      "path": "tests/inbox_custody.test.mjs",
+      "before": {
+        "sha256": "f68da933623ce96173f98e0815fd8a95e2c66631a9e915c4e5f9b71dc62b15d7",
+        "bytes": 1308
+      },
+      "after": {
+        "sha256": "102a1713659c8ff3ebcba843dd469ae0db6c8ea5b30673c0597310bb6ea20188",
+        "bytes": 1460
+      },
+      "reason": "STALE_CONTEXT: preserve all23 originals and pin the one pre-existing INBOX addition; no product change"
+    }
+  ],
+  "product_changes": [],
+  "reference_tracked_files": 278,
+  "reference_worktree_diff": "",
+  "coverage_before": {
+    "lines_pct": 72.35,
+    "covered": 4025,
+    "total": 5563
+  },
+  "coverage_after": {
+    "lines_pct": 83.44,
+    "covered": 4642,
+    "total": 5563
+  },
+  "INBOX": {
+    "classification": "STALE_CONTEXT",
+    "old_count": 23,
+    "actual_count": 24,
+    "changed": [],
+    "added": [
+      {
+        "name": "مهم جدا التعامل مع الفروع.md",
+        "bytes": 31336,
+        "sha256": "2882bee09f8d645a9ca16676c14c4a1ec945b545109a3bf540b355bd96183b9c"
+      }
+    ],
+    "authority": "Custody only; no content adoption"
+  },
+  "public_release": "NOT_PERFORMED_NOT_AUTHORIZED",
+  "root_commit_push_merge_reset": "NONE",
+  "signature": "PENDING_OWNER",
+  "preservation": "Old failed receipts and dirty/untracked owner work retained; no governance-package writes"
+}

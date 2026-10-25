@@ -1,0 +1,16 @@
+(node:67424) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+▶ T13/T14/T16 real HTTP draft grants, denial audit, atomic persistence and restart
+  ✔ No identity, forged role, no grant and all unsupported writes return403 and persist denial identity (3522.6941ms)
+  ✔ Pinned Python rejects missing authority.level, scope, wrapper mismatch, YAML aliases and owner claims (2230.9545ms)
+  ✔ Preview grants no write; another actor/intent, expiry, revoke, mismatch and replay cannot write (4284.5174ms)
+  ✔ Failure inserting audit rolls back CP row in the same transaction (806.0016ms)
+✔ T13/T14/T16 real HTTP draft grants, denial audit, atomic persistence and restart (62053.1763ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 64423.032

@@ -1,0 +1,95 @@
+{
+  "profile": "T06_MOCK_ONLY",
+  "result": "VALID",
+  "exit_code": 0,
+  "started_at": "2026-10-22T23:23:54.828Z",
+  "finished_at": "2026-10-22T23:24:06.135Z",
+  "invocation": {
+    "executable": "D:\\APP\\Agent-Files-Explorer\\temp\\aghr-e1a-20261022-01\\venv\\Scripts\\python.exe",
+    "args": [
+      "-I",
+      "-B",
+      "-S",
+      "-X",
+      "utf8",
+      "D:\\APP\\Agent-Files-Explorer\\server\\studio\\aghr\\read-only-launcher.py",
+      "D:\\APP\\Agent-Files-Explorer\\tools\\t06\\mock_engine.py",
+      "--engine-root=D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_rc3_Core_Candidate",
+      "validate",
+      "--strict"
+    ],
+    "cwd": "D:\\APP\\Agent-Files-Explorer\\governance_packages\\candidates\\AGHR_T06_SEC001_Candidate\\mock-authorized",
+    "shell": false,
+    "adapter_sha256": "8bfafcfa970d8626c1a09d3f08a3162336200e1704fa61dce545790ca3d7a5f0",
+    "bridge_sha256": "fa9464ad0dea9ba1926e51388a450a1c6f98e6a1c8eda5ef6606e6bc6590da7c",
+    "host_fixture": {
+      "profile": "T06_MOCK_ONLY",
+      "fixture_id": "OWNER_AUTHORIZED_SEC001_MOCK_20261023",
+      "as_of": "2026-10-23",
+      "engine_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+      "public_key_sha256": "1276b62c126208252edfd277ca43796fe4abe7bb36d46bf0109ddabd3a92bd16",
+      "receipt_sha256": "b6f641619232e2d6163ef6bcc02eb63d77af7badacdaf79dd6096096f2040cf0",
+      "owner_directive_sha256": "7eee8acf3eb8c6145c27467eaaeb628a345c61a1326e6b71444bb64bfbcf5486",
+      "gate": {
+        "type": "github-branch-protection",
+        "required": true
+      },
+      "grant": {
+        "item_path": "policies/security/secrets.yaml",
+        "source_sha256": "839c6b1a1f4f72f941e816f1172c5524031b9f5332c43ff4d26e6343d6a36ce9",
+        "authority_source": "policies/security/secrets.yaml",
+        "level": "enterprise",
+        "owner": "security-owner",
+        "approved_by": "governance-board",
+        "evidence_ref": "T06_MOCK_ONLY:.t06/mock-evidence.json",
+        "item_ids": [
+          "SEC-001"
+        ]
+      },
+      "support_hashes": {
+        ".t06/mock-public.pem": "1276b62c126208252edfd277ca43796fe4abe7bb36d46bf0109ddabd3a92bd16",
+        ".t06/mock-evidence.json": "b6f641619232e2d6163ef6bcc02eb63d77af7badacdaf79dd6096096f2040cf0",
+        ".t06/source-attestation.json": "a99d333e39128abaf717a1148433647d5f2890fdd67874608838663c0d51f534"
+      }
+    }
+  },
+  "source_hash": "037fe1426f36765a8c237a04cc7fb62295b15f8e150561c2e7fd8372fde441a3",
+  "checks": {
+    "status": "COMPLETE",
+    "reason": "T06_MOCK_ONLY: caller authority and required-gate dependency simulated; real enterprise authority, native gate enforcement, E3 doctor and E4 qualification NOT_VERIFIED."
+  },
+  "inputs": {
+    "candidate_hash": "0451ec9876e4ab693b19890ee61a1e1b37684ac56ea8bfd6d5758fdf2b04b46d",
+    "config_hash": "ed1b4fbd725211054246c34e23c02e614ccf9780ad7321ea914bcdaf9f54f515",
+    "inputs_hash": "1d4d5dffee6aa0adb10a552d6a837c4fa3917395d3a0a4510d4930bf8613f6ee",
+    "catalog": [
+      {
+        "path": ".t06/mock-evidence.json",
+        "sha256": "b6f641619232e2d6163ef6bcc02eb63d77af7badacdaf79dd6096096f2040cf0",
+        "role": "provenance"
+      },
+      {
+        "path": ".t06/mock-public.pem",
+        "sha256": "1276b62c126208252edfd277ca43796fe4abe7bb36d46bf0109ddabd3a92bd16",
+        "role": "provenance"
+      },
+      {
+        "path": ".t06/source-attestation.json",
+        "sha256": "a99d333e39128abaf717a1148433647d5f2890fdd67874608838663c0d51f534",
+        "role": "provenance"
+      },
+      {
+        "path": "aghr.json",
+        "sha256": "d72e77992eb12cb2a53edd502c9e2a1b306956da36aad3e5d9fc44b2765d2c95",
+        "role": "manifest"
+      },
+      {
+        "path": "policies/security/secrets.yaml",
+        "sha256": "839c6b1a1f4f72f941e816f1172c5524031b9f5332c43ff4d26e6343d6a36ce9",
+        "role": "item"
+      }
+    ]
+  },
+  "stdout_sha256": "81868be18317b88a3b4302e26c4d4eb4fafd03be9e79c856b8a4b3a3ff451280",
+  "stderr_sha256": "73d58e07b892d3f455bd4c7bf417822ed6232d1ad3f05103d47e84843528d142"
+}

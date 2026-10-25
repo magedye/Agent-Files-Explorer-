@@ -1,0 +1,13 @@
+diff --git a/docs/evidence/studio-phase5-2026-10-24/before/server/studio/skills/lifecycle-service.js.raw b/server/studio/skills/lifecycle-service.js
+index 6815ca1..701800c 100644
+--- a/docs/evidence/studio-phase5-2026-10-24/before/server/studio/skills/lifecycle-service.js.raw
++++ b/server/studio/skills/lifecycle-service.js
+@@ -77,7 +77,7 @@ export function createSkillLifecycle({python,workspace,store,config={skills:[],p
+    }catch(e){error=e;task.reason=e.message;task.outcome=expired?'resource_limit_exceeded':'REJECTED';task.halt=true;}
+    finally{clearTimeout(timer);active=null;task.revision++;task.lastRun=run_id;}
+    const records=task.engine?.records.slice(before)||[],last=result?.receipt||error?.receipt||records.at(-1),exit=expired?null:last?.exit_code??null;
+-   const raw=JSON.stringify({profile:'studio-phase3-local.1',operation:request.operation,host:task.host,engine_hash:sourceHash,inputs_hash:inputs,result:result?.data||null,error:error?.message||null,records}),view=state(task);
++   const raw=JSON.stringify({profile:'studio-phase3-local.1',project_scope:config.scope||'**/*',operation:request.operation,...(request.operation==='select'?{discovery_request:{query_supplied:typeof request.query==='string',non_english:/[\u0600-\u06ff]/.test(request.query||''),language_observation:/[\u0600-\u06ff]/.test(request.query||'')?'arabic-script':'UNOBSERVED_LANGUAGE'}}:{}),host:task.host,engine_hash:sourceHash,inputs_hash:inputs,result:result?.data||null,error:error?.message||null,records}),view=state(task);
+    const rejected=error||task.halt||exit!==null&&exit!==0||['INVALID','FAIL','FAILED','UNKNOWN_ID','NOT_OBSERVABLE','BLOCKED'].includes(task.outcome);
+    try{save({status:expired?'resource_limit_exceeded':rejected?'failed':'passed',exit_code:exit,finished_at:new Date().toISOString(),duration_ms:Date.now()-started,raw,view,termination_reason:expired?'timeout':error?'engine_error':'completed'});}catch(e){task.outcome='AUDIT_COMMIT_FAILED';task.halt=true;task.closed=true;task.engine?.close();throw e;}
+    return {run_id,task:view,result:result?.data||null,error:error?.message||null,records,source_written:false,state_written:false};
