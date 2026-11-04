@@ -8,6 +8,7 @@ import {
   MAX_TEXT_BYTES,
   MAX_RAW_BYTES,
   DEFAULT_PACKAGE_ID,
+  PROJECT_ROOT,
   SecurityError,
 } from "./security.js";
 import { governanceService } from "./governance.js";
@@ -16,6 +17,11 @@ import { intakeService } from "./intake.js";
 import { adoptionService } from "./adoption.js";
 import { evaluationService } from "./evaluation.js";
 import { stagingService } from "./staging.js";
+import { verifyAndUnpackAapesPackage, EXPECTED_AAPES_SHA256 } from "./aapes-package.js";
+import { getAapesFramework, evaluateAssessment } from "./aapes-assessment.js";
+import { reviewPolicyText } from "./aapes-policy.js";
+import { runAapesSyntheticTests, evaluateOpaPolicies } from "./aapes-evaluation.js";
+
 
 const TEXT_EXTS = new Set([
   "md", "markdown", "txt", "py", "js", "jsx", "ts", "tsx", "json", "yaml", "yml",
@@ -142,7 +148,14 @@ export async function handleApiRequest(req, res) {
 
   // Legacy mutation controllers are not connected to server-issued grants.
   // Keep them closed; client role/token fields cannot activate this profile.
-  const previews = new Set(["/api/adoption/inspect", "/api/adoption/prepare"]);
+  const previews = new Set([
+    "/api/adoption/inspect",
+    "/api/adoption/prepare",
+    "/api/aapes/review",
+    "/api/aapes/assess",
+    "/api/aapes/evaluate",
+    "/api/aapes/propose-cp",
+  ]);
   if (req.method !== "GET" && !previews.has(u.pathname)) {
     return send(403, { error: "Legacy writes disabled; a server-authorized mutation controller is required." });
   }
@@ -325,6 +338,114 @@ export async function handleApiRequest(req, res) {
       const result = stagingService.rollbackBackup(body);
       return send(200, { result });
     }
+
+    // -------------------------------------------------------------------------
+    // 6b. AAPES v2.1 Policy Engineering, Assessment & Verification
+    // -------------------------------------------------------------------------
+    if (u.pathname === "/api/aapes/status") {
+      let packageInfo;
+      try {
+        packageInfo = verifyAndUnpackAapesPackage();
+      } catch (err) {
+        packageInfo = { status: "ERROR", error: err.message };
+      }
+      return send(200, {
+        aapes: {
+          standard: "AAPES v2.1",
+          status: "REVIEW_CANDIDATE_NOT_ADOPTED",
+          authoritative_engine: "aghr_rc3",
+          sha256: EXPECTED_AAPES_SHA256,
+          packageInfo
+        }
+      });
+    }
+
+    if (u.pathname === "/api/aapes/framework") {
+      return send(200, { framework: getAapesFramework() });
+    }
+
+    if (u.pathname === "/api/aapes/matrix") {
+      const csvPath = path.resolve(PROJECT_ROOT, "AAPES_AGHR_COMPATIBILITY_MATRIX.csv");
+      if (u.searchParams.get("format") === "csv") {
+        if (!fs.existsSync(csvPath)) return send(404, { error: "Matrix CSV not found" });
+        const csvContent = fs.readFileSync(csvPath, "utf8");
+        res.statusCode = 200;
+        res.setHeader("content-type", "text/csv; charset=utf-8");
+        res.setHeader("content-disposition", 'attachment; filename="AAPES_AGHR_COMPATIBILITY_MATRIX.csv"');
+        return res.end(csvContent);
+      }
+      if (!fs.existsSync(csvPath)) return send(200, { matrix: [] });
+      const rows = fs.readFileSync(csvPath, "utf8").split("\n").filter(l => l.trim().length > 0);
+      const headers = rows[0].split(",").map(h => h.replace(/^"|"$/g, ""));
+      const matrix = [];
+      for (let i = 1; i < rows.length; i++) {
+        const fields = [];
+        let inQuotes = false;
+        let cur = "";
+        for (let j = 0; j < rows[i].length; j++) {
+          const ch = rows[i][j];
+          if (ch === '"') {
+            if (inQuotes && rows[i][j + 1] === '"') {
+              cur += '"';
+              j++;
+            } else {
+              inQuotes = !inQuotes;
+            }
+          } else if (ch === ',' && !inQuotes) {
+            fields.push(cur);
+            cur = "";
+          } else {
+            cur += ch;
+          }
+        }
+        fields.push(cur);
+        const item = {};
+        headers.forEach((h, idx) => { item[h] = fields[idx] || ""; });
+        matrix.push(item);
+      }
+      return send(200, { matrix, total: matrix.length });
+    }
+
+    if (u.pathname === "/api/aapes/review" && req.method === "POST") {
+      const body = await readJsonBody(req);
+      if (!body.text) return send(400, { error: "Parameter 'text' is required" });
+      const review = reviewPolicyText(body.text, body.ruleId || "AAPES-POLICY-REVIEW");
+      return send(200, { review });
+    }
+
+    if (u.pathname === "/api/aapes/assess" && req.method === "POST") {
+      const body = await readJsonBody(req);
+      if (!body.risk_level) return send(400, { error: "Parameter 'risk_level' (R0, R1, R2, R3) is required" });
+      const assessment = evaluateAssessment(body);
+      return send(200, { assessment });
+    }
+
+    if (u.pathname === "/api/aapes/evaluate" && req.method === "POST") {
+      const synthetic = runAapesSyntheticTests();
+      const opa = await evaluateOpaPolicies();
+      return send(200, {
+        evaluation: {
+          synthetic_suite: synthetic,
+          opa_status: opa,
+          evaluated_at: new Date().toISOString()
+        }
+      });
+    }
+
+    if (u.pathname === "/api/aapes/propose-cp" && req.method === "POST") {
+      const body = await readJsonBody(req);
+      if (!body.title || !body.proposedText) {
+        return send(400, { error: "Parameters 'title' and 'proposedText' are required" });
+      }
+      const packet = intakeService.submitIntake({
+        rawText: `${body.title}\n\n[AAPES Action: ${body.action || "REWRITE"}]\n${body.proposedText}\n\nReason: ${body.reason || "Governed optimization proposal"}\nOriginal Rule: ${body.originalRuleId || "NONE"}`,
+        sourceId: body.originalRuleId ? `rule://${body.originalRuleId}` : "aapes-policy-review",
+        domain: body.domain || "SEC",
+        targetPackageId: body.targetPackageId || DEFAULT_PACKAGE_ID
+      });
+      return send(201, { packet, notice: "Proposed ChangePacket created in Draft status. Owner authorization required before apply." });
+    }
+
 
     // -------------------------------------------------------------------------
     // 7. Tree & File Retrieval (Preserved & Enhanced)

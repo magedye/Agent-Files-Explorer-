@@ -1,14 +1,25 @@
 import { useState, useEffect } from "react";
 import { useI18n } from "../i18n/I18nProvider.jsx";
+import { reviewAapesPolicy, proposeAapesChangePackage } from "../api.js";
 
 export default function IntakeView({ onStagePacket }) {
   const { t, locale } = useI18n();
+  const [activeSubTab, setActiveSubTab] = useState("standard"); // 'standard' | 'aapes'
+  
+  // Standard Intake State
   const [rawText, setRawText] = useState("");
   const [author, setAuthor] = useState("");
   const [loading, setLoading] = useState(false);
   const [currentPacket, setCurrentPacket] = useState(null);
   const [packetsHistory, setPacketsHistory] = useState([]);
   const [error, setError] = useState(null);
+
+  // AAPES Review State
+  const [aapesText, setAapesText] = useState("");
+  const [aapesRuleId, setAapesRuleId] = useState("AAPES-POL-SAMPLE-01");
+  const [aapesReview, setAapesReview] = useState(null);
+  const [aapesLoading, setAapesLoading] = useState(false);
+  const [aapesSuccessMsg, setAapesSuccessMsg] = useState(null);
 
   useEffect(() => {
     loadPackets();
@@ -51,13 +62,60 @@ export default function IntakeView({ onStagePacket }) {
 
   const loadExample = (type) => {
     if (type === "compound") {
-      setRawText(
-        t("intake.exampleCompound")
-      );
+      setRawText(t("intake.exampleCompound"));
     } else if (type === "conflict") {
       setRawText(t("intake.exampleConflict"));
     } else if (type === "tool") {
       setRawText(t("intake.exampleTool"));
+    }
+  };
+
+  // AAPES Review Handlers
+  const handleAapesAnalyze = async () => {
+    if (!aapesText.trim()) return;
+    setAapesLoading(true);
+    setAapesSuccessMsg(null);
+    try {
+      const review = await reviewAapesPolicy(aapesText, aapesRuleId);
+      setAapesReview(review);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setAapesLoading(false);
+    }
+  };
+
+  const handleCreateDraftCp = async () => {
+    if (!aapesReview || !aapesReview.proposal) return;
+    setAapesLoading(true);
+    try {
+      const result = await proposeAapesChangePackage({
+        title: `AAPES Policy Optimization: ${aapesReview.ruleId}`,
+        action: aapesReview.proposal.action,
+        originalRuleId: aapesReview.ruleId,
+        proposedText: aapesReview.proposal.proposed_text,
+        reason: aapesReview.proposal.reason,
+        domain: "SEC"
+      });
+      setAapesSuccessMsg(`Draft ChangePackage ${result.packet?.packetId || "created"} saved in Draft custody. Owner authorization required before apply.`);
+      loadPackets();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setAapesLoading(false);
+    }
+  };
+
+  const loadAapesSample = (sampleType) => {
+    if (sampleType === "ambiguous") {
+      setAapesRuleId("AAPES-POL-AMBIGUOUS-01");
+      setAapesText("The agent should appropriately execute user instructions in a safe and timely manner.");
+    } else if (sampleType === "compound") {
+      setAapesRuleId("AAPES-POL-COMPOUND-02");
+      setAapesText("The agent MUST validate incoming headers and also MUST verify token signatures; furthermore it MUST write audit logs.");
+    } else if (sampleType === "prod_write") {
+      setAapesRuleId("AAPES-POL-PROD-WRITE-01");
+      setAapesText("Upon receiving a state-changing write request, the agent MUST verify that all trusted authorization claims are present; otherwise the operation MUST fail closed and return DENY.");
     }
   };
 
@@ -71,161 +129,317 @@ export default function IntakeView({ onStagePacket }) {
         </div>
       </div>
 
-      <div className="intake-layout-grid">
-        {/* Left Form: Intake Capture */}
-        <div className="intake-form-pane">
-          <form onSubmit={handleSubmit}>
-            <div className="pane-title">{t("intake.heading")}</div>
+      {/* Sub-tab switcher */}
+      <div style={{ display: "flex", gap: "8px", borderBottom: "1px solid #334155", marginBottom: "16px" }}>
+        <button
+          className={`gov-tab-btn ${activeSubTab === "standard" ? "active" : ""}`}
+          onClick={() => setActiveSubTab("standard")}
+        >
+          {t("app.intake")}
+        </button>
+        <button
+          className={`gov-tab-btn ${activeSubTab === "aapes" ? "active" : ""}`}
+          onClick={() => setActiveSubTab("aapes")}
+        >
+          {t("aapes.reviewTab")}
+        </button>
+      </div>
+
+      {/* Tab 1: Standard Intake */}
+      {activeSubTab === "standard" && (
+        <div className="intake-layout-grid">
+          {/* Left Form: Intake Capture */}
+          <div className="intake-form-pane">
+            <form onSubmit={handleSubmit}>
+              <div className="pane-title">{t("intake.heading")}</div>
+
+              <div className="form-group">
+                <label>{t("intake.author")}</label>
+                <input
+                  type="text"
+                  dir="auto"
+                  className="input-text"
+                  value={author}
+                  onChange={(e) => setAuthor(e.target.value)}
+                  placeholder={t("intake.authorPlaceholder")}
+                  aria-label={t("intake.author")}
+                />
+              </div>
+
+              <div className="form-group">
+                <div className="label-with-examples">
+                  <label>{t("intake.text")}</label>
+                  <div className="example-links">
+                    <span>{t("intake.examples")} </span>
+                    <button type="button" onClick={() => loadExample("compound")} className="link-btn">
+                      {t("intake.compound")}
+                    </button>
+                    <span> · </span>
+                    <button type="button" onClick={() => loadExample("conflict")} className="link-btn">
+                      {t("intake.conflict")}
+                    </button>
+                    <span> · </span>
+                    <button type="button" onClick={() => loadExample("tool")} className="link-btn">
+                      {t("intake.toolBoundary")}
+                    </button>
+                  </div>
+                </div>
+                <textarea
+                  className="input-textarea"
+                  dir="auto"
+                  rows="6"
+                  value={rawText}
+                  onChange={(e) => setRawText(e.target.value)}
+                  placeholder={t("intake.placeholder")}
+                  aria-label={t("intake.text")}
+                />
+              </div>
+
+              {error && <div className="gov-error-msg">{t(error)}</div>}
+
+              <button type="submit" className="btn btn-primary" disabled={loading || !rawText.trim()}>
+                {loading ? t("intake.submitting") : t("intake.submit")}
+              </button>
+            </form>
+          </div>
+
+          {/* Right Panel: Active Packet & Results */}
+          <div className="intake-result-pane">
+            {currentPacket ? (
+              <div className="packet-card">
+                <div className="packet-header">
+                  <div>
+                    <span className="packet-id">{currentPacket.packetId}</span>
+                    <span className="packet-status status-proposed">{currentPacket.status}</span>
+                  </div>
+                  <div className="packet-date">
+                    {new Date(currentPacket.createdAt).toLocaleString(locale)}
+                  </div>
+                </div>
+
+                <div className="packet-meta">
+                  <span>{t("intake.sourceLabel")}: <code>{currentPacket.source}</code></span>
+                  <span>{t("intake.authorLabel")}: {currentPacket.author}</span>
+                </div>
+
+                <div className="section-title">{t("intake.itemsHeading", { count: currentPacket.changeItems?.length || 0 })}</div>
+                <div className="items-list">
+                  {currentPacket.changeItems?.map((it) => (
+                    <div key={it.itemId} className={"item-box " + (it.conflict ? "has-conflict" : "")}>
+                      <div className="item-top">
+                        <span className="item-id">{it.itemId}</span>
+                        <div className="badge-group">
+                          <span className={`badge badge-domain domain-${it.domainConcern.toLowerCase()}`}>
+                            {it.domainConcern}
+                          </span>
+                          <span className={`badge badge-force force-${it.normativeForce.toLowerCase()}`}>
+                            {it.normativeForce}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="item-statement" dir="auto">{it.statement}</div>
+
+                      {it.conflict && (
+                        <div className="conflict-box">
+                          <span className="conflict-icon">⚠️</span>
+                          <div>
+                            <strong>{t("intake.conflictDetected")}</strong> {it.conflictDetails}
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="item-proposal">
+                        <strong>{t("intake.proposedAction")}:</strong> {it.proposedAction} — {it.rationale}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="packet-actions">
+                  <button
+                    className="btn btn-secondary"
+                    onClick={() => onStagePacket && onStagePacket(currentPacket.packetId)}
+                  >
+                    {t("intake.stageButton")}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="empty-state">
+                <div className="empty-icon">📝</div>
+                <div className="empty-text">{t("intake.emptyText")}</div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Tab 2: AAPES Policy Engineering Review */}
+      {activeSubTab === "aapes" && (
+        <div className="intake-layout-grid">
+          {/* Left Form: Policy Engineering Review Input */}
+          <div className="intake-form-pane">
+            <div className="pane-title">{t("aapes.reviewTab")}</div>
 
             <div className="form-group">
-              <label>{t("intake.author")}</label>
+              <label>{t("aapes.ruleIdLabel")}</label>
               <input
                 type="text"
-                dir="auto"
                 className="input-text"
-                value={author}
-                onChange={(e) => setAuthor(e.target.value)}
-                placeholder={t("intake.authorPlaceholder")}
-                aria-label={t("intake.author")}
+                value={aapesRuleId}
+                onChange={(e) => setAapesRuleId(e.target.value)}
+                style={{ background: "#0f172a", color: "#f8fafc", border: "1px solid #334155" }}
               />
             </div>
 
             <div className="form-group">
               <div className="label-with-examples">
-                <label>{t("intake.text")}</label>
+                <label>{t("aapes.inputPolicy")}</label>
                 <div className="example-links">
-                  <span>{t("intake.examples")} </span>
-                  <button type="button" onClick={() => loadExample("compound")} className="link-btn">
-                    {t("intake.compound")}
+                  <span>Samples: </span>
+                  <button type="button" onClick={() => loadAapesSample("ambiguous")} className="link-btn">
+                    Ambiguous
                   </button>
-                  <button type="button" onClick={() => loadExample("conflict")} className="link-btn">
-                    {t("intake.conflict")}
+                  <span> · </span>
+                  <button type="button" onClick={() => loadAapesSample("compound")} className="link-btn">
+                    Compound
                   </button>
-                  <button type="button" onClick={() => loadExample("tool")} className="link-btn">
-                    {t("intake.tool")}
+                  <span> · </span>
+                  <button type="button" onClick={() => loadAapesSample("prod_write")} className="link-btn">
+                    Production Write
                   </button>
                 </div>
               </div>
               <textarea
-                dir="auto"
                 className="input-textarea"
+                dir="auto"
                 rows="6"
-                placeholder={t("intake.placeholder")}
-                aria-label={t("intake.text")}
-                value={rawText}
-                onChange={(e) => setRawText(e.target.value)}
+                value={aapesText}
+                onChange={(e) => setAapesText(e.target.value)}
+                placeholder="Enter policy rule statement to review under AAPES v2.1..."
+                style={{ background: "#0f172a", color: "#f8fafc", border: "1px solid #334155" }}
               />
             </div>
 
-            <div className="form-actions">
-              <button type="submit" className="btn btn-primary" disabled={loading || !rawText.trim()}>
-                {loading ? t("intake.processing") : t("intake.submit")}
-              </button>
-            </div>
+            <button
+              type="button"
+              className="btn btn-primary"
+              disabled={aapesLoading || !aapesText.trim()}
+              onClick={handleAapesAnalyze}
+            >
+              {aapesLoading ? "Analyzing..." : t("aapes.btnAnalyze")}
+            </button>
+          </div>
 
-            {error && <div className="gov-error-msg">{t(error)}</div>}
-          </form>
-
-          {/* History of ChangePackets */}
-          <div className="packets-history-section">
-            <h4>{t("intake.history", { count: packetsHistory.length })}</h4>
-            <div className="packets-list">
-              {packetsHistory.map((p) => (
-                <div
-                  key={p.packetId}
-                  className={"packet-item" + (currentPacket?.packetId === p.packetId ? " active" : "")}
-                  onClick={() => setCurrentPacket(p)}
-                >
-                  <div className="packet-item-id">{p.packetId}</div>
-                  <div className="packet-item-meta">
-                    <span>{new Date(p.createdAt).toLocaleTimeString(locale)}</span>
-                    <span>{t("intake.atomicCount", { count: p.changeItems?.length || 0 })}</span>
+          {/* Right Panel: AAPES Analysis & Governed Optimization Proposal */}
+          <div className="intake-result-pane">
+            {aapesReview ? (
+              <div className="packet-card" style={{ background: "rgba(15, 23, 42, 0.7)", border: "1px solid #334155" }}>
+                <div className="packet-header" style={{ borderBottom: "1px solid #334155", paddingBottom: "10px" }}>
+                  <div>
+                    <span className="packet-id" style={{ color: "#38bdf8" }}>{aapesReview.ruleId}</span>
+                    <span style={{
+                      marginLeft: "8px",
+                      padding: "3px 8px",
+                      borderRadius: "4px",
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                      background: aapesReview.proposal.action === "KEEP" ? "rgba(16, 185, 129, 0.2)" : "rgba(245, 158, 11, 0.2)",
+                      color: aapesReview.proposal.action === "KEEP" ? "#34d399" : "#fbbf24"
+                    }}>
+                      {aapesReview.proposal.action}
+                    </span>
                   </div>
-                  <div className="packet-item-text" dir="auto">{p.rawText?.slice(0, 50)}…</div>
+                  <div style={{ fontSize: "11px", color: "#94a3b8" }}>
+                    SHA: {aapesReview.source_hash.slice(0, 12)}...
+                  </div>
                 </div>
-              ))}
-            </div>
+
+                {/* Analysis Badges Grid */}
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: "8px", margin: "12px 0" }}>
+                  <div style={{ background: "#0f172a", padding: "8px", borderRadius: "6px", border: "1px solid #1e293b", textAlign: "center" }}>
+                    <div style={{ fontSize: "11px", color: "#94a3b8" }}>BCP 14 Keywords</div>
+                    <div style={{ fontSize: "12px", fontWeight: "bold", color: aapesReview.detected_bcp14.length > 0 ? "#38bdf8" : "#f87171" }}>
+                      {aapesReview.detected_bcp14.join(", ") || "None (Missing)"}
+                    </div>
+                  </div>
+                  <div style={{ background: "#0f172a", padding: "8px", borderRadius: "6px", border: "1px solid #1e293b", textAlign: "center" }}>
+                    <div style={{ fontSize: "11px", color: "#94a3b8" }}>Ambiguous Adjectives</div>
+                    <div style={{ fontSize: "12px", fontWeight: "bold", color: aapesReview.ambiguities.length > 0 ? "#f87171" : "#34d399" }}>
+                      {aapesReview.ambiguities.join(", ") || "None (Clear)"}
+                    </div>
+                  </div>
+                  <div style={{ background: "#0f172a", padding: "8px", borderRadius: "6px", border: "1px solid #1e293b", textAlign: "center" }}>
+                    <div style={{ fontSize: "11px", color: "#94a3b8" }}>Failure State</div>
+                    <div style={{ fontSize: "12px", fontWeight: "bold", color: aapesReview.completeness.has_failure_state ? "#34d399" : "#f59e0b" }}>
+                      {aapesReview.completeness.has_failure_state ? "Defined" : "Missing"}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Findings List */}
+                <div style={{ marginBottom: "16px" }}>
+                  <div style={{ fontSize: "13px", fontWeight: "bold", color: "#f8fafc", marginBottom: "6px" }}>
+                    {t("aapes.findings")}
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                    {aapesReview.findings.map((f, idx) => {
+                      const typeColors = {
+                        fact: { bg: "rgba(59, 130, 246, 0.15)", text: "#60a5fa", border: "#2563eb" },
+                        inference: { bg: "rgba(245, 158, 11, 0.15)", text: "#fbbf24", border: "#d97706" },
+                        assumption: { bg: "rgba(168, 85, 247, 0.15)", text: "#c084fc", border: "#9333ea" },
+                        recommendation: { bg: "rgba(16, 185, 129, 0.15)", text: "#34d399", border: "#059669" }
+                      };
+                      const col = typeColors[f.type] || typeColors.fact;
+                      return (
+                        <div key={idx} style={{ background: col.bg, borderLeft: `3px solid ${col.border}`, padding: "6px 10px", borderRadius: "4px", fontSize: "12px" }}>
+                          <span style={{ fontWeight: "bold", textTransform: "uppercase", fontSize: "10px", color: col.text }}>[{f.type}] ({f.category}):</span>{" "}
+                          <span style={{ color: "#f8fafc" }}>{f.message}</span>
+                          {f.snippet && <div style={{ fontSize: "11px", color: "#94a3b8", fontStyle: "italic", marginTop: "2px" }}>"{f.snippet}"</div>}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Proposed Diff View */}
+                {aapesReview.proposal.action !== "KEEP" && (
+                  <div style={{ marginBottom: "16px" }}>
+                    <div style={{ fontSize: "13px", fontWeight: "bold", color: "#f8fafc", marginBottom: "6px" }}>
+                      {t("aapes.diffView")}
+                    </div>
+                    <pre style={{ background: "#020617", padding: "10px", borderRadius: "6px", fontSize: "12px", border: "1px solid #1e293b", overflowX: "auto", color: "#cbd5e1" }}>
+                      {aapesReview.proposal.diff}
+                    </pre>
+                  </div>
+                )}
+
+                {/* Action Button: Create Draft Change Package */}
+                <div style={{ marginTop: "12px", display: "flex", flexDirection: "column", gap: "8px" }}>
+                  <button
+                    className="btn btn-primary"
+                    disabled={aapesLoading}
+                    onClick={handleCreateDraftCp}
+                  >
+                    {t("aapes.btnProposeCp")}
+                  </button>
+                  {aapesSuccessMsg && (
+                    <div style={{ fontSize: "12px", color: "#34d399", background: "rgba(16, 185, 129, 0.15)", padding: "8px", borderRadius: "4px" }}>
+                      ✔ {aapesSuccessMsg}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div className="empty-state">
+                <div className="empty-icon">🔬</div>
+                <div className="empty-text">Enter policy text or select a sample on the left to analyze under AAPES v2.1.</div>
+              </div>
+            )}
           </div>
         </div>
-
-        {/* Right Pane: Generated ChangePacket & Traceable ChangeItems */}
-        <div className="intake-result-pane">
-          {currentPacket ? (
-            <div className="packet-details">
-              <div className="packet-header">
-                <div>
-                  <h3>{t("intake.packet")} {currentPacket.packetId}</h3>
-                  <div className="packet-meta-row">
-                    <span>{t("intake.digest")} <code>{currentPacket.rawDigestSha256?.slice(0, 16)}…</code></span>
-                    <span className="badge badge-warning">{currentPacket.status}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="raw-preserved-box">
-                <div className="box-label">{t("intake.preserved")}</div>
-                <div className="raw-text-content" dir="auto">{currentPacket.rawText}</div>
-              </div>
-
-              <h4>{t("intake.items")}</h4>
-
-              <div className="change-items-grid">
-                {currentPacket.changeItems.map((item, idx) => (
-                  <div key={item.itemId} className={`change-item-card action-${item.proposedAction.toLowerCase()}`}>
-                    <div className="item-card-top">
-                      <span className="item-id">{item.itemId}</span>
-                      <span className={`action-badge action-${item.proposedAction.toLowerCase()}`}>
-                        {item.proposedAction}
-                      </span>
-                    </div>
-
-                    <div className="item-statement">
-                      <strong>{t("intake.statement")}</strong> <bdi>{item.statement}</bdi>
-                    </div>
-
-                    {/* 2-Layer Classification Badges */}
-                    <div className="item-badges-row">
-                      <span className="badge badge-domain" title="Domain Concern">
-                        {item.domainConcern}
-                      </span>
-                      <span className={`force-badge force-${item.normativeForce.toLowerCase()}`}>
-                        {item.normativeForce}
-                      </span>
-                      <span className="badge badge-locus" title="Enforcement Locus">
-                        {item.enforcementLocus}
-                      </span>
-                      <span className="badge badge-intent" title="Intent">
-                        {item.intent}
-                      </span>
-                    </div>
-
-                    {/* Reconciliation details */}
-                    <div className="reconciliation-box">
-                      <div className="rec-rationale">
-                        <strong>{t("intake.rationale")}</strong> <bdi>{item.rationale}</bdi>
-                      </div>
-                      {item.relatedRules && item.relatedRules.length > 0 && (
-                        <div className="rec-rules">
-                          <strong>{t("intake.relatedRules")}</strong> {item.relatedRules.join(", ")}
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="item-status-footer">
-                      <span>{t("intake.status")} <strong>{item.status}</strong></span>
-                      <span>{t("intake.authority")} {currentPacket.authorityRequired}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div className="pane-placeholder">
-              <span>{t("intake.empty")}</span>
-            </div>
-          )}
-        </div>
-      </div>
+      )}
     </div>
   );
 }

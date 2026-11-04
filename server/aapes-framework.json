@@ -1,0 +1,633 @@
+{
+  "standard_id": "AAPES-STD-002",
+  "version": "2.1.0-rc.1",
+  "publication_date": "2026-11-04",
+  "status": "REVIEW_CANDIDATE_NOT_ADOPTED",
+  "authority_notice": "Proposed internal specification; not ISO/IEEE certification, production authorization, or an assertion of external compliance.",
+  "lineage": [
+    "AAPES v1.0 internal pack",
+    "User-supplied AAPES v2.0 draft reviewed and selectively integrated"
+  ],
+  "weight_interpretation": "Design priorities only; percentages are not measured risk probabilities or expected performance gains.",
+  "impact_interpretation": "Per-risk subjective multipliers for prioritization; risk-specific validation and owner calibration required.",
+  "risk_levels": {
+    "R0": {
+      "description": "Advisory/no external state-changing tools",
+      "minimum_readiness": 75
+    },
+    "R1": {
+      "description": "Tool access limited to authorized reads; confidentiality still applies",
+      "minimum_readiness": 80
+    },
+    "R2": {
+      "description": "State-changing non-production/staging actions",
+      "minimum_readiness": 85
+    },
+    "R3": {
+      "description": "Production, sensitive, finance or irreversible action",
+      "minimum_readiness": 90
+    }
+  },
+  "maturity_scale": {
+    "0": "Absent",
+    "1": "Documented only",
+    "2": "Testable design with owner",
+    "3": "Implemented with evidence references",
+    "4": "Independently verified in stated scope"
+  },
+  "gate_order": [
+    "G0",
+    "G1",
+    "G2",
+    "G3",
+    "G4",
+    "G5",
+    "G6",
+    "G7"
+  ],
+  "gate_descriptions": {
+    "G0": "Scope, task, risk and owner registered",
+    "G1": "Atomic requirements and decision tables checked",
+    "G2": "Platform authority, conflicts and trust boundaries checked",
+    "G3": "Tool boundaries and independent enforcement demonstrated",
+    "G4": "Behavioral, policy and adversarial tests executed in scope",
+    "G5": "Evidence traceability, integrity and recovery reviewed",
+    "G6": "Authorized approval or formal risk acceptance recorded",
+    "G7": "Controlled activation, monitoring and emergency stop (post-approval)"
+  },
+  "critical_blocker_signals": [
+    "unverified_critical_failure",
+    "bypassable_pep_detected",
+    "unauthorized_privilege_escalation",
+    "uncontrolled_memory_overwrite"
+  ],
+  "qualification_required_gates": {
+    "R0": [
+      "G0",
+      "G1",
+      "G6"
+    ],
+    "R1": [
+      "G0",
+      "G1",
+      "G2",
+      "G5",
+      "G6"
+    ],
+    "R2": [
+      "G0",
+      "G1",
+      "G2",
+      "G3",
+      "G4",
+      "G5",
+      "G6"
+    ],
+    "R3": [
+      "G0",
+      "G1",
+      "G2",
+      "G3",
+      "G4",
+      "G5",
+      "G6",
+      "G7"
+    ]
+  },
+  "domains": [
+    {
+      "id": "D01",
+      "name": "",
+      "importance_weight_percent": 11,
+      "priority_base": "P0",
+      "priority_if_risk": {},
+      "impact_multiplier_by_risk": {
+        "R0": 1.1,
+        "R1": 1.1,
+        "R2": 1.1,
+        "R3": 1.1
+      },
+      "deliverable": "",
+      "requirements": [
+        {
+          "id": "AAPES-REQ-001",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-002",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-003",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-037",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        }
+      ]
+    },
+    {
+      "id": "D02",
+      "name": "",
+      "importance_weight_percent": 9,
+      "priority_base": "P0",
+      "priority_if_risk": {},
+      "impact_multiplier_by_risk": {
+        "R0": 1,
+        "R1": 1,
+        "R2": 1.2,
+        "R3": 1.2
+      },
+      "deliverable": "",
+      "requirements": [
+        {
+          "id": "AAPES-REQ-004",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-005",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-006",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-038",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        }
+      ]
+    },
+    {
+      "id": "D03",
+      "name": "",
+      "importance_weight_percent": 9,
+      "priority_base": "P0",
+      "priority_if_risk": {},
+      "impact_multiplier_by_risk": {
+        "R0": 1,
+        "R1": 1.1,
+        "R2": 1.2,
+        "R3": 1.2
+      },
+      "deliverable": "",
+      "requirements": [
+        {
+          "id": "AAPES-REQ-007",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-008",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-009",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-039",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        }
+      ]
+    },
+    {
+      "id": "D04",
+      "name": "",
+      "importance_weight_percent": 5,
+      "priority_base": "P1",
+      "priority_if_risk": {},
+      "impact_multiplier_by_risk": {
+        "R0": 1.1,
+        "R1": 1,
+        "R2": 0.9,
+        "R3": 0.8
+      },
+      "deliverable": "",
+      "requirements": [
+        {
+          "id": "AAPES-REQ-010",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-011",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-012",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-040",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        }
+      ]
+    },
+    {
+      "id": "D05",
+      "name": "",
+      "importance_weight_percent": 10,
+      "priority_base": "P0",
+      "priority_if_risk": {},
+      "impact_multiplier_by_risk": {
+        "R0": 0.9,
+        "R1": 1.3,
+        "R2": 1.5,
+        "R3": 1.5
+      },
+      "deliverable": "",
+      "requirements": [
+        {
+          "id": "AAPES-REQ-013",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-014",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-015",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-041",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        }
+      ]
+    },
+    {
+      "id": "D06",
+      "name": "",
+      "importance_weight_percent": 10,
+      "priority_base": "P0",
+      "priority_if_risk": {},
+      "impact_multiplier_by_risk": {
+        "R0": 0.7,
+        "R1": 1.2,
+        "R2": 1.5,
+        "R3": 1.5
+      },
+      "deliverable": "",
+      "requirements": [
+        {
+          "id": "AAPES-REQ-016",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-017",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-018",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-042",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        }
+      ]
+    },
+    {
+      "id": "D07",
+      "name": "",
+      "importance_weight_percent": 13,
+      "priority_base": "P0",
+      "priority_if_risk": {},
+      "impact_multiplier_by_risk": {
+        "R0": 0.8,
+        "R1": 1.3,
+        "R2": 1.5,
+        "R3": 1.5
+      },
+      "deliverable": "",
+      "requirements": [
+        {
+          "id": "AAPES-REQ-019",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-020",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-021",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-043",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        }
+      ]
+    },
+    {
+      "id": "D08",
+      "name": "",
+      "importance_weight_percent": 6,
+      "priority_base": "P1",
+      "priority_if_risk": {
+        "R2": "P0",
+        "R3": "P0"
+      },
+      "impact_multiplier_by_risk": {
+        "R0": 0.7,
+        "R1": 1,
+        "R2": 1.4,
+        "R3": 1.3
+      },
+      "deliverable": "",
+      "requirements": [
+        {
+          "id": "AAPES-REQ-022",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-023",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-024",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-044",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        }
+      ]
+    },
+    {
+      "id": "D09",
+      "name": "",
+      "importance_weight_percent": 9,
+      "priority_base": "P0",
+      "priority_if_risk": {},
+      "impact_multiplier_by_risk": {
+        "R0": 0.8,
+        "R1": 1.1,
+        "R2": 1.1,
+        "R3": 1.1
+      },
+      "deliverable": "",
+      "requirements": [
+        {
+          "id": "AAPES-REQ-025",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-026",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-027",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-045",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        }
+      ]
+    },
+    {
+      "id": "D10",
+      "name": "",
+      "importance_weight_percent": 9,
+      "priority_base": "P0",
+      "priority_if_risk": {},
+      "impact_multiplier_by_risk": {
+        "R0": 1.2,
+        "R1": 1.2,
+        "R2": 1.2,
+        "R3": 1.2
+      },
+      "deliverable": "",
+      "requirements": [
+        {
+          "id": "AAPES-REQ-028",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-029",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-030",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-046",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        }
+      ]
+    },
+    {
+      "id": "D11",
+      "name": "",
+      "importance_weight_percent": 5,
+      "priority_base": "P1",
+      "priority_if_risk": {
+        "R2": "P0",
+        "R3": "P0"
+      },
+      "impact_multiplier_by_risk": {
+        "R0": 0.8,
+        "R1": 1.1,
+        "R2": 1.4,
+        "R3": 1.4
+      },
+      "deliverable": "",
+      "requirements": [
+        {
+          "id": "AAPES-REQ-031",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-032",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-033",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-047",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        }
+      ]
+    },
+    {
+      "id": "D12",
+      "name": "",
+      "importance_weight_percent": 4,
+      "priority_base": "P1",
+      "priority_if_risk": {},
+      "impact_multiplier_by_risk": {
+        "R0": 0.9,
+        "R1": 1,
+        "R2": 1,
+        "R3": 0.9
+      },
+      "deliverable": "",
+      "requirements": [
+        {
+          "id": "AAPES-REQ-034",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-035",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-036",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        },
+        {
+          "id": "AAPES-REQ-048",
+          "title": "",
+          "normative_level": "MUST",
+          "statement": "",
+          "acceptance_test": ""
+        }
+      ]
+    }
+  ]
+}

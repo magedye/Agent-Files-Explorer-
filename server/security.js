@@ -30,6 +30,7 @@ export const AGHR_1_2_0_ROOT = path.resolve(
 );
 // Owner sign-off2026-10-26 promotes the existing pinned bytes without moving them.
 export const AGHR_RC3_ROOT = path.join(GOVERNANCE_PACKAGES_ROOT, "candidates", "AGHR_rc3_Core_Candidate");
+export const AAPES_CANDIDATE_ROOT = path.join(GOVERNANCE_PACKAGES_ROOT, "candidates", "AAPES_v2.1_Candidate");
 export const DEFAULT_PACKAGE_ID = "aghr_rc3";
 // Disabled legacy evaluation tools retain their original source binding.
 export const AGHR_ROOT = AGHR_1_2_0_ROOT;
@@ -116,6 +117,18 @@ class RootRegistry {
         path: AGHR_1_2_0_ROOT,
         type: "reference",
         description: "Owner-directed updated AGHR reference with governed learning",
+        readOnly: true,
+      });
+    }
+
+    // AAPES v2.1 Policy Engineering Candidate
+    if (fs.existsSync(AAPES_CANDIDATE_ROOT)) {
+      this.registerRoot({
+        id: "aapes_v2_1",
+        name: "AAPES v2.1 — Policy Engineering Candidate",
+        path: AAPES_CANDIDATE_ROOT,
+        type: "candidate",
+        description: "Review-candidate policy engineering framework (12 domains, 48 requirements)",
         readOnly: true,
       });
     }

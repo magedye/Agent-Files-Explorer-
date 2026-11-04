@@ -1,5 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 import {
   DEFAULT_PACKAGE_ID,
   AGHR_1_0_0_ROOT,
@@ -7,6 +9,7 @@ import {
   AGHR_MINIMAL_1_1_0_ROOT,
   AGHR_1_2_0_ROOT,
   AGHR_RC3_ROOT,
+  AAPES_CANDIDATE_ROOT,
   GOVERNANCE_PACKAGES_ROOT,
 } from "./security.js";
 
@@ -120,6 +123,77 @@ class GovernanceReferenceService {
     }
 
     // Previous minimal distribution stays available from archive.
+    
+    // AAPES v2.1 Policy Engineering Candidate
+    if (fs.existsSync(AAPES_CANDIDATE_ROOT)) {
+      const frameworkFile = path.join(__dirname, "aapes-framework.json");
+      let frameworkData = null;
+      if (fs.existsSync(frameworkFile)) {
+        try {
+          frameworkData = JSON.parse(fs.readFileSync(frameworkFile, "utf8"));
+        } catch {}
+      }
+
+      const aapesRules = [];
+      if (frameworkData && frameworkData.domains) {
+        for (const dom of frameworkData.domains) {
+          for (const req of dom.requirements) {
+            aapesRules.push({
+              id: req.id,
+              domain: dom.id,
+              domainName: dom.name,
+              name: req.title,
+              text: req.statement,
+              force: req.normative_level,
+              priority: dom.priority_base,
+              acceptance_test: req.acceptance_test,
+              basis: [
+                { id: "ISO-29148", title: "ISO/IEC/IEEE 29148:2018" },
+                { id: "BCP-14", title: "RFC 2119 / RFC 8174" }
+              ],
+              enforcementClass: "DECLARATIVE_CANDIDATE",
+              coverage: "REVIEW_CANDIDATE"
+            });
+          }
+        }
+      }
+
+      this._packages.set("aapes_v2_1", {
+        id: "aapes_v2_1",
+        name: "AAPES v2.1 Policy Engineering",
+        version: "2.1.1",
+        kind: "EXTERNAL_CANDIDATE",
+        rootPath: AAPES_CANDIDATE_ROOT,
+        description: "Independent review-candidate policy engineering framework (12 domains, 48 requirements)",
+        isDefault: false,
+        status: {
+          package: "AAPES Policy Engineering",
+          version: "2.1.1",
+          reference_state: "REVIEW_CANDIDATE_NOT_ADOPTED",
+          default_provider: "OPENAI",
+          default_profile: "SECURITY",
+          independent_review: "CANDIDATE_PENDING_OWNER_DECISION",
+          release_acceptance: "NOT_GRANTED"
+        },
+        rules: aapesRules,
+        sources: [
+          { id: "SRC-AAPES-SPEC", title: "AAPES v2.1 Specification", publisher: "AAPES Working Group", kind: "SPECIFICATION" },
+          { id: "SRC-ISO-29148", title: "ISO/IEC/IEEE 29148:2018", publisher: "ISO/IEC/IEEE", kind: "STANDARD" },
+          { id: "SRC-BCP-14", title: "RFC 2119 & RFC 8174", publisher: "IETF", kind: "STANDARD" }
+        ],
+        adapters: [
+          { id: "ADAPT-AAPES-STD", name: "AAPES Policy Engineering Adapter", type: "VALIDATOR", targetVersion: "2.1.1" }
+        ],
+        profiles: {
+          R0: { id: "R0", name: "Advisory / No State Change" },
+          R1: { id: "R1", name: "Read-Only Tool Access" },
+          R2: { id: "R2", name: "State-Changing Staging" },
+          R3: { id: "R3", name: "Production / Sensitive Mutation" }
+        },
+        enforcement: aapesRules.map((r) => ({ ruleId: r.id, level: r.force, class: "DECLARATIVE_CANDIDATE" }))
+      });
+    }
+
     if (fs.existsSync(AGHR_MINIMAL_1_1_0_ROOT)) {
       const prov = readJsonFile(AGHR_MINIMAL_1_1_0_ROOT, "PROVENANCE.json") || {};
       const rules = (readJsonFile(AGHR_MINIMAL_1_1_0_ROOT, "registry/RULES.json") || {}).rules || [];

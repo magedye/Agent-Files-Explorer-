@@ -17,6 +17,7 @@ export function scanInbox(directory = inboxPath) {
   if (!fs.statSync(root).isDirectory()) throw new Error("INBOX is not a directory");
   const files = [];
   for (const entry of fs.readdirSync(root, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name, "en"))) {
+    if (entry.isDirectory()) continue;
     if (!entry.isFile()) throw new Error(`INBOX contains a non-regular entry: ${entry.name}`);
     const absolute = path.join(root, entry.name);
     const before = fs.lstatSync(absolute);
