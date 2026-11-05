@@ -12,8 +12,9 @@ import RuntimeEvidence from '../runtime/RuntimeEvidence.jsx';
 import SkillStudio from '../skills/SkillStudio.jsx';
 import Phase4Studio from '../governed/Phase4Studio.jsx';
 import Phase5Studio from '../measurement/Phase5Studio.jsx';
+import AapesStudio from '../aapes/AapesStudio.jsx';
 
-export const screens=[['dashboard','لوحة المشروع','Project Dashboard'],['registry','سجل البنود','Instructions Registry'],['instruction','تفاصيل البند','Instruction Detail'],['capabilities','القدرات والمضيفون','Capabilities & Hosts'],['skill','بطاقة المهارة','Skill Detail'],['profiles','ملفات المشروع والنطاق','Profiles & Scope'],['generation','التوليد والمعاينة','Generation & Preview'],['verification','التحقق والأدلة','Verification & Evidence'],['runtime','الأدلة التشغيلية','Runtime Evidence'],['packages','حزم التغيير','Change Packages'],['package','تفاصيل حزمة التغيير','Change Package Detail'],['meta','حوكمة الحوكمة','Meta-Governance'],['intake','الوارد والتعلم','Intake & Learning'],['audit','التدقيق والتقارير','Audit & Reports'],['metrics','المقاييس','Metrics'],['settings','الإعدادات','Settings']];
+export const screens=[['dashboard','لوحة المشروع','Project Dashboard'],['registry','سجل البنود','Instructions Registry'],['instruction','تفاصيل البند','Instruction Detail'],['capabilities','القدرات والمضيفون','Capabilities & Hosts'],['skill','بطاقة المهارة','Skill Detail'],['profiles','ملفات المشروع والنطاق','Profiles & Scope'],['generation','التوليد والمعاينة','Generation & Preview'],['verification','التحقق والأدلة','Verification & Evidence'],['runtime','الأدلة التشغيلية','Runtime Evidence'],['packages','حزم التغيير','Change Packages'],['package','تفاصيل حزمة التغيير','Change Package Detail'],['meta','حوكمة الحوكمة','Meta-Governance'],['intake','الوارد والتعلم','Intake & Learning'],['audit','التدقيق والتقارير','Audit & Reports'],['metrics','المقاييس','Metrics'],['settings','الإعدادات','Settings'],['aapes','هندسة سياسات AAPES','AAPES Policy Engineering']];
 export default function StudioApp(){
  const t=useText(),{locale,setLocale}=useI18n(),token=useRef('');
  const [credential,setCredential]=useState(''),[session,setSession]=useState(null),[workspaces,setWorkspaces]=useState([]),[workspace,setWorkspace]=useState(null),[items,setItems]=useState([]),[published,setPublished]=useState(null),[context,setContext]=useState(null),[error,setError]=useState(''),[busy,setBusy]=useState(false),[route,setRoute]=useState(location.hash.slice(2)||'dashboard');
@@ -40,5 +41,6 @@ export default function StudioApp(){
  {screen==='runtime'&&<RuntimeEvidence api={api} workspace="rc3-local"/>}
  {['meta','intake'].includes(screen)&&<Phase4Studio api={api} workspace="rc3-local" initialTab={screen==='meta'?'meta':'intake'}/>}
  {['audit','metrics','settings'].includes(screen)&&<Phase5Studio api={api} workspace="rc3-local" initialTab={screen==='audit'?'reports':screen} onNavigate={navigate}/>}
+ {screen==='aapes'&&<AapesStudio api={api} workspace={workspace} onNavigate={navigate}/>}
  </>}</main></div></>}{error&&<p role="alert">{t('تعذر تنفيذ الطلب','Request failed')} · {error}</p>}</div>;
 }

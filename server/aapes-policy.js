@@ -76,20 +76,26 @@ export function reviewPolicyText(text, ruleId = "AAPES-RULE-DRAFT") {
   if (detectedKeywords.length === 0) {
     findings.push({
       type: "fact",
+      classification: "FACT",
       category: "bcp14",
+      domain: "D01",
       message: "No standard BCP 14 normative keyword (MUST, SHOULD, MAY, MUST NOT) detected.",
       snippet: trimmed.slice(0, 100)
     });
     findings.push({
       type: "recommendation",
+      classification: "RECOMMENDATION",
       category: "bcp14",
+      domain: "D01",
       message: "Use an explicit BCP 14 keyword (e.g. MUST for mandatory obligations, MUST NOT for prohibitions).",
       snippet: ""
     });
   } else {
     findings.push({
       type: "fact",
+      classification: "FACT",
       category: "bcp14",
+      domain: "D01",
       message: `Detected BCP 14 keyword(s): ${detectedKeywords.join(", ")}.`,
       snippet: detectedKeywords[0]
     });
@@ -137,13 +143,17 @@ export function reviewPolicyText(text, ruleId = "AAPES-RULE-DRAFT") {
   if (isCompound) {
     findings.push({
       type: "inference",
+      classification: "INFERENCE",
       category: "atomicity",
+      domain: "D01",
       message: "Rule appears to contain multiple conjoined obligations and violates atomic single-obligation design.",
       snippet: trimmed.slice(0, 120)
     });
     findings.push({
       type: "recommendation",
+      classification: "RECOMMENDATION",
       category: "atomicity",
+      domain: "D01",
       message: "Split compound rule into independent, atomic rules with separate observable verification criteria.",
       snippet: ""
     });

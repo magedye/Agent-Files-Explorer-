@@ -97,7 +97,8 @@
   "domains": [
     {
       "id": "D01",
-      "name": "",
+      "name_en": "Requirements Engineering",
+      "name_ar": "هندسة المتطلبات",
       "importance_weight_percent": 11,
       "priority_base": "P0",
       "priority_if_risk": {},
@@ -107,41 +108,59 @@
         "R2": 1.1,
         "R3": 1.1
       },
-      "deliverable": "",
+      "deliverable": "Requirements registry and traceable acceptance tests",
       "requirements": [
         {
           "id": "AAPES-REQ-001",
-          "title": "",
+          "title": "Unique ID, primary obligation, owner, scope, version",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Register each policy with a unique ID, one primary observable obligation, owner, scope and version.",
+          "acceptance_test": "requirements review; ambiguous-term negative case",
+          "domain": "D01",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "AGHR-RULE-REGISTRY / server/governance.js (Rule schema), server/intake.js"
         },
         {
           "id": "AAPES-REQ-002",
-          "title": "",
+          "title": "Define trigger, input, action, acceptance outcome",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Define trigger, input, required or prohibited action, and acceptance outcome for every requirement.",
+          "acceptance_test": "requirements review; ambiguous-term negative case",
+          "domain": "D01",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/intake.js (Compound statement decomposition, triggers, conditions, actions)"
         },
         {
           "id": "AAPES-REQ-003",
-          "title": "",
+          "title": "Resolve ambiguous adjectives with operational definitions",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Resolve ambiguous adjectives with operational definitions or explicit measurable criteria before approval.",
+          "acceptance_test": "requirements review; ambiguous-term negative case",
+          "domain": "D01",
+          "priority": "P0",
+          "coverage_status": "PARTIAL",
+          "aghr_ref": "server/intake.js (Normative classification and ambiguity linter)"
         },
         {
           "id": "AAPES-REQ-037",
-          "title": "",
+          "title": "Trace each requirement to originating authority, tests, enforcement, evidence, approver",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Trace each requirement to its originating authority, tests, enforcement control, evidence and approver.",
+          "acceptance_test": "requirements review; ambiguous-term negative case",
+          "domain": "D01",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/governance.js (sources, basis, enforcement), server/studio/verification-service.js"
         }
-      ]
+      ],
+      "name": "Requirements Engineering (هندسة المتطلبات)"
     },
     {
       "id": "D02",
-      "name": "",
+      "name_en": "Formal Semantics and Invariants",
+      "name_ar": "الدلالات الرسمية والثوابت",
       "importance_weight_percent": 9,
       "priority_base": "P0",
       "priority_if_risk": {},
@@ -151,41 +170,59 @@
         "R2": 1.2,
         "R3": 1.2
       },
-      "deliverable": "",
+      "deliverable": "Three-valued decisions, invariants and executable policies",
       "requirements": [
         {
           "id": "AAPES-REQ-004",
-          "title": "",
+          "title": "Define TRUE, FALSE, UNKNOWN handling for incomplete evidence",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Define TRUE, FALSE and UNKNOWN handling for conditions where evidence may be incomplete.",
+          "acceptance_test": "three-valued truth table; invariants; policy engine tests",
+          "domain": "D02",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/studio/unified-runtime.mjs, server/studio/verification-service.js"
         },
         {
           "id": "AAPES-REQ-005",
-          "title": "",
+          "title": "Document safety invariants independently from preferred model behavior",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Document safety invariants independently from preferred model behavior.",
+          "acceptance_test": "three-valued truth table; invariants; policy engine tests",
+          "domain": "D02",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/security.js, AGHR rc.3 Core policies, server/studio/zero-write.js"
         },
         {
           "id": "AAPES-REQ-006",
-          "title": "",
+          "title": "Deny state-changing actions on missing or unverified prerequisites (fail-closed)",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Deny state-changing actions on missing or unverified prerequisites; do not infer permission from absence of denial.",
+          "acceptance_test": "three-valued truth table; invariants; policy engine tests",
+          "domain": "D02",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/staging.js, server/studio/auth.js, server/studio/write-authorization.js"
         },
         {
           "id": "AAPES-REQ-038",
-          "title": "",
+          "title": "Represent R2/R3 authorization predicates in tested external policy or enforceable code",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Represent R2/R3 authorization predicates in a tested external policy or equivalent enforceable code.",
+          "acceptance_test": "three-valued truth table; invariants; policy engine tests",
+          "domain": "D02",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/security.js, server/studio/canonical-routes.mjs, server/aapes-adapter.js"
         }
-      ]
+      ],
+      "name": "Formal Semantics and Invariants (الدلالات الرسمية والثوابت)"
     },
     {
       "id": "D03",
-      "name": "",
+      "name_en": "Instruction Authority and Conflict Resolution",
+      "name_ar": "سلطة التعليمات وفض التعارض",
       "importance_weight_percent": 9,
       "priority_base": "P0",
       "priority_if_risk": {},
@@ -195,41 +232,59 @@
         "R2": 1.2,
         "R3": 1.2
       },
-      "deliverable": "",
+      "deliverable": "Platform authority map and conflict register",
       "requirements": [
         {
           "id": "AAPES-REQ-007",
-          "title": "",
+          "title": "Document actual instruction hierarchy of each model platform; avoid universal vendor hierarchy",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Document the actual instruction hierarchy of each model platform; never hard-code one vendor hierarchy as universal.",
+          "acceptance_test": "role precedence and conflict scenario evaluation",
+          "domain": "D03",
+          "priority": "P0",
+          "coverage_status": "PARTIAL",
+          "aghr_ref": "docs/specs/aghr-rc3/, server/intake.js (2-layer classification)"
         },
         {
           "id": "AAPES-REQ-008",
-          "title": "",
-          "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "title": "MUST_NOT promote untrusted documents, tool output, retrieved pages to authority by text claims",
+          "normative_level": "MUST_NOT",
+          "statement": "Promote untrusted documents, tool output, retrieved pages or examples to authority by textual claims alone.",
+          "acceptance_test": "role precedence and conflict scenario evaluation",
+          "domain": "D03",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "governance_packages/README.md, tools/inbox_custody.mjs, server/security.js"
         },
         {
           "id": "AAPES-REQ-009",
-          "title": "",
+          "title": "Block only affected high-risk decision when policy conflict remains unresolved",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Block only the affected high-risk decision when an authoritative policy conflict remains unresolved.",
+          "acceptance_test": "role precedence and conflict scenario evaluation",
+          "domain": "D03",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/intake.js (Legacy conflict detection), server/comparison.js"
         },
         {
           "id": "AAPES-REQ-039",
-          "title": "",
+          "title": "Maintain versioned conflict-resolution register with authority, scope, supersession, owner decision",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Maintain a versioned conflict-resolution register recording authority, scope, supersession and owner decision.",
+          "acceptance_test": "role precedence and conflict scenario evaluation",
+          "domain": "D03",
+          "priority": "P0",
+          "coverage_status": "PARTIAL",
+          "aghr_ref": "server/intake.js (ChangePacket registry), server/governance.js (comparison delta)"
         }
-      ]
+      ],
+      "name": "Instruction Authority and Conflict Resolution (سلطة التعليمات وفض التعارض)"
     },
     {
       "id": "D04",
-      "name": "",
+      "name_en": "Context Engineering and Few-Shot",
+      "name_ar": "هندسة السياق والأمثلة",
       "importance_weight_percent": 5,
       "priority_base": "P1",
       "priority_if_risk": {},
@@ -239,41 +294,59 @@
         "R2": 0.9,
         "R3": 0.8
       },
-      "deliverable": "",
+      "deliverable": "Prompt segmentation and perturbation tests",
       "requirements": [
         {
           "id": "AAPES-REQ-010",
-          "title": "",
+          "title": "Keep governing instructions distinct from retrieved task data using platform-supported channels",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Keep governing instructions distinct from retrieved task data and model examples using platform-supported channels.",
+          "acceptance_test": "long-context and paraphrase regression",
+          "domain": "D04",
+          "priority": "P1",
+          "coverage_status": "COVERED",
+          "aghr_ref": "AGENTS.md, server/security.js, server/studio/auth.js"
         },
         {
           "id": "AAPES-REQ-011",
-          "title": "",
-          "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "title": "MUST_NOT treat EXAMPLE_ONLY content as authorization or override of policy",
+          "normative_level": "MUST_NOT",
+          "statement": "Treat EXAMPLE_ONLY content as an authorization or an override of a policy.",
+          "acceptance_test": "long-context and paraphrase regression",
+          "domain": "D04",
+          "priority": "P1",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/intake.js, server/governance.js, server/studio/auth.js"
         },
         {
           "id": "AAPES-REQ-012",
-          "title": "",
-          "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "title": "Evaluate paraphrase, ordering, example, long-context perturbations on held-out cases",
+          "normative_level": "SHOULD",
+          "statement": "Evaluate paraphrase, ordering, example and long-context perturbations on held-out cases.",
+          "acceptance_test": "long-context and paraphrase regression",
+          "domain": "D04",
+          "priority": "P1",
+          "coverage_status": "PARTIAL",
+          "aghr_ref": "server/evaluation.js, server/studio/verification-service.js"
         },
         {
           "id": "AAPES-REQ-040",
-          "title": "",
+          "title": "Define measured context-budget and truncation policy preserving mandatory controls and provenance",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Define a measured context-budget and truncation policy that preserves mandatory controls and source provenance.",
+          "acceptance_test": "long-context and paraphrase regression",
+          "domain": "D04",
+          "priority": "P1",
+          "coverage_status": "COVERED",
+          "aghr_ref": "tools/check_context_health.mjs, AGENTS.md, server/security.js"
         }
-      ]
+      ],
+      "name": "Context Engineering and Few-Shot (هندسة السياق والأمثلة)"
     },
     {
       "id": "D05",
-      "name": "",
+      "name_en": "Trust and Memory Boundaries",
+      "name_ar": "حدود الثقة والذاكرة",
       "importance_weight_percent": 10,
       "priority_base": "P0",
       "priority_if_risk": {},
@@ -283,41 +356,59 @@
         "R2": 1.5,
         "R3": 1.5
       },
-      "deliverable": "",
+      "deliverable": "Untrusted-source labeling and retrieval access controls",
       "requirements": [
         {
           "id": "AAPES-REQ-013",
-          "title": "",
+          "title": "Mark third-party pages, files, tool outputs as untrusted instruction sources",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Mark third-party pages, files, tool outputs and cross-agent messages as untrusted instruction sources.",
+          "acceptance_test": "indirect prompt injection and tenant ACL tests",
+          "domain": "D05",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/security.js, governance_packages/README.md, tools/inbox_custody.mjs"
         },
         {
           "id": "AAPES-REQ-014",
-          "title": "",
+          "title": "Enforce identity-based retrieval and memory access; quarantine/reject authority escalation",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Enforce identity-based retrieval and memory access; quarantine or reject content that requests authority escalation.",
+          "acceptance_test": "indirect prompt injection and tenant ACL tests",
+          "domain": "D05",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/security.js (RootRegistry), server/studio/auth.js"
         },
         {
           "id": "AAPES-REQ-015",
-          "title": "",
+          "title": "Test indirect prompt injection at external ingestion and memory-retrieval boundary",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Test indirect prompt injection at every external ingestion and memory-retrieval boundary.",
+          "acceptance_test": "indirect prompt injection and tenant ACL tests",
+          "domain": "D05",
+          "priority": "P0",
+          "coverage_status": "PARTIAL",
+          "aghr_ref": "tests/t02_source_identity.test.mjs, server/intake.js"
         },
         {
           "id": "AAPES-REQ-041",
-          "title": "",
+          "title": "Record provenance, retention, deletion policy and owner for persistent agent memory with risk TTL",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Record provenance, retention, deletion policy and owner for persistent agent memory; TTL must be risk-configured.",
+          "acceptance_test": "indirect prompt injection and tenant ACL tests",
+          "domain": "D05",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/studio/db/, .governance/ audit logs, server/studio/artifact-store.js"
         }
-      ]
+      ],
+      "name": "Trust and Memory Boundaries (حدود الثقة والذاكرة)"
     },
     {
       "id": "D06",
-      "name": "",
+      "name_en": "Agent Authority and Delegation",
+      "name_ar": "صلاحيات الوكيل والتفويض",
       "importance_weight_percent": 10,
       "priority_base": "P0",
       "priority_if_risk": {},
@@ -327,41 +418,59 @@
         "R2": 1.5,
         "R3": 1.5
       },
-      "deliverable": "",
+      "deliverable": "Least-privilege grants and verifiable approvals",
       "requirements": [
         {
           "id": "AAPES-REQ-016",
-          "title": "",
+          "title": "Grant agent and tools minimum scoped credentials with expiry and revocation",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Grant the agent and each tool the minimum scoped credentials needed, with expiry and revocation.",
+          "acceptance_test": "least-privilege and delegated identity tests",
+          "domain": "D06",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/studio/auth.js, server/studio/write-authorization.js"
         },
         {
           "id": "AAPES-REQ-017",
-          "title": "",
-          "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "title": "MUST_NOT delegate privileges, tool scopes, identity broader than authorized for parent",
+          "normative_level": "MUST_NOT",
+          "statement": "Delegate privileges, tool scopes, identity or validity periods broader than those authorized for the parent.",
+          "acceptance_test": "least-privilege and delegated identity tests",
+          "domain": "D06",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/studio/write-authorization.js, server/studio/auth.js"
         },
         {
           "id": "AAPES-REQ-018",
-          "title": "",
-          "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "title": "MUST_NOT allow agent to mint its own approval or impersonate authorized approver",
+          "normative_level": "MUST_NOT",
+          "statement": "Allow the agent to mint its own approval or impersonate an authorized approver.",
+          "acceptance_test": "least-privilege and delegated identity tests",
+          "domain": "D06",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/studio/zero-write.js, server/studio/write-authorization.js"
         },
         {
           "id": "AAPES-REQ-042",
-          "title": "",
+          "title": "Bind high-risk approvals to actor, action, target, scope, expiry, single-use request ID",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Bind high-risk approvals to actor, exact action, target, scope, expiry and single-use request ID through a trusted service.",
+          "acceptance_test": "least-privilege and delegated identity tests",
+          "domain": "D06",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/staging.js, server/studio/write-authorization.js"
         }
-      ]
+      ],
+      "name": "Agent Authority and Delegation (صلاحيات الوكيل والتفويض)"
     },
     {
       "id": "D07",
-      "name": "",
+      "name_en": "Tool Boundary Enforcement",
+      "name_ar": "إنفاذ حدود الأدوات",
       "importance_weight_percent": 13,
       "priority_base": "P0",
       "priority_if_risk": {},
@@ -371,41 +480,59 @@
         "R2": 1.5,
         "R3": 1.5
       },
-      "deliverable": "",
+      "deliverable": "Non-bypassable PEP and schema/authorization validation",
       "requirements": [
         {
           "id": "AAPES-REQ-019",
-          "title": "",
+          "title": "Place independent policy enforcement at every side-effecting tool/API boundary, not in prompts",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Place independent policy enforcement at every side-effecting tool/API boundary, not solely in prompts.",
+          "acceptance_test": "PEP bypass, schema rejection and PDP-outage tests",
+          "domain": "D07",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/security.js, server/api.js, server/staging.js"
         },
         {
           "id": "AAPES-REQ-020",
-          "title": "",
+          "title": "Fail closed for state changes on missing approval, unknown decisions, timeouts, unavailable PDP",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Fail closed for state changes on missing approval, unknown decisions, timeouts or unavailable PDP.",
+          "acceptance_test": "PEP bypass, schema rejection and PDP-outage tests",
+          "domain": "D07",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/staging.js, server/studio/write-authorization.js"
         },
         {
           "id": "AAPES-REQ-021",
-          "title": "",
+          "title": "Validate tool input schemas and separately authorize semantics, identity, resource, operation server-side",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Validate tool input schemas and separately authorize semantics, identity, resource and operation server-side.",
+          "acceptance_test": "PEP bypass, schema rejection and PDP-outage tests",
+          "domain": "D07",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/api.js, server/security.js, server/staging.js"
         },
         {
           "id": "AAPES-REQ-043",
-          "title": "",
+          "title": "Prove by integration test that agent-originated calls cannot bypass PEP or supply trusted authorization claims",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Prove by integration test that agent-originated calls cannot bypass the PEP or supply trusted authorization claims.",
+          "acceptance_test": "PEP bypass, schema rejection and PDP-outage tests",
+          "domain": "D07",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "tests/t02_audited_launcher.test.mjs, tests/t13_actual_http.test.mjs"
         }
-      ]
+      ],
+      "name": "Tool Boundary Enforcement (إنفاذ حدود الأدوات)"
     },
     {
       "id": "D08",
-      "name": "",
+      "name_en": "Workflow and Recovery Governance",
+      "name_ar": "حوكمة مسارات العمل والتعافي",
       "importance_weight_percent": 6,
       "priority_base": "P1",
       "priority_if_risk": {
@@ -418,41 +545,59 @@
         "R2": 1.4,
         "R3": 1.3
       },
-      "deliverable": "",
+      "deliverable": "State transitions, idempotency and recovery plans",
       "requirements": [
         {
           "id": "AAPES-REQ-022",
-          "title": "",
+          "title": "Define authorized state transitions and recorded checkpoints for multi-step mutating workflows",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Define authorized state transitions and recorded checkpoints for multi-step mutating workflows.",
+          "acceptance_test": "state-transition, idempotency and recovery tests",
+          "domain": "D08",
+          "priority": "P1",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/staging.js (Workspace lifecycle: PROPOSED -> STAGED -> APPLIED)"
         },
         {
           "id": "AAPES-REQ-023",
-          "title": "",
-          "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "title": "MUST_NOT mark workflow COMMITTED before independent post-action verification completes",
+          "normative_level": "MUST_NOT",
+          "statement": "Mark a workflow COMMITTED before required independent post-action verification completes.",
+          "acceptance_test": "state-transition, idempotency and recovery tests",
+          "domain": "D08",
+          "priority": "P1",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/staging.js, server/studio/verification-service.js"
         },
         {
           "id": "AAPES-REQ-024",
-          "title": "",
+          "title": "Select verified compensation, restore-point recovery or manual recovery according to reversibility",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Select verified compensation, restore-point recovery or manual recovery according to action reversibility.",
+          "acceptance_test": "state-transition, idempotency and recovery tests",
+          "domain": "D08",
+          "priority": "P1",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/staging.js (rollbackBackup, backup manifests)"
         },
         {
           "id": "AAPES-REQ-044",
-          "title": "",
+          "title": "Use idempotency keys and replay protection for retried or externally approved mutating actions",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Use idempotency keys and replay protection for retried or externally approved mutating actions.",
+          "acceptance_test": "state-transition, idempotency and recovery tests",
+          "domain": "D08",
+          "priority": "P1",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/studio/auth.js, server/staging.js"
         }
-      ]
+      ],
+      "name": "Workflow and Recovery Governance (حوكمة مسارات العمل والتعافي)"
     },
     {
       "id": "D09",
-      "name": "",
+      "name_en": "Evidence Provenance and Audit",
+      "name_ar": "منشأ الأدلة والتدقيق",
       "importance_weight_percent": 9,
       "priority_base": "P0",
       "priority_if_risk": {},
@@ -462,41 +607,59 @@
         "R2": 1.1,
         "R3": 1.1
       },
-      "deliverable": "",
+      "deliverable": "Privacy-preserving tamper-evident audit linkage",
       "requirements": [
         {
           "id": "AAPES-REQ-025",
-          "title": "",
+          "title": "Record trace ID, policy version, decision source, tool outcome for consequential actions",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Record trace ID, policy version, trusted decision source and actual tool outcome for consequential actions.",
+          "acceptance_test": "audit chain, provenance, privacy and redaction tests",
+          "domain": "D09",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": ".governance/ logs, server/evaluation.js, server/studio/evidence-reader.js"
         },
         {
           "id": "AAPES-REQ-026",
-          "title": "",
-          "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "title": "MUST_NOT claim execution success, rollback, approval without event-level corroborating evidence",
+          "normative_level": "MUST_NOT",
+          "statement": "Claim execution success, rollback completion or approval without event-level corroborating evidence.",
+          "acceptance_test": "audit chain, provenance, privacy and redaction tests",
+          "domain": "D09",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/studio/routes.js (T30 honesty), server/studio/zero-write.js"
         },
         {
           "id": "AAPES-REQ-027",
-          "title": "",
+          "title": "Redact credentials and restricted personal data before audit persistence; limit log-reader access",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Redact credentials and restricted personal data before audit persistence and limit log-reader access.",
+          "acceptance_test": "audit chain, provenance, privacy and redaction tests",
+          "domain": "D09",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/security.js (PROTECTED_PATTERNS, sanitizeErrorMessage)"
         },
         {
           "id": "AAPES-REQ-045",
-          "title": "",
+          "title": "For R2/R3, use tamper-evident append-only evidence with bounded retention and access controls",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "For R2/R3, use tamper-evident append-only evidence with bounded retention and independent access controls.",
+          "acceptance_test": "audit chain, provenance, privacy and redaction tests",
+          "domain": "D09",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "tools/inbox_custody.mjs, tests/contract_jsonl.test.mjs, .governance/"
         }
-      ]
+      ],
+      "name": "Evidence Provenance and Audit (منشأ الأدلة والتدقيق)"
     },
     {
       "id": "D10",
-      "name": "",
+      "name_en": "Evaluation and Calibration",
+      "name_ar": "التقييم والمعايرة",
       "importance_weight_percent": 9,
       "priority_base": "P0",
       "priority_if_risk": {},
@@ -506,41 +669,59 @@
         "R2": 1.2,
         "R3": 1.2
       },
-      "deliverable": "",
+      "deliverable": "Held-out evaluations and calibrated graders",
       "requirements": [
         {
           "id": "AAPES-REQ-028",
-          "title": "",
+          "title": "Test positive, negative, missing-evidence, conflict cases with reference decisions",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Test positive, negative, missing-evidence and conflict cases with reference decisions.",
+          "acceptance_test": "held-out cases, grader calibration and disagreement audit",
+          "domain": "D10",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/evaluation.js, tests/*.test.mjs, server/aapes-evaluation.js"
         },
         {
           "id": "AAPES-REQ-029",
-          "title": "",
+          "title": "Use deterministic checks when possible; calibrate LLM judges against independent human cases",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Use deterministic checks when possible and calibrate LLM judges against independently labeled human cases.",
+          "acceptance_test": "held-out cases, grader calibration and disagreement audit",
+          "domain": "D10",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "AGENTS.md (Prime Directive 3), server/studio/verification-service.js"
         },
         {
           "id": "AAPES-REQ-030",
-          "title": "",
+          "title": "Keep held-out tests separate from prompt development; record model, version, config per run",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Keep held-out tests separate from prompt development and record model/version/configuration for each run.",
+          "acceptance_test": "held-out cases, grader calibration and disagreement audit",
+          "domain": "D10",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/evaluation.js, server/studio/hosts/"
         },
         {
           "id": "AAPES-REQ-046",
-          "title": "",
+          "title": "Define per-risk acceptance thresholds; report denominator, failure types, uncertainty, disagreement",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Define per-risk acceptance thresholds and report denominator, failure types, uncertainty and evaluator disagreement.",
+          "acceptance_test": "held-out cases, grader calibration and disagreement audit",
+          "domain": "D10",
+          "priority": "P0",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/evaluation.js, server/studio/qualification-view.js"
         }
-      ]
+      ],
+      "name": "Evaluation and Calibration (التقييم والمعايرة)"
     },
     {
       "id": "D11",
-      "name": "",
+      "name_en": "Adversarial Testing and Resilience",
+      "name_ar": "الاختبارات العدائية والمرونة",
       "importance_weight_percent": 5,
       "priority_base": "P1",
       "priority_if_risk": {
@@ -553,41 +734,59 @@
         "R2": 1.4,
         "R3": 1.4
       },
-      "deliverable": "",
+      "deliverable": "Sandbox red-team suites and safe circuit breakers",
       "requirements": [
         {
           "id": "AAPES-REQ-031",
-          "title": "",
+          "title": "Exercise adversarial prompt and tool-input tests in isolated non-production environment",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Exercise adversarial prompt and tool-input tests in an isolated non-production environment.",
+          "acceptance_test": "sandbox red-team and circuit-open denial tests",
+          "domain": "D11",
+          "priority": "P1",
+          "coverage_status": "COVERED",
+          "aghr_ref": "tests/security.test.mjs, tests/t02_source_identity.test.mjs"
         },
         {
           "id": "AAPES-REQ-032",
-          "title": "",
+          "title": "Use circuit breakers with configurable thresholds that block unsafe actions rather than bypass controls",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Use circuit breakers with configurable thresholds that block unsafe actions rather than bypass controls.",
+          "acceptance_test": "sandbox red-team and circuit-open denial tests",
+          "domain": "D11",
+          "priority": "P1",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/security.js (MAX_TEXT_BYTES, MAX_RAW_BYTES), server/api.js"
         },
         {
           "id": "AAPES-REQ-033",
-          "title": "",
+          "title": "Rerun applicable adversarial regression tests after changes to prompts, tools, memory, policy logic",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Rerun applicable adversarial regression tests after changes to prompts, tools, memory or policy logic.",
+          "acceptance_test": "sandbox red-team and circuit-open denial tests",
+          "domain": "D11",
+          "priority": "P1",
+          "coverage_status": "COVERED",
+          "aghr_ref": "AGENTS.md, package.json scripts (npm test, test:studio-sentinel)"
         },
         {
           "id": "AAPES-REQ-047",
-          "title": "",
+          "title": "Document threat coverage and residual risk; zero observed critical failures is not universal proof",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Document threat coverage and residual risk; zero observed critical failures is not proof of universal safety.",
+          "acceptance_test": "sandbox red-team and circuit-open denial tests",
+          "domain": "D11",
+          "priority": "P1",
+          "coverage_status": "COVERED",
+          "aghr_ref": "docs/evidence/studio-release-2026-10-25/KNOWN_LIMITATIONS_AR.md, KNOWN_LIMITATIONS.md"
         }
-      ]
+      ],
+      "name": "Adversarial Testing and Resilience (الاختبارات العدائية والمرونة)"
     },
     {
       "id": "D12",
-      "name": "",
+      "name_en": "Lifecycle and Change Governance",
+      "name_ar": "دورة الحياة وحوكمة التغيير",
       "importance_weight_percent": 4,
       "priority_base": "P1",
       "priority_if_risk": {},
@@ -597,37 +796,54 @@
         "R2": 1,
         "R3": 0.9
       },
-      "deliverable": "",
+      "deliverable": "Approval, provenance, rollback and requalification",
       "requirements": [
         {
           "id": "AAPES-REQ-034",
-          "title": "",
+          "title": "Version policies, prompts, tools, model settings, enforcement artifacts with change provenance",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Version policies, prompts, tools, model settings and enforcement artifacts with change provenance.",
+          "acceptance_test": "change control, requalification and approval tests",
+          "domain": "D12",
+          "priority": "P1",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/governance.js, server/intake.js, Git repository tracking"
         },
         {
           "id": "AAPES-REQ-035",
-          "title": "",
+          "title": "Requalify affected controls when model versions, privileges, tools, trusted data pipelines change",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Requalify affected controls when model versions, privileges, tools or trusted data pipelines change.",
+          "acceptance_test": "change control, requalification and approval tests",
+          "domain": "D12",
+          "priority": "P1",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/staging.js, server/studio/unified-runtime.mjs"
         },
         {
           "id": "AAPES-REQ-036",
-          "title": "",
-          "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "title": "MUST_NOT activate R3 capabilities without verifiable approval from separately authorized human owner",
+          "normative_level": "MUST_NOT",
+          "statement": "Activate R3 capabilities without a verifiable approval from a separately authorized human owner.",
+          "acceptance_test": "change control, requalification and approval tests",
+          "domain": "D12",
+          "priority": "P1",
+          "coverage_status": "COVERED",
+          "aghr_ref": "docs/evidence/studio-signoff-2026-10-26/OWNER_SIGNOFF_AR.md, server/studio/auth.js"
         },
         {
           "id": "AAPES-REQ-048",
-          "title": "",
+          "title": "Maintain documented emergency suspension, incident response, safe rollback or recovery procedures",
           "normative_level": "MUST",
-          "statement": "",
-          "acceptance_test": ""
+          "statement": "Maintain documented emergency suspension, incident response and safe rollback or recovery procedures.",
+          "acceptance_test": "change control, requalification and approval tests",
+          "domain": "D12",
+          "priority": "P1",
+          "coverage_status": "COVERED",
+          "aghr_ref": "server/staging.js (rollbackBackup), stop.ps1, verify.ps1"
         }
-      ]
+      ],
+      "name": "Lifecycle and Change Governance (دورة الحياة وحوكمة التغيير)"
     }
   ]
 }

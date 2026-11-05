@@ -9,6 +9,7 @@ import {createCanonicalRoutes,workspaceView} from './canonical-routes.mjs';
 import {createAdoptionRoutes} from './projects/adoption-routes.mjs';
 import {createClosureRoutes,historyView} from './projects/history.mjs';
 import {currentCapabilities} from './projects/capabilities.mjs';
+import {aapesWorkspace,handleAapesCandidate,handleAapesApi} from './aapes-candidate.mjs';
 
 const fields=['skillId','source','function','permissions','inputs','outputs','instructionsPath','defaultTier','requiredApprovals','conflictsWith','alternatives','minimumStatus','requiredOnHosts','maxAgeDays'];
 const capability=v=>({item_id:v.item.id,capability:Object.fromEntries(fields.filter(k=>v.item[k]!==undefined).map(k=>[k,v.item[k]])),qualifications:[],availability:[{state:'UNKNOWN',evidence:[],reason:'Historical sandbox CI does not establish live host availability.'}],source_path:v.source_path,content_hash:v.source_hash,issuer_trust:v.issuer_trust});
@@ -34,12 +35,14 @@ export async function createUnifiedStudio(options){
    if(streamTicket&&req.method==='GET'){if(url.search)throw new StudioError(400,'INVALID_REQUEST','No ticket query.');return send(200,stream.ticket(req,streamTicket[1]));}
    const sarif=p.match(/^\/api\/v1\/workspaces\/rc3-local\/verify\/runs\/(VR-[\w-]+)\/sarif$/);
    if(sarif&&req.method==='GET'){studio.authority.authenticate(req);const run=studio.verification.get(sarif[1]);return send(200,{version:'2.1.0',runs:[{tool:{driver:{name:'AGHR',version:run.engine.identity.version}},results:run.summary.errors.map(e=>({ruleId:e.code,level:'error',message:{text:e.message}})),invocations:[{executionSuccessful:run.status==='passed',properties:{status:run.status,run_id:run.id,exit_code:run.exit_code,source:'actual Python diagnostics'}}]}]});}
+   if(p.startsWith('/api/v1/aapes/'))return await handleAapesApi(req,res,{p,url,send,studio});
+   if(match&&match[1]==='aapes-candidate')return await handleAapesCandidate(req,res,{match,url,p,send,studio});
    const intercept=p==='/api/v1/workspaces'&&req.method==='GET'||pilot||p==='/api/v1/projects/published';
    if(intercept){
     studio.authority.authenticate(req);
     if(req.method!=='GET'){studio.store.recordAttempt({...studio.authority.auditIdentity(req),action:'published-project.write',resourceId:match?.[1],result:'DENY',status:403,reason:'Published sandbox is immutable',requestId:crypto.randomUUID()});throw new StudioError(403,'FORBIDDEN','Published sandbox sources and state are read-only. Use a new Draft CP.');}
     if(Number(req.headers['content-length'])||req.headers['transfer-encoding'])throw new StudioError(400,'INVALID_REQUEST','No GET body.');
-    if(p==='/api/v1/workspaces')return send(200,[studio.workspace,...pilots.list().map(v=>v.workspace),...studio.store.registrations().workspaces.filter(w=>w.id!==studio.workspace.id).map(workspaceView)],null,{limit:500,total:3+studio.store.registrations().workspaces.filter(w=>w.id!==studio.workspace.id).length,next_cursor:null});
+    if(p==='/api/v1/workspaces')return send(200,[studio.workspace,...pilots.list().map(v=>v.workspace),aapesWorkspace,...studio.store.registrations().workspaces.filter(w=>w.id!==studio.workspace.id).map(workspaceView)],null,{limit:500,total:4+studio.store.registrations().workspaces.filter(w=>w.id!==studio.workspace.id).length,next_cursor:null});
     if(p==='/api/v1/projects/published')return send(200,pilots.list().map(v=>({project:v.project,state:v.state,receipt:{path:v.receipt_path,hash:v.receipt_hash,status:'VERIFIED_HISTORICAL_SANDBOX_CI'},live_qualification:'NOT_RUN',source_written:false})));
     const tail=match[2]||'',parts=tail.split('/'),item=pilot.views.find(v=>v.item.id===parts[1]),model=currentCapabilities(pilot,studio,()=>pilots.recheck()),caps=model.views;
     if(tail==='projects')return send(200,[pilot.project],null,{total:1,limit:100,next_cursor:null});
