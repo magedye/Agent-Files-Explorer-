@@ -907,6 +907,74 @@ test('AGHR-QLE-GOV-OBS-002A: Original 52-Requirement Acceptance & Traceability S
       assert.ok(!docContent.includes('ضبط المصحف'), 'Fabricated text must not exist');
     });
 
+    // =========================================================================
+    // AGHR-QLE-GOV-OBS-005: FINAL SECURITY VERIFICATION ADVERSARIAL TESTS
+    // =========================================================================
+
+    // ADV-08: Unsupported schema keywords must not silently pass validation
+    await t.test('ADV-08: Unsupported schema keywords must not silently pass validation', async () => {
+      const store = new SgoStore({ storageRoot });
+      
+      const tempSchemaPath = path.resolve('server/studio/sgo/schemas/test-unsupported-keyword.schema.json');
+      fs.writeFileSync(tempSchemaPath, JSON.stringify({
+        '$schema': 'https://json-schema.org/draft/2020-12/schema',
+        type: 'object',
+        unsupportedKeywordName: true,
+        properties: { name: { type: 'string' } }
+      }, null, 2), 'utf8');
+
+      try {
+        const checkResult = store.validateExportAgainstSchema({ name: 'valid' }, 'test-unsupported-keyword.schema.json');
+        assert.equal(checkResult.valid, false, 'Schema with unsupported keyword must not pass');
+        assert.equal(checkResult.validation_status, 'VALIDATION_FAILED');
+        assert.ok(checkResult.errors.some(e => e.message.includes('Unsupported schema keyword')));
+      } finally {
+        if (fs.existsSync(tempSchemaPath)) fs.unlinkSync(tempSchemaPath);
+      }
+    });
+
+    // ADV-09: External checkpoint tampering across trust boundary is detected and fails verification
+    await t.test('ADV-09: External checkpoint tampering across trust boundary is detected and fails verification', async () => {
+      const store = new SgoStore({ storageRoot });
+      assert.ok(store.externalCheckpointFilePath, 'External checkpoint file path must be configured');
+      assert.ok(fs.existsSync(store.externalCheckpointFilePath), 'External checkpoint file must exist on disk');
+
+      const originalExt = fs.readFileSync(store.externalCheckpointFilePath, 'utf8');
+      try {
+        const parsed = JSON.parse(originalExt);
+        parsed.ledger_tip_hash = 'tampered-ext-hash-0000000000000000000000000000000000000000000000';
+        fs.writeFileSync(store.externalCheckpointFilePath, JSON.stringify(parsed, null, 2), 'utf8');
+
+        const verifyResult = store.verifyLedgerIntegrity();
+        assert.equal(verifyResult.valid, false, 'External checkpoint tampering must fail verification');
+        assert.ok(verifyResult.reason.includes('External checkpoint mismatch'));
+      } finally {
+        fs.writeFileSync(store.externalCheckpointFilePath, originalExt, 'utf8');
+      }
+    });
+
+    // ADV-10: Atomic write operations ensure audit files and checkpoints are written without partial corruption
+    await t.test('ADV-10: Atomic write operations ensure audit files and checkpoints are written without partial corruption', async () => {
+      const store = new SgoStore({ storageRoot });
+      store.recordSyntheticFixtureDecision({
+        target_id: 'QL4-A04',
+        selected_option: 'CONFIRM_MUST',
+        rationale: 'Atomicity check'
+      }, { actor: 'synthetic-owner-test', role: 'governance-owner' });
+
+      // Verify no dangling temp files remain in storageRoot
+      const files = fs.readdirSync(storageRoot);
+      const tmpFiles = files.filter(f => f.includes('.tmp'));
+      assert.equal(tmpFiles.length, 0, 'No temporary swap files should remain after atomic write');
+
+      // Verify valid JSON in all files
+      assert.doesNotThrow(() => JSON.parse(fs.readFileSync(store.draftsFilePath, 'utf8')));
+      assert.doesNotThrow(() => JSON.parse(fs.readFileSync(store.ownerDecisionsFilePath, 'utf8')));
+      assert.doesNotThrow(() => JSON.parse(fs.readFileSync(store.auditLedgerFilePath, 'utf8')));
+      assert.doesNotThrow(() => JSON.parse(fs.readFileSync(store.checkpointFilePath, 'utf8')));
+      assert.doesNotThrow(() => JSON.parse(fs.readFileSync(store.externalCheckpointFilePath, 'utf8')));
+    });
+
   } finally {
     server.closeAllConnections();
     await new Promise(r => server.close(r));

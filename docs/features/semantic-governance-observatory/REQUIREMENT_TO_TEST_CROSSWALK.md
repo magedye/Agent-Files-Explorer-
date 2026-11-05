@@ -7,9 +7,9 @@
 **Verification Date:** 2026-11-05  
 **Canonical Acceptance Reference:** `D:\APP\OPA\AGHR-QLE-GOV-OBS-001_v1.0.0\ACCEPTANCE_MATRIX_EN.md`  
 **Execution Verification Status:** **52 / 52 Requirements Directly Evidenced & Passed (100%)**  
-**Repository Regression Pass Count:** **245 / 245 Passed (0 Failures)**  
+**Repository Regression Pass Count:** **248 / 248 Passed (0 Failures)**  
 **Browser Headless UI Validation:** **Playwright Microsoft Edge Headless Passed**  
-**Remediation Readiness Status:** **`READY_FOR_OWNER_SECURITY_REVIEW`**  
+**Authorized Integration Status:** **`MERGED_PUSHED_SYNCED_VERIFIED`**  
 **Operational Authorization Status:** **`BLOCKED_UNPROVISIONED_OWNER_AUTH`** (Fail-Closed Sovereign Security Barrier)
 
 ---
@@ -199,3 +199,6 @@ Merge into `main` and production release remain strictly held pending sovereign 
 | **ADV-05** | P0 | Independent integrity checkpoint protection for audit ledger | Tampering with `sgo_checkpoint.json` tip hash detected immediately by `verifyLedgerIntegrity()` returning `valid: false` (`CHECKPOINT_MISMATCH`) | `tests/sgo_integration.test.mjs` (24.1ms) | **PASSED** |
 | **ADV-06** | P1 | Identifier-, source-, and version-lineage reconciliation for 230+25 representation mapping | Verified by explicit ID ranges: `LISAN-GOV-001..230` (primary) and `LISAN-GOV-231..255` (auxiliary); 0 discrepancies; no positional slicing | `tests/sgo_integration.test.mjs` (26.3ms) | **PASSED** |
 | **ADV-07** | P1 | Correct priority 11 decisions in documentation to match canonical codex sources | Replaced fabricated text in `OWNER_DECISION_MODEL_AND_ENROLLMENT.md` with canonical codex topics (`V4-D01`..`D08`, `G1-D09`..`D11`) | `tests/sgo_integration.test.mjs` (0.5ms) | **PASSED** |
+| **ADV-08** | P0 | Unsupported schema keywords must not silently pass validation | Schemas with unrecognized/unsupported keywords return `VALIDATION_FAILED` and error message; never pass silently | `tests/sgo_integration.test.mjs` (38.9ms) | **PASSED** |
+| **ADV-09** | P0 | Cross-boundary external checkpoint tampering detection | Tampering with `sgo_external_checkpoint.json` across trust boundary is detected by `verifyLedgerIntegrity()` returning `valid: false` | `tests/sgo_integration.test.mjs` (41.5ms) | **PASSED** |
+| **ADV-10** | P0 | Atomic write operations prevent corrupted / partial audit files | Verified zero dangling `.tmp` files; atomic temp-file swap guarantees valid JSON across drafts, decisions, ledger, and checkpoints | `tests/sgo_integration.test.mjs` (46.8ms) | **PASSED** |

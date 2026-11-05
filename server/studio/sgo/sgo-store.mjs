@@ -5,6 +5,16 @@ import { validateDataAgainstSchema } from './sgo-schema-validator.mjs';
 
 const COMPILED_DATA_PATH = path.resolve('server/studio/sgo/data/sgo-compiled.json');
 
+function writeFileSyncAtomic(filePath, data) {
+  const dir = path.dirname(filePath);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+  const tempPath = path.join(dir, `.${path.basename(filePath)}.${crypto.randomUUID()}.tmp`);
+  fs.writeFileSync(tempPath, data, 'utf8');
+  fs.renameSync(tempPath, filePath);
+}
+
 export class SgoStore {
   constructor(options = {}) {
     this.options = options;
@@ -29,7 +39,17 @@ export class SgoStore {
     this.draftsFilePath = path.join(this.storageRoot, 'sgo_drafts.json');
     this.ownerDecisionsFilePath = path.join(this.storageRoot, 'sgo_owner_decisions.json');
     this.auditLedgerFilePath = path.join(this.storageRoot, 'sgo_audit_ledger.json');
-    this.checkpointFilePath = path.join(this.storageRoot, 'sgo_checkpoint.json');
+        this.checkpointFilePath = path.join(this.storageRoot, 'sgo_checkpoint.json');
+
+    // External checkpoint trust boundary paths (AGHR-QLE-GOV-OBS-005)
+    this.externalCheckpointFilePath = options.externalCheckpointPath || 
+      (options.storageRoot 
+        ? path.join(this.storageRoot, '..', 'external_checkpoints', 'sgo_external_checkpoint.json') 
+        : path.resolve('.governance/checkpoints/sgo_external_checkpoint.json'));
+    this.checkpointHistoryPath = options.checkpointHistoryPath || 
+      (options.storageRoot 
+        ? path.join(this.storageRoot, '..', 'external_checkpoints', 'sgo_checkpoint_history.jsonl') 
+        : path.resolve('.governance/checkpoints/sgo_checkpoint_history.jsonl'));
 
     // 1. Load persisted ordinary review drafts if present (survives restart)
     if (fs.existsSync(this.draftsFilePath)) {
@@ -266,7 +286,7 @@ export class SgoStore {
 
     // Durably persist drafts across server restarts
     try {
-      fs.writeFileSync(this.draftsFilePath, JSON.stringify([...this.draftDecisions.values()], null, 2), 'utf8');
+      writeFileSyncAtomic(this.draftsFilePath, JSON.stringify([...this.draftDecisions.values()], null, 2));
     } catch {}
 
     this._appendAuditEvent({
@@ -458,7 +478,7 @@ export class SgoStore {
     // Save to in-memory map and persist durably across restarts (AGHR-QLE-GOV-OBS-004)
     this.ownerDecisions.set(target_id, decisionRecord);
     try {
-      fs.writeFileSync(this.ownerDecisionsFilePath, JSON.stringify([...this.ownerDecisions.values()], null, 2), 'utf8');
+      writeFileSyncAtomic(this.ownerDecisionsFilePath, JSON.stringify([...this.ownerDecisions.values()], null, 2));
     } catch {}
 
     this._appendAuditEvent({
@@ -626,7 +646,7 @@ export class SgoStore {
 
     // Durably persist ledger and checkpoint across restarts (AGHR-QLE-GOV-OBS-004)
     try {
-      fs.writeFileSync(this.auditLedgerFilePath, JSON.stringify(this.auditLedger, null, 2), 'utf8');
+      writeFileSyncAtomic(this.auditLedgerFilePath, JSON.stringify(this.auditLedger, null, 2));
       this._syncCheckpointFile();
     } catch {}
 
@@ -643,7 +663,21 @@ export class SgoStore {
         decisions_count: this.ownerDecisions.size,
         checkpoint_digest: crypto.createHash('sha256').update(`${this.lastHash}:${this.auditLedger.length}:${this.ownerDecisions.size}`).digest('hex')
       };
-      fs.writeFileSync(this.checkpointFilePath, JSON.stringify(checkpoint, null, 2), 'utf8');
+      writeFileSyncAtomic(this.checkpointFilePath, JSON.stringify(checkpoint, null, 2));
+
+      // Synchronize external checkpoint across trust boundary (AGHR-QLE-GOV-OBS-005)
+      const externalCheckpoint = {
+        ...checkpoint,
+        trust_boundary: 'EXTERNAL_ISOLATED_CHECKPOINT'
+      };
+      writeFileSyncAtomic(this.externalCheckpointFilePath, JSON.stringify(externalCheckpoint, null, 2));
+
+      // Append to historical checkpoint ledger log
+      const historyDir = path.dirname(this.checkpointHistoryPath);
+      if (!fs.existsSync(historyDir)) {
+        fs.mkdirSync(historyDir, { recursive: true });
+      }
+      fs.appendFileSync(this.checkpointHistoryPath, JSON.stringify(externalCheckpoint) + '\n', 'utf8');
     } catch {}
   }
 
@@ -723,10 +757,37 @@ export class SgoStore {
       }
     }
 
+    // 4. Verify against independently retained external checkpoint (AGHR-QLE-GOV-OBS-005)
+    if (fs.existsSync(this.externalCheckpointFilePath)) {
+      try {
+        const extCheckpoint = JSON.parse(fs.readFileSync(this.externalCheckpointFilePath, 'utf8'));
+        if (extCheckpoint.ledger_tip_hash && extCheckpoint.ledger_tip_hash !== this.lastHash) {
+          return {
+            valid: false,
+            reason: `External checkpoint mismatch: external checkpoint tip '${extCheckpoint.ledger_tip_hash}' does not match active ledger tip '${this.lastHash}'. Cross-boundary tampering or truncation detected.`,
+            external_checkpoint_tip: extCheckpoint.ledger_tip_hash,
+            ledger_tip: this.lastHash
+          };
+        }
+        if (typeof extCheckpoint.events_count === 'number' && extCheckpoint.events_count !== this.auditLedger.length) {
+          return {
+            valid: false,
+            reason: `External checkpoint event count mismatch: expected ${extCheckpoint.events_count}, found ${this.auditLedger.length}. Truncation detected.`
+          };
+        }
+      } catch (e) {
+        return {
+          valid: false,
+          reason: `Failed to verify external checkpoint: ${e.message}`
+        };
+      }
+    }
+
     return {
       valid: true,
       events_verified: this.auditLedger.length,
-      tip_hash: this.lastHash
+      tip_hash: this.lastHash,
+      external_checkpoint_verified: fs.existsSync(this.externalCheckpointFilePath)
     };
   }
 }
