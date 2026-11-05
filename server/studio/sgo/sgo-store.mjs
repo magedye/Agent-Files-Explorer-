@@ -55,7 +55,9 @@ export class SgoStore {
   }
 
   getItems(filters = {}) {
-    let items = this.data.items;
+    let items = (filters.population === 'expanded_451' || filters.include_additions === 'true' || filters.origin === 'QLE_ADD')
+      ? (this.data.items_451 || this.data.items)
+      : this.data.items;
     
     if (filters.origin) {
       const orig = filters.origin.toUpperCase();
@@ -84,6 +86,7 @@ export class SgoStore {
       total: items.length,
       limit,
       offset,
+      population: (filters.population === 'expanded_451' || filters.include_additions === 'true') ? 'expanded_451' : 'baseline_423',
       items: items.slice(offset, offset + limit).map(i => ({
         ...i,
         draft_decision: this.draftDecisions.get(i.id) || null
@@ -129,24 +132,32 @@ export class SgoStore {
   }
 
   getRelations(filters = {}) {
-    let relations = this.data.relations;
+    const isWorkbook = filters.catalog === 'workbook_294' || filters.source_catalog === 'workbook';
+    let relations = isWorkbook ? (this.data.workbook_relations_294 || []) : this.data.relations;
+    
     if (filters.type) {
-      relations = relations.filter(r => r.type === filters.type);
+      relations = relations.filter(r => (r.type === filters.type || r.relation_type === filters.type));
+    }
+    if (filters.basis) {
+      relations = relations.filter(r => r.basis === filters.basis);
     }
     if (filters.item_id) {
       relations = relations.filter(r => r.source === filters.item_id || r.target === filters.item_id);
     }
     return {
+      catalog: isWorkbook ? 'workbook_294' : 'graph_606',
       total: relations.length,
       relations: relations.slice(0, Number(filters.limit) || 500)
     };
   }
 
-  getTestCases(itemId) {
+  getTestCases(itemId, filters = {}) {
+    const isWorkbook = filters.catalog === 'workbook_882' || filters.source_catalog === 'workbook';
+    const tests = isWorkbook ? (this.data.workbook_tests_882 || []) : this.data.test_cases;
     if (itemId) {
-      return this.data.test_cases.filter(t => t.item_id === itemId);
+      return tests.filter(t => (t.item_id === itemId || t.target_unit === itemId));
     }
-    return this.data.test_cases;
+    return tests;
   }
 
   saveDraftDecision(payload, actor = 'operator') {
@@ -162,6 +173,8 @@ export class SgoStore {
       custom_wording: custom_wording || null,
       saved_at: new Date().toISOString(),
       saved_by: actor,
+      is_draft: true,
+      authorizes_engine_activation: false,
       status: 'DRAFT_NON_NORMATIVE', // Invariant: Drafts are never normative approvals
       normative_approval_granted: false
     };

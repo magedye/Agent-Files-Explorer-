@@ -8,6 +8,20 @@ const mappingData = JSON.parse(fs.readFileSync(path.join(baseDir, 'source_to_can
 const queueData = JSON.parse(fs.readFileSync(path.join(baseDir, 'OWNER_REVIEW_QUEUE.json'), 'utf8'));
 const recommendationsData = JSON.parse(fs.readFileSync(path.join(baseDir, 'PRIORITY_11_RECOMMENDATIONS_NOT_APPROVED.json'), 'utf8'));
 
+// Load curated workbook datasets
+const workbookItems451 = fs.existsSync(path.join(baseDir, 'workbook_451_items.json'))
+  ? JSON.parse(fs.readFileSync(path.join(baseDir, 'workbook_451_items.json'), 'utf8'))
+  : [];
+const workbookAdditions28 = fs.existsSync(path.join(baseDir, 'workbook_28_additions.json'))
+  ? JSON.parse(fs.readFileSync(path.join(baseDir, 'workbook_28_additions.json'), 'utf8'))
+  : [];
+const workbookRelations294 = fs.existsSync(path.join(baseDir, 'workbook_294_relations.json'))
+  ? JSON.parse(fs.readFileSync(path.join(baseDir, 'workbook_294_relations.json'), 'utf8'))
+  : [];
+const workbookTests882 = fs.existsSync(path.join(baseDir, 'workbook_882_tests.json'))
+  ? JSON.parse(fs.readFileSync(path.join(baseDir, 'workbook_882_tests.json'), 'utf8'))
+  : [];
+
 // Build lookup maps
 const mappingById = new Map();
 for (const m of mappingData) {
@@ -402,17 +416,40 @@ const compiledSgo = {
     v4_count: compiledItems.filter(i => i.origin === 'V4').length,
     v2_count: compiledItems.filter(i => i.origin === 'V2').length,
     source_255_count: compiledItems.filter(i => i.origin === 'SOURCE_255').length,
+    additions_28_count: workbookAdditions28.length,
+    expanded_owner_review_count: compiledItems.length + workbookAdditions28.length,
     priority_groups_count: priorityGroupsData.length,
     total_relations: relations.length,
+    workbook_relations_count: workbookRelations294.length,
+    workbook_relations_fact_count: workbookRelations294.filter(r => r.basis === 'FACT').length,
+    workbook_relations_inference_count: workbookRelations294.filter(r => r.basis === 'INFERENCE').length,
     total_designed_tests: testCases.length,
+    workbook_designed_tests: workbookTests882.length,
     executed_tests: 0,
     active_approvals: 0,
     owner_decisions_recorded: 0
   },
   items: compiledItems,
+  additions_28: workbookAdditions28,
+  items_451: [...compiledItems, ...workbookAdditions28.map(a => ({
+    id: a.id,
+    origin: 'QLE_ADD',
+    title_ar: a.title_ar,
+    title_en: `${a.id}: Proposed Addition`,
+    source_declared_force: 'SHOULD',
+    proposed_force: 'SHOULD',
+    original_statement_ar: a.original_statement_ar || '',
+    proposed_statement_ar: a.proposed_statement_ar || '',
+    family: 'QLE_ADD',
+    priority: a.priority,
+    treatment_proposed: a.treatment_proposed,
+    test_execution_status: 'DESIGNED_NOT_RUN'
+  }))],
   priority_groups: priorityGroupsData,
   relations: relations,
-  test_cases: testCases
+  workbook_relations_294: workbookRelations294,
+  test_cases: testCases,
+  workbook_tests_882: workbookTests882
 };
 
 fs.writeFileSync(path.join(baseDir, 'sgo-compiled.json'), JSON.stringify(compiledSgo, null, 2), 'utf8');

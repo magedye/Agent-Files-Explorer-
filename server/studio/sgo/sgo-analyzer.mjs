@@ -22,7 +22,7 @@ export class SgoAnalyzer {
     }
 
     const proposedForce = options.proposed_force || 'MUST';
-    const candidateText = candidateStatement || items[0].proposed_statement_ar || '';
+    const candidateText = candidateStatement || (options.simulate_drop_p0 ? '' : items.map(it => it.proposed_statement_ar || it.original_statement_ar || '').join(' ؛ '));
 
     // Decompose source obligations
     const sourceObligations = [];
@@ -127,7 +127,7 @@ export class SgoAnalyzer {
 
   _evaluateObligationPreservation(atom, candidateText, proposedForce, options = {}) {
     // If the candidate statement explicitly simulates dropping an obligation for tests
-    if (options.force_drop_ids && options.force_drop_ids.includes(atom.id)) {
+    if ((options.simulate_drop_p0 && atom.priority === 'P0') || (options.force_drop_ids && options.force_drop_ids.includes(atom.id))) {
       return {
         obligation_id: atom.id,
         source_item_id: atom.source_item_id,

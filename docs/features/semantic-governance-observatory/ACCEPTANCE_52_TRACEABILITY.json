@@ -1,0 +1,491 @@
+{
+  "schema_version": "1.2.0",
+  "generated_at": "2026-11-05T08:15:00.000Z",
+  "task_id": "AGHR-QLE-GOV-OBS-002",
+  "directive": "Independent Qualification, Coverage Reconciliation and Merge Readiness",
+  "target_branch": "feat/aghr-qle-gov-obs-001",
+  "candidate_commit": "d54103686357a7bb42eb7d1dd0d3deaf143c5518",
+  "qualification_status": "PARTIALLY_READY_WITH_EXPLICIT_BLOCKERS",
+  "suite_summary": {
+    "total_acceptance_criteria": 52,
+    "criteria_verified_passed": 52,
+    "criteria_failed": 0,
+    "criteria_unverified": 0,
+    "unit_and_integration_tests_total": 238,
+    "unit_and_integration_tests_passed": 238,
+    "browser_e2e_tests_total": 1,
+    "browser_e2e_tests_passed": 1,
+    "context_health_passed": true,
+    "all_tests_passed": true
+  },
+  "acceptance_matrix": [
+    {
+      "id": "AC-01",
+      "name": "Pinned AGHR rc.3 engine bytes preserved untouched",
+      "category": "IMMUTABILITY_BOUNDARY",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified that SHA-256 digests and file sizes of governance_packages/references/AGHR_Studio_1.0.0_rc3_RELEASE.json and pinned engine files match canonical release bytes exactly with 0 drift."
+    },
+    {
+      "id": "AC-02",
+      "name": "AAPES remains unpromoted review candidate",
+      "category": "AUTHORITY_BOUNDARY",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified GET /api/v1/sgo/health confirms AAPES v2.1 status is CANDIDATE_REVIEW_ONLY and is_default_reference is false. Zero automatic promotion occurred."
+    },
+    {
+      "id": "AC-03",
+      "name": "Quran corpus / LISAN engine separation preserved",
+      "category": "SEPARATION_INVARIANT",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified LISAN engine source files and Quran text corpus packages exist in isolated directories with zero write permissions or modifications during SGO execution."
+    },
+    {
+      "id": "AC-04",
+      "name": "Read-only ingestion of OPA source packages",
+      "category": "CUSTODY_INTEGRITY",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified all 6 input packages under D:/APP/OPA (AGHR-QLE-GOV-OBS-001_v1.0.0, QLE_Unified_Owner_Review_AR_v0_2.xlsx, etc.) maintain identical SHA-256 byte hashes before and after ingestion."
+    },
+    {
+      "id": "AC-05",
+      "name": "Exact 423 items registered with origins",
+      "category": "DATA_RECONCILIATION",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "GET /api/v1/sgo/items returns exactly 423 items in baseline population (255 SOURCE_255 + 110 V4 + 58 V2) and supports population=expanded_451 for all 451 owner-review rows."
+    },
+    {
+      "id": "AC-06",
+      "name": "SOURCE_255 authoritative baseline identified",
+      "category": "DATA_RECONCILIATION",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified exactly 255 items have origin SOURCE_255 and are marked as foundational sources with preserved original Arabic statements."
+    },
+    {
+      "id": "AC-07",
+      "name": "V4 candidate proposals identified (110 items)",
+      "category": "DATA_RECONCILIATION",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified exactly 110 items have origin V4, carrying proposal candidate status with candidate_id and bilingual text structures."
+    },
+    {
+      "id": "AC-08",
+      "name": "2,240 designed tests marked strictly DESIGNED_NOT_RUN",
+      "category": "VERIFICATION_HONESTY",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified 2,240 items in test index and 882 items in workbook sheet اختبارات مقترحة carry execution_status: DESIGNED_NOT_RUN with 0 actual execution claims."
+    },
+    {
+      "id": "AC-09",
+      "name": "Priority decision queue populated with 11 groups",
+      "category": "OWNER_DECISION_MODEL",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "GET /api/v1/sgo/priority-decisions returns exactly 11 groups (8 V4 groups V4-D01 to V4-D08 and 3 G1 groups G1-D09 to G1-D11)."
+    },
+    {
+      "id": "AC-10",
+      "name": "V4-D01 priority group question and rows rendered",
+      "category": "OWNER_DECISION_MODEL",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified V4-D01 renders exact Arabic question, priority P0, citation of original items, and advisory options."
+    },
+    {
+      "id": "AC-11",
+      "name": "V4-D02 priority group rendered with citations",
+      "category": "OWNER_DECISION_MODEL",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified V4-D02 renders priority P0, affected candidates count, and source cross-references."
+    },
+    {
+      "id": "AC-12",
+      "name": "V4-D03 priority group rendered with citations",
+      "category": "OWNER_DECISION_MODEL",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified V4-D03 renders priority P0 and full decision metadata."
+    },
+    {
+      "id": "AC-13",
+      "name": "V4-D04 priority group rendered with citations",
+      "category": "OWNER_DECISION_MODEL",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified V4-D04 renders priority P0 and citation of affected items."
+    },
+    {
+      "id": "AC-14",
+      "name": "V4-D05 priority group rendered with citations",
+      "category": "OWNER_DECISION_MODEL",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified V4-D05 renders priority P1 and citation of affected items."
+    },
+    {
+      "id": "AC-15",
+      "name": "V4-D06 priority group rendered with citations",
+      "category": "OWNER_DECISION_MODEL",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified V4-D06 renders priority P0 and citation of affected items."
+    },
+    {
+      "id": "AC-16",
+      "name": "V4-D07 priority group rendered with citations",
+      "category": "OWNER_DECISION_MODEL",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified V4-D07 renders priority P1 and citation of affected items."
+    },
+    {
+      "id": "AC-17",
+      "name": "V4-D08 priority group rendered with citations",
+      "category": "OWNER_DECISION_MODEL",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified V4-D08 renders priority P1 and citation of affected items."
+    },
+    {
+      "id": "AC-18",
+      "name": "G1-D09 to G1-D11 priority groups rendered",
+      "category": "OWNER_DECISION_MODEL",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified groups G1-D09 (P1), G1-D10 (P1), and G1-D11 (P0) render questions, affected candidates, and options."
+    },
+    {
+      "id": "AC-19",
+      "name": "606 relational edges loaded and queryable",
+      "category": "RELATIONAL_GRAPH",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "GET /api/v1/sgo/relations returns 606 bipartite graph edges with typed connections; supports catalog=workbook_294 for the 294 curated relations."
+    },
+    {
+      "id": "AC-20",
+      "name": "Exact text duplicate detection without semantic equivalence assumption",
+      "category": "RELATIONAL_GRAPH",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified EXACT_TEXT_DUPLICATE relations explicitly state byte-exact match only without automatically asserting normative equivalence."
+    },
+    {
+      "id": "AC-21",
+      "name": "Subsumes relation extraction",
+      "category": "RELATIONAL_GRAPH",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "GET /api/v1/sgo/relations?type=SUBSUMES returns 82 subsumption directed edges with source, target, and confidence ratings."
+    },
+    {
+      "id": "AC-22",
+      "name": "Side-by-side item comparison inspector",
+      "category": "COMPARISON_UI",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "GET /api/v1/sgo/items/:id returns complete dual-text structure (original_statement_ar vs proposed_statement_ar) with relations."
+    },
+    {
+      "id": "AC-23",
+      "name": "Co-Merge Lab obligation preservation analyzer",
+      "category": "MERGE_SAFETY",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "POST /api/v1/sgo/merge/analyze performs atomic obligation decomposition and outputs reverse trace with 0 critical blocker violations for compliant text."
+    },
+    {
+      "id": "AC-24",
+      "name": "Automated merge safety gate: Dropped P0 rejection",
+      "category": "MERGE_SAFETY",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "POST /api/v1/sgo/merge/analyze with simulated dropped P0 obligation returns BLOCKED_UNSAFE_MERGE and flags GATE_P0_PRESERVATION."
+    },
+    {
+      "id": "AC-25",
+      "name": "Automated merge safety gate: Weakened force rejection",
+      "category": "MERGE_SAFETY",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "POST /api/v1/sgo/merge/analyze with MUST weakened to SHOULD returns BLOCKED_UNSAFE_MERGE and flags GATE_FORCE_PRESERVATION."
+    },
+    {
+      "id": "AC-26",
+      "name": "Automated merge safety gate: Actor/scope preservation",
+      "category": "MERGE_SAFETY",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "POST /api/v1/sgo/merge/analyze asserts total_source_obligations > 0 and detects altered actors via GATE_ACTOR_FIDELITY."
+    },
+    {
+      "id": "AC-27",
+      "name": "Reverse trace mapping generation",
+      "category": "MERGE_SAFETY",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "POST /api/v1/sgo/merge/analyze produces reverse trace mappings where every atomic obligation links back to source_item_id and obligation_id."
+    },
+    {
+      "id": "AC-28",
+      "name": "Static Impact Simulator bounded reachability",
+      "category": "IMPACT_ANALYSIS",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "POST /api/v1/sgo/impact/simulate computes BFS graph reachability with max_depth=3, returning affected items count and relation paths."
+    },
+    {
+      "id": "AC-29",
+      "name": "Zero fabricated test failures invariant",
+      "category": "VERIFICATION_HONESTY",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "POST /api/v1/sgo/impact/simulate strictly reports DESIGNED_NOT_RUN for test cases and creates 0 fabricated test execution passes or failures."
+    },
+    {
+      "id": "AC-30",
+      "name": "Contract and schema dependency disclosure",
+      "category": "IMPACT_ANALYSIS",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "POST /api/v1/sgo/impact/simulate lists all contract dependencies and schema constraints linked to the affected items."
+    },
+    {
+      "id": "AC-31",
+      "name": "Grounded Policy Chat offline lexical search",
+      "category": "GROUNDED_CHAT",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "POST /api/v1/sgo/chat executes 100% offline BM25-style lexical matching without external API calls or LLM hallucination."
+    },
+    {
+      "id": "AC-32",
+      "name": "Grounded Policy Chat exact Arabic normalization",
+      "category": "GROUNDED_CHAT",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified Arabic normalization removes Tashkeel/diacritics, normalizes Alef forms (أ/إ/آ -> ا), Yaa (ى -> ي), and Taa Marbuta (ة -> ه) for deterministic recall."
+    },
+    {
+      "id": "AC-33",
+      "name": "Prompt injection defanging and logging",
+      "category": "GROUNDED_CHAT",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "POST /api/v1/sgo/chat detects injection patterns ('Ignore previous instructions'), defangs prompt tokens, logs security flag, and answers safely."
+    },
+    {
+      "id": "AC-34",
+      "name": "INSUFFICIENT_EVIDENCE status on unknown inquiries",
+      "category": "GROUNDED_CHAT",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "POST /api/v1/sgo/chat queries with 0 matching terms strictly return evidence_sufficiency: INSUFFICIENT_EVIDENCE and citations: []."
+    },
+    {
+      "id": "AC-35",
+      "name": "Non-normative draft decision persistence",
+      "category": "DECISION_GOVERNANCE",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "POST /api/v1/sgo/decisions/draft persists operator notes into rc3-local SQLite with is_draft: true and authorizes_engine_activation: false."
+    },
+    {
+      "id": "AC-36",
+      "name": "Protected owner decision fails closed without enrollment",
+      "category": "SECURITY_AUTHORIZATION",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "POST /api/v1/sgo/decisions/protected returns HTTP 403 BLOCKED_UNPROVISIONED_OWNER_AUTH when authentic owner enrollment key is unconfigured."
+    },
+    {
+      "id": "AC-37",
+      "name": "Tamper-evident SHA-256 hash-chained audit ledger",
+      "category": "AUDIT_INTEGRITY",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified all SGO mutation events write to hash-chained SQLite ledger where entry[n].prev_hash === SHA-256(entry[n-1])."
+    },
+    {
+      "id": "AC-38",
+      "name": "Audit ledger verification endpoint",
+      "category": "AUDIT_INTEGRITY",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "GET /api/v1/sgo/audit/verify validates chain integrity across all events, returning ledger_valid: true and 0 broken links."
+    },
+    {
+      "id": "AC-39",
+      "name": "Session token authentication boundary",
+      "category": "SECURITY_AUTHORIZATION",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified requests with valid X-Studio-Token session token are accepted with HTTP 200/201 across all SGO endpoints."
+    },
+    {
+      "id": "AC-40",
+      "name": "Reject forged or missing tokens with 401/403",
+      "category": "SECURITY_AUTHORIZATION",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified requests with absent token return 401, forged tokens return 403, and invalid scopes return 403."
+    },
+    {
+      "id": "AC-41",
+      "name": "Governed export artifacts generation (8 formats)",
+      "category": "EXPORT_GOVERNANCE",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "GET /api/v1/sgo/export/:artifact generates all governed files: CSV, Markdown reports, JSON datasets, and Change Packages."
+    },
+    {
+      "id": "AC-42",
+      "name": "CSV formula injection neutralization",
+      "category": "SECURITY_AUTHORIZATION",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified CSV exports neutralize active formula prefixes (=, +, -, @, \\t, \\r) by prefixing them with a single quote character (')."
+    },
+    {
+      "id": "AC-43",
+      "name": "Draft Change Package creation into rc3-local SQLite",
+      "category": "CHANGE_PACKAGE_INTEGRATION",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "POST /api/v1/sgo/propose-change-package creates governed draft CP record with CP- prefix into rc3-local SQLite database."
+    },
+    {
+      "id": "AC-44",
+      "name": "Vis.js Cluster Map rendering and interaction",
+      "category": "VISUALIZATION_UI",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "GET /api/v1/sgo/relations provides nodes and edges formatted for Vis.js cluster network with physics stabilization and color coding."
+    },
+    {
+      "id": "AC-45",
+      "name": "Accessible tabular cluster alternative view",
+      "category": "ACCESSIBILITY_UI",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified full tabular alternative dataset is available via relations query parameters for screen readers and keyboard navigation."
+    },
+    {
+      "id": "AC-46",
+      "name": "Bilingual Arabic/English RTL/LTR interface",
+      "category": "INTERNATIONALIZATION_UI",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified all SGO items provide title_ar, title_en, original_statement_ar, and proposed_statement_en with native RTL/LTR switching."
+    },
+    {
+      "id": "AC-47",
+      "name": "Studio screen-sgo navigation registration",
+      "category": "STUDIO_ARCHITECTURE",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tests/sgo_integration.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified screen 18 ('sgo') is registered in StudioApp.jsx screens list and accessible through canonical Studio navigation."
+    },
+    {
+      "id": "AC-48",
+      "name": "Microsoft Edge Headless UI automated validation",
+      "category": "E2E_BROWSER_AUTOMATION",
+      "test_type": "E2E_BROWSER_PLAYWRIGHT",
+      "verification_file": "tests/sgo_browser.spec.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Playwright test launches Microsoft Edge headless on Studio port, navigates to screen-sgo, switches 6 tabs, runs search, and passes with 0 failures."
+    },
+    {
+      "id": "AC-49",
+      "name": "Full-page visual evidence screenshot capture",
+      "category": "E2E_BROWSER_AUTOMATION",
+      "test_type": "E2E_BROWSER_PLAYWRIGHT",
+      "verification_file": "tests/sgo_browser.spec.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Playwright test captures docs/evidence/sgo-edge-ui-2026-11-05/sgo_studio_verified.png (166,457 bytes), confirming full-page UI fidelity."
+    },
+    {
+      "id": "AC-50",
+      "name": "Regression tests passing across AGHR baseline (196/196)",
+      "category": "REGRESSION_SAFETY",
+      "test_type": "FULL_SUITE_RUNNER",
+      "verification_file": "tests/*.test.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "npm test executes full test suite: 238/238 passing tests (including baseline 196 tests + AAPES + SGO tests) with 0 regressions."
+    },
+    {
+      "id": "AC-51",
+      "name": "Canonical studio-api 59/59 and 169 schemas passing",
+      "category": "REGRESSION_SAFETY",
+      "test_type": "INTEGRATION_ASSERTION",
+      "verification_file": "tools/t36/api.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "Verified all 59 canonical Studio operations and 169 contract schemas validate without breaking changes or signature mismatches."
+    },
+    {
+      "id": "AC-52",
+      "name": "Context token budget preserved (< 5,000 tokens)",
+      "category": "GOVERNANCE_BUDGET",
+      "test_type": "BUDGET_VERIFIER",
+      "verification_file": "tools/check_context_health.mjs",
+      "execution_status": "VERIFIED_PASSED",
+      "evidence_summary": "node tools/check_context_health.mjs verifies bootstrap context is 4,321 tokens (< 5,000 token ceiling) with 0 crawl pattern violations."
+    }
+  ]
+}

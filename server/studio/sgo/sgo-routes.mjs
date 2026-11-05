@@ -92,6 +92,8 @@ export async function handleSgoApi(req, res, studio) {
         origin: url.searchParams.get('origin') || undefined,
         force: url.searchParams.get('force') || undefined,
         q: url.searchParams.get('q') || undefined,
+        population: url.searchParams.get('population') || undefined,
+        include_additions: url.searchParams.get('include_additions') || undefined,
         limit: url.searchParams.get('limit') || 100,
         offset: url.searchParams.get('offset') || 0
       };
@@ -121,6 +123,8 @@ export async function handleSgoApi(req, res, studio) {
     if (req.method === 'GET' && pathname === '/api/v1/sgo/relations') {
       const filters = {
         type: url.searchParams.get('type') || undefined,
+        catalog: url.searchParams.get('catalog') || undefined,
+        basis: url.searchParams.get('basis') || undefined,
         item_id: url.searchParams.get('item_id') || undefined,
         limit: url.searchParams.get('limit') || 500
       };
@@ -130,22 +134,31 @@ export async function handleSgoApi(req, res, studio) {
     // 5. Co-Merge Lab Analysis
     if (req.method === 'POST' && pathname === '/api/v1/sgo/merge/analyze') {
       const body = await readJson();
-      const analysis = analyzer.analyzeMergeProposal(body.source_item_ids, body.candidate_statement, body.options || {});
+      const sourceIds = body.source_item_ids || body.source_ids || [];
+      const statement = body.candidate_statement || body.statement || '';
+      const opts = {
+        proposed_force: body.proposed_force || body.options?.proposed_force,
+        simulate_drop_p0: body.simulate_drop_p0 || body.options?.simulate_drop_p0,
+        ...(body.options || {})
+      };
+      const analysis = analyzer.analyzeMergeProposal(sourceIds, statement, opts);
       return send(200, analysis);
     }
 
     // 6. Impact Simulator
     if (req.method === 'POST' && pathname === '/api/v1/sgo/impact/simulate') {
       const body = await readJson();
-      if (!body.target_item_id) throw new StudioError(400, 'INVALID_REQUEST', 'target_item_id is required.');
-      const simulation = analyzer.simulateImpact(body.target_item_id, body.proposed_change || {});
+      const targetId = body.target_item_id || body.target_id;
+      if (!targetId) throw new StudioError(400, 'INVALID_REQUEST', 'target_item_id is required.');
+      const simulation = analyzer.simulateImpact(targetId, body.proposed_change || {});
       return send(200, simulation);
     }
 
     // 7. Grounded Policy Chat
-    if (req.method === 'POST' && pathname === '/api/v1/sgo/chat') {
+    if (req.method === 'POST' && (pathname === '/api/v1/sgo/chat' || pathname === '/api/v1/sgo/chat/ask')) {
       const body = await readJson();
-      const answer = chat.ask(body.question, body.options || {});
+      const question = body.question || body.query || '';
+      const answer = chat.ask(question, body.options || {});
       return send(200, answer);
     }
 
