@@ -180,11 +180,14 @@ export async function handleSgoApi(req, res, studio) {
     }
 
     // 9. Protected Owner Decision Recording (Fails closed if not provisioned)
+    // SECURITY HARDENING (AGHR-QLE-GOV-OBS-004):
+    // The production HTTP endpoint NEVER allows client-controlled synthetic authorization bypass.
+    // Synthetic approvals run exclusively through server-controlled, isolated test fixtures.
     if (req.method === 'POST' && pathname === '/api/v1/sgo/decisions/protected') {
       const body = await readJson();
       const decision = store.recordProtectedOwnerDecision(body, principal, {
-        synthetic: body.synthetic === true || principal?.actor === 'synthetic-owner-test',
-        scope: body.scope || principal?.scope
+        allowSyntheticFixture: false,
+        scope: principal?.scope
       });
       return send(201, decision);
     }

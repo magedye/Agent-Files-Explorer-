@@ -1,18 +1,20 @@
 {
   "schema_version": "1.2.0",
-  "generated_at": "2026-11-05T09:20:00.000Z",
-  "task_id": "AGHR-QLE-GOV-OBS-002A",
-  "directive": "Restore Original Acceptance Traceability and Complete Merge Qualification",
-  "target_branch": "feat/aghr-qle-gov-obs-001",
+  "generated_at": "2026-11-05T12:02:58.457Z",
+  "task_id": "AGHR-QLE-GOV-OBS-004",
+  "directive": "Post-Merge Security and Governance Integrity Remediation",
+  "target_branch": "feat/aghr-qle-gov-obs-004-remediation",
   "candidate_commit": "35f167a4171b416c58c533abd8335b4bf0781a32",
-  "qualification_status": "READY_FOR_OWNER_MERGE_REVIEW",
+  "qualification_status": "READY_FOR_OWNER_SECURITY_REVIEW",
   "suite_summary": {
     "total_acceptance_criteria": 52,
     "criteria_verified_passed": 52,
     "criteria_failed": 0,
     "criteria_unverified": 0,
-    "unit_and_integration_tests_total": 238,
-    "unit_and_integration_tests_passed": 238,
+    "remediation_adversarial_tests_total": 7,
+    "remediation_adversarial_tests_passed": 7,
+    "unit_and_integration_tests_total": 245,
+    "unit_and_integration_tests_passed": 245,
     "browser_e2e_tests_total": 1,
     "browser_e2e_tests_passed": 1,
     "context_health_passed": true,
@@ -486,6 +488,58 @@
       "test_file": "tests/sgo_integration.test.mjs",
       "status": "PASSED",
       "evidence": "OWNER_HANDOFF_AR.md verified to contain exact test counts, operational blocker details, and Windows Native runbook."
+    }
+  ],
+  "baseline_commit": "6f6884977cd84d3d68271288f8993193255b53eb",
+  "remediation_adversarial_tests": [
+    {
+      "id": "ADV-01",
+      "severity": "P0",
+      "defect_remediated": "Client-controlled synthetic authorization bypass from POST /api/v1/sgo/decisions/protected",
+      "assertion": "HTTP POST with synthetic=true and allowSyntheticFixture=true returns HTTP 403 BLOCKED_UNPROVISIONED_OWNER_AUTH",
+      "status": "PASSED"
+    },
+    {
+      "id": "ADV-02",
+      "severity": "P0",
+      "defect_remediated": "Placeholder schema validation returning false positives for malformed exports",
+      "assertion": "Negative schema validation on malformed change-package, sgo-export, and audit-ledger returns VALIDATION_FAILED, never VALIDATED_PASSED",
+      "status": "PASSED"
+    },
+    {
+      "id": "ADV-03",
+      "severity": "P0",
+      "defect_remediated": "Synthetic approvals allowed outside server-controlled test fixtures",
+      "assertion": "Isolated server fixture records synthetic decision with authorizes_engine_activation=false and SYNTHETIC_TEST_APPROVAL status",
+      "status": "PASSED"
+    },
+    {
+      "id": "ADV-04",
+      "severity": "P0",
+      "defect_remediated": "Owner decisions and audit events ephemeral in memory, lost on restart",
+      "assertion": "Owner decisions and audit events durably persist to JSON files and survive server store re-initialization",
+      "status": "PASSED"
+    },
+    {
+      "id": "ADV-05",
+      "severity": "P0",
+      "defect_remediated": "Lack of independent integrity checkpoint protection for audit ledger",
+      "assertion": "Tampering with independent checkpoint file (sgo_checkpoint.json) is detected and causes verifyLedgerIntegrity to fail",
+      "status": "PASSED"
+    },
+    {
+      "id": "ADV-06",
+      "severity": "P1",
+      "defect_remediated": "Positional slicing (230+25) without identifier and version lineage verification",
+      "assertion": "Reconciliation verified by exact canonical identifier ranges (LISAN-GOV-001..230 primary, 231..255 auxiliary) with 0 discrepancies",
+      "status": "PASSED"
+    },
+    {
+      "id": "ADV-07",
+      "severity": "P1",
+      "defect_remediated": "Fabricated religious/thematic descriptions in OWNER_DECISION_MODEL_AND_ENROLLMENT.md",
+      "assertion": "Document reconciled with canonical 11 codex reorganization priority decisions (V4-D01..D08, G1-D09..D11); fabricated text eliminated",
+      "status": "PASSED"
     }
   ]
 }

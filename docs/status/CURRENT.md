@@ -1,20 +1,17 @@
-# SGO QLE Authorized Integration & Final Handoff — Derived Execution State
+# SGO Post-Merge Security & Governance Integrity Remediation — Derived Execution State
 
 Updated 2026-11-05 Asia/Aden. Ground truth is determined by actual Git HEAD, working tree, and passing test verification.
 
-Owner authorized Integration, Git Synchronization & Final Handoff under Directive `AGHR-QLE-GOV-OBS-003` on branch `main`:
-- **Scope & Preservation:** Pinned AGHR rc.3 engine bytes and hashes untouched; AAPES v2.1 preserved as unpromoted review candidate (`isDefault: false`); Quran corpus, root database, and LISAN engine preserved strictly separate.
-- **Traceability Verification:** 100% of AC-01 through AC-52 verified against canonical `AGHR-QLE-GOV-OBS-001_v1.0.0/ACCEPTANCE_MATRIX_EN.md` with detailed crosswalk in `docs/features/semantic-governance-observatory/REQUIREMENT_TO_TEST_CROSSWALK.md`.
-- **Population & Relational Reconciliation:** 423 baseline items vs 451 expanded owner-review rows (including 28 `QLE-ADD` candidate additions); 294 curated pairs (74 `FACT`, 220 `INFERENCE`) vs 606 directed graph edges.
-- **Test Inventory Reconciliation:** 882 workbook tests and 2,240 engineering tests strictly retained as `DESIGNED_NOT_RUN` (0 executions fabricated).
-- **Verification Suites:** 238/238 regression tests passing, 53/53 discrete tests passing (`node --test tests/sgo_integration.test.mjs`), 1/1 Microsoft Edge headless browser test passing (`tests/sgo_browser.spec.mjs`), 0 context health errors (< 5,000 tokens).
-- **Owner Authority & Boundaries:** Protected owner decisions fail closed (`BLOCKED_UNPROVISIONED_OWNER_AUTH`). No real-owner approvals fabricated; no unapproved policies activated.
-- **Git Synchronization:** Qualified feature branch `feat/aghr-qle-gov-obs-001` integrated into `main` via fast-forward merge and synchronized with `origin/main`.
-- **Final Status:** `MERGED_PUSHED_SYNCED_VERIFIED`.
-
-## Owner authority and custody
-- Owner sign-off on Studio v1.0.0 ([`docs/evidence/studio-signoff-2026-10-26/OWNER_SIGNOFF_AR.md`](../evidence/studio-signoff-2026-10-26/OWNER_SIGNOFF_AR.md)) and rc.3 default engine preserved.
-- Feature `feat/aghr-qle-gov-obs-001` merged and synchronized into `main`. No unapproved releases published; no policy activations.
+Remediation executed under Directive `AGHR-QLE-GOV-OBS-004` on isolated feature branch `feat/aghr-qle-gov-obs-004-remediation` (baseline `main` at `6f68849`):
+- **HTTP Synthetic Bypass Denial:** Stripped client-controlled synthetic bypass from `POST /api/v1/sgo/decisions/protected`; hardcoded `allowSyntheticFixture: false` at route level; returns `403 BLOCKED_UNPROVISIONED_OWNER_AUTH` (verified in `ADV-01`).
+- **Genuine Schema Validation:** Replaced placeholder schema check with pure JS JSON Schema validator (`sgo-schema-validator.mjs`) against version-pinned schemas (`change-package`, `sgo-export`, `audit-ledger`). Negative tests prove malformed exports return `VALIDATION_FAILED`, never `VALIDATED_PASSED` (verified in `ADV-02`).
+- **Fixture-Only Synthetic Approvals:** Synthetic approval tests restricted strictly to server-controlled test fixtures via `recordSyntheticFixtureDecision` with non-activation invariant (verified in `ADV-03`).
+- **Durable Persistence Across Restarts:** Persisted protected owner decisions (`sgo_owner_decisions.json`) and audit events (`sgo_audit_ledger.json`) across server restarts (verified in `ADV-04`).
+- **Independent Checkpoint Protection:** Added independent integrity checkpoint (`sgo_checkpoint.json`); tampering or truncation detected immediately (verified in `ADV-05`).
+- **Lineage-Based 230+25 Mapping:** Replaced positional slicing with explicit identifier- and version-lineage reconciliation (`LISAN-GOV-001..230` primary, `231..255` auxiliary); 0 discrepancies (verified in `ADV-06`).
+- **Canonical Priority Decisions:** Replaced fabricated text in `OWNER_DECISION_MODEL_AND_ENROLLMENT.md` with canonical 11 codex reorganization topics (`V4-D01..D08`, `G1-D09..D11`) (verified in `ADV-07`).
+- **Verification Suites:** 245/245 regression tests passing (`npm test`), 60/60 integration tests passing (`node --test tests/sgo_integration.test.mjs`), Edge headless browser UI passing, context health healthy (~4,194 tokens).
+- **Remediation Status:** `READY_FOR_OWNER_SECURITY_REVIEW`. Preserved local branch; no push, no merge to main.
 
 ## Stop position
-STOP: SGO integration complete and synchronized on `main`. Final status: `MERGED_PUSHED_SYNCED_VERIFIED`. Stopped for sovereign owner review.
+STOP: All 8 defects remediated, verified by adversarial tests, passing 245/245 suite. Branch `feat/aghr-qle-gov-obs-004-remediation` ready for sovereign owner security review.

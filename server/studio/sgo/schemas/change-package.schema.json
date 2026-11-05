@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aghr.invalid/schemas/sgo/change-package.schema.json",
+  "title": "SGO Change Package Export Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["package_id", "schema_version", "created_at", "status", "proposals"],
+  "properties": {
+    "package_id": { "type": "string" },
+    "schema_version": { "type": "string", "enum": ["1.2.0"] },
+    "created_at": { "type": "string" },
+    "status": { "type": "string", "enum": ["DRAFT", "PENDING_REVIEW", "QUALIFIED", "REJECTED"] },
+    "target_workspace": { "type": "string" },
+    "proposals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["proposal_id", "target_id", "proposed_option", "rationale"],
+        "properties": {
+          "proposal_id": { "type": "string" },
+          "target_id": { "type": "string" },
+          "proposed_option": { "type": "string" },
+          "rationale": { "type": "string" },
+          "source_sha256": { "type": "string" }
+        }
+      }
+    }
+  }
+}

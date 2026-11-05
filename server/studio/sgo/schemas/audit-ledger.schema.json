@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aghr.invalid/schemas/sgo/audit-ledger.schema.json",
+  "title": "SGO Audit Ledger Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["tip_hash", "events_count", "events"],
+  "properties": {
+    "tip_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "events_count": { "type": "integer", "minimum": 0 },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "eventId",
+          "prevHash",
+          "currentHash",
+          "timestamp",
+          "action",
+          "principal",
+          "target",
+          "details"
+        ],
+        "properties": {
+          "eventId": { "type": "string" },
+          "prevHash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "currentHash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "timestamp": { "type": "string" },
+          "action": { "type": "string" },
+          "principal": { "type": "string" },
+          "target": { "type": "string" },
+          "details": { "type": "object" }
+        }
+      }
+    }
+  }
+}

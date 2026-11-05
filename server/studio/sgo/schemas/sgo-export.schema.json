@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aghr.invalid/schemas/sgo/sgo-export.schema.json",
+  "title": "SGO Qualification Matrix Export Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "generated_at", "total_items_evaluated", "items"],
+  "properties": {
+    "schema_version": { "type": "string", "enum": ["1.2.0"] },
+    "generated_at": { "type": "string" },
+    "total_items_evaluated": { "type": "integer", "minimum": 0 },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "item_id",
+          "origin",
+          "source_declared_force",
+          "designed_cases_count",
+          "test_execution_status",
+          "executed_cases_count",
+          "passed_cases_count",
+          "qualification_verdict"
+        ],
+        "properties": {
+          "item_id": { "type": "string" },
+          "origin": { "type": "string", "enum": ["SOURCE_255", "V4", "V2", "QLE_ADD"] },
+          "source_declared_force": { "type": "string" },
+          "designed_cases_count": { "type": "integer", "minimum": 0 },
+          "test_execution_status": { "type": "string" },
+          "executed_cases_count": { "type": "integer", "minimum": 0 },
+          "passed_cases_count": { "type": "integer", "minimum": 0 },
+          "qualification_verdict": { "type": "string" },
+          "aapes_domains": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

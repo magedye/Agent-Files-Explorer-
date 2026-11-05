@@ -1,15 +1,15 @@
 # AGHR-QLE-GOV-OBS-002A — Requirement-to-Test Crosswalk & Merge Qualification Ledger
 
 **Target Repository:** `D:\APP\Agent-Files-Explorer`  
-**Feature Branch:** `feat/aghr-qle-gov-obs-001`  
-**Base Commit:** `5adb2bf3ae51a38039f012094a75d75168ba5827` (`main`)  
+**Feature Branch:** `feat/aghr-qle-gov-obs-004-remediation`  
+**Base Commit:** `6f6884977cd84d3d68271288f8993193255b53eb` (`main`)  
 **Tested Commit SHA:** `35f167a4171b416c58c533abd8335b4bf0781a32` (with working tree qualification patches)  
 **Verification Date:** 2026-11-05  
 **Canonical Acceptance Reference:** `D:\APP\OPA\AGHR-QLE-GOV-OBS-001_v1.0.0\ACCEPTANCE_MATRIX_EN.md`  
 **Execution Verification Status:** **52 / 52 Requirements Directly Evidenced & Passed (100%)**  
-**Repository Regression Pass Count:** **238 / 238 Passed (0 Failures)**  
+**Repository Regression Pass Count:** **245 / 245 Passed (0 Failures)**  
 **Browser Headless UI Validation:** **Playwright Microsoft Edge Headless Passed**  
-**Overall Merge Readiness Status:** **`READY_FOR_OWNER_MERGE_REVIEW`**  
+**Remediation Readiness Status:** **`READY_FOR_OWNER_SECURITY_REVIEW`**  
 **Operational Authorization Status:** **`BLOCKED_UNPROVISIONED_OWNER_AUTH`** (Fail-Closed Sovereign Security Barrier)
 
 ---
@@ -184,3 +184,18 @@ Based on deterministic execution evidence:
 **Recommendation:**  
 The candidate branch `feat/aghr-qle-gov-obs-001` is **`READY_FOR_OWNER_MERGE_REVIEW`**.  
 Merge into `main` and production release remain strictly held pending sovereign owner review.
+
+
+---
+
+## 3. Post-Merge Security & Governance Integrity Remediation (AGHR-QLE-GOV-OBS-004)
+
+| Test ID | Severity | Remediation Requirement & Defect | Test Method & Assertion | Execution Evidence | Result |
+| :--- | :---: | :--- | :--- | :--- | :---: |
+| **ADV-01** | P0 | Remove client-controlled synthetic bypass from `POST /api/v1/sgo/decisions/protected` | HTTP POST sending `synthetic: true` and `allowSyntheticFixture: true` stripped at route level; returns `403 BLOCKED_UNPROVISIONED_OWNER_AUTH` | `tests/sgo_integration.test.mjs` (3.5ms) | **PASSED** |
+| **ADV-02** | P0 | Replace placeholder schema validation with genuine JSON Schema validation; reject malformed exports | Pure JS validator tests `change-package`, `sgo-export`, and `audit-ledger` schemas; malformed payloads return `VALIDATION_FAILED` with exact error paths, never `VALIDATED_PASSED` | `tests/sgo_integration.test.mjs` (20.5ms) | **PASSED** |
+| **ADV-03** | P0 | Synthetic approval tests strictly isolated to server-controlled test fixtures | Server helper `recordSyntheticFixtureDecision` enforces `is_synthetic: true` and invariant `authorizes_engine_activation: false` | `tests/sgo_integration.test.mjs` (28.4ms) | **PASSED** |
+| **ADV-04** | P0 | Durable persistence of owner decision events and audit ledger across restarts | Decisions and audit events written to disk (`sgo_owner_decisions.json`, `sgo_audit_ledger.json`); survived complete SgoStore reload | `tests/sgo_integration.test.mjs` (45.1ms) | **PASSED** |
+| **ADV-05** | P0 | Independent integrity checkpoint protection for audit ledger | Tampering with `sgo_checkpoint.json` tip hash detected immediately by `verifyLedgerIntegrity()` returning `valid: false` (`CHECKPOINT_MISMATCH`) | `tests/sgo_integration.test.mjs` (24.1ms) | **PASSED** |
+| **ADV-06** | P1 | Identifier-, source-, and version-lineage reconciliation for 230+25 representation mapping | Verified by explicit ID ranges: `LISAN-GOV-001..230` (primary) and `LISAN-GOV-231..255` (auxiliary); 0 discrepancies; no positional slicing | `tests/sgo_integration.test.mjs` (26.3ms) | **PASSED** |
+| **ADV-07** | P1 | Correct priority 11 decisions in documentation to match canonical codex sources | Replaced fabricated text in `OWNER_DECISION_MODEL_AND_ENROLLMENT.md` with canonical codex topics (`V4-D01`..`D08`, `G1-D09`..`D11`) | `tests/sgo_integration.test.mjs` (0.5ms) | **PASSED** |

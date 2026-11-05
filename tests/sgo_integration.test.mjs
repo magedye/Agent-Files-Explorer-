@@ -540,7 +540,7 @@ test('AGHR-QLE-GOV-OBS-002A: Original 52-Requirement Acceptance & Traceability S
         rationale: 'فحص تجريبي اصطناعي مقيد',
         scope: 'EXPLICIT_SPECIFIED_ROWS_ONLY',
         source_sha256: '9aa911136b46e391398430f3670da7111a9d6df435ebaa54c287d2145ad002b2'
-      }, { actor: 'synthetic-owner-test', role: 'governance-owner' }, { synthetic: true });
+      }, { actor: 'synthetic-owner-test', role: 'governance-owner' }, { allowSyntheticFixture: true });
 
       assert.ok(syntheticDecision.decision_id.startsWith('DEC-'));
       assert.equal(syntheticDecision.is_synthetic, true);
@@ -632,12 +632,34 @@ test('AGHR-QLE-GOV-OBS-002A: Original 52-Requirement Acceptance & Traceability S
     // -------------------------------------------------------------------------
     await t.test('AC-43: QLE export passes actual available schemas; schema missing yields NOT_VERIFIED, not claimed compatibility', async () => {
       const sgoStore = new SgoStore({ storageRoot });
-      // Known schema validates
-      const knownCheck = sgoStore.validateExportAgainstSchema({}, 'change-package.schema.json');
+      // 1. Valid export against pinned schema passes genuine validation
+      const validPayload = {
+        package_id: 'PKG-2026-001',
+        schema_version: '1.2.0',
+        created_at: new Date().toISOString(),
+        status: 'DRAFT',
+        proposals: [
+          {
+            proposal_id: 'PROP-01',
+            target_id: 'QL4-A01',
+            proposed_option: 'CONFIRM',
+            rationale: 'Validated against pinned schema'
+          }
+        ]
+      };
+      const knownCheck = sgoStore.validateExportAgainstSchema(validPayload, 'change-package.schema.json');
+      assert.equal(knownCheck.valid, true);
       assert.equal(knownCheck.validation_status, 'VALIDATED_PASSED');
 
-      // Missing schema yields NOT_VERIFIED
-      const missingCheck = sgoStore.validateExportAgainstSchema({}, 'nonexistent-custom.schema.json');
+      // 2. Malformed export fails genuine validation (negative test)
+      const malformedCheck = sgoStore.validateExportAgainstSchema({}, 'change-package.schema.json');
+      assert.equal(malformedCheck.valid, false);
+      assert.equal(malformedCheck.validation_status, 'VALIDATION_FAILED');
+      assert.ok(malformedCheck.errors.length > 0);
+
+      // 3. Missing schema yields NOT_VERIFIED
+      const missingCheck = sgoStore.validateExportAgainstSchema(validPayload, 'nonexistent-custom.schema.json');
+      assert.equal(missingCheck.valid, false);
       assert.equal(missingCheck.validation_status, 'NOT_VERIFIED');
       assert.equal(missingCheck.reason, 'SCHEMA_MISSING');
     });
@@ -742,6 +764,147 @@ test('AGHR-QLE-GOV-OBS-002A: Original 52-Requirement Acceptance & Traceability S
       const handoffContent = fs.readFileSync(handoffPath, 'utf8');
       assert.ok(handoffContent.includes('WINDOWS_NATIVE_RUNBOOK.md') || handoffContent.includes('تعليمات التشغيل المحلي'));
       assert.ok(handoffContent.includes('BLOCKED_UNPROVISIONED_OWNER_AUTH'));
+    });
+
+
+    // =========================================================================
+    // AGHR-QLE-GOV-OBS-004: POST-MERGE SECURITY & GOVERNANCE REMEDIATION TESTS
+    // =========================================================================
+
+    // ADV-01: Client cannot bypass owner authorization via POST /api/v1/sgo/decisions/protected with synthetic=true
+    await t.test('ADV-01: Client-controlled synthetic bypass denied over HTTP (HTTP 403 BLOCKED_UNPROVISIONED_OWNER_AUTH)', async () => {
+      const spoofRes = await request('POST', '/api/v1/sgo/decisions/protected', {
+        target_id: 'QL4-A01',
+        selected_option: 'CONFIRM',
+        synthetic: true,
+        allowSyntheticFixture: true,
+        scope: 'owner'
+      });
+      assert.equal(spoofRes.status, 403);
+      assert.equal(spoofRes.data.meta.error.code, 'BLOCKED_UNPROVISIONED_OWNER_AUTH');
+    });
+
+    // ADV-02: Negative schema validation rejects malformed exports with VALIDATION_FAILED, never VALIDATED_PASSED
+    await t.test('ADV-02: Malformed exports cannot receive VALIDATED_PASSED across all version-pinned schemas', async () => {
+      const sgoStore = new SgoStore({ storageRoot });
+      
+      // Malformed change-package
+      const badPkg = sgoStore.validateExportAgainstSchema({ package_id: 'BAD' }, 'change-package.schema.json');
+      assert.equal(badPkg.valid, false);
+      assert.equal(badPkg.validation_status, 'VALIDATION_FAILED');
+      assert.ok(badPkg.errors.length > 0);
+
+      // Malformed sgo-export
+      const badExport = sgoStore.validateExportAgainstSchema({ total_items: 'not-a-number' }, 'sgo-export.schema.json');
+      assert.equal(badExport.valid, false);
+      assert.equal(badExport.validation_status, 'VALIDATION_FAILED');
+
+      // Malformed audit-ledger
+      const badLedger = sgoStore.validateExportAgainstSchema({ tip_hash: 123 }, 'audit-ledger.schema.json');
+      assert.equal(badLedger.valid, false);
+      assert.equal(badLedger.validation_status, 'VALIDATION_FAILED');
+    });
+
+    // ADV-03: Synthetic approval tests run exclusively through server-controlled, isolated test fixtures
+    await t.test('ADV-03: Server-controlled fixture records synthetic decision with non-activation invariant', async () => {
+      const fixtureStore = new SgoStore({ storageRoot });
+      const synthetic = fixtureStore.recordSyntheticFixtureDecision({
+        target_id: 'QL4-A02',
+        selected_option: 'CONFIRM_OPTION',
+        rationale: 'Isolated fixture validation',
+        source_sha256: '9aa911136b46e391398430f3670da7111a9d6df435ebaa54c287d2145ad002b2'
+      }, { actor: 'synthetic-owner-test', role: 'governance-owner' });
+
+      assert.ok(synthetic.decision_id.startsWith('DEC-'));
+      assert.equal(synthetic.is_synthetic, true);
+      assert.equal(synthetic.authorizes_engine_activation, false);
+      assert.equal(synthetic.status, 'SYNTHETIC_TEST_APPROVAL');
+    });
+
+    // ADV-04: Owner decision events and audit ledger durably persist across server restarts
+    await t.test('ADV-04: Owner decisions and audit events durably persist across restart', async () => {
+      const initialStore = new SgoStore({ storageRoot });
+      initialStore.recordSyntheticFixtureDecision({
+        target_id: 'QL4-A03',
+        selected_option: 'CONFIRM_MUST',
+        rationale: 'Persistence verification'
+      }, { actor: 'synthetic-owner-test', role: 'governance-owner' });
+
+      const eventsBefore = initialStore.auditLedger.length;
+      const lastHashBefore = initialStore.lastHash;
+
+      // Re-instantiate store representing server restart
+      const reloadedStore = new SgoStore({ storageRoot });
+      assert.ok(reloadedStore.ownerDecisions.has('QL4-A03'), 'Owner decision must survive restart');
+      assert.equal(reloadedStore.ownerDecisions.get('QL4-A03').target_id, 'QL4-A03');
+      assert.equal(reloadedStore.auditLedger.length, eventsBefore, 'Audit ledger length must survive restart');
+      assert.equal(reloadedStore.lastHash, lastHashBefore, 'Ledger tip hash must survive restart');
+    });
+
+    // ADV-05: Independent checkpoint tampering or truncation is detected and fails verification
+    await t.test('ADV-05: Tampered independent checkpoint file fails integrity verification', async () => {
+      const store = new SgoStore({ storageRoot });
+      const checkpointFile = path.join(storageRoot, 'sgo_checkpoint.json');
+      assert.ok(fs.existsSync(checkpointFile), 'Checkpoint file must exist');
+
+      // Backup valid checkpoint
+      const originalCheckpoint = fs.readFileSync(checkpointFile, 'utf8');
+
+      try {
+        // Tamper checkpoint tip hash
+        const parsed = JSON.parse(originalCheckpoint);
+        parsed.ledger_tip_hash = 'tampered-hash-00000000000000000000000000000000000000000000000000';
+        fs.writeFileSync(checkpointFile, JSON.stringify(parsed, null, 2), 'utf8');
+
+        const verifyResult = store.verifyLedgerIntegrity();
+        assert.equal(verifyResult.valid, false, 'Tampered checkpoint must fail integrity check');
+        assert.ok(verifyResult.reason.includes('Checkpoint mismatch'), 'Reason must cite Checkpoint mismatch');
+      } finally {
+        // Restore checkpoint
+        fs.writeFileSync(checkpointFile, originalCheckpoint, 'utf8');
+      }
+    });
+
+    // ADV-06: 230+25 representation mapping uses identifier-, source-, and version-based reconciliation, not positional slicing
+    await t.test('ADV-06: 230+25 representation mapping verified by canonical identifier ranges and lineage', async () => {
+      const store = new SgoStore({ storageRoot });
+      const mapping = store.getRepresentationMapping();
+      assert.equal(mapping.reconciliation_method, 'IDENTIFIER_SOURCE_AND_VERSION_LINEAGE');
+      assert.equal(mapping.studio_primary_representations_count, 230);
+      assert.equal(mapping.studio_auxiliary_representations_count, 25);
+      assert.equal(mapping.total_original_source, 255);
+      assert.equal(mapping.discrepancies_count, 0);
+
+      // Verify explicit rule ID coverage
+      for (let i = 1; i <= 230; i++) {
+        const origId = 'LISAN-GOV-' + String(i).padStart(3, '0');
+        const item = mapping.mappings.find(m => m.original_id === origId);
+        assert.ok(item, 'Item ' + origId + ' must exist');
+        assert.equal(item.representation_type, 'STUDIO_PRIMARY');
+      }
+      for (let i = 231; i <= 255; i++) {
+        const origId = 'LISAN-GOV-' + String(i).padStart(3, '0');
+        const item = mapping.mappings.find(m => m.original_id === origId);
+        assert.ok(item, 'Item ' + origId + ' must exist');
+        assert.equal(item.representation_type, 'STUDIO_AUXILIARY');
+      }
+    });
+
+    // ADV-07: Verified canonical priority 11 decisions match source codex without fabricated descriptions
+    await t.test('ADV-07: Canonical 11 priority decisions match authoritative codex reorganization topics', async () => {
+      const docPath = path.resolve('docs/features/semantic-governance-observatory/OWNER_DECISION_MODEL_AND_ENROLLMENT.md');
+      const docContent = fs.readFileSync(docPath, 'utf8');
+
+      const canonicalKeys = [
+        'V4-D01', 'V4-D02', 'V4-D03', 'V4-D04', 'V4-D05', 'V4-D06', 'V4-D07', 'V4-D08',
+        'G1-D09', 'G1-D10', 'G1-D11'
+      ];
+      for (const key of canonicalKeys) {
+        assert.ok(docContent.includes(key), `Document must include canonical key ${key}`);
+      }
+
+      assert.ok(!docContent.includes('الرسم العثماني'), 'Fabricated text must not exist');
+      assert.ok(!docContent.includes('ضبط المصحف'), 'Fabricated text must not exist');
     });
 
   } finally {
