@@ -1,25 +1,19 @@
-# Project Closed — Derived Execution State
+# AAPES v2.1 Integration Merged — Derived Execution State
 
-Updated2026-10-26 Asia/Aden. Verify exact evidence if the owner later reopens work.
+Updated 2026-11-05 Asia/Aden. Ground truth is determined by actual Git HEAD, working tree, and passing test verification.
 
-## Owner authority and closure
+Owner authorized AAPES v2.1 Policy Engineering, Assessment, Evaluation, and Studio Integration under Task ID `AGHR-AAPES-INTEGRATION-001`. Completed, qualified, and merged into `main` by owner directive:
+- **Scope & Architecture:** Preserved AGHR Studio v1.0.0 release and pinned `aghr_rc3` default engine. AAPES v2.1 integrated as external review candidate (`aapes_v2_1` / `aapes-candidate`) with 12 domains, 48 requirements, and 100% importance weighting.
+- **Studio Interface & API:** Fully accessible via accepted Studio interface (`StudioApp.jsx` + `AapesStudio.jsx`), unified backend (`unified-runtime.mjs` + `aapes-candidate.mjs`), and canonical `/api/v1/aapes/*` routes under ephemeral token authentication on port 5183.
+- **Demonstration Flow (7 Steps):** Complete 7-step owner flow verified end-to-end (interface login, candidate workspace access, 48-requirement inspection, static policy review with BCP 14 and unified diffs, R0–R3 risk-weighted readiness assessment with hard-gate separation, 48-row compatibility matrix [43 COVERED, 5 PARTIAL], and governed draft Change Package preparation into `rc3-local` SQLite custody).
+- **Verification Suites:** 185 tests passing (`npm test`), 59/59 canonical API operations with 169 schema checks valid (`npm run test:studio-api`), 1/1 Studio 7-step flow test passing (`tests/aapes_studio_flow.test.mjs`), 1/1 Microsoft Edge headless browser test passing (`tests/aapes_browser.spec.mjs`), and context health passed (0 errors, 0 warnings).
+- **Owner Disposition:** Merge, push, and synchronization to remote repository authorized and executed. Draft change packages remain unapproved in SQLite custody until separate owner adoption. Pinned `aghr_rc3` remains default baseline.
 
-**PROJECT CLOSED / RELEASE_ACCEPTED_FOR_LOCAL_USE: AGHR Governance Studio v1.0.0.** [Owner sign-off](../evidence/studio-signoff-2026-10-26/OWNER_SIGNOFF_AR.md) formally accepts T40, ZIP and T39 APPROVE for Windows/local Draft, acknowledges limitations and authorizes official rc.3 registration plus the new-project default. No more development or public release. Existing projects are not migrated.
-
-Default package is aghr_rc3; aghr_1_2_0 remains explicit read-only Legacy. [Official registration](../../governance_packages/references/AGHR_Studio_1.0.0_rc3_RELEASE.json) points to the unchanged pinned engine bytes at their original path. No source-locked engine or legacy1.2.0 file moves/edits; no root commit/push/merge/reset or database migration.
-
-## Exact accepted custody
-
-Git main/133746a0ad99d10568a44c8d225219df8454271c retains extensive prior dirty/untracked work. Owner-approved T40 ZIP SHA256 f9d06cf3cdfd4ad3cae29059f30c330f70b3f36e9d9d82507be27f19193601e6. Frozen candidate SHA ba6574f5e49eb409f6dfe1b01dd1e2878577fbdaf39bc82f939a4d4548f0179c. T38wheel SHA9086c12a67511a20bffc7319e803ef9cf90cea614745c4a3ddf494633941b238 keeps build identifier0.1.0.dev20261025+win.3; official owner release namev1.0.0. Accepted archives/review reports remain immutable; their pending-signature fields are historical and superseded by the sign-off.
-
-## Evidence and limits
-
-Accepted T37 evidence:83.44%JS/MJS lines4642/5563 across61server files. Prior npm168/169 plus corrected INBOX1/1 and legacy supplement3/3 remains composed evidence. [Closure supplement](../evidence/studio-signoff-2026-10-26/README.md) records post-sign-off default changes and final verification separately; T39 is not retroactively extended to those changes.
-
-[Known limits](../evidence/studio-release-2026-10-25/KNOWN_LIMITATIONS_AR.md) retained: accepted environmental timing and single-active CP design, Python coverage not measured in V8,2High dev dependencies, unsigned publisher/GPG, Native/hosted/production gaps, disabled legacy evaluation status issue and real SEC001 outside MOCK. Local owner acceptance does not fabricate technical qualification.
-
-The pinned observation/evaluator about the historical1.2.0 default is stale after this authorized switch. Real calibration must reject it rather than promote false measured evidence; no evaluator rewrite or new qualification is authorized.
+## Owner authority and custody
+- Owner sign-off on Studio v1.0.0 ([`docs/evidence/studio-signoff-2026-10-26/OWNER_SIGNOFF_AR.md`](../evidence/studio-signoff-2026-10-26/OWNER_SIGNOFF_AR.md)) and rc.3 default engine preserved.
+- Prior Markdown INBOX draft intake (22 sources, 172 draft CPs in local SQLite custody) preserved.
+- Directives, reports, and evidence recorded in [REVIEW_AND_APPROVAL.md](../../REVIEW_AND_APPROVAL.md), [IMPLEMENTATION_REPORT.md](../../IMPLEMENTATION_REPORT.md), [TEST_AND_VERIFICATION_REPORT.md](../../TEST_AND_VERIFICATION_REPORT.md), and [AAPES_AGHR_COMPATIBILITY_MATRIX.csv](../../AAPES_AGHR_COMPATIBILITY_MATRIX.csv).
+- Untracked Windows scripts (`setup.ps1`, `start.ps1`, `stop.ps1`, `verify.ps1`) and custody packages (`governance_packages/INBOX/NEW/`, `governance_packages/candidates/AAPES_v2.1_Candidate/`) preserved intact.
 
 ## Stop position
-
-T40 is signed and closed by the owner. Final closing check results are in CLOSURE_RECEIPT.json under the sign-off evidence folder. No next development task. Reopening requires a new explicit owner instruction.
+STOP: AAPES v2.1 integration and qualification merged and synchronized on `main` per owner directive. Production baseline remains locked to `aghr_rc3`. Any promotion of candidate rules to active normative authority or adoption of draft change packages requires separate owner sign-off.
