@@ -42,7 +42,8 @@ export async function createUnifiedStudio(options){
     studio.authority.authenticate(req);
     if(req.method!=='GET'){studio.store.recordAttempt({...studio.authority.auditIdentity(req),action:'published-project.write',resourceId:match?.[1],result:'DENY',status:403,reason:'Published sandbox is immutable',requestId:crypto.randomUUID()});throw new StudioError(403,'FORBIDDEN','Published sandbox sources and state are read-only. Use a new Draft CP.');}
     if(Number(req.headers['content-length'])||req.headers['transfer-encoding'])throw new StudioError(400,'INVALID_REQUEST','No GET body.');
-    if(p==='/api/v1/workspaces')return send(200,[studio.workspace,...pilots.list().map(v=>v.workspace),aapesWorkspace,...studio.store.registrations().workspaces.filter(w=>w.id!==studio.workspace.id).map(workspaceView)],null,{limit:500,total:4+studio.store.registrations().workspaces.filter(w=>w.id!==studio.workspace.id).length,next_cursor:null});
+    const extended=req.headers['x-studio-view']==='extended';
+    if(p==='/api/v1/workspaces'){const list=[studio.workspace,...pilots.list().map(v=>v.workspace),...(extended?[aapesWorkspace]:[]),...studio.store.registrations().workspaces.filter(w=>w.id!==studio.workspace.id).map(workspaceView)];return send(200,list,null,{limit:500,total:list.length,next_cursor:null});}
     if(p==='/api/v1/projects/published')return send(200,pilots.list().map(v=>({project:v.project,state:v.state,receipt:{path:v.receipt_path,hash:v.receipt_hash,status:'VERIFIED_HISTORICAL_SANDBOX_CI'},live_qualification:'NOT_RUN',source_written:false})));
     const tail=match[2]||'',parts=tail.split('/'),item=pilot.views.find(v=>v.item.id===parts[1]),model=currentCapabilities(pilot,studio,()=>pilots.recheck()),caps=model.views;
     if(tail==='projects')return send(200,[pilot.project],null,{total:1,limit:100,next_cursor:null});

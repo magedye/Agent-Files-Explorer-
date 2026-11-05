@@ -135,10 +135,10 @@ The canonical Studio security boundary was tested for fail-closed behavior acros
 
 | Test Suite | Execution Command | Result | Tests Passed | Failures | Duration |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Comprehensive Test Suite** | `npm test` | **PASS** | **184** | **0** | 12.8s |
-| **Studio Canonical API Contracts** | `npm run test:studio-api` | **PASS** | **59 / 59** | **0** | 4.2s |
-| **Studio 7-Step Integration & Security** | `node --test tests/aapes_studio_flow.test.mjs` | **PASS** | **1** | **0** | 11.3s |
-| **Microsoft Edge Headless UI Test** | `npx playwright test tests/aapes_browser.spec.mjs` | **PASS** | **1** | **0** | 24.6s |
+| **Comprehensive Test Suite** | `npm test` | **PASS** | **185** | **0** | ~18m (full suite) |
+| **Studio Canonical API Contracts** | `npm run test:studio-api` | **PASS** | **59 / 59** | **0** | 4.2s (169 schemas valid) |
+| **Studio 7-Step Integration & Security** | `node --test tests/aapes_studio_flow.test.mjs` | **PASS** | **1** | **0** | 20.1s |
+| **Microsoft Edge Headless UI Test** | `npx playwright test tests/aapes_browser.spec.mjs` | **PASS** | **1** | **0** | 27.9s |
 | **AAPES Unit Integration Tests** | `node --test tests/aapes_integration.test.mjs` | **PASS** | **12** | **0** | 2.3s |
 | **Context Health & Budgets** | `node tools/check_context_health.mjs` | **PASS** | **3 checks** | **0** | 0.8s |
 | **Frontend Production Build** | `npm run build` | **PASS** | **328 modules** | **0** | 10.29s |
@@ -146,7 +146,7 @@ The canonical Studio security boundary was tested for fail-closed behavior acros
 ### 5.2 Explicit Separation of Operational States
 In strict accordance with the Owner Review Directive:
 - **Implementation Completed:** **YES** (100% of P0, P1, and in-scope P2 requirements implemented).
-- **Tests Passed:** **YES** (184 unit/integration tests, 59 canonical API endpoints, 1 full Studio flow, 1 Playwright Edge UI test).
+- **Tests Passed:** **YES** (185 unit/integration tests, 59 canonical API endpoints, 1 full Studio flow, 1 Playwright Edge UI test).
 - **Independent Verification:** **COMPLETED** (Verified by agent against actual runtime and browser).
 - **Owner Approval:** **PENDING** (Reserved exclusively for Project Owner).
 - **Activation / Promotion:** **NOT ACTIVATED** (Candidate is unmerged, unpromoted, and read-only).
@@ -176,6 +176,7 @@ During the course of the qualification review, 14 defects were identified and re
 12. **Workspace Schema Violation in Canonical API Tests:** `npm run test:studio-api` failed because `aapesWorkspace` had extra properties (`candidate`, `status`) forbidden by `Workspace` schema (`additionalProperties: false`). Stripped extraneous properties.
 13. **Playwright Chromium Shell Missing on Host:** Headless Chrome shell was missing. Configured `channel: 'msedge'` in `tests/aapes_browser.spec.mjs` to utilize the host's installed Microsoft Edge browser.
 14. **Hidden Select Option Locator in Playwright:** Browser test failed selecting `COVERED` because locator resolved to a hidden `<option>`. Refined selector to target table cell elements (`tbody tr td:has-text("COVERED")`).
+15. **Canonical Workspace Listing Boundary:** `tests/studio_canonical.test.mjs` asserts an exact 3-element workspace array for standard API consumers (`rc3-local` + 2 pilots). Unconditionally injecting `aapesWorkspace` broke this strict baseline assertion (4 !== 3). Corrected by scoping candidate workspace injection in `server/studio/unified-runtime.mjs` to requests bearing `X-Studio-View: extended` (as sent by `StudioApp.jsx` and qualification tests), perfectly preserving exact baseline contract compliance for standard clients.
 
 ---
 
