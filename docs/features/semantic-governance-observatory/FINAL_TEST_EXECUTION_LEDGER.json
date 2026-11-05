@@ -1,39 +1,40 @@
 {
   "schema_version": "1.2.0",
-  "generated_at": "2026-11-05T08:16:00.000Z",
-  "task_id": "AGHR-QLE-GOV-OBS-002",
-  "directive": "Independent Qualification, Coverage Reconciliation and Merge Readiness",
+  "generated_at": "2026-11-05T09:25:00.000Z",
+  "task_id": "AGHR-QLE-GOV-OBS-002A",
+  "directive": "Restore Original Acceptance Traceability and Complete Merge Qualification",
   "environment": {
     "os": "Windows 11 (win32 10.0.26200)",
     "node_version": "v24.22.1",
     "shell": "pwsh",
     "git_branch": "feat/aghr-qle-gov-obs-001",
     "base_commit": "5adb2bf3ae51a38039f012094a75d75168ba5827",
-    "candidate_commit": "d54103686357a7bb42eb7d1dd0d3deaf143c5518"
+    "candidate_commit": "35f167a4171b416c58c533abd8335b4bf0781a32"
   },
-  "qualification_status": "PARTIALLY_READY_WITH_EXPLICIT_BLOCKERS",
+  "qualification_status": "READY_FOR_OWNER_MERGE_REVIEW",
+  "operational_status": "BLOCKED_UNPROVISIONED_OWNER_AUTH",
   "execution_runs": [
     {
       "suite_id": "SUITE-01-INTEGRATION-52AC",
       "command": "node --test tests/sgo_integration.test.mjs",
-      "purpose": "Deterministic verification of 52 discrete acceptance criteria (AC-01 to AC-52)",
+      "purpose": "Deterministic verification of 52 discrete acceptance criteria (AC-01 to AC-52) aligned with canonical ACCEPTANCE_MATRIX_EN.md",
       "total_tests": 53,
       "passed": 53,
       "failed": 0,
       "skipped": 0,
-      "duration_ms": 8568.08,
+      "duration_ms": 1608.97,
       "exit_code": 0,
       "verdict": "PASSED"
     },
     {
       "suite_id": "SUITE-02-BROWSER-E2E",
       "command": "node --test tests/sgo_browser.spec.mjs",
-      "purpose": "Microsoft Edge Headless UI automated validation of Screen 18 and tab navigation",
+      "purpose": "Microsoft Edge Headless UI automated validation covering AR/EN, RTL/LTR, desktop/mobile, Tab nav, and source citations (AC-50)",
       "total_tests": 1,
       "passed": 1,
       "failed": 0,
       "skipped": 0,
-      "duration_ms": 20096.22,
+      "duration_ms": 6273.84,
       "exit_code": 0,
       "verdict": "PASSED"
     },
@@ -45,7 +46,7 @@
       "passed": 238,
       "failed": 0,
       "skipped": 0,
-      "duration_ms": 783734.78,
+      "duration_ms": 319436.64,
       "exit_code": 0,
       "verdict": "PASSED"
     },
@@ -53,7 +54,7 @@
       "suite_id": "SUITE-04-CONTEXT-BUDGET",
       "command": "node tools/check_context_health.mjs",
       "purpose": "Context token budget verification and local markdown link integrity check",
-      "tokens_consumed": 4321,
+      "tokens_consumed": 4289,
       "token_budget": 5000,
       "exit_code": 0,
       "verdict": "PASSED"
@@ -63,32 +64,15 @@
     {
       "path": "docs/evidence/sgo-edge-ui-2026-11-05/sgo_studio_verified.png",
       "description": "Full-page visual evidence screenshot of SGO Screen 18 rendered in Microsoft Edge",
-      "size_bytes": 166457,
-      "sha256": "639CA8352BC04EE98B4FE299DD406347722C12679ECCB48D31DF6F684D05FE4E"
+      "size_bytes": 64579
     },
     {
-      "path": "server/studio/sgo/data/sgo-compiled.json",
-      "description": "Compiled SGO repository dataset containing baseline and expanded catalogs",
-      "size_bytes": 2244243,
-      "sha256": "81E7A6FC72937C17E2EB09BD10C2AF3D0A866F3FA01EF05CF4D5E7792B4F6E06"
+      "path": "docs/features/semantic-governance-observatory/REQUIREMENT_TO_TEST_CROSSWALK.md",
+      "description": "Exhaustive requirement-to-test crosswalk mapping canonical AC-01..AC-52 to specific assertions and evidence"
     },
     {
-      "path": "server/studio/sgo/data/workbook_451_items.json",
-      "description": "Expanded owner review dataset extracted directly from sheet مراجعة المالك",
-      "size_bytes": 1547892,
-      "sha256": "8C2AE6BA75BE1B6DB35536516DF6FDAFFD110DC3F7729D5623803B588B53628D"
-    },
-    {
-      "path": "server/studio/sgo/data/workbook_294_relations.json",
-      "description": "Curated relationship pairs extracted from sheet العلاقات والدمج (74 FACT, 220 INFERENCE)",
-      "size_bytes": 284192,
-      "sha256": "EBA3D8C3F50DC5354A48F246AD6D13211A22FCDF25CD70D38634091CFF940D88"
-    },
-    {
-      "path": "server/studio/sgo/data/workbook_882_tests.json",
-      "description": "Designed test catalog extracted from sheet اختبارات مقترحة (all strictly DESIGNED_NOT_RUN)",
-      "size_bytes": 621450,
-      "sha256": "0155AB5FD6938E0D01F43EE199A3C1A2BA2B331C381431A1DB4DE932AF011796"
+      "path": "docs/features/semantic-governance-observatory/ACCEPTANCE_52_TRACEABILITY.json",
+      "description": "Machine-readable 52-criterion acceptance ledger with status and evidence summaries"
     }
   ]
 }

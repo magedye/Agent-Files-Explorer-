@@ -2,14 +2,12 @@
 
 Updated 2026-11-05 Asia/Aden. Locator for current execution authority and verified repository state.
 
-Owner-authorized directive (`AGHR-QLE-GOV-OBS-002`): Independent Qualification, Coverage Reconciliation and Merge Readiness completed on branch `feat/aghr-qle-gov-obs-001`.
-- Discrete 52-requirement acceptance suite: 53/53 tests passing (`node --test tests/sgo_integration.test.mjs`), with AC-01 to AC-52 executed as distinct tests.
-- Reconciled populations: 423 baseline vs 451 expanded owner-review rows (including 28 `QLE-ADD` additions).
-- Reconciled relationships: 294 curated pairs (74 `FACT`, 220 `INFERENCE`) vs 606 directed graph edges (`source_to_candidates.json`).
-- Reconciled test inventory: 882 workbook tests vs 2,240 engineering tests; all strictly `DESIGNED_NOT_RUN` (zero fabricated passes/failures).
-- Total test verification: 238/238 passing tests (`npm test` in 783.7s), 1/1 Microsoft Edge headless browser test (`tests/sgo_browser.spec.mjs`), 0 context health errors (4,293 / 5,000 tokens).
-- Security & Boundaries: Protected owner decisions fail closed (`BLOCKED_UNPROVISIONED_OWNER_AUTH`) pending sovereign owner identity enrollment. Draft decisions isolated in SQLite (`is_draft: true`).
+Owner-authorized directive (`AGHR-QLE-GOV-OBS-002A`): Restore Original Acceptance Traceability and Complete Merge Qualification on branch `feat/aghr-qle-gov-obs-001`.
+- Discrete 52-requirement acceptance suite: 53/53 tests passing (`node --test tests/sgo_integration.test.mjs`), with AC-01 to AC-52 strictly mapped to canonical `ACCEPTANCE_MATRIX_EN.md`.
+- Full traceability crosswalk: `docs/features/semantic-governance-observatory/REQUIREMENT_TO_TEST_CROSSWALK.md`.
+- Total test verification: 238/238 passing tests (`npm test` in 319.4s), 1/1 Microsoft Edge headless browser test (`tests/sgo_browser.spec.mjs`), 0 context health errors (4,289 / 5,000 tokens).
+- Operational vs Code-Merge Blocker: Unprovisioned real-owner credentials (`BLOCKED_UNPROVISIONED_OWNER_AUTH`) is treated as an operational authorization blocker; all fail-closed security tests pass.
 - Pinned `aghr_rc3` engine, release hashes, Quran corpus, and unpromoted AAPES v2.1 preserved intact.
-- 7 Qualification Deliverables produced under `docs/features/semantic-governance-observatory/` with full Arabic report in `INDEPENDENT_QUALIFICATION_REPORT_AR.md`.
+- Full Arabic report in `docs/features/semantic-governance-observatory/INDEPENDENT_QUALIFICATION_REPORT_AR.md` and `OWNER_HANDOFF_AR.md`.
 
-STOP: Completed locally on `feat/aghr-qle-gov-obs-001`. Final status: `PARTIALLY_READY_WITH_EXPLICIT_BLOCKERS`. Stopped for sovereign owner review. No merge to `main` or remote push.
+STOP: Completed locally on `feat/aghr-qle-gov-obs-001`. Code merge status: `READY_FOR_OWNER_MERGE_REVIEW`. Stopped for sovereign owner review. No merge to `main` or remote push.

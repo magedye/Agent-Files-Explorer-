@@ -18,7 +18,7 @@ const capability=v=>({item_id:v.item.id,capability:Object.fromEntries(fields.fil
 export async function createUnifiedStudio(options){
  const pilots=createPilotCatalog(),local=pilots.get('pilot-app-l3');
  const localConfig={skills:[{id:'pilot-sql-readonly',source:'project',skillPath:path.join(local.root,'procedures/sql-readonly/SKILL.md'),entry:path.join(local.root,'procedures/sql-readonly/worker.py'),triggers:['review','مراجعة'],requires:['sandbox.read'],preference:1}],permissions:['sandbox.read'],scope:'pilot-app-l3/**',hostSignals:true};
- const studio=await createDraftStudio({...options,evidenceProjectRoot:options.evidenceProjectRoot||local.root,e4Config:options.e4Config||localConfig});studio.python=options.python;
+ const studio=await createDraftStudio({...options,evidenceProjectRoot:options.evidenceProjectRoot||local.root,e4Config:options.e4Config||localConfig});studio.python=options.python;studio.storageRoot=options.storageRoot;
  const read=createReadRoutes({catalog:studio.readCatalog,bridge:studio.readBridge,review:studio.readReview,session:{authenticate(req){return studio.authority.describe(studio.authority.authenticate(req));}}});
  const parent=studio.handle,stream=createVerificationStream({authority:studio.authority,verification:studio.verification,workspaceId:studio.workspace.id});
  studio.handle=async(req,res)=>{

@@ -8,9 +8,14 @@ import { StudioError } from '../auth.js';
 let sharedStore = null;
 
 export function getSharedSgoStore(options = {}) {
-  if (!sharedStore) {
+  if (!sharedStore || options.reset || (options.storageRoot && sharedStore.storageRoot !== options.storageRoot)) {
     sharedStore = new SgoStore(options);
   }
+  return sharedStore;
+}
+
+export function resetSharedSgoStore(options = {}) {
+  sharedStore = new SgoStore(options);
   return sharedStore;
 }
 
@@ -169,11 +174,17 @@ export async function handleSgoApi(req, res, studio) {
       return send(201, draft);
     }
 
+    // 8b. Representation Mapping (AC-07)
+    if (req.method === 'GET' && pathname === '/api/v1/sgo/representations') {
+      return send(200, store.getRepresentationMapping());
+    }
+
     // 9. Protected Owner Decision Recording (Fails closed if not provisioned)
     if (req.method === 'POST' && pathname === '/api/v1/sgo/decisions/protected') {
       const body = await readJson();
       const decision = store.recordProtectedOwnerDecision(body, principal, {
-        synthetic: body.synthetic === true || principal?.actor === 'synthetic-owner-test'
+        synthetic: body.synthetic === true || principal?.actor === 'synthetic-owner-test',
+        scope: body.scope || principal?.scope
       });
       return send(201, decision);
     }
@@ -185,6 +196,24 @@ export async function handleSgoApi(req, res, studio) {
 
     if (req.method === 'GET' && pathname === '/api/v1/sgo/audit/verify') {
       return send(200, store.verifyLedgerIntegrity());
+    }
+
+    // 10b. Verifiable Backup Snapshot & Safe Restore Verification (AC-40)
+    if (pathname === '/api/v1/sgo/backup') {
+      if (req.method === 'GET') {
+        return send(200, store.createBackupSnapshot());
+      }
+      if (req.method === 'POST') {
+        const body = await readJson();
+        return send(200, store.verifyBackupSnapshot(body));
+      }
+    }
+
+    // 10c. Safe Archive / Input Validation (AC-47)
+    if (req.method === 'POST' && pathname === '/api/v1/sgo/archive/validate') {
+      const body = await readJson();
+      const result = store.validateArchiveSafety(body.entries || []);
+      return send(200, result);
     }
 
     // 11. Governed Exports

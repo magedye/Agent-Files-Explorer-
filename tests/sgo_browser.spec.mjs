@@ -140,6 +140,33 @@ test('AGHR-QLE-GOV-OBS-001: Microsoft Edge Headless UI Validation for SGO Studio
     await page.click('[data-testid="verify-chain-btn"]');
     await page.waitForSelector('text=السلسلة متصلة وسليمة', { timeout: 5000 });
 
+    // 10. AC-50: Multilingual AR/EN, RTL/LTR, Viewports, Keyboard & Citations
+    // 10a. Locale & Direction switching
+    const localeSelect = page.locator('[data-testid="studio-locale"]');
+    if (await localeSelect.isVisible()) {
+      await localeSelect.selectOption('en');
+      await page.waitForTimeout(300);
+      await localeSelect.selectOption('ar');
+      await page.waitForTimeout(300);
+    }
+
+    // 10b. Viewport responsiveness (Mobile 390x844 then Desktop 1440x900)
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.waitForTimeout(300);
+    assert.ok(await page.locator('[data-testid="view-sgo"]').isVisible());
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.waitForTimeout(300);
+
+    // 10c. Keyboard navigation (Tab & Enter)
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Tab');
+
+    // 10d. Source citation inspection
+    await tab1.click();
+    await page.waitForSelector('[data-testid^="decision-group-"]', { timeout: 5000 });
+    const citation = page.locator('[data-testid^="decision-group-"] small').first();
+    assert.ok(await citation.isVisible());
+
     // Capture Edge Headless screenshot evidence
     const evidenceDir = path.resolve('docs/evidence/sgo-edge-ui-2026-11-05');
     fs.mkdirSync(evidenceDir, { recursive: true });

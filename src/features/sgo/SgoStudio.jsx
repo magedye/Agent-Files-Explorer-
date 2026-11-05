@@ -355,6 +355,11 @@ export default function SgoStudio({ api, workspace, onNavigate }) {
                         <div style={{ fontSize: '0.75rem', color: '#718096', marginTop: '0.25rem' }}>
                           توصية غير مختارة: <strong>{group.recommended_option}</strong> ({group.rows.length} صفاً معنياً)
                         </div>
+                        {group.citation && (
+                          <small style={{ display: 'block', fontSize: '0.7rem', color: '#718096', marginTop: '0.2rem' }}>
+                            المصدر: {group.citation}
+                          </small>
+                        )}
                       </div>
                     ))}
                   </div>
