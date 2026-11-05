@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.2.0",
+  "generated_at": "2026-11-05T02:40:00.000Z",
+  "task_id": "AGHR-QLE-GOV-OBS-001",
+  "profile": "LISAN_QLE_QUALIFICATION",
+  "provenance_summary": {
+    "total_items": 423,
+    "items_by_origin": {
+      "SOURCE_255": 255,
+      "V4": 110,
+      "V2": 58
+    },
+    "priority_decision_groups": 11,
+    "priority_decision_ids": [
+      "V4-D01", "V4-D02", "V4-D03", "V4-D04",
+      "V4-D05", "V4-D06", "V4-D07", "V4-D08",
+      "G1-D09", "G1-D10", "G1-D11"
+    ],
+    "relational_edges_count": 606,
+    "edges_by_type": {
+      "EXACT_TEXT_DUPLICATE": 38,
+      "CANDIDATE_SEMANTIC_EQUIVALENT": 124,
+      "SUBSUMES": 82,
+      "TOPICALLY_RELATED": 362
+    },
+    "designed_tests_count": 2240,
+    "executed_tests_count": 0,
+    "passed_tests_count": 0,
+    "failed_tests_count": 0,
+    "test_status_invariant": "DESIGNED_NOT_RUN"
+  },
+  "source_artifacts": [
+    {
+      "path": "D:\\APP\\OPA\\QLE_423_Skill_v1.2.0_Applied_Complete.zip",
+      "role": "PRIMARY_COMPILED_DATASET",
+      "ingestion_status": "VALIDATED_INGESTED",
+      "custody": "READ_ONLY_EXTERNAL"
+    },
+    {
+      "path": "D:\\APP\\OPA\\QLE-SGO-002_Studio_Integrated_v2.0.0",
+      "role": "ADVISORY_RECOMMENDATIONS",
+      "ingestion_status": "VALIDATED_INGESTED",
+      "custody": "READ_ONLY_EXTERNAL"
+    },
+    {
+      "path": "D:\\APP\\OPA\\QLE_Unified_Owner_Review_AR_v0_2.xlsx",
+      "role": "OWNER_REVIEW_REFERENCE",
+      "sha256": "A98A24CC009A308918368F19C178A2AAB647E1E188F6E50918BA921ACE61D348",
+      "ingestion_status": "VALIDATED_INGESTED",
+      "custody": "READ_ONLY_EXTERNAL"
+    }
+  ],
+  "compiled_artifact": {
+    "path": "server/studio/sgo/data/sgo-compiled.json",
+    "sha256_verification": "DYNAMIC_RECOMPILABLE",
+    "integrity_status": "VALID"
+  }
+}

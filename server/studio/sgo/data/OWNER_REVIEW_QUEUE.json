@@ -1,0 +1,4607 @@
+{
+  "status": "PENDING_OWNER_REVIEW",
+  "source_based": true,
+  "reused_owner_decisions": [
+    {
+      "id": "V4-D01",
+      "priority": "P0",
+      "title_ar": "اختيار بنية المدونة الموحدة المرشحة",
+      "required_from_owner": "YES_BEFORE_AUTHORITATIVE_REPLACEMENT",
+      "question_ar": "هل تعتمد استخدام 110 قاعدة v4 طبقة تنظيمية مرشحة فوق السجل الأصلي 255، مع إبقاء الأصول سارية بحسب وضعها الحالي حتى يُعتمد استبدالها صراحة؟",
+      "recommended_ar": "نعم للتصميم المرشح فقط؛ لا ترقية للتفعيل ولا إلغاء للأصل.",
+      "effect_if_approved_ar": "يسمح بترتيب حزم التعليمات والاختبارات وفق 110 مرشحًا مع استمرار حماية الأحكام الأصلية؛ لا يثبت التكافؤ ولا ينقل الاعتماد.",
+      "effect_if_deferred_ar": "تبقى v4 مرجع مراجعة ولا تُستخدم لاستبدال التعليمات الفعالة؛ تواصل اختبارات 255 الأصلية المصرح بها.",
+      "status": "PENDING_NOT_GRANTED"
+    },
+    {
+      "id": "V4-D02",
+      "priority": "P0",
+      "title_ar": "فروق الإلزام الجوهرية المحتملة",
+      "required_from_owner": "YES_PER_MATERIAL_CHANGE",
+      "question_ar": "أي تخفيف أو تشديد أو إعادة توزيع للقوة الإلزامية بين أحكام الأصل وقواعد v4 تقبله، بعد مقارنة الشرط والممثل والنطاق؟",
+      "recommended_ar": "لا تخفف حكمًا إلزاميًا إلا بقرار محدد ومعلل؛ اجعل الأصل يحكم أي تفصيل لم يثبت تكافؤه.",
+      "effect_if_approved_ar": "يمكن تحديث ملفات الانطباق والاختبارات للبنود المعينة فقط بعد تثبيت القرار؛ لا تفعيل ضمني.",
+      "effect_if_deferred_ar": "لا يلغى الالتزام الأصلي؛ يمنع فقط الاستبدال في الحالات المتأثرة.",
+      "status": "PENDING_NOT_GRANTED"
+    },
+    {
+      "id": "V4-D03",
+      "priority": "P0",
+      "title_ar": "42 بندًا مرتبطًا موضوعيًا دون تضمين مثبت",
+      "required_from_owner": "CONDITIONAL_ONLY_IF_OWNER_WANTS_TO_RETIRE_OR_SUPERSEDE",
+      "question_ar": "هل تريد استبدال أي من هذه الأحكام الأصلية الـ42؟ وإذا نعم، ما القاعدة البديلة الدقيقة التي تحفظ كل واجب وإجراء؟",
+      "recommended_ar": "الإبقاء على 42 بندًا مرجعيًا غير مستبدل، ومنها 28 حكمًا قويًا، إلى حين إثبات تغطية مفردة لكل حكم.",
+      "effect_if_approved_ar": "يُتاح اقتراح استبدال محدد بعد إثبات تغطية الذرات والاختبارات؛ لا يُحذف التاريخ.",
+      "effect_if_deferred_ar": "لا تعطيل للتطوير؛ تبقى الالتزامات والاختبارات الأصلية مستقلة.",
+      "status": "PENDING_NOT_GRANTED"
+    },
+    {
+      "id": "V4-D04",
+      "priority": "P0",
+      "title_ar": "المحافظة على الهدف الذهبي للجذر",
+      "required_from_owner": "NO_NEW_DECISION_IF_EXISTING_SOURCE_WORDED_AS_REPORTED",
+      "question_ar": "هل أية صياغة في 110 تُغيّر قصدك من إلزام محاولة اكتشاف جامع واختبارها دون فرض النجاح؟",
+      "recommended_ar": "إبقاء GOV-244 مرجعًا للمقصد؛ راجع C03 وC04 وC05 وX48 مع 045 و046 و242 و250؛ لا تخفيف ولا إنكار للوحدة.",
+      "effect_if_approved_ar": "يُسمح بالاشتقاق التجريبي المتوافق فقط؛ قبول فرضية الجذر يبقى دليلًا لا قرار صياغة.",
+      "effect_if_deferred_ar": "يبقى الأصل 244 وحدوده دون تغيير؛ لا يُعتمد تعريف جامع بعينه.",
+      "status": "SOURCE_PRESERVATION_REVIEW_ONLY"
+    },
+    {
+      "id": "V4-D05",
+      "priority": "P1",
+      "title_ar": "حالة UNRESOLVED_CORE والتوافق العقدي",
+      "required_from_owner": "ONLY_IF_CANONICAL_ENUM_EXTENSION_OR_MEANING_CHANGE_REQUIRED",
+      "question_ar": "إذا احتاج النظام حالة مستقلة UNRESOLVED_CORE بدل الحالات الحالية، هل تُقبل كتمديد عقدي بإصدار جديد أم تُحفظ كسبب ضمن الحالة المتوافقة الحالية؟",
+      "recommended_ar": "استخدم الحالة الموجودة المتوافقة إن كانت تفي بالدلالة مع سبب مخصص؛ لا تضف enum دون مراجعة عقدية.",
+      "effect_if_approved_ar": "يُنفذ التمديد العقدي المتوافق وإعادة اختبار التبعيات المتأثرة فقط.",
+      "effect_if_deferred_ar": "يبقى التعبير مرشحًا في ملاحظات البحث، دون فشل مصطنع أو ترقية للنتيجة.",
+      "status": "PENDING_CONTRACT_ASSESSMENT"
+    },
+    {
+      "id": "V4-D06",
+      "priority": "P0",
+      "title_ar": "تصحيح إحالة 091 والتشوهات الطباعية",
+      "required_from_owner": "NO_FOR_VERIFIABLE_EDITORIAL_CORRECTION",
+      "question_ar": "بعد التحقق من الأصل، هل هناك خلاف دلالي فعلًا في نصوص العربية أو إحالة GOV-091؟",
+      "recommended_ar": "تصحيح الإحالة المفقودة بالمصدر بعد مطابقة، وحفظ اختلافات استخراج العربية منفصلة دون استبدال سجل المصدر.",
+      "effect_if_approved_ar": "تُحسّن سلامة الخريطة ودقة العرض؛ لا أثر على القوة أو التفعيل.",
+      "effect_if_deferred_ar": "يبقى QL4-I01 معلقًا في المقترح ولا يُعتبر ربطًا صالحًا؛ تُستخدم النصوص المحفوظة في v1.1.0.",
+      "status": "ENGINEERING_VERIFICATION_REQUIRED"
+    },
+    {
+      "id": "V4-D07",
+      "priority": "P1",
+      "title_ar": "علاقة 58 بندًا تاريخيًا بالإصدار v4",
+      "required_from_owner": "ONLY_FOR_AUTHORITATIVE_SUPERSESSION",
+      "question_ar": "هل تصبح الصيغ الـ58 الموروثة في v4 بدائل معتمدة لنسخ v2 أم تظل مقترحات مقارنة؟",
+      "recommended_ar": "الإبقاء عليها اقتراحات حتى تعيين معنى كل تغيير وإصدار استبدال صريح عند الحاجة.",
+      "effect_if_approved_ar": "يُسمح بأحداث استبدال محددة ونقل الاختبارات المتأثرة بعد التحقق.",
+      "effect_if_deferred_ar": "لا تغيير في حالة نسخ v2 التاريخية؛ v4 تبقى مقارنة تنظيمية.",
+      "status": "PENDING_NOT_GRANTED"
+    },
+    {
+      "id": "V4-D08",
+      "priority": "P1",
+      "title_ar": "ربط التقييم السلوكي والمقياس",
+      "required_from_owner": "NO_FOR_DESIGN_ONLY; YES_IF_NEW_LIVE_SPENDING_OR_SCIENTIFIC_ORACLE",
+      "question_ar": "هل تريد تكليف تجربة منفصلة بقياس أثر 110 قاعدة؟ وبأي نموذج وميزانية ومحك مرجعي؟",
+      "recommended_ar": "ابدأ بربط الاختبارات الـ1568 وتغطية حالات عدم الإفراط في المنع من دون استدعاءات مدفوعة؛ منفذ Promptfoo يُفعل لاحقًا بتفويض محدد.",
+      "effect_if_approved_ar": "يمكن إصدار تكليف تقييم حي محدود مع مصاريف وأدلة منفصلة، دون إعلان أهلية علمية تلقائية.",
+      "effect_if_deferred_ar": "تبقى خرائط الاختبارات قابلة للفحص وNOT_RUN للنطاق الجديد.",
+      "status": "DESIGN_ONLY_NOW"
+    }
+  ],
+  "force_reconciliation_links": [
+    {
+      "source_item_id": "LISAN-GOV-001",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-C01",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-002",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-C01",
+      "v4_proposed_force": "MUST",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-004",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-A04",
+      "v4_proposed_force": "MUST",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-005",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-G06",
+      "v4_proposed_force": "MUST",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-007",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-C05",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-007",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-D06",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-009",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-D02",
+      "v4_proposed_force": "MUST",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-010",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-D05",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-012",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-G05",
+      "v4_proposed_force": "MUST",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-017",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-A03",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-019",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-A04",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-019",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-X02",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-022",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-A06",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-024",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-C01",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-025",
+      "original_force": "MAY",
+      "v4_rule_id": "QL4-E01",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-025",
+      "original_force": "MAY",
+      "v4_rule_id": "QL4-E04",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-027",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-F04",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-030",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-B02",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-032",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-B04",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-035",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-X04",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-036",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-B04",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-172",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-X51",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-204",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-B09",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-044",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-C01",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-046",
+      "original_force": "MAY",
+      "v4_rule_id": "QL4-C05",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-046",
+      "original_force": "MAY",
+      "v4_rule_id": "QL4-C10",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-047",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-C03",
+      "v4_proposed_force": "MUST",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-048",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-C09",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-049",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-C02",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-049",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-X06",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-053",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-C10",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-053",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-C11",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-054",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-C06",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-056",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-C02",
+      "v4_proposed_force": "MUST",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-058",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-H02",
+      "v4_proposed_force": "MUST_NOT",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-173",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-X06",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-174",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-X07",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-175",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-C07",
+      "v4_proposed_force": "MUST_NOT",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-178",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-C11",
+      "v4_proposed_force": "MUST",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-179",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-C02",
+      "v4_proposed_force": "MUST",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-059",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-D05",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-061",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-D03",
+      "v4_proposed_force": "MUST",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-062",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-D03",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-063",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-D03",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-064",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-X10",
+      "v4_proposed_force": "MUST_NOT",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-066",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-D01",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-067",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-D01",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-068",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-D07",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-071",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-D02",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-177",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-D02",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-075",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-X14",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-076",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-X14",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-077",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-D07",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-077",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-H05",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-081",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-X15",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-082",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-E01",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-082",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-G06",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-085",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-X16",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-089",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-G04",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-093",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-A03",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-095",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-G07",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-095",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-X45",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-096",
+      "original_force": "MAY",
+      "v4_rule_id": "QL4-F01",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-096",
+      "original_force": "MAY",
+      "v4_rule_id": "QL4-X28",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-097",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-F07",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-099",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-F03",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-100",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-F03",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-101",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-X19",
+      "v4_proposed_force": "MUST_NOT",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-102",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-X15",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-106",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-F05",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-205",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-X27",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-112",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-G01",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-114",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-G01",
+      "v4_proposed_force": "MUST",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-116",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-A04",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-117",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-F07",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-119",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-G05",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-122",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-H02",
+      "v4_proposed_force": "MUST_NOT",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-126",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-G02",
+      "v4_proposed_force": "MUST_NOT",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-171",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-X23",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-189",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-G01",
+      "v4_proposed_force": "MUST",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-215",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-X25",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-127",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-C09",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-128",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-C10",
+      "v4_proposed_force": "MUST",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-129",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-C01",
+      "v4_proposed_force": "MUST",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-130",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-C04",
+      "v4_proposed_force": "MUST_NOT",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-131",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-C06",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-132",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-C04",
+      "v4_proposed_force": "MUST_NOT",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-133",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-X11",
+      "v4_proposed_force": "MUST_NOT",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-134",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-D04",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-135",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-G02",
+      "v4_proposed_force": "MUST_NOT",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-136",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-X20",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-137",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-X20",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-138",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-A04",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-142",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-H01",
+      "v4_proposed_force": "MUST",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-144",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-C11",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-144",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-H01",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-149",
+      "original_force": "MAY",
+      "v4_rule_id": "QL4-G07",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-153",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-B07",
+      "v4_proposed_force": "MUST_NOT",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-155",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-H01",
+      "v4_proposed_force": "MUST",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-156",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-H05",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-180",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-X52",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-181",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-E02",
+      "v4_proposed_force": "MUST_NOT",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-181",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-E04",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-227",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-G07",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-157",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-F08",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-158",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-G02",
+      "v4_proposed_force": "MUST_NOT",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-161",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-X19",
+      "v4_proposed_force": "MUST_NOT",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-162",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-F07",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-164",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-D06",
+      "v4_proposed_force": "MUST",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-165",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-F08",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-167",
+      "original_force": "SHOULD",
+      "v4_rule_id": "QL4-H02",
+      "v4_proposed_force": "MUST_NOT",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-168",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-X43",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-183",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-F08",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-209",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-X29",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-210",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-X29",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-214",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-X31",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-216",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-X31",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-217",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-X32",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-232",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-X36",
+      "v4_proposed_force": "MUST_NOT",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-233",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-C02",
+      "v4_proposed_force": "MUST",
+      "link_kind": "TOPIC_ONLY_NOT_EQUIVALENT",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-234",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-X08",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-237",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-E03",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-238",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-E03",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-239",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-X37",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-241",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-X07",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-248",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-C08",
+      "v4_proposed_force": "SHOULD",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": true,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-250",
+      "original_force": "MUST",
+      "v4_rule_id": "QL4-C04",
+      "v4_proposed_force": "MUST_NOT",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    },
+    {
+      "source_item_id": "LISAN-GOV-252",
+      "original_force": "MUST_NOT",
+      "v4_rule_id": "QL4-X38",
+      "v4_proposed_force": "MUST",
+      "link_kind": "DIRECT_OR_HANDLED_NOT_YET_EQUIVALENCE_VERIFIED",
+      "strict_to_soft_risk": false,
+      "normative_equivalence_verdict": "NOT_DETERMINED_BY_LABELS",
+      "owner_change_status": "NOT_GRANTED"
+    }
+  ],
+  "caution": "لا تعني الترجمة أو الارتباط الموضوعي أو اختلاف الملصق الإلزامي وحده قرارًا بتغيير الحكم.",
+  "item_review_issues": [
+    {
+      "id": "QL4-A01",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-A01",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-A02",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-A02",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-A03",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-A03",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-A04",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-A04",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-A04",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-A05",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-A05",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-A06",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-A06",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-A06",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-A07",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-A07",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X01",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X01",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X02",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X02",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X02",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-B01",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-B01",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-B02",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-B02",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-B02",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-B03",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-B03",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-B04",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-B04",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-B04",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-B05",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-B05",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-B05",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-B06",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-B06",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-B06",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-B07",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-B07",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-B08",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-B08",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-B09",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-B09",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-B09",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X03",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X03",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X03",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X04",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X04",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X04",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X51",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X51",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C01",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C01",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C01",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C02",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C02",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C03",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C03",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C04",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C04",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C05",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C05",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C05",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C06",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C06",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C06",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C07",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C07",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C07",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C08",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C08",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C09",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C09",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C09",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C10",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C10",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C10",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C11",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C11",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-C11",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X05",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X05",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X06",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X06",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X07",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X07",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X08",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X08",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X08",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X52",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X52",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-D01",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-D01",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-D01",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-D02",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-D02",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-D03",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-D03",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-D04",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-D04",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-D04",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-D05",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-D05",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-D05",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-D06",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-D06",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-D06",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-D07",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-D07",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X09",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X09",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X09",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X10",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X10",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X10",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X11",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X11",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X11",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X12",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X12",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X12",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X13",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X13",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X13",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-E01",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-E01",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-E01",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-E02",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-E02",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-E03",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-E03",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-E04",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-E04",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-F01",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-F01",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-F01",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-F02",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-F02",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-F03",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-F03",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-F03",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-F04",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-F04",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-F04",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-F05",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-F05",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-F05",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-F06",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-F06",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-F06",
+      "origin": "V4",
+      "finding": "AAPES_ADVISORY_TOPICAL_MAPPING_REVIEW_REQUIRED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-F07",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-F07",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-F07",
+      "origin": "V4",
+      "finding": "AAPES_ADVISORY_TOPICAL_MAPPING_REVIEW_REQUIRED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-F08",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-F08",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X19",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X19",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X19",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X20",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X20",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X20",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X21",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X21",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X22",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X22",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X22",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X44",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X44",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X44",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-G01",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-G01",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-G02",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-G02",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-G03",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-G03",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-G04",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-G04",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-G04",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-G05",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-G05",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-G05",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-G06",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-G06",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-G07",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-G07",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-G07",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X23",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X23",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X23",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X23",
+      "origin": "V4",
+      "finding": "AAPES_ADVISORY_TOPICAL_MAPPING_REVIEW_REQUIRED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X24",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X24",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X24",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X24",
+      "origin": "V4",
+      "finding": "AAPES_ADVISORY_TOPICAL_MAPPING_REVIEW_REQUIRED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X25",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X25",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X25",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X33",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X33",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X34",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X34",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X49",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X49",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X49",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-H01",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-H01",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-H02",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-H02",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-H03",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-H03",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-H03",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-H04",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-H04",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-H05",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-H05",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X14",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X14",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X15",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X15",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X15",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X16",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X16",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X17",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X17",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X18",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X18",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X28",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X28",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X28",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X29",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X29",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X30",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X30",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X30",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X31",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X31",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X31",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X32",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X32",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X32",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X40",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X40",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X40",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X40",
+      "origin": "V4",
+      "finding": "AAPES_ADVISORY_TOPICAL_MAPPING_REVIEW_REQUIRED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X42",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X42",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X42",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X43",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X43",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X43",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X46",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X46",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X36",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X36",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X36",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X37",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X37",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X37",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X38",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X38",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X38",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X39",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X39",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X39",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X47",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X47",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X48",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X48",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X48",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X26",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X26",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X26",
+      "origin": "V4",
+      "finding": "AAPES_ADVISORY_TOPICAL_MAPPING_REVIEW_REQUIRED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X27",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X27",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X27",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X35",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X35",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X35",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X41",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X41",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X41",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X45",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X45",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X45",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X50",
+      "origin": "V4",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X50",
+      "origin": "V4",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X50",
+      "origin": "V4",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "QL4-X50",
+      "origin": "V4",
+      "finding": "AAPES_ADVISORY_TOPICAL_MAPPING_REVIEW_REQUIRED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-A01",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-A01",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-A02",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-A02",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-A03",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-A03",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-A04",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-A04",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-A04",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-A05",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-A05",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-A06",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-A06",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-A06",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-A07",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-A07",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-B01",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-B01",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-B02",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-B02",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-B02",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-B03",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-B03",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-B04",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-B04",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-B04",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-B05",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-B05",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-B05",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-B06",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-B06",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-B06",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-B07",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-B07",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-B08",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-B08",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-B09",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-B09",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-B09",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C01",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C01",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C01",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C02",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C02",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C03",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C03",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C04",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C04",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C05",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C05",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C05",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C06",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C06",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C06",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C07",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C07",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C07",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C08",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C08",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C09",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C09",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C09",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C10",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C10",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C10",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C11",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C11",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-C11",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-D01",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-D01",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-D01",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-D02",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-D02",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-D03",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-D03",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-D04",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-D04",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-D04",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-D05",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-D05",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-D05",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-D06",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-D06",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-D06",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-D07",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-D07",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-E01",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-E01",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-E01",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-E02",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-E02",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-E03",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-E03",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-E04",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-E04",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-F01",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-F01",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-F01",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-F02",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-F02",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-F03",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-F03",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-F03",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-F04",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-F04",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-F04",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-F05",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-F05",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-F05",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-F06",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-F06",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-F06",
+      "origin": "V2",
+      "finding": "AAPES_ADVISORY_TOPICAL_MAPPING_REVIEW_REQUIRED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-F07",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-F07",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-F07",
+      "origin": "V2",
+      "finding": "AAPES_ADVISORY_TOPICAL_MAPPING_REVIEW_REQUIRED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-F08",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-F08",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-G01",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-G01",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-G02",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-G02",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-G03",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-G03",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-G04",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-G04",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-G04",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-G05",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-G05",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-G05",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-G06",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-G06",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-G07",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-G07",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-G07",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-H01",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-H01",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-H02",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-H02",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-H03",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-H03",
+      "origin": "V2",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-H03",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-H04",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-H04",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-H05",
+      "origin": "V2",
+      "finding": "ENGLISH_IS_UNAPPROVED_TRANSLATION",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "V2-H05",
+      "origin": "V2",
+      "finding": "SOURCE_LINEAGE_EQUIVALENCE_NOT_PROVEN",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-001",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_NORMATIVE_FORCE_UNRESOLVED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-001",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-002",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_NORMATIVE_FORCE_UNRESOLVED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-002",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-004",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_VERSUS_PROPOSED_WORDING_DIFF",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-009",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_NORMATIVE_FORCE_UNRESOLVED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-010",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_NORMATIVE_FORCE_UNRESOLVED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-012",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_NORMATIVE_FORCE_UNRESOLVED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-012",
+      "origin": "SOURCE_255",
+      "finding": "AAPES_ADVISORY_TOPICAL_MAPPING_REVIEW_REQUIRED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-015",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-019",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_VERSUS_PROPOSED_WORDING_DIFF",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-026",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-027",
+      "origin": "SOURCE_255",
+      "finding": "AAPES_ADVISORY_TOPICAL_MAPPING_REVIEW_REQUIRED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-039",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_VERSUS_PROPOSED_WORDING_DIFF",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-041",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-051",
+      "origin": "SOURCE_255",
+      "finding": "AAPES_ADVISORY_TOPICAL_MAPPING_REVIEW_REQUIRED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-054",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_NORMATIVE_FORCE_UNRESOLVED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-067",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_NORMATIVE_FORCE_UNRESOLVED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-068",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-075",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_NORMATIVE_FORCE_UNRESOLVED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-077",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-082",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-086",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-086",
+      "origin": "SOURCE_255",
+      "finding": "AAPES_ADVISORY_TOPICAL_MAPPING_REVIEW_REQUIRED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-094",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-096",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-099",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_VERSUS_PROPOSED_WORDING_DIFF",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-101",
+      "origin": "SOURCE_255",
+      "finding": "AAPES_ADVISORY_TOPICAL_MAPPING_REVIEW_REQUIRED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-101",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_VERSUS_PROPOSED_WORDING_DIFF",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-102",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_NORMATIVE_FORCE_UNRESOLVED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-107",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-112",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_NORMATIVE_FORCE_UNRESOLVED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-118",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-124",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-126",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-138",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_VERSUS_PROPOSED_WORDING_DIFF",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-139",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-144",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_NORMATIVE_FORCE_UNRESOLVED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-152",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_VERSUS_PROPOSED_WORDING_DIFF",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-155",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_NORMATIVE_FORCE_UNRESOLVED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-170",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-170",
+      "origin": "SOURCE_255",
+      "finding": "AAPES_ADVISORY_TOPICAL_MAPPING_REVIEW_REQUIRED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-171",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_NORMATIVE_FORCE_UNRESOLVED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-175",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-175",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_VERSUS_PROPOSED_WORDING_DIFF",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-178",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_NORMATIVE_FORCE_UNRESOLVED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-178",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-181",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_NORMATIVE_FORCE_UNRESOLVED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-182",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-186",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-188",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-189",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-190",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-190",
+      "origin": "SOURCE_255",
+      "finding": "AAPES_ADVISORY_TOPICAL_MAPPING_REVIEW_REQUIRED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-191",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-192",
+      "origin": "SOURCE_255",
+      "finding": "AAPES_ADVISORY_TOPICAL_MAPPING_REVIEW_REQUIRED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-193",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-193",
+      "origin": "SOURCE_255",
+      "finding": "AAPES_ADVISORY_TOPICAL_MAPPING_REVIEW_REQUIRED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-194",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-195",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-199",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-201",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-201",
+      "origin": "SOURCE_255",
+      "finding": "AAPES_ADVISORY_TOPICAL_MAPPING_REVIEW_REQUIRED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-204",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-206",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-207",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_NORMATIVE_FORCE_UNRESOLVED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-207",
+      "origin": "SOURCE_255",
+      "finding": "ORIGINAL_VERSUS_PROPOSED_WORDING_DIFF",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-208",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-209",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-210",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-210",
+      "origin": "SOURCE_255",
+      "finding": "AAPES_ADVISORY_TOPICAL_MAPPING_REVIEW_REQUIRED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-214",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-216",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-218",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-219",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-222",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-223",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-225",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-226",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-227",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-229",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-230",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-232",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-233",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-234",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-235",
+      "origin": "SOURCE_255",
+      "finding": "AAPES_ADVISORY_TOPICAL_MAPPING_REVIEW_REQUIRED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-236",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-238",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-239",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-240",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-241",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-242",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-243",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-244",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-245",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-247",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-248",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-249",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-250",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-251",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-253",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-254",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-254",
+      "origin": "SOURCE_255",
+      "finding": "AAPES_ADVISORY_TOPICAL_MAPPING_REVIEW_REQUIRED",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    },
+    {
+      "id": "LISAN-GOV-255",
+      "origin": "SOURCE_255",
+      "finding": "ATOMICITY_REVIEW_OR_INDETERMINATE",
+      "action": "OWNER_REVIEW_IF_MATERIAL"
+    }
+  ]
+}

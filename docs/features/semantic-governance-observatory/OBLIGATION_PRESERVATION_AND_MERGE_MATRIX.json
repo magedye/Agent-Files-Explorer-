@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.2.0",
+  "generated_at": "2026-11-05T02:43:00.000Z",
+  "task_id": "AGHR-QLE-GOV-OBS-001",
+  "methodology": "BCP_14_ATOMIC_OBLIGATION_DECOMPOSITION",
+  "safety_gates": [
+    {
+      "gate_id": "GATE_01_NO_DROPPED_P0",
+      "rule": "Every P0 obligation from any merged source MUST be preserved in the consolidated candidate.",
+      "failure_action": "REJECT_CONSOLIDATION_FAIL_CLOSED"
+    },
+    {
+      "gate_id": "GATE_02_FORCE_PRESERVATION",
+      "rule": "Normative force MUST NOT be weakened (e.g. MUST to SHOULD/MAY is strictly forbidden).",
+      "failure_action": "REJECT_CONSOLIDATION_FAIL_CLOSED"
+    },
+    {
+      "gate_id": "GATE_03_ACTOR_SCOPE_PRESERVATION",
+      "rule": "Obligated actors, preconditions, triggers, and failure behaviors MUST remain invariant or strictly subset-compatible.",
+      "failure_action": "REJECT_CONSOLIDATION_FAIL_CLOSED"
+    }
+  ],
+  "sample_evaluations": [
+    {
+      "evaluation_id": "EVAL-QL4-A01-MERGE",
+      "target_candidate": "QL4-A01",
+      "sources_analyzed": ["LISAN-GOV-001", "LISAN-GOV-002"],
+      "atomic_obligations_total": 4,
+      "preserved_obligations_count": 4,
+      "dropped_obligations_count": 0,
+      "force_transition": "MUST -> MUST",
+      "gate_status": "PASSED_CONDITIONAL",
+      "reverse_trace": [
+        {
+          "source_id": "LISAN-GOV-001",
+          "obligation_fragment": "يجب التحقق من تطابق الرسم القرآني مع مصحف المدينة المعتمد",
+          "target_obligation_ref": "QL4-A01.ob1",
+          "coverage": "FULL"
+        },
+        {
+          "source_id": "LISAN-GOV-002",
+          "obligation_fragment": "يحظر الاعتماد على خطوط حاسوبية تجارية غير مفحوصة",
+          "target_obligation_ref": "QL4-A01.ob2",
+          "coverage": "FULL"
+        }
+      ]
+    },
+    {
+      "evaluation_id": "EVAL-NEGATIVE-SIMULATE-DROP-P0",
+      "target_candidate": "SIMULATED-WEAKENED-MERGE",
+      "sources_analyzed": ["LISAN-GOV-001"],
+      "atomic_obligations_total": 2,
+      "preserved_obligations_count": 1,
+      "dropped_obligations_count": 1,
+      "dropped_obligations": [
+        {
+          "id": "LISAN-GOV-001.ob1",
+          "priority": "P0",
+          "reason": "SIMULATED_DROPPED_OBLIGATION"
+        }
+      ],
+      "force_transition": "MUST -> SHOULD",
+      "gate_status": "BLOCKED_GATE_VIOLATION",
+      "violation_details": [
+        "GATE_01_NO_DROPPED_P0: P0 obligation LISAN-GOV-001.ob1 was dropped.",
+        "GATE_02_FORCE_PRESERVATION: Weakened normative force from MUST to SHOULD."
+      ]
+    }
+  ]
+}
