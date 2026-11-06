@@ -33,12 +33,17 @@ export const AGHR_1_3_0_ROOT = path.resolve(
   "references",
   "Agent_Governance_RCCA_Kit_EN_v1.3.0"
 );
+export const AGHR_1_4_0_ROOT = path.resolve(
+  GOVERNANCE_PACKAGES_ROOT,
+  "references",
+  "Agent_Governance_RCCA_Kit_EN_v1.4.0"
+);
 // Owner sign-off2026-10-26 promotes the existing pinned bytes without moving them.
 export const AGHR_RC3_ROOT = path.join(GOVERNANCE_PACKAGES_ROOT, "candidates", "AGHR_rc3_Core_Candidate");
 export const AAPES_CANDIDATE_ROOT = path.join(GOVERNANCE_PACKAGES_ROOT, "candidates", "AAPES_v2.1_Candidate");
 export const DEFAULT_PACKAGE_ID = "aghr_rc3";
-export const DEFAULT_BASELINE_PACKAGE_ID = "aghr_1_3_0";
-export const BASELINE_V1_PACKAGE_ID = "aghr_1_3_0";
+export const DEFAULT_BASELINE_PACKAGE_ID = "aghr_1_4_0";
+export const BASELINE_V1_PACKAGE_ID = "aghr_1_4_0";
 // Disabled legacy evaluation tools retain their original source binding.
 export const AGHR_ROOT = AGHR_1_2_0_ROOT;
 
@@ -131,10 +136,21 @@ class RootRegistry {
     if (fs.existsSync(AGHR_1_3_0_ROOT)) {
       this.registerRoot({
         id: "aghr_1_3_0",
-        name: "Agent Governance & RCCA Kit EN v1.3.0 (Baseline v1)",
+        name: "Agent Governance & RCCA Kit EN v1.3.0 (Baseline v1 initial)",
         path: AGHR_1_3_0_ROOT,
         type: "reference",
         description: "Agent Governance & RCCA Kit EN v1.3.0 — Baseline v1 candidate reference",
+        readOnly: true,
+      });
+    }
+
+    if (fs.existsSync(AGHR_1_4_0_ROOT)) {
+      this.registerRoot({
+        id: "aghr_1_4_0",
+        name: "Agent Governance & RCCA Kit EN v1.4.0 (Baseline v1 with ADEQ 1.1)",
+        path: AGHR_1_4_0_ROOT,
+        type: "reference",
+        description: "Agent Governance & RCCA Kit EN v1.4.0 — Baseline v1 reference with ADEQ 1.1 quality layer",
         readOnly: true,
       });
     }

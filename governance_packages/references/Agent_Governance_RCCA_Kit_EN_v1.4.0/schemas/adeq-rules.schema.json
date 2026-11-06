@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "1.1"
+    },
+    "parent_package": {
+      "type": "string",
+      "const": "1.4.0"
+    },
+    "canonical": {
+      "type": "boolean",
+      "const": true
+    },
+    "not_an_authority_override": {
+      "type": "boolean",
+      "const": true
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^ADEQ-(0[1-9]|1[0-9]|2[0-4])$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "normative_level": {
+            "type": "string",
+            "enum": [
+              "MUST",
+              "MUST_NOT",
+              "SHOULD",
+              "MAY"
+            ]
+          },
+          "trigger": {
+            "type": "string",
+            "minLength": 1
+          },
+          "instruction": {
+            "type": "string",
+            "minLength": 1
+          },
+          "failure_behavior": {
+            "type": "string",
+            "minLength": 1
+          },
+          "governance_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "verification_case": {
+            "type": "string",
+            "minLength": 1
+          },
+          "authority": {
+            "type": "string",
+            "const": "PROJECT_GUIDANCE_AFTER_SCOPED_ADOPTION"
+          },
+          "mechanism": {
+            "type": "string",
+            "const": "AGENT_PROCEDURE_WITH_LIMITED_METADATA_DIAGNOSTICS"
+          },
+          "lifecycle": {
+            "type": "string",
+            "const": "CANDIDATE"
+          },
+          "core_instruction": {
+            "type": "string",
+            "minLength": 1
+          },
+          "attention": {
+            "type": "string",
+            "enum": [
+              "CORE",
+              "TASK_TRIGGERED",
+              "REFERENCE"
+            ]
+          },
+          "impact": {
+            "type": "string",
+            "enum": [
+              "CRITICAL",
+              "HIGH",
+              "MODERATE",
+              "LOW"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "normative_level",
+          "trigger",
+          "instruction",
+          "failure_behavior",
+          "governance_ref",
+          "verification_case",
+          "authority",
+          "mechanism",
+          "lifecycle",
+          "attention",
+          "impact"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 24
+    }
+  },
+  "required": [
+    "version",
+    "parent_package",
+    "canonical",
+    "not_an_authority_override",
+    "rules"
+  ],
+  "additionalProperties": false
+}

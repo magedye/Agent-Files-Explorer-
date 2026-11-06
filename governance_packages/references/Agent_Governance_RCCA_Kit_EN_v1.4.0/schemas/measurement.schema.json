@@ -1,0 +1,139 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "adeq-metrics-1"
+    },
+    "record_kind": {
+      "type": "string",
+      "const": "DERIVED_NON_AUTHORITATIVE"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "arm": {
+      "type": "string",
+      "enum": [
+        "BEFORE",
+        "AFTER"
+      ]
+    },
+    "evidence_class": {
+      "type": "string",
+      "enum": [
+        "SYNTHETIC",
+        "OBSERVED"
+      ]
+    },
+    "definition_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sample_size": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "conditions": {
+      "type": "object",
+      "properties": {
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "host_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "task_set_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "minLength": 64,
+          "maxLength": 64
+        },
+        "oracle_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "minLength": 64,
+          "maxLength": 64
+        },
+        "environment_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "governance_version": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "model",
+        "host_version",
+        "task_set_sha256",
+        "oracle_sha256",
+        "environment_id",
+        "governance_version"
+      ],
+      "additionalProperties": false
+    },
+    "measurements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "numerator": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "denominator": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "value": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "evidence_ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "numerator",
+          "denominator",
+          "value",
+          "evidence_ref"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "schema_version",
+    "record_kind",
+    "run_id",
+    "arm",
+    "evidence_class",
+    "definition_id",
+    "sample_size",
+    "conditions",
+    "measurements"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

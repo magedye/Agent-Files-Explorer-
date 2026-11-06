@@ -1,0 +1,149 @@
+{
+  "review_date": "2026-11-06",
+  "purpose": "Scoped official-source alignment; not full-model-spec certification.",
+  "network_execution": "Web research only; package CLI has no network calls.",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "OpenAI Model Spec: inspected full-text snapshot",
+      "url": "https://model-spec.openai.com/2025-12-18.html",
+      "evidence_status": "FULL_TEXT_RETRIEVED",
+      "supported_summary": "Native instruction authority, untrusted data and bounded behavior.",
+      "limits": "Not the full text of the separately announced 2026-10-29 update."
+    },
+    {
+      "id": "S02",
+      "title": "Codex project instructions",
+      "url": "https://learn.chatgpt.com/docs/agent-configuration/agents-md",
+      "evidence_status": "FULL_TEXT_RETRIEVED",
+      "supported_summary": "AGENTS discovery, overrides and scoped project guidance.",
+      "limits": "Effective discovery must be checked in the installed host."
+    },
+    {
+      "id": "S03",
+      "title": "Codex approvals and security",
+      "url": "https://learn.chatgpt.com/docs/agent-approvals-security",
+      "evidence_status": "FULL_TEXT_RETRIEVED_WITH_VERSION_DISCREPANCY",
+      "supported_summary": "Sandbox and approval controls are distinct; workspace-write/on-request is used only as an inert example.",
+      "limits": "Indexed and direct views differed on the untrusted approval value. No blanket version-wide claim."
+    },
+    {
+      "id": "S04",
+      "title": "Antigravity rules and workflow migration",
+      "url": "https://antigravity.google/docs/rules/",
+      "evidence_status": "OFFICIAL_INDEXED_CONTENT",
+      "supported_summary": "Rule-discovery and modern skill/workflow information inform the optional adapter.",
+      "limits": "Direct full page not consistently retrievable; installed discovery remains untested."
+    },
+    {
+      "id": "S05",
+      "title": "Antigravity CLI permissions",
+      "url": "https://antigravity.google/docs/cli/permissions",
+      "evidence_status": "FULL_TEXT_RETRIEVED",
+      "supported_summary": "CLI deny/ask/allow controls and scoped permission behavior.",
+      "limits": "Do not generalize CLI settings to all IDE/App versions."
+    },
+    {
+      "id": "S06",
+      "title": "OpenCode V1 permissions",
+      "url": "https://opencode.ai/docs/en/permissions/",
+      "evidence_status": "FULL_TEXT_RETRIEVED",
+      "supported_summary": "V1 permission object and bash identifier differ from V2.",
+      "limits": "Historical/version-scoped documentation, not the assumed installed version."
+    },
+    {
+      "id": "S07",
+      "title": "OpenCode V2 permissions and instructions",
+      "url": "https://opencode.ai/v2/docs/permissions",
+      "evidence_status": "FULL_TEXT_RETRIEVED",
+      "supported_summary": "V2 permissions array, shell tool and host-permission limitations.",
+      "limits": "No live containment or cross-version compatibility was tested."
+    },
+    {
+      "id": "S08",
+      "title": "Google Gemini system-instruction guidance",
+      "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/prompts/system-instructions",
+      "evidence_status": "FULL_TEXT_RETRIEVED",
+      "supported_summary": "System instructions and application safety remain separate concerns.",
+      "limits": "No complete OpenAI-equivalent hierarchy was established for Gemini."
+    },
+    {
+      "id": "S09",
+      "title": "Anthropic Constitution",
+      "url": "https://www.anthropic.com/constitution",
+      "evidence_status": "FULL_TEXT_RETRIEVED",
+      "supported_summary": "Legitimate oversight, principal relationships and honesty inform provider alignment.",
+      "limits": "Not a certification of actual model behavior; not the OpenAI hierarchy."
+    },
+    {
+      "id": "S10",
+      "title": "Spec Kit quickstart",
+      "url": "https://github.github.com/spec-kit/quickstart.html",
+      "evidence_status": "FULL_TEXT_RETRIEVED",
+      "supported_summary": "Existing specification/task tooling is preferred over replacing it.",
+      "limits": "Only limited file conventions are parsed; no product was installed or exercised."
+    },
+    {
+      "id": "S11",
+      "title": "RFC 8174: normative keyword interpretation",
+      "url": "https://www.rfc-editor.org/rfc/rfc8174.html",
+      "evidence_status": "FULL_TEXT_RETRIEVED",
+      "supported_summary": "Uppercase MUST/SHOULD/MAY communicate normative force under declared usage.",
+      "limits": "Normative text does not enforce runtime permissions."
+    },
+    {
+      "id": "S12",
+      "title": "OWASP LLM06 excessive agency",
+      "url": "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/",
+      "evidence_status": "FULL_TEXT_RETRIEVED",
+      "supported_summary": "Excessive functionality, permissions and autonomy motivate scoped controls.",
+      "limits": "Risk taxonomy does not quantify this kit's error-prevention effectiveness."
+    },
+    {
+      "id": "S13",
+      "title": "OpenAI Model Spec update announcement and release notes",
+      "url": "https://openai.com/index/updated-model-spec/",
+      "evidence_status": "OFFICIAL_INDEXED_ANNOUNCEMENT",
+      "supported_summary": "Official indexed sources identify an October 29, 2026 update.",
+      "limits": "New versioned full text could not be retrieved; direct/cached changelog views differed."
+    },
+    {
+      "id": "S14",
+      "title": "OpenSpec quickstart",
+      "url": "https://openspec.dev/docs/quickstart",
+      "evidence_status": "OFFICIAL_INDEXED_CONTENT",
+      "supported_summary": "Delta-spec/change concepts inform the limited Markdown bridge.",
+      "limits": "Full live tool behavior and complete grammar not qualified."
+    }
+  ],
+  "local_sources": [
+    {
+      "id": "USER-REQUEST",
+      "description": "Current instruction authorizing isolated English package construction; one developer, one primary agent, bounded broad autonomy."
+    },
+    {
+      "id": "INPUT-PLAN",
+      "description": "Supplied Arabic AG-DLF v1.3 plan; immutable digest in INPUT_MANIFEST.json."
+    },
+    {
+      "id": "INPUT-V12",
+      "description": "Agent_Governance_Kit_AR_v1.2_COMPLETE.zip; original executable compatibility files preserved."
+    }
+  ],
+  "additional_official_urls": {
+    "S04": [
+      "https://antigravity.google/docs/ide/workflows/"
+    ],
+    "S07": [
+      "https://opencode.ai/v2/docs/instructions"
+    ],
+    "S08": [
+      "https://ai.google.dev/gemini-api/docs/safety-guidance"
+    ],
+    "S13": [
+      "https://github.com/openai/model_spec/blob/main/CHANGELOG.md",
+      "https://help.openai.com/en/articles/9624314-model-release-notes",
+      "https://model-spec.openai.com/2026-10-29.html"
+    ]
+  }
+}

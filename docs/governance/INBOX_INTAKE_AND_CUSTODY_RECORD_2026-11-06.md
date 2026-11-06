@@ -44,8 +44,11 @@ The 24 root files in `governance_packages/INBOX/` remain byte-identical, untrunc
 
 | Item Name | Type | Size / Items | SHA-256 (where applicable) | Disposition | Downstream Artifact / Target |
 |---|---|---|---|---|---|
+| `Agent_Governance_RCCA_Kit_EN_v1.4.0.zip` | Archive | 304,024 bytes | `cbe3039cf6423d4cf90e1dd9664f358fe67d714f2c51f288c9ad5779637931a9` | `PROCESSED_AND_REGISTERED` | `governance_packages/references/Agent_Governance_RCCA_Kit_EN_v1.4.0/` & `AGHR_Studio_1.4.0_Baseline_v1_RELEASE.json` |
+| `Agent_Governance_RCCA_Kit_EN_v1.3.1.zip` | Archive | 188,481 bytes | `83fd410a039e5536cf05c8c2ca8405ccb7fb008d3816633d2f8e5c6818e89cfb` | `HISTORICAL_INTERMEDIATE_CUSTODY` | Retained under `governance_packages/INBOX/NEW/Agent_Governance_RCCA_Kit_EN_v1.3.1.zip` |
 | `Agent_Governance_RCCA_Kit_EN_v1.3.0.zip` | Archive | 151,000 bytes | `613bd920bb156314bd74d0e5034a6d74659d93dafc588611222bae7e4ea92766` | `PROCESSED_AND_REGISTERED` | `governance_packages/references/Agent_Governance_RCCA_Kit_EN_v1.3.0.zip` |
 | `Agent_Governance_RCCA_Kit_EN_v1.3.0` | Package Directory | 102 files | 100% verified against `SHA256SUMS.txt` | `PROCESSED_AND_REGISTERED` | `governance_packages/references/Agent_Governance_RCCA_Kit_EN_v1.3.0/` & `AGHR_Studio_1.3.0_Baseline_v1_RELEASE.json` |
+| `Prompt - Agent Execution Governance — Component.md` | Document | 16,022 bytes | Recorded | `INTAKE_REFERENCE_RETAINED` | Retained under `governance_packages/INBOX/NEW/` (Task ID: `AGENT-EXEC-GOV-REF-001`) |
 | `AAPES_Policy_Engineering_PLUGIN_SKILL_v2.1.zip` | Archive | 65,348 bytes | `81bb6cfaad82df995cb2ff40ba8148b813f8c2b74eb3dfef86b8602b668fa70f` | `PROCESSED_CANDIDATE` | `governance_packages/candidates/AAPES_v2.1_Candidate/` (Status: `REVIEW_REQUIRED / BLOCKED_FOR_MERGE`) |
 | `Model Spec.md` | Document | 139,122 bytes | `e3579b4d5ebba4839cf77ba88ef779fa27ea6e36b0fa8ffb09a691506bf407aa` | `INTAKE_REFERENCE_RETAINED` | Retained under `governance_packages/INBOX/NEW/Model Spec.md` for historical model-spec reference |
 | `Enterprise_Agent_Governance_Rule_Engineer_Skill_v1.0.0.zip` | Archive | 52,180 bytes | Recorded | `PENDING_REVIEW` | Queued for separate skill evaluation |

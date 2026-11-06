@@ -1,0 +1,94 @@
+{
+  "release": "1.4.0",
+  "adeq": "1.1",
+  "execution_date": "2026-11-06",
+  "python": "3.13.5",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "distinct_tests_passed": 295,
+  "previous_release_tests": 185,
+  "added_tests": 110,
+  "execution_model": "Offline synthetic fixtures; same-author construction and self-review, not independent release acceptance.",
+  "runs": [
+    {
+      "scope": "CURRENT_PACKAGE_UNIT_AND_CLI",
+      "command": [
+        "python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "distinct_tests": 251,
+      "reported_seconds": 7.921,
+      "log": "verification/V140_TESTS.txt",
+      "log_sha256": "658e59ef3478343bbebd906c8975054ca64fcc4540dbfe20568a431e1839bcec"
+    },
+    {
+      "scope": "UNCHANGED_LEGACY_TOOLS",
+      "command": [
+        "python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "compatibility/v1_2/tests",
+        "-p",
+        "test_tools.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "distinct_tests": 20,
+      "reported_seconds": 15.463,
+      "log": "verification/V140_LEGACY_TOOLS_ATTEMPT.txt",
+      "log_sha256": "14578259f82faff71ccb9c1fa13a707348701d759b447b27e58a3c2db5403f0c"
+    },
+    {
+      "scope": "UNCHANGED_LEGACY_RCCA",
+      "command": [
+        "python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "compatibility/v1_2/tests",
+        "-p",
+        "test_rcca.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "distinct_tests": 24,
+      "reported_seconds": 30.78,
+      "log": "verification/V140_LEGACY_RCCA_ATTEMPT.txt",
+      "log_sha256": "e69d191b7f207b7c603b8f2700bffb8ee8db8bc461c0558a17866f8f516cb0f8"
+    }
+  ],
+  "earlier_attempts": [
+    {
+      "log": "verification/V140_TESTS_INITIAL.txt",
+      "outcome": "1 failure in 251: inherited CLI version expectation still 1.3.1",
+      "disposition": "Updated expected release string only; reran 251 tests successfully."
+    },
+    {
+      "scope": "Initial combined baseline legacy-suite attempt",
+      "outcome": "Tool timeout; incomplete attempt not counted as PASS",
+      "disposition": "Ran separate unchanged legacy modules successfully with captured logs."
+    }
+  ],
+  "not_run": [
+    "LIVE_CODEX",
+    "WINDOWS_RUNTIME",
+    "ANTIGRAVITY",
+    "OPENCODE",
+    "SPECIFY_CLI_INTEGRATION",
+    "QA_01_TO_QA_20_LIVE_BEHAVIOR",
+    "BLIND_HOLDOUT",
+    "INDEPENDENT_RELEASE_REVIEW",
+    "PROJECT_PRE_POST_EFFECTIVENESS"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "version": "1.3.1",
+  "date": "2026-11-06",
+  "environment": {
+    "os": "Linux",
+    "python": "3.13.5"
+  },
+  "independence": "AUTHOR_SELF_ASSESSMENT_NOT_INDEPENDENT",
+  "checks": [
+    {
+      "id": "V131_NEW_UNIT",
+      "status": "PASSED",
+      "count": 141,
+      "duration_seconds": 4.793,
+      "evidence": "V131_NEW_TESTS.txt"
+    },
+    {
+      "id": "V131_LEGACY_TOOLS",
+      "status": "PASSED",
+      "count": 20,
+      "duration_seconds": 17.002,
+      "evidence": "V131_LEGACY_TOOLS.txt"
+    },
+    {
+      "id": "V131_LEGACY_RCCA",
+      "status": "PASSED",
+      "count": 24,
+      "duration_seconds": 40.146,
+      "evidence": "V131_LEGACY_RCCA.txt"
+    }
+  ],
+  "distinct_unit_tests_passed": 185,
+  "smoke": {
+    "cli_version": "1.3.1",
+    "fixture_G5": "METADATA_READY_FOR_REVIEW",
+    "instruction_audit": "INCONCLUSIVE_BY_DESIGN",
+    "instruction_audit_loaded": "NOT_VERIFIED"
+  },
+  "live_codex_on_windows": "NOT_RUN",
+  "runtime_enforcement": "NOT_IMPLEMENTED",
+  "independent_holdout": "NOT_RUN",
+  "actual_project_pre_post": "NOT_RUN",
+  "owner_acceptance": "NOT_GRANTED",
+  "activation": "NOT_ACTIVE"
+}

@@ -1,0 +1,91 @@
+{
+  "schema_version": "adeq-1.1",
+  "record_kind": "DERIVED_NON_AUTHORITATIVE",
+  "subject_revision": "fixture-revision-1",
+  "request_path": "request.txt",
+  "trace_ref": {
+    "path": "trace.json",
+    "sha256": "5f560014d57b330553bda86521cfced353517cc3e0ba418f1ad8e3214f45110d"
+  },
+  "context": {
+    "task_id": "TASK-EXAMPLE",
+    "work_type": "FEATURE",
+    "complexity": "LOW",
+    "impact": "LOW",
+    "reversibility": "YES",
+    "material_decision": false,
+    "documentation_changed": false
+  },
+  "sources": [
+    {
+      "id": "QSPEC",
+      "role": "SPEC",
+      "path": "spec.md",
+      "sha256": "421e4685c4457999cb819bedb079e886ea04ba7da4c586377f620e9cec1f6877",
+      "trust": "PROJECT_REFERENCE",
+      "authority_reference": "SYNTHETIC_FIXTURE_NOT_REAL_AUTHORITY"
+    },
+    {
+      "id": "QPLAN",
+      "role": "PLAN",
+      "path": "tasks.md",
+      "sha256": "9721a041f23f084f69f980bea3c05cc03aea846de9008b0a92e14db0ee1f2417",
+      "trust": "PROJECT_REFERENCE",
+      "authority_reference": "SYNTHETIC_FIXTURE_NOT_REAL_AUTHORITY"
+    },
+    {
+      "id": "QREVIEW",
+      "role": "REVIEW",
+      "path": "review.md",
+      "sha256": "d46bc79135ee74a6284cd935a5af93bb22a300cb30537ee2c47407fa2a1d7eed",
+      "trust": "PROJECT_REFERENCE",
+      "authority_reference": "SYNTHETIC_FIXTURE_NOT_REAL_AUTHORITY"
+    },
+    {
+      "id": "QDECISION",
+      "role": "DECISION",
+      "path": "decision.md",
+      "sha256": "8c6143ae1787549ea0e2cbd51e4fb7b752ca95e1478d8066843df6815f378b3c",
+      "trust": "PROJECT_REFERENCE",
+      "authority_reference": "SYNTHETIC_FIXTURE_NOT_REAL_AUTHORITY"
+    },
+    {
+      "id": "QLOG",
+      "role": "TEST_LOG",
+      "path": "test.log",
+      "sha256": "58bfb6764b1122c294561d0b51bc336e42880056860be842e43510f46b72587c",
+      "trust": "PROJECT_REFERENCE",
+      "authority_reference": "SYNTHETIC_FIXTURE_NOT_REAL_AUTHORITY"
+    },
+    {
+      "id": "QINSPECT",
+      "role": "INSPECTION_LOG",
+      "path": "inspection.log",
+      "sha256": "9021aa1a88413bc1fba40ec4e75e85f4ba694090b9f0cfb807d024304034680b",
+      "trust": "PROJECT_REFERENCE",
+      "authority_reference": "SYNTHETIC_FIXTURE_NOT_REAL_AUTHORITY"
+    }
+  ],
+  "ambiguities": [],
+  "decisions": [],
+  "claims": [],
+  "observations": [],
+  "confidence": {},
+  "review": {
+    "status": "REVIEWED",
+    "mode": "SELF",
+    "reviewer": "fixture-author",
+    "artifact_ref": "QREVIEW",
+    "separation_note": "Not independent",
+    "independent_required_by_project": false,
+    "policy_ref": ""
+  },
+  "rollback": {
+    "strategy": "NOT_APPLICABLE",
+    "procedure_ref": "",
+    "rehearsal": "NOT_RUN",
+    "evidence_ref": "",
+    "residual_risk": "Synthetic reversible example only."
+  },
+  "document_checks": []
+}

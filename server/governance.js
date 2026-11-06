@@ -11,6 +11,7 @@ import {
   AGHR_MINIMAL_1_1_0_ROOT,
   AGHR_1_2_0_ROOT,
   AGHR_1_3_0_ROOT,
+  AGHR_1_4_0_ROOT,
   AGHR_RC3_ROOT,
   AAPES_CANDIDATE_ROOT,
   GOVERNANCE_PACKAGES_ROOT,
@@ -226,6 +227,121 @@ class GovernanceReferenceService {
       });
     }
 
+    if (fs.existsSync(AGHR_1_4_0_ROOT)) {
+      const releaseFile = readJsonFile(GOVERNANCE_PACKAGES_ROOT, "references/AGHR_Studio_1.4.0_Baseline_v1_RELEASE.json") || {};
+      const pkgStatus = readJsonFile(AGHR_1_4_0_ROOT, "PACKAGE_STATUS.json") || {};
+      const rulesData = readJsonFile(AGHR_1_4_0_ROOT, "policies/RULES.json") || {};
+      const adeqRulesData = readJsonFile(AGHR_1_4_0_ROOT, "policies/ADEQ_RULES.json") || {};
+      const sourcesData = readJsonFile(AGHR_1_4_0_ROOT, "sources/SOURCE_REGISTER.json") || {};
+      const v140SourcesData = readJsonFile(AGHR_1_4_0_ROOT, "sources/V140_SOURCE_REGISTER.json") || {};
+      const workflowsData = readJsonFile(AGHR_1_4_0_ROOT, "workflows/QUALITY_WORKFLOWS.json") || {};
+
+      const mapRule = (r, kind = "CORE") => ({
+        id: r.id,
+        name: r.title || r.name,
+        title: r.title || r.name,
+        text: r.obligation || r.statement || r.text || "",
+        obligation: r.obligation || r.statement || r.text || "",
+        force: r.normative || r.force || "MUST",
+        normative: r.normative || r.force || "MUST",
+        impact: r.impact || "HIGH",
+        impact_basis: r.impact_basis || "",
+        authority_plane: r.authority_plane || "PROJECT",
+        authority_claim: r.authority_claim || "PROJECT_CANDIDATE",
+        native_delivery_role: r.native_delivery_role || "HOST_DEFINED_NOT_ESCALATED",
+        scope: r.scope || "",
+        trigger: r.trigger || "",
+        exception_authority: r.exception_authority || "",
+        failure_behavior: r.failure_behavior || "",
+        enforcement: r.enforcement || "HOST_REQUIRED",
+        enforcementClass: r.enforcement || "HOST_REQUIRED",
+        verification: r.verification || "",
+        basis: r.source_ids || r.sources || [],
+        source_ids: r.source_ids || r.sources || [],
+        test_refs: r.test_refs || [],
+        status: r.status || "REVIEW_CANDIDATE",
+        coverage: r.status || "REVIEW_CANDIDATE",
+        rule_family: kind,
+      });
+
+      const coreRules = (rulesData.rules || []).map((r) => mapRule(r, "CORE"));
+      const adeqRules = (adeqRulesData.rules || []).map((r) => mapRule(r, "ADEQ"));
+      const rules = [...coreRules, ...adeqRules];
+
+      const allSourcesRaw = [...(sourcesData.sources || []), ...(v140SourcesData.sources || [])];
+      const sources = allSourcesRaw.map((s) => ({
+        id: s.id,
+        title: s.title,
+        publisher: s.title ? s.title.split(":")[0].trim() : "Provider / ADEQ Standards",
+        kind: s.id.startsWith("S1") ? "ADEQ_QUALITY_SOURCE" : "OFFICIAL_PROVIDER_GUIDANCE",
+        locator: s.url || "",
+        url: s.url || "",
+        supported_takeaway: s.supported_summary || "",
+        limits: s.limits || "",
+        evidence_status: s.evidence_status || "UNVERIFIED",
+      }));
+
+      const adapters = [
+        { id: "ADAPT-AGDL-DOCTOR", name: "agdl doctor diagnostic tool", type: "DIAGNOSTIC", targetVersion: "1.4.0" },
+        { id: "ADAPT-AGDL-LINT", name: "agdl rules-lint validator", type: "LINTER", targetVersion: "1.4.0" },
+        { id: "ADAPT-AGDL-VALIDATE", name: "agdl schema validator", type: "VALIDATOR", targetVersion: "1.4.0" },
+        { id: "ADAPT-AGDL-AUDIT", name: "agdl instruction-audit inventory", type: "AUDITOR", targetVersion: "1.4.0" },
+        { id: "ADAPT-CODEX", name: "Codex primary agent adapter", type: "HOST_ADAPTER", targetVersion: "1.4.0" },
+        { id: "ADAPT-ANTIGRAVITY", name: "Antigravity optional host adapter", type: "HOST_ADAPTER", targetVersion: "1.4.0" },
+        { id: "ADAPT-OPENCODE", name: "OpenCode optional host adapter", type: "HOST_ADAPTER", targetVersion: "1.4.0" },
+      ];
+
+      const profiles = {
+        SOLO_DEVELOPER_ONE_PRIMARY_AGENT: {
+          id: "SOLO_DEVELOPER_ONE_PRIMARY_AGENT",
+          name: "Solo Developer + One Primary Agent (Codex)",
+          description: "Targeted profile for one developer-owner and one primary coding agent on small/medium projects",
+        },
+        QUICK: { id: "QUICK", name: "Quick Track (informal local changes)" },
+        STANDARD: { id: "STANDARD", name: "Standard Track (gated review)" },
+        CONTROLLED: { id: "CONTROLLED", name: "Controlled Track (formal compliance & signoff)" },
+      };
+
+      const enforcement = rules.map((r) => ({ ruleId: r.id, level: r.force, class: r.enforcement }));
+
+      this._packages.set("aghr_1_4_0", {
+        id: "aghr_1_4_0",
+        name: releaseFile.package || "Agent Governance & RCCA Kit EN",
+        version: releaseFile.version || "1.4.0",
+        baseline: "Baseline v1",
+        kind: "BASELINE_V1",
+        rootPath: AGHR_1_4_0_ROOT,
+        description: releaseFile.scope || "Agent Governance & RCCA Kit EN v1.4.0 Baseline v1 registration with ADEQ 1.1",
+        isDefault: false, // legacy release default remains aghr_rc3
+        isDefaultBaseline: true,
+        defaultForNewWorkflows: true,
+        adeqVersion: "1.1",
+        workflows: workflowsData.workflows || [],
+        status: {
+          package: releaseFile.package || "Agent Governance & RCCA Kit EN",
+          version: releaseFile.version || "1.4.0",
+          baseline: "Baseline v1",
+          reference_state: releaseFile.reference_state || "REGISTERED_BASELINE_V1_RELEASE",
+          default_provider: "OPENAI",
+          default_profile: releaseFile.default_profile || "SOLO_DEVELOPER_ONE_PRIMARY_AGENT",
+          primary_host: releaseFile.primary_host || "Codex",
+          optional_hosts: releaseFile.optional_hosts || ["Antigravity", "OpenCode"],
+          independent_review: releaseFile.independent_review || "NOT_PERFORMED_FOR_V1_4_0",
+          release_acceptance: releaseFile.release_acceptance || "NOT_GRANTED",
+          project_activation: releaseFile.project_activation || "NOT_ACTIVE",
+          runtime_enforcement: releaseFile.runtime_enforcement || "NOT_IMPLEMENTED",
+          distinct_tests_passed: releaseFile.distinct_tests_passed || 295,
+          adeq_version: "1.1",
+          quality_layer: "ADEQ_1_1_WITH_SEVEN_WORKFLOWS",
+        },
+        rules,
+        sources,
+        adapters,
+        profiles,
+        enforcement,
+      });
+    }
+
     // Previous minimal distribution stays available from archive.
     
     // AAPES v2.1 Policy Engineering Candidate
@@ -334,7 +450,7 @@ class GovernanceReferenceService {
       return this._packages.get(packageId);
     }
     if (packageId === "baseline_v1" || packageId === "new_workflow") {
-      return this._packages.get("aghr_1_3_0") || this._packages.get(this._defaultPackageId);
+      return this._packages.get("aghr_1_4_0") || this._packages.get("aghr_1_3_0") || this._packages.get(this._defaultPackageId);
     }
     return this._packages.get(this._defaultPackageId) || Array.from(this._packages.values())[0];
   }
@@ -461,6 +577,19 @@ class GovernanceReferenceService {
   getContracts(packageId = "") {
     const pkg = this._getPackage(packageId);
     if (pkg?.id === "aghr_rc3") return []; // rc.3 schemas use the existing Studio contract viewer.
+    if (pkg && pkg.id === "aghr_1_4_0") {
+      return [
+        { id: "CORE", title: "Core Operating Contract", path: "policies/CORE.md" },
+        { id: "RULES", title: "Governed Rules Contract", path: "policies/RULES.json" },
+        { id: "ADEQ", title: "ADEQ Quality Contract", path: "policies/ADEQ.md" },
+        { id: "ADEQ_RULES", title: "ADEQ Rules Specification", path: "policies/ADEQ_RULES.json" },
+        { id: "BOUNDED_AUTONOMY", title: "Bounded Autonomy Contract", path: "docs/02_BOUNDED_AUTONOMY.md" },
+        { id: "EVIDENCE_RCCA", title: "Evidence & RCCA Contract", path: "docs/04_EVIDENCE_AND_RCCA.md" },
+        { id: "WORKFLOWS", title: "Seven Quality Workflows", path: "workflows/QUALITY_WORKFLOWS.md" },
+        { id: "DATA_CONTRACTS", title: "Data Contracts and CLI", path: "docs/08_DATA_CONTRACTS_AND_CLI.md" },
+        { id: "LIMITATIONS", title: "Limitations and Boundaries", path: "LIMITATIONS.md" },
+      ];
+    }
     if (pkg && pkg.id === "aghr_1_3_0") {
       return [
         { id: "CORE", title: "Core Operating Contract", path: "policies/CORE.md" },
@@ -489,8 +618,9 @@ class GovernanceReferenceService {
 
   getSchemas(packageId = "") {
     const pkg = this._getPackage(packageId);
-    if (pkg && pkg.id === "aghr_1_3_0") {
-      const schemasDir = path.join(AGHR_1_3_0_ROOT, "schemas");
+    if (pkg && (pkg.id === "aghr_1_4_0" || pkg.id === "aghr_1_3_0")) {
+      const rootPath = pkg.id === "aghr_1_4_0" ? AGHR_1_4_0_ROOT : AGHR_1_3_0_ROOT;
+      const schemasDir = path.join(rootPath, "schemas");
       if (fs.existsSync(schemasDir)) {
         return fs.readdirSync(schemasDir)
           .filter((f) => f.endsWith(".json"))

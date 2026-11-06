@@ -1,0 +1,38 @@
+{
+  "review_date": "2026-11-06",
+  "role": "EXTERNAL_DESIGN_VERIFICATION_NOT_PROJECT_AUTHORITY",
+  "sources": [
+    {
+      "id": "V140-OAI-SPEC",
+      "url": "https://model-spec.openai.com/2025-12-18.html",
+      "scope": "Directly retrieved dated edition: authority, autonomy, side effects, untrusted data and uncertainty.",
+      "limit": "No claim this is the newest full edition or proof of actual model compliance."
+    },
+    {
+      "id": "V140-OAI-GUIDANCE",
+      "url": "https://learn.chatgpt.com/docs/agent-configuration/agents-md",
+      "scope": "Current retrieved guidance discovery documentation.",
+      "limit": "Actual session not inspected; cached retrieval may differ from installed host."
+    },
+    {
+      "id": "V140-OAI-SKILLS",
+      "url": "https://learn.chatgpt.com/docs/build-skills",
+      "scope": "On-demand skill authoring and resource references.",
+      "limit": "No install, implicit-trigger test or host qualification performed."
+    },
+    {
+      "id": "V140-SPEC-KIT-SDD",
+      "url": "https://github.github.com/spec-kit/reference/agentic-sdd.html",
+      "scope": "Clarify/checklist/analyze workflow ideas only.",
+      "limit": "No Spec Kit executable integration tested."
+    },
+    {
+      "id": "V140-SPEC-KIT-CONVERGE",
+      "url": "https://github.com/github/spec-kit/blob/main/templates/commands/converge.md",
+      "scope": "Reviewed convergence classification and task/hook behavior; our adaptation differs explicitly.",
+      "limit": "Mutable main-branch content, not a pinned executable dependency."
+    }
+  ],
+  "upstream_code_copied": false,
+  "source_vs_design": "Five additions and seven components derive from user material; implementation choices and limitations are documented separately."
+}

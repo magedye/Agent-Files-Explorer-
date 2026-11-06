@@ -1,0 +1,37 @@
+{
+  "schema_version": "agdl-change-inventory-1",
+  "parent_release": "1.3.0",
+  "release": "1.3.1",
+  "source_archive_sha256": "613bd920bb156314bd74d0e5034a6d74659d93dafc588611222bae7e4ea92766",
+  "modified_existing_files": [
+    "CHANGELOG.md",
+    "LIMITATIONS.md",
+    "PACKAGE_STATUS.json",
+    "README.md",
+    "START_HERE.md",
+    "agdl/__init__.py",
+    "agdl/__main__.py",
+    "agdl/assurance.py",
+    "docs/03_WORKFLOW_AND_ACCEPTANCE.md",
+    "docs/04_EVIDENCE_AND_RCCA.md",
+    "docs/08_DATA_CONTRACTS_AND_CLI.md",
+    "schemas/trace.schema.json",
+    "tests/test_io_bridge_scope.py"
+  ],
+  "new_files": [
+    "agdl/instruction_audit.py",
+    "docs/11_V131_CORRECTIVE_SCOPE.md",
+    "templates/INSTRUCTION_SOURCES.json",
+    "tests/test_instruction_audit.py",
+    "tests/test_v131_regressions.py",
+    "verification/V131_LEGACY_RCCA.txt",
+    "verification/V131_LEGACY_TOOLS.txt",
+    "verification/V131_NEW_TESTS.txt",
+    "verification/V131_PATCH_LEDGER.json",
+    "verification/V131_PATCH_VERIFICATION.md"
+  ],
+  "removed_existing_files": [],
+  "historical_compatibility_files_unchanged": true,
+  "original_files_deleted": 0,
+  "note": "This is a local manifest comparison, not cryptographically signed release provenance."
+}

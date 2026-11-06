@@ -188,17 +188,18 @@ export async function handleApiRequest(req, res) {
     if (u.pathname === "/api/governance/baseline") {
       return send(200, {
         baseline: "Baseline v1",
-        packageId: "aghr_1_3_0",
-        version: "1.3.0",
-        status: "REGISTERED_BASELINE_V1_CANDIDATE",
+        packageId: "aghr_1_4_0",
+        version: "1.4.0",
+        status: "REGISTERED_BASELINE_V1_RELEASE",
         defaultForNewWorkflows: true,
         legacyReleaseDefaultId: DEFAULT_PACKAGE_ID,
-        summary: governanceService.getSummary("aghr_1_3_0"),
+        adeqVersion: "1.1",
+        summary: governanceService.getSummary("aghr_1_4_0"),
       });
     }
 
     if (u.pathname === "/api/governance/schemas") {
-      const packageId = u.searchParams.get("packageId") || u.searchParams.get("package") || "aghr_1_3_0";
+      const packageId = u.searchParams.get("packageId") || u.searchParams.get("package") || "aghr_1_4_0";
       return send(200, { schemas: governanceService.getSchemas(packageId) });
     }
 
@@ -207,7 +208,7 @@ export async function handleApiRequest(req, res) {
       const workflowParam = u.searchParams.get("workflow");
       let packageId = u.searchParams.get("packageId") || u.searchParams.get("package") || "";
       if (!packageId && (baselineParam === "v1" || workflowParam === "new")) {
-        packageId = "aghr_1_3_0";
+        packageId = "aghr_1_4_0";
       }
       return send(200, governanceService.getSummary(packageId));
     }

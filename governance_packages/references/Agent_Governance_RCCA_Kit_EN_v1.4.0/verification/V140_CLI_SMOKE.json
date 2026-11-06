@@ -1,0 +1,627 @@
+[
+  {
+    "command": [
+      "python",
+      "-B",
+      "-m",
+      "agdl",
+      "doctor"
+    ],
+    "exit_code": 0,
+    "stdout": {
+      "version": "1.4.0",
+      "python": "3.13.5",
+      "os": "Linux",
+      "stdlib_only": true,
+      "runtime_enforcement": false,
+      "adeq_version": "1.1",
+      "quality_checks": "DERIVED_METADATA_ONLY",
+      "host_configuration_inspected": false,
+      "project_adoption": "NOT_PERFORMED"
+    },
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "-m",
+      "agdl",
+      "rules-lint"
+    ],
+    "exit_code": 0,
+    "stdout": {
+      "verdict": "METADATA_VALID",
+      "issues": [],
+      "runtime_enforcement_verified": false
+    },
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "tools/build_quality_docs.py",
+      "--check"
+    ],
+    "exit_code": 0,
+    "stdout": {
+      "status": "PASSED",
+      "differences": []
+    },
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "-m",
+      "agdl",
+      "quality-route",
+      "--snapshot",
+      "examples/fixture/quality.json"
+    ],
+    "exit_code": 0,
+    "stdout": {
+      "verdict": "ROUTING_RECOMMENDATION_ONLY",
+      "profile": "QUICK",
+      "reasons": [
+        "small_clear_reversible_change"
+      ],
+      "bug_workflow": false,
+      "new_document_mandatory": false,
+      "authorization_granted": false,
+      "exit_code": 0
+    },
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "-m",
+      "agdl",
+      "quality-check",
+      "--root",
+      "examples/fixture",
+      "--snapshot",
+      "examples/fixture/quality.json",
+      "--stage",
+      "PRE",
+      "--revision",
+      "fixture-revision-1"
+    ],
+    "exit_code": 0,
+    "stdout": {
+      "schema_version": "adeq-report-1.1",
+      "record_kind": "DERIVED_NON_AUTHORITATIVE",
+      "stage": "PRE",
+      "findings": [],
+      "unknowns": [],
+      "warnings": [
+        "DECLARED_METADATA_NOT_AUTHENTICATED",
+        "SEMANTIC_REVIEW_AND_LIVE_AGENT_EVALUATION_STILL_REQUIRED"
+      ],
+      "source_checks": [
+        {
+          "id": "QSPEC",
+          "hash_matches": true
+        },
+        {
+          "id": "QPLAN",
+          "hash_matches": true
+        },
+        {
+          "id": "QREVIEW",
+          "hash_matches": true
+        },
+        {
+          "id": "QDECISION",
+          "hash_matches": true
+        },
+        {
+          "id": "QLOG",
+          "hash_matches": true
+        },
+        {
+          "id": "QINSPECT",
+          "hash_matches": true
+        }
+      ],
+      "coverage": [
+        {
+          "requirement_id": "REQ-001",
+          "source_unit_ids": [
+            "SRC-0001"
+          ],
+          "task_ids": [
+            "T001"
+          ],
+          "implementation_refs": [
+            "IMPL-1"
+          ],
+          "evidence_refs": [
+            "EV-1"
+          ],
+          "implementation_state": "IMPLEMENTED",
+          "verification": "PASSED"
+        },
+        {
+          "requirement_id": "REQ-002",
+          "source_unit_ids": [
+            "SRC-0002"
+          ],
+          "task_ids": [
+            "T001"
+          ],
+          "implementation_refs": [
+            "IMPL-1"
+          ],
+          "evidence_refs": [
+            "EV-2"
+          ],
+          "implementation_state": "IMPLEMENTED",
+          "verification": "PASSED"
+        }
+      ],
+      "remediation_proposals": [],
+      "semantic_completeness_verified": false,
+      "agent_behavior_verified": false,
+      "authorization_authenticated": false,
+      "independent_review_verified": false,
+      "runtime_enforcement_verified": false,
+      "execution_performed": false,
+      "owner_approval": "NOT_EVALUATED",
+      "input_digest": "1bb9ccf5441098bdf80e80651a25f499037966ec48bbff31bc06a9b4cd9b92f1",
+      "routing": {
+        "verdict": "ROUTING_RECOMMENDATION_ONLY",
+        "profile": "QUICK",
+        "reasons": [
+          "small_clear_reversible_change"
+        ],
+        "bug_workflow": false,
+        "new_document_mandatory": false,
+        "authorization_granted": false,
+        "exit_code": 0
+      },
+      "rcca_report": {
+        "schema_version": "agdl-report-1.3",
+        "record_kind": "DERIVED_NON_AUTHORITATIVE",
+        "stage": "G1",
+        "verdict": "METADATA_READY_FOR_REVIEW",
+        "issues": [],
+        "unknowns": [],
+        "warnings": [
+          "G1_validates_source_extraction_not_implementation_links"
+        ],
+        "reference_checks": [],
+        "semantic_completeness_verified": false,
+        "runtime_enforcement_verified": false,
+        "authorization_authenticated": false,
+        "independent_review_verified": false,
+        "owner_approval": "NOT_EVALUATED",
+        "execution_performed": false,
+        "source_sha256": "37519c2219144a988a04eb457176fc4d0ff07f3fbc2d810213dc628b42632631",
+        "requirements_count": 2,
+        "exit_code": 0
+      },
+      "verdict": "QUALITY_METADATA_READY_FOR_REVIEW",
+      "exit_code": 0
+    },
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "-m",
+      "agdl",
+      "converge",
+      "--root",
+      "examples/fixture",
+      "--snapshot",
+      "examples/fixture/quality.json",
+      "--revision",
+      "fixture-revision-1"
+    ],
+    "exit_code": 0,
+    "stdout": {
+      "schema_version": "adeq-report-1.1",
+      "record_kind": "DERIVED_NON_AUTHORITATIVE",
+      "stage": "POST",
+      "findings": [],
+      "unknowns": [],
+      "warnings": [
+        "DECLARED_METADATA_NOT_AUTHENTICATED",
+        "SEMANTIC_REVIEW_AND_LIVE_AGENT_EVALUATION_STILL_REQUIRED",
+        "self_review_not_independent"
+      ],
+      "source_checks": [
+        {
+          "id": "QSPEC",
+          "hash_matches": true
+        },
+        {
+          "id": "QPLAN",
+          "hash_matches": true
+        },
+        {
+          "id": "QREVIEW",
+          "hash_matches": true
+        },
+        {
+          "id": "QDECISION",
+          "hash_matches": true
+        },
+        {
+          "id": "QLOG",
+          "hash_matches": true
+        },
+        {
+          "id": "QINSPECT",
+          "hash_matches": true
+        }
+      ],
+      "coverage": [
+        {
+          "requirement_id": "REQ-001",
+          "source_unit_ids": [
+            "SRC-0001"
+          ],
+          "task_ids": [
+            "T001"
+          ],
+          "implementation_refs": [
+            "IMPL-1"
+          ],
+          "evidence_refs": [
+            "EV-1"
+          ],
+          "implementation_state": "IMPLEMENTED",
+          "verification": "PASSED"
+        },
+        {
+          "requirement_id": "REQ-002",
+          "source_unit_ids": [
+            "SRC-0002"
+          ],
+          "task_ids": [
+            "T001"
+          ],
+          "implementation_refs": [
+            "IMPL-1"
+          ],
+          "evidence_refs": [
+            "EV-2"
+          ],
+          "implementation_state": "IMPLEMENTED",
+          "verification": "PASSED"
+        }
+      ],
+      "remediation_proposals": [],
+      "semantic_completeness_verified": false,
+      "agent_behavior_verified": false,
+      "authorization_authenticated": false,
+      "independent_review_verified": false,
+      "runtime_enforcement_verified": false,
+      "execution_performed": false,
+      "owner_approval": "NOT_EVALUATED",
+      "input_digest": "1bb9ccf5441098bdf80e80651a25f499037966ec48bbff31bc06a9b4cd9b92f1",
+      "routing": {
+        "verdict": "ROUTING_RECOMMENDATION_ONLY",
+        "profile": "QUICK",
+        "reasons": [
+          "small_clear_reversible_change"
+        ],
+        "bug_workflow": false,
+        "new_document_mandatory": false,
+        "authorization_granted": false,
+        "exit_code": 0
+      },
+      "rcca_report": {
+        "schema_version": "agdl-report-1.3",
+        "record_kind": "DERIVED_NON_AUTHORITATIVE",
+        "stage": "G5",
+        "verdict": "METADATA_READY_FOR_REVIEW",
+        "issues": [],
+        "unknowns": [],
+        "warnings": [
+          "completion_review_self_review_not_independent",
+          "coverage_review_self_review_not_independent",
+          "evidence_contents_and_semantic_oracles_require_review"
+        ],
+        "reference_checks": [
+          {
+            "id": "SPEC-1",
+            "path": "spec.md",
+            "hash_matches": true
+          },
+          {
+            "id": "TASKS-1",
+            "path": "tasks.md",
+            "hash_matches": true
+          },
+          {
+            "id": "IMPL-1",
+            "path": "src/feature.py",
+            "hash_matches": true
+          },
+          {
+            "id": "LOG-1",
+            "path": "test.log",
+            "hash_matches": true
+          },
+          {
+            "id": "LOG-2",
+            "path": "inspection.log",
+            "hash_matches": true
+          },
+          {
+            "id": "REVIEW-1",
+            "path": "review.md",
+            "hash_matches": true
+          },
+          {
+            "id": "GRANT-1",
+            "path": "grant.md",
+            "hash_matches": true
+          },
+          {
+            "id": "DECISION-1",
+            "path": "decision.md",
+            "hash_matches": true
+          }
+        ],
+        "semantic_completeness_verified": false,
+        "runtime_enforcement_verified": false,
+        "authorization_authenticated": false,
+        "independent_review_verified": false,
+        "owner_approval": "NOT_EVALUATED",
+        "execution_performed": false,
+        "source_sha256": "37519c2219144a988a04eb457176fc4d0ff07f3fbc2d810213dc628b42632631",
+        "requirements_count": 2,
+        "required_task_count": 1,
+        "task_scope_unclassified_count": 0,
+        "checked_references_count": 8,
+        "exit_code": 0
+      },
+      "verdict": "QUALITY_METADATA_READY_FOR_REVIEW",
+      "exit_code": 0
+    },
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "-m",
+      "agdl",
+      "quality-compare",
+      "--before",
+      "examples/metrics-before.json",
+      "--after",
+      "examples/metrics-after.json"
+    ],
+    "exit_code": 0,
+    "stdout": {
+      "record_kind": "DERIVED_NON_AUTHORITATIVE",
+      "issues": [],
+      "warnings": [
+        "SYNTHETIC_EXAMPLE_NOT_AGENT_EFFECTIVENESS",
+        "Evidence references are labels, not authenticated runner logs; no statistical or causal confidence is computed."
+      ],
+      "rows": [
+        {
+          "metric": "requirements_coverage",
+          "before": null,
+          "after": null,
+          "before_raw": null,
+          "after_raw": null,
+          "delta": null,
+          "difference_unit": "percentage_points",
+          "verdict": "NOT_MEASURABLE",
+          "limitations": [
+            "NO_TELEMETRY"
+          ]
+        },
+        {
+          "metric": "omission_rate",
+          "before": 0.2,
+          "after": 0.1,
+          "before_raw": {
+            "id": "omission_rate",
+            "numerator": 2,
+            "denominator": 10,
+            "value": null,
+            "evidence_ref": "SYNTHETIC-COUNTS-NOT-OBSERVED"
+          },
+          "after_raw": {
+            "id": "omission_rate",
+            "numerator": 1,
+            "denominator": 10,
+            "value": null,
+            "evidence_ref": "SYNTHETIC-COUNTS-NOT-OBSERVED"
+          },
+          "delta": -10.0,
+          "difference_unit": "percentage_points",
+          "verdict": "OBSERVED_IMPROVEMENT"
+        },
+        {
+          "metric": "rework_rate",
+          "before": null,
+          "after": null,
+          "before_raw": null,
+          "after_raw": null,
+          "delta": null,
+          "difference_unit": "percentage_points",
+          "verdict": "NOT_MEASURABLE",
+          "limitations": [
+            "NO_TELEMETRY"
+          ]
+        },
+        {
+          "metric": "clarification_precision",
+          "before": null,
+          "after": null,
+          "before_raw": null,
+          "after_raw": null,
+          "delta": null,
+          "difference_unit": "percentage_points",
+          "verdict": "NOT_MEASURABLE",
+          "limitations": [
+            "NO_TELEMETRY"
+          ]
+        },
+        {
+          "metric": "recommendation_quality",
+          "before": null,
+          "after": null,
+          "before_raw": null,
+          "after_raw": null,
+          "delta": null,
+          "difference_unit": "percentage_points",
+          "verdict": "NOT_MEASURABLE",
+          "limitations": [
+            "NO_TELEMETRY"
+          ]
+        },
+        {
+          "metric": "defect_recurrence",
+          "before": null,
+          "after": null,
+          "before_raw": null,
+          "after_raw": null,
+          "delta": null,
+          "difference_unit": "percentage_points",
+          "verdict": "NOT_MEASURABLE",
+          "limitations": [
+            "NO_TELEMETRY"
+          ]
+        },
+        {
+          "metric": "false_completion_rate",
+          "before": null,
+          "after": null,
+          "before_raw": null,
+          "after_raw": null,
+          "delta": null,
+          "difference_unit": "percentage_points",
+          "verdict": "NOT_MEASURABLE",
+          "limitations": [
+            "NO_TELEMETRY"
+          ]
+        },
+        {
+          "metric": "authorized_task_success",
+          "before": null,
+          "after": null,
+          "before_raw": null,
+          "after_raw": null,
+          "delta": null,
+          "difference_unit": "percentage_points",
+          "verdict": "NOT_MEASURABLE",
+          "limitations": [
+            "NO_TELEMETRY"
+          ]
+        },
+        {
+          "metric": "false_block_rate",
+          "before": null,
+          "after": null,
+          "before_raw": null,
+          "after_raw": null,
+          "delta": null,
+          "difference_unit": "percentage_points",
+          "verdict": "NOT_MEASURABLE",
+          "limitations": [
+            "NO_TELEMETRY"
+          ]
+        },
+        {
+          "metric": "execution_seconds",
+          "before": null,
+          "after": null,
+          "before_raw": null,
+          "after_raw": null,
+          "delta": null,
+          "difference_unit": "native_units",
+          "verdict": "NOT_MEASURABLE",
+          "limitations": [
+            "NO_TELEMETRY"
+          ]
+        },
+        {
+          "metric": "token_count",
+          "before": null,
+          "after": null,
+          "before_raw": null,
+          "after_raw": null,
+          "delta": null,
+          "difference_unit": "native_units",
+          "verdict": "NOT_MEASURABLE",
+          "limitations": [
+            "NO_TELEMETRY"
+          ]
+        },
+        {
+          "metric": "owner_review_minutes",
+          "before": null,
+          "after": null,
+          "before_raw": null,
+          "after_raw": null,
+          "delta": null,
+          "difference_unit": "native_units",
+          "verdict": "NOT_MEASURABLE",
+          "limitations": [
+            "NO_TELEMETRY"
+          ]
+        },
+        {
+          "metric": "approval_interruptions",
+          "before": null,
+          "after": null,
+          "before_raw": null,
+          "after_raw": null,
+          "delta": null,
+          "difference_unit": "native_units",
+          "verdict": "NOT_MEASURABLE",
+          "limitations": [
+            "NO_TELEMETRY"
+          ]
+        },
+        {
+          "metric": "critical_violations",
+          "before": 0,
+          "after": 0,
+          "before_raw": {
+            "id": "critical_violations",
+            "numerator": null,
+            "denominator": null,
+            "value": 0,
+            "evidence_ref": "SYNTHETIC-COUNTS-NOT-OBSERVED"
+          },
+          "after_raw": {
+            "id": "critical_violations",
+            "numerator": null,
+            "denominator": null,
+            "value": 0,
+            "evidence_ref": "SYNTHETIC-COUNTS-NOT-OBSERVED"
+          },
+          "delta": 0,
+          "difference_unit": "native_units",
+          "verdict": "UNCHANGED"
+        }
+      ],
+      "causal_effect_established": false,
+      "behavior_verified": false,
+      "owner_approval": "NOT_EVALUATED",
+      "recommendation": "REVIEW_EVIDENCE_NO_AUTOMATIC_GO",
+      "comparability": "DECLARED_COMPARABLE_NOT_INDEPENDENTLY_ESTABLISHED",
+      "confounders": [],
+      "critical_violation_observed": false,
+      "verdict": "MEASURED_DELTA_REVIEW_REQUIRED",
+      "exit_code": 0
+    },
+    "stderr": ""
+  }
+]
