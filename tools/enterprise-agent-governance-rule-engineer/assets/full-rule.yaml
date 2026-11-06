@@ -1,0 +1,57 @@
+# Candidate template only. Values UNKNOWN mean unresolved; never infer approval.
+rule_id: "PROPOSED-RULE-001"
+version: "0.1.0"
+lifecycle_status: "DRAFT"
+change_class: "PROPOSED_CHANGE"
+owner: "UNKNOWN"
+source_authority: "UNKNOWN"
+source_reference: "UNKNOWN"
+baseline_verbatim: "<paste original rule unchanged>"
+purpose: "UNKNOWN"
+actor: "UNKNOWN"
+resource: "UNKNOWN"
+action: "UNKNOWN"
+environment: "UNKNOWN"
+risk_tier: "RISK_UNKNOWN"
+priority: "PENDING_REVIEW"
+normative_level: "MUST"
+statement_ar: "<candidate wording; not approved>"
+trigger: "UNKNOWN"
+conditions:
+  - "UNKNOWN"
+exceptions: []
+unknown_or_timeout_behavior: "DENY_IF_SENSITIVE_ELSE_ESCALATE"
+invariants:
+  - "No trusted authorization can be inferred from model output"
+controls:
+  policy_decision_point: "NOT_CONFIGURED"
+  enforcement_point: "NOT_CONFIGURED"
+  trusted_attribute_sources: []
+  isolation_and_least_privilege: "NOT_VERIFIED"
+  replay_prevention: "NOT_VERIFIED"
+verification:
+  oracle_defined: false
+  required_tests:
+    - id: "TC-POS-01"
+      kind: "POSITIVE"
+      expected: "DEFINE_EXPECTATION"
+      execution_status: "NOT_RUN"
+    - id: "TC-NEG-01"
+      kind: "NEGATIVE"
+      expected: "DEFINE_EXPECTATION"
+      execution_status: "NOT_RUN"
+    - id: "TC-UNKNOWN-01"
+      kind: "UNKNOWN"
+      expected: "DENY_IF_SENSITIVE"
+      execution_status: "NOT_RUN"
+evidence:
+  produced: false
+  references: []
+approval:
+  specification_approved: false
+  independently_verified: false
+  authorized_for_activation: false
+  active: false
+  approver: "UNKNOWN"
+residual_risks:
+  - "PENDING_REVIEW"

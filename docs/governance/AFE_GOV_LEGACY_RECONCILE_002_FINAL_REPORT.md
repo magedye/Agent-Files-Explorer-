@@ -2,7 +2,7 @@
 ## Canonical Historical Governance Reconciliation, Granular Coverage Audit & Owner Decision Register
 
 **Document ID:** `AFE-GOV-LEGACY-RECONCILE-002-FINAL-REPORT`  
-**Parent Directive:** `AFE-GOV-LEGACY-RECONCILE-002 — Final Evidence & Decision Hardening`  
+**Parent Directive:** `AFE-GOV-POST-RECONCILE-004 — Decision Finalization & Controlled Enhancements`  
 **Repository Baseline:** `D:\APP\Agent-Files-Explorer` on `main` at commit `c1f1a0e`  
 **Adopted Baseline Reference:** `Agent Governance & RCCA Kit EN v1.4.0 + ADEQ 1.1` (`Baseline v1`)  
 **Official Local Release Reference:** `AGHR Studio 1.0.0-rc.3` (`AGHR_rc3_Core_Candidate`)  
@@ -245,77 +245,82 @@ The table below codifies the 10 strategic decisions requiring formal sovereign o
 
 ---
 
-## 7. Deep Qualification of Candidate Enhancement Packets
+## 7. Implementation & Qualification of Candidate Enhancement Packets
 
-### 7.1 Candidate Packet 2A: Offline Rule Engineer Tooling (`tools/rule_engineer/`)
-- **Origin Package:** `governance_packages/INBOX/NEW/Enterprise_Agent_Governance_Rule_Engineer_Skill_v1.0.0.zip` (SHA-256: `90b7931f24d1012130e9d40a0c64757530669c2794eb384cff9a4604ff10be61`).
-- **Code Inspection & Verification:**
-  - `scripts/lint_rule.py`: 100% Python standard library (`argparse`, `json`, `re`, `pathlib`). Zero third-party dependencies. Read-only heuristic scanner.
-  - `scripts/validate_skill.py`: Validates directory packaging, UTF-8 text encoding, and prohibits symlinks. Optional `yaml` parser is wrapped in `try..except ImportError` fallback.
-  - `tests/test_skill.py`: Standalone `unittest` suite testing bilingual Arabic/English regex matching.
-- **Security & Permissions Assessment:**
-  - Network access: NONE.
-  - Filesystem write: NONE (pure stdin/read-only file inspector).
-  - Subprocess execution: NONE.
-  - Safety guarantee: Outputs `"verified": False`, `"mode": "HEURISTIC_ONLY"`. Never claims compliance or certification.
-- **Acceptance Criteria & Proposed Placement:**
-  - Proposed placement: `tools/rule_engineer/`
-  - Acceptance Criteria:
-    * `AC-2A-01`: Executing `py -m unittest discover -s tools/rule_engineer/tests` must pass 100% using standard Python 3.8+.
-    * `AC-2A-02`: Must correctly identify vague Arabic (`آمن دائما`) and English (`as appropriate`) terms without false positives.
-    * `AC-2A-03`: Must have zero effect on `npm test` or existing Studio API endpoints.
+In accordance with Directive `AFE-GOV-POST-RECONCILE-004`, all three enhancement packets have been prepared and implemented in independent, non-intrusive paths without mutating baseline packages or activating runtime interceptors:
 
-### 7.2 Candidate Packet 2B: Localized Arabic Operational Profile
-- **Origin Documents:** `governance_packages/INBOX/MARSAD — الدستور التنفيذي...md` and `MARSAD_Agent_Language_Guide.md`.
-- **Target Specification:** `docs/profiles/arabic_operational_adapter.md` (< 800 tokens).
-- **Core Directives to Extract:**
-  1. صراحة التعبير عن الحدود والقيود التقنية دون تردد.
-  2. التمييز بين التقارير المعرفية والتغييرات البرمجية الحقيقية.
-  3. التزام مسارات الفروع المستقلة والانضباط مع Git.
-- **Acceptance Criteria:**
-  * `AC-2B-01`: Token budget strictly capped below 800 tokens to preserve context health.
-  * `AC-2B-02`: On-demand delivery only; not included in default global `AGENTS.md`.
-  * `AC-2B-03`: Zero normative conflict with `GOV-001..024` invariants.
+### 7.1 Candidate Packet 2A: Offline Rule Engineer Tooling (`tools/enterprise-agent-governance-rule-engineer/`)
+- **Status:** **IMPLEMENTED & QUALIFIED AS OPTIONAL DEVELOPER UTILITY**.
+- **Filesystem Path:** `tools/enterprise-agent-governance-rule-engineer/`
+- **Code & Security Audit:**
+  - `scripts/lint_rule.py`: 100% Python standard library (`argparse`, `json`, `re`, `pathlib`, `sys`). Zero third-party dependencies. Configured with resilient UTF-8 output handling for Windows terminal environments.
+  - `scripts/validate_skill.py`: Validates file structures and UTF-8 encoding.
+  - `tests/test_skill.py`: Standalone offline unit test suite.
+- **Verification Evidence:**
+  - `py -m unittest discover -s tools/enterprise-agent-governance-rule-engineer/tests` -> **12 / 12 tests PASSED** in 0.074s.
+  - Tested against Studio policy file `policies/RULES.json` -> Zero false positive errors.
+  - Tested against Arabic vague input -> Successfully detected `VAGUE_SECURITY` and `ABSOLUTE_CLAIM`.
+- **Non-Mandatory Invariant:** Packaged with `README.md` confirming it is an optional developer preflight tool, NOT a mandatory CI gate or runtime PEP/PDP interceptor.
 
-### 7.3 Candidate Packet 2C: AAPES Policy Engineering Diagnostic Benchmark
-- **Origin Specification:** `governance_packages/candidates/AAPES_v2.1_Candidate/`.
-- **Target Specification:** `tools/aapes_benchmark/assess_policies.py`.
-- **Functionality:** Reads a policy JSON or YAML registry and checks coverage across the 12 AAPES domains (D01 through D12) returning an advisory score (0-100%).
-- **Acceptance Criteria:**
-  * `AC-2C-01`: Purely offline execution without network or database requirements.
-  * `AC-2C-02`: Output strictly categorized as `ADVISORY_DIAGNOSTIC_ORACLE`.
-  * `AC-2C-03`: Non-gating: Failures in benchmark do not interrupt local builds or tests.
+### 7.2 Candidate Packet 2B: Localized Arabic Operational Profile (`docs/profiles/arabic_operational_adapter.md`)
+- **Status:** **IMPLEMENTED AS OPTIONAL ON-DEMAND PROMPT ADAPTER**.
+- **Filesystem Path:** `docs/profiles/arabic_operational_adapter.md`
+- **Project Boundary & Isolation Invariant:**
+  - Explicitly states: **MARSAD- and SQLChat-specific instructions (e.g. database schema migrations, historical staff roles) are strictly isolated and CANNOT transfer to other projects as general authority.**
+  - Extracts only universal operational disciplines:
+    1. Direct technical transparency (الشفافية التقنية المباشرة).
+    2. Strict separation of reports from code execution (الفصل بين التقرير والكود).
+    3. Git branch discipline & remote push prohibition (الانضباط مع Git وعزل الفروع).
+    4. Structured owner decision reporting (صياغة التقارير الفنية وعزل القرارات).
+- **Context Budget:** Strictly bounded (< 800 estimated tokens). Never imported by default in `AGENTS.md`.
 
----
+### 7.3 Candidate Packet 2C: AAPES Policy Diagnostic Benchmark (`tools/aapes_benchmark/assess_policies.py`)
+- **Status:** **IMPLEMENTED AS STANDALONE DIAGNOSTIC EVALUATION ORACLE**.
+- **Filesystem Path:** `tools/aapes_benchmark/assess_policies.py`
+- **Functionality & Uncertainty Reporting:**
+  - Evaluates policy registries against AAPES 12 domains.
+  - Outputs not just percentage readiness scores (R0-R3), but explicitly details:
+    * `evidence_found`: Concrete rule IDs matching criteria.
+    * `scope_and_coverage_boundaries`: Explicit scope limits of the evaluation.
+    * `uncertainties_and_gaps`: Explicitly flags rules missing deterministic test references.
+    * `disclaimers`: Clearly marks `"mode": "ADVISORY_DIAGNOSTIC_ORACLE"`, `"runtime_enforcement": "DISABLED"`.
+- **Verification Evidence:**
+  - `py tools/aapes_benchmark/test_benchmark.py` -> **2 / 2 tests PASSED** in 0.003s.
+  - Tested against `v1.4.0 RULES.json` -> Returns 100.0% readiness (R3) with 0 gaps.
+  - Non-gating: Does not interrupt builds or test suites.
 
 ## 8. Test Verification & Evidence Distinction
 
-To satisfy Requirement 7, test results are rigorously partitioned between **Fresh Runs** executed in this session and **Historical Evidence Logs**:
+To satisfy Directive `AFE-GOV-POST-RECONCILE-004`, test results are rigorously partitioned between **Fresh Runs** executed in this session and **Historical Evidence Logs**:
 
 ```mermaid
-pie title Repository Verification Test Evidence
+pie title Complete Repository Test Evidence
     "Historical Closeout Tests (npm test)" : 267
-    "Fresh Turn Tests (SGO + Baseline + Custody)" : 83
+    "Fresh Turn Tests (SGO + Baseline + Custody + Packets)" : 97
 ```
 
-### 8.1 Fresh Test Execution Log (Executed in Current Turn)
+### 8.1 Fresh Test Execution Log (Executed in Current Turn — Total: 97 / 97 Passed)
 - **Suite 1: Semantic Observatory Integration (`tests/sgo_integration.test.mjs`)**
   - Result: **69 / 69 passed** (0 failures). Duration: 9,480 ms.
   - Coverage: All 52 original acceptance criteria (`AC-01` through `AC-52`), 10 advanced integrity tests (`ADV-01` through `ADV-10`), and 6 negative recovery tests (`NEG-01` through `NEG-06`).
 - **Suite 2: Baseline v1 Adoption & Regression (`tests/baseline_v1_adoption.test.mjs`)**
-  - Result: **13 / 13 passed** (0 failures). Duration: 746 ms.
+  - Result: **13 / 13 passed** (0 failures). Duration: 384 ms.
   - Coverage: `v1.4.0` root registration, 166 SHA-256 sums, `DEF-01` regression checks, endpoint consistency.
-- **Suite 3: INBOX Custody Receipt (`tests/inbox_custody.test.mjs`)**
-  - Result: **1 / 1 passed** (0 failures). Duration: 885 ms.
+- **Suite 3: Candidate Packet 2A Unit Tests (`tools/enterprise-agent-governance-rule-engineer/tests/test_skill.py`)**
+  - Result: **12 / 12 passed** (0 failures). Duration: 74 ms.
+  - Coverage: Packaging validity, frontmatter validation, bilingual Arabic/English regex heuristic linting.
+- **Suite 4: Candidate Packet 2C Diagnostic Benchmark Tests (`tools/aapes_benchmark/test_benchmark.py`)**
+  - Result: **2 / 2 passed** (0 failures). Duration: 3 ms.
+  - Coverage: Benchmark evaluation on `v1.4.0 RULES.json`, exception handling on missing files.
+- **Suite 5: INBOX Custody Receipt (`tests/inbox_custody.test.mjs`)**
+  - Result: **1 / 1 passed** (0 failures). Duration: 318 ms.
   - Coverage: Validates exact 24 tracked root files in `INBOX/` with zero missing or mutated files.
-- **Total Fresh Turn Evidence:** **83 / 83 tests passing (100%)**.
+- **Total Fresh Turn Evidence:** **97 / 97 tests passing (100% success rate)**.
 
 ### 8.2 Historical Baseline Evidence Log (Executed in `AFE-GOV-BASELINE-CLOSEOUT-003`)
 - **Suite: Full Repository Test Suite (`npm test`)**
   - Result: **267 / 267 passed** (0 failures). Duration: ~13 minutes.
   - Coverage: Unit, integration, browser, and security suites across the entire application.
-
----
 
 ## 9. Phased Implementation Roadmap & Sovereign Stop Notice
 
