@@ -33,6 +33,7 @@ function readJsonFile(rootPath, relPath) {
 class GovernanceReferenceService {
   constructor() {
     this._defaultPackageId = DEFAULT_PACKAGE_ID;
+    this._defaultBaselinePackageId = DEFAULT_BASELINE_PACKAGE_ID;
     this._packages = new Map();
     this.refresh();
   }
@@ -488,7 +489,7 @@ class GovernanceReferenceService {
       baseline: pkg.baseline || null,
       isDefaultBaseline: pkg.isDefaultBaseline || false,
       defaultForNewWorkflows: pkg.defaultForNewWorkflows || false,
-      defaultBaselinePackageId: this._defaultBaselinePackageId || "aghr_1_3_0",
+      defaultBaselinePackageId: this._defaultBaselinePackageId || DEFAULT_BASELINE_PACKAGE_ID,
       reference_state: status.reference_state || "FINAL_REFERENCE",
       default_provider: status.default_provider || "OPENAI",
       default_profile: status.default_profile || "STANDARD",

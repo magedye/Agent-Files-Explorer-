@@ -280,3 +280,70 @@ test("Baseline v1: Non-activation invariants remain strictly preserved for v1.4.
   assert.equal(status.live_qualification, "NOT_RUN");
   assert.equal(status.distinct_tests_passed, 295);
 });
+
+test("DEF-01 Regression: defaultBaselinePackageId consistently resolves to aghr_1_4_0 across getSummary() and endpoints", async () => {
+  // Direct service summary for v1.4.0
+  const summary140 = governanceService.getSummary("aghr_1_4_0");
+  assert.equal(summary140.packageId, "aghr_1_4_0");
+  assert.equal(summary140.defaultBaselinePackageId, "aghr_1_4_0");
+  assert.equal(summary140.isDefaultBaseline, true);
+  assert.equal(summary140.defaultForNewWorkflows, true);
+
+  // Direct service summary default (rc.3) reports aghr_1_4_0 as the active default baseline
+  const summaryDefault = governanceService.getSummary("");
+  assert.equal(summaryDefault.packageId, "aghr_rc3");
+  assert.equal(summaryDefault.defaultBaselinePackageId, "aghr_1_4_0");
+  assert.equal(summaryDefault.isDefaultBaseline, false);
+
+  // Endpoint /api/governance/baseline
+  const baselineReq = makeMockRequest({ url: "/api/governance/baseline" });
+  await handleApiRequest(baselineReq.req, baselineReq.res);
+  assert.equal(baselineReq.getStatusCode(), 200);
+  const baselineData = baselineReq.getJSON();
+  assert.equal(baselineData.packageId, "aghr_1_4_0");
+  assert.equal(baselineData.summary.defaultBaselinePackageId, "aghr_1_4_0");
+
+  // Endpoint /api/governance/summary?baseline=v1
+  const summaryV1Req = makeMockRequest({ url: "/api/governance/summary?baseline=v1" });
+  await handleApiRequest(summaryV1Req.req, summaryV1Req.res);
+  assert.equal(summaryV1Req.getStatusCode(), 200);
+  const summaryV1Data = summaryV1Req.getJSON();
+  assert.equal(summaryV1Data.packageId, "aghr_1_4_0");
+  assert.equal(summaryV1Data.defaultBaselinePackageId, "aghr_1_4_0");
+
+  // Endpoint /api/governance/summary?workflow=new
+  const summaryNewReq = makeMockRequest({ url: "/api/governance/summary?workflow=new" });
+  await handleApiRequest(summaryNewReq.req, summaryNewReq.res);
+  assert.equal(summaryNewReq.getStatusCode(), 200);
+  const summaryNewData = summaryNewReq.getJSON();
+  assert.equal(summaryNewData.packageId, "aghr_1_4_0");
+  assert.equal(summaryNewData.defaultBaselinePackageId, "aghr_1_4_0");
+
+  // Unparameterized /api/governance/summary preserves rc.3 while informing defaultBaselinePackageId
+  const summaryUnparamReq = makeMockRequest({ url: "/api/governance/summary" });
+  await handleApiRequest(summaryUnparamReq.req, summaryUnparamReq.res);
+  assert.equal(summaryUnparamReq.getStatusCode(), 200);
+  const summaryUnparamData = summaryUnparamReq.getJSON();
+  assert.equal(summaryUnparamData.packageId, "aghr_rc3");
+  assert.equal(summaryUnparamData.defaultBaselinePackageId, "aghr_1_4_0");
+});
+
+test("DEF-01 Regression: getSummary() preserves legacy rc.3 counts and contracts while pointing to aghr_1_4_0 baseline", () => {
+  const rc3Summary = governanceService.getSummary("aghr_rc3");
+  assert.equal(rc3Summary.packageId, "aghr_rc3");
+  assert.equal(rc3Summary.version, "1.0.0-rc.3");
+  assert.equal(rc3Summary.reference_state, "OFFICIAL_LOCAL_RELEASE");
+  assert.equal(rc3Summary.counts.rules, 1);
+  assert.equal(rc3Summary.counts.sources, 0);
+  assert.equal(rc3Summary.counts.adapters, 0);
+  assert.equal(rc3Summary.counts.contracts, 0);
+
+  const v140Summary = governanceService.getSummary("aghr_1_4_0");
+  assert.equal(v140Summary.packageId, "aghr_1_4_0");
+  assert.equal(v140Summary.version, "1.4.0");
+  assert.equal(v140Summary.reference_state, "REGISTERED_BASELINE_V1_RELEASE");
+  assert.equal(v140Summary.counts.rules, 48);
+  assert.equal(v140Summary.counts.sources, 19);
+  assert.equal(v140Summary.counts.adapters, 7);
+  assert.equal(v140Summary.counts.contracts, 9);
+});
