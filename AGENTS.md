@@ -44,6 +44,7 @@ When a task requires deeper context, navigate directly to the relevant document:
 | **Full Documentation Index** | [docs/INDEX.md](docs/INDEX.md) | ~1,000 tokens |
 | **Project Architecture Map** | [PROJECT_MAP.md](PROJECT_MAP.md) | ~2,500 tokens |
 | **Owner Release / Project Closure** | [Owner sign-off](docs/evidence/studio-signoff-2026-10-26/OWNER_SIGNOFF_AR.md) | v1.0.0 local; PROJECT CLOSED; no new development/public release |
+| **Baseline v1 Registration** | [AGHR Studio 1.3.0 Baseline v1](governance_packages/references/AGHR_Studio_1.3.0_Baseline_v1_RELEASE.json) | Default baseline candidate for new workflows |
 | **Current Default Reference** | [Official rc.3 registration](governance_packages/references/AGHR_Studio_1.0.0_rc3_RELEASE.json) | New projects only; existing projects are not migrated |
 | **Legacy 1.2.0 Rules** | [AGHR 1.2.0 RULES.json](governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/registry/RULES.json) | Explicit Legacy selection; no automatic consumer migration |
 | **Learning & Classified Instructions** | [Governed learning](governance_packages/references/Agent_Governance_Harness_Reference_1.2.0/procedures/GOVERNED_LEARNING.md) | Relevant evidence and owner references only |

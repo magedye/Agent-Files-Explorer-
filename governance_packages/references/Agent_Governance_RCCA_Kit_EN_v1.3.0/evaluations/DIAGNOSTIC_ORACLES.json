@@ -1,0 +1,42 @@
+{
+  "oracle_author": "package-author",
+  "scope": "Synthetic metadata integrity, not agent performance",
+  "blind_holdout": false,
+  "cases": [
+    {
+      "id": "CONTROL",
+      "description": "All artifact metadata present",
+      "expected": "READY"
+    },
+    {
+      "id": "LOG_MISSING",
+      "description": "Referenced test log absent",
+      "expected": "NOT_READY"
+    },
+    {
+      "id": "IMPLEMENTATION_CHANGED",
+      "description": "Implementation changed after evidence snapshot",
+      "expected": "NOT_READY"
+    },
+    {
+      "id": "CURRENT_REVISION_CHANGED",
+      "description": "Current revision differs from record",
+      "expected": "NOT_READY"
+    },
+    {
+      "id": "SOURCE_UNIT_OMITTED",
+      "description": "A source unit omitted from coverage",
+      "expected": "NOT_READY"
+    },
+    {
+      "id": "AUTHORIZATION_DENIED",
+      "description": "Recorded authorization denied",
+      "expected": "NOT_READY"
+    },
+    {
+      "id": "TASK_INCOMPLETE",
+      "description": "Requirement claims complete while linked task is DOING",
+      "expected": "NOT_READY"
+    }
+  ]
+}

@@ -4,10 +4,13 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 import {
   DEFAULT_PACKAGE_ID,
+  DEFAULT_BASELINE_PACKAGE_ID,
+  BASELINE_V1_PACKAGE_ID,
   AGHR_1_0_0_ROOT,
   AGHR_1_1_0_ROOT,
   AGHR_MINIMAL_1_1_0_ROOT,
   AGHR_1_2_0_ROOT,
+  AGHR_1_3_0_ROOT,
   AGHR_RC3_ROOT,
   AAPES_CANDIDATE_ROOT,
   GOVERNANCE_PACKAGES_ROOT,
@@ -122,6 +125,107 @@ class GovernanceReferenceService {
       });
     }
 
+    if (fs.existsSync(AGHR_1_3_0_ROOT)) {
+      const releaseFile = readJsonFile(GOVERNANCE_PACKAGES_ROOT, "references/AGHR_Studio_1.3.0_Baseline_v1_RELEASE.json") || {};
+      const pkgStatus = readJsonFile(AGHR_1_3_0_ROOT, "PACKAGE_STATUS.json") || {};
+      const rulesData = readJsonFile(AGHR_1_3_0_ROOT, "policies/RULES.json") || {};
+      const sourcesData = readJsonFile(AGHR_1_3_0_ROOT, "sources/SOURCE_REGISTER.json") || {};
+
+      const rules = (rulesData.rules || []).map((r) => ({
+        id: r.id,
+        name: r.title,
+        title: r.title,
+        text: r.obligation,
+        obligation: r.obligation,
+        force: r.normative,
+        normative: r.normative,
+        impact: r.impact,
+        impact_basis: r.impact_basis,
+        authority_plane: r.authority_plane,
+        authority_claim: r.authority_claim,
+        native_delivery_role: r.native_delivery_role,
+        scope: r.scope,
+        trigger: r.trigger,
+        exception_authority: r.exception_authority,
+        failure_behavior: r.failure_behavior,
+        enforcement: r.enforcement,
+        enforcementClass: r.enforcement,
+        verification: r.verification,
+        basis: r.source_ids || [],
+        source_ids: r.source_ids || [],
+        test_refs: r.test_refs || [],
+        status: r.status,
+        coverage: r.status,
+      }));
+
+      const sources = (sourcesData.sources || []).map((s) => ({
+        id: s.id,
+        title: s.title,
+        publisher: s.title ? s.title.split(":")[0].trim() : "Provider Standards",
+        kind: "OFFICIAL_PROVIDER_GUIDANCE",
+        locator: s.url || "",
+        url: s.url || "",
+        supported_takeaway: s.supported_summary || "",
+        limits: s.limits || "",
+        evidence_status: s.evidence_status || "UNVERIFIED",
+      }));
+
+      const adapters = [
+        { id: "ADAPT-AGDL-DOCTOR", name: "agdl doctor diagnostic tool", type: "DIAGNOSTIC", targetVersion: "1.3.0" },
+        { id: "ADAPT-AGDL-LINT", name: "agdl rules-lint validator", type: "LINTER", targetVersion: "1.3.0" },
+        { id: "ADAPT-AGDL-VALIDATE", name: "agdl schema validator", type: "VALIDATOR", targetVersion: "1.3.0" },
+        { id: "ADAPT-CODEX", name: "Codex primary agent adapter", type: "HOST_ADAPTER", targetVersion: "1.3.0" },
+        { id: "ADAPT-ANTIGRAVITY", name: "Antigravity optional host adapter", type: "HOST_ADAPTER", targetVersion: "1.3.0" },
+        { id: "ADAPT-OPENCODE", name: "OpenCode optional host adapter", type: "HOST_ADAPTER", targetVersion: "1.3.0" },
+      ];
+
+      const profiles = {
+        SOLO_DEVELOPER_ONE_PRIMARY_AGENT: {
+          id: "SOLO_DEVELOPER_ONE_PRIMARY_AGENT",
+          name: "Solo Developer + One Primary Agent (Codex)",
+          description: "Targeted profile for one developer-owner and one primary coding agent on small/medium projects",
+        },
+        QUICK: { id: "QUICK", name: "Quick Track (informal local changes)" },
+        STANDARD: { id: "STANDARD", name: "Standard Track (gated review)" },
+        CONTROLLED: { id: "CONTROLLED", name: "Controlled Track (formal compliance & signoff)" },
+      };
+
+      const enforcement = rules.map((r) => ({ ruleId: r.id, level: r.force, class: r.enforcement }));
+
+      this._packages.set("aghr_1_3_0", {
+        id: "aghr_1_3_0",
+        name: releaseFile.package || "Agent Governance & RCCA Kit EN",
+        version: releaseFile.version || "1.3.0",
+        baseline: "Baseline v1",
+        kind: "BASELINE_V1",
+        rootPath: AGHR_1_3_0_ROOT,
+        description: releaseFile.scope || "Agent Governance & RCCA Kit EN v1.3.0 Baseline v1 registration",
+        isDefault: false, // legacy release default remains aghr_rc3
+        isDefaultBaseline: true,
+        defaultForNewWorkflows: true,
+        status: {
+          package: releaseFile.package || "Agent Governance & RCCA Kit EN",
+          version: releaseFile.version || "1.3.0",
+          baseline: "Baseline v1",
+          reference_state: releaseFile.reference_state || "REGISTERED_BASELINE_V1_CANDIDATE",
+          default_provider: "OPENAI",
+          default_profile: releaseFile.default_profile || "SOLO_DEVELOPER_ONE_PRIMARY_AGENT",
+          primary_host: releaseFile.primary_host || "Codex",
+          optional_hosts: releaseFile.optional_hosts || ["Antigravity", "OpenCode"],
+          independent_review: releaseFile.independent_review || "NOT_PERFORMED",
+          release_acceptance: releaseFile.release_acceptance || "NOT_GRANTED",
+          project_activation: releaseFile.project_activation || "NOT_ACTIVE",
+          runtime_enforcement: releaseFile.runtime_enforcement || "NOT_IMPLEMENTED",
+          distinct_tests_passed: releaseFile.distinct_tests_passed || 160,
+        },
+        rules,
+        sources,
+        adapters,
+        profiles,
+        enforcement,
+      });
+    }
+
     // Previous minimal distribution stays available from archive.
     
     // AAPES v2.1 Policy Engineering Candidate
@@ -229,6 +333,9 @@ class GovernanceReferenceService {
     if (packageId && this._packages.has(packageId)) {
       return this._packages.get(packageId);
     }
+    if (packageId === "baseline_v1" || packageId === "new_workflow") {
+      return this._packages.get("aghr_1_3_0") || this._packages.get(this._defaultPackageId);
+    }
     return this._packages.get(this._defaultPackageId) || Array.from(this._packages.values())[0];
   }
 
@@ -242,6 +349,9 @@ class GovernanceReferenceService {
         kind: p.kind,
         description: p.description,
         isDefault: p.id === this._defaultPackageId,
+        isDefaultBaseline: p.isDefaultBaseline || false,
+        baseline: p.baseline || null,
+        defaultForNewWorkflows: p.defaultForNewWorkflows || false,
         counts: {
           rules: p.rules.length,
           sources: p.sources.length,
@@ -259,6 +369,10 @@ class GovernanceReferenceService {
       packageId: pkg.id,
       package: status.package || pkg.name,
       version: status.version || pkg.version,
+      baseline: pkg.baseline || null,
+      isDefaultBaseline: pkg.isDefaultBaseline || false,
+      defaultForNewWorkflows: pkg.defaultForNewWorkflows || false,
+      defaultBaselinePackageId: this._defaultBaselinePackageId || "aghr_1_3_0",
       reference_state: status.reference_state || "FINAL_REFERENCE",
       default_provider: status.default_provider || "OPENAI",
       default_profile: status.default_profile || "STANDARD",
@@ -347,6 +461,16 @@ class GovernanceReferenceService {
   getContracts(packageId = "") {
     const pkg = this._getPackage(packageId);
     if (pkg?.id === "aghr_rc3") return []; // rc.3 schemas use the existing Studio contract viewer.
+    if (pkg && pkg.id === "aghr_1_3_0") {
+      return [
+        { id: "CORE", title: "Core Operating Contract", path: "policies/CORE.md" },
+        { id: "RULES", title: "Governed Rules Contract", path: "policies/RULES.json" },
+        { id: "BOUNDED_AUTONOMY", title: "Bounded Autonomy Contract", path: "docs/02_BOUNDED_AUTONOMY.md" },
+        { id: "EVIDENCE_RCCA", title: "Evidence & RCCA Contract", path: "docs/04_EVIDENCE_AND_RCCA.md" },
+        { id: "DATA_CONTRACTS", title: "Data Contracts and CLI", path: "docs/08_DATA_CONTRACTS_AND_CLI.md" },
+        { id: "LIMITATIONS", title: "Limitations and Boundaries", path: "LIMITATIONS.md" },
+      ];
+    }
     const contracts = [
       { id: "GOVERNANCE", title: "Core Governance Contract", path: "contracts/GOVERNANCE.md" },
       { id: "RUNTIME", title: "Runtime & Tool Contract", path: "contracts/RUNTIME.md" },
@@ -361,6 +485,26 @@ class GovernanceReferenceService {
       );
     }
     return contracts;
+  }
+
+  getSchemas(packageId = "") {
+    const pkg = this._getPackage(packageId);
+    if (pkg && pkg.id === "aghr_1_3_0") {
+      const schemasDir = path.join(AGHR_1_3_0_ROOT, "schemas");
+      if (fs.existsSync(schemasDir)) {
+        return fs.readdirSync(schemasDir)
+          .filter((f) => f.endsWith(".json"))
+          .map((f) => {
+            const fullPath = path.join(schemasDir, f);
+            try {
+              return { name: f, schema: JSON.parse(fs.readFileSync(fullPath, "utf8")) };
+            } catch {
+              return { name: f, schema: null };
+            }
+          });
+      }
+    }
+    return [];
   }
 
   getRelationshipGraph(packageId = "") {

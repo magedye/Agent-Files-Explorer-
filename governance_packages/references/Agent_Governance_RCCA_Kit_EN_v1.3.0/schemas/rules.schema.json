@@ -1,0 +1,157 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "agdl-rules-1.3"
+    },
+    "status": {
+      "type": "string",
+      "const": "NOT_ACTIVE"
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "authority_plane": {
+            "type": "string",
+            "const": "PROJECT"
+          },
+          "authority_claim": {
+            "type": "string",
+            "const": "PROJECT_CANDIDATE"
+          },
+          "native_delivery_role": {
+            "type": "string",
+            "const": "HOST_DEFINED_NOT_ESCALATED"
+          },
+          "normative": {
+            "type": "string",
+            "enum": [
+              "MUST",
+              "MUST_NOT",
+              "SHOULD",
+              "MAY"
+            ]
+          },
+          "impact": {
+            "type": "string",
+            "enum": [
+              "CRITICAL",
+              "HIGH",
+              "MODERATE"
+            ]
+          },
+          "impact_basis": {
+            "type": "string",
+            "minLength": 1
+          },
+          "attention": {
+            "type": "string",
+            "enum": [
+              "ALWAYS_ON",
+              "TASK_ROUTED",
+              "REFERENCE"
+            ]
+          },
+          "scope": {
+            "type": "string",
+            "minLength": 1
+          },
+          "trigger": {
+            "type": "string",
+            "minLength": 1
+          },
+          "obligation": {
+            "type": "string",
+            "minLength": 1
+          },
+          "exception_authority": {
+            "type": "string",
+            "minLength": 1
+          },
+          "failure_behavior": {
+            "type": "string",
+            "minLength": 1
+          },
+          "enforcement": {
+            "type": "string",
+            "enum": [
+              "HOST_REQUIRED",
+              "DIAGNOSTIC_ONLY",
+              "WORKFLOW_ONLY",
+              "RUNTIME_ENFORCED"
+            ]
+          },
+          "verification": {
+            "type": "string",
+            "minLength": 1
+          },
+          "test_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "source_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "status": {
+            "type": "string",
+            "const": "REVIEW_CANDIDATE"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "authority_plane",
+          "authority_claim",
+          "native_delivery_role",
+          "normative",
+          "impact",
+          "impact_basis",
+          "attention",
+          "scope",
+          "trigger",
+          "obligation",
+          "exception_authority",
+          "failure_behavior",
+          "enforcement",
+          "verification",
+          "test_refs",
+          "source_ids",
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "schema_version",
+    "status",
+    "rules"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agdl:rules:1.3"
+}

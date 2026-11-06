@@ -1,0 +1,236 @@
+{
+  "schema_version": "agdl-1.3",
+  "record_kind": "DERIVED_NON_AUTHORITATIVE",
+  "environment": "SYNTHETIC_FIXTURE",
+  "subject_revision": "fixture-revision-1",
+  "risk_tier": "R0",
+  "rcca": {
+    "schema_version": "rcca-1.2",
+    "source_sha256": "37519c2219144a988a04eb457176fc4d0ff07f3fbc2d810213dc628b42632631",
+    "method": "line_and_terminal_punctuation_spans_require_human_clause_review",
+    "risk_tier": "R0",
+    "authorization": {
+      "status": "VERIFIED",
+      "source_ref": "GRANT-1"
+    },
+    "conflicts": [],
+    "source_units": [
+      {
+        "unit_id": "SRC-0001",
+        "line": 1,
+        "start": 0,
+        "end": 23,
+        "sha256": "a022eeb4a024b026272a2caabd3efef5211126b4141718010317b5a832d186a0",
+        "compound_review_hint": false,
+        "disposition": "REQUIREMENTS",
+        "requirement_ids": [
+          "REQ-001"
+        ],
+        "non_binding_reason": null
+      },
+      {
+        "unit_id": "SRC-0002",
+        "line": 2,
+        "start": 24,
+        "end": 51,
+        "sha256": "4c007db826a32dfb3e0c0f7dd4325140d775f31bdba549ee956b50012894244b",
+        "compound_review_hint": false,
+        "disposition": "REQUIREMENTS",
+        "requirement_ids": [
+          "REQ-002"
+        ],
+        "non_binding_reason": null
+      }
+    ],
+    "requirements": [
+      {
+        "id": "REQ-001",
+        "normative": "MUST",
+        "source_unit_ids": [
+          "SRC-0001"
+        ],
+        "applicability": "APPLICABLE",
+        "acceptance": {
+          "test_id": "TEST-001",
+          "oracle": "Fixture oracle: expected scoped observation is recorded."
+        },
+        "implementation_state": "IMPLEMENTED",
+        "verification": {
+          "status": "PASSED",
+          "evidence_ref": "EV-1"
+        }
+      },
+      {
+        "id": "REQ-002",
+        "normative": "MUST_NOT",
+        "source_unit_ids": [
+          "SRC-0002"
+        ],
+        "applicability": "APPLICABLE",
+        "acceptance": {
+          "test_id": "TEST-002",
+          "oracle": "Fixture oracle: expected scoped observation is recorded."
+        },
+        "implementation_state": "IMPLEMENTED",
+        "verification": {
+          "status": "PASSED",
+          "evidence_ref": "EV-2"
+        }
+      }
+    ],
+    "review": {
+      "independence": "L0",
+      "review_evidence_ref": "REVIEW-1",
+      "independent_approval_verified": false
+    },
+    "notes": [
+      "Fill every source unit with REQUIREMENTS or NON_BINDING plus reason.",
+      "Split compound lines into multiple atomic requirement IDs when necessary.",
+      "Any identity, approval or evidence reference is a claim until independently verified."
+    ]
+  },
+  "references": [
+    {
+      "id": "SPEC-1",
+      "kind": "SPEC",
+      "path": "spec.md",
+      "sha256": "421e4685c4457999cb819bedb079e886ea04ba7da4c586377f620e9cec1f6877",
+      "authority_class": "REFERENCE_ONLY"
+    },
+    {
+      "id": "TASKS-1",
+      "kind": "TASK_RECORD",
+      "path": "tasks.md",
+      "sha256": "9721a041f23f084f69f980bea3c05cc03aea846de9008b0a92e14db0ee1f2417",
+      "authority_class": "REFERENCE_ONLY"
+    },
+    {
+      "id": "IMPL-1",
+      "kind": "IMPLEMENTATION",
+      "path": "src/feature.py",
+      "sha256": "f6d06cfe04984a5a68ff75790c6685e9aae81bfe5080e6044c342c70e8e98b1d",
+      "authority_class": "REFERENCE_ONLY"
+    },
+    {
+      "id": "LOG-1",
+      "kind": "TEST_LOG",
+      "path": "test.log",
+      "sha256": "58bfb6764b1122c294561d0b51bc336e42880056860be842e43510f46b72587c",
+      "authority_class": "REFERENCE_ONLY"
+    },
+    {
+      "id": "LOG-2",
+      "kind": "INSPECTION_LOG",
+      "path": "inspection.log",
+      "sha256": "9021aa1a88413bc1fba40ec4e75e85f4ba694090b9f0cfb807d024304034680b",
+      "authority_class": "REFERENCE_ONLY"
+    },
+    {
+      "id": "REVIEW-1",
+      "kind": "REVIEW",
+      "path": "review.md",
+      "sha256": "d46bc79135ee74a6284cd935a5af93bb22a300cb30537ee2c47407fa2a1d7eed",
+      "authority_class": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GRANT-1",
+      "kind": "DELEGATION",
+      "path": "grant.md",
+      "sha256": "bdaf564c16d423589df182a23377046d8305a044fd1aa9c58cac7b22e7c1ee4a",
+      "authority_class": "REFERENCE_ONLY"
+    },
+    {
+      "id": "DECISION-1",
+      "kind": "DECISION",
+      "path": "decision.md",
+      "sha256": "8c6143ae1787549ea0e2cbd51e4fb7b752ca95e1478d8066843df6815f378b3c",
+      "authority_class": "REFERENCE_ONLY"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EV-1",
+      "requirement_ids": [
+        "REQ-001"
+      ],
+      "artifact_ref": "LOG-1",
+      "subject_revision": "fixture-revision-1",
+      "source_sha256": "37519c2219144a988a04eb457176fc4d0ff07f3fbc2d810213dc628b42632631",
+      "method": "TEST",
+      "result": "PASSED",
+      "evidence_class": "SYNTHETIC",
+      "producer": "fixture-author",
+      "command_or_method": "Synthetic acceptance-label construction; not a live model run.",
+      "observed_result": "Fixture expectation PASSED; semantic validity is not machine-authenticated."
+    },
+    {
+      "id": "EV-2",
+      "requirement_ids": [
+        "REQ-002"
+      ],
+      "artifact_ref": "LOG-2",
+      "subject_revision": "fixture-revision-1",
+      "source_sha256": "37519c2219144a988a04eb457176fc4d0ff07f3fbc2d810213dc628b42632631",
+      "method": "INSPECTION",
+      "result": "PASSED",
+      "evidence_class": "SYNTHETIC",
+      "producer": "fixture-author",
+      "command_or_method": "Synthetic acceptance-label construction; not a live model run.",
+      "observed_result": "Fixture expectation PASSED; semantic validity is not machine-authenticated."
+    }
+  ],
+  "bindings": {
+    "REQ-001": {
+      "spec_refs": [
+        "SPEC-1"
+      ],
+      "task_refs": [
+        "T001"
+      ],
+      "implementation_refs": [
+        "IMPL-1"
+      ],
+      "evidence_refs": [
+        "EV-1"
+      ],
+      "no_spec_reason": "",
+      "no_task_reason": ""
+    },
+    "REQ-002": {
+      "spec_refs": [
+        "SPEC-1"
+      ],
+      "task_refs": [
+        "T001"
+      ],
+      "implementation_refs": [
+        "IMPL-1"
+      ],
+      "evidence_refs": [
+        "EV-2"
+      ],
+      "no_spec_reason": "",
+      "no_task_reason": ""
+    }
+  },
+  "tasks": [
+    {
+      "id": "T001",
+      "source_ref": "TASKS-1",
+      "status": "DONE",
+      "depends_on": []
+    }
+  ],
+  "coverage_review": {
+    "status": "REVIEWED",
+    "artifact_ref": "REVIEW-1",
+    "reviewer": "fixture-author",
+    "mode": "SELF"
+  },
+  "completion_review": {
+    "status": "REVIEWED",
+    "artifact_ref": "REVIEW-1",
+    "reviewer": "fixture-author",
+    "mode": "SELF"
+  }
+}

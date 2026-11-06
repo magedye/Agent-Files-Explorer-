@@ -185,8 +185,30 @@ export async function handleApiRequest(req, res) {
       return send(200, { packages: governanceService.listPackages() });
     }
 
+    if (u.pathname === "/api/governance/baseline") {
+      return send(200, {
+        baseline: "Baseline v1",
+        packageId: "aghr_1_3_0",
+        version: "1.3.0",
+        status: "REGISTERED_BASELINE_V1_CANDIDATE",
+        defaultForNewWorkflows: true,
+        legacyReleaseDefaultId: DEFAULT_PACKAGE_ID,
+        summary: governanceService.getSummary("aghr_1_3_0"),
+      });
+    }
+
+    if (u.pathname === "/api/governance/schemas") {
+      const packageId = u.searchParams.get("packageId") || u.searchParams.get("package") || "aghr_1_3_0";
+      return send(200, { schemas: governanceService.getSchemas(packageId) });
+    }
+
     if (u.pathname === "/api/governance/summary") {
-      const packageId = u.searchParams.get("packageId") || u.searchParams.get("package") || "";
+      const baselineParam = u.searchParams.get("baseline");
+      const workflowParam = u.searchParams.get("workflow");
+      let packageId = u.searchParams.get("packageId") || u.searchParams.get("package") || "";
+      if (!packageId && (baselineParam === "v1" || workflowParam === "new")) {
+        packageId = "aghr_1_3_0";
+      }
       return send(200, governanceService.getSummary(packageId));
     }
 

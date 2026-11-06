@@ -1,0 +1,50 @@
+{
+  "version": "1.3.0",
+  "date": "2026-11-06",
+  "environment": {
+    "os": "Linux",
+    "python": "3.13.5",
+    "architecture": "x86_64"
+  },
+  "independence": "SELF_ASSESSMENT_NOT_INDEPENDENT",
+  "checks": [
+    {
+      "id": "LEGACY_UNIT",
+      "status": "PASSED",
+      "count": 44,
+      "evidence": "LEGACY_TESTS_FINAL.txt"
+    },
+    {
+      "id": "NEW_UNIT",
+      "status": "PASSED",
+      "count": 116,
+      "evidence": "NEW_TESTS_FINAL.txt"
+    },
+    {
+      "id": "SCHEMA",
+      "status": "PASSED",
+      "schemas": 4,
+      "sample_instances": 4,
+      "evidence": "SCHEMA_VERIFICATION.json"
+    },
+    {
+      "id": "CLI_SMOKE",
+      "status": "PASSED",
+      "count": 4,
+      "evidence": "CLI_SMOKE.json"
+    },
+    {
+      "id": "SYNTHETIC_COMPARISON",
+      "status": "PASSED_IN_DESIGNED_SCOPE",
+      "cases": 7,
+      "evidence": "../evaluations/COMPARATIVE_RESULTS.json"
+    }
+  ],
+  "distinct_unit_tests_passed": 160,
+  "live_host_qualification": "NOT_RUN",
+  "windows_qualification": "NOT_RUN",
+  "independent_holdout": "NOT_RUN",
+  "live_value_decision": "NOT_RUN",
+  "project_adoption": "NOT_PERFORMED",
+  "owner_acceptance": "NOT_GRANTED"
+}

@@ -1,0 +1,701 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "agdl-1.3",
+      "type": "string"
+    },
+    "record_kind": {
+      "const": "DERIVED_NON_AUTHORITATIVE",
+      "type": "string"
+    },
+    "environment": {
+      "type": "string",
+      "enum": [
+        "SYNTHETIC_FIXTURE",
+        "PROJECT"
+      ]
+    },
+    "subject_revision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "risk_tier": {
+      "type": "string",
+      "enum": [
+        "R0",
+        "R1",
+        "R2",
+        "R3",
+        "UNKNOWN"
+      ]
+    },
+    "rcca": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "rcca-1.2",
+          "type": "string"
+        },
+        "source_sha256": {
+          "type": "string",
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "maxLength": 64
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "risk_tier": {
+          "type": "string",
+          "enum": [
+            "R0",
+            "R1",
+            "R2",
+            "R3",
+            "UNKNOWN"
+          ]
+        },
+        "authorization": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "VERIFIED",
+                "UNKNOWN",
+                "DENIED"
+              ]
+            },
+            "source_ref": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "status",
+            "source_ref"
+          ],
+          "additionalProperties": false
+        },
+        "conflicts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "RESOLVED",
+                  "OPEN",
+                  "UNKNOWN"
+                ]
+              },
+              "description": {
+                "type": "string",
+                "minLength": 0
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          },
+          "minItems": 0
+        },
+        "source_units": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "unit_id": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+              },
+              "line": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "start": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "end": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "sha256": {
+                "type": "string",
+                "minLength": 64,
+                "pattern": "^[0-9a-f]{64}$",
+                "maxLength": 64
+              },
+              "compound_review_hint": {
+                "type": "boolean"
+              },
+              "disposition": {
+                "type": "string",
+                "enum": [
+                  "REQUIREMENTS",
+                  "NON_BINDING",
+                  "UNCLASSIFIED"
+                ]
+              },
+              "requirement_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+                },
+                "minItems": 0,
+                "uniqueItems": true
+              },
+              "non_binding_reason": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "unit_id",
+              "line",
+              "start",
+              "end",
+              "sha256",
+              "compound_review_hint",
+              "disposition",
+              "requirement_ids",
+              "non_binding_reason"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "requirements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 5,
+                "pattern": "^REQ-[A-Za-z0-9_-]+$"
+              },
+              "normative": {
+                "type": "string",
+                "enum": [
+                  "MUST",
+                  "MUST_NOT",
+                  "SHOULD",
+                  "MAY"
+                ]
+              },
+              "source_unit_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+                },
+                "minItems": 0,
+                "uniqueItems": true
+              },
+              "applicability": {
+                "type": "string",
+                "enum": [
+                  "APPLICABLE",
+                  "NOT_APPLICABLE",
+                  "UNKNOWN"
+                ]
+              },
+              "acceptance": {
+                "type": "object",
+                "properties": {
+                  "test_id": {
+                    "type": "string",
+                    "minLength": 0
+                  },
+                  "oracle": {
+                    "type": "string",
+                    "minLength": 0
+                  }
+                },
+                "required": [
+                  "test_id",
+                  "oracle"
+                ],
+                "additionalProperties": false
+              },
+              "implementation_state": {
+                "type": "string",
+                "enum": [
+                  "IMPLEMENTED",
+                  "NOT_IMPLEMENTED",
+                  "BLOCKED",
+                  "CONFLICTED",
+                  "UNKNOWN",
+                  "NOT_APPLICABLE"
+                ]
+              },
+              "verification": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "PASSED",
+                      "FAILED",
+                      "NOT_RUN",
+                      "INCONCLUSIVE"
+                    ]
+                  },
+                  "evidence_ref": {
+                    "type": "string",
+                    "minLength": 0
+                  }
+                },
+                "required": [
+                  "status",
+                  "evidence_ref"
+                ],
+                "additionalProperties": false
+              },
+              "exception": {
+                "type": "object",
+                "properties": {
+                  "approved": {
+                    "type": "boolean"
+                  },
+                  "authority_reference": {
+                    "type": "string",
+                    "minLength": 0
+                  }
+                },
+                "required": [
+                  "approved",
+                  "authority_reference"
+                ],
+                "additionalProperties": false
+              },
+              "deviation_reason": {
+                "type": "string",
+                "minLength": 0
+              }
+            },
+            "required": [
+              "id",
+              "normative",
+              "source_unit_ids",
+              "applicability",
+              "acceptance",
+              "implementation_state",
+              "verification"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "review": {
+          "type": "object",
+          "properties": {
+            "independence": {
+              "type": "string",
+              "enum": [
+                "L0",
+                "L1",
+                "L2",
+                "L3"
+              ]
+            },
+            "review_evidence_ref": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "independent_approval_verified": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "independence",
+            "review_evidence_ref",
+            "independent_approval_verified"
+          ],
+          "additionalProperties": false
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 0
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "schema_version",
+        "source_sha256",
+        "method",
+        "risk_tier",
+        "authorization",
+        "conflicts",
+        "source_units",
+        "requirements",
+        "review",
+        "notes"
+      ],
+      "additionalProperties": false
+    },
+    "bindings": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "spec_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          },
+          "task_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          },
+          "implementation_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          },
+          "no_spec_reason": {
+            "type": "string",
+            "minLength": 0
+          },
+          "no_task_reason": {
+            "type": "string",
+            "minLength": 0
+          }
+        },
+        "required": [
+          "spec_refs",
+          "task_refs",
+          "implementation_refs",
+          "evidence_refs",
+          "no_spec_reason",
+          "no_task_reason"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "SPEC",
+              "TASK_RECORD",
+              "IMPLEMENTATION",
+              "TEST_LOG",
+              "INSPECTION_LOG",
+              "REVIEW",
+              "DELEGATION",
+              "DECISION"
+            ]
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "type": "string",
+            "minLength": 64,
+            "pattern": "^[0-9a-f]{64}$",
+            "maxLength": 64
+          },
+          "authority_class": {
+            "type": "string",
+            "enum": [
+              "REFERENCE_ONLY",
+              "OWNER_RECORD",
+              "PROJECT_BASELINE",
+              "DERIVED",
+              "CANDIDATE"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "path",
+          "sha256",
+          "authority_class"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "requirement_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "artifact_ref": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "subject_revision": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_sha256": {
+            "type": "string",
+            "minLength": 64,
+            "pattern": "^[0-9a-f]{64}$",
+            "maxLength": 64
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "TEST",
+              "INSPECTION",
+              "ANALYSIS"
+            ]
+          },
+          "result": {
+            "type": "string",
+            "enum": [
+              "PASSED",
+              "FAILED",
+              "NOT_RUN",
+              "INCONCLUSIVE"
+            ]
+          },
+          "evidence_class": {
+            "type": "string",
+            "enum": [
+              "SYNTHETIC",
+              "LIVE_RECORDED"
+            ]
+          },
+          "producer": {
+            "type": "string",
+            "minLength": 1
+          },
+          "command_or_method": {
+            "type": "string",
+            "minLength": 1
+          },
+          "observed_result": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "requirement_ids",
+          "artifact_ref",
+          "subject_revision",
+          "source_sha256",
+          "method",
+          "result",
+          "evidence_class",
+          "producer",
+          "command_or_method",
+          "observed_result"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "source_ref": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "TODO",
+              "DOING",
+              "DONE",
+              "BLOCKED"
+            ]
+          },
+          "depends_on": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "id",
+          "source_ref",
+          "status",
+          "depends_on"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "coverage_review": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "REVIEWED",
+            "NOT_REVIEWED"
+          ]
+        },
+        "artifact_ref": {
+          "type": "string",
+          "minLength": 0
+        },
+        "reviewer": {
+          "type": "string",
+          "minLength": 0
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "SELF",
+            "OWNER_REVIEW",
+            "SEPARATE_SESSION",
+            "EXTERNAL"
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "artifact_ref",
+        "reviewer",
+        "mode"
+      ],
+      "additionalProperties": false
+    },
+    "completion_review": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "REVIEWED",
+            "NOT_REVIEWED"
+          ]
+        },
+        "artifact_ref": {
+          "type": "string",
+          "minLength": 0
+        },
+        "reviewer": {
+          "type": "string",
+          "minLength": 0
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "SELF",
+            "OWNER_REVIEW",
+            "SEPARATE_SESSION",
+            "EXTERNAL"
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "artifact_ref",
+        "reviewer",
+        "mode"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "record_kind",
+    "environment",
+    "subject_revision",
+    "risk_tier",
+    "rcca",
+    "bindings",
+    "references",
+    "evidence",
+    "tasks",
+    "coverage_review",
+    "completion_review"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agdl:trace:1.3",
+  "title": "AG-DLF diagnostic trace; input metadata never grants authorization"
+}

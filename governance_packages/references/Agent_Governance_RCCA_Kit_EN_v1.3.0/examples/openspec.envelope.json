@@ -1,0 +1,55 @@
+{
+  "schema_version": "agdl-envelope-1.3",
+  "record_kind": "DERIVED_NON_AUTHORITATIVE",
+  "format": "openspec",
+  "path": "examples/openspec.delta.md",
+  "source_sha256": "13fdeea8dcd63feea8e51d440b4a84c4b8117fe7ba2394f8f6fcde7b969cac37",
+  "raw_base64": "IyBFeGFtcGxlIGRlbHRhIGRhdGEKCiMjIEFEREVEIFJlcXVpcmVtZW50cwojIyMgUmVxdWlyZW1lbnQ6IFZhbGlkYXRlIGlucHV0CiMjIyMgU2NlbmFyaW86IFJlamVjdCBpbnZhbGlkIGlucHV0ClRoZSBwcm9wb3NlZCBiZWhhdmlvciByZWplY3RzIGludmFsaWQgaW5wdXQuCgojIyBNT0RJRklFRCBSZXF1aXJlbWVudHMKIyMjIFJlcXVpcmVtZW50OiBFeGlzdGluZyByZXNwb25zZQpBIHByb3Bvc2FsIGlzIG5vdCBhbiBhcHByb3ZlZCBzcGVjaWZpY2F0aW9uIGNoYW5nZS4K",
+  "records": [
+    {
+      "derived_id": "LINE-1",
+      "kind": "HEADING",
+      "label": "Example delta data",
+      "line": 1,
+      "source_authority": "UNTRUSTED_DATA"
+    },
+    {
+      "derived_id": "LINE-4",
+      "kind": "REQUIREMENT",
+      "label": "Validate input",
+      "delta_section": "ADDED",
+      "line": 4,
+      "source_authority": "UNTRUSTED_DATA"
+    },
+    {
+      "derived_id": "LINE-5",
+      "kind": "SCENARIO",
+      "label": "Reject invalid input",
+      "delta_section": "ADDED",
+      "line": 5,
+      "source_authority": "UNTRUSTED_DATA"
+    },
+    {
+      "derived_id": "LINE-9",
+      "kind": "REQUIREMENT",
+      "label": "Existing response",
+      "delta_section": "MODIFIED",
+      "line": 9,
+      "source_authority": "UNTRUSTED_DATA"
+    }
+  ],
+  "semantic_mapping": "PARTIAL_NOT_LOSSLESS",
+  "loss_report": [
+    {
+      "line": 6,
+      "reason": "RAW_ONLY_SEMANTICS_NOT_IMPORTED"
+    },
+    {
+      "line": 10,
+      "reason": "RAW_ONLY_SEMANTICS_NOT_IMPORTED"
+    }
+  ],
+  "raw_round_trip": "BYTE_PRESERVING_BY_DESIGN_VERIFY_ON_EXPORT",
+  "authorization_granted": false,
+  "original_source_modified": false
+}
