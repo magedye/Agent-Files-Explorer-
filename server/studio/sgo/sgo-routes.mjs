@@ -86,6 +86,14 @@ export async function handleSgoApi(req, res, studio) {
     // All SGO routes require canonical Studio authentication
     const principal = studio.authority.authenticate(req);
 
+    // Fail closed on mutating endpoints if active integrity incident exists
+    if (store.integrityIncident && (
+      pathname.startsWith('/api/v1/sgo/decisions/') ||
+      pathname === '/api/v1/sgo/propose-change-package'
+    )) {
+      throw new StudioError(500, store.integrityIncident.code, `Operation blocked by active integrity incident: ${store.integrityIncident.reason}`);
+    }
+
     // 1. Overview
     if (req.method === 'GET' && pathname === '/api/v1/sgo/overview') {
       return send(200, store.getOverview());

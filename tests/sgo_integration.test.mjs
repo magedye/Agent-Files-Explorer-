@@ -533,7 +533,8 @@ test('AGHR-QLE-GOV-OBS-002A: Original 52-Requirement Acceptance & Traceability S
     // AC-37: Protected decisions, if configured, bind identity + source SHA/revision + option text + force/scope + rationale
     // -------------------------------------------------------------------------
     await t.test('AC-37: Protected decisions, if configured, bind identity + source SHA/revision + option text + force/scope + rationale', async () => {
-      const sgoStore = new SgoStore({ storageRoot });
+      const ac37Root = path.join(storageRoot, 'ac37-isolated');
+      const sgoStore = new SgoStore({ storageRoot: ac37Root });
       const syntheticDecision = sgoStore.recordProtectedOwnerDecision({
         target_id: 'QL4-A01',
         selected_option: 'CONFIRM_MUST_REQUIREMENT',
@@ -562,7 +563,8 @@ test('AGHR-QLE-GOV-OBS-002A: Original 52-Requirement Acceptance & Traceability S
     // AC-39: Tampered/truncated audit records and independent checkpoint mismatch are detected
     // -------------------------------------------------------------------------
     await t.test('AC-39: Tampered/truncated audit records and independent checkpoint mismatch are detected', async () => {
-      const sgoStore = new SgoStore({ storageRoot });
+      const ac39Root = path.join(storageRoot, 'ac39-isolated');
+      const sgoStore = new SgoStore({ storageRoot: ac39Root });
       // 1. Healthy chain passes
       const initialVerify = sgoStore.verifyLedgerIntegrity();
       assert.equal(initialVerify.valid, true);
@@ -574,7 +576,7 @@ test('AGHR-QLE-GOV-OBS-002A: Original 52-Requirement Acceptance & Traceability S
       assert.ok(tamperedVerify.reason.includes('Hash mismatch'));
 
       // 3. Truncated record is detected
-      const freshStore = new SgoStore({ storageRoot });
+      const freshStore = new SgoStore({ storageRoot: path.join(storageRoot, 'ac39-trunc-isolated') });
       freshStore.saveDraftDecision({ target_id: 'QL4-A01', selected_option: 'ACCEPT' });
       freshStore.auditLedger.splice(0, 1);
       const truncatedVerify = freshStore.verifyLedgerIntegrity();
@@ -807,7 +809,8 @@ test('AGHR-QLE-GOV-OBS-002A: Original 52-Requirement Acceptance & Traceability S
 
     // ADV-03: Synthetic approval tests run exclusively through server-controlled, isolated test fixtures
     await t.test('ADV-03: Server-controlled fixture records synthetic decision with non-activation invariant', async () => {
-      const fixtureStore = new SgoStore({ storageRoot });
+      const adv03Root = path.join(storageRoot, 'adv03-isolated');
+      const fixtureStore = new SgoStore({ storageRoot: adv03Root });
       const synthetic = fixtureStore.recordSyntheticFixtureDecision({
         target_id: 'QL4-A02',
         selected_option: 'CONFIRM_OPTION',
@@ -823,7 +826,8 @@ test('AGHR-QLE-GOV-OBS-002A: Original 52-Requirement Acceptance & Traceability S
 
     // ADV-04: Owner decision events and audit ledger durably persist across server restarts
     await t.test('ADV-04: Owner decisions and audit events durably persist across restart', async () => {
-      const initialStore = new SgoStore({ storageRoot });
+      const adv04Root = path.join(storageRoot, 'adv04-isolated');
+      const initialStore = new SgoStore({ storageRoot: adv04Root });
       initialStore.recordSyntheticFixtureDecision({
         target_id: 'QL4-A03',
         selected_option: 'CONFIRM_MUST',
@@ -834,7 +838,7 @@ test('AGHR-QLE-GOV-OBS-002A: Original 52-Requirement Acceptance & Traceability S
       const lastHashBefore = initialStore.lastHash;
 
       // Re-instantiate store representing server restart
-      const reloadedStore = new SgoStore({ storageRoot });
+      const reloadedStore = new SgoStore({ storageRoot: adv04Root });
       assert.ok(reloadedStore.ownerDecisions.has('QL4-A03'), 'Owner decision must survive restart');
       assert.equal(reloadedStore.ownerDecisions.get('QL4-A03').target_id, 'QL4-A03');
       assert.equal(reloadedStore.auditLedger.length, eventsBefore, 'Audit ledger length must survive restart');
@@ -843,8 +847,9 @@ test('AGHR-QLE-GOV-OBS-002A: Original 52-Requirement Acceptance & Traceability S
 
     // ADV-05: Independent checkpoint tampering or truncation is detected and fails verification
     await t.test('ADV-05: Tampered independent checkpoint file fails integrity verification', async () => {
-      const store = new SgoStore({ storageRoot });
-      const checkpointFile = path.join(storageRoot, 'sgo_checkpoint.json');
+      const adv05Root = path.join(storageRoot, 'adv05-isolated');
+      const store = new SgoStore({ storageRoot: adv05Root });
+      const checkpointFile = path.join(adv05Root, 'sgo_checkpoint.json');
       assert.ok(fs.existsSync(checkpointFile), 'Checkpoint file must exist');
 
       // Backup valid checkpoint
@@ -913,7 +918,7 @@ test('AGHR-QLE-GOV-OBS-002A: Original 52-Requirement Acceptance & Traceability S
 
     // ADV-08: Unsupported schema keywords must not silently pass validation
     await t.test('ADV-08: Unsupported schema keywords must not silently pass validation', async () => {
-      const store = new SgoStore({ storageRoot });
+      const store = new SgoStore({ storageRoot: path.join(storageRoot, 'adv08-isolated') });
       
       const tempSchemaPath = path.resolve('server/studio/sgo/schemas/test-unsupported-keyword.schema.json');
       fs.writeFileSync(tempSchemaPath, JSON.stringify({
@@ -935,7 +940,8 @@ test('AGHR-QLE-GOV-OBS-002A: Original 52-Requirement Acceptance & Traceability S
 
     // ADV-09: External checkpoint tampering across trust boundary is detected and fails verification
     await t.test('ADV-09: External checkpoint tampering across trust boundary is detected and fails verification', async () => {
-      const store = new SgoStore({ storageRoot });
+      const adv09Root = path.join(storageRoot, 'adv09-isolated');
+      const store = new SgoStore({ storageRoot: adv09Root });
       assert.ok(store.externalCheckpointFilePath, 'External checkpoint file path must be configured');
       assert.ok(fs.existsSync(store.externalCheckpointFilePath), 'External checkpoint file must exist on disk');
 
@@ -955,7 +961,13 @@ test('AGHR-QLE-GOV-OBS-002A: Original 52-Requirement Acceptance & Traceability S
 
     // ADV-10: Atomic write operations ensure audit files and checkpoints are written without partial corruption
     await t.test('ADV-10: Atomic write operations ensure audit files and checkpoints are written without partial corruption', async () => {
-      const store = new SgoStore({ storageRoot });
+      const adv10Root = path.join(storageRoot, 'adv10-isolated');
+      const store = new SgoStore({ storageRoot: adv10Root });
+      store.saveDraftDecision({
+        target_id: 'QL4-A04',
+        selected_option: 'CONFIRM_MUST',
+        rationale: 'Draft atomicity check'
+      });
       store.recordSyntheticFixtureDecision({
         target_id: 'QL4-A04',
         selected_option: 'CONFIRM_MUST',
@@ -963,7 +975,7 @@ test('AGHR-QLE-GOV-OBS-002A: Original 52-Requirement Acceptance & Traceability S
       }, { actor: 'synthetic-owner-test', role: 'governance-owner' });
 
       // Verify no dangling temp files remain in storageRoot
-      const files = fs.readdirSync(storageRoot);
+      const files = fs.readdirSync(adv10Root);
       const tmpFiles = files.filter(f => f.includes('.tmp'));
       assert.equal(tmpFiles.length, 0, 'No temporary swap files should remain after atomic write');
 
@@ -973,6 +985,197 @@ test('AGHR-QLE-GOV-OBS-002A: Original 52-Requirement Acceptance & Traceability S
       assert.doesNotThrow(() => JSON.parse(fs.readFileSync(store.auditLedgerFilePath, 'utf8')));
       assert.doesNotThrow(() => JSON.parse(fs.readFileSync(store.checkpointFilePath, 'utf8')));
       assert.doesNotThrow(() => JSON.parse(fs.readFileSync(store.externalCheckpointFilePath, 'utf8')));
+    });
+
+    // =========================================================================
+    // AGHR-QLE-GOV-OBS-006: PROTECTED DECISION LEDGER INTEGRITY NEGATIVE TESTS
+    // =========================================================================
+
+    // NEG-01: Valid-prefix ledger truncation followed by restart fails closed and preserves checkpoint evidence
+    await t.test('NEG-01: Valid-prefix ledger truncation followed by restart fails closed without overwriting checkpoint', async () => {
+      const neg01Root = path.join(storageRoot, 'neg01-truncation');
+      const store = new SgoStore({ storageRoot: neg01Root });
+
+      // Record two decisions (giving genesis + 2 decisions = 3 events)
+      store.recordSyntheticFixtureDecision({
+        target_id: 'QL4-A01',
+        selected_option: 'CONFIRM_MUST',
+        rationale: 'Dec 1'
+      });
+      store.recordSyntheticFixtureDecision({
+        target_id: 'QL4-A02',
+        selected_option: 'CONFIRM_OPTION',
+        rationale: 'Dec 2'
+      });
+
+      assert.equal(store.auditLedger.length, 3);
+      assert.equal(store.verifyLedgerIntegrity().valid, true);
+
+      // Read checkpoint on disk
+      const checkpointBefore = JSON.parse(fs.readFileSync(store.checkpointFilePath, 'utf8'));
+      assert.equal(checkpointBefore.events_count, 3);
+
+      // Truncate audit ledger file to 2 events (valid prefix)
+      const ledgerOnDisk = JSON.parse(fs.readFileSync(store.auditLedgerFilePath, 'utf8'));
+      fs.writeFileSync(store.auditLedgerFilePath, JSON.stringify(ledgerOnDisk.slice(0, 2), null, 2), 'utf8');
+
+      // Re-instantiate store representing server restart
+      const restartedStore = new SgoStore({ storageRoot: neg01Root });
+      
+      // Assert: Truncation incident detected
+      assert.ok(restartedStore.integrityIncident, 'Integrity incident must be active');
+      assert.equal(restartedStore.integrityIncident.code, 'VALID_PREFIX_TRUNCATION_DETECTED');
+      
+      // Assert: verifyLedgerIntegrity fails closed
+      const verify = restartedStore.verifyLedgerIntegrity();
+      assert.equal(verify.valid, false);
+      assert.equal(verify.code, 'VALID_PREFIX_TRUNCATION_DETECTED');
+
+      // CRITICAL ASSERTION: Checkpoint on disk was NOT overwritten or regenerated!
+      const checkpointAfter = JSON.parse(fs.readFileSync(store.checkpointFilePath, 'utf8'));
+      assert.equal(checkpointAfter.events_count, 3, 'Retained checkpoint must not be overwritten with truncated count');
+      assert.equal(checkpointAfter.ledger_tip_hash, checkpointBefore.ledger_tip_hash);
+
+      // Assert: Any mutating write attempt fails closed
+      assert.throws(() => {
+        restartedStore.recordSyntheticFixtureDecision({
+          target_id: 'QL4-A03',
+          selected_option: 'CONFIRM_MUST'
+        });
+      }, /VALID_PREFIX_TRUNCATION_DETECTED/);
+
+      assert.throws(() => {
+        restartedStore.saveDraftDecision({
+          target_id: 'QL4-A03',
+          selected_option: 'CONFIRM_MUST'
+        });
+      }, /VALID_PREFIX_TRUNCATION_DETECTED/);
+    });
+
+    // NEG-02: Corrupted JSON audit ledger file on restart triggers incident and does NOT degrade to fresh genesis store
+    await t.test('NEG-02: Corrupted JSON audit ledger file triggers incident and does not reset to genesis', async () => {
+      const neg02Root = path.join(storageRoot, 'neg02-corrupt-ledger');
+      const store = new SgoStore({ storageRoot: neg02Root });
+      assert.equal(store.auditLedger.length, 1); // Genesis
+
+      // Corrupt audit ledger file with invalid JSON syntax
+      fs.writeFileSync(store.auditLedgerFilePath, '{"corrupt_json": [missing_closing_brackets...', 'utf8');
+
+      // Re-instantiate store
+      const restartedStore = new SgoStore({ storageRoot: neg02Root });
+
+      // Assert: Incident active, not reset to fresh genesis
+      assert.ok(restartedStore.integrityIncident);
+      assert.equal(restartedStore.integrityIncident.code, 'INTEGRITY_INCIDENT_CORRUPT_LEDGER');
+      assert.equal(restartedStore.verifyLedgerIntegrity().valid, false);
+
+      // Mutating operations fail closed
+      assert.throws(() => {
+        restartedStore.recordSyntheticFixtureDecision({ target_id: 'QL4-A01', selected_option: 'ACCEPT' });
+      }, /INTEGRITY_INCIDENT_CORRUPT_LEDGER/);
+    });
+
+    // NEG-03: Corrupted JSON checkpoint file on restart triggers incident and fails closed
+    await t.test('NEG-03: Corrupted JSON checkpoint file triggers incident and fails closed', async () => {
+      const neg03Root = path.join(storageRoot, 'neg03-corrupt-chk');
+      const store = new SgoStore({ storageRoot: neg03Root });
+
+      // Corrupt checkpoint file
+      fs.writeFileSync(store.checkpointFilePath, 'MALFORMED CHECKPOINT DATA', 'utf8');
+
+      const restartedStore = new SgoStore({ storageRoot: neg03Root });
+      assert.ok(restartedStore.integrityIncident);
+      assert.equal(restartedStore.integrityIncident.code, 'INTEGRITY_INCIDENT_CORRUPT_CHECKPOINT');
+      assert.equal(restartedStore.verifyLedgerIntegrity().valid, false);
+    });
+
+    // NEG-04: Missing audit ledger when checkpoint exists is treated as integrity incident, not fresh store
+    await t.test('NEG-04: Missing audit ledger after initialization triggers incident and prevents genesis overwrite', async () => {
+      const neg04Root = path.join(storageRoot, 'neg04-missing-ledger');
+      const store = new SgoStore({ storageRoot: neg04Root });
+      const checkpointBefore = fs.readFileSync(store.checkpointFilePath, 'utf8');
+
+      // Remove audit ledger file while checkpoint remains
+      fs.unlinkSync(store.auditLedgerFilePath);
+
+      const restartedStore = new SgoStore({ storageRoot: neg04Root });
+      assert.ok(restartedStore.integrityIncident);
+      assert.equal(restartedStore.integrityIncident.code, 'LEDGER_MISSING_AFTER_INITIALIZATION');
+      assert.equal(restartedStore.verifyLedgerIntegrity().valid, false);
+
+      // Checkpoint was not overwritten with a new genesis
+      const checkpointAfter = fs.readFileSync(store.checkpointFilePath, 'utf8');
+      assert.equal(checkpointAfter, checkpointBefore);
+    });
+
+    // NEG-05: Denied disk writes during decision recording causes in-memory rollback and throws PERSISTENCE_TRANSACTION_FAILED
+    await t.test('NEG-05: Denied disk writes during decision recording causes in-memory rollback and re-throw', async () => {
+      const neg05Root = path.join(storageRoot, 'neg05-denied-write');
+      const store = new SgoStore({ storageRoot: neg05Root });
+      const initialDecisionsCount = store.ownerDecisions.size;
+      const initialLedgerCount = store.auditLedger.length;
+      const initialTipHash = store.lastHash;
+
+      // Mock writeFileSync to throw an access denied error when writing owner decisions file
+      const originalWriteFileSync = fs.writeFileSync;
+      let writeAttempts = 0;
+      fs.writeFileSync = (filePath, ...args) => {
+        writeAttempts++;
+        if (typeof filePath === 'string' && filePath.includes('sgo_owner_decisions')) {
+          const err = new Error('EACCES: permission denied, open ' + filePath);
+          err.code = 'EACCES';
+          throw err;
+        }
+        return originalWriteFileSync(filePath, ...args);
+      };
+
+      try {
+        assert.throws(() => {
+          store.recordSyntheticFixtureDecision({
+            target_id: 'QL4-A01',
+            selected_option: 'CONFIRM_MUST'
+          });
+        }, (err) => {
+          return err.code === 'PERSISTENCE_TRANSACTION_FAILED' && err.status === 500;
+        });
+
+        // Assert: In-memory state was completely rolled back!
+        assert.equal(store.ownerDecisions.size, initialDecisionsCount, 'Owner decisions map must roll back');
+        assert.equal(store.auditLedger.length, initialLedgerCount, 'Audit ledger array must roll back');
+        assert.equal(store.lastHash, initialTipHash, 'Tip hash must roll back');
+      } finally {
+        fs.writeFileSync = originalWriteFileSync;
+      }
+    });
+
+    // NEG-06: Interrupted multi-file update and incomplete disk rollback triggers TRANSACTION_ROLLBACK_FAILED fail-closed state
+    await t.test('NEG-06: Interrupted multi-file update with failed disk rollback triggers TRANSACTION_ROLLBACK_FAILED', async () => {
+      const neg06Root = path.join(storageRoot, 'neg06-interrupted-update');
+      const store = new SgoStore({ storageRoot: neg06Root });
+
+      // Simulate failure during checkpoint write (after owner decisions & audit ledger wrote)
+      const originalWriteFileSync = fs.writeFileSync;
+      fs.writeFileSync = (filePath, ...args) => {
+        if (typeof filePath === 'string' && filePath.includes('sgo_checkpoint.json')) {
+          const err = new Error('EIO: I/O error writing checkpoint');
+          err.code = 'EIO';
+          throw err;
+        }
+        return originalWriteFileSync(filePath, ...args);
+      };
+
+      try {
+        assert.throws(() => {
+          store.recordSyntheticFixtureDecision({
+            target_id: 'QL4-A01',
+            selected_option: 'CONFIRM_MUST'
+          });
+        }, (err) => {
+          return err.code === 'PERSISTENCE_TRANSACTION_FAILED' && err.status === 500;
+        });
+      } finally {
+        fs.writeFileSync = originalWriteFileSync;
+      }
     });
 
   } finally {

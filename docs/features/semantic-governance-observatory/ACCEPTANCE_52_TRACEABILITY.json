@@ -561,6 +561,48 @@
       "defect_remediated": "Potential write corruption during concurrent or interrupted persistence writes",
       "assertion": "Atomic write operations via writeFileSyncAtomic guarantee zero dangling temporary files and valid JSON",
       "status": "PASSED"
+    },
+    {
+      "id": "NEG-01",
+      "severity": "P0",
+      "defect_remediated": "Valid-prefix ledger truncation followed by restart laundering or checkpoint overwrite",
+      "assertion": "Restart with truncated ledger detects VALID_PREFIX_TRUNCATION_DETECTED, preserves checkpoint evidence without overwrite, and fails closed",
+      "status": "PASSED"
+    },
+    {
+      "id": "NEG-02",
+      "severity": "P0",
+      "defect_remediated": "Corrupted JSON audit ledger silently degrading to fresh empty store / genesis re-creation",
+      "assertion": "Malformed JSON audit ledger raises INTEGRITY_INCIDENT_CORRUPT_LEDGER, prevents genesis re-creation, and fails closed",
+      "status": "PASSED"
+    },
+    {
+      "id": "NEG-03",
+      "severity": "P0",
+      "defect_remediated": "Corrupted JSON checkpoint file causing unhandled failure or unverified operation",
+      "assertion": "Corrupted checkpoint raises INTEGRITY_INCIDENT_CORRUPT_CHECKPOINT and fails closed",
+      "status": "PASSED"
+    },
+    {
+      "id": "NEG-04",
+      "severity": "P0",
+      "defect_remediated": "Audit ledger missing after initialization treated as fresh empty store",
+      "assertion": "Missing ledger when checkpoint exists raises LEDGER_MISSING_AFTER_INITIALIZATION and preserves checkpoint",
+      "status": "PASSED"
+    },
+    {
+      "id": "NEG-05",
+      "severity": "P0",
+      "defect_remediated": "Silent persistence error suppression leaving memory modified and returning 201 on write failure",
+      "assertion": "Denied disk write causes complete in-memory rollback of decisions and audit events, throwing PERSISTENCE_TRANSACTION_FAILED",
+      "status": "PASSED"
+    },
+    {
+      "id": "NEG-06",
+      "severity": "P0",
+      "defect_remediated": "Interrupted multi-file update leaving partial state without fail-closed lock",
+      "assertion": "Interrupted multi-file update with failed disk rollback raises TRANSACTION_ROLLBACK_FAILED fail-closed integrity incident",
+      "status": "PASSED"
     }
   ]
 }

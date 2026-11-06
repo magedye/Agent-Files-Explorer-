@@ -11,8 +11,15 @@ function writeFileSyncAtomic(filePath, data) {
     fs.mkdirSync(dir, { recursive: true });
   }
   const tempPath = path.join(dir, `.${path.basename(filePath)}.${crypto.randomUUID()}.tmp`);
-  fs.writeFileSync(tempPath, data, 'utf8');
-  fs.renameSync(tempPath, filePath);
+  try {
+    fs.writeFileSync(tempPath, data, 'utf8');
+    fs.renameSync(tempPath, filePath);
+  } catch (err) {
+    try {
+      if (fs.existsSync(tempPath)) fs.unlinkSync(tempPath);
+    } catch {}
+    throw err;
+  }
 }
 
 export class SgoStore {
@@ -31,6 +38,7 @@ export class SgoStore {
     this.auditLedger = [];
     this.genesisHash = '0'.repeat(64);
     this.lastHash = this.genesisHash;
+    this.integrityIncident = null;
     
     // Enrolled owner identity (null by default; requires explicit sovereign enrollment)
     this.enrolledOwner = options.enrolledOwner || null;
@@ -39,73 +47,309 @@ export class SgoStore {
     this.draftsFilePath = path.join(this.storageRoot, 'sgo_drafts.json');
     this.ownerDecisionsFilePath = path.join(this.storageRoot, 'sgo_owner_decisions.json');
     this.auditLedgerFilePath = path.join(this.storageRoot, 'sgo_audit_ledger.json');
-        this.checkpointFilePath = path.join(this.storageRoot, 'sgo_checkpoint.json');
+    this.checkpointFilePath = path.join(this.storageRoot, 'sgo_checkpoint.json');
 
     // External checkpoint trust boundary paths (AGHR-QLE-GOV-OBS-005)
+    const extDir = options.storageRoot 
+      ? path.join(path.dirname(this.storageRoot), `${path.basename(this.storageRoot)}_checkpoints`)
+      : path.resolve('.governance/checkpoints');
     this.externalCheckpointFilePath = options.externalCheckpointPath || 
-      (options.storageRoot 
-        ? path.join(this.storageRoot, '..', 'external_checkpoints', 'sgo_external_checkpoint.json') 
-        : path.resolve('.governance/checkpoints/sgo_external_checkpoint.json'));
+      path.join(extDir, 'sgo_external_checkpoint.json');
     this.checkpointHistoryPath = options.checkpointHistoryPath || 
-      (options.storageRoot 
-        ? path.join(this.storageRoot, '..', 'external_checkpoints', 'sgo_checkpoint_history.jsonl') 
-        : path.resolve('.governance/checkpoints/sgo_checkpoint_history.jsonl'));
+      path.join(extDir, 'sgo_checkpoint_history.jsonl');
 
-    // 1. Load persisted ordinary review drafts if present (survives restart)
-    if (fs.existsSync(this.draftsFilePath)) {
+    this._initializeAndVerifyStorage();
+  }
+
+  _initializeAndVerifyStorage() {
+    const draftsExist = fs.existsSync(this.draftsFilePath);
+    const decisionsExist = fs.existsSync(this.ownerDecisionsFilePath);
+    const ledgerExist = fs.existsSync(this.auditLedgerFilePath);
+    const checkpointExist = fs.existsSync(this.checkpointFilePath);
+    const extCheckpointExist = fs.existsSync(this.externalCheckpointFilePath);
+
+    const isInitialFreshStore = !ledgerExist && !checkpointExist && !decisionsExist && !extCheckpointExist;
+
+    if (isInitialFreshStore) {
+      // 1. Genuine clean bootstrap: seed genesis anchor
+      this._appendGenesisEvent();
+      return;
+    }
+
+    // 2. Check for missing files after prior initialization
+    if (checkpointExist && !ledgerExist) {
+      this.integrityIncident = {
+        code: 'LEDGER_MISSING_AFTER_INITIALIZATION',
+        reason: 'Audit ledger file is missing while integrity checkpoint exists. Truncation or deletion incident.'
+      };
+      return;
+    }
+
+    if (ledgerExist && !checkpointExist) {
+      this.integrityIncident = {
+        code: 'CHECKPOINT_MISSING_AFTER_INITIALIZATION',
+        reason: 'Integrity checkpoint file is missing while audit ledger exists. Tampering or deletion incident.'
+      };
+      return;
+    }
+
+    if (decisionsExist && !ledgerExist) {
+      this.integrityIncident = {
+        code: 'LEDGER_MISSING_AFTER_INITIALIZATION',
+        reason: 'Audit ledger file is missing while owner decisions exist.'
+      };
+      return;
+    }
+
+    // 3. Parse files with strict incident detection (never swallow parse errors to empty state)
+    if (draftsExist) {
       try {
         const savedDrafts = JSON.parse(fs.readFileSync(this.draftsFilePath, 'utf8'));
         if (Array.isArray(savedDrafts)) {
-          for (const d of savedDrafts) {
-            this.draftDecisions.set(d.target_id, d);
-          }
+          for (const d of savedDrafts) this.draftDecisions.set(d.target_id, d);
+        } else {
+          this.integrityIncident = {
+            code: 'INTEGRITY_INCIDENT_CORRUPT_DRAFTS',
+            reason: 'Drafts file does not contain a JSON array.'
+          };
+          return;
         }
-      } catch {}
+      } catch (err) {
+        this.integrityIncident = {
+          code: 'INTEGRITY_INCIDENT_CORRUPT_DRAFTS',
+          reason: `Corrupted drafts JSON: ${err.message}`
+        };
+        return;
+      }
     }
 
-    // 2. Load persisted protected owner decisions if present (survives restart)
-    if (fs.existsSync(this.ownerDecisionsFilePath)) {
+    if (decisionsExist) {
       try {
         const savedDecisions = JSON.parse(fs.readFileSync(this.ownerDecisionsFilePath, 'utf8'));
         if (Array.isArray(savedDecisions)) {
-          for (const d of savedDecisions) {
-            this.ownerDecisions.set(d.target_id, d);
-          }
+          for (const d of savedDecisions) this.ownerDecisions.set(d.target_id, d);
+        } else {
+          this.integrityIncident = {
+            code: 'INTEGRITY_INCIDENT_CORRUPT_DECISIONS',
+            reason: 'Owner decisions file does not contain a JSON array.'
+          };
+          return;
         }
-      } catch {}
+      } catch (err) {
+        this.integrityIncident = {
+          code: 'INTEGRITY_INCIDENT_CORRUPT_DECISIONS',
+          reason: `Corrupted owner decisions JSON: ${err.message}`
+        };
+        return;
+      }
     }
 
-    // 3. Load persisted audit ledger if present (survives restart)
-    if (fs.existsSync(this.auditLedgerFilePath)) {
+    if (ledgerExist) {
       try {
         const savedLedger = JSON.parse(fs.readFileSync(this.auditLedgerFilePath, 'utf8'));
         if (Array.isArray(savedLedger) && savedLedger.length > 0) {
           this.auditLedger = savedLedger;
           this.lastHash = savedLedger[savedLedger.length - 1].currentHash;
+        } else if (Array.isArray(savedLedger) && savedLedger.length === 0) {
+          this.integrityIncident = {
+            code: 'INTEGRITY_INCIDENT_EMPTY_LEDGER',
+            reason: 'Audit ledger file is empty but store was initialized.'
+          };
+          return;
+        } else {
+          this.integrityIncident = {
+            code: 'INTEGRITY_INCIDENT_CORRUPT_LEDGER',
+            reason: 'Audit ledger file does not contain a JSON array.'
+          };
+          return;
         }
-      } catch {}
+      } catch (err) {
+        this.integrityIncident = {
+          code: 'INTEGRITY_INCIDENT_CORRUPT_LEDGER',
+          reason: `Corrupted audit ledger JSON: ${err.message}`
+        };
+        return;
+      }
     }
-    
-    // 4. Seed initial genesis audit anchor if ledger is fresh
-    if (this.auditLedger.length === 0) {
-      this._appendAuditEvent({
-        action: 'SYSTEM_INITIALIZATION',
-        principal: 'system',
-        target: 'SGO_DATASET_V1.0.0',
-        details: {
-          total_items: this.data.metadata.total_items,
-          source_255: this.data.metadata.source_255_count,
-          v4_candidates: this.data.metadata.v4_count,
-          v2_historical: this.data.metadata.v2_count,
-          priority_groups: this.data.metadata.priority_groups_count,
-          total_designed_tests: this.data.metadata.total_designed_tests,
-          genesis: true
-        }
+
+    let checkpointData = null;
+    if (checkpointExist) {
+      try {
+        checkpointData = JSON.parse(fs.readFileSync(this.checkpointFilePath, 'utf8'));
+      } catch (err) {
+        this.integrityIncident = {
+          code: 'INTEGRITY_INCIDENT_CORRUPT_CHECKPOINT',
+          reason: `Corrupted checkpoint JSON: ${err.message}`
+        };
+        return;
+      }
+    }
+
+    let extCheckpointData = null;
+    if (extCheckpointExist) {
+      try {
+        extCheckpointData = JSON.parse(fs.readFileSync(this.externalCheckpointFilePath, 'utf8'));
+      } catch (err) {
+        this.integrityIncident = {
+          code: 'INTEGRITY_INCIDENT_CORRUPT_EXTERNAL_CHECKPOINT',
+          reason: `Corrupted external checkpoint JSON: ${err.message}`
+        };
+        return;
+      }
+    }
+
+    // 4. Pre-Sync Verification: Verify chain and compare against retained checkpoints
+    // Never overwrite an existing anchor simply because loaded ledger differs!
+    const chainVerification = this._verifyLoadedLedgerChain();
+    if (!chainVerification.valid) {
+      this.integrityIncident = {
+        code: 'INTEGRITY_INCIDENT_CHAIN_BROKEN',
+        reason: chainVerification.reason
+      };
+      return;
+    }
+
+    if (checkpointData) {
+      if (checkpointData.ledger_tip_hash !== this.lastHash || checkpointData.events_count !== this.auditLedger.length) {
+        this.integrityIncident = {
+          code: 'VALID_PREFIX_TRUNCATION_DETECTED',
+          reason: `Valid-prefix ledger truncation detected: checkpoint expects ${checkpointData.events_count} events (tip: ${checkpointData.ledger_tip_hash}), but ledger has ${this.auditLedger.length} events (tip: ${this.lastHash})`
+        };
+        return;
+      }
+    }
+
+    if (extCheckpointData) {
+      if (extCheckpointData.ledger_tip_hash !== this.lastHash || extCheckpointData.events_count !== this.auditLedger.length) {
+        this.integrityIncident = {
+          code: 'EXTERNAL_CHECKPOINT_MISMATCH',
+          reason: `External checkpoint mismatch: expected tip ${extCheckpointData.ledger_tip_hash} (${extCheckpointData.events_count} events), found ${this.lastHash} (${this.auditLedger.length} events)`
+        };
+        return;
+      }
+    }
+
+    // 5. Verify consistency between owner decisions and audit ledger
+    for (const [targetId, dec] of this.ownerDecisions.entries()) {
+      const match = this.auditLedger.find(e => 
+        (e.action === 'NORMATIVE_OWNER_DECISION' || e.action === 'SYNTHETIC_OWNER_DECISION') &&
+        (e.target === targetId || e.details?.target_id === targetId) &&
+        (e.details?.decision_id === dec.decision_id)
+      );
+      if (!match) {
+        this.integrityIncident = {
+          code: 'INCONSISTENT_PROTECTED_RECORDS',
+          reason: `Owner decision ${dec.decision_id} for target '${targetId}' exists without corresponding audit ledger event.`
+        };
+        return;
+      }
+    }
+
+    // Fully verified. Do NOT overwrite or regenerate checkpoint anchors!
+  }
+
+  _verifyLoadedLedgerChain() {
+    let prev = this.genesisHash;
+    for (let i = 0; i < this.auditLedger.length; i++) {
+      const event = this.auditLedger[i];
+      if (event.prevHash !== prev) {
+        return {
+          valid: false,
+          reason: `Broken hash chain at index ${i}: expected prevHash ${prev}, found ${event.prevHash}`
+        };
+      }
+      const payloadToHash = JSON.stringify({
+        eventId: event.eventId,
+        prevHash: event.prevHash,
+        timestamp: event.timestamp,
+        action: event.action,
+        principal: event.principal,
+        target: event.target,
+        details: event.details
       });
-    } else {
-      // Ensure checkpoint is synchronized with existing ledger
-      this._syncCheckpointFile();
+      const computed = crypto.createHash('sha256').update(payloadToHash).digest('hex');
+      if (computed !== event.currentHash) {
+        return {
+          valid: false,
+          reason: `Hash mismatch at index ${i}: recomputed ${computed}, recorded ${event.currentHash}`
+        };
+      }
+      prev = event.currentHash;
     }
+    if (this.auditLedger.length > 0 && prev !== this.lastHash) {
+      return {
+        valid: false,
+        reason: `Ledger tip mismatch: computed tip ${prev} does not match recorded tip ${this.lastHash}`
+      };
+    }
+    return { valid: true };
+  }
+
+  _appendGenesisEvent() {
+    const eventId = `EVT-${crypto.randomUUID()}`;
+    const timestamp = new Date().toISOString();
+    const prevHash = this.genesisHash;
+    const action = 'SYSTEM_INITIALIZATION';
+    const principal = 'system';
+    const target = 'SGO_DATASET_V1.0.0';
+    const details = {
+      total_items: this.data.metadata.total_items,
+      source_255: this.data.metadata.source_255_count,
+      v4_candidates: this.data.metadata.v4_count,
+      v2_historical: this.data.metadata.v2_count,
+      priority_groups: this.data.metadata.priority_groups_count,
+      total_designed_tests: this.data.metadata.total_designed_tests,
+      genesis: true
+    };
+
+    const payloadToHash = JSON.stringify({
+      eventId,
+      prevHash,
+      timestamp,
+      action,
+      principal,
+      target,
+      details
+    });
+    const currentHash = crypto.createHash('sha256').update(payloadToHash).digest('hex');
+
+    const fullEvent = {
+      eventId,
+      prevHash,
+      currentHash,
+      timestamp,
+      action,
+      principal,
+      target,
+      details
+    };
+
+    this.auditLedger = [fullEvent];
+    this.lastHash = currentHash;
+
+    writeFileSyncAtomic(this.auditLedgerFilePath, JSON.stringify(this.auditLedger, null, 2));
+
+    const checkpoint = {
+      checkpoint_id: `CHK-${crypto.randomUUID()}`,
+      recorded_at: timestamp,
+      ledger_tip_hash: currentHash,
+      events_count: 1,
+      decisions_count: 0,
+      checkpoint_digest: crypto.createHash('sha256').update(`${currentHash}:1:0`).digest('hex')
+    };
+    writeFileSyncAtomic(this.checkpointFilePath, JSON.stringify(checkpoint, null, 2));
+
+    const externalCheckpoint = {
+      ...checkpoint,
+      trust_boundary: 'EXTERNAL_ISOLATED_CHECKPOINT'
+    };
+    writeFileSyncAtomic(this.externalCheckpointFilePath, JSON.stringify(externalCheckpoint, null, 2));
+
+    const historyDir = path.dirname(this.checkpointHistoryPath);
+    if (!fs.existsSync(historyDir)) {
+      fs.mkdirSync(historyDir, { recursive: true });
+    }
+    fs.appendFileSync(this.checkpointHistoryPath, JSON.stringify(externalCheckpoint) + '\n', 'utf8');
   }
 
   getOverview() {
@@ -118,7 +362,9 @@ export class SgoStore {
         owner_decisions_recorded: this.ownerDecisions.size,
         audit_events_count: this.auditLedger.length,
         ledger_tip_hash: this.lastHash,
-        owner_enrolled: !!this.enrolledOwner
+        owner_enrolled: !!this.enrolledOwner,
+        integrity_incident: this.integrityIncident ? this.integrityIncident.code : null,
+        integrity_status: this.integrityIncident ? 'INCIDENT_ACTIVE' : 'HEALTHY'
       }
     };
   }
@@ -260,6 +506,13 @@ export class SgoStore {
   }
 
   saveDraftDecision(payload, principal = 'operator') {
+    if (this.integrityIncident) {
+      const err = new Error(`Draft decision recording blocked by active integrity incident: ${this.integrityIncident.reason} (${this.integrityIncident.code})`);
+      err.status = 500;
+      err.code = this.integrityIncident.code || 'INTEGRITY_INCIDENT_FAIL_CLOSED';
+      throw err;
+    }
+
     const actor = typeof principal === 'string' ? principal : (principal?.actor || 'operator');
     const { target_id, selected_option, rationale, custom_wording } = payload;
     if (!target_id || !selected_option) {
@@ -282,12 +535,21 @@ export class SgoStore {
       normative_approval_granted: false
     };
     
-    this.draftDecisions.set(target_id, draft);
+    const prevDrafts = new Map(this.draftDecisions);
+    const newDrafts = new Map(this.draftDecisions);
+    newDrafts.set(target_id, draft);
 
-    // Durably persist drafts across server restarts
+    // Durably persist drafts across server restarts with transactional rollback
     try {
-      writeFileSyncAtomic(this.draftsFilePath, JSON.stringify([...this.draftDecisions.values()], null, 2));
-    } catch {}
+      writeFileSyncAtomic(this.draftsFilePath, JSON.stringify([...newDrafts.values()], null, 2));
+      this.draftDecisions = newDrafts;
+    } catch (writeErr) {
+      this.draftDecisions = prevDrafts;
+      const err = new Error(`Failed to persist draft decision: ${writeErr.message}`);
+      err.status = 500;
+      err.code = 'PERSISTENCE_FAILED';
+      throw err;
+    }
 
     this._appendAuditEvent({
       action: 'DRAFT_DECISION_RECORDED',
@@ -399,22 +661,38 @@ export class SgoStore {
   }
 
   /**
-   * Protected Owner Decision Recording (AGHR-QLE-GOV-OBS-004 Hardened)
-   * Client-controlled synthetic authorization bypass is strictly removed.
-   * Synthetic test fixture authorization runs ONLY through server-controlled options.
+   * Protected Owner Decision Recording (AGHR-QLE-GOV-OBS-006 Hardened)
+   * Enforces logical transaction atomicity: decisions, audit events, and checkpoints
+   * commit atomically across in-memory and durable storage, or roll back cleanly without reporting success.
    */
   recordProtectedOwnerDecision(payload, principal, options = {}) {
-    const { target_id, selected_option, rationale, scope, source_sha256 } = payload;
+    // 0. Active integrity incident blocks all protected writes immediately
+    if (this.integrityIncident) {
+      const err = new Error(`Protected write blocked by active integrity incident: ${this.integrityIncident.reason} (${this.integrityIncident.code})`);
+      err.status = 500;
+      err.code = this.integrityIncident.code || 'INTEGRITY_INCIDENT_FAIL_CLOSED';
+      throw err;
+    }
+
+    const { target_id, selected_option, rationale, scope, source_sha256 } = payload || {};
+    if (!target_id || !selected_option) {
+      const err = new Error('target_id and selected_option are required.');
+      err.status = 400;
+      err.code = 'INVALID_PAYLOAD';
+      throw err;
+    }
     
     // Check stale source SHA256 (AC-18)
     const expectedSha = this.data.metadata.source_sha256 || '9aa911136b46e391398430f3670da7111a9d6df435ebaa54c287d2145ad002b2';
     if (source_sha256 && source_sha256 !== expectedSha) {
-      this._appendAuditEvent({
-        action: 'PROTECTED_WRITE_DENIED_STALE_SHA',
-        principal: principal?.actor || 'unknown',
-        target: target_id,
-        details: { reason: 'STALE_SOURCE_SHA', provided_sha: source_sha256, expected_sha: expectedSha }
-      });
+      try {
+        this._appendAuditEvent({
+          action: 'PROTECTED_WRITE_DENIED_STALE_SHA',
+          principal: principal?.actor || 'unknown',
+          target: target_id,
+          details: { reason: 'STALE_SOURCE_SHA', provided_sha: source_sha256, expected_sha: expectedSha }
+        });
+      } catch {}
       const err = new Error(`Source SHA mismatch: provided '${source_sha256}' does not match expected source '${expectedSha}'. Protected decision blocked.`);
       err.status = 409;
       err.code = 'STALE_SOURCE_SHA';
@@ -442,16 +720,18 @@ export class SgoStore {
     );
     
     if (!isEnrolledOwner && !isSyntheticTest) {
-      this._appendAuditEvent({
-        action: 'PROTECTED_WRITE_DENIED',
-        principal: principal?.actor || 'unknown',
-        target: target_id,
-        details: {
-          reason: 'BLOCKED_UNPROVISIONED_OWNER_AUTH',
-          attempted_option: selected_option,
-          attempted_client_bypass: Boolean(payload.synthetic)
-        }
-      });
+      try {
+        this._appendAuditEvent({
+          action: 'PROTECTED_WRITE_DENIED',
+          principal: principal?.actor || 'unknown',
+          target: target_id,
+          details: {
+            reason: 'BLOCKED_UNPROVISIONED_OWNER_AUTH',
+            attempted_option: selected_option,
+            attempted_client_bypass: Boolean(payload?.synthetic)
+          }
+        });
+      } catch {}
       
       const err = new Error('Protected owner decisions require authenticated sovereign owner enrollment.');
       err.status = 403;
@@ -465,7 +745,7 @@ export class SgoStore {
       selected_option,
       scope: scope || 'EXPLICIT_SPECIFIED_ROWS_ONLY',
       rationale: rationale || 'No rationale provided.',
-      source_sha256: source_sha256 || '9aa911136b46e391398430f3670da7111a9d6df435ebaa54c287d2145ad002b2',
+      source_sha256: source_sha256 || expectedSha,
       authorized_actor: principal?.actor || 'unknown',
       recorded_at: new Date().toISOString(),
       is_synthetic: isSyntheticTest,
@@ -474,21 +754,123 @@ export class SgoStore {
       authorizes_project_g0: false,
       status: isSyntheticTest ? 'SYNTHETIC_TEST_APPROVAL' : 'RECORDED_OWNER_DECISION'
     };
-    
-    // Save to in-memory map and persist durably across restarts (AGHR-QLE-GOV-OBS-004)
-    this.ownerDecisions.set(target_id, decisionRecord);
-    try {
-      writeFileSyncAtomic(this.ownerDecisionsFilePath, JSON.stringify([...this.ownerDecisions.values()], null, 2));
-    } catch {}
 
-    this._appendAuditEvent({
-      action: isSyntheticTest ? 'SYNTHETIC_OWNER_DECISION' : 'NORMATIVE_OWNER_DECISION',
+    // Prepare audit event
+    const eventId = `EVT-${crypto.randomUUID()}`;
+    const timestamp = decisionRecord.recorded_at;
+    const prevHash = this.lastHash;
+    const action = isSyntheticTest ? 'SYNTHETIC_OWNER_DECISION' : 'NORMATIVE_OWNER_DECISION';
+
+    const payloadToHash = JSON.stringify({
+      eventId,
+      prevHash,
+      timestamp,
+      action,
       principal: decisionRecord.authorized_actor,
       target: target_id,
       details: decisionRecord
     });
-    
-    return decisionRecord;
+    const currentHash = crypto.createHash('sha256').update(payloadToHash).digest('hex');
+
+    const auditEvent = {
+      eventId,
+      prevHash,
+      currentHash,
+      timestamp,
+      action,
+      principal: decisionRecord.authorized_actor,
+      target: target_id,
+      details: decisionRecord
+    };
+
+    // Logical Transaction: Snapshot in-memory state for rollback
+    const prevOwnerDecisions = new Map(this.ownerDecisions);
+    const prevAuditLedger = [...this.auditLedger];
+    const prevLastHash = this.lastHash;
+
+    // Snapshot existing on-disk content for disk rollback
+    let prevDecisionsJson = null;
+    let prevLedgerJson = null;
+    let prevCheckpointJson = null;
+    let prevExtCheckpointJson = null;
+    try {
+      if (fs.existsSync(this.ownerDecisionsFilePath)) prevDecisionsJson = fs.readFileSync(this.ownerDecisionsFilePath, 'utf8');
+      if (fs.existsSync(this.auditLedgerFilePath)) prevLedgerJson = fs.readFileSync(this.auditLedgerFilePath, 'utf8');
+      if (fs.existsSync(this.checkpointFilePath)) prevCheckpointJson = fs.readFileSync(this.checkpointFilePath, 'utf8');
+      if (fs.existsSync(this.externalCheckpointFilePath)) prevExtCheckpointJson = fs.readFileSync(this.externalCheckpointFilePath, 'utf8');
+    } catch {}
+
+    const newOwnerDecisions = new Map(this.ownerDecisions);
+    newOwnerDecisions.set(target_id, decisionRecord);
+
+    const newAuditLedger = [...this.auditLedger, auditEvent];
+    const newTipHash = currentHash;
+
+    const checkpoint = {
+      checkpoint_id: `CHK-${crypto.randomUUID()}`,
+      recorded_at: timestamp,
+      ledger_tip_hash: newTipHash,
+      events_count: newAuditLedger.length,
+      decisions_count: newOwnerDecisions.size,
+      checkpoint_digest: crypto.createHash('sha256').update(`${newTipHash}:${newAuditLedger.length}:${newOwnerDecisions.size}`).digest('hex')
+    };
+
+    const externalCheckpoint = {
+      ...checkpoint,
+      trust_boundary: 'EXTERNAL_ISOLATED_CHECKPOINT'
+    };
+
+    // Execute atomic multi-file persistence
+    try {
+      // 1. Write owner decisions file
+      writeFileSyncAtomic(this.ownerDecisionsFilePath, JSON.stringify([...newOwnerDecisions.values()], null, 2));
+
+      // 2. Write audit ledger file
+      writeFileSyncAtomic(this.auditLedgerFilePath, JSON.stringify(newAuditLedger, null, 2));
+
+      // 3. Write local checkpoint
+      writeFileSyncAtomic(this.checkpointFilePath, JSON.stringify(checkpoint, null, 2));
+
+      // 4. Write external checkpoint
+      writeFileSyncAtomic(this.externalCheckpointFilePath, JSON.stringify(externalCheckpoint, null, 2));
+
+      // 5. Append to checkpoint history log
+      const historyDir = path.dirname(this.checkpointHistoryPath);
+      if (!fs.existsSync(historyDir)) {
+        fs.mkdirSync(historyDir, { recursive: true });
+      }
+      fs.appendFileSync(this.checkpointHistoryPath, JSON.stringify(externalCheckpoint) + '\n', 'utf8');
+
+      // Commit in-memory state ONLY AFTER all writes succeed
+      this.ownerDecisions = newOwnerDecisions;
+      this.auditLedger = newAuditLedger;
+      this.lastHash = newTipHash;
+
+      return decisionRecord;
+    } catch (writeErr) {
+      // Roll back in-memory state immediately
+      this.ownerDecisions = prevOwnerDecisions;
+      this.auditLedger = prevAuditLedger;
+      this.lastHash = prevLastHash;
+
+      // Attempt disk rollback to previous clean state
+      try {
+        if (prevDecisionsJson !== null) writeFileSyncAtomic(this.ownerDecisionsFilePath, prevDecisionsJson);
+        if (prevLedgerJson !== null) writeFileSyncAtomic(this.auditLedgerFilePath, prevLedgerJson);
+        if (prevCheckpointJson !== null) writeFileSyncAtomic(this.checkpointFilePath, prevCheckpointJson);
+        if (prevExtCheckpointJson !== null) writeFileSyncAtomic(this.externalCheckpointFilePath, prevExtCheckpointJson);
+      } catch (rollbackErr) {
+        this.integrityIncident = {
+          code: 'TRANSACTION_ROLLBACK_FAILED',
+          reason: `Disk write failed and rollback was incomplete: ${rollbackErr.message}`
+        };
+      }
+
+      const err = new Error(`Logical transaction failed: could not persist decision and audit event atomically (${writeErr.message})`);
+      err.status = 500;
+      err.code = 'PERSISTENCE_TRANSACTION_FAILED';
+      throw err;
+    }
   }
 
   /**
@@ -614,6 +996,13 @@ export class SgoStore {
   }
 
   _appendAuditEvent(eventData) {
+    if (this.integrityIncident) {
+      const err = new Error(`Audit event recording blocked by active integrity incident: ${this.integrityIncident.reason} (${this.integrityIncident.code})`);
+      err.status = 500;
+      err.code = this.integrityIncident.code || 'INTEGRITY_INCIDENT_FAIL_CLOSED';
+      throw err;
+    }
+
     const eventId = `EVT-${crypto.randomUUID()}`;
     const timestamp = new Date().toISOString();
     const prevHash = this.lastHash;
@@ -641,44 +1030,76 @@ export class SgoStore {
       details: eventData.details
     };
     
-    this.auditLedger.push(fullEvent);
-    this.lastHash = currentHash;
+    const prevLedger = [...this.auditLedger];
+    const prevLastHash = this.lastHash;
+    const newLedger = [...this.auditLedger, fullEvent];
 
-    // Durably persist ledger and checkpoint across restarts (AGHR-QLE-GOV-OBS-004)
+    // Atomically persist ledger and checkpoints without silent error suppression
     try {
-      writeFileSyncAtomic(this.auditLedgerFilePath, JSON.stringify(this.auditLedger, null, 2));
-      this._syncCheckpointFile();
-    } catch {}
+      writeFileSyncAtomic(this.auditLedgerFilePath, JSON.stringify(newLedger, null, 2));
 
-    return fullEvent;
-  }
-
-  _syncCheckpointFile() {
-    try {
       const checkpoint = {
         checkpoint_id: `CHK-${crypto.randomUUID()}`,
-        recorded_at: new Date().toISOString(),
-        ledger_tip_hash: this.lastHash,
-        events_count: this.auditLedger.length,
+        recorded_at: timestamp,
+        ledger_tip_hash: currentHash,
+        events_count: newLedger.length,
         decisions_count: this.ownerDecisions.size,
-        checkpoint_digest: crypto.createHash('sha256').update(`${this.lastHash}:${this.auditLedger.length}:${this.ownerDecisions.size}`).digest('hex')
+        checkpoint_digest: crypto.createHash('sha256').update(`${currentHash}:${newLedger.length}:${this.ownerDecisions.size}`).digest('hex')
       };
       writeFileSyncAtomic(this.checkpointFilePath, JSON.stringify(checkpoint, null, 2));
 
-      // Synchronize external checkpoint across trust boundary (AGHR-QLE-GOV-OBS-005)
       const externalCheckpoint = {
         ...checkpoint,
         trust_boundary: 'EXTERNAL_ISOLATED_CHECKPOINT'
       };
       writeFileSyncAtomic(this.externalCheckpointFilePath, JSON.stringify(externalCheckpoint, null, 2));
 
-      // Append to historical checkpoint ledger log
       const historyDir = path.dirname(this.checkpointHistoryPath);
       if (!fs.existsSync(historyDir)) {
         fs.mkdirSync(historyDir, { recursive: true });
       }
       fs.appendFileSync(this.checkpointHistoryPath, JSON.stringify(externalCheckpoint) + '\n', 'utf8');
-    } catch {}
+
+      // Commit in-memory state ONLY AFTER all disk writes succeed
+      this.auditLedger = newLedger;
+      this.lastHash = currentHash;
+
+      return fullEvent;
+    } catch (writeErr) {
+      // Roll back in-memory state immediately
+      this.auditLedger = prevLedger;
+      this.lastHash = prevLastHash;
+      const err = new Error(`Failed to persist audit event: ${writeErr.message}`);
+      err.status = 500;
+      err.code = 'PERSISTENCE_FAILED';
+      throw err;
+    }
+  }
+
+  _syncCheckpointFile() {
+    const checkpoint = {
+      checkpoint_id: `CHK-${crypto.randomUUID()}`,
+      recorded_at: new Date().toISOString(),
+      ledger_tip_hash: this.lastHash,
+      events_count: this.auditLedger.length,
+      decisions_count: this.ownerDecisions.size,
+      checkpoint_digest: crypto.createHash('sha256').update(`${this.lastHash}:${this.auditLedger.length}:${this.ownerDecisions.size}`).digest('hex')
+    };
+    writeFileSyncAtomic(this.checkpointFilePath, JSON.stringify(checkpoint, null, 2));
+
+    // Synchronize external checkpoint across trust boundary (AGHR-QLE-GOV-OBS-005)
+    const externalCheckpoint = {
+      ...checkpoint,
+      trust_boundary: 'EXTERNAL_ISOLATED_CHECKPOINT'
+    };
+    writeFileSyncAtomic(this.externalCheckpointFilePath, JSON.stringify(externalCheckpoint, null, 2));
+
+    // Append to historical checkpoint ledger log
+    const historyDir = path.dirname(this.checkpointHistoryPath);
+    if (!fs.existsSync(historyDir)) {
+      fs.mkdirSync(historyDir, { recursive: true });
+    }
+    fs.appendFileSync(this.checkpointHistoryPath, JSON.stringify(externalCheckpoint) + '\n', 'utf8');
   }
 
   getAuditLedger() {
@@ -690,6 +1111,16 @@ export class SgoStore {
   }
 
   verifyLedgerIntegrity() {
+    // 0. Active integrity incident immediately fails verification
+    if (this.integrityIncident) {
+      return {
+        valid: false,
+        incident: this.integrityIncident,
+        reason: this.integrityIncident.reason,
+        code: this.integrityIncident.code
+      };
+    }
+
     // 1. Verify internal hash chain
     let prev = this.genesisHash;
     for (let i = 0; i < this.auditLedger.length; i++) {
