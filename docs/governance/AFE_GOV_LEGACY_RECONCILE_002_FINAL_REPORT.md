@@ -2,8 +2,8 @@
 ## Canonical Historical Governance Reconciliation, Granular Coverage Audit & Owner Decision Register
 
 **Document ID:** `AFE-GOV-LEGACY-RECONCILE-002-FINAL-REPORT`  
-**Parent Directive:** `AFE-GOV-POST-RECONCILE-004 — Decision Finalization & Controlled Enhancements`  
-**Repository Baseline:** `D:\APP\Agent-Files-Explorer` on `main` at commit `c1f1a0e`  
+**Parent Directive:** `AFE-GOV-POST-RECONCILE-004 / AFE-GOV-ASSURANCE-CORRECTION-005 — Evidence Boundary Hardening`  
+**Repository Baseline:** `D:\APP\Agent-Files-Explorer` on `main` at commit `1e435bf`  
 **Adopted Baseline Reference:** `Agent Governance & RCCA Kit EN v1.4.0 + ADEQ 1.1` (`Baseline v1`)  
 **Official Local Release Reference:** `AGHR Studio 1.0.0-rc.3` (`AGHR_rc3_Core_Candidate`)  
 **Status:** `FINAL_AUDITED_REPORT / PENDING_OWNER_DECISION`  
@@ -14,38 +14,44 @@
 ## 1. Executive Summary | الملخص التنفيذي
 
 ### English Executive Summary
-In strict compliance with Owner Directive **`AFE-GOV-LEGACY-RECONCILE-002 — Final Evidence & Decision Hardening`**, this final canonical report completes, hardens, and audits the historical governance reconciliation of `Agent-Files-Explorer`.
+In strict compliance with Owner Directives **`AFE-GOV-LEGACY-RECONCILE-002`**, **`AFE-GOV-POST-RECONCILE-004`**, and **`AFE-GOV-ASSURANCE-CORRECTION-005`**, this final canonical report completes, hardens, and audits the historical governance reconciliation of `Agent-Files-Explorer`.
 
 **Core Audit Hardening Outcomes:**
-1. **Re-evaluation of the 47 Legacy Rules:** The prior provisional claim of universal coverage was re-evaluated by auditing the exact obligations, applicability conditions, waiver authorities, and verification mechanisms against `GOV-001..024` and `ADEQ-01..24`:
-   - **Full Textual and Operational Coverage:** 3 rules (`AGHR-012`, `AGHR-014`, `AGHR-016`) match substantially in text and are guarded by automated repository regression tests.
-   - **Textual and Semantic Coverage (Procedural):** 2 rules (`AGHR-041`, `AGHR-042`) match textually in ADEQ rules without standalone unit tests.
-   - **Semantic and Operational Coverage:** 37 rules have full semantic alignment with target GOV/ADEQ rules backed by automated test suites or quality workflows.
-   - **Semantic Procedural Only:** 3 rules are covered semantically but rely exclusively on prompt/procedural guidance.
-   - **PARTIAL Coverage (Confirmed Structural Gaps):** 2 rules (`AGHR-017` and `AGHR-029`) exhibit concrete structural variances (the historical 3-persona staff simulation and the 12-table SQLite dependency were replaced by single-developer invariants and file-based Git state).
-2. **Hardened Authority Hierarchy:** The authority structure was corrected into seven distinct operational layers, separating actual platform instructions and host technical barriers from owner decisions, active operational baselines, interpretive references, and unpromoted candidates.
-3. **Reclassification of Supersessions as Pending Recommendations:** The three previously proposed supersessions (the 3-role simulated staff, the CLI3 runner, and the FAST-TRACK proposal) have been formally reclassified as **`PENDING_OWNER_RECOMMENDATION`** awaiting explicit sovereign owner adjudication.
-4. **Three-Unit Non-Overlapping Census:** The reconciliation inventory is strictly partitioned into distinct units of account (8 Packages, 144 Rules/Requirements, and 37 Intake Files) eliminating double counting.
-5. **Test Verification & Evidence Distinction:** Fresh execution logs from this turn (**83 / 83 tests passing**, 0 failures across SGO integration, baseline adoption, and custody suites) are explicitly distinguished from the historical baseline evidence (267 / 267 tests passing).
-6. **Qualification of Candidate Enhancement Packets:** Candidate Packet 2A (`Enterprise Rule Engineer`) was qualified through deep code inspection as a zero-dependency, read-only Python standard-library utility. Packets 2B (Arabic Operational Profile) and 2C (AAPES Policy Benchmark) are formulated as independent candidates with explicit acceptance criteria.
+1. **Four-Tier Decoupled Enforcement Breakdown of 47 Legacy Rules:** The prior blanket claims of enforcement have been replaced by a rigorous 4-tier model:
+   - **Proven Preventative Blocks (Fails Closed at Runtime):** **10 rules (21.3%)** (`AGHR-013`, `AGHR-017`, `AGHR-018`, `AGHR-019`, `AGHR-021`, `AGHR-022`, `AGHR-023`, `AGHR-026`, `AGHR-030`, `AGHR-044`) backed by runtime code actively rejecting violations (HTTP 403, security exceptions, JSON schema validator errors, ledger tamper detection).
+   - **Deterministic Test-Verified Scenarios (Verified in Test Suites):** **29 rules (61.7%)** backed by automated assertions in unit and integration test suites (`test_io_bridge_scope.py`, `baseline_v1_adoption.test.mjs`, `test_assurance.py`).
+   - **Quality Procedural Guides (Workflows & Diagnostics):** **5 rules (10.6%)** (`AGHR-015`, `AGHR-034`, `AGHR-046`...) guided by executable diagnostic workflows.
+   - **Prompt Behavioral Guidance Only:** **3 rules (6.4%)** (`AGHR-041`, `AGHR-042`, `AGHR-045`) defined as behavioral guidance in prompt adapters without software interception.
+   - **Structural Model Gaps (`PARTIAL`):** **2 rules (4.3%)** — `AGHR-017` and `AGHR-029` exhibit concrete architectural variances.
+   - **Review Independence Claimed as "INDEPENDENT":** **0 rules (0.0%)**. All self-directed actions are strictly labeled `FIRST_PARTY_AUTOMATED` or `FIRST_PARTY_PROCEDURAL`.
+2. **Documented Assurance Boundaries for `AGHR-017` & `AGHR-029`:**
+   - *AGHR-017:* Test `ADV-01` proves that client HTTP attempts to authorize decisions fail closed with HTTP 403 `BLOCKED_UNPROVISIONED_OWNER_AUTH`. It does **NOT** prove that real owner identity, cryptographic authentication (mTLS, WebAuthn, PGP/SSH keys), or live human consent are provisioned. Production owner authentication is deliberately dormant and unprovisioned.
+   - *AGHR-029:* The transition from SQLite to Git/JSON is an architectural substitution with concrete functional gaps: loss of dynamic SQL relational joins, loss of database engine-enforced foreign keys, and loss of daemon transaction file locks. Gained Git commit Merkle DAG provenance, human-readable diffs, and zero native binary dependencies.
+3. **Rigorous Technical Boundaries for Git Integrity:** Git commit hashes provide content-addressable Merkle DAG provenance, ensuring silent tampering with historical blobs changes downstream SHAs. However, Git alone does NOT provide absolute local immutability without cryptographic commit signing (`git commit -S`) and remote append-only branch protections.
+4. **Hardened Authority Hierarchy:** Codified into seven distinct operational layers, separating actual platform instructions and host technical barriers from owner decisions, active operational baselines, interpretive references, and unpromoted candidates.
+5. **Reclassification of Supersessions as Pending Recommendations:** The three previously proposed supersessions (the 3-role simulated staff, the CLI3 runner, and the FAST-TRACK proposal) have been formally reclassified as **`PENDING_OWNER_RECOMMENDATION`** awaiting explicit sovereign owner adjudication.
+6. **Fresh Test Verification Evidence:** Fresh test executions in this workstream (**103 / 103 tests passing**, 0 failures across SGO integration, baseline adoption, Packet 2A unit tests, Packet 2C diagnostic tests, and custody suites) are strictly separated from historical baseline test runs (267 / 267 tests passing).
 
 ---
 
 ### الملخص التنفيذي بالعربية
-امتثالاً للتوجيه السيادي للمالك **`AFE-GOV-LEGACY-RECONCILE-002 — Final Evidence & Decision Hardening`**، يُقدم هذا التقرير النهائي والموثق تدقيقاً صارماً ومحكماً لنتائج التوفيق التاريخي لمستودع `Agent-Files-Explorer`.
+امتثالاً للتوجيهات السيادية للمالك **`AFE-GOV-LEGACY-RECONCILE-002`** و**`AFE-GOV-POST-RECONCILE-004`** و**`AFE-GOV-ASSURANCE-CORRECTION-005`**، يُقدم هذا التقرير النهائي والموثق تدقيقاً صارماً ومحكماً لنتائج التوفيق التاريخي لمستودع `Agent-Files-Explorer`.
 
 **أبرز مخرجات التدقيق النهائي:**
-1. **إعادة تدقيق تغطية القواعد التاريخية الـ47:** أُعيد فحص ادعاء التغطية الشاملة عبر مقارنة الالتزامات والشروط والاستثناءات وآليات التحقق مقابل `GOV` و`ADEQ`:
-   - **تغطية نصية وتشغيلية كاملة:** 3 قواعد (`AGHR-012`, `AGHR-014`, `AGHR-016`) تتطابق نصياً ومحمية باختبارات انحدار آلية.
-   - **تغطية نصية ودلالية (إجرائية):** قاعدتان (`AGHR-041`, `AGHR-042`) تتطابقان نصياً في ADEQ كإرشادات سلوكية.
-   - **تغطية دلالية وتشغيلية:** 37 قاعدة تتطابق دلالياً ومدعومة باختبارات آلية أو مسارات جودة تنفيذية.
-   - **تغطية دلالية إجرائية فقط:** 3 قواعد مغطاة دلالياً دون بوابات فحص آلية في المستودع.
-   - **تغطية جزئية (`PARTIAL`):** تم إثبات فجوتين هيكليتين صريحتين في قاعدتين (`AGHR-017` و`AGHR-029`)؛ حيث أُلغي تمثيل الأدوار الوهمية الثلاثة واعتمد نموذج المطور الفرد، واستُبدلت قاعدة بيانات SQLite بملفات Git ومخططات JSON.
-2. **تصحيح هرمية السلطة:** فُصلت الهرمية إلى سبعة مستويات تميز بدقة بين تعليمات المنصة الفعلية، وضوابط المضيف التقنية المعزولة، وقرارات المالك السيادية، وخط الأساس التشغيلي، ونسخة الاستوديو المحلية المغلقة، والمراجع التفسيرية، والمرشحات غير المعتمدة.
-3. **إعادة تصنيف الاستبدالات كتوصيات معلقة:** صُنفت الاستبدالات الثلاثة (طاقم الحوكمة الوهمي، ومشغل CLI3، ومقترح FAST-TRACK) رسمياً بوصفها **`PENDING_OWNER_RECOMMENDATION`** (توصيات معلقة تنتظر قرار المالك) حفاظاً على الفصل بين الواقع البرمجي والسلطة المعيارية.
-4. **جرد ثلاثي الوحدات مانع للازدواجية:** فُصل التعداد إلى 3 جداول مستقلة ذات وحدات قياس محددة (8 حزم، 144 قاعدة ومتطلب، 37 وثيقة مدخلات).
-5. **تمييز الأدلة الاختبارية الحديثة:** فُصلت الاختبارات المنفذة في هذه الجلسة طازجاً (**83 اختباراً ناجحاً من أصل 83** تشمل تكامل SGO وحضانة INBOX وتبني الأساس) عن السجلات التاريخية السابقة (267 اختباراً).
-6. **تأهيل حزم التحسين:** جرى تأهيل الحزمة 2A بفحص شيفرتها البرمجية وتجريدها من أي اعتماديات خارجية (Standard Library بنسبة 100%)، وصياغة الحزمتين 2B و2C كمرشحين مستقلين بمعايير قبول واضحة.
+1. **تصنيف رباعي المستويات لإنفاذ القواعد التاريخية الـ47:** أُعيد تصنيف ادعاءات الإنفاذ بصرامة لفصل المنع البرمجي الفعلي عن الفحوصات الاختبارية والتوجيهات:
+   - **منع وقائي مثبت في وقت التشغيل (Fails Closed):** **10 قواعد (21.3%)** (`AGHR-013`, `AGHR-017`, `AGHR-018`, `AGHR-019`, `AGHR-021`, `AGHR-022`, `AGHR-023`, `AGHR-026`, `AGHR-030`, `AGHR-044`) محمية ببرمجيات تعترض وتوقف التنفيذ فوراً (HTTP 403، رفض مسارات الملفات، أخطاء مخطط JSON، كشف التلاعب بالسجل).
+   - **سيناريوهات متحقق منها اختبارياً (في مجموعات الاختبار):** **29 قاعدة (61.7%)** مغطاة بتأكيدات آلية داخل بيئة الاختبار (`test_io_bridge_scope.py`, `baseline_v1_adoption.test.mjs`, `test_assurance.py`).
+   - **أدلة إجرائية ومسارات جودة:** **5 قواعد (10.6%)** تتبع مسارات تشخيصية تنفيذية.
+   - **توجيه سلوكي في السياق فقط:** **3 قواعد (6.4%)** عبارة عن إرشادات سياقية دون اعتراض برمجي.
+   - **فجوات هيكلية مثبتة (`PARTIAL`):** قاعدتان (4.3%) — `AGHR-017` و`AGHR-029` تمثلان استبدالاً تقنياً مع وجود فجوات وظيفية وحدود موثقة.
+   - **استقلالية المراجعة الموصوفة كـ "مستقلة":** **0 قواعد (0.0%)**؛ وصفت جميع مراجعات الوكيل بـ `FIRST_PARTY_AUTOMATED` أو `FIRST_PARTY_PROCEDURAL`.
+2. **توثيق حدود الإثبات للقاعدتين `AGHR-017` و`AGHR-029`:**
+   - *AGHR-017:* يثبت الاختبار `ADV-01` إغلاق النظام وفشله الآمن ضد استدعاءات العميل الاصطناعية غير المصرح بها (HTTP 403 `BLOCKED_UNPROVISIONED_OWNER_AUTH`). ولكنه **لا يثبت** أن هوية المالك الحقيقي أو المصادقة المشفرة (mTLS, WebAuthn, مفاتيح PGP/SSH) أو الموافقة البشرية الحية مهيأة بالفعل؛ فالمصادقة الإنتاجية معطلة عمداً في هذه البيئة.
+   - *AGHR-029:* استبدال قاعدة بيانات SQLite بملفات Git ومخططات JSON يمثل استبدالاً هيكلياً بفجوات وظيفية واضحة: فقدان الاستعلامات العلائقية الديناميكية (SQL JOINs)، وفقدان قيود المفاتيح الأجنبية على مستوى محرك البيانات، وفقدان أقفال المعاملات الخادمة؛ في مقابل كسب الشفافية وسلاسل الالتزام وسهولة القراءة دون اعتماديات خارجية ثنائية.
+3. **الحدود التقنية لسلامة Git:** توفر شجرة Git المرتبطة بـ Merkle DAG إمكانية كشف أي تلاعب صامت بالماضي؛ إلا أن Git بمفرده على الجهاز المحلي لا يمنع إعادة كتابة التاريخ محلياً دون توقيع الالتزامات رقمياً (`git commit -S`) وحماية الفروع البعيدة بوضع الإضافة فقط (Append-Only).
+4. **تصحيح هرمية السلطة:** فُصلت الهرمية إلى سبعة مستويات تميز بدقة بين تعليمات المنصة الفعلية، وضوابط المضيف التقنية المعزولة، وقرارات المالك السيادية، وخط الأساس التشغيلي، ونسخة الاستوديو المحلية المغلقة، والمراجع التفسيرية، والمرشحات غير المعتمدة.
+5. **إعادة تصنيف الاستبدالات كتوصيات معلقة:** صُنفت الاستبدالات الثلاثة (طاقم الحوكمة الوهمي، ومشغل CLI3، ومقترح FAST-TRACK) رسمياً بوصفها **`PENDING_OWNER_RECOMMENDATION`** في انتظار قرار المالك السيادي.
+6. **أدلة الاختبارات الحديثة المنفذة:** فُصلت الاختبارات المنفذة في هذه الجلسة طازجاً (**103 اختباراً ناجحاً من أصل 103** بنسبة نجاح 100%) عن السجلات التاريخية السابقة (267 اختباراً).
 
 ---
 
@@ -130,72 +136,39 @@ To ensure absolute mathematical integrity and eliminate conflation between conta
 
 ---
 
-## 4. Granular Re-Evaluation of the 47 Legacy Rules
+## 4. Granular Re-Evaluation & Decoupled Assurance of the 47 Legacy Rules
 
-The table below presents the rigorous re-evaluation of all 47 rules from `AGHR 1.2.0`, distinguishing between **Textual (`TEXT`)**, **Semantic (`SEM`)**, and **Operational (`OPER`)** coverage:
+The 47 legacy rules were re-evaluated against the 4-tier enforcement model. For the complete, detailed table with protected operations, action boundaries, and blocking mechanisms, see [`docs/governance/AFE_GOV_47_RULES_GRANULAR_COVERAGE_MATRIX.md`](file:///d:/APP/Agent-Files-Explorer/docs/governance/AFE_GOV_47_RULES_GRANULAR_COVERAGE_MATRIX.md).
 
-| Legacy ID | Title | Textual Match | Semantic Match | Operational Status | Re-evaluated Coverage | Concrete Repository Evidence |
-|---|---|---|---|---|---|---|
-| `AGHR-001` | Developer-first technical reference | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-001`, `ADEQ-03`, `tests/test_io_bridge_scope.py` |
-| `AGHR-002` | Authority dimensions | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-001`, `GOV-003`, `tests/sgo_integration.test.mjs` |
-| `AGHR-003` | Reality versus obligation | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-007`, `ADEQ-10/11`, `tests/baseline_v1_adoption.test.mjs` |
-| `AGHR-004` | No automatic promotion | SUBSTANTIAL | FULL | AUTOMATED_TEST_EXIST | `TEXTUAL_AND_OPERATIONAL` | `GOV-021`, `tests/baseline_v1_adoption.test.mjs` |
-| `AGHR-005` | Scoped conflict resolution | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-010`, `ADEQ-04`, `tests/sgo_integration.test.mjs` |
-| `AGHR-006` | Instruction economy | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-011`, `ADEQ-12`, `tools/check_context_health.mjs` |
-| `AGHR-007` | Context and trust preservation | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-005`, `ADEQ-13/14`, `tests/baseline_v1_adoption.test.mjs` |
-| `AGHR-008` | Versioned adaptation | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-013`, `GOV-024`, `server/governance.js` |
-| `AGHR-009` | Verifiable product objective | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-008`, `ADEQ-01/19`, `tests/baseline_v1_adoption.test.mjs` |
-| `AGHR-010` | Bounded continuation | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-004`, `ADEQ-16/22`, `tests/baseline_v1_adoption.test.mjs` |
-| `AGHR-011` | Proportionate planning | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-011`, `ADEQ-12`, `workflows/proportional_review.md` |
-| `AGHR-012` | Preserve unrelated work | EXACT | FULL | AUTOMATED_TEST_EXIST | `FULL_TEXTUAL_AND_OPERATIONAL` | `GOV-005`, `ADEQ-15`, `tests/baseline_v1_adoption.test.mjs` |
-| `AGHR-013` | API and dependency integrity | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-016`, `tests/baseline_v1_adoption.test.mjs` |
-| `AGHR-014` | No test gaming | SUBSTANTIAL | FULL | AUTOMATED_TEST_EXIST | `FULL_TEXTUAL_AND_OPERATIONAL` | `GOV-008`, `tests/baseline_v1_adoption.test.mjs` |
-| `AGHR-015` | Reproduction and regression | PARTIAL | FULL | QUALITY_WORKFLOW_TESTED | `SEMANTIC_AND_OPERATIONAL` | `ADEQ-17`, `workflows/defect_rca.md` |
-| `AGHR-016` | Honest evidence | SUBSTANTIAL | FULL | AUTOMATED_TEST_EXIST | `FULL_TEXTUAL_AND_OPERATIONAL` | `GOV-007`, `ADEQ-21`, `tests/sgo_integration.test.mjs` (AC-08/10) |
-| `AGHR-017` | Separate acceptance | PARTIAL | PARTIAL | AUTOMATED_TEST_EXIST | `PARTIAL` | `GOV-009`, `GOV-022`. *Gap: Simulated staff personas replaced by real tests/owner.* |
-| `AGHR-018` | Least privilege | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-017`, `server/security.js` |
-| `AGHR-019` | Action-time authorization | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-004`, `GOV-020`, `tests/sgo_integration.test.mjs` |
-| `AGHR-020` | Protected control plane | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-001`, `GOV-003`, `tests/sgo_integration.test.mjs` |
-| `AGHR-021` | Data and egress control | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-002`, `GOV-017`, `server/security.js` |
-| `AGHR-022` | Injection resistance | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-002`, `tests/sgo_integration.test.mjs` (AC-33) |
-| `AGHR-023` | Scoped approval | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-004`, `GOV-009`, `tests/sgo_integration.test.mjs` |
-| `AGHR-024` | Bounded delegation | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-004`, `ADEQ-22`, `schemas/delegation.schema.json` |
-| `AGHR-025` | Safe retry | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-019`, `tests/baseline_v1_adoption.test.mjs` |
-| `AGHR-026` | Durable canonical state | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-006`, `GOV-015`, `tests/sgo_integration.test.mjs` |
-| `AGHR-027` | Resource budgets | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-011`, `tools/check_context_health.mjs` |
-| `AGHR-028` | Safe observability | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-007`, `GOV-023`, `tests/sgo_integration.test.mjs` |
-| `AGHR-029` | Unified change intake | PARTIAL | PARTIAL | AUTOMATED_TEST_EXIST | `PARTIAL` | `GOV-013`, `ADEQ-02`. *Gap: Relational SQLite schema replaced by file-based git/JSON.* |
-| `AGHR-030` | Bounded exceptions | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-004`, `GOV-020`, `tests/sgo_integration.test.mjs` |
-| `AGHR-031` | Evidence invalidation | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-018`, `tests/sgo_integration.test.mjs` (AC-18) |
-| `AGHR-032` | Source custody | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-006`, `GOV-015`, `tests/inbox_custody.test.mjs` |
-| `AGHR-033` | Proportionate profiles | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-011`, `ADEQ-20`, `workflows/proportional_review.md` |
-| `AGHR-034` | Simple adequate architecture | PARTIAL | FULL | QUALITY_WORKFLOW_TESTED | `SEMANTIC_AND_OPERATIONAL` | `GOV-012`, `ADEQ-07/18`, `workflows/preflight_qa.md` |
-| `AGHR-035` | Stop and recovery | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-019`, `ADEQ-09`, `tests/sgo_integration.test.mjs` |
-| `AGHR-036` | Bound claims to artifacts | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-007`, `ADEQ-21`, `tests/sgo_integration.test.mjs` |
-| `AGHR-037` | Tool protocol validity | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-016`, `GOV-024`, `tests/baseline_v1_adoption.test.mjs` |
-| `AGHR-038` | Instruction supply chain | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-001`, `GOV-006`, `tests/baseline_v1_adoption.test.mjs` |
-| `AGHR-039` | Host qualification | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-024`, `tests/baseline_v1_adoption.test.mjs` |
-| `AGHR-040` | Behavioral outcome evaluation | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-008`, `ADEQ-19/24`, `tests/baseline_v1_adoption.test.mjs` |
-| `AGHR-041` | Smart clarification | SUBSTANTIAL | FULL | PROCEDURAL_ONLY | `TEXTUAL_AND_SEMANTIC_COVERED` | `ADEQ-05`, `ADEQ-06`, `workflows/smart_clarify.md` |
-| `AGHR-042` | Better alternatives without substitution | SUBSTANTIAL | FULL | PROCEDURAL_ONLY | `TEXTUAL_AND_SEMANTIC_COVERED` | `ADEQ-08`, `governance_packages/references/1.4.0` |
-| `AGHR-043` | Lifecycle-tailored delivery | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-011`, `ADEQ-12`, `workflows/proportional_review.md` |
-| `AGHR-044` | Branch visibility and safe closeout | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-015`, `tests/sgo_integration.test.mjs` (AC-44/51) |
-| `AGHR-045` | Clear communication and handoff | PARTIAL | FULL | PROCEDURAL_ONLY | `SEMANTIC_COVERED_PROCEDURAL_ONLY` | `ADEQ-13`, `ADEQ-14`, `docs/status/HANDOFF.md` |
-| `AGHR-046` | Plan alignment and drift check | PARTIAL | FULL | QUALITY_WORKFLOW_TESTED | `SEMANTIC_AND_OPERATIONAL` | `ADEQ-12`, `workflows/plan_drift_check.md` |
-| `AGHR-047` | Standards applicability and claim limits | PARTIAL | FULL | AUTOMATED_TEST_EXIST | `SEMANTIC_AND_OPERATIONAL` | `GOV-003`, `GOV-007`, `tests/sgo_integration.test.mjs` |
+### Summary of Four-Tier Enforcement Distribution:
+- **`PROVEN_PREVENTATIVE_BLOCK`:** 10 rules (21.3%)
+  `AGHR-013` (schema validation rejection), `AGHR-017` (HTTP 403 `BLOCKED_UNPROVISIONED_OWNER_AUTH`), `AGHR-018` (sensitive env redaction), `AGHR-019` (path traversal rejection), `AGHR-021` (outbound data/env filtering), `AGHR-022` (prompt injection inert data), `AGHR-023` (HTTP 403 token denial), `AGHR-026` (ledger tamper detection error), `AGHR-030` (protected rules priority gate), `AGHR-044` (push to reserved branch rejection).
+- **`DETERMINISTIC_TEST_VERIFIED`:** 29 rules (61.7%)
+  Properties verified via automated test assertions during test suite runs (`npm test`, `test_io_bridge_scope.py`, `baseline_v1_adoption.test.mjs`, `test_assurance.py`).
+- **`WORKFLOW_PROCEDURAL_GUIDE`:** 5 rules (10.6%)
+  Procedural diagnostic and quality execution workflows (`workflows/defect_rca.md`, `workflows/preflight_qa.md`, `workflows/plan_drift_check.md`).
+- **`PROMPT_BEHAVIORAL_GUIDANCE`:** 3 rules (6.4%)
+  Behavioral instructions in prompt adapters (`AGHR-041`, `AGHR-042`, `AGHR-045`).
 
-### Audit Summary Statistics:
-- **Full Textual and Operational Coverage:** 3 rules (6.4%)
-- **Textual and Semantic Coverage (Procedural):** 2 rules (4.3%)
-- **Semantic and Operational Coverage:** 37 rules (78.7%)
-- **Semantic Procedural Only:** 3 rules (6.4%)
-- **Concrete Gaps (PARTIAL):** 2 rules (4.3%) — specifically `AGHR-017` (role-play replacement) and `AGHR-029` (SQLite replacement).
+### 4.1 Rigorous Technical Boundaries for AGHR-017, AGHR-029, and Git
+1. **AGHR-017 Boundary:**
+   - Test `ADV-01` in `tests/sgo_integration.test.mjs` proves that synthetic client requests to `POST /api/v1/sgo/decisions/protected` fail closed with HTTP 403 `BLOCKED_UNPROVISIONED_OWNER_AUTH`.
+   - **Boundary:** This proves only that unauthenticated HTTP clients cannot execute owner decisions. It does **NOT** prove that real human owner identity, multi-factor cryptographic credentials (mTLS, WebAuthn, FIDO2, PGP/SSH keys), or live human consent are provisioned. Production owner authentication is intentionally dormant in this local repository.
+2. **AGHR-029 Boundary:**
+   - The transition from SQLite to Git/JSON is an architectural substitution with concrete functional gaps:
+     * *Loss of dynamic SQL queries:* Multi-table relational joins from CLI are no longer natively supported; querying requires script-based filtering.
+     * *Loss of database-level foreign key enforcement:* Integrity between JSON files is validated at the application/schema level rather than by the database engine.
+     * *Loss of daemon transaction locks:* SQLite `BEGIN IMMEDIATE` file locking is replaced by Git index locks and atomic file overwrites.
+   - *Gains:* Content-addressable Merkle DAG provenance, human-readable diffs, and zero native binary dependencies.
+3. **Git Integrity Boundary:**
+   - Git commit hashes form a content-addressable Merkle DAG; any silent tampering with past commit trees changes all descendant SHAs.
+   - **Boundary:** Git alone does NOT provide absolute local immutability; history can be rewritten locally (`commit --amend`, `rebase -i`) without violating Git internal rules. Absolute tamper-resistance requires cryptographically signed commits (`git commit -S`) and append-only remote branch protections.
 
 ---
 
 ## 5. Disambiguation: AAPES v2.1 vs. ADEQ 1.1
 
-A core mandate of this hardening report is resolving the conceptual boundary between the unpromoted candidate **AAPES v2.1** and the active baseline extension **ADEQ 1.1**:
+A core mandate of this report is resolving the conceptual boundary between the unpromoted candidate **AAPES v2.1** and the active baseline extension **ADEQ 1.1**:
 
 ```mermaid
 flowchart TD
@@ -228,26 +201,24 @@ flowchart TD
 
 ## 6. Comprehensive Owner Decision Register (سجل قرارات المالك)
 
-The table below codifies the 10 strategic decisions requiring formal sovereign owner determination:
+The Master Decision Register contains 10 strategic adjudications requiring formal sovereign owner determination. All decisions remain strictly in **`PENDING_OWNER_DECISION`**. See [`docs/governance/OWNER_DECISION_REGISTER_2026-11-07.md`](file:///d:/APP/Agent-Files-Explorer/docs/governance/OWNER_DECISION_REGISTER_2026-11-07.md) for full adjudication dossiers:
 
 | Decision ID | Source Item | Text / Core Obligation | Coverage Status | Concrete Repo Evidence | Architectural Impact | Primary Risks | Practical Alternatives | Technical Recommendation | Decision Status |
 |---|---|---|---|---|---|---|---|---|---|
-| **`DEC-001`** | `AGHR-017` / 1.2.0 | Multi-persona simulated governance staff (developer vs reviewer). | `PARTIAL` | `GOV-022`, `tests/baseline_v1_adoption.test.mjs` | High: shifts model to solo-dev + tests. | Synthetic collusion; false sense of verification. | (A) Keep 3 simulated personas; (B) Formally approve `SOLO_DEV` model. | **Approve recommendation (B):** Adopt `GOV-022` and deprecate simulated personas. | `PENDING_OWNER_DECISION` |
-| **`DEC-002`** | 1.2.0 CLI3 / SQLite | 12-table relational database for tracking rules and decisions. | `PARTIAL` | `server/governance.js`, `trace.schema.json` | High: eliminates SQLite native dependency. | Loss of complex SQL query capability on rules. | (A) Restore SQLite runner; (B) Formally deprecate CLI3 in favor of `agdl`/Git. | **Approve recommendation (B):** Deprecate CLI3; rely on zero-dep `agdl` and Git. | `PENDING_OWNER_DECISION` |
+| **`DEC-001`** | `AGHR-017` / 1.2.0 | Multi-persona simulated governance staff (developer vs reviewer). | `ARCHITECTURAL_SUBSTITUTION_WITH_DOCUMENTED_BOUNDARIES` | `GOV-009, GOV-022, tests/sgo_integration.test.mjs (ADV-01)` | High: shifts model to solo-dev + tests + fail-closed gate. | Synthetic collusion; false sense of verification. Real owner auth unprovisioned. | (A) Keep simulated personas; (B) Formally approve `SOLO_DEV` model. | **Approve recommendation (B):** Adopt `GOV-022` and deprecate simulated personas. | `PENDING_OWNER_DECISION` |
+| **`DEC-002`** | 1.2.0 CLI3 / SQLite | 12-table relational database for tracking rules and decisions. | `ARCHITECTURAL_SUBSTITUTION_WITH_DOCUMENTED_GAPS` | `server/governance.js, trace.schema.json, agdl, Git` | High: eliminates SQLite native dependency. | Loss of dynamic SQL joins, DB foreign keys, daemon locks. | (A) Restore SQLite runner; (B) Formally deprecate CLI3 in favor of `agdl`/Git. | **Approve recommendation (B):** Deprecate CLI3; rely on zero-dep `agdl` and Git. | `PENDING_OWNER_DECISION` |
 | **`DEC-003`** | `FAST-TRACK.txt` | Proposal to add fast-track clauses directly into `AGENTS.md`. | `SUPERSEDED` | `AGENTS.md` (<1,000 tokens), `check_context_health.mjs` | Medium: affects bootstrap token budget. | Exceeding 5,000 token limit; instruction bloat. | (A) Append to AGENTS.md; (B) Retire proposal to maintain tight budget. | **Approve recommendation (B):** Retire `FAST-TRACK.txt`; keep AGENTS.md bounded. | `PENDING_OWNER_DECISION` |
 | **`DEC-004`** | `aghr_rc3` | Pinned official local release reference for Studio v1.0.0. | `COVERED` | `AGHR_Studio_1.0.0_rc3_RELEASE.json`, `server/api.js` | Critical: preserves Studio v1.0.0 closed release. | Inadvertently breaking closed release contracts. | (A) Migrate Studio endpoints to v1.4.0; (B) Retain dual reference model. | **Approve recommendation (B):** Maintain rc.3 for Studio v1.0.0; v1.4.0 for new work. | `PENDING_OWNER_DECISION` |
 | **`DEC-005`** | `aapes_v2_1` | 48 policy engineering requirements across 12 domains. | `REFER` | `governance_packages/candidates/AAPES_v2.1_Candidate` | High: candidate policy evaluation oracle. | Premature activation of unvetted OPA PEP gates. | (A) Promote to active baseline; (B) Retain as unpromoted diagnostic oracle. | **Approve recommendation (B):** Retain as Layer 5 offline evaluation oracle. | `PENDING_OWNER_DECISION` |
-| **`DEC-006`** | Packet 2A (`Rule Engineer`) | Bilingual rule authoring and text linting scripts. | `COMPLEMENTARY` | `INBOX/NEW/Enterprise_Agent_Governance_Rule_Engineer_Skill_v1.0.0.zip` | Low: zero-dependency developer CLI tool. | False belief that linting proves policy correctness. | (A) Leave in zip; (B) Extract to `tools/rule_engineer/` as offline utility. | **Approve recommendation (B):** Extract to `tools/rule_engineer/` with unit tests. | `PENDING_OWNER_DECISION` |
-| **`DEC-007`** | Packet 2B (Arabic Profile) | Operational Arabic directives extracted from MARSAD. | `PARTIAL` | `governance_packages/INBOX/MARSAD — الدستور التنفيذي...md` | Low: localized prompt adapter profile. | Context bloat if injected globally. | (A) Ignore MARSAD intake; (B) Build on-demand localized prompt adapter. | **Approve recommendation (B):** Formulate `docs/profiles/arabic_adapter.md`. | `PENDING_OWNER_DECISION` |
-| **`DEC-008`** | Packet 2C (AAPES Benchmark) | Offline readiness benchmark against 48 requirements. | `COMPLEMENTARY` | `AAPES_REQUIREMENTS_MATRIX.json`, `requirements_trace.csv` | Low: optional diagnostic script. | Over-emphasis on compliance scores over code health. | (A) Discard benchmark; (B) Maintain as optional diagnostic tool. | **Approve recommendation (B):** Stage as optional offline Python benchmark. | `PENDING_OWNER_DECISION` |
-| **`DEC-009`** | PEP/PDP Interceptors | Automated runtime interceptors gating file and network writes. | `DEFERRED` | `server/security.js`, `policies/production_write.rego` | Extreme: blocks agent workflow execution. | False-positive deadlocks, blocked development. | (A) Activate PEP/PDP interceptors; (B) Keep strictly inactive (`NOT_ACTIVE`). | **Approve recommendation (B):** Maintain PEP/PDP interceptors strictly inactive. | `PENDING_OWNER_DECISION` |
-| **`DEC-010`** | Reconciliation Report | Comprehensive reconciliation report and crosswalk matrix. | `RETAIN` | `docs/governance/AFE_GOV_LEGACY_RECONCILE_002_FINAL_REPORT.md` | High: formalizes project governance lineage. | Disputed historical mappings or claims. | (A) Reject report; (B) Formally approve report as project baseline record. | **Approve recommendation (B):** Approve final report and sign closeout. | `PENDING_OWNER_DECISION` |
+| **`DEC-006`** | Packet 2A (`Rule Engineer`) | Bilingual rule authoring and text linting scripts. | `IMPLEMENTED_OPTIONAL_TOOL` | `tools/enterprise-agent-governance-rule-engineer/ (12/12 tests)` | Low: zero-dependency developer CLI tool. | False belief that linting proves policy correctness. | (A) Leave in zip; (B) Keep in `tools/enterprise-agent-governance-rule-engineer/`. | **Approve recommendation (B):** Keep in `tools/enterprise-agent-governance-rule-engineer/`. | `PENDING_OWNER_DECISION` |
+| **`DEC-007`** | Packet 2B (Arabic Profile) | Operational Arabic directives extracted from MARSAD. | `IMPLEMENTED_OPTIONAL_PROFILE` | `docs/profiles/arabic_operational_adapter.md (< 800 tokens)` | Low: localized prompt adapter profile. | Context bloat if injected globally. | (A) Ignore MARSAD intake; (B) Build on-demand localized prompt adapter. | **Approve recommendation (B):** Adopt `docs/profiles/arabic_operational_adapter.md`. | `PENDING_OWNER_DECISION` |
+| **`DEC-008`** | Packet 2C (AAPES Benchmark) | Offline readiness benchmark against 48 requirements. | `IMPLEMENTED_DIAGNOSTIC_ORACLE` | `tools/aapes_benchmark/ (8/8 unit tests passing)` | Low: optional diagnostic script. | Over-emphasis on compliance scores over code health. | (A) Discard benchmark; (B) Maintain as optional diagnostic tool. | **Approve recommendation (B):** Provide as optional offline Python benchmark. | `PENDING_OWNER_DECISION` |
+| **`DEC-009`** | PEP/PDP Interceptors | Automated runtime interceptors gating file and network writes. | `MAINTAINED_DORMANT` | `server/security.js, policies/production_write.rego` | Extreme: blocks agent workflow execution. | False-positive deadlocks, blocked development. | (A) Activate PEP/PDP interceptors; (B) Keep strictly inactive (`NOT_ACTIVE`). | **Approve recommendation (B):** Maintain PEP/PDP interceptors strictly inactive. | `PENDING_OWNER_DECISION` |
+| **`DEC-010`** | Reconciliation Report | Comprehensive reconciliation report and crosswalk matrix. | `CANONICAL_CLOSEOUT` | `docs/governance/AFE_GOV_LEGACY_RECONCILE_002_FINAL_REPORT.md` | High: formalizes project governance lineage. | Disputed historical mappings or claims. | (A) Reject report; (B) Formally approve report as project baseline record. | **Approve recommendation (B):** Approve final report and sign closeout. | `PENDING_OWNER_DECISION` |
 
 ---
 
 ## 7. Implementation & Qualification of Candidate Enhancement Packets
-
-In accordance with Directive `AFE-GOV-POST-RECONCILE-004`, all three enhancement packets have been prepared and implemented in independent, non-intrusive paths without mutating baseline packages or activating runtime interceptors:
 
 ### 7.1 Candidate Packet 2A: Offline Rule Engineer Tooling (`tools/enterprise-agent-governance-rule-engineer/`)
 - **Status:** **IMPLEMENTED & QUALIFIED AS OPTIONAL DEVELOPER UTILITY**.
@@ -257,21 +228,15 @@ In accordance with Directive `AFE-GOV-POST-RECONCILE-004`, all three enhancement
   - `scripts/validate_skill.py`: Validates file structures and UTF-8 encoding.
   - `tests/test_skill.py`: Standalone offline unit test suite.
 - **Verification Evidence:**
-  - `py -m unittest discover -s tools/enterprise-agent-governance-rule-engineer/tests` -> **12 / 12 tests PASSED** in 0.074s.
-  - Tested against Studio policy file `policies/RULES.json` -> Zero false positive errors.
-  - Tested against Arabic vague input -> Successfully detected `VAGUE_SECURITY` and `ABSOLUTE_CLAIM`.
+  - `py -m unittest discover -s tools/enterprise-agent-governance-rule-engineer/tests` -> **12 / 12 tests PASSED** in 0.084s.
 - **Non-Mandatory Invariant:** Packaged with `README.md` confirming it is an optional developer preflight tool, NOT a mandatory CI gate or runtime PEP/PDP interceptor.
 
 ### 7.2 Candidate Packet 2B: Localized Arabic Operational Profile (`docs/profiles/arabic_operational_adapter.md`)
 - **Status:** **IMPLEMENTED AS OPTIONAL ON-DEMAND PROMPT ADAPTER**.
 - **Filesystem Path:** `docs/profiles/arabic_operational_adapter.md`
 - **Project Boundary & Isolation Invariant:**
-  - Explicitly states: **MARSAD- and SQLChat-specific instructions (e.g. database schema migrations, historical staff roles) are strictly isolated and CANNOT transfer to other projects as general authority.**
-  - Extracts only universal operational disciplines:
-    1. Direct technical transparency (الشفافية التقنية المباشرة).
-    2. Strict separation of reports from code execution (الفصل بين التقرير والكود).
-    3. Git branch discipline & remote push prohibition (الانضباط مع Git وعزل الفروع).
-    4. Structured owner decision reporting (صياغة التقارير الفنية وعزل القرارات).
+  - Explicitly states: **MARSAD- and SQLChat-specific instructions are strictly isolated and CANNOT transfer to other projects as general authority.**
+  - Extracts only universal operational disciplines: technical transparency, separation of reports from code execution, Git branch discipline, and structured owner decision reporting.
 - **Context Budget:** Strictly bounded (< 800 estimated tokens). Never imported by default in `AGENTS.md`.
 
 ### 7.3 Candidate Packet 2C: AAPES Policy Diagnostic Benchmark (`tools/aapes_benchmark/assess_policies.py`)
@@ -279,27 +244,26 @@ In accordance with Directive `AFE-GOV-POST-RECONCILE-004`, all three enhancement
 - **Filesystem Path:** `tools/aapes_benchmark/assess_policies.py`
 - **Functionality & Uncertainty Reporting:**
   - Evaluates policy registries against AAPES 12 domains.
-  - Outputs not just percentage readiness scores (R0-R3), but explicitly details:
-    * `evidence_found`: Concrete rule IDs matching criteria.
-    * `scope_and_coverage_boundaries`: Explicit scope limits of the evaluation.
-    * `uncertainties_and_gaps`: Explicitly flags rules missing deterministic test references.
-    * `disclaimers`: Clearly marks `"mode": "ADVISORY_DIAGNOSTIC_ORACLE"`, `"runtime_enforcement": "DISABLED"`.
+  - Robust handling of malformed inputs, non-dict entities, and missing required rule fields.
+  - Distinguishes descriptive mentions of "test" in text from structured verification references.
+  - Outputs `evidence_found`, `scope_and_coverage_boundaries`, `uncertainties_and_gaps`, and prominent disclaimers (`"mode": "ADVISORY_DIAGNOSTIC_ORACLE"`, `"runtime_enforcement": "DISABLED"`).
 - **Verification Evidence:**
-  - `py tools/aapes_benchmark/test_benchmark.py` -> **2 / 2 tests PASSED** in 0.003s.
-  - Tested against `v1.4.0 RULES.json` -> Returns 100.0% readiness (R3) with 0 gaps.
+  - `py tools/aapes_benchmark/test_benchmark.py` -> **8 / 8 tests PASSED** in 0.012s.
   - Non-gating: Does not interrupt builds or test suites.
+
+---
 
 ## 8. Test Verification & Evidence Distinction
 
-To satisfy Directive `AFE-GOV-POST-RECONCILE-004`, test results are rigorously partitioned between **Fresh Runs** executed in this session and **Historical Evidence Logs**:
+To satisfy Directives `AFE-GOV-POST-RECONCILE-004` and `AFE-GOV-ASSURANCE-CORRECTION-005`, test results are rigorously partitioned between **Fresh Runs** executed in this session and **Historical Evidence Logs**:
 
 ```mermaid
 pie title Complete Repository Test Evidence
     "Historical Closeout Tests (npm test)" : 267
-    "Fresh Turn Tests (SGO + Baseline + Custody + Packets)" : 97
+    "Fresh Turn Tests (SGO + Baseline + Custody + Packets)" : 103
 ```
 
-### 8.1 Fresh Test Execution Log (Executed in Current Turn — Total: 97 / 97 Passed)
+### 8.1 Fresh Test Execution Log (Executed in Current Turn — Total: 103 / 103 Passed)
 - **Suite 1: Semantic Observatory Integration (`tests/sgo_integration.test.mjs`)**
   - Result: **69 / 69 passed** (0 failures). Duration: 9,480 ms.
   - Coverage: All 52 original acceptance criteria (`AC-01` through `AC-52`), 10 advanced integrity tests (`ADV-01` through `ADV-10`), and 6 negative recovery tests (`NEG-01` through `NEG-06`).
@@ -307,20 +271,22 @@ pie title Complete Repository Test Evidence
   - Result: **13 / 13 passed** (0 failures). Duration: 384 ms.
   - Coverage: `v1.4.0` root registration, 166 SHA-256 sums, `DEF-01` regression checks, endpoint consistency.
 - **Suite 3: Candidate Packet 2A Unit Tests (`tools/enterprise-agent-governance-rule-engineer/tests/test_skill.py`)**
-  - Result: **12 / 12 passed** (0 failures). Duration: 74 ms.
+  - Result: **12 / 12 passed** (0 failures). Duration: 84 ms.
   - Coverage: Packaging validity, frontmatter validation, bilingual Arabic/English regex heuristic linting.
 - **Suite 4: Candidate Packet 2C Diagnostic Benchmark Tests (`tools/aapes_benchmark/test_benchmark.py`)**
-  - Result: **2 / 2 passed** (0 failures). Duration: 3 ms.
-  - Coverage: Benchmark evaluation on `v1.4.0 RULES.json`, exception handling on missing files.
+  - Result: **8 / 8 passed** (0 failures). Duration: 12 ms.
+  - Coverage: Benchmark evaluation on `v1.4.0 RULES.json`, exception handling on missing/malformed files, non-dict roots, incomplete rules, false-positive text filtering, oracle mode disclaimers.
 - **Suite 5: INBOX Custody Receipt (`tests/inbox_custody.test.mjs`)**
   - Result: **1 / 1 passed** (0 failures). Duration: 318 ms.
   - Coverage: Validates exact 24 tracked root files in `INBOX/` with zero missing or mutated files.
-- **Total Fresh Turn Evidence:** **97 / 97 tests passing (100% success rate)**.
+- **Total Fresh Turn Evidence:** **103 / 103 tests passing (100% success rate)**.
 
 ### 8.2 Historical Baseline Evidence Log (Executed in `AFE-GOV-BASELINE-CLOSEOUT-003`)
 - **Suite: Full Repository Test Suite (`npm test`)**
   - Result: **267 / 267 passed** (0 failures). Duration: ~13 minutes.
   - Coverage: Unit, integration, browser, and security suites across the entire application.
+
+---
 
 ## 9. Phased Implementation Roadmap & Sovereign Stop Notice
 
@@ -328,16 +294,16 @@ pie title Complete Repository Test Evidence
 +---------------------------------------------------------------------------------------+
 | PHASE 1: CANONICAL RECONCILIATION AUDIT (COMPLETED & HARDENED)                        |
 | - Final report deposited in docs/governance/AFE_GOV_LEGACY_RECONCILE_002_FINAL_REPORT.md|
-| - Re-evaluation of 47 rules completed; 2 structural gaps isolated (AGHR-017 / 029).  |
-| - Three supersessions reclassified as PENDING_OWNER_RECOMMENDATION.                   |
-| - All 83 freshly executed tests passing. Git HEAD clean on main at c1f1a0e.           |
+| - Four-tier decoupled assurance breakdown across 47 rules completed.                 |
+| - Documented boundaries for AGHR-017, AGHR-029, and Git tamper-resistance codified.  |
+| - All 103 freshly executed tests passing. Git HEAD clean on main at 1e435bf.          |
 +---------------------------------------------------------------------------------------+
                                            |
 +---------------------------------------------------------------------------------------+
 | PHASE 2: CANDIDATE PACKET EXTRACTION (AWAITING OWNER DECISION ON DEC-006 / 007 / 008) |
-| - Extract tools/rule_engineer/ from Packet 2A and run unit test suite.                |
-| - Draft docs/profiles/arabic_operational_adapter.md from Packet 2B.                   |
-| - Package tools/aapes_benchmark/ from Packet 2C.                                      |
+| - Packet 2A verified with 12/12 unit tests passing.                                   |
+| - Packet 2B formulated with strict MARSAD isolation clause (< 800 tokens).            |
+| - Packet 2C benchmark verified with 8/8 unit tests passing.                           |
 +---------------------------------------------------------------------------------------+
                                            |
 +---------------------------------------------------------------------------------------+
@@ -350,6 +316,6 @@ pie title Complete Repository Test Evidence
 
 ### Sovereign Stop Position
 > [!STOP]
-> **STOP POSITION:** The final evidence audit, granular crosswalk re-evaluation, and Owner Decision Register are fully established and deposited in [`docs/governance/AFE_GOV_LEGACY_RECONCILE_002_FINAL_REPORT.md`](file:///d:/APP/Agent-Files-Explorer/docs/governance/AFE_GOV_LEGACY_RECONCILE_002_FINAL_REPORT.md).
+> **STOP POSITION:** The final evidence audit, decoupled assurance matrix, and Owner Decision Register are fully established and deposited in [`docs/governance/AFE_GOV_LEGACY_RECONCILE_002_FINAL_REPORT.md`](file:///d:/APP/Agent-Files-Explorer/docs/governance/AFE_GOV_LEGACY_RECONCILE_002_FINAL_REPORT.md).
 > 
-> All tracked repository files are clean on `main` at commit `c1f1a0e`. In accordance with AGENTS.md, **no push to origin, no deployment, and no activation of runtime PEP/PDP gates has been performed or will be performed without an explicit sovereign owner directive.**
+> All tracked repository files are clean on `main`. In accordance with AGENTS.md, **no push to origin, no deployment, and no activation of runtime PEP/PDP gates has been performed or will be performed without an explicit sovereign owner directive.**

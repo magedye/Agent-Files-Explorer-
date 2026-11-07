@@ -17,15 +17,48 @@ if hasattr(sys.stdout, "reconfigure"):
     except Exception:
         pass
 
+INVALID_VERIFICATION_PLACEHOLDERS = {
+    "none", "n/a", "na", "tbd", "pending", "unverified", "null", "false", "undefined", ""
+}
+
+
+def _is_valid_verification_ref(val) -> bool:
+    if val is None:
+        return False
+    if isinstance(val, (list, tuple, set)):
+        # Must have at least one non-empty, valid item
+        valid_items = [
+            str(item).strip() for item in val
+            if str(item).strip().lower() not in INVALID_VERIFICATION_PLACEHOLDERS
+        ]
+        return len(valid_items) > 0
+    if isinstance(val, dict):
+        return len(val) > 0
+    if isinstance(val, str):
+        cleaned = val.strip().lower()
+        return cleaned not in INVALID_VERIFICATION_PLACEHOLDERS
+    if isinstance(val, bool):
+        return val
+    return False
+
 
 def evaluate_policy_pack(file_path: Path) -> dict:
     if not file_path.is_file():
         raise FileNotFoundError(f"Policy file not found: {file_path}")
 
     raw = file_path.read_text(encoding="utf-8")
-    data = json.loads(raw)
-    rules = data.get("rules", [])
-    if not rules and isinstance(data, list):
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"Malformed JSON in policy pack {file_path}: {exc}") from exc
+
+    if not isinstance(data, (dict, list)):
+        raise ValueError(f"Root JSON entity must be an object or array, got {type(data).__name__}")
+
+    rules = []
+    if isinstance(data, dict):
+        rules = data.get("rules", [])
+    elif isinstance(data, list):
         rules = data
 
     total_rules = len(rules)
@@ -34,15 +67,23 @@ def evaluate_policy_pack(file_path: Path) -> dict:
             "mode": "ADVISORY_DIAGNOSTIC_ORACLE",
             "runtime_enforcement": "DISABLED",
             "status": "EMPTY_OR_UNRECOGNIZED_POLICY_PACK",
-            "readiness_score_pct": 0,
+            "evaluation_target": str(file_path),
+            "total_rules_evaluated": 0,
+            "readiness_score_pct": 0.0,
             "readiness_tier": "R0_NOT_READY",
+            "criteria_breakdown": {
+                "identity_and_naming_pct": 0.0,
+                "obligation_definition_pct": 0.0,
+                "authority_grounding_pct": 0.0,
+                "trigger_and_scope_pct": 0.0,
+                "verification_traceability_pct": 0.0,
+            },
             "evidence_found": [],
             "scope_and_coverage_boundaries": "Zero rules evaluated.",
             "uncertainties_and_gaps": ["No rules found in input file."],
-            "disclaimer": "Informative score only. Does not confer runtime permission."
+            "disclaimer": "INFORMATIONAL ONLY: This score reflects specification completeness. It is NOT an ISO certification, IEEE compliance mark, or permission to execute production tools."
         }
 
-    # Evaluate criteria
     has_id_and_title = 0
     has_obligation = 0
     has_authority = 0
@@ -52,30 +93,51 @@ def evaluate_policy_pack(file_path: Path) -> dict:
     evidence_rules = []
     uncertainties = []
 
-    for r in rules:
-        rid = r.get("id") or r.get("rule_id")
-        title = r.get("title") or r.get("name")
+    for idx, r in enumerate(rules):
+        if not isinstance(r, dict):
+            uncertainties.append(f"Rule index {idx}: Malformed rule entry (expected dict, got {type(r).__name__}).")
+            continue
+
+        rid = str(r.get("id") or r.get("rule_id") or "").strip()
+        title = str(r.get("title") or r.get("name") or "").strip()
+        rule_label = rid if rid else f"Rule index {idx}"
+
         if rid and title:
             has_id_and_title += 1
+        else:
+            missing_parts = []
+            if not rid:
+                missing_parts.append("id")
+            if not title:
+                missing_parts.append("title")
+            uncertainties.append(f"{rule_label}: Missing {' and '.join(missing_parts)}.")
 
-        obligation = r.get("obligation") or r.get("instruction") or r.get("text")
+        obligation = str(r.get("obligation") or r.get("instruction") or r.get("text") or "").strip()
         if obligation:
             has_obligation += 1
+        else:
+            uncertainties.append(f"{rule_label}: Missing obligation definition.")
 
-        authority = r.get("authority_plane") or r.get("authority") or r.get("basis")
+        authority = str(r.get("authority_plane") or r.get("authority") or r.get("basis") or "").strip()
         if authority:
             has_authority += 1
-
-        test_refs = r.get("test_refs") or r.get("verification_case") or r.get("verification")
-        if test_refs:
-            has_verification_refs += 1
-            evidence_rules.append(f"{rid}: has verification reference ({type(test_refs).__name__})")
         else:
-            uncertainties.append(f"{rid}: missing explicit test_refs; operational enforcement cannot be confirmed offline.")
+            uncertainties.append(f"{rule_label}: Missing authority grounding.")
 
-        trigger = r.get("trigger") or r.get("scope") or r.get("applies_when")
+        # Explicit verification references only.
+        # Descriptive text mentions of 'test' in obligation/description are NOT counted.
+        raw_vref = r.get("test_refs") or r.get("verification_case") or r.get("verification")
+        if _is_valid_verification_ref(raw_vref):
+            has_verification_refs += 1
+            evidence_rules.append(f"{rule_label}: has verification reference ({type(raw_vref).__name__})")
+        else:
+            uncertainties.append(f"{rule_label}: Missing valid explicit test_refs; operational enforcement cannot be confirmed offline.")
+
+        trigger = str(r.get("trigger") or r.get("scope") or r.get("applies_when") or "").strip()
         if trigger:
             has_trigger_or_scope += 1
+        else:
+            uncertainties.append(f"{rule_label}: Missing trigger or scope definition.")
 
     # Weighted scoring (Design priorities, not probabilities)
     score_id = (has_id_and_title / total_rules) * 20.0
@@ -110,7 +172,7 @@ def evaluate_policy_pack(file_path: Path) -> dict:
         },
         "evidence_found": evidence_rules[:10] + ([f"... and {len(evidence_rules)-10} more"] if len(evidence_rules) > 10 else []),
         "scope_and_coverage_boundaries": "Evaluates static specification attributes only. Does NOT execute tests or verify semantic logic.",
-        "uncertainties_and_gaps": uncertainties[:10] + ([f"... and {len(uncertainties)-10} more"] if len(uncertainties) > 10 else []),
+        "uncertainties_and_gaps": uncertainties[:15] + ([f"... and {len(uncertainties)-15} more"] if len(uncertainties) > 15 else []),
         "disclaimer": "INFORMATIONAL ONLY: This score reflects specification completeness. It is NOT an ISO certification, IEEE compliance mark, or permission to execute production tools."
     }
 
