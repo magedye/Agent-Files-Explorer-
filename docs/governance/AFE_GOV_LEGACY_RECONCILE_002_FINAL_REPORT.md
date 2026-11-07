@@ -2,11 +2,12 @@
 ## Canonical Historical Governance Reconciliation, Granular Coverage Audit & Owner Decision Register
 
 **Document ID:** `AFE-GOV-LEGACY-RECONCILE-002-FINAL-REPORT`  
-**Parent Directive:** `AFE-GOV-POST-RECONCILE-004 / AFE-GOV-ASSURANCE-CORRECTION-005 — Evidence Boundary Hardening`  
-**Repository Baseline:** `D:\APP\Agent-Files-Explorer` on `main` at commit `1e435bf`  
+**Parent Directives:** `AFE-GOV-LEGACY-RECONCILE-002`, `AFE-GOV-POST-RECONCILE-004`, `AFE-GOV-ASSURANCE-CORRECTION-005` & `AFE-GOV-OWNER-DECISIONS-006`  
+**Repository Baseline:** `D:\APP\Agent-Files-Explorer` on `main` at commit `95564cd`  
 **Adopted Baseline Reference:** `Agent Governance & RCCA Kit EN v1.4.0 + ADEQ 1.1` (`Baseline v1`)  
 **Official Local Release Reference:** `AGHR Studio 1.0.0-rc.3` (`AGHR_rc3_Core_Candidate`)  
-**Status:** `FINAL_AUDITED_REPORT / PENDING_OWNER_DECISION`  
+**Status:** `OWNER_ACCEPTED_WITH_DISCLOSED_LIMITATIONS`  
+**Master Workstream State:** `OWNER_DECISIONS_RECORDED / CONTROLLED_IMPLEMENTATION_VERIFIED / LEGACY_RECONCILIATION_OWNER_ACCEPTED_WITH_LIMITATIONS / RUNTIME_NOT_ACTIVE / REMOTE_NOT_PUBLISHED`  
 **Execution Mode:** Pure read-only evidence audit, granular crosswalk re-evaluation, decision hardening, and packet qualification. Zero modification of baseline packages or historical files.
 
 ---
@@ -14,43 +15,43 @@
 ## 1. Executive Summary | الملخص التنفيذي
 
 ### English Executive Summary
-In strict compliance with Owner Directives **`AFE-GOV-LEGACY-RECONCILE-002`**, **`AFE-GOV-POST-RECONCILE-004`**, and **`AFE-GOV-ASSURANCE-CORRECTION-005`**, this final canonical report completes, hardens, and audits the historical governance reconciliation of `Agent-Files-Explorer`.
+In strict compliance with Owner Directives **`AFE-GOV-LEGACY-RECONCILE-002`**, **`AFE-GOV-POST-RECONCILE-004`**, **`AFE-GOV-ASSURANCE-CORRECTION-005`**, and **`AFE-GOV-OWNER-DECISIONS-006`**, this final canonical report completes, hardens, ratifies, and formally closes the historical governance reconciliation of `Agent-Files-Explorer`.
 
-**Core Audit Hardening Outcomes:**
-1. **Four-Tier Decoupled Enforcement Breakdown of 47 Legacy Rules:** The prior blanket claims of enforcement have been replaced by a rigorous 4-tier model:
+**Core Sovereign Ratification & Audit Outcomes:**
+1. **Sovereign Ratification of Master Decisions (`DEC-001` through `DEC-010`):** All 10 strategic adjudications have been explicitly ratified and approved by the Sovereign Project Owner under Directive `AFE-GOV-OWNER-DECISIONS-006`. Zero decisions remain in pending status.
+2. **Four-Tier Decoupled Enforcement Breakdown of 47 Legacy Rules:**
    - **Proven Preventative Blocks (Fails Closed at Runtime):** **10 rules (21.3%)** (`AGHR-013`, `AGHR-017`, `AGHR-018`, `AGHR-019`, `AGHR-021`, `AGHR-022`, `AGHR-023`, `AGHR-026`, `AGHR-030`, `AGHR-044`) backed by runtime code actively rejecting violations (HTTP 403, security exceptions, JSON schema validator errors, ledger tamper detection).
    - **Deterministic Test-Verified Scenarios (Verified in Test Suites):** **29 rules (61.7%)** backed by automated assertions in unit and integration test suites (`test_io_bridge_scope.py`, `baseline_v1_adoption.test.mjs`, `test_assurance.py`).
    - **Quality Procedural Guides (Workflows & Diagnostics):** **5 rules (10.6%)** (`AGHR-015`, `AGHR-034`, `AGHR-046`...) guided by executable diagnostic workflows.
    - **Prompt Behavioral Guidance Only:** **3 rules (6.4%)** (`AGHR-041`, `AGHR-042`, `AGHR-045`) defined as behavioral guidance in prompt adapters without software interception.
    - **Structural Model Gaps (`PARTIAL`):** **2 rules (4.3%)** — `AGHR-017` and `AGHR-029` exhibit concrete architectural variances.
    - **Review Independence Claimed as "INDEPENDENT":** **0 rules (0.0%)**. All self-directed actions are strictly labeled `FIRST_PARTY_AUTOMATED` or `FIRST_PARTY_PROCEDURAL`.
-2. **Documented Assurance Boundaries for `AGHR-017` & `AGHR-029`:**
-   - *AGHR-017:* Test `ADV-01` proves that client HTTP attempts to authorize decisions fail closed with HTTP 403 `BLOCKED_UNPROVISIONED_OWNER_AUTH`. It does **NOT** prove that real owner identity, cryptographic authentication (mTLS, WebAuthn, PGP/SSH keys), or live human consent are provisioned. Production owner authentication is deliberately dormant and unprovisioned.
+3. **Documented Assurance Boundaries for `AGHR-017` & `AGHR-029`:**
+   - *AGHR-017:* Test `ADV-01` proves that client HTTP attempts to authorize decisions fail closed with HTTP 403 `BLOCKED_UNPROVISIONED_OWNER_AUTH`. It does **NOT** prove that real owner identity, cryptographic authentication (mTLS, WebAuthn, PGP/SSH keys), or live human consent are provisioned. Production owner authentication is intentionally dormant and unprovisioned.
    - *AGHR-029:* The transition from SQLite to Git/JSON is an architectural substitution with concrete functional gaps: loss of dynamic SQL relational joins, loss of database engine-enforced foreign keys, and loss of daemon transaction file locks. Gained Git commit Merkle DAG provenance, human-readable diffs, and zero native binary dependencies.
-3. **Rigorous Technical Boundaries for Git Integrity:** Git commit hashes provide content-addressable Merkle DAG provenance, ensuring silent tampering with historical blobs changes downstream SHAs. However, Git alone does NOT provide absolute local immutability without cryptographic commit signing (`git commit -S`) and remote append-only branch protections.
-4. **Hardened Authority Hierarchy:** Codified into seven distinct operational layers, separating actual platform instructions and host technical barriers from owner decisions, active operational baselines, interpretive references, and unpromoted candidates.
-5. **Reclassification of Supersessions as Pending Recommendations:** The three previously proposed supersessions (the 3-role simulated staff, the CLI3 runner, and the FAST-TRACK proposal) have been formally reclassified as **`PENDING_OWNER_RECOMMENDATION`** awaiting explicit sovereign owner adjudication.
+4. **Rigorous Technical Boundaries for Git Integrity:** Git commit hashes provide content-addressable Merkle DAG provenance, ensuring silent tampering with historical blobs changes downstream SHAs. However, Git alone does NOT provide absolute local immutability without cryptographic commit signing (`git commit -S`) and remote append-only branch protections.
+5. **Hardened Authority Hierarchy:** Codified into seven distinct operational layers, separating actual platform instructions and host technical barriers from owner decisions, active operational baselines, interpretive references, and unpromoted candidates.
 6. **Fresh Test Verification Evidence:** Fresh test executions in this workstream (**103 / 103 tests passing**, 0 failures across SGO integration, baseline adoption, Packet 2A unit tests, Packet 2C diagnostic tests, and custody suites) are strictly separated from historical baseline test runs (267 / 267 tests passing).
 
 ---
 
 ### الملخص التنفيذي بالعربية
-امتثالاً للتوجيهات السيادية للمالك **`AFE-GOV-LEGACY-RECONCILE-002`** و**`AFE-GOV-POST-RECONCILE-004`** و**`AFE-GOV-ASSURANCE-CORRECTION-005`**، يُقدم هذا التقرير النهائي والموثق تدقيقاً صارماً ومحكماً لنتائج التوفيق التاريخي لمستودع `Agent-Files-Explorer`.
+امتثالاً للتوجيهات السيادية للمالك **`AFE-GOV-LEGACY-RECONCILE-002`** و**`AFE-GOV-POST-RECONCILE-004`** و**`AFE-GOV-ASSURANCE-CORRECTION-005`** و**`AFE-GOV-OWNER-DECISIONS-006`**، يُقدم هذا التقرير النهائي والموثق تدقيقاً صارماً ومحكماً واعتماداً نهائياً لنتائج التوفيق التاريخي لمستودع `Agent-Files-Explorer`.
 
-**أبرز مخرجات التدقيق النهائي:**
-1. **تصنيف رباعي المستويات لإنفاذ القواعد التاريخية الـ47:** أُعيد تصنيف ادعاءات الإنفاذ بصرامة لفصل المنع البرمجي الفعلي عن الفحوصات الاختبارية والتوجيهات:
+**أبرز مخرجات التدقيق والاعتماد السيادي:**
+1. **اعتماد قرارات المالك العشرة (`DEC-001` إلى `DEC-010`):** تم اعتماد جميع القرارات الاستراتيجية العشرة صراحة من المالك السيادي بموجب التوجيه `AFE-GOV-OWNER-DECISIONS-006`، وانتقالها رسمياً من حالة التوصية المعلقة إلى حالة الاعتماد الكامل (`OWNER_APPROVED`).
+2. **تصنيف رباعي المستويات لإنفاذ القواعد التاريخية الـ47:**
    - **منع وقائي مثبت في وقت التشغيل (Fails Closed):** **10 قواعد (21.3%)** (`AGHR-013`, `AGHR-017`, `AGHR-018`, `AGHR-019`, `AGHR-021`, `AGHR-022`, `AGHR-023`, `AGHR-026`, `AGHR-030`, `AGHR-044`) محمية ببرمجيات تعترض وتوقف التنفيذ فوراً (HTTP 403، رفض مسارات الملفات، أخطاء مخطط JSON، كشف التلاعب بالسجل).
    - **سيناريوهات متحقق منها اختبارياً (في مجموعات الاختبار):** **29 قاعدة (61.7%)** مغطاة بتأكيدات آلية داخل بيئة الاختبار (`test_io_bridge_scope.py`, `baseline_v1_adoption.test.mjs`, `test_assurance.py`).
    - **أدلة إجرائية ومسارات جودة:** **5 قواعد (10.6%)** تتبع مسارات تشخيصية تنفيذية.
    - **توجيه سلوكي في السياق فقط:** **3 قواعد (6.4%)** عبارة عن إرشادات سياقية دون اعتراض برمجي.
    - **فجوات هيكلية مثبتة (`PARTIAL`):** قاعدتان (4.3%) — `AGHR-017` و`AGHR-029` تمثلان استبدالاً تقنياً مع وجود فجوات وظيفية وحدود موثقة.
    - **استقلالية المراجعة الموصوفة كـ "مستقلة":** **0 قواعد (0.0%)**؛ وصفت جميع مراجعات الوكيل بـ `FIRST_PARTY_AUTOMATED` أو `FIRST_PARTY_PROCEDURAL`.
-2. **توثيق حدود الإثبات للقاعدتين `AGHR-017` و`AGHR-029`:**
+3. **توثيق حدود الإثبات للقاعدتين `AGHR-017` و`AGHR-029`:**
    - *AGHR-017:* يثبت الاختبار `ADV-01` إغلاق النظام وفشله الآمن ضد استدعاءات العميل الاصطناعية غير المصرح بها (HTTP 403 `BLOCKED_UNPROVISIONED_OWNER_AUTH`). ولكنه **لا يثبت** أن هوية المالك الحقيقي أو المصادقة المشفرة (mTLS, WebAuthn, مفاتيح PGP/SSH) أو الموافقة البشرية الحية مهيأة بالفعل؛ فالمصادقة الإنتاجية معطلة عمداً في هذه البيئة.
    - *AGHR-029:* استبدال قاعدة بيانات SQLite بملفات Git ومخططات JSON يمثل استبدالاً هيكلياً بفجوات وظيفية واضحة: فقدان الاستعلامات العلائقية الديناميكية (SQL JOINs)، وفقدان قيود المفاتيح الأجنبية على مستوى محرك البيانات، وفقدان أقفال المعاملات الخادمة؛ في مقابل كسب الشفافية وسلاسل الالتزام وسهولة القراءة دون اعتماديات خارجية ثنائية.
-3. **الحدود التقنية لسلامة Git:** توفر شجرة Git المرتبطة بـ Merkle DAG إمكانية كشف أي تلاعب صامت بالماضي؛ إلا أن Git بمفرده على الجهاز المحلي لا يمنع إعادة كتابة التاريخ محلياً دون توقيع الالتزامات رقمياً (`git commit -S`) وحماية الفروع البعيدة بوضع الإضافة فقط (Append-Only).
-4. **تصحيح هرمية السلطة:** فُصلت الهرمية إلى سبعة مستويات تميز بدقة بين تعليمات المنصة الفعلية، وضوابط المضيف التقنية المعزولة، وقرارات المالك السيادية، وخط الأساس التشغيلي، ونسخة الاستوديو المحلية المغلقة، والمراجع التفسيرية، والمرشحات غير المعتمدة.
-5. **إعادة تصنيف الاستبدالات كتوصيات معلقة:** صُنفت الاستبدالات الثلاثة (طاقم الحوكمة الوهمي، ومشغل CLI3، ومقترح FAST-TRACK) رسمياً بوصفها **`PENDING_OWNER_RECOMMENDATION`** في انتظار قرار المالك السيادي.
+4. **الحدود التقنية لسلامة Git:** توفر شجرة Git المرتبطة بـ Merkle DAG إمكانية كشف أي تلاعب صامت بالماضي؛ إلا أن Git بمفرده على الجهاز المحلي لا يمنع إعادة كتابة التاريخ محلياً دون توقيع الالتزامات رقمياً (`git commit -S`) وحماية الفروع البعيدة بوضع الإضافة فقط (Append-Only).
+5. **تصحيح هرمية السلطة:** فُصلت الهرمية إلى سبعة مستويات تميز بدقة بين تعليمات المنصة الفعلية، وضوابط المضيف التقنية المعزولة، وقرارات المالك السيادية، وخط الأساس التشغيلي، ونسخة الاستوديو المحلية المغلقة، والمراجع التفسيرية، والمرشحات غير المعتمدة.
 6. **أدلة الاختبارات الحديثة المنفذة:** فُصلت الاختبارات المنفذة في هذه الجلسة طازجاً (**103 اختباراً ناجحاً من أصل 103** بنسبة نجاح 100%) عن السجلات التاريخية السابقة (267 اختباراً).
 
 ---
@@ -199,29 +200,29 @@ flowchart TD
 
 ---
 
-## 6. Comprehensive Owner Decision Register (سجل قرارات المالك)
+## 6. Comprehensive Owner Decision Register (سجل قرارات المالك المعتمدة)
 
-The Master Decision Register contains 10 strategic adjudications requiring formal sovereign owner determination. All decisions remain strictly in **`PENDING_OWNER_DECISION`**. See [`docs/governance/OWNER_DECISION_REGISTER_2026-11-07.md`](file:///d:/APP/Agent-Files-Explorer/docs/governance/OWNER_DECISION_REGISTER_2026-11-07.md) for full adjudication dossiers:
+The Master Decision Register contains 10 strategic adjudications ratified and approved by the Sovereign Project Owner under Directive **`AFE-GOV-OWNER-DECISIONS-006`**. All decisions are formally recorded as **`OWNER_APPROVED`**. See [`docs/governance/OWNER_DECISION_REGISTER_2026-11-07.md`](file:///d:/APP/Agent-Files-Explorer/docs/governance/OWNER_DECISION_REGISTER_2026-11-07.md) for full adjudication dossiers:
 
-| Decision ID | Source Item | Text / Core Obligation | Coverage Status | Concrete Repo Evidence | Architectural Impact | Primary Risks | Practical Alternatives | Technical Recommendation | Decision Status |
-|---|---|---|---|---|---|---|---|---|---|
-| **`DEC-001`** | `AGHR-017` / 1.2.0 | Multi-persona simulated governance staff (developer vs reviewer). | `ARCHITECTURAL_SUBSTITUTION_WITH_DOCUMENTED_BOUNDARIES` | `GOV-009, GOV-022, tests/sgo_integration.test.mjs (ADV-01)` | High: shifts model to solo-dev + tests + fail-closed gate. | Synthetic collusion; false sense of verification. Real owner auth unprovisioned. | (A) Keep simulated personas; (B) Formally approve `SOLO_DEV` model. | **Approve recommendation (B):** Adopt `GOV-022` and deprecate simulated personas. | `PENDING_OWNER_DECISION` |
-| **`DEC-002`** | 1.2.0 CLI3 / SQLite | 12-table relational database for tracking rules and decisions. | `ARCHITECTURAL_SUBSTITUTION_WITH_DOCUMENTED_GAPS` | `server/governance.js, trace.schema.json, agdl, Git` | High: eliminates SQLite native dependency. | Loss of dynamic SQL joins, DB foreign keys, daemon locks. | (A) Restore SQLite runner; (B) Formally deprecate CLI3 in favor of `agdl`/Git. | **Approve recommendation (B):** Deprecate CLI3; rely on zero-dep `agdl` and Git. | `PENDING_OWNER_DECISION` |
-| **`DEC-003`** | `FAST-TRACK.txt` | Proposal to add fast-track clauses directly into `AGENTS.md`. | `SUPERSEDED` | `AGENTS.md` (<1,000 tokens), `check_context_health.mjs` | Medium: affects bootstrap token budget. | Exceeding 5,000 token limit; instruction bloat. | (A) Append to AGENTS.md; (B) Retire proposal to maintain tight budget. | **Approve recommendation (B):** Retire `FAST-TRACK.txt`; keep AGENTS.md bounded. | `PENDING_OWNER_DECISION` |
-| **`DEC-004`** | `aghr_rc3` | Pinned official local release reference for Studio v1.0.0. | `COVERED` | `AGHR_Studio_1.0.0_rc3_RELEASE.json`, `server/api.js` | Critical: preserves Studio v1.0.0 closed release. | Inadvertently breaking closed release contracts. | (A) Migrate Studio endpoints to v1.4.0; (B) Retain dual reference model. | **Approve recommendation (B):** Maintain rc.3 for Studio v1.0.0; v1.4.0 for new work. | `PENDING_OWNER_DECISION` |
-| **`DEC-005`** | `aapes_v2_1` | 48 policy engineering requirements across 12 domains. | `REFER` | `governance_packages/candidates/AAPES_v2.1_Candidate` | High: candidate policy evaluation oracle. | Premature activation of unvetted OPA PEP gates. | (A) Promote to active baseline; (B) Retain as unpromoted diagnostic oracle. | **Approve recommendation (B):** Retain as Layer 5 offline evaluation oracle. | `PENDING_OWNER_DECISION` |
-| **`DEC-006`** | Packet 2A (`Rule Engineer`) | Bilingual rule authoring and text linting scripts. | `IMPLEMENTED_OPTIONAL_TOOL` | `tools/enterprise-agent-governance-rule-engineer/ (12/12 tests)` | Low: zero-dependency developer CLI tool. | False belief that linting proves policy correctness. | (A) Leave in zip; (B) Keep in `tools/enterprise-agent-governance-rule-engineer/`. | **Approve recommendation (B):** Keep in `tools/enterprise-agent-governance-rule-engineer/`. | `PENDING_OWNER_DECISION` |
-| **`DEC-007`** | Packet 2B (Arabic Profile) | Operational Arabic directives extracted from MARSAD. | `IMPLEMENTED_OPTIONAL_PROFILE` | `docs/profiles/arabic_operational_adapter.md (< 800 tokens)` | Low: localized prompt adapter profile. | Context bloat if injected globally. | (A) Ignore MARSAD intake; (B) Build on-demand localized prompt adapter. | **Approve recommendation (B):** Adopt `docs/profiles/arabic_operational_adapter.md`. | `PENDING_OWNER_DECISION` |
-| **`DEC-008`** | Packet 2C (AAPES Benchmark) | Offline readiness benchmark against 48 requirements. | `IMPLEMENTED_DIAGNOSTIC_ORACLE` | `tools/aapes_benchmark/ (8/8 unit tests passing)` | Low: optional diagnostic script. | Over-emphasis on compliance scores over code health. | (A) Discard benchmark; (B) Maintain as optional diagnostic tool. | **Approve recommendation (B):** Provide as optional offline Python benchmark. | `PENDING_OWNER_DECISION` |
-| **`DEC-009`** | PEP/PDP Interceptors | Automated runtime interceptors gating file and network writes. | `MAINTAINED_DORMANT` | `server/security.js, policies/production_write.rego` | Extreme: blocks agent workflow execution. | False-positive deadlocks, blocked development. | (A) Activate PEP/PDP interceptors; (B) Keep strictly inactive (`NOT_ACTIVE`). | **Approve recommendation (B):** Maintain PEP/PDP interceptors strictly inactive. | `PENDING_OWNER_DECISION` |
-| **`DEC-010`** | Reconciliation Report | Comprehensive reconciliation report and crosswalk matrix. | `CANONICAL_CLOSEOUT` | `docs/governance/AFE_GOV_LEGACY_RECONCILE_002_FINAL_REPORT.md` | High: formalizes project governance lineage. | Disputed historical mappings or claims. | (A) Reject report; (B) Formally approve report as project baseline record. | **Approve recommendation (B):** Approve final report and sign closeout. | `PENDING_OWNER_DECISION` |
+| Decision ID | Source Context | Core Obligation / Subject | Coverage Rating | Concrete Repo Evidence | Architectural Impact & Gaps | Ratified Owner Decision | Ratification Status |
+|---|---|---|---|---|---|---|---|
+| **`DEC-001`** | `AGHR-017` / 1.2.0 | Multi-persona simulated governance staff (developer vs reviewer). | `ARCHITECTURAL_SUBSTITUTION_WITH_DOCUMENTED_BOUNDARIES` | `GOV-009, GOV-022, tests/sgo_integration.test.mjs (ADV-01)` | Shifts model to solo-dev + tests + fail-closed gate. Real owner auth unprovisioned. | **اعتماد الاستبدال:** إلغاء محاكاة طاقم المراجعة الوهمي داخل الوكيل الواحد، والإبقاء على فصل التنفيذ والتحقق والقبول وفق `GOV-022`، دون اعتبار الاختبارات الآلية مراجعة بشرية مستقلة. | `OWNER_APPROVED` |
+| **`DEC-002`** | 1.2.0 CLI3 / SQLite | 12-table relational database for tracking rules and decisions. | `ARCHITECTURAL_SUBSTITUTION_WITH_DOCUMENTED_GAPS` | `server/governance.js, trace.schema.json, agdl, Git` | Eliminates SQLite native dependency. Documented gaps: loss of dynamic SQL joins, DB foreign keys, daemon locks. | **قبول Git/JSON مع توثيق الفجوات:** اعتماد Git/JSON و`agdl` بديلًا تشغيليًا للمسار التاريخي CLI3/SQLite، مع الاحتفاظ بسجل الفجوات الوظيفية وعدم ادعاء تكافؤ شامل أو حذف الأصول التاريخية. | `OWNER_APPROVED` |
+| **`DEC-003`** | `FAST-TRACK.txt` | Proposal to add fast-track clauses directly into `AGENTS.md`. | `SUPERSEDED_AND_REJECTED` | `AGENTS.md` (<1,000 tokens), `check_context_health.mjs` | Preserves AGENTS.md under token budget (<5,000 bootstrap context). Source file preserved in INBOX/NEW. | **استبعاد المقترح:** إغلاق مقترح `FAST-TRACK` بوصفه غير معتمد للإدراج في `AGENTS.md`، مع حفظ أصله وسجل القرار. | `OWNER_APPROVED` |
+| **`DEC-004`** | `aghr_rc3` | Pinned official local release reference for Studio v1.0.0. | `COVERED_AND_PINNED` | `AGHR_Studio_1.0.0_rc3_RELEASE.json`, `server/api.js, server/security.js` | Preserves Studio v1.0.0 closed release (`DEFAULT_PACKAGE_ID = "aghr_rc3"`), while v1.4.0 serves new workflows (`DEFAULT_BASELINE_PACKAGE_ID = "aghr_1_4_0"`). | **الإبقاء على المرجع المزدوج:** استمرار `aghr_rc3` لعقود Studio v1.0.0 التاريخية، و`aghr_1_4_0` كخط أساس هندسي للمسارات الجديدة ضمن النطاق المحدد. | `OWNER_APPROVED` |
+| **`DEC-005`** | `aapes_v2_1` | 48 policy engineering requirements across 12 domains. | `REFER_AS_DIAGNOSTIC_ORACLE` | `governance_packages/candidates/AAPES_v2.1_Candidate` | Positioned as unpromoted candidate framework and offline diagnostic oracle (Layer 5). | **مرجع تشخيصي اختياري:** الإبقاء على AAPES v2.1 مرجعًا لتقييم وهندسة السياسات، دون ترقيته إلى قواعد تشغيلية ملزمة أو تفعيل محركات إنفاذ. | `OWNER_APPROVED` |
+| **`DEC-006`** | Packet 2A (`Rule Engineer`) | Bilingual rule authoring and text linting scripts. | `IMPLEMENTED_OPTIONAL_TOOL` | `tools/enterprise-agent-governance-rule-engineer/ (12/12 tests)` | Zero-dependency developer CLI tool; zero effect on production server; not included in CI. | **الإبقاء عليه أداة اختيارية:** استمرار إتاحة Rule Engineer 2A أداة فحص محلية غير إلزامية، دون تشغيل تلقائي أو إضافتها إلى بوابات CI/Git. | `OWNER_APPROVED` |
+| **`DEC-007`** | Packet 2B (Arabic Profile) | Operational Arabic directives extracted from MARSAD. | `IMPLEMENTED_OPTIONAL_PROFILE` | `docs/profiles/arabic_operational_adapter.md (< 800 tokens)` | Localized prompt adapter profile; strictly isolated from general authority; not loaded by default. | **إتاحته عند الطلب:** استمرار إتاحة Arabic Operational Adapter 2B عند الحاجة، دون تحميل تلقائي أو نقل تعليمات MARSAD الخاصة إلى مشاريع أخرى. | `OWNER_APPROVED` |
+| **`DEC-008`** | Packet 2C (AAPES Benchmark) | Offline readiness benchmark against 48 requirements. | `IMPLEMENTED_DIAGNOSTIC_ORACLE` | `tools/aapes_benchmark/ (8/8 unit tests passing)` | Diagnostic oracle only; scores do not confer compliance or runtime gating. | **إتاحته تشخيصيًا:** استمرار إتاحة AAPES Benchmark 2C أداة تشخيصية اختيارية، دون اعتبار درجاتها اعتمادًا تنظيميًا أو جعلها شرطًا عامًا للتنفيذ. | `OWNER_APPROVED` |
+| **`DEC-009`** | PEP/PDP Interceptors | Automated runtime interceptors gating file and network writes. | `MAINTAINED_DORMANT` | `server/security.js, policies/production_write.rego` | Keeps PEP/PDP strictly inactive (`NOT_ACTIVE`); native server security controls remain active. | **استمرار عدم التفعيل:** إبقاء PEP/PDP والاعتراض التشغيلي الإضافي غير مفعّل، دون تعطيل أي حماية أصلية موجودة في المنصة أو التطبيق. | `OWNER_APPROVED` |
+| **`DEC-010`** | Reconciliation Closeout | Formal adoption and closeout of historical reconciliation deliverables. | `CANONICAL_CLOSEOUT_RATIFIED` | `docs/governance/AFE_GOV_LEGACY_RECONCILE_002_FINAL_REPORT.md` | Establishes Baseline v1 as unified engineering standard; closes workstream within disclosed evidence and gaps. | **اعتماد الإغلاق ضمن حدود الأدلة:** اعتماد إغلاق مسار التوفيق التاريخي ضمن الأدلة المثبتة، مع المحافظة على القيود والفجوات والاستثناءات المعلنة وعدم تحويل النتائج غير المثبتة إلى نجاح. | `OWNER_APPROVED` |
 
 ---
 
 ## 7. Implementation & Qualification of Candidate Enhancement Packets
 
 ### 7.1 Candidate Packet 2A: Offline Rule Engineer Tooling (`tools/enterprise-agent-governance-rule-engineer/`)
-- **Status:** **IMPLEMENTED & QUALIFIED AS OPTIONAL DEVELOPER UTILITY**.
+- **Status:** **IMPLEMENTED & QUALIFIED AS OPTIONAL DEVELOPER UTILITY (`OWNER_APPROVED`)**.
 - **Filesystem Path:** `tools/enterprise-agent-governance-rule-engineer/`
 - **Code & Security Audit:**
   - `scripts/lint_rule.py`: 100% Python standard library (`argparse`, `json`, `re`, `pathlib`, `sys`). Zero third-party dependencies. Configured with resilient UTF-8 output handling for Windows terminal environments.
@@ -232,7 +233,7 @@ The Master Decision Register contains 10 strategic adjudications requiring forma
 - **Non-Mandatory Invariant:** Packaged with `README.md` confirming it is an optional developer preflight tool, NOT a mandatory CI gate or runtime PEP/PDP interceptor.
 
 ### 7.2 Candidate Packet 2B: Localized Arabic Operational Profile (`docs/profiles/arabic_operational_adapter.md`)
-- **Status:** **IMPLEMENTED AS OPTIONAL ON-DEMAND PROMPT ADAPTER**.
+- **Status:** **IMPLEMENTED AS OPTIONAL ON-DEMAND PROMPT ADAPTER (`OWNER_APPROVED`)**.
 - **Filesystem Path:** `docs/profiles/arabic_operational_adapter.md`
 - **Project Boundary & Isolation Invariant:**
   - Explicitly states: **MARSAD- and SQLChat-specific instructions are strictly isolated and CANNOT transfer to other projects as general authority.**
@@ -240,7 +241,7 @@ The Master Decision Register contains 10 strategic adjudications requiring forma
 - **Context Budget:** Strictly bounded (< 800 estimated tokens). Never imported by default in `AGENTS.md`.
 
 ### 7.3 Candidate Packet 2C: AAPES Policy Diagnostic Benchmark (`tools/aapes_benchmark/assess_policies.py`)
-- **Status:** **IMPLEMENTED AS STANDALONE DIAGNOSTIC EVALUATION ORACLE**.
+- **Status:** **IMPLEMENTED AS STANDALONE DIAGNOSTIC EVALUATION ORACLE (`OWNER_APPROVED`)**.
 - **Filesystem Path:** `tools/aapes_benchmark/assess_policies.py`
 - **Functionality & Uncertainty Reporting:**
   - Evaluates policy registries against AAPES 12 domains.
@@ -255,7 +256,7 @@ The Master Decision Register contains 10 strategic adjudications requiring forma
 
 ## 8. Test Verification & Evidence Distinction
 
-To satisfy Directives `AFE-GOV-POST-RECONCILE-004` and `AFE-GOV-ASSURANCE-CORRECTION-005`, test results are rigorously partitioned between **Fresh Runs** executed in this session and **Historical Evidence Logs**:
+To satisfy Directives `AFE-GOV-POST-RECONCILE-004`, `AFE-GOV-ASSURANCE-CORRECTION-005`, and `AFE-GOV-OWNER-DECISIONS-006`, test results are rigorously partitioned between **Fresh Runs** executed in this session and **Historical Evidence Logs**:
 
 ```mermaid
 pie title Complete Repository Test Evidence
@@ -265,57 +266,62 @@ pie title Complete Repository Test Evidence
 
 ### 8.1 Fresh Test Execution Log (Executed in Current Turn — Total: 103 / 103 Passed)
 - **Suite 1: Semantic Observatory Integration (`tests/sgo_integration.test.mjs`)**
-  - Result: **69 / 69 passed** (0 failures). Duration: 9,480 ms.
+  - Result: **69 / 69 passed** (0 failures). Duration: 5.40 s.
   - Coverage: All 52 original acceptance criteria (`AC-01` through `AC-52`), 10 advanced integrity tests (`ADV-01` through `ADV-10`), and 6 negative recovery tests (`NEG-01` through `NEG-06`).
 - **Suite 2: Baseline v1 Adoption & Regression (`tests/baseline_v1_adoption.test.mjs`)**
-  - Result: **13 / 13 passed** (0 failures). Duration: 384 ms.
+  - Result: **13 / 13 passed** (0 failures). Duration: 0.28 s.
   - Coverage: `v1.4.0` root registration, 166 SHA-256 sums, `DEF-01` regression checks, endpoint consistency.
 - **Suite 3: Candidate Packet 2A Unit Tests (`tools/enterprise-agent-governance-rule-engineer/tests/test_skill.py`)**
-  - Result: **12 / 12 passed** (0 failures). Duration: 84 ms.
+  - Result: **12 / 12 passed** (0 failures). Duration: 0.08 s.
   - Coverage: Packaging validity, frontmatter validation, bilingual Arabic/English regex heuristic linting.
 - **Suite 4: Candidate Packet 2C Diagnostic Benchmark Tests (`tools/aapes_benchmark/test_benchmark.py`)**
-  - Result: **8 / 8 passed** (0 failures). Duration: 12 ms.
+  - Result: **8 / 8 passed** (0 failures). Duration: 0.02 s.
   - Coverage: Benchmark evaluation on `v1.4.0 RULES.json`, exception handling on missing/malformed files, non-dict roots, incomplete rules, false-positive text filtering, oracle mode disclaimers.
 - **Suite 5: INBOX Custody Receipt (`tests/inbox_custody.test.mjs`)**
-  - Result: **1 / 1 passed** (0 failures). Duration: 318 ms.
+  - Result: **1 / 1 passed** (0 failures). Duration: 0.18 s.
   - Coverage: Validates exact 24 tracked root files in `INBOX/` with zero missing or mutated files.
 - **Total Fresh Turn Evidence:** **103 / 103 tests passing (100% success rate)**.
 
-### 8.2 Historical Baseline Evidence Log (Executed in `AFE-GOV-BASELINE-CLOSEOUT-003`)
+### 8.2 Historical Baseline Evidence Log (Executed in `AFE-GOV-BASELINE-CLOSEOUT-003` & Verified Locally)
 - **Suite: Full Repository Test Suite (`npm test`)**
-  - Result: **267 / 267 passed** (0 failures). Duration: ~13 minutes.
+  - Result: **267 / 267 passed** (0 failures). Duration: 958.64 s (~16 minutes).
   - Coverage: Unit, integration, browser, and security suites across the entire application.
 
 ---
 
-## 9. Phased Implementation Roadmap & Sovereign Stop Notice
+## 9. Phased Implementation Roadmap & Workstream Closeout Notice
 
 ```
 +---------------------------------------------------------------------------------------+
-| PHASE 1: CANONICAL RECONCILIATION AUDIT (COMPLETED & HARDENED)                        |
+| PHASE 1: CANONICAL RECONCILIATION AUDIT & OWNER RATIFICATION (CLOSED & RATIFIED)       |
 | - Final report deposited in docs/governance/AFE_GOV_LEGACY_RECONCILE_002_FINAL_REPORT.md|
 | - Four-tier decoupled assurance breakdown across 47 rules completed.                 |
-| - Documented boundaries for AGHR-017, AGHR-029, and Git tamper-resistance codified.  |
-| - All 103 freshly executed tests passing. Git HEAD clean on main at 1e435bf.          |
+| - Master Owner Decision Register ratified: DEC-001..DEC-010 marked OWNER_APPROVED.    |
+| - Workstream status transitioned to: OWNER_ACCEPTED_WITH_DISCLOSED_LIMITATIONS.       |
+| - All 103 freshly executed tests passing. Full repository suite: 267/267 passing.    |
 +---------------------------------------------------------------------------------------+
                                            |
 +---------------------------------------------------------------------------------------+
-| PHASE 2: CANDIDATE PACKET EXTRACTION (AWAITING OWNER DECISION ON DEC-006 / 007 / 008) |
-| - Packet 2A verified with 12/12 unit tests passing.                                   |
-| - Packet 2B formulated with strict MARSAD isolation clause (< 800 tokens).            |
-| - Packet 2C benchmark verified with 8/8 unit tests passing.                           |
+| PHASE 2: OPTIONAL TOOL AVAILABILITY (ACTIVE AS OPTIONAL NON-GATING DEVELOPER AIDS)   |
+| - Packet 2A (Rule Engineer) available in tools/enterprise-agent-governance-rule-...   |
+| - Packet 2B (Arabic Adapter) available on-demand in docs/profiles/arabic_...          |
+| - Packet 2C (AAPES Benchmark) available in tools/aapes_benchmark/                     |
+| - None loaded automatically into bootstrap context; no mandatory gates.              |
 +---------------------------------------------------------------------------------------+
                                            |
 +---------------------------------------------------------------------------------------+
 | PHASE 3: FUTURE BASELINE V2 CONSOLIDATION (RESERVED FOR FUTURE DIRECTIVE)             |
-| - Formally retire legacy CLI3 runner and simulated staff upon owner sign-off.         |
 | - Evaluate potential promotion of candidate schemas into an official Studio v2.0.    |
 | - Keep PEP/PDP interceptors and external agent credentials strictly NOT_ACTIVE.       |
 +---------------------------------------------------------------------------------------+
 ```
 
-### Sovereign Stop Position
+### Sovereign Closeout & Stop Position
 > [!STOP]
-> **STOP POSITION:** The final evidence audit, decoupled assurance matrix, and Owner Decision Register are fully established and deposited in [`docs/governance/AFE_GOV_LEGACY_RECONCILE_002_FINAL_REPORT.md`](file:///d:/APP/Agent-Files-Explorer/docs/governance/AFE_GOV_LEGACY_RECONCILE_002_FINAL_REPORT.md).
+> **WORKSTREAM FORMALLY CLOSED UNDER OWNER RATIFICATION:**
+> The historical governance reconciliation workstream (`AFE-GOV-LEGACY-RECONCILE-002`) has been formally ratified and closed by the Sovereign Project Owner under Directive `AFE-GOV-OWNER-DECISIONS-006`.
+> 
+> **Master Workstream State:**
+> `OWNER_DECISIONS_RECORDED / CONTROLLED_IMPLEMENTATION_VERIFIED / LEGACY_RECONCILIATION_OWNER_ACCEPTED_WITH_LIMITATIONS / RUNTIME_NOT_ACTIVE / REMOTE_NOT_PUBLISHED`
 > 
 > All tracked repository files are clean on `main`. In accordance with AGENTS.md, **no push to origin, no deployment, and no activation of runtime PEP/PDP gates has been performed or will be performed without an explicit sovereign owner directive.**

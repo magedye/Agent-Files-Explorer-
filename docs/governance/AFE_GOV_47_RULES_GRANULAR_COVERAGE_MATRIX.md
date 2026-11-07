@@ -2,11 +2,11 @@
 ## Decoupled Assurance Breakdown: Semantic Coverage, Mechanism Presence, and Proven Enforcement Boundaries
 
 **Document ID:** `AFE-GOV-47-RULES-GRANULAR-COVERAGE-MATRIX`  
-**Parent Directive:** `AFE-GOV-ASSURANCE-CORRECTION-005 — Evidence Boundary Hardening`  
+**Parent Directives:** `AFE-GOV-ASSURANCE-CORRECTION-005` & `AFE-GOV-OWNER-DECISIONS-006 — Owner Decision Ratification & Historical Reconciliation Closure`  
 **Target Repository:** `D:\APP\Agent-Files-Explorer` on `main`  
 **Legacy Reference:** `Agent_Governance_Harness_Reference_1.2.0` (47 Rules)  
 **Adopted Baseline:** `Agent Governance & RCCA Kit EN v1.4.0 + ADEQ 1.1` (`Baseline v1`)  
-**Status:** `CANONICAL_HARDENED_AUDIT / VERIFIED`
+**Status:** `OWNER_ACCEPTED_WITH_DISCLOSED_LIMITATIONS`
 
 ---
 
@@ -48,7 +48,7 @@ In strict adherence to Directive `AFE-GOV-ASSURANCE-CORRECTION-005`, this matrix
 - **Deterministic Test-Verified Scenarios (Verified in Test Suites):** **29 rules (61.7%)**
 - **Quality Procedural Guides (Workflows & Diagnostics):** **5 rules (10.6%)**
 - **Prompt Behavioral Guidance Only:** **3 rules (6.4%)**
-- **Structural Model Gaps (PARTIAL):** **2 rules (4.3%)** — `AGHR-017` & `AGHR-029`
+- **Structural Model Gaps (PARTIAL):** **2 rules (4.3%)** — `AGHR-017` & `AGHR-029` (Ratified by Sovereign Owner under `DEC-001` & `DEC-002` with disclosed limitations and documented functional gaps).
 - **Review Independence Claimed as "INDEPENDENT":** **0 rules (0.0%)** (Properly designated as `FIRST_PARTY_AUTOMATED` or `FIRST_PARTY_PROCEDURAL`).
 
 ---
