@@ -82,8 +82,8 @@ export function validateDeferredCard(card) {
 
   // Next Review Due is mandatory if policy is TIME_BASED or EVENT_AND_TIME
   if (card.review_policy === "TIME_BASED" || card.review_policy === "EVENT_AND_TIME") {
-    if (!card.next_review_due || !/^\d{4}-\d{2}-\d{2}$/.test(card.next_review_due)) {
-      throw new Error(`INVALID_CARD: next_review_due (YYYY-MM-DD) is required for review_policy=${card.review_policy}`);
+    if (!card.next_review_due || !/^\d{4}-\d{2}-\d{2}(?:.*)?$/.test(card.next_review_due)) {
+      throw new Error(`INVALID_CARD: next_review_due starting with YYYY-MM-DD is required for review_policy=${card.review_policy}`);
     }
   }
 
@@ -197,7 +197,9 @@ export function evaluateTransition({
     if (card.review_policy === "EVENT_TRIGGER_ONLY") {
       return card; // No time-based review
     }
-    if (card.next_review_due && currentDate >= card.next_review_due) {
+    const dueDateMatch = (card.next_review_due || "").match(/^\d{4}-\d{2}-\d{2}/);
+    const dueDate = dueDateMatch ? dueDateMatch[0] : null;
+    if (dueDate && currentDate >= dueDate) {
       // Reaching review date moves status to READY_FOR_REVIEW, NEVER to AUTHORIZED!
       return {
         ...card,
@@ -247,6 +249,11 @@ export function evaluateTransition({
 
   // Event 4: Execution Attempt
   if (event === "EXECUTE") {
+    // Defense-in-depth: If scope is NONE_DEFERRED or NONE, block immediately
+    if (card.authorization_scope === "NONE_DEFERRED" || card.authorization_scope === "NONE") {
+      throw new Error(`BLOCKED_NO_EXECUTION_GRANT: Cannot execute task when authorization_scope is '${card.authorization_scope}'. Zero execution is permitted.`);
+    }
+
     // Negative Check 1: In READY_FOR_REVIEW or DEFERRED without authorization
     if (currentStatus === "READY_FOR_REVIEW" || currentStatus === "DEFERRED") {
       throw new Error(`BLOCKED_NO_EXECUTION_GRANT: Cannot execute task in status=${currentStatus}. Reaching review date or meeting trigger does not confer execution authority.`);

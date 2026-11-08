@@ -31,9 +31,9 @@ const canonicalSampleCard = {
   reopen_trigger: "Explicit owner budget allocation or approval of local LLM runner",
   review_policy: "EVENT_AND_TIME",
   review_owner: "Project Sovereign Owner",
-  next_review_due: "2026-12-01",
+  next_review_due: "2026-12-01 (PROPOSED_TARGET_DATE / NOT_OWNER_RATIFIED)",
   authorization_scope: "NONE_DEFERRED",
-  next_permitted_action: "Isolated smoke-test run of 1 scenario in temporary worktree without API billing",
+  next_permitted_action: "NONE (Currently unauthorized; scope is NONE_DEFERRED). Proposed upon future owner authorization: Isolated smoke-test in temporary worktree without API billing",
   reference_hash: "sha256-reference-initial-abc123",
 };
 
@@ -66,7 +66,7 @@ test("Request Custody: Markdown card formatting produces valid GitHub Flavored M
   assert.ok(md.includes("| **Request ID** | `REQ-AFE-QUAL-008-LIVE` |"));
   assert.ok(md.includes("| **Status** | `DEFERRED` |"));
   assert.ok(md.includes("| **Review Policy** | `EVENT_AND_TIME` |"));
-  assert.ok(md.includes("| **Next Review Due** | `2026-12-01` |"));
+  assert.ok(md.includes("2026-12-01 (PROPOSED_TARGET_DATE / NOT_OWNER_RATIFIED)"));
 });
 
 // Negative Case 1: Reaching review date without execution authorization
@@ -125,7 +125,7 @@ test("Negative Case 2: Reopen trigger met transitions to READY_FOR_REVIEW, execu
   // Attempting execution with expired grant fails
   assert.throws(
     () => evaluateTransition({
-      card: { ...triggered, status: "AUTHORIZED" },
+      card: { ...triggered, status: "AUTHORIZED", authorization_scope: "EXECUTE_TESTS" },
       event: "EXECUTE",
       currentDate: "2026-11-15",
       ownerGrant: expiredGrant,
@@ -265,5 +265,18 @@ test("Positive Case: Continuous valid grant supports bounded multi-step executio
       currentDate: "2026-11-08",
     }),
     /BLOCKED_UNAUTHORIZED_PUBLICATION/
+  );
+});
+
+// Negative Case 7: Authorization scope NONE_DEFERRED unconditionally blocks execution even if status is coerced
+test("Negative Case 7: Authorization scope NONE_DEFERRED blocks execution unconditionally", () => {
+  assert.throws(
+    () => evaluateTransition({
+      card: { ...canonicalSampleCard, status: "AUTHORIZED", authorization_scope: "NONE_DEFERRED" },
+      event: "EXECUTE",
+      ownerGrant: { status: "OWNER_APPROVED", scope: "NONE_DEFERRED" },
+      actionAttempted: "Smoke Test",
+    }),
+    /BLOCKED_NO_EXECUTION_GRANT: Cannot execute task when authorization_scope is 'NONE_DEFERRED'/
   );
 });
