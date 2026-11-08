@@ -25,6 +25,8 @@ Layer 5: History & Archive  -->  /docs/archive/, /governance_packages/archive/
 ### Operational State & Progress
 - [CURRENT.md](status/CURRENT.md) — Active objectives, blockers, and next steps.
 - [HANDOFF.md](status/HANDOFF.md) — Multi-agent and cross-session handoff checkpoint.
+- [Intake Operational Closure Report (011)](governance/AFE_GOV_INTAKE_OPERATIONAL_CLOSURE_011_REPORT.md) — Operational intake clearance, P0 archival, reference catalog, and 48-test passing closure.
+- [Owner Decision Register (006)](governance/OWNER_DECISION_REGISTER_2026-11-07.md) — Ratified decisions DEC-001 through DEC-010.
 - [Owner sign-off / PROJECT CLOSED](evidence/studio-signoff-2026-10-26/OWNER_SIGNOFF_AR.md) — Studio v1.0.0 official local Windows release;rc.3 default with1.2.0Legacy; no public release or further development.
 - [Accepted T40 packet](evidence/studio-release-2026-10-25/T40_REPORT_AR.md) — immutable pre-sign-off report and ZIP; later owner sign-off supersedes its pending fields.
 - [Draft mode](features/STUDIO_DRAFT_MODE.md) — Authorized CP storage, grants, audit and resource boundaries.

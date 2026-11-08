@@ -677,3 +677,98 @@ export function queryArchivedKnowledge(query, { archiveDir, referenceLibDir }) {
 
   return results;
 }
+
+/**
+ * Executes direct authorized physical integration for an item with INTEGRATE or ENHANCE_EXISTING disposition.
+ * Demonstrates that INTEGRATE produces a verified file change rather than merely a classification string.
+ */
+export function applyIntegration(item, { targetFilePath, targetDirectory, dryRun = false } = {}) {
+  if (item.disposition !== DISPOSITIONS.INTEGRATE && item.disposition !== DISPOSITIONS.ENHANCE_EXISTING) {
+    return {
+      integrated: false,
+      reason: `Disposition is ${item.disposition}, which does not authorize direct code or document integration.`,
+    };
+  }
+
+  const destination = targetFilePath || path.join(targetDirectory || path.resolve("docs/governance"), `${item.item_id}.md`);
+  const content = `# Integrated Governed Item: ${item.item_id}\n\n` +
+    `- **Source File:** ${item.source_file || "Unknown"}\n` +
+    `- **Source SHA-256:** ${item.source_sha256 || "N/A"}\n` +
+    `- **Content Class:** ${item.content_class}\n` +
+    `- **Normative Force:** ${item.normative_force}\n` +
+    `- **Integrated At:** ${new Date().toISOString()}\n\n` +
+    `## Mandated Statement\n\n${item.original_text}\n`;
+
+  if (!dryRun) {
+    fs.mkdirSync(path.dirname(destination), { recursive: true });
+    fs.writeFileSync(destination, content, "utf8");
+  }
+
+  const bytesWritten = Buffer.byteLength(content, "utf8");
+  return {
+    integrated: true,
+    destinationPath: destination,
+    bytesWritten,
+    sha256: sha256(Buffer.from(content, "utf8")),
+    statement: item.original_text,
+  };
+}
+
+// -------------------------------------------------------------
+// Command Line Interface (CLI) Dispatcher
+// -------------------------------------------------------------
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const mode = process.argv[2];
+  const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+  const archiveDir = path.join(projectRoot, "docs", "archive", "governed_intake");
+  const referenceLibDir = path.join(projectRoot, "docs", "reference_library");
+
+  if (mode === "--scan") {
+    const target = process.argv[3] || path.join(projectRoot, "governance_packages", "INBOX");
+    const discovered = discoverInputs(target);
+    process.stdout.write(JSON.stringify(discovered, null, 2) + "\n");
+  } else if (mode === "--chat") {
+    const prompt = process.argv[3];
+    if (!prompt) {
+      console.error("Error: --chat requires a prompt string argument");
+      process.exit(1);
+    }
+    const report = processChatIntake(prompt);
+    process.stdout.write(JSON.stringify(report, null, 2) + "\n");
+  } else if (mode === "--query") {
+    const query = process.argv[3];
+    if (!query) {
+      console.error("Error: --query requires a query string argument");
+      process.exit(1);
+    }
+    const results = queryArchivedKnowledge(query, { archiveDir, referenceLibDir });
+    process.stdout.write(JSON.stringify(results, null, 2) + "\n");
+  } else if (mode === "--verify-archive") {
+    const manifestPath = path.join(archiveDir, "MANIFEST.json");
+    if (!fs.existsSync(manifestPath)) {
+      console.error("Error: MANIFEST.json not found in archive directory");
+      process.exit(1);
+    }
+    const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+    let passCount = 0;
+    for (const rec of manifest.archived_records || []) {
+      const archPath = (rec.archive_filename && rec.archive_filename.startsWith("docs/"))
+        ? path.join(projectRoot, rec.archive_filename)
+        : path.join(archiveDir, rec.archive_filename);
+      if (!fs.existsSync(archPath)) {
+        console.error(`MISSING: ${rec.archive_filename}`);
+        continue;
+      }
+      const actualHash = sha256(fs.readFileSync(archPath));
+      if (actualHash !== rec.sha256) {
+        console.error(`HASH_MISMATCH: ${rec.archive_filename}`);
+        continue;
+      }
+      passCount++;
+    }
+    console.log(`Archive Integrity: ${passCount}/${(manifest.archived_records || []).length} records verified.`);
+  } else {
+    console.log("Usage: node tools/intake_lifecycle.mjs [--scan <path> | --chat <prompt> | --query <term> | --verify-archive]");
+  }
+}
+
