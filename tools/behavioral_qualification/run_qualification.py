@@ -169,6 +169,10 @@ def run_benchmark() -> Dict[str, Any]:
     
     results = {
         "benchmark_id": "AFE-GOV-BEHAVIORAL-QUAL-007",
+        "audit_reference": "AFE-GOV-BEHAVIORAL-VALIDITY-008",
+        "evaluation_mode": "SYNTHETIC_FIXTURE_SIMULATION",
+        "live_llm_invocations": 0,
+        "adjudication_status": "SYNTHETIC_EVALUATOR_TEST_ONLY",
         "timestamp": "2026-11-07T17:55:00Z",
         "sample_size": len(SCENARIOS),
         "evaluation_domains": [s.domain for s in SCENARIOS],

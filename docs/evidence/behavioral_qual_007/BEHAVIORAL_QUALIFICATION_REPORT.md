@@ -5,9 +5,18 @@
 **Parent Directive:** `AFE-GOV-BEHAVIORAL-QUAL-007`  
 **Repository Baseline:** `D:\APP\Agent-Files-Explorer` on `main`  
 **Adopted Baseline Reference:** `Agent Governance & RCCA Kit EN v1.4.0 + ADEQ 1.1` (`Baseline v1`)  
-**Status:** `EMPIRICAL_QUALIFICATION_COMPLETED / VERIFIED`  
+**Status:** `SYNTHETIC_EVALUATOR_TEST_ONLY / PREDICTIVE_FIXTURE_EVALUATION (AUDITED & CLASSIFIED UNDER AFE-GOV-BEHAVIORAL-VALIDITY-008)`  
 **Execution Environment:** Windows Native pwsh, Python 3.12.10, Node.js v24.22.1  
-**Dataset Artifact:** [`docs/evidence/behavioral_qual_007/BEHAVIORAL_QUALIFICATION_DATA.json`](file:///d:/APP/Agent-Files-Explorer/docs/evidence/behavioral_qual_007/BEHAVIORAL_QUALIFICATION_DATA.json)
+**Dataset Artifact:** [`docs/evidence/behavioral_qual_007/BEHAVIORAL_QUALIFICATION_DATA.json`](file:///d:/APP/Agent-Files-Explorer/docs/evidence/behavioral_qual_007/BEHAVIORAL_QUALIFICATION_DATA.json)  
+**Forensic Audit Report:** [`docs/governance/AFE_GOV_BEHAVIORAL_VALIDITY_008_AUDIT_REPORT.md`](file:///d:/APP/Agent-Files-Explorer/docs/governance/AFE_GOV_BEHAVIORAL_VALIDITY_008_AUDIT_REPORT.md)
+
+> [!CAUTION]
+> **AUDIT CLASSIFICATION: `SYNTHETIC_EVALUATOR_TEST_ONLY` (Per Sovereign Owner Directive `AFE-GOV-BEHAVIORAL-VALIDITY-008`)**  
+> **Forensic Audit Notice:** A forensic review conducted under `AFE-GOV-BEHAVIORAL-VALIDITY-008` established that all metrics in this report were generated via **static synthetic text fixtures** (`MODE_A_SAMPLE_RESPONSES` and `MODE_B_SAMPLE_RESPONSES` in `tools/behavioral_qualification/run_qualification.py`) rather than live LLM model inference.
+> - **Zero live LLM API calls** were made.
+> - Quality scores, violation counts, simulated latencies, and token approximations were computed programmatically via string checks and heuristics in `evaluator.py`.
+> - This report is preserved in full as an illustrative reference fixture demonstrating the behavior of the evaluation scoring rubric, but its findings **do NOT represent empirical measurements of live coding agent performance**.
+> - For authentic benchmarking, refer to the Real-Agent Protocol defined in [`docs/governance/AFE_GOV_BEHAVIORAL_VALIDITY_008_AUDIT_REPORT.md`](file:///d:/APP/Agent-Files-Explorer/docs/governance/AFE_GOV_BEHAVIORAL_VALIDITY_008_AUDIT_REPORT.md).
 
 ---
 
