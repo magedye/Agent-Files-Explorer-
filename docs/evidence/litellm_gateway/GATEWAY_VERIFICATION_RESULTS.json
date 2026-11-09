@@ -1,0 +1,49 @@
+{
+  "timestamp": "2026-11-09T02:47:39Z",
+  "directive": "LITELLM-GATEWAY-QUALIFICATION-012",
+  "versions": {
+    "python": "3.12.10",
+    "litellm": "1.108.3",
+    "opencode_cli": "2.2.0",
+    "postgresql": "18.0"
+  },
+  "tests": {
+    "postgresql_connection": "PASS",
+    "gateway_liveliness": "PASS",
+    "prisma_warmup": "PASS",
+    "virtual_key_generation": "PASS",
+    "authorized_call": "PASS",
+    "neg_invalid_key": "PASS (401 Rejection)",
+    "neg_unauthorized_model": "PASS (403 Rejection)",
+    "neg_depleted_budget": "PASS (422 Rejection)",
+    "postgresql_persistence": "PASS (4 tokens recorded)",
+    "opencode_proxy_compatibility": "VERIFIED"
+  },
+  "evidence": {
+    "virtual_key_hash": "80dfb55cc0eb...",
+    "key_allocated_budget": 0.005,
+    "key_allowed_models": [
+      "mock-model"
+    ],
+    "mock_response_content": "Governed LiteLLM Gateway: Mock response verified within authorized test scope.",
+    "unauthorized_model_rejection": {
+      "error": {
+        "message": "The requested model 'restricted-model' is not available for this API key, or the model name is invalid. Check the models available to you and try again.",
+        "type": "key_model_access_denied",
+        "param": "model",
+        "code": "403"
+      }
+    },
+    "budget_exhaustion_message": {
+      "error": {
+        "message": "Budget has been exceeded! Key=9cc36775922a0ac3a6e29db330e1753bae8754fdea273c2c8754c31bd4fe0434 Current cost: 0.00983206, Max budget: 1e-08",
+        "type": "budget_exceeded",
+        "param": null,
+        "code": "422"
+      }
+    },
+    "db_stored_tokens": 4,
+    "opencode_endpoint": "http://127.0.0.1:4000/v1",
+    "isolation": "Virtual key isolated; master key withheld; database on port 5433"
+  }
+}
