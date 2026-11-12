@@ -41,6 +41,34 @@ export function decomposeIntoAtomicStatements(rawText) {
   return statements.length > 0 ? statements : [rawText.trim()];
 }
 
+// Normative-force polarity and rank, shared by the classifier and the
+// reconciliation engine. Polarity distinguishes POSITIVE obligations from
+// NEGATIVE prohibitions/discouragements; NEUTRAL marks the absence of a
+// positive obligation (NOT_REQUIRED) or non-normative text (INFO).
+const FORCE_POLARITY = {
+  MUST: "POSITIVE",
+  MUST_NOT: "NEGATIVE",
+  SHOULD: "POSITIVE",
+  SHOULD_NOT: "NEGATIVE",
+  MAY: "POSITIVE",
+  NOT_REQUIRED: "NEUTRAL",
+  INFO: "NEUTRAL",
+  REVIEW_REQUIRED: "UNKNOWN",
+};
+
+const FORCE_RANK = {
+  MUST: 3,
+  MUST_NOT: 3,
+  SHOULD: 2,
+  SHOULD_NOT: 2,
+  MAY: 1,
+  NOT_REQUIRED: 0,
+};
+
+function polarityOf(force) {
+  return FORCE_POLARITY[force] || "UNKNOWN";
+}
+
 /**
  * Heuristic classifier according to Skill Steward SACP 2-layer model.
  */
@@ -65,15 +93,60 @@ export function classifyStatement(statement) {
     domain = "TEST";
   }
 
-  // 2. Normative Force
-  let force = "PROPOSED";
-  if (/لا يجوز|يمنع|يحظر|ممنوع|must not|never|prohibit|forbidden/i.test(lower)) {
+  // 2. Normative Force — negation-aware, ordered from most binding to least.
+  //    Negation patterns are checked BEFORE positive keywords so that "لا يجب",
+  //    "shall not", "should not" and "not required" resolve to the negative form
+  //    instead of the positive one. Ambiguous or unrecognized statements default
+  //    to REVIEW_REQUIRED (previously "PROPOSED", which conflated a review status
+  //    with a normative force).
+  let force = "REVIEW_REQUIRED";
+
+  // MUST_NOT — binding prohibition (direct + compound negation)
+  if (
+    /لا\s*(يجوز|يجب|يلزم|يمكن)|(يجب|يلزم)\s*(عدم|ألا)|يمنع|يحظر|ممنوع|محرّم|محرم/i.test(lower) ||
+    /must\s+not|mustn'?t|shall\s+not|prohibit(ed)?|forbidden|never/i.test(lower)
+  ) {
     force = "MUST_NOT";
-  } else if (/يجب|يلزم|مفروض|إلزامي|ضروري|must|shall|mandatory|required/i.test(lower)) {
+  }
+  // SHOULD_NOT — discouraged
+  else if (
+    /لا\s*(ينبغي|يستحسن|يفضل|يُفضل)|(ينبغي|يستحسن)\s+عدم/i.test(lower) ||
+    /should\s+not|shouldn'?t|not\s+recommended|recommended\s+against/i.test(lower)
+  ) {
+    force = "SHOULD_NOT";
+  }
+  // NOT_REQUIRED — explicitly not a requirement
+  else if (
+    /غير\s+(مطلوب|ضروري|إلزامي)|ليس\s+(مطلوب|ضرور)|لا\s*(يشترط|يتطلب)/i.test(lower) ||
+    /not\s+required|no\s+longer\s+required|not\s+(necessary|obligatory|mandatory)|unnecessary/i.test(lower)
+  ) {
+    force = "NOT_REQUIRED";
+  }
+  // MAY — permission / optional
+  else if (
+    /يجوز|يمكن|مسموح|اختياري/i.test(lower) ||
+    /\bmay\b|permitted|allowed|optional|optionally|at\s+your\s+discretion/i.test(lower)
+  ) {
+    force = "MAY";
+  }
+  // MUST — binding obligation
+  else if (
+    /يجب|يلزم|مفروض|إلزامي|ضروري|فرض/i.test(lower) ||
+    /must|shall|required|mandatory|obligatory/i.test(lower)
+  ) {
     force = "MUST";
-  } else if (/ينبغي|يستحسن|يفضل|يوصى|should|recommend|prefer/i.test(lower)) {
+  }
+  // SHOULD — recommendation
+  else if (
+    /ينبغي|يستحسن|يُفضل|يوصى/i.test(lower) ||
+    /should|recommend(ed)?/i.test(lower)
+  ) {
     force = "SHOULD";
-  } else if (/ملاحظة|بيان|إشارة|note|info|observation/i.test(lower)) {
+  }
+  // INFO — non-normative informational observation (retained for compatibility)
+  else if (
+    /ملاحظة|بيان|إشارة|توضيح|note|info|observation/i.test(lower)
+  ) {
     force = "INFO";
   }
 
@@ -95,9 +168,16 @@ export function classifyStatement(statement) {
     intent = "ADD_TEST";
   } else if (force === "INFO") {
     intent = "OBSERVATION";
+  } else if (force === "REVIEW_REQUIRED") {
+    intent = "REVIEW_REQUIRED";
   }
 
-  return { domain, force, locus, intent, scope: "PROJECT" };
+  // Polarity (derived from force) and conditional/exception detection complete
+  // the semantic contract shared with reconcileWithRules.
+  const polarity = polarityOf(force);
+  const conditional = /unless|except|provided that|on condition|باستثناء|إلا|شريطة|بشرط|على شرط|عندما/i.test(statement);
+
+  return { domain, force, polarity, conditional, locus, intent, scope: "PROJECT" };
 }
 
 const CONCEPT_MAPPINGS = [
@@ -111,6 +191,31 @@ const CONCEPT_MAPPINGS = [
 ];
 
 /**
+ * Classify the semantic opposition between an existing rule's force and a
+ * proposed statement's force. Uses typed polarity + rank, never raw text.
+ *
+ *  - CONTRADICTION: opposite polarity, rule at binding-or-recommended rank.
+ *  - WEAKENING: positive obligation downgraded or removed (NOT_REQUIRED).
+ *  - null: consistent (no opposition), including MUST_NOT↔NOT_REQUIRED and
+ *    MUST_NOT↔SHOULD_NOT, which are NOT conflated with a prohibition.
+ */
+function classifyOpposition(ruleForce, proposalForce) {
+  const rp = polarityOf(ruleForce);
+  const pp = polarityOf(proposalForce);
+  const opposite = (rp === "POSITIVE" && pp === "NEGATIVE") || (rp === "NEGATIVE" && pp === "POSITIVE");
+  if (opposite && (FORCE_RANK[ruleForce] ?? 0) >= 2) {
+    return "CONTRADICTION";
+  }
+  if (rp === "POSITIVE" && pp === "POSITIVE" && (FORCE_RANK[proposalForce] ?? 0) < (FORCE_RANK[ruleForce] ?? 0)) {
+    return "WEAKENING";
+  }
+  if (rp === "POSITIVE" && proposalForce === "NOT_REQUIRED") {
+    return "WEAKENING";
+  }
+  return null;
+}
+
+/**
  * Reconcile atomic statement with existing AGHR rules.
  */
 export function reconcileWithRules(statement, classification) {
@@ -119,6 +224,8 @@ export function reconcileWithRules(statement, classification) {
 
   const relatedRules = new Set();
   let conflictDetected = false;
+  let conflictType = null;
+  let requiresReview = false;
   let duplicateDetected = false;
 
   // 1. Concept dictionary matches
@@ -143,12 +250,14 @@ export function reconcileWithRules(statement, classification) {
     const rule = allRules.find((r) => r.id === rid);
     if (!rule) continue;
 
-    // Check conflict: opposing force or explicitly prohibiting a MUST rule
-    if (
-      (rule.force === "MUST" && (classification.force === "MUST_NOT" || /لا يجوز|يمنع|يحظر/i.test(statement))) ||
-      (rule.force === "MUST_NOT" && classification.force === "MUST")
-    ) {
+    // Classify opposition using typed force (polarity + rank), never raw text.
+    const opposition = classifyOpposition(rule.force, classification.force);
+    if (opposition === "CONTRADICTION") {
       conflictDetected = true;
+      conflictType = "CONTRADICTION";
+    } else if (opposition === "WEAKENING" && conflictType !== "CONTRADICTION") {
+      conflictType = "WEAKENING";
+      requiresReview = true;
     }
 
     if (rule.text.toLowerCase().includes(lower.slice(0, 30)) || lower.includes(rule.title.toLowerCase())) {
@@ -157,12 +266,23 @@ export function reconcileWithRules(statement, classification) {
   }
 
   const relatedArray = Array.from(relatedRules);
+  const isConditional = classification.conditional === true;
+
   let proposedAction = "ADD";
   let rationale = "New distinct requirement proposed.";
 
-  if (conflictDetected) {
+  // A conditional contradiction is never a final REJECT: it is routed to owner
+  // review. An unconditional contradiction remains a proposed (not final) REJECT.
+  if (conflictDetected && !isConditional) {
     proposedAction = "REJECT";
-    rationale = `Conflicts with existing governing rule(s): ${relatedArray.join(", ")}. Requires explicit authority exception.`;
+    rationale = `Contradicts existing governing rule(s): ${relatedArray.join(", ")}. Requires explicit authority exception.`;
+  } else if (conflictDetected && isConditional) {
+    proposedAction = "REVIEW_REQUIRED";
+    rationale = `Conditional contradiction with existing rule(s): ${relatedArray.join(", ")}. The condition must be evaluated by the owner before any disposition.`;
+    requiresReview = true;
+  } else if (requiresReview) {
+    proposedAction = "WEAKENING_REVIEW";
+    rationale = `Weakens or removes an existing governing rule: ${relatedArray.join(", ")}. Downgrading a rule requires owner review.`;
   } else if (duplicateDetected) {
     proposedAction = "MERGE";
     rationale = `Subsumed by or overlaps with existing rule(s): ${relatedArray.join(", ")}. Recommend merging rather than duplicating.`;
@@ -174,6 +294,8 @@ export function reconcileWithRules(statement, classification) {
   return {
     relatedRuleIds: relatedArray,
     conflictDetected,
+    conflictType,
+    requiresReview,
     duplicateDetected,
     proposedAction,
     rationale,
@@ -184,7 +306,7 @@ export function reconcileWithRules(statement, classification) {
  * Intake and Change Management Service.
  */
 class IntakeService {
-  submitIntake({ rawText, author = "USER", source = "UI_INTAKE", metadata = {} }) {
+  submitIntake({ rawText, author = "USER", source = "UI_INTAKE", metadata = {}, sourceId = null, domain = null, targetPackageId = null }) {
     if (!rawText || !rawText.trim()) {
       throw new Error("Intake text cannot be empty");
     }
@@ -226,6 +348,9 @@ class IntakeService {
       createdAt: new Date().toISOString(),
       author,
       source,
+      sourceId,
+      domain,
+      targetPackageId,
       rawDigestSha256: digest,
       rawText: trimmed,
       metadata,
@@ -258,6 +383,9 @@ class IntakeService {
 
   getPacket(packetId) {
     if (!fs.existsSync(INTAKE_STORAGE_DIR)) return null;
+    // Reject identifiers that could escape the intake dir (path separators,
+    // traversal, or absolute paths). Packet IDs are generated as CP-<token>.
+    if (typeof packetId !== "string" || !/^[A-Za-z0-9_-]+$/.test(packetId)) return null;
     const filePath = path.join(INTAKE_STORAGE_DIR, `${packetId}.json`);
     if (!fs.existsSync(filePath)) return null;
     try {

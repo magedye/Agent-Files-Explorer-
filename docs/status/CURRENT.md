@@ -1,6 +1,6 @@
 # Baseline v1 Adoption & Historical Governance Reconciliation — Derived Execution State
 
-Updated 2026-11-08 Asia/Aden. Ground truth is determined by actual Git HEAD, working tree, and passing tests.
+Updated 2026-11-12 Asia/Aden (corrective engineering reconciliation). Ground truth is determined by actual Git HEAD, working tree, and passing tests.
 
 Executed under Owner Directives `AFE-GOV-BASELINE-001` through `AFE-GOV-INTAKE-OPERATIONAL-CLOSURE-011`:
 - **Branch & HEAD:** On `main` (ahead of `origin/main`; no push authorized).
@@ -12,7 +12,7 @@ Executed under Owner Directives `AFE-GOV-BASELINE-001` through `AFE-GOV-INTAKE-O
   * **Behavioral Validity (008):** QUAL-007 audited as synthetic. Protocol `AFE-GOV-REAL-QUAL-PROTOCOL-008` codified. Live execution deferred as `REQ-AFE-QUAL-008-LIVE` pending budget.
   * **Owner Decisions Ratified:** Decisions `DEC-001` to `DEC-010` ratified in `docs/governance/OWNER_DECISION_REGISTER_2026-11-07.md`. Historical reconciliation closed.
   * **Dual Baseline Invariant:** `DEFAULT_PACKAGE_ID = "aghr_rc3"` for Studio v1.0.0; `DEFAULT_BASELINE_PACKAGE_ID = "aghr_1_4_0"` for new workflows. Optional tools (2A, 2B, 2C) remain diagnostic.
-- **Verification Suites:** 48/48 direct Node tests passing, 20/20 Python tests passing, context health verified (< 5,000 target).
+- **Verification Suites:** Full `npm test` = **330/330 Node tests (0 failures)** across 51 files; 20/20 Python diagnostics (Packet 2A: 12 + 2C: 8). Context health verified (< 5,000 target). The earlier "48/48" was a 5-suite subset, not the full suite.
 - **Non-Activation Invariants:** PEP/PDP remains strictly `NOT_ACTIVE`. Remote push and deployment isolated.
 
 ## Stop position
