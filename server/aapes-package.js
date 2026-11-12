@@ -6,12 +6,15 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const PROJECT_ROOT = path.resolve(__dirname, "..");
+// The AAPES source archive was moved out of INBOX/NEW into governed archival
+// during intake operational closure (011). Same bytes, same SHA-256; only the
+// location changed (see docs/archive/governed_intake/ and DEC-005).
 export const AAPES_ZIP_PATH = path.resolve(
   PROJECT_ROOT,
-  "governance_packages",
-  "INBOX",
-  "NEW",
-  "AAPES_Policy_Engineering_PLUGIN_SKILL_v2.1.zip"
+  "docs",
+  "archive",
+  "governed_intake",
+  "CANDIDATE_FRAMEWORK_AAPES_Policy_Engineering_PLUGIN_SKILL_v2.1_da902a9c.zip"
 );
 export const AAPES_CANDIDATE_ROOT = path.resolve(
   PROJECT_ROOT,
