@@ -101,9 +101,18 @@ export function classifyStatement(statement) {
   //    with a normative force).
   let force = "REVIEW_REQUIRED";
 
-  // MUST_NOT — binding prohibition (direct + compound negation)
+  // AMBIGUOUS — mixed or ambiguous normative signals route to review rather
+  // than a definitive force. "لا يجب" is ambiguous between a prohibition
+  // ("must not") and an absence of obligation ("need not"); "should not be
+  // required" mixes a negative recommendation with an obligation keyword.
   if (
-    /لا\s*(يجوز|يجب|يلزم|يمكن)|(يجب|يلزم)\s*(عدم|ألا)|يمنع|يحظر|ممنوع|محرّم|محرم/i.test(lower) ||
+    /لا\s*يجب|should\s+not\s+be\s+(required|necessary|mandatory|obligatory)/i.test(lower)
+  ) {
+    force = "REVIEW_REQUIRED";
+  }
+  // MUST_NOT — binding prohibition (unambiguous negations)
+  else if (
+    /لا\s*(يجوز|يمكن)|(يجب|يلزم)\s*(عدم|ألا)|يمنع|يحظر|ممنوع|محرّم|محرم/i.test(lower) ||
     /must\s+not|mustn'?t|shall\s+not|prohibit(ed)?|forbidden|never/i.test(lower)
   ) {
     force = "MUST_NOT";
@@ -117,7 +126,7 @@ export function classifyStatement(statement) {
   }
   // NOT_REQUIRED — explicitly not a requirement
   else if (
-    /غير\s+(مطلوب|ضروري|إلزامي)|ليس\s+(مطلوب|ضرور)|لا\s*(يشترط|يتطلب)/i.test(lower) ||
+    /غير\s+(مطلوب|ضروري|إلزامي)|ليس\s+(مطلوب|ضرور)|لا\s*(يشترط|يتطلب|يلزم)/i.test(lower) ||
     /not\s+required|no\s+longer\s+required|not\s+(necessary|obligatory|mandatory)|unnecessary/i.test(lower)
   ) {
     force = "NOT_REQUIRED";
@@ -283,6 +292,10 @@ export function reconcileWithRules(statement, classification) {
   } else if (requiresReview) {
     proposedAction = "WEAKENING_REVIEW";
     rationale = `Weakens or removes an existing governing rule: ${relatedArray.join(", ")}. Downgrading a rule requires owner review.`;
+  } else if (classification.force === "REVIEW_REQUIRED" && relatedArray.length > 0) {
+    proposedAction = "REVIEW_REQUIRED";
+    rationale = `Ambiguous normative signal with related rule(s): ${relatedArray.join(", ")}. Polarity/strength match alone is not sufficient evidence of a definitive conflict; owner review required.`;
+    requiresReview = true;
   } else if (duplicateDetected) {
     proposedAction = "MERGE";
     rationale = `Subsumed by or overlaps with existing rule(s): ${relatedArray.join(", ")}. Recommend merging rather than duplicating.`;
@@ -330,11 +343,15 @@ class IntakeService {
         statement: stmt,
         domainConcern: classification.domain,
         normativeForce: classification.force,
+        polarity: classification.polarity,
+        conditional: classification.conditional,
         enforcementLocus: classification.locus,
         intent: classification.intent,
         scope: classification.scope,
         relatedRules: reconciliation.relatedRuleIds,
         conflict: reconciliation.conflictDetected,
+        conflictType: reconciliation.conflictType,
+        requiresReview: reconciliation.requiresReview,
         duplicate: reconciliation.duplicateDetected,
         proposedAction: reconciliation.proposedAction,
         rationale: reconciliation.rationale,

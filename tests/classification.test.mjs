@@ -23,8 +23,8 @@ function forceOf(text) {
 // ---------------------------------------------------------------------------
 // MUST_NOT — binding prohibition (direct + compound negation)
 // ---------------------------------------------------------------------------
-test("Classification: Arabic direct negation 'لا يجب' resolves to MUST_NOT (not MUST)", () => {
-  assert.equal(forceOf("لا يجب أن نضيف قاعدة جديدة"), "MUST_NOT");
+test("Classification: ambiguous Arabic negation 'لا يجب' routes to REVIEW_REQUIRED (not MUST/MUST_NOT)", () => {
+  assert.equal(forceOf("لا يجب أن نضيف قاعدة جديدة"), "REVIEW_REQUIRED");
 });
 
 test("Classification: Arabic prohibition 'يمنع' resolves to MUST_NOT", () => {
@@ -54,8 +54,8 @@ test("Classification: Arabic compound negation 'يجب عدم' resolves to MUST_
 // ---------------------------------------------------------------------------
 // SHOULD_NOT — discouraged
 // ---------------------------------------------------------------------------
-test("Classification: English compound 'should not be required' resolves to SHOULD_NOT (not MUST)", () => {
-  assert.equal(forceOf("This check should not be required for read-only access"), "SHOULD_NOT");
+test("Classification: ambiguous English compound 'should not be required' routes to REVIEW_REQUIRED", () => {
+  assert.equal(forceOf("This check should not be required for read-only access"), "REVIEW_REQUIRED");
 });
 
 test("Classification: English 'should not' resolves to SHOULD_NOT", () => {
@@ -79,6 +79,10 @@ test("Classification: English 'not required' resolves to NOT_REQUIRED", () => {
 
 test("Classification: Arabic 'غير مطلوب' resolves to NOT_REQUIRED", () => {
   assert.equal(forceOf("غير مطلوب توثيق هذه الخطوة"), "NOT_REQUIRED");
+});
+
+test("Classification: Arabic 'لا يلزم' (not obligated) resolves to NOT_REQUIRED", () => {
+  assert.equal(forceOf("لا يلزم توثيق هذه الخطوة"), "NOT_REQUIRED");
 });
 
 // ---------------------------------------------------------------------------

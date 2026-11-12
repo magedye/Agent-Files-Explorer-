@@ -173,6 +173,16 @@ test("D3: MUST rule vs conditional MUST_NOT → REVIEW_REQUIRED (not REJECT)", (
   assert.equal(rec.requiresReview, true);
 });
 
+test("D3: ambiguous (REVIEW_REQUIRED) statement with related rules → REVIEW_REQUIRED (not auto-conflict)", (t) => {
+  const r = rule("GOV-916", "MUST");
+  t.mock.method(governanceService, "getRules", () => [r]);
+  const rec = reconcileAgainst(r, "REVIEW_REQUIRED");
+  assert.equal(rec.conflictDetected, false);
+  assert.equal(rec.conflictType, null);
+  assert.equal(rec.proposedAction, "REVIEW_REQUIRED");
+  assert.equal(rec.requiresReview, true);
+});
+
 // ---------------------------------------------------------------------------
 // D3 — backward compatibility: legacy REJECT path still works end-to-end
 // ---------------------------------------------------------------------------
