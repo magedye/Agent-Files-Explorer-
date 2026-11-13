@@ -1,0 +1,91 @@
+{
+  "schema": "aghr.host-compat/1",
+  "note": "Source of truth for host artifact compatibility. Preview-only pilot: no installation, no host qualification.",
+  "artifactKinds": {
+    "AGENT_DEFINITION": {
+      "label": "Agent Definition",
+      "description": "A reusable agent persona/instruction document (frontmatter + identity, mission, rules).",
+      "supported": true,
+      "requiredFrontmatter": ["name", "description"],
+      "optionalFrontmatter": ["color", "emoji", "vibe"]
+    },
+    "PROJECT_RULE": {
+      "label": "Project Rule",
+      "description": "A project-scoped rule file with applicability metadata.",
+      "supported": true,
+      "requiredFrontmatter": ["description"],
+      "optionalFrontmatter": ["globs", "alwaysApply"]
+    },
+    "PROJECT_INSTRUCTIONS": {
+      "label": "Project Instructions",
+      "description": "The project-level AGENTS.md/CLAUDE.md instruction file.",
+      "supported": false,
+      "reason": "Out of pilot scope; already handled by the existing adoption planner."
+    },
+    "AGENT_SKILL": {
+      "label": "Agent Skill",
+      "description": "An executable SKILL.md capability.",
+      "supported": false,
+      "reason": "Executable artifacts stay on the existing E4 skill-qualification path; never a file-generation target."
+    }
+  },
+  "tools": [
+    {
+      "toolId": "claude-code",
+      "label": "Claude Code",
+      "artifactKinds": {
+        "AGENT_DEFINITION": "PARTIAL",
+        "PROJECT_RULE": "UNSUPPORTED",
+        "PROJECT_INSTRUCTIONS": "UNSUPPORTED",
+        "AGENT_SKILL": "UNSUPPORTED"
+      },
+      "format": "agent-md",
+      "renderer": "claude-agent-md@1",
+      "installKind": "per-agent",
+      "scope": ["project"],
+      "detect": { "dirs": [".claude"], "files": [] },
+      "dest": { "AGENT_DEFINITION": ".claude/agents/{slug}.md" },
+      "spec": { "url": "https://docs.claude.com/en/docs/claude-code/sub-agents", "version": "2026-11", "sha256": "UNVERIFIED" },
+      "hostVersionRange": ">=1.0.0 <2",
+      "trust": "UNVERIFIED",
+      "maxBytes": 262144,
+      "partial": {
+        "AGENT_DEFINITION": {
+          "reason": "Claude Code sub-agents support name/description (and tools/model); presentation fields color/emoji/vibe are not part of the host schema and are dropped.",
+          "droppedFields": ["color", "emoji", "vibe"]
+        }
+      },
+      "unsupported": {
+        "PROJECT_RULE": "Claude Code sub-agents are not Cursor .mdc rules; no faithful mapping.",
+        "PROJECT_INSTRUCTIONS": "Handled by the existing adoption planner, not this pilot.",
+        "AGENT_SKILL": "Executable skills must use the E4 qualification path."
+      }
+    },
+    {
+      "toolId": "cursor",
+      "label": "Cursor",
+      "artifactKinds": {
+        "AGENT_DEFINITION": "UNSUPPORTED",
+        "PROJECT_RULE": "SUPPORTED",
+        "PROJECT_INSTRUCTIONS": "UNSUPPORTED",
+        "AGENT_SKILL": "UNSUPPORTED"
+      },
+      "format": "cursor-mdc",
+      "renderer": "cursor-mdc@1",
+      "installKind": "per-rule",
+      "scope": ["project"],
+      "detect": { "dirs": [".cursor"], "files": [] },
+      "dest": { "PROJECT_RULE": ".cursor/rules/{slug}.mdc" },
+      "spec": { "url": "https://docs.cursor.com/context/rules", "version": "2026-11", "sha256": "UNVERIFIED" },
+      "hostVersionRange": ">=0.40 <2",
+      "trust": "UNVERIFIED",
+      "maxBytes": 262144,
+      "partial": {},
+      "unsupported": {
+        "AGENT_DEFINITION": "Cursor project rules have no agent identity/color/emoji semantics; no faithful mapping.",
+        "PROJECT_INSTRUCTIONS": "Handled by the existing adoption planner, not this pilot.",
+        "AGENT_SKILL": "Executable skills must use the E4 qualification path."
+      }
+    }
+  ]
+}

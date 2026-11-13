@@ -1,0 +1,46 @@
+// Built-in, deterministic samples for the preview-only host-compat pilot.
+// These are inputs appropriate to each artifact kind; nothing is written.
+
+export const SAMPLES = {
+  AGENT_DEFINITION: [
+    "---",
+    "name: Code Reviewer",
+    "description: Reviews code for correctness, security, maintainability and performance.",
+    "color: purple",
+    "emoji: 👁️",
+    "vibe: Reviews like a mentor, not a gatekeeper.",
+    "---",
+    "",
+    "# Code Reviewer Agent",
+    "",
+    "You are Code Reviewer. Focus on what matters: correctness, security, maintainability, and performance.",
+    "",
+    "## Core Mission",
+    "",
+    "1. Correctness.",
+    "2. Security.",
+    "3. Maintainability.",
+    "4. Performance.",
+    "",
+    "## Critical Rules",
+    "",
+    "- Be specific.",
+    "- Explain why.",
+    "- Suggest, don't demand.",
+    "",
+  ].join("\n"),
+
+  PROJECT_RULE: [
+    "---",
+    "slug: code-review",
+    "description: Review all code changes for correctness and security before merge.",
+    'globs: ["src/**"]',
+    "alwaysApply: false",
+    "---",
+    "",
+    "# Code review rule",
+    "",
+    "Before merging, verify correctness, security, and tests.",
+    "",
+  ].join("\n"),
+};

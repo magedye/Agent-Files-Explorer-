@@ -21,6 +21,7 @@ import { verifyAndUnpackAapesPackage, EXPECTED_AAPES_SHA256 } from "./aapes-pack
 import { getAapesFramework, evaluateAssessment } from "./aapes-assessment.js";
 import { reviewPolicyText } from "./aapes-policy.js";
 import { runAapesSyntheticTests, evaluateOpaPolicies } from "./aapes-evaluation.js";
+import * as hostCompat from "./host-compat/preview.mjs";
 
 
 const TEXT_EXTS = new Set([
@@ -469,6 +470,35 @@ export async function handleApiRequest(req, res) {
       return send(201, { packet, notice: "Proposed ChangePacket created in Draft status. Owner authorization required before apply." });
     }
 
+
+    // -------------------------------------------------------------------------
+    // 6c. Host-artifact compatibility (preview only; read-only GET)
+    // -------------------------------------------------------------------------
+    if (u.pathname === "/api/host-compat/tools") {
+      return send(200, { compatibility: hostCompat.listTools() });
+    }
+
+    if (u.pathname === "/api/host-compat/detect") {
+      const project = u.searchParams.get("project") || "";
+      return send(200, { detection: hostCompat.detectTools(project) });
+    }
+
+    if (u.pathname === "/api/host-compat/preview") {
+      try {
+        const result = hostCompat.preview({
+          toolId: u.searchParams.get("tool") || "",
+          artifactKind: u.searchParams.get("artifactKind") || "",
+          projectDir: u.searchParams.get("project") || "",
+          source: u.searchParams.get("source") || "sample",
+        });
+        return send(200, { preview: result });
+      } catch (e) {
+        if (e && e.name === "HostCompatError") {
+          return send(e.status || 400, { error: e.message, code: e.code });
+        }
+        throw e;
+      }
+    }
 
     // -------------------------------------------------------------------------
     // 7. Tree & File Retrieval (Preserved & Enhanced)

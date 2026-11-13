@@ -24,7 +24,7 @@ export function stagingScope(action,resourceId,projectDir,proposal) {
   if(root===GOVERNANCE_PACKAGES_ROOT||root.startsWith(GOVERNANCE_PACKAGES_ROOT+path.sep))throw Error('Protected governance root');
   return {workspace_id:'legacy-local',target_project:root,action,resource_id:resourceId,proposal_version_hash:'sha256:'+sha256(JSON.stringify(proposal))};
 }
-function safeFile(root,name) {
+export function safeFile(root,name) {
   if(typeof name!=='string'||path.isAbsolute(name)||name.includes('\\')||name.split('/').some(p=>!p||p==='.'||p==='..')||isProtectedPath(name))throw Error('Unsafe staged path');
   let p=path.parse(path.resolve(root)).root;for(const bit of path.relative(p,path.resolve(root)).split(path.sep)){p=path.join(p,bit);if(fs.lstatSync(p,{throwIfNoEntry:false})?.isSymbolicLink())throw Error('Staging reparse point');}
   for(const bit of name.split('/')){p=path.join(p,bit);if(fs.lstatSync(p,{throwIfNoEntry:false})?.isSymbolicLink())throw Error('Staging reparse point');}return p;
