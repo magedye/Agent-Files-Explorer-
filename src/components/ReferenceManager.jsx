@@ -14,10 +14,12 @@ const AAPES_DOMAINS = [
   { id: "D09", name: "Evidence Provenance and Audit" },
   { id: "D10", name: "Evaluation and Calibration" },
   { id: "D11", name: "Adversarial Testing and Resilience" },
-  { id: "D12", name: "Lifecycle and Change Governance" }
+  { id: "D12", name: "Lifecycle and Change Governance" },
 ];
 
-export default function ReferenceManager({ onSelectContract }) {
+const forceClass = (force) => "force-badge force-" + String(force || "").toLowerCase().replace(/\s+/g, "_");
+
+export default function ReferenceManager() {
   const { t } = useI18n();
   const [packages, setPackages] = useState([]);
   const [selectedPackageId, setSelectedPackageId] = useState("");
@@ -29,14 +31,13 @@ export default function ReferenceManager({ onSelectContract }) {
   const [search, setSearch] = useState("");
   const [forceFilter, setForceFilter] = useState("");
   const [domainFilter, setDomainFilter] = useState("");
-  const [activeTab, setActiveTab] = useState("rules"); // rules | sources | adapters | compare
+  const [activeTab, setActiveTab] = useState("rules");
   const [selectedRule, setSelectedRule] = useState(null);
-  const [selectedSource, setSelectedSource] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showMatrixModal, setShowMatrixModal] = useState(false);
   const [matrixData, setMatrixData] = useState([]);
+  const [matrixSearch, setMatrixSearch] = useState("");
 
-  // Load packages list once
   useEffect(() => {
     fetch("/api/governance/packages")
       .then((r) => r.json())
@@ -49,7 +50,6 @@ export default function ReferenceManager({ onSelectContract }) {
       .catch((err) => console.error("Failed to load packages", err));
   }, []);
 
-  // Load data whenever selectedPackageId changes
   useEffect(() => {
     if (!selectedPackageId) return;
     async function loadData() {
@@ -67,7 +67,6 @@ export default function ReferenceManager({ onSelectContract }) {
         setSources(srcRes.sources || []);
         setAdapters(adaptRes.adapters || []);
         setSelectedRule(null);
-        setSelectedSource(null);
         setDomainFilter("");
       } catch (err) {
         console.error("Failed to load governance data", err);
@@ -78,7 +77,6 @@ export default function ReferenceManager({ onSelectContract }) {
     loadData();
   }, [selectedPackageId]);
 
-  // Load comparison on demand
   useEffect(() => {
     if (activeTab === "compare" && !comparison) {
       fetch("/api/governance/compare?base=aghr")
@@ -88,7 +86,6 @@ export default function ReferenceManager({ onSelectContract }) {
     }
   }, [activeTab, comparison]);
 
-  // Load matrix on demand
   const handleOpenMatrix = async () => {
     try {
       const res = await fetchAapesMatrix();
@@ -100,8 +97,15 @@ export default function ReferenceManager({ onSelectContract }) {
   };
 
   const comparisonTargetVersion = comparison?.target?.version || packages.find((pkg) => pkg.isDefault)?.version || "…";
-
   const isAapes = selectedPackageId === "aapes_v2_1";
+
+  const matrixFiltered = matrixData.filter((r) => {
+    if (!matrixSearch) return true;
+    const q = matrixSearch.toLowerCase();
+    return `${r.requirement_id} ${r.domain} ${r.title} ${r.aghr_ref || ""} ${r.evidence || ""}`.toLowerCase().includes(q);
+  });
+  const matrixCovered = matrixData.filter((r) => r.coverage_status === "COVERED").length;
+  const matrixPartial = matrixData.length - matrixCovered;
 
   const filteredRules = rules.filter((r) => {
     if (forceFilter && r.force !== forceFilter) return false;
@@ -122,53 +126,44 @@ export default function ReferenceManager({ onSelectContract }) {
 
   return (
     <div className="gov-ref-manager">
-      {/* Package Selector Bar */}
-      <div className="gov-package-bar" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "12px", background: "rgba(30, 41, 59, 0.7)", padding: "10px 16px", borderRadius: "8px", marginBottom: "16px", border: "1px solid rgba(255, 255, 255, 0.1)" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
-          <span style={{ fontSize: "14px", fontWeight: "600", color: "#94a3b8" }}>{t("reference.activePackage")}</span>
+      <div className="gov-package-bar">
+        <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+          <span>{t("reference.activePackage")}</span>
           <select
+            className="input"
+            style={{ width: "auto", minWidth: 240 }}
             aria-label={t("reference.activePackage")}
             value={selectedPackageId}
             onChange={(e) => setSelectedPackageId(e.target.value)}
-            style={{ background: "#0f172a", color: "#f8fafc", padding: "6px 12px", borderRadius: "6px", border: "1px solid #334155", fontSize: "14px", cursor: "pointer" }}
           >
             {packages.map((pkg) => (
               <option key={pkg.id} value={pkg.id}>
-                {pkg.name} ({pkg.version}) {pkg.isDefault ? `— ${t("reference.default")}` : ""} {pkg.id === "aapes_v2_1" ? "— [AAPES Candidate]" : ""}
+                {pkg.name} ({pkg.version}) {pkg.isDefault ? `— ${t("reference.default")}` : ""} {pkg.id === "aapes_v2_1" ? "— AAPES" : ""}
               </option>
             ))}
           </select>
-          {isAapes && (
-            <span style={{ fontSize: "12px", padding: "3px 8px", borderRadius: "4px", background: "#f59e0b", color: "#000", fontWeight: "bold" }}>
-              {t("aapes.candidateNotice")}
-            </span>
-          )}
+          {isAapes && <span className="badge badge-warning">{t("aapes.candidateNotice")}</span>}
         </div>
-
-        <button
-          className="btn btn-secondary"
-          onClick={handleOpenMatrix}
-          style={{ fontSize: "13px", padding: "6px 12px", display: "flex", alignItems: "center", gap: "6px" }}
-        >
+        <button className="btn btn-secondary btn-sm" onClick={handleOpenMatrix}>
           {t("aapes.matrixBtn")}
         </button>
       </div>
 
-      {/* Package Summary Header Card */}
       {summary && (
-        <div className="gov-summary-card" style={{ background: "rgba(15, 23, 42, 0.6)", padding: "16px", borderRadius: "8px", marginBottom: "16px", border: "1px solid rgba(255, 255, 255, 0.05)" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "8px" }}>
+        <div className="gov-summary-card">
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12, flexWrap: "wrap" }}>
             <div>
-              <h2 style={{ fontSize: "18px", margin: "0 0 6px 0", color: "#f8fafc" }}>
-                {summary.package} <span style={{ fontSize: "13px", color: "#38bdf8", fontWeight: "normal" }}>v{summary.version}</span>
+              <h2>
+                {summary.package}{" "}
+                <span style={{ fontSize: 13, color: "var(--accent)", fontWeight: 500 }}>v{summary.version}</span>
               </h2>
-              <div style={{ fontSize: "13px", color: "#94a3b8" }}>
+              <div style={{ fontSize: 13, color: "var(--muted)" }}>
                 {t("reference.counts", { rules: summary.counts?.rules || 0, sources: summary.counts?.sources || 0 })}
                 {summary.counts?.adapters > 0 && ` · ${summary.counts.adapters} ${t("reference.adapters")}`}
               </div>
             </div>
-            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-              <span className={`gov-status-pill ${summary.reference_state === "AUTHORITATIVE_BASELINE" || summary.reference_state === "OFFICIAL_LOCAL_REFERENCE" ? "status-stable" : "status-scoped"}`}>
+            <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+              <span className={"gov-status-pill " + (summary.reference_state === "AUTHORITATIVE_BASELINE" || summary.reference_state === "OFFICIAL_LOCAL_REFERENCE" ? "status-stable" : "status-scoped")}>
                 {summary.reference_state}
               </span>
               <span className="gov-status-pill status-gray">{summary.default_provider || "AGHR Engine"}</span>
@@ -177,50 +172,32 @@ export default function ReferenceManager({ onSelectContract }) {
         </div>
       )}
 
-      {/* Sub-Navigation Tabs */}
-      <div className="gov-nav-tabs" style={{ display: "flex", gap: "8px", borderBottom: "1px solid #334155", marginBottom: "16px" }}>
-        <button
-          className={`gov-tab-btn ${activeTab === "rules" ? "active" : ""}`}
-          onClick={() => setActiveTab("rules")}
-        >
-          {t("reference.rulesTab")} ({rules.length})
+      <div className="gov-nav-tabs" role="tablist">
+        <button className={"gov-tab-btn " + (activeTab === "rules" ? "active" : "")} role="tab" aria-selected={activeTab === "rules"} onClick={() => setActiveTab("rules")}>
+          {t("reference.rulesTab", { count: rules.length })}
         </button>
-        <button
-          className={`gov-tab-btn ${activeTab === "sources" ? "active" : ""}`}
-          onClick={() => setActiveTab("sources")}
-        >
-          {t("reference.sourcesTab")} ({sources.length})
+        <button className={"gov-tab-btn " + (activeTab === "sources" ? "active" : "")} role="tab" aria-selected={activeTab === "sources"} onClick={() => setActiveTab("sources")}>
+          {t("reference.sourcesTab", { count: sources.length })}
         </button>
-        <button
-          className={`gov-tab-btn ${activeTab === "adapters" ? "active" : ""}`}
-          onClick={() => setActiveTab("adapters")}
-        >
-          {t("reference.adaptersTab")} ({adapters.length})
+        <button className={"gov-tab-btn " + (activeTab === "adapters" ? "active" : "")} role="tab" aria-selected={activeTab === "adapters"} onClick={() => setActiveTab("adapters")}>
+          {t("reference.adaptersTab", { count: adapters.length })}
         </button>
-        <button
-          className={`gov-tab-btn ${activeTab === "compare" ? "active" : ""}`}
-          onClick={() => setActiveTab("compare")}
-        >
+        <button className={"gov-tab-btn " + (activeTab === "compare" ? "active" : "")} role="tab" aria-selected={activeTab === "compare"} onClick={() => setActiveTab("compare")}>
           {t("reference.compareTab", { version: comparisonTargetVersion })}
         </button>
       </div>
 
-      {/* Search and Domain Filters */}
       {activeTab === "rules" && (
-        <div style={{ display: "flex", gap: "10px", marginBottom: "16px", flexWrap: "wrap" }}>
+        <div className="gov-toolbar">
           <input
             type="text"
             dir="auto"
+            className="search-input"
             placeholder={t("reference.searchRules")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            style={{ flex: 1, minWidth: "200px", padding: "8px 12px", background: "#0f172a", border: "1px solid #334155", borderRadius: "6px", color: "#fff" }}
           />
-          <select
-            value={forceFilter}
-            onChange={(e) => setForceFilter(e.target.value)}
-            style={{ padding: "8px 12px", background: "#0f172a", border: "1px solid #334155", borderRadius: "6px", color: "#fff" }}
-          >
+          <select value={forceFilter} onChange={(e) => setForceFilter(e.target.value)} aria-label={t("reference.force")}>
             <option value="">{t("reference.allForces")}</option>
             <option value="MUST">MUST</option>
             <option value="MUST_NOT">MUST_NOT</option>
@@ -228,104 +205,68 @@ export default function ReferenceManager({ onSelectContract }) {
             <option value="MAY">MAY</option>
           </select>
           {isAapes && (
-            <select
-              value={domainFilter}
-              onChange={(e) => setDomainFilter(e.target.value)}
-              style={{ padding: "8px 12px", background: "#0f172a", border: "1px solid #38bdf8", borderRadius: "6px", color: "#38bdf8" }}
-            >
+            <select value={domainFilter} onChange={(e) => setDomainFilter(e.target.value)} aria-label={t("aapes.filterDomain")}>
               <option value="">{t("aapes.allDomains")}</option>
               {AAPES_DOMAINS.map((dom) => (
-                <option key={dom.id} value={dom.id}>
-                  {dom.id}: {dom.name}
-                </option>
+                <option key={dom.id} value={dom.id}>{dom.id}: {dom.name}</option>
               ))}
             </select>
           )}
         </div>
       )}
 
-      {/* Rules Master-Detail View */}
       {activeTab === "rules" && (
-        <div style={{ display: "grid", gridTemplateColumns: selectedRule ? "1fr 1fr" : "1fr", gap: "16px" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: "8px", maxHeight: "650px", overflowY: "auto" }}>
-            {filteredRules.map((r) => (
-              <div
-                key={r.id}
-                onClick={() => setSelectedRule(r)}
-                style={{
-                  padding: "12px",
-                  borderRadius: "6px",
-                  background: selectedRule?.id === r.id ? "rgba(56, 189, 248, 0.15)" : "rgba(30, 41, 59, 0.5)",
-                  border: selectedRule?.id === r.id ? "1px solid #38bdf8" : "1px solid #334155",
-                  cursor: "pointer",
-                  transition: "all 0.15s ease"
-                }}
-              >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
-                  <span style={{ fontWeight: "bold", color: "#38bdf8", fontSize: "14px" }}>{r.id}</span>
-                  <div style={{ display: "flex", gap: "6px" }}>
-                    {r.domain && (
-                      <span style={{ fontSize: "11px", background: "#1e293b", color: "#94a3b8", padding: "2px 6px", borderRadius: "4px", border: "1px solid #475569" }}>
-                        {r.domain}
-                      </span>
-                    )}
-                    {r.priority && (
-                      <span style={{ fontSize: "11px", background: r.priority === "P0" ? "rgba(239, 68, 68, 0.2)" : "rgba(59, 130, 246, 0.2)", color: r.priority === "P0" ? "#f87171" : "#60a5fa", padding: "2px 6px", borderRadius: "4px" }}>
-                        {r.priority}
-                      </span>
-                    )}
-                    <span style={{ fontSize: "11px", background: r.force === "MUST" || r.force === "MUST_NOT" ? "rgba(245, 158, 11, 0.2)" : "rgba(16, 185, 129, 0.2)", color: r.force === "MUST" || r.force === "MUST_NOT" ? "#fbbf24" : "#34d399", padding: "2px 6px", borderRadius: "4px" }}>
-                      {r.force}
-                    </span>
+        <div className={"gov-content-grid " + (selectedRule ? "" : "single")}>
+          <div className="gov-list-col">
+            {loading && <div className="skeleton" style={{ height: 80 }} />}
+            {!loading && filteredRules.map((r) => (
+              <div key={r.id} className={"rule-card" + (selectedRule?.id === r.id ? " selected" : "")} onClick={() => setSelectedRule(r)} tabIndex={0} role="button"
+                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setSelectedRule(r); } }}>
+                <div className="rule-card-header">
+                  <span className="rule-id">{r.id}</span>
+                  <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
+                    {r.domain && <span className="badge badge-kind">{r.domain}</span>}
+                    {r.priority && <span className={"badge " + (r.priority === "P0" ? "badge-warning" : "badge-info")}>{r.priority}</span>}
+                    <span className={forceClass(r.force)}>{r.force}</span>
                   </div>
                 </div>
-                <div style={{ fontSize: "13px", color: "#e2e8f0", fontWeight: "500", marginBottom: "4px" }}>{r.name || r.title}</div>
-                <div style={{ fontSize: "12px", color: "#94a3b8", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                  {r.text}
-                </div>
+                <div className="rule-card-title">{r.name || r.title}</div>
+                <div className="rule-card-text">{r.text}</div>
               </div>
             ))}
-            {filteredRules.length === 0 && <div style={{ color: "#94a3b8", padding: "20px", textAlign: "center" }}>{t("common.noData")}</div>}
+            {!loading && filteredRules.length === 0 && (
+              <div className="state-empty"><span className="state-icon">🔎</span>{t("reference.noMatches")}</div>
+            )}
           </div>
 
-          {/* Rule Detail Panel */}
           {selectedRule && (
-            <div style={{ background: "rgba(15, 23, 42, 0.8)", border: "1px solid #334155", borderRadius: "8px", padding: "16px", maxHeight: "650px", overflowY: "auto" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "12px" }}>
+            <div className="inspector-panel gov-detail-col">
+              <div className="inspector-header">
                 <div>
-                  <h3 style={{ margin: "0 0 4px 0", color: "#38bdf8", fontSize: "16px" }}>{selectedRule.id}</h3>
-                  <div style={{ fontSize: "14px", fontWeight: "bold", color: "#f8fafc" }}>{selectedRule.name || selectedRule.title}</div>
+                  <h3>{selectedRule.id}</h3>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text)" }}>{selectedRule.name || selectedRule.title}</div>
                 </div>
-                <button
-                  onClick={() => setSelectedRule(null)}
-                  style={{ background: "none", border: "none", color: "#94a3b8", cursor: "pointer", fontSize: "18px" }}
-                >
-                  ✕
-                </button>
+                <button className="btn btn-ghost btn-sm" onClick={() => setSelectedRule(null)} aria-label="Close">✕</button>
               </div>
 
-              <div style={{ marginBottom: "16px" }}>
-                <span style={{ fontSize: "12px", fontWeight: "bold", color: "#94a3b8", textTransform: "uppercase" }}>{t("reference.ruleStatement")}</span>
-                <div style={{ background: "#0f172a", padding: "12px", borderRadius: "6px", border: "1px solid #1e293b", marginTop: "6px", color: "#f8fafc", fontSize: "13px", lineHeight: "1.5" }}>
-                  {selectedRule.text}
-                </div>
+              <div className="inspector-section">
+                <h4>{t("reference.ruleStatement")}</h4>
+                <div className="inspector-quote">{selectedRule.text}</div>
               </div>
 
               {selectedRule.acceptance_test && (
-                <div style={{ marginBottom: "16px" }}>
-                  <span style={{ fontSize: "12px", fontWeight: "bold", color: "#94a3b8", textTransform: "uppercase" }}>Acceptance Test / Criteria</span>
-                  <div style={{ background: "#0f172a", padding: "10px", borderRadius: "6px", border: "1px solid #1e293b", marginTop: "6px", color: "#38bdf8", fontSize: "12px" }}>
-                    {selectedRule.acceptance_test}
-                  </div>
+                <div className="inspector-section">
+                  <h4>Acceptance Test / Criteria</h4>
+                  <div className="inspector-quote" style={{ borderInlineStartColor: "var(--success)" }}>{selectedRule.acceptance_test}</div>
                 </div>
               )}
 
               {selectedRule.basis && selectedRule.basis.length > 0 && (
-                <div style={{ marginBottom: "16px" }}>
-                  <span style={{ fontSize: "12px", fontWeight: "bold", color: "#94a3b8", textTransform: "uppercase" }}>{t("reference.basisSources")}</span>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "6px", marginTop: "6px" }}>
+                <div className="inspector-section">
+                  <h4>{t("reference.basisSources")}</h4>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 6, marginTop: 6 }}>
                     {selectedRule.basis.map((b, idx) => (
-                      <div key={idx} style={{ fontSize: "12px", background: "rgba(30, 41, 59, 0.4)", padding: "6px 10px", borderRadius: "4px", color: "#cbd5e1" }}>
+                      <div key={idx} style={{ fontSize: 12, background: "var(--surface-2)", padding: "6px 10px", borderRadius: 6, color: "var(--text-secondary)" }}>
                         <strong>{b.id}:</strong> {b.title}
                       </div>
                     ))}
@@ -334,9 +275,9 @@ export default function ReferenceManager({ onSelectContract }) {
               )}
 
               {selectedRule.enforcementClass && (
-                <div>
-                  <span style={{ fontSize: "12px", fontWeight: "bold", color: "#94a3b8", textTransform: "uppercase" }}>{t("reference.enforcementCoverage")}</span>
-                  <div style={{ marginTop: "6px", fontSize: "12px", color: "#a5b4fc" }}>
+                <div className="inspector-section">
+                  <h4>{t("reference.enforcementCoverage")}</h4>
+                  <div style={{ marginTop: 6, fontSize: 12, color: "var(--accent)" }}>
                     Class: <code>{selectedRule.enforcementClass}</code> ({selectedRule.coverage})
                   </div>
                 </div>
@@ -346,131 +287,116 @@ export default function ReferenceManager({ onSelectContract }) {
         </div>
       )}
 
-      {/* Sources Tab */}
       {activeTab === "sources" && (
-        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           {filteredSources.map((s) => (
-            <div key={s.id} style={{ background: "rgba(30, 41, 59, 0.5)", border: "1px solid #334155", borderRadius: "6px", padding: "12px" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
-                <span style={{ fontWeight: "bold", color: "#38bdf8", fontSize: "14px" }}>{s.id}</span>
-                <span style={{ fontSize: "11px", background: "#1e293b", color: "#94a3b8", padding: "2px 6px", borderRadius: "4px" }}>{s.kind}</span>
+            <div key={s.id} className="source-card">
+              <div className="source-card-header">
+                <span className="source-id">{s.id}</span>
+                <span className="badge badge-kind">{s.kind}</span>
               </div>
-              <div style={{ fontSize: "13px", fontWeight: "bold", color: "#f8fafc", marginBottom: "4px" }}>{s.title}</div>
-              <div style={{ fontSize: "12px", color: "#94a3b8" }}>Publisher: {s.publisher}</div>
-              {s.supported_takeaway && (
-                <div style={{ fontSize: "12px", color: "#cbd5e1", marginTop: "6px", background: "#0f172a", padding: "8px", borderRadius: "4px" }}>
-                  {s.supported_takeaway}
-                </div>
-              )}
+              <div className="source-card-title">{s.title}</div>
+              <div style={{ fontSize: 12, color: "var(--muted)" }}>Publisher: {s.publisher}</div>
+              {s.supported_takeaway && <div className="source-card-takeaway" style={{ marginTop: 6, background: "var(--surface-2)", padding: 8, borderRadius: 6 }}>{s.supported_takeaway}</div>}
             </div>
           ))}
-          {filteredSources.length === 0 && <div style={{ color: "#94a3b8", textAlign: "center", padding: "20px" }}>{t("common.noData")}</div>}
+          {filteredSources.length === 0 && <div className="state-empty"><span className="state-icon">🌐</span>{t("common.noData")}</div>}
         </div>
       )}
 
-      {/* Adapters Tab */}
       {activeTab === "adapters" && (
-        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           {adapters.map((a) => (
-            <div key={a.id} style={{ background: "rgba(30, 41, 59, 0.5)", border: "1px solid #334155", borderRadius: "6px", padding: "12px" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
-                <span style={{ fontWeight: "bold", color: "#38bdf8", fontSize: "14px" }}>{a.id}</span>
-                <span style={{ fontSize: "11px", background: "#1e293b", color: "#34d399", padding: "2px 6px", borderRadius: "4px" }}>{a.type}</span>
+            <div key={a.id} className="adapter-card">
+              <div className="adapter-card-header">
+                <span className="adapter-id">{a.id}</span>
+                <span className="badge badge-success">{a.type}</span>
               </div>
-              <div style={{ fontSize: "13px", fontWeight: "bold", color: "#f8fafc" }}>{a.name}</div>
-              <div style={{ fontSize: "12px", color: "#94a3b8", marginTop: "4px" }}>Target Version: {a.targetVersion}</div>
+              <div className="adapter-card-title">{a.name}</div>
+              <div style={{ fontSize: 12, color: "var(--muted)" }}>Target Version: {a.targetVersion}</div>
             </div>
           ))}
-          {adapters.length === 0 && <div style={{ color: "#94a3b8", textAlign: "center", padding: "20px" }}>{t("common.noData")}</div>}
+          {adapters.length === 0 && <div className="state-empty"><span className="state-icon">🔌</span>{t("common.noData")}</div>}
         </div>
       )}
 
-      {/* Compare Tab */}
       {activeTab === "compare" && comparison && (
-        <div style={{ background: "rgba(15, 23, 42, 0.6)", padding: "16px", borderRadius: "8px", border: "1px solid #334155" }}>
-          <h3 style={{ margin: "0 0 12px 0", color: "#f8fafc", fontSize: "16px" }}>
+        <div className="gov-summary-card">
+          <h3 style={{ margin: "0 0 12px", fontSize: 16 }}>
             {t("reference.compareHeading", { base: comparison.base?.version || "1.0.0", target: comparisonTargetVersion })}
           </h3>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "12px", marginBottom: "16px" }}>
-            <div style={{ background: "#0f172a", padding: "12px", borderRadius: "6px", border: "1px solid #1e293b", textAlign: "center" }}>
-              <div style={{ fontSize: "20px", fontWeight: "bold", color: "#34d399" }}>+{comparison.rulesDelta?.added?.length || 0}</div>
-              <div style={{ fontSize: "12px", color: "#94a3b8" }}>{t("reference.rulesAdded")}</div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 12 }}>
+            <div className="metric-card" style={{ alignItems: "center" }}>
+              <div className="metric-val" style={{ color: "var(--success)" }}>+{comparison.rulesDelta?.added?.length || 0}</div>
+              <div className="metric-lbl">{t("reference.rulesAdded")}</div>
             </div>
-            <div style={{ background: "#0f172a", padding: "12px", borderRadius: "6px", border: "1px solid #1e293b", textAlign: "center" }}>
-              <div style={{ fontSize: "20px", fontWeight: "bold", color: "#f59e0b" }}>~{comparison.rulesDelta?.modified?.length || 0}</div>
-              <div style={{ fontSize: "12px", color: "#94a3b8" }}>{t("reference.rulesModified")}</div>
+            <div className="metric-card" style={{ alignItems: "center" }}>
+              <div className="metric-val" style={{ color: "var(--warning)" }}>~{comparison.rulesDelta?.modified?.length || 0}</div>
+              <div className="metric-lbl">{t("reference.rulesModified")}</div>
             </div>
-            <div style={{ background: "#0f172a", padding: "12px", borderRadius: "6px", border: "1px solid #1e293b", textAlign: "center" }}>
-              <div style={{ fontSize: "20px", fontWeight: "bold", color: "#f87171" }}>-{comparison.rulesDelta?.removed?.length || 0}</div>
-              <div style={{ fontSize: "12px", color: "#94a3b8" }}>{t("reference.rulesRemoved")}</div>
+            <div className="metric-card" style={{ alignItems: "center" }}>
+              <div className="metric-val" style={{ color: "var(--danger)" }}>-{comparison.rulesDelta?.removed?.length || 0}</div>
+              <div className="metric-lbl">{t("reference.rulesRemoved")}</div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Compatibility Matrix Modal */}
       {showMatrixModal && (
-        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.8)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: "20px" }}>
-          <div style={{ background: "#0f172a", border: "1px solid #38bdf8", borderRadius: "10px", width: "95%", maxWidth: "1100px", maxHeight: "90vh", display: "flex", flexDirection: "column", boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.5)" }}>
-            <div style={{ padding: "16px 20px", borderBottom: "1px solid #334155", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div className="modal-overlay" role="dialog" aria-modal="true" onClick={(e) => { if (e.target === e.currentTarget) setShowMatrixModal(false); }}>
+          <div className="modal">
+            <div className="modal-head">
               <div>
-                <h3 style={{ margin: "0 0 4px 0", color: "#38bdf8", fontSize: "18px" }}>{t("aapes.matrixBtn")}</h3>
-                <div style={{ fontSize: "12px", color: "#94a3b8" }}>
-                  Complete traceability across all 48 AAPES requirements (43 COVERED, 5 PARTIAL)
+                <h3>{t("aapes.matrixBtn")}</h3>
+                <div style={{ fontSize: 12, color: "var(--muted)" }}>
+                  {t("matrix.summary", { total: matrixData.length, covered: matrixCovered, partial: matrixPartial })}
                 </div>
               </div>
-              <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                <a
-                  href="/api/aapes/matrix?format=csv"
-                  download="AAPES_AGHR_COMPATIBILITY_MATRIX.csv"
-                  className="btn btn-primary"
-                  style={{ fontSize: "12px", padding: "6px 12px", textDecoration: "none" }}
-                >
+              <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                <a href="/api/aapes/matrix?format=csv" download="AAPES_AGHR_COMPATIBILITY_MATRIX.csv" className="btn btn-primary btn-sm">
                   {t("aapes.downloadCsv")}
                 </a>
-                <button
-                  onClick={() => setShowMatrixModal(false)}
-                  style={{ background: "none", border: "none", color: "#94a3b8", cursor: "pointer", fontSize: "20px" }}
-                >
-                  ✕
-                </button>
+                <button className="btn btn-ghost btn-sm" onClick={() => setShowMatrixModal(false)} aria-label="Close">✕</button>
               </div>
             </div>
-
-            <div style={{ padding: "16px", overflowY: "auto", flex: 1 }}>
-              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "12px", textAlign: "left" }}>
+            <div className="modal-body">
+              <div className="matrix-toolbar">
+                <input
+                  type="text"
+                  dir="auto"
+                  className="input matrix-search"
+                  placeholder={t("matrix.search")}
+                  aria-label={t("matrix.search")}
+                  value={matrixSearch}
+                  onChange={(e) => setMatrixSearch(e.target.value)}
+                />
+                <div className="matrix-summary">
+                  <span className="badge badge-success">{t("matrix.covered", { count: matrixCovered })}</span>
+                  <span className="badge badge-warning">{t("matrix.partial", { count: matrixPartial })}</span>
+                  <span className="badge badge-kind">{t("matrix.total", { count: matrixData.length })}</span>
+                </div>
+              </div>
+              <table className="matrix-table">
                 <thead>
-                  <tr style={{ background: "#1e293b", color: "#cbd5e1" }}>
-                    <th style={{ padding: "8px", borderBottom: "1px solid #334155" }}>Req ID</th>
-                    <th style={{ padding: "8px", borderBottom: "1px solid #334155" }}>Domain</th>
-                    <th style={{ padding: "8px", borderBottom: "1px solid #334155" }}>Level</th>
-                    <th style={{ padding: "8px", borderBottom: "1px solid #334155" }}>Title</th>
-                    <th style={{ padding: "8px", borderBottom: "1px solid #334155" }}>Status</th>
-                    <th style={{ padding: "8px", borderBottom: "1px solid #334155" }}>AGHR Reference & Evidence</th>
+                  <tr>
+                    <th>Req ID</th><th>Domain</th><th>Level</th><th>Title</th><th>Status</th><th>AGHR Reference &amp; Evidence</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {matrixData.map((row, idx) => (
-                    <tr key={idx} style={{ borderBottom: "1px solid #1e293b", background: idx % 2 === 0 ? "rgba(15, 23, 42, 0.4)" : "transparent" }}>
-                      <td style={{ padding: "8px", color: "#38bdf8", fontWeight: "bold" }}>{row.requirement_id}</td>
-                      <td style={{ padding: "8px", color: "#94a3b8" }}>{row.domain}</td>
-                      <td style={{ padding: "8px", color: row.normative_level === "MUST" ? "#fbbf24" : "#a7f3d0" }}>{row.normative_level}</td>
-                      <td style={{ padding: "8px", color: "#f8fafc", maxWidth: "250px" }}>{row.title}</td>
-                      <td style={{ padding: "8px" }}>
-                        <span style={{
-                          padding: "2px 6px",
-                          borderRadius: "4px",
-                          fontSize: "11px",
-                          fontWeight: "bold",
-                          background: row.coverage_status === "COVERED" ? "rgba(16, 185, 129, 0.2)" : "rgba(245, 158, 11, 0.2)",
-                          color: row.coverage_status === "COVERED" ? "#34d399" : "#fbbf24"
-                        }}>
-                          {row.coverage_status}
-                        </span>
+                  {matrixFiltered.map((row, idx) => (
+                    <tr key={idx}>
+                      <td style={{ color: "var(--accent)", fontWeight: 700 }}>{row.requirement_id}</td>
+                      <td>{row.domain}</td>
+                      <td style={{ color: row.normative_level === "MUST" ? "var(--warning)" : "var(--success)" }}>{row.normative_level}</td>
+                      <td style={{ color: "var(--text)", maxWidth: 250 }}>{row.title}</td>
+                      <td>
+                        <span className={"badge " + (row.coverage_status === "COVERED" ? "badge-success" : "badge-warning")}>{row.coverage_status}</span>
                       </td>
-                      <td style={{ padding: "8px", color: "#cbd5e1", maxWidth: "320px", fontSize: "11px" }}>
-                        <div><strong>Ref:</strong> {row.aghr_ref}</div>
-                        <div style={{ color: "#94a3b8" }}>{row.evidence}</div>
+                      <td style={{ maxWidth: 340, fontSize: 11 }}>
+                        <details>
+                          <summary style={{ cursor: "pointer" }}><strong>{row.aghr_ref}</strong></summary>
+                          <div style={{ color: "var(--muted)", marginTop: 4 }}>{row.evidence}</div>
+                        </details>
                       </td>
                     </tr>
                   ))}

@@ -68,7 +68,7 @@ function Step({ node, analysis, files, selectedRel, onSelect, level }) {
   );
 }
 
-export default function FlowView({ files, analysis, selectedRel, onSelect }) {
+export default function FlowView({ files, analysis, selectedRel, onSelect, onOpenGraph }) {
   const { t, locale } = useI18n();
   const flow = useMemo(() => buildFlowTree(analysis, files), [analysis, files]);
 
@@ -89,7 +89,19 @@ export default function FlowView({ files, analysis, selectedRel, onSelect }) {
   }, [flow, files, locale]);
 
   if (!flow) {
-    return <div className="pane empty">{t("flow.noSkill")}</div>;
+    return (
+      <div className="pane flow-pane">
+        <div className="state-empty">
+          <span className="state-icon">🔄</span>
+          <div className="empty-text">{t("flow.noSkill")}</div>
+          {onOpenGraph && (
+            <div className="state-actions">
+              <button className="btn btn-secondary btn-sm" onClick={onOpenGraph}>{t("explorer.graph")}</button>
+            </div>
+          )}
+        </div>
+      </div>
+    );
   }
 
   return (

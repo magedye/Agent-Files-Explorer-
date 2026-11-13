@@ -200,8 +200,9 @@ export default function StagingView({ initialStagingId }) {
           </div>
         </div>
       ) : (
-        <div className="pane-placeholder">
-          <span>{t("staging.empty")}</span>
+        <div className="state-empty staging-hint">
+          <span className="state-icon">🛡️</span>
+          <div className="empty-text">{t("staging.empty")}</div>
         </div>
       )}
     </div>

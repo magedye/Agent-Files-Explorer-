@@ -13,6 +13,14 @@ export default function AdoptionView({ onGoToStaging }) {
   const [stagingMsg, setStagingMsg] = useState(null);
   const [error, setError] = useState(null);
 
+  // Host-artifact compatibility (preview only — never writes)
+  const [compatTools, setCompatTools] = useState([]);
+  const [compatKinds, setCompatKinds] = useState({});
+  const [detection, setDetection] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [previewLoading, setPreviewLoading] = useState(false);
+  const [compatError, setCompatError] = useState(null);
+
   useEffect(() => {
     loadCandidates();
   }, []);
@@ -83,6 +91,49 @@ export default function AdoptionView({ onGoToStaging }) {
     }
   }
 
+  // Load the host-compat contract once.
+  useEffect(() => {
+    fetch("/api/host-compat/tools")
+      .then((r) => r.json())
+      .then((d) => {
+        setCompatTools(d.compatibility?.tools || []);
+        setCompatKinds(d.compatibility?.artifactKinds || {});
+      })
+      .catch(() => setCompatError("hostcompat.loadError"));
+  }, []);
+
+  // Read-only tool detection for the selected project (never scans user folders).
+  useEffect(() => {
+    if (!selectedCandidate?.dir) {
+      setDetection(null);
+      return;
+    }
+    fetch("/api/host-compat/detect?project=" + encodeURIComponent(selectedCandidate.dir))
+      .then((r) => r.json())
+      .then((d) => setDetection(d.detection || null))
+      .catch(() => setDetection(null));
+  }, [selectedCandidate]);
+
+  async function handlePreview(toolId, artifactKind) {
+    if (!selectedCandidate?.dir) return;
+    setPreviewLoading(true);
+    setCompatError(null);
+    try {
+      const qs = new URLSearchParams({ tool: toolId, artifactKind, project: selectedCandidate.dir, source: "sample" });
+      const r = await fetch("/api/host-compat/preview?" + qs.toString());
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || "hostcompat.previewError");
+      setPreview(d.preview);
+    } catch (err) {
+      setCompatError(err.message);
+    } finally {
+      setPreviewLoading(false);
+    }
+  }
+
+  const statusClass = (s) =>
+    "badge " + (s === "SUPPORTED" ? "badge-success" : s === "PARTIAL" ? "badge-warning" : s === "UNSUPPORTED" ? "badge-danger" : "badge-kind");
+
   return (
     <div className="adoption-studio-view">
       {/* Alert Header */}
@@ -124,8 +175,10 @@ export default function AdoptionView({ onGoToStaging }) {
                 </div>
               </div>
             ))}
+            {candidates.length === 0 && <div className="cand-empty">{t("adoption.empty")}</div>}
           </div>
 
+          {selectedCandidate && (
           <div className="adoption-options-box">
             <div className="pane-title">{t("adoption.options")}</div>
 
@@ -167,6 +220,7 @@ export default function AdoptionView({ onGoToStaging }) {
 
             {error && <div className="gov-error-msg">{t(error)}</div>}
           </div>
+          )}
         </div>
 
         {/* Right Column: Adoption Plan & Diff Preview */}
@@ -210,6 +264,103 @@ export default function AdoptionView({ onGoToStaging }) {
           )}
         </div>
       </div>
+
+      {/* Host-artifact compatibility — preview only, no writes */}
+      <section className="hostcompat-panel card">
+        <div className="hostcompat-head">
+          <div>
+            <h2>{t("hostcompat.title")}</h2>
+            <p className="hostcompat-sub">{t("hostcompat.subtitle")}</p>
+          </div>
+          <span className="badge badge-warning">{t("hostcompat.previewOnlyBadge")}</span>
+        </div>
+
+        {compatError && <div className="gov-error-msg">{t(compatError)}</div>}
+
+        <div className="hostcompat-grid">
+          {compatTools.map((tool) => {
+            const det = detection?.tools?.find((x) => x.toolId === tool.toolId);
+            return (
+              <div key={tool.toolId} className="hostcompat-tool">
+                <div className="hostcompat-tool-head">
+                  <strong>{tool.label}</strong>
+                  <div className="badge-group">
+                    <span className="badge badge-kind">{tool.format}</span>
+                    <span className="badge badge-kind">{tool.trust}</span>
+                  </div>
+                </div>
+                <div className="hostcompat-meta">
+                  <span>{t("hostcompat.scope")}: {tool.scope.join(", ")}</span>
+                  <span>{t("hostcompat.detection")}: {det?.detected ? t("hostcompat.detected") : t("hostcompat.notDetected")}</span>
+                  <span>{t("hostcompat.version")}: {tool.hostVersionRange}</span>
+                </div>
+                <div className="hostcompat-kinds">
+                  {Object.entries(tool.artifactKinds).map(([kind, status]) => (
+                    <div key={kind} className="hostcompat-kind-row">
+                      <span>{t(`hostcompat.kind.${kind}`)}</span>
+                      <span className={statusClass(status)}>{status}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="hostcompat-actions">
+                  {Object.entries(tool.artifactKinds)
+                    .filter(([, status]) => status === "SUPPORTED" || status === "PARTIAL")
+                    .map(([kind]) => (
+                      <button
+                        key={kind}
+                        className="btn btn-secondary btn-sm"
+                        disabled={!selectedCandidate || previewLoading}
+                        onClick={() => handlePreview(tool.toolId, kind)}
+                      >
+                        {t("hostcompat.preview")} · {t(`hostcompat.kind.${kind}`)}
+                      </button>
+                    ))}
+                  {!selectedCandidate && <span className="hostcompat-hint">{t("hostcompat.noProject")}</span>}
+                </div>
+                {tool.unsupported && Object.keys(tool.unsupported).length > 0 && (
+                  <details className="hostcompat-unsupported">
+                    <summary>{t("hostcompat.unsupportedTitle")}</summary>
+                    <ul>
+                      {Object.entries(tool.unsupported).map(([kind, reason]) => (
+                        <li key={kind}><strong>{t(`hostcompat.kind.${kind}`)}</strong>: {reason}</li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {preview && (
+          <div className="hostcompat-preview">
+            <div className="hostcompat-preview-head">
+              <strong>{preview.tool.label} · {t(`hostcompat.kind.${preview.artifactKind}`)}</strong>
+              <span className={statusClass(preview.compatibility)}>{preview.compatibility}</span>
+            </div>
+            {preview.compatibilityReason && <div className="alert alert-warning">{preview.compatibilityReason}</div>}
+            <div className="hostcompat-preview-grid">
+              <div><span className="meta-lbl">{t("hostcompat.destination")}</span><code dir="ltr">{preview.destination}</code></div>
+              <div><span className="meta-lbl">{t("hostcompat.scope")}</span><span>{preview.tool.scope.join(", ")}</span></div>
+              <div><span className="meta-lbl">{t("hostcompat.trust")}</span><span>{preview.tool.trust}</span></div>
+              <div><span className="meta-lbl">{t("hostcompat.bytes")}</span><span>{preview.bytes}</span></div>
+              <div><span className="meta-lbl">{t("hostcompat.sha")}</span><code dir="ltr">{preview.sha256.slice(0, 20)}…</code></div>
+              <div><span className="meta-lbl">{t("hostcompat.renderer")}</span><code dir="ltr">{preview.renderer.id}</code></div>
+              <div><span className="meta-lbl">{t("hostcompat.action")}</span><span>{preview.destinationAction}</span></div>
+              <div><span className="meta-lbl">{t("hostcompat.spec")}</span><span>{preview.tool.spec.version}</span></div>
+            </div>
+            {preview.droppedFields?.length > 0 && (
+              <div className="alert alert-warning">
+                {t("hostcompat.dropped")}: {preview.droppedFields.join(", ")}
+              </div>
+            )}
+            <div className="hostcompat-note">
+              <strong>{t("hostcompat.previewOnly")}</strong> {t("hostcompat.applyUnavailable")}
+            </div>
+            <pre className="unified-diff-view" dir="ltr">{preview.diff}</pre>
+          </div>
+        )}
+      </section>
     </div>
   );
 }

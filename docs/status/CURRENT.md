@@ -1,6 +1,6 @@
 # Baseline v1 Adoption & Historical Governance Reconciliation — Derived Execution State
 
-Updated 2026-11-12 Asia/Aden (owner-accepted). Ground truth is determined by actual Git HEAD, working tree, and passing tests.
+Updated 2026-11-13 Asia/Aden (owner-accepted). Ground truth is determined by actual Git HEAD, working tree, and passing tests.
 
 Executed under Owner Directives `AFE-GOV-BASELINE-001` through `AFE-GOV-INTAKE-OPERATIONAL-CLOSURE-011`:
 - **Branch & HEAD:** On `main`, synced with `origin/main`.
@@ -14,7 +14,7 @@ Executed under Owner Directives `AFE-GOV-BASELINE-001` through `AFE-GOV-INTAKE-O
   * **Dual Baseline Invariant:** `DEFAULT_PACKAGE_ID = "aghr_rc3"` for Studio v1.0.0; `DEFAULT_BASELINE_PACKAGE_ID = "aghr_1_4_0"` for new workflows. Optional tools (2A, 2B, 2C) remain diagnostic.
 - **Verification Suites:** Full `npm test` = **357/357 (0 failures)**; 20/20 Python diagnostics. Published (`bb76bf8`, `77c7579`).
 - **Non-Activation Invariants:** PEP/PDP remains strictly `NOT_ACTIVE`. Remote push and deployment isolated.
-- **Acceptance State:** `OWNER_ACCEPTED_IN_SCOPE / CORRECTIVE_WORKSTREAM_CLOSED / RELEASE_NOT_AUTHORIZED`.
+- **Acceptance State:** `OWNER_ACCEPTED_IN_SCOPE / CORRECTIVE_WORKSTREAM_CLOSED / UI_WORKSTREAM_CLOSED / RELEASE_NOT_AUTHORIZED`.
 
 ## Stop position
 STOP: Operational intake processing, archival, and reference cataloging complete under AFE-GOV-INTAKE-OPERATIONAL-CLOSURE-011 on `main` (OPERATIONAL_COMPLETE_IN_SCOPE). Deferred item REQ-AFE-QUAL-008-LIVE maintained under governed custody (scope: NONE_DEFERRED; Next Review Due: 2026-12-01 [PROPOSED_TARGET_DATE / NOT_OWNER_RATIFIED]; Currently Authorized Action: NONE). Active INBOX cleared; 24 historical baseline files preserved. Do NOT push to origin or deploy without explicit owner directive.

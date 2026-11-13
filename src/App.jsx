@@ -16,6 +16,15 @@ const PARSE_EXTS = new Set(["md", "py", "js", "ts", "json", "yaml", "yml", "toml
 const PARSE_MAX = 512_000;
 const CONCURRENCY = 6;
 
+const MODES = [
+  { id: "explorer", icon: "🧭", key: "nav.explorer" },
+  { id: "reference", icon: "📜", key: "nav.reference" },
+  { id: "intake", icon: "📥", key: "nav.intake" },
+  { id: "adoption", icon: "🏗️", key: "nav.adoption" },
+  { id: "evaluation", icon: "⚖️", key: "nav.evaluation" },
+  { id: "staging", icon: "🛡️", key: "nav.staging" },
+];
+
 async function pool(items, worker, onDone) {
   let i = 0;
   const runners = Array.from({ length: Math.min(CONCURRENCY, items.length) }, async () => {
@@ -37,12 +46,8 @@ export default function App() {
   const [contents, setContents] = useState({});
   const [selected, setSelected] = useState(null);
 
-  // Top level view modes: 'explorer' | 'reference' | 'intake' | 'adoption' | 'evaluation' | 'staging'
   const [mode, setMode] = useState(() => new URLSearchParams(location.search).get("mode") || "explorer");
-
-  // Explorer sub-tabs: 'file' | 'graph' | 'flow'
   const [tab, setTab] = useState(() => new URLSearchParams(location.search).get("tab") || "file");
-
   const [activeStagingId, setActiveStagingId] = useState("");
   const [progress, setProgress] = useState(null);
   const [error, setError] = useState(null);
@@ -169,10 +174,9 @@ export default function App() {
 
   return (
     <div className="app">
-      {/* Studio Top Header Bar */}
       <header className="topbar">
         <div className="brand">
-          <span className="logo">🏛️</span>
+          <span className="logo" aria-hidden="true">A</span>
           <div>
             <div className="brand-name">AGHR Governance Studio</div>
             <div className="brand-sub" dir="auto">
@@ -181,55 +185,19 @@ export default function App() {
           </div>
         </div>
 
-        {/* Primary Studio Navigation */}
-        <nav className="mode-nav">
-          <button
-            className={"mode-btn" + (mode === "explorer" ? " active" : "")}
-            onClick={() => changeMode("explorer")}
-          >
-            {t("app.explorer")}
-          </button>
-          <button
-            className={"mode-btn" + (mode === "reference" ? " active" : "")}
-            onClick={() => changeMode("reference")}
-          >
-            {t("app.reference")}
-          </button>
-          <button
-            className={"mode-btn" + (mode === "intake" ? " active" : "")}
-            onClick={() => changeMode("intake")}
-          >
-            {t("app.intake")}
-          </button>
-          <button
-            className={"mode-btn" + (mode === "adoption" ? " active" : "")}
-            onClick={() => changeMode("adoption")}
-          >
-            {t("app.adoption")}
-          </button>
-          <button
-            className={"mode-btn" + (mode === "evaluation" ? " active" : "")}
-            onClick={() => changeMode("evaluation")}
-          >
-            {t("app.evaluation")}
-          </button>
-          <button
-            className={"mode-btn" + (mode === "staging" ? " active" : "")}
-            onClick={() => changeMode("staging")}
-          >
-            {t("app.staging")}
-          </button>
-        </nav>
-
-        {/* Controls */}
         <div className="topbar-controls">
-          <select className="language-select" value={locale} onChange={(e) => setLocale(e.target.value)}
-            aria-label={t("app.language")} title={t("app.language")}>
+          <select
+            className="language-select"
+            value={locale}
+            onChange={(e) => setLocale(e.target.value)}
+            aria-label={t("app.language")}
+            title={t("app.language")}
+          >
             <option value="ar" lang="ar">العربية</option>
             <option value="en" lang="en">English</option>
           </select>
           <button
-            className={"tab back" + (history.length ? "" : " off")}
+            className="back-btn"
             onClick={goBack}
             disabled={!history.length}
             title={t("app.backTitle")}
@@ -237,17 +205,34 @@ export default function App() {
             {dir === "rtl" ? "→" : "←"} {t("app.back")}
           </button>
           <button
-            className="tab theme-toggle"
+            className="theme-toggle"
             onClick={toggleTheme}
             title={theme === "dark" ? t("app.lightTheme") : t("app.darkTheme")}
+            aria-label={theme === "dark" ? t("app.lightTheme") : t("app.darkTheme")}
           >
             {theme === "dark" ? "☀️" : "🌙"}
           </button>
         </div>
       </header>
 
-      {/* Main Studio Body */}
       <div className="body">
+        <nav className="nav-rail" aria-label={t("nav.primary")}>
+          <div className="nav-rail-title">{t("nav.primary")}</div>
+          {MODES.map((m) => (
+            <button
+              key={m.id}
+              className={"nav-item" + (mode === m.id ? " active" : "")}
+              onClick={() => changeMode(m.id)}
+              title={t(m.key)}
+              aria-current={mode === m.id ? "page" : undefined}
+            >
+              <span className="nav-ico" aria-hidden="true">{m.icon}</span>
+              <span className="nav-label">{t(m.key)}</span>
+            </button>
+          ))}
+          <div className="nav-rail-footer">v1.0.0 · local</div>
+        </nav>
+
         {mode === "explorer" && (
           <>
             <aside className="sidebar">
@@ -266,11 +251,7 @@ export default function App() {
                 ))}
               </div>
 
-              {progress && (
-                <div className="progress">
-                  {t("explorer.progress", progress)}
-                </div>
-              )}
+              {progress && <div className="progress">{t("explorer.progress", progress)}</div>}
               {error && <div className="error">{t(error)}</div>}
 
               {tree && (
@@ -279,24 +260,14 @@ export default function App() {
             </aside>
 
             <main className="main">
-              {/* Explorer Subtabs */}
               <div className="explorer-subtabs">
-                <button
-                  className={"tab" + (tab === "file" ? " on" : "")}
-                  onClick={() => changeTab("file")}
-                >
+                <button className={"tab" + (tab === "file" ? " on" : "")} onClick={() => changeTab("file")}>
                   {t("explorer.preview")}
                 </button>
-                <button
-                  className={"tab" + (tab === "graph" ? " on" : "")}
-                  onClick={() => changeTab("graph")}
-                >
+                <button className={"tab" + (tab === "graph" ? " on" : "")} onClick={() => changeTab("graph")}>
                   {t("explorer.graph")} {analysis ? `(${analysis.edges.length})` : ""}
                 </button>
-                <button
-                  className={"tab" + (tab === "flow" ? " on" : "")}
-                  onClick={() => changeTab("flow")}
-                >
+                <button className={"tab" + (tab === "flow" ? " on" : "")} onClick={() => changeTab("flow")}>
                   {t("explorer.flow")}
                 </button>
               </div>
@@ -324,6 +295,7 @@ export default function App() {
                       analysis={analysis}
                       selectedRel={selected?.rel}
                       onSelect={(f) => openFile(f)}
+                      onOpenGraph={() => changeTab("graph")}
                     />
                   ) : (
                     <div className="pane empty">{progress ? t("common.analyzing") : t("common.noData")}</div>

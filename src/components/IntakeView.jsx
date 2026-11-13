@@ -130,7 +130,7 @@ export default function IntakeView({ onStagePacket }) {
       </div>
 
       {/* Sub-tab switcher */}
-      <div style={{ display: "flex", gap: "8px", borderBottom: "1px solid #334155", marginBottom: "16px" }}>
+      <div style={{ display: "flex", gap: "8px", borderBottom: "1px solid var(--border)", marginBottom: "16px" }}>
         <button
           className={`gov-tab-btn ${activeSubTab === "standard" ? "active" : ""}`}
           onClick={() => setActiveSubTab("standard")}
@@ -147,7 +147,7 @@ export default function IntakeView({ onStagePacket }) {
 
       {/* Tab 1: Standard Intake */}
       {activeSubTab === "standard" && (
-        <div className="intake-layout-grid">
+        <div className={"intake-layout-grid" + (currentPacket ? "" : " form-dominant")}>
           {/* Left Form: Intake Capture */}
           <div className="intake-form-pane">
             <form onSubmit={handleSubmit}>
@@ -196,6 +196,8 @@ export default function IntakeView({ onStagePacket }) {
               </div>
 
               {error && <div className="gov-error-msg">{t(error)}</div>}
+
+              <div className="inline-note" role="note">{t("gov.blockedWriteNote")}</div>
 
               <button type="submit" className="btn btn-primary" disabled={loading || !rawText.trim()}>
                 {loading ? t("intake.submitting") : t("intake.submit")}
@@ -277,7 +279,7 @@ export default function IntakeView({ onStagePacket }) {
 
       {/* Tab 2: AAPES Policy Engineering Review */}
       {activeSubTab === "aapes" && (
-        <div className="intake-layout-grid">
+        <div className={"intake-layout-grid" + (aapesReview ? "" : " form-dominant")}>
           {/* Left Form: Policy Engineering Review Input */}
           <div className="intake-form-pane">
             <div className="pane-title">{t("aapes.reviewTab")}</div>
@@ -289,7 +291,7 @@ export default function IntakeView({ onStagePacket }) {
                 className="input-text"
                 value={aapesRuleId}
                 onChange={(e) => setAapesRuleId(e.target.value)}
-                style={{ background: "#0f172a", color: "#f8fafc", border: "1px solid #334155" }}
+                style={{ background: "var(--surface-sunken)", color: "var(--text)", border: "1px solid var(--border)" }}
               />
             </div>
 
@@ -318,7 +320,7 @@ export default function IntakeView({ onStagePacket }) {
                 value={aapesText}
                 onChange={(e) => setAapesText(e.target.value)}
                 placeholder="Enter policy rule statement to review under AAPES v2.1..."
-                style={{ background: "#0f172a", color: "#f8fafc", border: "1px solid #334155" }}
+                style={{ background: "var(--surface-sunken)", color: "var(--text)", border: "1px solid var(--border)" }}
               />
             </div>
 
@@ -335,44 +337,44 @@ export default function IntakeView({ onStagePacket }) {
           {/* Right Panel: AAPES Analysis & Governed Optimization Proposal */}
           <div className="intake-result-pane">
             {aapesReview ? (
-              <div className="packet-card" style={{ background: "rgba(15, 23, 42, 0.7)", border: "1px solid #334155" }}>
-                <div className="packet-header" style={{ borderBottom: "1px solid #334155", paddingBottom: "10px" }}>
+              <div className="packet-card" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
+                <div className="packet-header" style={{ borderBottom: "1px solid var(--border)", paddingBottom: "10px" }}>
                   <div>
-                    <span className="packet-id" style={{ color: "#38bdf8" }}>{aapesReview.ruleId}</span>
+                    <span className="packet-id" style={{ color: "var(--accent)" }}>{aapesReview.ruleId}</span>
                     <span style={{
                       marginLeft: "8px",
                       padding: "3px 8px",
                       borderRadius: "4px",
                       fontSize: "12px",
                       fontWeight: "bold",
-                      background: aapesReview.proposal.action === "KEEP" ? "rgba(16, 185, 129, 0.2)" : "rgba(245, 158, 11, 0.2)",
-                      color: aapesReview.proposal.action === "KEEP" ? "#34d399" : "#fbbf24"
+                      background: aapesReview.proposal.action === "KEEP" ? "var(--success-soft)" : "var(--warning-soft)",
+                      color: aapesReview.proposal.action === "KEEP" ? "var(--success)" : "var(--warning)"
                     }}>
                       {aapesReview.proposal.action}
                     </span>
                   </div>
-                  <div style={{ fontSize: "11px", color: "#94a3b8" }}>
+                  <div style={{ fontSize: "11px", color: "var(--muted)" }}>
                     SHA: {aapesReview.source_hash.slice(0, 12)}...
                   </div>
                 </div>
 
                 {/* Analysis Badges Grid */}
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: "8px", margin: "12px 0" }}>
-                  <div style={{ background: "#0f172a", padding: "8px", borderRadius: "6px", border: "1px solid #1e293b", textAlign: "center" }}>
-                    <div style={{ fontSize: "11px", color: "#94a3b8" }}>BCP 14 Keywords</div>
-                    <div style={{ fontSize: "12px", fontWeight: "bold", color: aapesReview.detected_bcp14.length > 0 ? "#38bdf8" : "#f87171" }}>
+                  <div style={{ background: "var(--surface-sunken)", padding: "8px", borderRadius: "6px", border: "1px solid var(--surface-2)", textAlign: "center" }}>
+                    <div style={{ fontSize: "11px", color: "var(--muted)" }}>BCP 14 Keywords</div>
+                    <div style={{ fontSize: "12px", fontWeight: "bold", color: aapesReview.detected_bcp14.length > 0 ? "var(--accent)" : "var(--danger)" }}>
                       {aapesReview.detected_bcp14.join(", ") || "None (Missing)"}
                     </div>
                   </div>
-                  <div style={{ background: "#0f172a", padding: "8px", borderRadius: "6px", border: "1px solid #1e293b", textAlign: "center" }}>
-                    <div style={{ fontSize: "11px", color: "#94a3b8" }}>Ambiguous Adjectives</div>
-                    <div style={{ fontSize: "12px", fontWeight: "bold", color: aapesReview.ambiguities.length > 0 ? "#f87171" : "#34d399" }}>
+                  <div style={{ background: "var(--surface-sunken)", padding: "8px", borderRadius: "6px", border: "1px solid var(--surface-2)", textAlign: "center" }}>
+                    <div style={{ fontSize: "11px", color: "var(--muted)" }}>Ambiguous Adjectives</div>
+                    <div style={{ fontSize: "12px", fontWeight: "bold", color: aapesReview.ambiguities.length > 0 ? "var(--danger)" : "var(--success)" }}>
                       {aapesReview.ambiguities.join(", ") || "None (Clear)"}
                     </div>
                   </div>
-                  <div style={{ background: "#0f172a", padding: "8px", borderRadius: "6px", border: "1px solid #1e293b", textAlign: "center" }}>
-                    <div style={{ fontSize: "11px", color: "#94a3b8" }}>Failure State</div>
-                    <div style={{ fontSize: "12px", fontWeight: "bold", color: aapesReview.completeness.has_failure_state ? "#34d399" : "#f59e0b" }}>
+                  <div style={{ background: "var(--surface-sunken)", padding: "8px", borderRadius: "6px", border: "1px solid var(--surface-2)", textAlign: "center" }}>
+                    <div style={{ fontSize: "11px", color: "var(--muted)" }}>Failure State</div>
+                    <div style={{ fontSize: "12px", fontWeight: "bold", color: aapesReview.completeness.has_failure_state ? "var(--success)" : "var(--warning)" }}>
                       {aapesReview.completeness.has_failure_state ? "Defined" : "Missing"}
                     </div>
                   </div>
@@ -380,23 +382,23 @@ export default function IntakeView({ onStagePacket }) {
 
                 {/* Findings List */}
                 <div style={{ marginBottom: "16px" }}>
-                  <div style={{ fontSize: "13px", fontWeight: "bold", color: "#f8fafc", marginBottom: "6px" }}>
+                  <div style={{ fontSize: "13px", fontWeight: "bold", color: "var(--text)", marginBottom: "6px" }}>
                     {t("aapes.findings")}
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
                     {aapesReview.findings.map((f, idx) => {
                       const typeColors = {
-                        fact: { bg: "rgba(59, 130, 246, 0.15)", text: "#60a5fa", border: "#2563eb" },
-                        inference: { bg: "rgba(245, 158, 11, 0.15)", text: "#fbbf24", border: "#d97706" },
-                        assumption: { bg: "rgba(168, 85, 247, 0.15)", text: "#c084fc", border: "#9333ea" },
-                        recommendation: { bg: "rgba(16, 185, 129, 0.15)", text: "#34d399", border: "#059669" }
+                        fact: { bg: "var(--info-soft)", text: "var(--accent)", border: "var(--accent)" },
+                        inference: { bg: "var(--warning-soft)", text: "var(--warning)", border: "#d97706" },
+                        assumption: { bg: "var(--accent-soft)", text: "#c084fc", border: "#9333ea" },
+                        recommendation: { bg: "var(--success-soft)", text: "var(--success)", border: "#059669" }
                       };
                       const col = typeColors[f.type] || typeColors.fact;
                       return (
                         <div key={idx} style={{ background: col.bg, borderLeft: `3px solid ${col.border}`, padding: "6px 10px", borderRadius: "4px", fontSize: "12px" }}>
                           <span style={{ fontWeight: "bold", textTransform: "uppercase", fontSize: "10px", color: col.text }}>[{f.type}] ({f.category}):</span>{" "}
-                          <span style={{ color: "#f8fafc" }}>{f.message}</span>
-                          {f.snippet && <div style={{ fontSize: "11px", color: "#94a3b8", fontStyle: "italic", marginTop: "2px" }}>"{f.snippet}"</div>}
+                          <span style={{ color: "var(--text)" }}>{f.message}</span>
+                          {f.snippet && <div style={{ fontSize: "11px", color: "var(--muted)", fontStyle: "italic", marginTop: "2px" }}>"{f.snippet}"</div>}
                         </div>
                       );
                     })}
@@ -406,10 +408,10 @@ export default function IntakeView({ onStagePacket }) {
                 {/* Proposed Diff View */}
                 {aapesReview.proposal.action !== "KEEP" && (
                   <div style={{ marginBottom: "16px" }}>
-                    <div style={{ fontSize: "13px", fontWeight: "bold", color: "#f8fafc", marginBottom: "6px" }}>
+                    <div style={{ fontSize: "13px", fontWeight: "bold", color: "var(--text)", marginBottom: "6px" }}>
                       {t("aapes.diffView")}
                     </div>
-                    <pre style={{ background: "#020617", padding: "10px", borderRadius: "6px", fontSize: "12px", border: "1px solid #1e293b", overflowX: "auto", color: "#cbd5e1" }}>
+                    <pre style={{ background: "var(--surface-sunken)", padding: "10px", borderRadius: "6px", fontSize: "12px", border: "1px solid var(--surface-2)", overflowX: "auto", color: "var(--text-secondary)" }}>
                       {aapesReview.proposal.diff}
                     </pre>
                   </div>
@@ -425,7 +427,7 @@ export default function IntakeView({ onStagePacket }) {
                     {t("aapes.btnProposeCp")}
                   </button>
                   {aapesSuccessMsg && (
-                    <div style={{ fontSize: "12px", color: "#34d399", background: "rgba(16, 185, 129, 0.15)", padding: "8px", borderRadius: "4px" }}>
+                    <div style={{ fontSize: "12px", color: "var(--success)", background: "var(--success-soft)", padding: "8px", borderRadius: "4px" }}>
                       ✔ {aapesSuccessMsg}
                     </div>
                   )}

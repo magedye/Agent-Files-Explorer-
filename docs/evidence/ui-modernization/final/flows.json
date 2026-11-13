@@ -1,0 +1,60 @@
+{
+  "results": [
+    {
+      "flow": "explorer",
+      "ok": true,
+      "note": "tree labels=50; preview title=\"AGHR rc.3 — Official Local Reference/E2_PROFILE.md\""
+    },
+    {
+      "flow": "explorer-graph",
+      "ok": true,
+      "note": "graph canvas rendered"
+    },
+    {
+      "flow": "explorer-flow",
+      "ok": true,
+      "note": "flow tab rendered"
+    },
+    {
+      "flow": "reference",
+      "ok": true,
+      "note": "rules before=1 after search=1; inspector opened"
+    },
+    {
+      "flow": "intake",
+      "ok": true,
+      "note": "packet=0 error=1 (\"Legacy writes disabled; a server-authorized mutation controller is required.\")"
+    },
+    {
+      "flow": "evaluation",
+      "ok": true,
+      "note": "history=5 error=1 (\"Legacy writes disabled; a server-authorized mutation controller is required.\")"
+    },
+    {
+      "flow": "adoption",
+      "ok": true,
+      "note": "candidate area present (1)"
+    },
+    {
+      "flow": "staging",
+      "ok": true,
+      "note": "empty/manifest state present (1)"
+    }
+  ],
+  "blockedOrFailedApi": [
+    {
+      "method": "POST",
+      "path": "/api/intake/submit",
+      "status": 403
+    },
+    {
+      "method": "POST",
+      "path": "/api/evaluation/run-suite",
+      "status": 403
+    }
+  ],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+    "Failed to load resource: the server responded with a status of 403 (Forbidden)"
+  ]
+}

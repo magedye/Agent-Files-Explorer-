@@ -159,6 +159,8 @@ export default function EvaluationView() {
     }));
   };
 
+  const statusClass = (v) => "status-" + String(v || "").toLowerCase().replace(/_/g, "-");
+
   return (
     <div className="eval-studio-view">
       {/* Alert Header */}
@@ -170,7 +172,7 @@ export default function EvaluationView() {
       </div>
 
       {/* Sub-tab switcher */}
-      <div style={{ display: "flex", gap: "8px", borderBottom: "1px solid #334155", marginBottom: "16px" }}>
+      <div style={{ display: "flex", gap: "8px", borderBottom: "1px solid var(--border)", marginBottom: "16px" }}>
         <button
           className={`gov-tab-btn ${activeSubTab === "standard" ? "active" : ""}`}
           onClick={() => setActiveSubTab("standard")}
@@ -188,6 +190,7 @@ export default function EvaluationView() {
       {/* Sub-Tab 1: Standard Evaluation */}
       {activeSubTab === "standard" && (
         <>
+          <div className="inline-note" role="note">{t("gov.blockedWriteNote")}</div>
           <div className="eval-actions-bar">
             <button className="btn btn-primary" onClick={handleRunSuite} disabled={running}>
               {running ? t("evaluation.running") : t("evaluation.run")}
@@ -254,29 +257,31 @@ export default function EvaluationView() {
                     </div>
                     <div>
                       <span className="meta-lbl">{t("evaluation.live")}</span>
-                      <span className="status-no">{activeResult.live_model_evaluation}</span>
+                      <span className={statusClass(activeResult.live_model_evaluation)}>{activeResult.live_model_evaluation}</span>
                     </div>
                     <div>
                       <span className="meta-lbl">{t("evaluation.native")}</span>
-                      <span className="status-no">{activeResult.native_host_qualification}</span>
+                      <span className={statusClass(activeResult.native_host_qualification)}>{activeResult.native_host_qualification}</span>
                     </div>
                     <div>
                       <span className="meta-lbl">{t("evaluation.review")}</span>
-                      <span className="status-no">{activeResult.independent_review}</span>
+                      <span className={statusClass(activeResult.independent_review)}>{activeResult.independent_review}</span>
                     </div>
                     <div>
                       <span className="meta-lbl">{t("evaluation.acceptance")}</span>
-                      <span className="status-no">{activeResult.release_acceptance}</span>
+                      <span className={statusClass(activeResult.release_acceptance)}>{activeResult.release_acceptance}</span>
                     </div>
                   </div>
 
                   <div className="eval-output-pane">
-                    <div className="pane-title">{t("evaluation.output")}</div>
-                    {activeResult.output ? (
-                      <pre className="output-raw">{activeResult.output}</pre>
-                    ) : (
-                      <div className="empty-sub">{t("evaluation.noOutput")}</div>
-                    )}
+                    <details open>
+                      <summary>{t("evaluation.output")}</summary>
+                      {activeResult.output ? (
+                        <pre className="output-raw">{activeResult.output}</pre>
+                      ) : (
+                        <div className="empty-sub">{t("evaluation.noOutput")}</div>
+                      )}
+                    </details>
                   </div>
                 </div>
               ) : (
@@ -294,15 +299,15 @@ export default function EvaluationView() {
       {activeSubTab === "aapes" && (
         <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "16px" }}>
           {/* Left Column: Assessment Controls */}
-          <div style={{ background: "rgba(15, 23, 42, 0.6)", padding: "16px", borderRadius: "8px", border: "1px solid #334155" }}>
+          <div style={{ background: "var(--surface)", padding: "16px", borderRadius: "8px", border: "1px solid var(--border)" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
-              <div style={{ fontWeight: "bold", fontSize: "15px", color: "#f8fafc" }}>{t("aapes.assessTab")}</div>
+              <div style={{ fontWeight: "bold", fontSize: "15px", color: "var(--text)" }}>{t("aapes.assessTab")}</div>
               <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <span style={{ fontSize: "12px", color: "#94a3b8" }}>{t("aapes.riskLevel")}</span>
+                <span style={{ fontSize: "12px", color: "var(--muted)" }}>{t("aapes.riskLevel")}</span>
                 <select
                   value={riskLevel}
                   onChange={(e) => setRiskLevel(e.target.value)}
-                  style={{ background: "#0f172a", color: "#38bdf8", border: "1px solid #38bdf8", padding: "4px 8px", borderRadius: "4px", fontSize: "13px", fontWeight: "bold" }}
+                  style={{ background: "var(--surface-sunken)", color: "var(--accent)", border: "1px solid var(--accent)", padding: "4px 8px", borderRadius: "4px", fontSize: "13px", fontWeight: "bold" }}
                 >
                   <option value="R0">R0: Advisory (75%)</option>
                   <option value="R1">R1: Read-Only (80%)</option>
@@ -313,10 +318,10 @@ export default function EvaluationView() {
             </div>
 
             {/* Domains Maturity Table */}
-            <div style={{ maxHeight: "380px", overflowY: "auto", border: "1px solid #1e293b", borderRadius: "6px", marginBottom: "16px" }}>
+            <div style={{ maxHeight: "380px", overflowY: "auto", border: "1px solid var(--surface-2)", borderRadius: "6px", marginBottom: "16px" }}>
               <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "12px", textAlign: "left" }}>
                 <thead>
-                  <tr style={{ background: "#1e293b", color: "#94a3b8" }}>
+                  <tr style={{ background: "var(--surface-2)", color: "var(--muted)" }}>
                     <th style={{ padding: "8px" }}>Domain</th>
                     <th style={{ padding: "8px" }}>Weight</th>
                     <th style={{ padding: "8px" }}>Base Priority</th>
@@ -328,19 +333,19 @@ export default function EvaluationView() {
                     const current = domainMaturity[dom.id]?.maturity ?? 3;
                     const isP0 = dom.priority_base === "P0" || ((riskLevel === "R2" || riskLevel === "R3") && (dom.id === "D08" || dom.id === "D11"));
                     return (
-                      <tr key={dom.id} style={{ borderBottom: "1px solid #1e293b" }}>
-                        <td style={{ padding: "8px", color: "#f8fafc" }}>
-                          <span style={{ color: "#38bdf8", fontWeight: "bold" }}>{dom.id}</span>: {dom.name}
+                      <tr key={dom.id} style={{ borderBottom: "1px solid var(--surface-2)" }}>
+                        <td style={{ padding: "8px", color: "var(--text)" }}>
+                          <span style={{ color: "var(--accent)", fontWeight: "bold" }}>{dom.id}</span>: {dom.name}
                         </td>
-                        <td style={{ padding: "8px", color: "#94a3b8" }}>{dom.importance_weight_percent}%</td>
+                        <td style={{ padding: "8px", color: "var(--muted)" }}>{dom.importance_weight_percent}%</td>
                         <td style={{ padding: "8px" }}>
                           <span style={{
                             padding: "2px 6px",
                             borderRadius: "4px",
                             fontSize: "10px",
                             fontWeight: "bold",
-                            background: isP0 ? "rgba(239, 68, 68, 0.2)" : "rgba(59, 130, 246, 0.2)",
-                            color: isP0 ? "#f87171" : "#60a5fa"
+                            background: isP0 ? "var(--danger-soft)" : "var(--info-soft)",
+                            color: isP0 ? "var(--danger)" : "var(--accent)"
                           }}>
                             {isP0 ? "P0 (Hard Gate)" : "P1"}
                           </span>
@@ -349,7 +354,7 @@ export default function EvaluationView() {
                           <select
                             value={current}
                             onChange={(e) => updateDomainMaturity(dom.id, e.target.value)}
-                            style={{ background: "#0f172a", color: "#f8fafc", border: "1px solid #334155", padding: "2px 6px", borderRadius: "4px", fontSize: "11px" }}
+                            style={{ background: "var(--surface-sunken)", color: "var(--text)", border: "1px solid var(--border)", padding: "2px 6px", borderRadius: "4px", fontSize: "11px" }}
                           >
                             <option value="0">0: Absent</option>
                             <option value="1">1: Documented</option>
@@ -390,29 +395,29 @@ export default function EvaluationView() {
           {/* Right Column: Assessment Outputs */}
           <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
             {assessmentResult && (
-              <div style={{ background: "rgba(15, 23, 42, 0.8)", border: "1px solid #334155", borderRadius: "8px", padding: "16px" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px", borderBottom: "1px solid #334155", paddingBottom: "10px" }}>
+              <div style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "8px", padding: "16px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px", borderBottom: "1px solid var(--border)", paddingBottom: "10px" }}>
                   <div>
-                    <div style={{ fontSize: "11px", color: "#94a3b8" }}>{t("aapes.diagScore")}</div>
-                    <div style={{ fontSize: "24px", fontWeight: "bold", color: assessmentResult.diagnostic_score >= assessmentResult.provisional_threshold ? "#34d399" : "#f87171" }}>
+                    <div style={{ fontSize: "11px", color: "var(--muted)" }}>{t("aapes.diagScore")}</div>
+                    <div style={{ fontSize: "24px", fontWeight: "bold", color: assessmentResult.diagnostic_score >= assessmentResult.provisional_threshold ? "var(--success)" : "var(--danger)" }}>
                       {assessmentResult.diagnostic_score}%
-                      <span style={{ fontSize: "12px", color: "#94a3b8", fontWeight: "normal", marginLeft: "6px" }}>
+                      <span style={{ fontSize: "12px", color: "var(--muted)", fontWeight: "normal", marginLeft: "6px" }}>
                         (Threshold: {assessmentResult.provisional_threshold}%)
                       </span>
                     </div>
                   </div>
 
                   <div style={{ textAlign: "right" }}>
-                    <div style={{ fontSize: "11px", color: "#94a3b8" }}>{t("aapes.hardGate")}</div>
+                    <div style={{ fontSize: "11px", color: "var(--muted)" }}>{t("aapes.hardGate")}</div>
                     <span style={{
                       padding: "6px 14px",
                       borderRadius: "6px",
                       fontSize: "13px",
                       fontWeight: "bold",
                       display: "inline-block",
-                      background: assessmentResult.qualification === "READY_FOR_AUTHORIZED_REVIEW" ? "rgba(16, 185, 129, 0.2)" : "rgba(239, 68, 68, 0.2)",
-                      color: assessmentResult.qualification === "READY_FOR_AUTHORIZED_REVIEW" ? "#34d399" : "#f87171",
-                      border: `1px solid ${assessmentResult.qualification === "READY_FOR_AUTHORIZED_REVIEW" ? "#10b981" : "#ef4444"}`
+                      background: assessmentResult.qualification === "READY_FOR_AUTHORIZED_REVIEW" ? "var(--success-soft)" : "var(--danger-soft)",
+                      color: assessmentResult.qualification === "READY_FOR_AUTHORIZED_REVIEW" ? "var(--success)" : "var(--danger)",
+                      border: `1px solid ${assessmentResult.qualification === "READY_FOR_AUTHORIZED_REVIEW" ? "var(--success)" : "var(--danger)"}`
                     }}>
                       {assessmentResult.qualification}
                     </span>
@@ -420,29 +425,29 @@ export default function EvaluationView() {
                 </div>
 
                 {/* Hard Invariant Banner */}
-                <div style={{ fontSize: "11px", color: "#cbd5e1", background: "rgba(56, 189, 248, 0.1)", border: "1px solid rgba(56, 189, 248, 0.2)", padding: "8px 10px", borderRadius: "4px", marginBottom: "12px" }}>
+                <div style={{ fontSize: "11px", color: "var(--text-secondary)", background: "var(--accent-soft)", border: "1px solid var(--accent-soft)", padding: "8px 10px", borderRadius: "4px", marginBottom: "12px" }}>
                   ℹ <strong>Invariant:</strong> A high diagnostic score cannot override or compensate for failed critical gates.
                 </div>
 
                 {/* Blockers Section */}
                 <div>
-                  <div style={{ fontSize: "13px", fontWeight: "bold", color: "#f8fafc", marginBottom: "6px" }}>
+                  <div style={{ fontSize: "13px", fontWeight: "bold", color: "var(--text)", marginBottom: "6px" }}>
                     {t("aapes.blockersList", { count: assessmentResult.blocker_count })}
                   </div>
                   {assessmentResult.blockers.length > 0 ? (
                     <div style={{ display: "flex", flexDirection: "column", gap: "4px", maxHeight: "180px", overflowY: "auto" }}>
                       {assessmentResult.blockers.map((b, idx) => (
-                        <div key={idx} style={{ background: "rgba(239, 68, 68, 0.15)", borderLeft: "3px solid #ef4444", padding: "6px 8px", borderRadius: "3px", fontSize: "11px", color: "#fca5a5" }}>
+                        <div key={idx} style={{ background: "var(--danger-soft)", borderLeft: "3px solid var(--danger)", padding: "6px 8px", borderRadius: "3px", fontSize: "11px", color: "#fca5a5" }}>
                           ✖ {b}
                         </div>
                       ))}
                     </div>
                   ) : (
-                    <div style={{ color: "#34d399", fontSize: "12px" }}>{t("aapes.noBlockers")}</div>
+                    <div style={{ color: "var(--success)", fontSize: "12px" }}>{t("aapes.noBlockers")}</div>
                   )}
                 </div>
 
-                <div style={{ marginTop: "12px", fontSize: "10px", color: "#94a3b8", fontStyle: "italic", borderTop: "1px solid #1e293b", paddingTop: "8px" }}>
+                <div style={{ marginTop: "12px", fontSize: "10px", color: "var(--muted)", fontStyle: "italic", borderTop: "1px solid var(--surface-2)", paddingTop: "8px" }}>
                   {assessmentResult.hard_limit}
                 </div>
               </div>
@@ -450,16 +455,16 @@ export default function EvaluationView() {
 
             {/* Synthetic Oracles Output */}
             {syntheticResult && (
-              <div style={{ background: "rgba(15, 23, 42, 0.8)", border: "1px solid #334155", borderRadius: "8px", padding: "16px" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px", borderBottom: "1px solid #334155", paddingBottom: "8px" }}>
-                  <div style={{ fontWeight: "bold", fontSize: "13px", color: "#38bdf8" }}>Deterministic Decision Oracles</div>
+              <div style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "8px", padding: "16px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px", borderBottom: "1px solid var(--border)", paddingBottom: "8px" }}>
+                  <div style={{ fontWeight: "bold", fontSize: "13px", color: "var(--accent)" }}>Deterministic Decision Oracles</div>
                   <span style={{
                     padding: "2px 8px",
                     borderRadius: "4px",
                     fontSize: "11px",
                     fontWeight: "bold",
-                    background: syntheticResult.synthetic_suite.overall_status === "PASS" ? "rgba(16, 185, 129, 0.2)" : "rgba(239, 68, 68, 0.2)",
-                    color: syntheticResult.synthetic_suite.overall_status === "PASS" ? "#34d399" : "#f87171"
+                    background: syntheticResult.synthetic_suite.overall_status === "PASS" ? "var(--success-soft)" : "var(--danger-soft)",
+                    color: syntheticResult.synthetic_suite.overall_status === "PASS" ? "var(--success)" : "var(--danger)"
                   }}>
                     {syntheticResult.synthetic_suite.overall_status} ({syntheticResult.synthetic_suite.passed_count}/{syntheticResult.synthetic_suite.total_cases})
                   </span>
@@ -467,9 +472,9 @@ export default function EvaluationView() {
 
                 <div style={{ display: "flex", flexDirection: "column", gap: "6px", marginBottom: "12px" }}>
                   {syntheticResult.synthetic_suite.cases.map((c) => (
-                    <div key={c.test_id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#0f172a", padding: "6px 8px", borderRadius: "4px", fontSize: "11px" }}>
-                      <span style={{ color: "#cbd5e1" }}>{c.test_id}: {c.name}</span>
-                      <span style={{ color: c.status === "PASS" ? "#34d399" : "#f87171", fontWeight: "bold" }}>
+                    <div key={c.test_id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "var(--surface-sunken)", padding: "6px 8px", borderRadius: "4px", fontSize: "11px" }}>
+                      <span style={{ color: "var(--text-secondary)" }}>{c.test_id}: {c.name}</span>
+                      <span style={{ color: c.status === "PASS" ? "var(--success)" : "var(--danger)", fontWeight: "bold" }}>
                         {c.actual} ({c.status})
                       </span>
                     </div>
@@ -477,14 +482,14 @@ export default function EvaluationView() {
                 </div>
 
                 {/* OPA Status */}
-                <div style={{ background: "#0f172a", padding: "8px", borderRadius: "4px", border: "1px solid #1e293b", fontSize: "11px" }}>
+                <div style={{ background: "var(--surface-sunken)", padding: "8px", borderRadius: "4px", border: "1px solid var(--surface-2)", fontSize: "11px" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "4px" }}>
-                    <span style={{ fontWeight: "bold", color: "#94a3b8" }}>OPA / Rego Status:</span>
-                    <span style={{ color: syntheticResult.opa_status.status === "PASS" ? "#34d399" : "#f59e0b", fontWeight: "bold" }}>
+                    <span style={{ fontWeight: "bold", color: "var(--muted)" }}>OPA / Rego Status:</span>
+                    <span style={{ color: syntheticResult.opa_status.status === "PASS" ? "var(--success)" : "var(--warning)", fontWeight: "bold" }}>
                       {syntheticResult.opa_status.status}
                     </span>
                   </div>
-                  <div style={{ color: "#64748b" }}>
+                  <div style={{ color: "var(--muted)" }}>
                     {syntheticResult.opa_status.reason || syntheticResult.opa_status.details || "OPA evaluated."}
                   </div>
                 </div>

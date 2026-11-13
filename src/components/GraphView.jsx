@@ -15,6 +15,7 @@ export default function GraphView({ files, analysis, selectedRel, onSelect, them
   const containerRef = useRef(null);
   const netRef = useRef(null);
   const [hidden, setHidden] = useState(new Set());
+  const [focus, setFocus] = useState(false);
 
   const dark = theme === "dark";
   const ink = dark ? "#d3dcef" : "#313c55";
@@ -31,8 +32,17 @@ export default function GraphView({ files, analysis, selectedRel, onSelect, them
 
   const graph = useMemo(() => {
     if (!analysis) return { nodes: [], edges: [] };
+    let allowed = null;
+    if (focus && selectedRel) {
+      allowed = new Set([selectedRel]);
+      for (const e of analysis.edges) {
+        if (e.from === selectedRel) allowed.add(e.to);
+        if (e.to === selectedRel) allowed.add(e.from);
+      }
+    }
     const nodes = files
       .filter((f) => !hidden.has(fileKind(f)))
+      .filter((f) => !allowed || allowed.has(f.rel))
       .map((f) => {
         const k = fileKind(f);
         return {
@@ -61,7 +71,7 @@ export default function GraphView({ files, analysis, selectedRel, onSelect, them
         smooth: { enabled: false },
       }));
     return { nodes, edges };
-  }, [files, analysis, hidden, theme, t]);
+  }, [files, analysis, hidden, theme, t, focus, selectedRel]);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -113,11 +123,25 @@ export default function GraphView({ files, analysis, selectedRel, onSelect, them
             </label>
           ))}
         </div>
+        <label className="graph-focus">
+          <input type="checkbox" checked={focus} disabled={!selectedRel} onChange={(e) => setFocus(e.target.checked)} />
+          {t("graph.focus")}
+        </label>
         <button className="btn" onClick={() => netRef.current?.fit({ animation: { duration: 400 } })}>
           {t("graph.fit")}
         </button>
       </div>
       <div className="graph-canvas" ref={containerRef} dir="ltr" />
+      {selectedRel && analysis && (
+        <div className="graph-selected">
+          <code dir="ltr">{selectedRel}</code>
+          {" · "}
+          {t("graph.selected", {
+            out: analysis.edges.filter((e) => e.from === selectedRel).length,
+            inc: analysis.edges.filter((e) => e.to === selectedRel).length,
+          })}
+        </div>
+      )}
       <div className="graph-hint">{analysis ? t("graph.hint", { edges: analysis.edges.length, files: files.length }) : ""}</div>
     </div>
   );
