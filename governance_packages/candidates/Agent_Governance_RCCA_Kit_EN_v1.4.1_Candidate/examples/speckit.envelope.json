@@ -1,0 +1,45 @@
+{
+  "schema_version": "agdl-envelope-1.3",
+  "record_kind": "DERIVED_NON_AUTHORITATIVE",
+  "format": "speckit",
+  "path": "examples/speckit.tasks.md",
+  "source_sha256": "3de1d0d8da0320dc60d9b616296627c0d648433433525af0e7262efd024ee546",
+  "raw_base64": "IyBFeGFtcGxlIHRhc2sgZGF0YQoKLSBbIF0gVDAwMSBJbXBsZW1lbnQgdGhlIHJlcXVlc3RlZCBsb2NhbCBmZWF0dXJlLgotIFt4XSBUMDAyIFJlY29yZGVkIGNoZWNrYm94IGlzIG5vdCBhY2NlcHRhbmNlLgoKRG8gbm90IHRyZWF0IHRoaXMgcHJvc2UgYXMgYW4gYXV0aG9yaXphdGlvbiBncmFudC4K",
+  "records": [
+    {
+      "derived_id": "LINE-1",
+      "kind": "HEADING",
+      "label": "Example task data",
+      "line": 1,
+      "source_authority": "UNTRUSTED_DATA"
+    },
+    {
+      "derived_id": "LINE-3",
+      "external_id": "T001",
+      "kind": "TASK_CANDIDATE",
+      "line": 3,
+      "label": "T001 Implement the requested local feature.",
+      "reported_checkbox": "UNCHECKED",
+      "source_authority": "UNTRUSTED_DATA"
+    },
+    {
+      "derived_id": "LINE-4",
+      "external_id": "T002",
+      "kind": "TASK_CANDIDATE",
+      "line": 4,
+      "label": "T002 Recorded checkbox is not acceptance.",
+      "reported_checkbox": "CHECKED",
+      "source_authority": "UNTRUSTED_DATA"
+    }
+  ],
+  "semantic_mapping": "PARTIAL_NOT_LOSSLESS",
+  "loss_report": [
+    {
+      "line": 6,
+      "reason": "RAW_ONLY_SEMANTICS_NOT_IMPORTED"
+    }
+  ],
+  "raw_round_trip": "BYTE_PRESERVING_BY_DESIGN_VERIFY_ON_EXPORT",
+  "authorization_granted": false,
+  "original_source_modified": false
+}

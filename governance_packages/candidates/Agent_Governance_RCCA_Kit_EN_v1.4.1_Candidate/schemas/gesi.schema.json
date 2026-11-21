@@ -1,0 +1,217 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agdl:gesi:1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_kind",
+    "task",
+    "candidates"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "agdl-gesi-1.0"
+    },
+    "record_kind": {
+      "type": "string",
+      "const": "DERIVED_NON_AUTHORITATIVE"
+    },
+    "task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "task_id",
+        "intent",
+        "technology",
+        "complexity",
+        "risk_tier",
+        "phase",
+        "host_id",
+        "required_capabilities",
+        "allowed_permissions",
+        "worktree_policy",
+        "allow_repeated_approvals",
+        "allow_evidence_reuse",
+        "active_project_decisions"
+      ],
+      "properties": {
+        "task_id": { "type": "string", "minLength": 1 },
+        "intent": { "type": "string", "minLength": 1 },
+        "technology": { "type": "string", "minLength": 1 },
+        "complexity": {
+          "type": "string",
+          "enum": ["TRIVIAL", "LOW", "MEDIUM", "HIGH"]
+        },
+        "risk_tier": {
+          "type": "string",
+          "enum": ["R0", "R1", "R2", "R3"]
+        },
+        "phase": { "type": "string", "minLength": 1 },
+        "host_id": { "type": "string", "minLength": 1 },
+        "required_capabilities": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 0
+        },
+        "allowed_permissions": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 0
+        },
+        "worktree_policy": {
+          "type": "string",
+          "enum": ["SINGLE_WORKTREE", "ISOLATED_ALLOWED"]
+        },
+        "allow_repeated_approvals": { "type": "boolean" },
+        "allow_evidence_reuse": { "type": "boolean" },
+        "active_project_decisions": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 0
+        }
+      }
+    },
+    "candidates": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "origin",
+          "artifact_kind",
+          "state",
+          "capabilities",
+          "supported_hosts",
+          "required_permissions",
+          "pinned_revision",
+          "observed_revision",
+          "upstream_permission_or_behavior_drift",
+          "missing_references",
+          "auto_hooks",
+          "unreviewed_install_scripts",
+          "requires_unauthorized_git_or_deploy",
+          "requires_repeated_approvals",
+          "enforces_mandatory_worktree",
+          "forbids_evidence_reuse_or_forces_full_rerun",
+          "unapproved_network_or_data_egress",
+          "unbounded_subagent_writers",
+          "conflicting_project_decisions",
+          "adaptable_with_constraints",
+          "proposed_constraints",
+          "pilot_status",
+          "adoption_authorized",
+          "evidence_refs"
+        ],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "name": { "type": "string", "minLength": 1 },
+          "origin": {
+            "type": "string",
+            "enum": [
+              "NATIVE_SYSTEM",
+              "USER",
+              "PROJECT",
+              "PLUGIN",
+              "PACKAGE_REFERENCE",
+              "EXTERNAL_CATALOG"
+            ]
+          },
+          "artifact_kind": {
+            "type": "string",
+            "enum": [
+              "STANDALONE_SKILL",
+              "WORKFLOW_FRAMEWORK",
+              "HOOK_OR_PLUGIN_BUNDLE"
+            ]
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "DISCOVERED",
+              "INSTALLED",
+              "ENABLED",
+              "LOADED",
+              "USED",
+              "VERIFIED",
+              "UNKNOWN",
+              "NOT_OBSERVABLE"
+            ]
+          },
+          "session_visibility": {
+            "type": "string",
+            "enum": [
+              "ANNOUNCED",
+              "UNANNOUNCED",
+              "UNKNOWN",
+              "NOT_OBSERVABLE"
+            ]
+          },
+          "discovery_root": { "type": "string", "minLength": 1 },
+          "separable_adaptable_slice": { "type": "boolean" },
+          "capabilities": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "minItems": 1
+          },
+          "supported_hosts": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "minItems": 1
+          },
+          "required_permissions": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "minItems": 0
+          },
+          "pinned_revision": { "type": "string" },
+          "observed_revision": { "type": "string" },
+          "upstream_permission_or_behavior_drift": { "type": "boolean" },
+          "missing_references": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "minItems": 0
+          },
+          "auto_hooks": { "type": "boolean" },
+          "unreviewed_install_scripts": { "type": "boolean" },
+          "requires_unauthorized_git_or_deploy": { "type": "boolean" },
+          "requires_repeated_approvals": { "type": "boolean" },
+          "enforces_mandatory_worktree": { "type": "boolean" },
+          "forbids_evidence_reuse_or_forces_full_rerun": { "type": "boolean" },
+          "unapproved_network_or_data_egress": { "type": "boolean" },
+          "unbounded_subagent_writers": { "type": "boolean" },
+          "conflicting_project_decisions": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "minItems": 0
+          },
+          "adaptable_with_constraints": { "type": "boolean" },
+          "proposed_constraints": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "minItems": 0
+          },
+          "pilot_status": {
+            "type": "string",
+            "enum": [
+              "NOT_REQUIRED",
+              "NOT_RUN",
+              "PASSED_MEANINGFUL_VALUE",
+              "FAILED_NO_MEANINGFUL_VALUE"
+            ]
+          },
+          "adoption_authorized": { "type": "boolean" },
+          "evidence_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "minItems": 0
+          }
+        }
+      }
+    }
+  }
+}

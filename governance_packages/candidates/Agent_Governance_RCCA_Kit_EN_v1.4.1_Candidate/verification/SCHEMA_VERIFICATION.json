@@ -1,0 +1,42 @@
+{
+  "scope": "Independent-library schema syntax and four sample-instance checks, not independent human review",
+  "dependency": "Preinstalled jsonschema used for build verification only; not required by delivered CLI",
+  "results": [
+    {
+      "schema": "schemas/action.schema.json",
+      "metaschema": "PASSED"
+    },
+    {
+      "schema": "schemas/delegation.schema.json",
+      "metaschema": "PASSED"
+    },
+    {
+      "schema": "schemas/rules.schema.json",
+      "metaschema": "PASSED"
+    },
+    {
+      "schema": "schemas/trace.schema.json",
+      "metaschema": "PASSED"
+    },
+    {
+      "instance": "examples/fixture/trace.json",
+      "schema": "trace",
+      "validation": "PASSED"
+    },
+    {
+      "instance": "policies/RULES.json",
+      "schema": "rules",
+      "validation": "PASSED"
+    },
+    {
+      "instance": "templates/DELEGATION.json",
+      "schema": "delegation",
+      "validation": "PASSED"
+    },
+    {
+      "instance": "templates/ACTION.json",
+      "schema": "action",
+      "validation": "PASSED"
+    }
+  ]
+}

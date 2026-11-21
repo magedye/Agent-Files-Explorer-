@@ -1,0 +1,52 @@
+{
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "operation": {
+      "type": "string",
+      "enum": [
+        "read",
+        "edit",
+        "test",
+        "build",
+        "dependency_update",
+        "local_commit",
+        "delete_agent_created",
+        "push",
+        "merge",
+        "deploy",
+        "production_migration",
+        "permissions_change",
+        "secret_access",
+        "external_publish",
+        "install_global",
+        "execute_imported"
+      ]
+    },
+    "paths": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "project_id",
+    "operation",
+    "paths",
+    "reason"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agdl:action:1.3"
+}
