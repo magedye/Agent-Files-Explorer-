@@ -1,0 +1,33 @@
+{
+  "schema_version": "adeq-metrics-1",
+  "record_kind": "DERIVED_NON_AUTHORITATIVE",
+  "run_id": "synthetic-before",
+  "arm": "BEFORE",
+  "evidence_class": "SYNTHETIC",
+  "definition_id": "ADEQ-METRICS-1",
+  "sample_size": 6,
+  "conditions": {
+    "model": "fixture-not-an-llm",
+    "host_version": "fixture-1",
+    "task_set_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "oracle_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "environment_id": "isolated-fixture",
+    "governance_version": "1.3.1"
+  },
+  "measurements": [
+    {
+      "id": "omission_rate",
+      "numerator": 2,
+      "denominator": 10,
+      "value": null,
+      "evidence_ref": "SYNTHETIC-COUNTS-NOT-OBSERVED"
+    },
+    {
+      "id": "critical_violations",
+      "numerator": null,
+      "denominator": null,
+      "value": 0,
+      "evidence_ref": "SYNTHETIC-COUNTS-NOT-OBSERVED"
+    }
+  ]
+}

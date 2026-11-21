@@ -1,0 +1,999 @@
+--- v1.3.0/CHANGELOG.md
++++ v1.3.1/CHANGELOG.md
+@@ -1,3 +1,15 @@
++# v1.3.1 corrective release — 2026-11-06
++
++- Fixed F-01: G5 now validates mandatory task transitive dependency closure and detects missing or cyclic edges.
++- Fixed F-02: optional completion-scope classification; unbound unfinished unclassified tasks are `INCONCLUSIVE`, explicitly required unfinished tasks are gaps, and out-of-scope/deferred tasks need a decision reference.
++- Fixed F-03: gate-specific structural checks; G1 no longer requires later-stage bindings, G2 no longer requires G5 artifacts.
++- Added F-04 diagnostic declared-source instruction inventory (`instruction-audit`) with deliberately unverified native loading/authority.
++- Added synthetic negative tests and retained legacy v1.2 scripts/tests unchanged.
++- Kept the preexisting contract `agdl-1.3` and historic 1.3.0 verification evidence; regenerated package checksums and patch verification.
++- No production enforcement, owner authentication, live Codex/Windows qualification, or target-project activation is claimed.
++
++---
++
+ # Changelog
+ 
+ ## 1.3.0 — 2026-11-06 — implemented candidate
+--- v1.3.0/LIMITATIONS.md
++++ v1.3.1/LIMITATIONS.md
+@@ -17,3 +17,9 @@
+ One developer can own, maintain and accept work, but calling those functions three different roles does not create
+ three independent people. Self-review can support routine local work; higher-risk decisions still require the
+ actual project's proportionate evidence and technical boundaries. No real project must adopt every shipped file.
++
++## Corrective-release limitations
++
++The task graph, `completion_scope`, and decision references are user-supplied metadata. The checker cannot detect a deliberately omitted task, confirm an owner-approved exclusion, attest to task history, or authenticate logs. The instruction audit cannot inspect hidden effective prompts or prove a particular rule was loaded during any session. G1/G2/G5 checks are complementary diagnostic stages, not a runtime PEP/PDP, independent review or authorization.
++
++No Windows filesystem/ACL qualification, Codex live session verification, independent holdout, actual project PRE/POST efficacy measurement, or model-host compatibility certification was performed for v1.3.1.
+--- v1.3.0/PACKAGE_STATUS.json
++++ v1.3.1/PACKAGE_STATUS.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "Agent Governance & RCCA Kit",
+-  "version": "1.3.0",
++  "version": "1.3.1",
+   "profile": "SOLO_DEVELOPER_ONE_PRIMARY_AGENT",
+   "language": "English",
+   "primary_host": "Codex",
+@@ -9,11 +9,13 @@
+     "OpenCode"
+   ],
+   "engineering_status": "IMPLEMENTED_CANDIDATE",
+-  "independent_review": "NOT_PERFORMED",
++  "independent_review": "EXTERNAL_REVIEW_REPORT_RECEIVED_BUT_NOT_RELEASE_ACCEPTANCE",
+   "owner_acceptance": "NOT_GRANTED",
+   "project_activation": "NOT_ACTIVE",
+   "runtime_enforcement": "NOT_IMPLEMENTED",
+   "live_qualification": "NOT_RUN",
+   "provider_alignment": "SCOPED_DOCUMENT_REVIEW_NOT_CERTIFICATION",
+-  "distinct_tests_passed": 160
++  "distinct_tests_passed": 185,
++  "corrective_scope": "F01_F02_F03_FIXED_F04_DIAGNOSTIC_ONLY",
++  "release_qualification": "OFFLINE_SYNTHETIC_AND_LEGACY_ONLY"
+ }
+--- v1.3.0/README.md
++++ v1.3.1/README.md
+@@ -1,4 +1,4 @@
+-# Agent Governance & RCCA Kit — English v1.3.0
++# Agent Governance & RCCA Kit — English v1.3.1
+ ## AG-DLF: a lightweight Governed Development Assurance Layer
+ 
+ **Status:** `IMPLEMENTED_CANDIDATE / NOT_OWNER_ACCEPTED / NOT_ACTIVE`
+@@ -6,10 +6,20 @@
+ For **one developer-owner + one primary Codex agent** working on **small or medium projects**.
+ Antigravity and OpenCode are optional, version-qualified secondary hosts; they are not required services.
+ 
+-This is a complete, standalone English candidate kit: operating instructions, a bounded-autonomy
++This is a complete, standalone English corrective-release candidate kit: operating instructions, a bounded-autonomy
+ contract, an executable read-only diagnostic CLI, source/requirement/evidence contracts, limited
+ Markdown bridges, synthetic tests, a migration map, and a verification ledger. It is not a new IDE,
+ a multi-agent orchestrator, a replacement for Spec Kit/OpenSpec, or a production PEP/PDP.
++
++## v1.3.1 corrective changes (not live qualification)
++
++- G5 checks the required task set **and all transitive dependencies**, detecting incomplete, missing and cyclic dependencies. A separate `continuity` run is no longer needed to detect required-task dependency gaps at G5.
++- Explicit `completion_scope` (`REQUIRED`, `OPTIONAL`, `DEFERRED`, `OUT_OF_SCOPE`, `UNKNOWN`) is optional for legacy records. An unbound unfinished task without a scope classification returns **INCONCLUSIVE**, not a false readiness result. Explicit exclusions require a checked DECISION reference, which still does not authenticate the owner.
++- G1 validates request extraction without demanding future task/evidence bindings. G2 checks authorization metadata and its declared delegation artifact; G5 checks implementation links, evidence and reviews.
++- New read-only `instruction-audit` reports **explicitly declared** instruction-source presence/hashes. It cannot prove what an agent session loaded, determine semantic instruction conflicts, reveal hidden messages or grant native instruction authority.
++- Original v1.2 compatibility scripts and tests are preserved unmodified. Historical v1.3.0 verification artifacts are retained; current patch evidence is in `verification/V131_PATCH_VERIFICATION.md`.
++
++This release remains a candidate. Do not make it an active default in a real project until scoped qualification and owner adoption.
+ 
+ ## Start without importing the entire kit into a project
+ 
+@@ -26,6 +36,7 @@
+ ```powershell
+ python -B -m agdl doctor
+ python -B -m agdl rules-lint
++python -B -m agdl instruction-audit --root . --catalog templates/INSTRUCTION_SOURCES.json
+ python -B -m unittest discover -s tests -v
+ python -B -m unittest discover -s compatibility/v1_2/tests -v
+ python -B -m agdl validate --root examples/fixture --request request.txt --record examples/fixture/trace.json --stage G5 --revision fixture-revision-1
+@@ -51,6 +62,10 @@
+ | Real-project evaluation still to perform | [docs/09_EVALUATION_AND_MAINTENANCE.md](docs/09_EVALUATION_AND_MAINTENANCE.md) |
+ | Prior-plan reconciliation | [docs/10_SOURCE_RECONCILIATION.md](docs/10_SOURCE_RECONCILIATION.md) |
+ 
++## Corrective-release documents
++
++See `docs/11_V131_CORRECTIVE_SCOPE.md`, `verification/V131_PATCH_VERIFICATION.md`, and `verification/V131_CHANGE_INVENTORY.json`. The CLI contract identifier remains `agdl-1.3` for backward compatibility; this is a patch release, not a schema-break migration.
++
+ ## What is deliberately not claimed
+ 
+ No measured reduction of most developer mistakes; no statistical superiority over existing tools;
+--- v1.3.0/START_HERE.md
++++ v1.3.1/START_HERE.md
+@@ -41,3 +41,7 @@
+ 
+ No automated installer or live enforcement service is included. See `adapters/CODEX.md` before any
+ explicitly authorized host configuration change.
++
++## 5. Apply the v1.3.1 correction without importing a new hierarchy
++
++Use this kit as a separate reference until project adoption is authorized. For a trace created under 1.3.0, optionally add `completion_scope` to unfinished unbound tasks; otherwise G5 reports them `INCONCLUSIVE`. Re-run G1, G2, G5 against appropriate source and revision rather than assuming an old `METADATA_READY_FOR_REVIEW` remains valid. For instruction-source inventory, provide an explicit file list; discovered does not mean loaded. Read `docs/11_V131_CORRECTIVE_SCOPE.md` before any integration.
+--- v1.3.0/agdl/__init__.py
++++ v1.3.1/agdl/__init__.py
+@@ -1,2 +1,2 @@
+-"""AG-DLF: offline, read-only assurance diagnostics; never an authorization service."""
+-__version__ = "1.3.0"
++"""AG-DLF: offline read-only assurance diagnostics; not an authorization service."""
++__version__ = "1.3.1"
+--- v1.3.0/agdl/__main__.py
++++ v1.3.1/agdl/__main__.py
+@@ -12,6 +12,7 @@
+ from .bridge import import_document, export_raw
+ from .delegation import assess
+ from .rules import lint
++from .instruction_audit import audit_instructions
+ 
+ def emit(value):
+     print(json.dumps(value, indent=2, ensure_ascii=True, allow_nan=False))
+@@ -27,6 +28,7 @@
+     e = s.add_parser('bridge-export'); e.add_argument('--envelope', required=True, type=Path)
+     c = s.add_parser('continuity'); c.add_argument('--record', required=True, type=Path); c.add_argument('--revision', required=True)
+     d = s.add_parser('scope-check'); d.add_argument('--grant', required=True, type=Path); d.add_argument('--action', required=True, type=Path); d.add_argument('--request-sha256', required=True)
++    ia = s.add_parser('instruction-audit'); ia.add_argument('--root', required=True, type=Path); ia.add_argument('--catalog', required=True, type=Path)
+     r = s.add_parser('rules-lint'); r.add_argument('--catalog', type=Path, default=Path(__file__).resolve().parents[1]/'policies/RULES.json')
+     return p
+ 
+@@ -59,6 +61,9 @@
+             result = assess(loads(read_explicit(args.grant)), loads(read_explicit(args.action)), args.request_sha256)
+             emit(result)
+             return 0 if result['verdict'].startswith('ELIGIBLE_ONLY') else 2 if result['verdict'] == 'NOT_ELIGIBLE' else 3
++        elif args.command == 'instruction-audit':
++            result = audit_instructions(args.root, loads(read_explicit(args.catalog)))
++            emit(result); return result['exit_code']
+         elif args.command == 'rules-lint':
+             issues = lint(loads(read_explicit(args.catalog)))
+             emit({'verdict':'METADATA_VALID' if not issues else 'INVALID_METADATA','issues':issues,'runtime_enforcement_verified':False})
+--- v1.3.0/agdl/assurance.py
++++ v1.3.1/agdl/assurance.py
+@@ -1,6 +1,7 @@
+ """Source, reference and evidence diagnostics. Never grants runtime authority."""
+ from __future__ import annotations
+ from pathlib import Path
++from copy import deepcopy
+ from typing import Any
+ from . import legacy
+ from .io import InputError, digest, loads, read_under, read_explicit
+@@ -38,7 +39,21 @@
+         report['issues'].append('unknown_gate')
+         return _finish(report)
+     schema = loads(read_explicit(ROOT / 'schemas/trace.schema.json'))
+-    errors = check(record, schema)
++    # Earlier gates validate only their own input contract. Optional G5 fields
++    # cannot block extraction (G1) or authorization planning (G2).
++    stage_keys = {
++        'G1': ('schema_version', 'record_kind', 'rcca'),
++        'G2': ('schema_version', 'record_kind', 'rcca', 'risk_tier', 'references'),
++    }
++    if stage in stage_keys and isinstance(record, dict):
++        keys = stage_keys[stage]
++        scoped_schema = deepcopy(schema)
++        scoped_schema['properties'] = {key: schema['properties'][key] for key in keys}
++        scoped_schema['required'] = list(keys)
++        scoped_record = {key: value for key, value in record.items() if key in keys}
++    else:
++        scoped_schema, scoped_record = schema, record
++    errors = check(scoped_record, scoped_schema)
+     if errors:
+         report['issues'].extend('schema:' + error for error in errors)
+         return _finish(report)
+@@ -59,7 +74,27 @@
+         return _finish(report)
+     report['issues'].extend(old_issues)
+     report['warnings'].extend(old_warnings)
++    report['source_sha256'] = request_hash
++    report['requirements_count'] = len(trace['requirements'])
++    if stage == 'G1':
++        report['warnings'].append('G1_validates_source_extraction_not_implementation_links')
++        return _finish(report)
+     refs = index(record['references'], 'reference', report['issues'])
++    if stage == 'G2':
++        auth_id = trace['authorization'].get('source_ref')
++        if auth_id not in refs or refs[auth_id]['kind'] != 'DELEGATION':
++            report['issues'].append('delegation_reference_invalid')
++        else:
++            try:
++                grant = read_under(root, refs[auth_id]['path'])
++                if digest(grant) != refs[auth_id]['sha256']:
++                    report['issues'].append('delegation_reference_hash_mismatch')
++            except (InputError, OSError) as exc:
++                report['unknowns'].append('delegation_reference_unreadable:' + str(exc))
++        if record['risk_tier'] != trace['risk_tier']:
++            report['issues'].append('risk_tier_mismatch')
++        report['warnings'].append('G2_metadata_does_not_authenticate_owner_or_enforce_host_permissions')
++        return _finish(report)
+     evidence = index(record['evidence'], 'evidence', report['issues'])
+     tasks = index(record['tasks'], 'task', report['issues'])
+     requirements = {r['id']: r for r in trace['requirements']}
+@@ -130,6 +165,7 @@
+         if record['risk_tier'] != trace['risk_tier']:
+             report['issues'].append('risk_tier_mismatch')
+     if stage == 'G5':
++        _check_task_completion(tasks, requirements, bindings, refs, checked, report)
+         if current_revision is None or not current_revision.strip() or current_revision.upper() in ('UNKNOWN', 'UNSPECIFIED'):
+             report['unknowns'].append('current_revision_not_supplied')
+         if record['risk_tier'] == 'UNKNOWN':
+@@ -206,6 +242,76 @@
+     report['checked_references_count'] = len(checked)
+     return _finish(report)
+ 
++
++def _check_task_completion(tasks: dict[str, dict], requirements: dict[str, dict],
++                           bindings: dict[str, dict], refs: dict[str, dict],
++                           checked: set[str], report: dict) -> None:
++    """G5 checks mandatory in-scope task closure; other tasks cannot veto a scoped claim.
++
++    Graph and exclusions are diagnostic metadata supplied by the operator. A checked
++    decision-file hash is NOT proof of owner identity or a valid exception.
++    """
++    required: set[str] = set()
++    mandatory_links: set[str] = set()
++    all_linked: set[str] = set()
++    for rid, binding in bindings.items():
++        links = binding.get('task_refs', [])
++        all_linked.update(links)
++        req = requirements.get(rid)
++        if (req and req['normative'] in ('MUST', 'MUST_NOT')
++                and req['applicability'] == 'APPLICABLE'):
++            mandatory_links.update(links)
++            required.update(links)
++    for tid, task in tasks.items():
++        scope = task.get('completion_scope', 'UNKNOWN')
++        if scope == 'REQUIRED':
++            required.add(tid)
++        if tid in mandatory_links and scope in ('OPTIONAL', 'DEFERRED', 'OUT_OF_SCOPE'):
++            report['issues'].append(f'mandatory_task_scope_conflict:{tid}:{scope}')
++        if scope in ('DEFERRED', 'OUT_OF_SCOPE'):
++            ref = task.get('scope_decision_ref', '')
++            if ref not in refs or refs[ref]['kind'] != 'DECISION':
++                report['issues'].append(f'task_exclusion_decision_missing:{tid}')
++            elif ref not in checked:
++                report['unknowns'].append(f'task_exclusion_decision_unverified:{tid}')
++            else:
++                report['warnings'].append(f'task_exclusion_owner_authority_not_authenticated:{tid}')
++        if tid not in all_linked and scope == 'UNKNOWN' and task['status'] != 'DONE':
++            report['unknowns'].append(f'unclassified_unbound_task:{tid}')
++        if tid not in all_linked and scope == 'REQUIRED':
++            report['warnings'].append(f'required_task_without_requirement_link:{tid}')
++
++    visited: set[str] = set()
++    active: set[str] = set()
++    def walk(tid: str) -> None:
++        if tid not in tasks:
++            # Parent-specific missing edges are reported below.
++            return
++        if tid in active:
++            report['issues'].append(f'dependency_cycle:{tid}')
++            return
++        if tid in visited:
++            return
++        active.add(tid)
++        task = tasks[tid]
++        if task['status'] != 'DONE':
++            report['issues'].append(f'required_task_not_complete:{tid}')
++        for dep in task['depends_on']:
++            if dep not in tasks:
++                report['issues'].append(f'unknown_dependency:{tid}:{dep}')
++            else:
++                if tasks[dep]['status'] != 'DONE':
++                    report['issues'].append(f'unsatisfied_dependency:{tid}:{dep}')
++                walk(dep)
++        active.remove(tid)
++        visited.add(tid)
++    for tid in sorted(required):
++        walk(tid)
++    report['required_task_count'] = len(visited)
++    report['task_scope_unclassified_count'] = sum(
++        t.get('completion_scope', 'UNKNOWN') == 'UNKNOWN'
++        for tid, t in tasks.items() if tid not in all_linked and t['status'] != 'DONE')
++
+ def continuity(record: dict, current_revision: str) -> dict:
+     """Optional verification of supplied task references; not a task scheduler."""
+     report = _report('CONTINUITY')
+@@ -241,6 +347,6 @@
+     report['candidate_ready_task_refs'] = []
+     if not report['issues'] and not report['unknowns']:
+         report['candidate_ready_task_refs'] = [tid for tid, task in tasks.items()
+-            if task['status'] == 'TODO' and all(tasks[d]['status'] == 'DONE' for d in task['depends_on'])]
++            if task['status'] == 'TODO' and task.get('completion_scope') not in ('DEFERRED', 'OUT_OF_SCOPE') and all(tasks[d]['status'] == 'DONE' for d in task['depends_on'])]
+     report['warnings'].append('run_G2_and_reconcile_files_grant_and_request_before_resuming')
+     return _finish(report)
+--- v1.3.0/agdl/instruction_audit.py
++++ v1.3.1/agdl/instruction_audit.py
+@@ -0,0 +1,78 @@
++"""Explicit-source instruction inventory; not a runtime effective-instruction oracle.
++
++Only caller-listed local paths are inspected. No scans for hidden host prompts or
++model-internal state, no instruction interpretation, no policy enforcement.
++"""
++from __future__ import annotations
++from pathlib import Path
++from .io import InputError, digest, read_under
++
++ALLOWED_TYPES = {'PROJECT_FILE', 'AGENT_FILE', 'SKILL', 'WORKFLOW', 'POLICY', 'OTHER'}
++
++def audit_instructions(root: Path, catalog: dict) -> dict:
++    report = {
++        'schema_version': 'agdl-instruction-audit-1.3.1',
++        'record_kind': 'DERIVED_NON_AUTHORITATIVE',
++        'verdict': 'INCONCLUSIVE', 'sources': [], 'issues': [], 'unknowns': [],
++        'possible_exact_duplicates': [],
++        'runtime_instruction_loading_verified': False,
++        'semantic_conflicts_resolved': False,
++        'host_authority_authenticated': False,
++        'execution_performed': False,
++        'notes': [
++            'Only caller-listed explicit files were inspected; omitted sources may exist.',
++            'File discovery is not proof of automatic instruction loading.',
++            'Recorded loading claims are never promoted into trusted runtime attestation.',
++            'Source type or declared priority cannot assign a model/host instruction role.',
++        ],
++    }
++    if not isinstance(catalog, dict) or catalog.get('schema_version') != 'agdl-instruction-sources-1':
++        report['issues'].append('invalid_catalog_version')
++        return _finish(report)
++    rows = catalog.get('sources')
++    if not isinstance(rows, list) or len(rows) > 100:
++        report['issues'].append('sources_must_be_a_bounded_list')
++        return _finish(report)
++    seen_ids = set()
++    by_hash = {}
++    for i, row in enumerate(rows):
++        if not isinstance(row, dict):
++            report['issues'].append(f'invalid_source_record:{i}')
++            continue
++        ident, filename = row.get('id'), row.get('path')
++        if not isinstance(ident, str) or not ident.strip() or ident in seen_ids:
++            report['issues'].append(f'invalid_or_duplicate_source_id:{i}')
++            continue
++        seen_ids.add(ident)
++        if row.get('source_type') not in ALLOWED_TYPES:
++            report['issues'].append(f'unknown_source_type:{ident}')
++            continue
++        if not isinstance(filename, str):
++            report['issues'].append(f'path_not_string:{ident}')
++            continue
++        result = {'id': ident, 'path': filename, 'source_type': row['source_type'],
++                  'discovered': False, 'loaded': 'NOT_VERIFIED',
++                  'enforced': 'NOT_VERIFIED', 'authority': 'NOT_DETERMINED',
++                  'scope': row.get('scope', 'UNKNOWN') if isinstance(row.get('scope', 'UNKNOWN'), str) else 'UNKNOWN'}
++        try:
++            raw = read_under(root, filename)
++            result['discovered'] = True
++            result['sha256'] = digest(raw)
++            result['size_bytes'] = len(raw)
++            by_hash.setdefault(result['sha256'], []).append(ident)
++        except (InputError, OSError) as exc:
++            report['unknowns'].append(f'instruction_source_unreadable:{ident}:{exc}')
++        if row.get('loading_claim'):
++            report['notes'].append(f'loading_claim_unverified:{ident}')
++        report['sources'].append(result)
++    report['possible_exact_duplicates'] = [sorted(ids) for ids in by_hash.values() if len(ids) > 1]
++    return _finish(report)
++
++
++def _finish(report: dict) -> dict:
++    report['issues'] = sorted(set(report['issues']))
++    report['unknowns'] = sorted(set(report['unknowns']))
++    report['notes'] = sorted(set(report['notes']))
++    report['verdict'] = 'INVALID_INPUT' if report['issues'] else 'INCONCLUSIVE'
++    report['exit_code'] = 2 if report['issues'] else 3
++    return report
+--- v1.3.0/docs/03_WORKFLOW_AND_ACCEPTANCE.md
++++ v1.3.1/docs/03_WORKFLOW_AND_ACCEPTANCE.md
+@@ -49,3 +49,14 @@
+ State the source/task, delivered behavior, changed files, tests actually run and their outcome, unresolved
+ requirements, known pre-existing defects, Git state, and exact next owner decision if any. Avoid percentages
+ without a denominator and evidence. Do not claim background monitoring or future work that is not running.
++
++## v1.3.1 completion-scope guidance
++
++Use `completion_scope` only when needed to distinguish a task not directly attached to a mandatory requirement:
++
++- `REQUIRED`: a task whose incomplete status should block the scoped G5 result, including a supporting operational task not directly attached to a requirement.
++- `OPTIONAL`: a truly optional task; it does not block scoped G5. This classification is a claim, not proof of authorization to drop a requirement.
++- `DEFERRED` / `OUT_OF_SCOPE`: excluded by an actual scoped decision; record `scope_decision_ref` referencing a `DECISION` artifact, whose author remains externally unverified by the CLI.
++- `UNKNOWN` or omitted: preserves legacy data; unbound non-DONE tasks return `INCONCLUSIVE`, so a missed required task is not silently hidden by default.
++
++Any task linked to an applicable `MUST/MUST_NOT` requirement is mandatory regardless of its own optional classification. Its dependencies are also required for the G5 closure. Scope classification never changes original request text, authoritative requirements or owner decisions.
+--- v1.3.0/docs/04_EVIDENCE_AND_RCCA.md
++++ v1.3.1/docs/04_EVIDENCE_AND_RCCA.md
+@@ -53,3 +53,15 @@
+ MCP protocol support, Markdown instructions, local hashes and optional Git hooks are not substitutes for a protected
+ runtime authorization boundary. Legacy ledger/demo tools can write only when explicitly invoked; see their scope
+ and `../compatibility/README.md` before use.
++
++## v1.3.1 gate-specific checks
++
++The previous wrapper mistakenly applied implementation-binding requirements at G1 and did not validate task dependencies in G5. These issues have been corrected:
++
++- **G1**: validates `schema_version`, `record_kind`, nested `rcca`, request bytes/source spans and requirement oracles. It does **not** require a plan, task links, implementation artifacts or test evidence. A minimal early record with these three keys is accepted for assessment.
++- **G2**: validates the G1 source contract plus risk and references, and checks the declared delegation reference and its hash. A matching hash is **not** authentication of its author or permission in the host.
++- **G5**: validates the full trace and source/ref/evidence links, all mandatory applicable task references, explicit required tasks, and the full transitive dependency closure. Unknown edges, incomplete dependencies and cycles block metadata readiness.
++
++A G5 report deliberately ignores unrelated **explicitly optional** task incompleteness. An unbound, unfinished, unclassified task becomes `INCONCLUSIVE / unclassified_unbound_task`, not automatic PASS or FAIL. `DEFERRED`/`OUT_OF_SCOPE` tasks require a DECISION file reference with a checked hash, and a warning that external owner authority is still not authenticated.
++
++Task completion scope is supplied metadata, **not verified ground truth**. An omitted task or falsified classification can still escape detection. Operators must reconcile the trace against the original request and approved project scope. This diagnostic is not a permission or acceptance engine.
+--- v1.3.0/docs/08_DATA_CONTRACTS_AND_CLI.md
++++ v1.3.1/docs/08_DATA_CONTRACTS_AND_CLI.md
+@@ -67,3 +67,13 @@
+ private data; raw envelopes preserve it. Keep outputs local unless their disclosure is authorized.
+ 
+ Bridge inputs are limited to 1,000,000 raw bytes; oversized derived envelopes are rejected rather than truncated. General explicit JSON/reference inputs have a bounded read limit. Unknown revision labels cannot satisfy completion or resume checks.
++
++## v1.3.1 additions (backward-compatible)
++
++**Trace extension:** each `tasks[]` row MAY include `completion_scope` (`REQUIRED`, `OPTIONAL`, `DEFERRED`, `OUT_OF_SCOPE`, `UNKNOWN`) and `scope_decision_ref` (a `DECISION` reference for exclusions). Existing `agdl-1.3` traces still parse. G5 emits `INCONCLUSIVE` for unbound unclassified non-DONE tasks, preventing silent readiness.
++
++**Gate-specific input:** G1 only needs the top-level `schema_version`, `record_kind`, `rcca`; G2 additionally needs `risk_tier` and `references`; G5 requires the complete `schemas/trace.schema.json` contract. Both prior gates validate the subset they own and must not be confused with G5 approval.
++
++**Instruction source inventory:** `python -B -m agdl instruction-audit --root . --catalog templates/INSTRUCTION_SOURCES.json` reads only caller-listed relative files under the supplied root. It emits `INCONCLUSIVE` (exit 3) even when all files are present, because neither effective host loading nor semantic priority can be proven from local files. No directory crawling, configuration mutation, hidden prompt access or host API calls occur. Use an explicit project-specific catalog. Example template paths are inert.
++
++**Compatibility:** The CLI package version is `1.3.1`, while the document schema version remains `agdl-1.3` to avoid unnecessary migration. Historic 1.3.0 ledger results are not re-labeled as 1.3.1 execution evidence.
+--- v1.3.0/docs/11_V131_CORRECTIVE_SCOPE.md
++++ v1.3.1/docs/11_V131_CORRECTIVE_SCOPE.md
+@@ -0,0 +1,33 @@
++# v1.3.1 corrective scope — release engineering decision
++
++**Status:** `IMPLEMENTED_CANDIDATE / NOT_OWNER_ACCEPTED / NOT_ACTIVE`  
++**Target:** one developer + one primary Codex agent, small/medium projects.  
++**Parent:** unmodified v1.3.0 source package. Upstream schema `agdl-1.3` is retained.
++
++## Disposition of independent review findings
++
++| Finding | Disposition in 1.3.1 | Evidence and residual limit |
++|---|---|---|
++| F-01 G5 ignores task dependencies | FIXED IN SYNTHETIC TEST SCOPE | G5 checks transitive dependencies, cycles, and unknown task edges for the mandatory completion set. Task graph is still supplied, not reconstructed from Git. |
++| F-02 unbound tasks silently ignored | FIXED WITH SCOPE CLASSIFICATION | Unknown unfinished unbound task yields INCONCLUSIVE, REQUIRED unfinished task yields GAPS_FOUND. OPTIONAL does not block; DEFERRED/OUT_OF_SCOPE require a DECISION hash reference, not authentication. |
++| F-03 G1 incorrectly requires implementation bindings | FIXED IN SYNTHETIC TEST SCOPE | G1 minimal envelope and G2 minimal authorization envelope supported; G5 remains full-contract. |
++| F-04 effective instruction visibility | DIAGNOSTIC ONLY | Explicit-source inventory CLI reads declared files, hashes them and reports loading/authority as NOT_VERIFIED. Actual effective host instruction loading is unavailable without supported host evidence. |
++| F-05 authored evidence can be forged | KNOWN LIMITATION | Hashes support content consistency only; independent runners and audit storage are future project-dependent qualifications. |
++| F-06 grants are not authenticated | KNOWN LIMITATION | No signing/identity service introduced. Authentic authority must come from current owner and host controls. |
++| Lite/Full split | DEFERRED | Full candidate remains available; `policies/CORE.md` is the daily minimal profile, generated distribution is not claimed. |
++
++## Corrected gate model
++
++- G1 = original request segmentation, obligations, oracles; no binding obligations.
++- G2 = G1 + authorization/conflict metadata, referenced delegation artifact and risk consistency; not verified owner identity.
++- G5 = full reference, implementation, evidence and review metadata + mandatory task dependency closure + task scope classification.
++
++New or missing scope information is not silently imputed. There is no new role hierarchy or product-wide authority created by these checks.
++
++## Non-goals
++
++No production PEP/PDP, forced PRD for trivial work, built-in task scheduler, full OpenSpec/Spec Kit parser, requirement re-interpretation, owner credential service, native runtime instrumentation, or automatic policy activation.
++
++## Required later evidence
++
++Windows and Codex qualified environment behavior, owner-approved adoption and an independent PRE/POST task trial are `NOT_RUN`. This artifact has synthetic engineering verification, not a production/security certificate. Reconcile with existing project instruction sources before activating any policy.
+--- v1.3.0/schemas/trace.schema.json
++++ v1.3.1/schemas/trace.schema.json
+@@ -595,6 +595,22 @@
+             },
+             "minItems": 0,
+             "uniqueItems": true
++          },
++          "completion_scope": {
++            "type": "string",
++            "enum": [
++              "REQUIRED",
++              "OPTIONAL",
++              "DEFERRED",
++              "OUT_OF_SCOPE",
++              "UNKNOWN"
++            ],
++            "description": "Optional in 1.3.1 for backward-compatible records. Unknown unbound non-DONE tasks yield INCONCLUSIVE at G5."
++          },
++          "scope_decision_ref": {
++            "type": "string",
++            "minLength": 0,
++            "description": "DECISION reference needed for DEFERRED or OUT_OF_SCOPE, not an authenticated approval."
+           }
+         },
+         "required": [
+--- v1.3.0/templates/INSTRUCTION_SOURCES.json
++++ v1.3.1/templates/INSTRUCTION_SOURCES.json
+@@ -0,0 +1,12 @@
++{
++  "schema_version": "agdl-instruction-sources-1",
++  "sources": [
++    {
++      "id": "PROJECT-AGENTS",
++      "source_type": "AGENT_FILE",
++      "path": "AGENTS.md",
++      "scope": "Project root (claimed; verify per host)",
++      "loading_claim": "UNKNOWN"
++    }
++  ]
++}
+--- v1.3.0/tests/test_instruction_audit.py
++++ v1.3.1/tests/test_instruction_audit.py
+@@ -0,0 +1,51 @@
++"""Read-only declared-source inventory tests."""
++import json
++from pathlib import Path
++import tempfile
++import unittest
++from agdl.instruction_audit import audit_instructions
++
++class InstructionAuditTests(unittest.TestCase):
++    def setUp(self):
++        self.temp=tempfile.TemporaryDirectory(prefix='agdl_ia_')
++        self.addCleanup(self.temp.cleanup)
++        self.root=Path(self.temp.name)
++        (self.root/'AGENTS.md').write_text('# local instructions\n')
++        (self.root/'POLICY.md').write_text('# local instructions\n')
++        self.catalog={'schema_version':'agdl-instruction-sources-1',
++                      'sources':[{'id':'A','source_type':'AGENT_FILE','path':'AGENTS.md'},
++                                 {'id':'B','source_type':'POLICY','path':'POLICY.md'}]}
++
++    def test_files_found_without_promoting_to_authority(self):
++        r=audit_instructions(self.root,self.catalog)
++        self.assertEqual(r['verdict'],'INCONCLUSIVE')
++        self.assertEqual(r['possible_exact_duplicates'],[['A','B']])
++        self.assertTrue(r['sources'][0]['discovered'])
++        self.assertEqual(r['sources'][0]['loaded'],'NOT_VERIFIED')
++        self.assertFalse(r['host_authority_authenticated'])
++
++    def test_fake_loading_claim_not_proof(self):
++        self.catalog['sources'][0]['loading_claim']='SYSTEM_ALWAYS_LOADED'
++        r=audit_instructions(self.root,self.catalog)
++        self.assertFalse(r['runtime_instruction_loading_verified'])
++        self.assertIn('loading_claim_unverified:A',r['notes'])
++
++    def test_secret_ref_not_read(self):
++        self.catalog['sources'][0]['path']='.env'
++        self.assertIn('instruction_source_unreadable:A:sensitive_path_not_read',
++                      audit_instructions(self.root,self.catalog)['unknowns'])
++
++    def test_path_outside_root_not_read(self):
++        self.catalog['sources'][0]['path']='../secret'
++        self.assertTrue(any('instruction_source_unreadable:A:' in u for u in audit_instructions(self.root,self.catalog)['unknowns']))
++
++    def test_invalid_input(self):
++        self.catalog['sources'].append(dict(self.catalog['sources'][0]))
++        self.assertIn('invalid_or_duplicate_source_id:2',audit_instructions(self.root,self.catalog)['issues'])
++
++    def test_no_changes(self):
++        before=(self.root/'AGENTS.md').read_bytes()
++        audit_instructions(self.root,self.catalog)
++        self.assertEqual(before,(self.root/'AGENTS.md').read_bytes())
++
++if __name__=='__main__':unittest.main()
+--- v1.3.0/tests/test_io_bridge_scope.py
++++ v1.3.1/tests/test_io_bridge_scope.py
+@@ -134,7 +134,7 @@
+         with tempfile.TemporaryDirectory() as t:
+             p=Path(t)/'bad.json';p.write_text('{"a":1,"a":2}')
+             r=self.run_cli('continuity','--record',str(p),'--revision','x');self.assertEqual(r.returncode,3)
+-    def test_version(self):self.assertIn(b'1.3.0',self.run_cli('--version').stdout)
++    def test_version(self):self.assertIn(b'1.3.1',self.run_cli('--version').stdout)
+     def test_rule_catalog_valid(self):
+         r=self.run_cli('rules-lint');self.assertEqual(r.returncode,0,r.stdout)
+     def test_rule_authority_cannot_be_elevated(self):
+--- v1.3.0/tests/test_v131_regressions.py
++++ v1.3.1/tests/test_v131_regressions.py
+@@ -0,0 +1,123 @@
++"""Issue-specific 1.3.1 regressions (synthetic, not host qualification)."""
++from __future__ import annotations
++import copy
++from pathlib import Path
++import tempfile
++import unittest
++from agdl.assurance import validate_record, continuity
++from tests.fixtures import make_fixture
++
++class GateAndScopeRegressions(unittest.TestCase):
++    def setUp(self):
++        self.temp = tempfile.TemporaryDirectory(prefix='agdl_131_')
++        self.addCleanup(self.temp.cleanup)
++        self.root = Path(self.temp.name)
++        self.record = make_fixture(self.root)
++
++    def gate(self, stage='G5', record=None):
++        return validate_record(record if record is not None else self.record,
++                               self.root, 'request.txt', stage, 'fixture-revision-1')
++
++    def issues(self, report):
++        return report['issues'] + report['unknowns']
++
++    def test_F01_linked_done_task_with_incomplete_dependency_must_fail(self):
++        self.record['tasks'].append({'id':'T002','source_ref':'TASKS-1','status':'TODO','depends_on':[]})
++        self.record['tasks'][0]['depends_on']=['T002']
++        r=self.gate()
++        self.assertEqual(r['verdict'],'GAPS_FOUND')
++        self.assertIn('unsatisfied_dependency:T001:T002',r['issues'])
++
++    def test_F01_transitive_incomplete_dependency_must_fail(self):
++        self.record['tasks'] += [
++            {'id':'T002','source_ref':'TASKS-1','status':'DONE','depends_on':['T003']},
++            {'id':'T003','source_ref':'TASKS-1','status':'TODO','depends_on':[]},
++        ]
++        self.record['tasks'][0]['depends_on']=['T002']
++        self.assertIn('unsatisfied_dependency:T002:T003',self.gate()['issues'])
++
++    def test_F01_missing_dependency_must_fail(self):
++        self.record['tasks'][0]['depends_on']=['UNKNOWN-TASK']
++        self.assertIn('unknown_dependency:T001:UNKNOWN-TASK',self.gate()['issues'])
++
++    def test_F01_cycle_with_done_tasks_must_fail(self):
++        self.record['tasks'][0]['depends_on']=['T001']
++        self.assertIn('dependency_cycle:T001',self.gate()['issues'])
++
++    def test_F01_unrelated_optional_cycle_does_not_block_scoped_completion(self):
++        self.record['tasks'].append({'id':'OPT','source_ref':'TASKS-1',
++                                      'status':'TODO','depends_on':['OPT'],
++                                      'completion_scope':'OPTIONAL'})
++        self.assertEqual(self.gate()['verdict'],'METADATA_READY_FOR_REVIEW')
++        self.assertIn('dependency_cycle:OPT', continuity(self.record, 'fixture-revision-1')['issues'])
++
++    def test_F02_unclassified_unbound_todo_is_unknown_not_pass(self):
++        self.record['tasks'].append({'id':'T999','source_ref':'TASKS-1','status':'TODO','depends_on':[]})
++        r=self.gate()
++        self.assertEqual(r['verdict'],'INCONCLUSIVE')
++        self.assertIn('unclassified_unbound_task:T999',r['unknowns'])
++
++    def test_F02_explicit_required_unbound_todo_fails(self):
++        self.record['tasks'].append({'id':'T999','source_ref':'TASKS-1','status':'TODO','depends_on':[],
++                                      'completion_scope':'REQUIRED'})
++        self.assertIn('required_task_not_complete:T999',self.gate()['issues'])
++
++    def test_F02_explicit_optional_unbound_todo_does_not_block(self):
++        self.record['tasks'].append({'id':'T999','source_ref':'TASKS-1','status':'TODO','depends_on':[],
++                                      'completion_scope':'OPTIONAL'})
++        self.assertEqual(self.gate()['exit_code'],0)
++
++    def test_F02_deferred_requires_decision_reference(self):
++        self.record['tasks'].append({'id':'T999','source_ref':'TASKS-1','status':'TODO','depends_on':[],
++                                      'completion_scope':'DEFERRED'})
++        self.assertIn('task_exclusion_decision_missing:T999',self.gate()['issues'])
++
++    def test_F02_deferred_with_checked_decision_warns_not_authenticates(self):
++        self.record['tasks'].append({'id':'T999','source_ref':'TASKS-1','status':'TODO','depends_on':[],
++                                      'completion_scope':'DEFERRED','scope_decision_ref':'DECISION-1'})
++        r=self.gate()
++        self.assertEqual(r['exit_code'],0)
++        self.assertFalse(r['authorization_authenticated'])
++        self.assertIn('task_exclusion_owner_authority_not_authenticated:T999',r['warnings'])
++        self.assertNotIn('T999',continuity(self.record,'fixture-revision-1')['candidate_ready_task_refs'])
++
++    def test_F02_mandatory_task_cannot_be_marked_optional(self):
++        self.record['tasks'][0]['completion_scope']='OPTIONAL'
++        self.assertTrue(any(x.startswith('mandatory_task_scope_conflict:T001') for x in self.gate()['issues']))
++
++    def test_F03_G1_does_not_require_bindings(self):
++        self.record['bindings']={}
++        self.assertEqual(self.gate('G1')['exit_code'],0)
++        self.assertIn('requirement_binding_missing:REQ-001',self.gate('G5')['issues'])
++
++    def test_F03_G1_accepts_initial_extract_only_envelope(self):
++        early={k:copy.deepcopy(self.record[k]) for k in ('schema_version','record_kind','rcca')}
++        self.assertEqual(self.gate('G1',early)['exit_code'],0)
++
++    def test_F03_G2_does_not_require_G5_references(self):
++        early={k:copy.deepcopy(self.record[k]) for k in ('schema_version','record_kind','rcca','references','risk_tier')}
++        self.assertEqual(self.gate('G2',early)['exit_code'],0)
++
++    def test_F03_G2_grant_hash_mismatch_is_found(self):
++        self.record['references'][-2]['sha256']='0'*64  # grant is second-last
++        early={k:copy.deepcopy(self.record[k]) for k in ('schema_version','record_kind','rcca','references','risk_tier')}
++        self.assertIn('delegation_reference_hash_mismatch',self.gate('G2',early)['issues'])
++
++    def test_F03_G1_does_not_fake_owner_authorization(self):
++        r=self.gate('G1')
++        self.assertFalse(r['authorization_authenticated'])
++        self.assertFalse(r['runtime_enforcement_verified'])
++
++    def test_existing_fixture_still_passes_G5(self):
++        self.assertEqual(self.gate()['verdict'],'METADATA_READY_FOR_REVIEW')
++
++    def test_invalid_completion_scope_fails_schema(self):
++        self.record['tasks'][0]['completion_scope']='ALWAYS_DONE'
++        self.assertTrue(any(x.startswith('schema:') for x in self.gate()['issues']))
++
++    def test_G1_does_not_validate_future_task_scope(self):
++        self.record['tasks'][0]['completion_scope']='ALWAYS_DONE'
++        self.assertEqual(self.gate('G1')['exit_code'],0)
++
++if __name__ == '__main__':
++    unittest.main()
+--- v1.3.0/verification/V131_LEGACY_RCCA.txt
++++ v1.3.1/verification/V131_LEGACY_RCCA.txt
+@@ -0,0 +1,29 @@
++test_demo_runner_allowed_fixture_write (test_rcca.RCCATests.test_demo_runner_allowed_fixture_write) ... ok
++test_demo_runner_denies_outside_write_set (test_rcca.RCCATests.test_demo_runner_denies_outside_write_set) ... ok
++test_demo_runner_denies_unknown_authorization (test_rcca.RCCATests.test_demo_runner_denies_unknown_authorization) ... ok
++test_demo_runner_dry_run_no_write (test_rcca.RCCATests.test_demo_runner_dry_run_no_write) ... ok
++test_demo_runner_requires_marker (test_rcca.RCCATests.test_demo_runner_requires_marker) ... ok
++test_event_append_requires_explicit (test_rcca.RCCATests.test_event_append_requires_explicit) ... ok
++test_event_chain_and_mutation_detection (test_rcca.RCCATests.test_event_chain_and_mutation_detection) ... ok
++test_event_rejects_secret_field (test_rcca.RCCATests.test_event_rejects_secret_field) ... ok
++test_g1_pass_structural (test_rcca.RCCATests.test_g1_pass_structural) ... ok
++test_g2_requires_authorization (test_rcca.RCCATests.test_g2_requires_authorization) ... ok
++test_g2_unresolved_conflict_blocks (test_rcca.RCCATests.test_g2_unresolved_conflict_blocks) ... ok
++test_g5_pass_is_not_owner_approval (test_rcca.RCCATests.test_g5_pass_is_not_owner_approval) ... ok
++test_metrics_on_labeled_csv (test_rcca.RCCATests.test_metrics_on_labeled_csv) ... ok
++test_missing_source_unit_refused (test_rcca.RCCATests.test_missing_source_unit_refused) ... ok
++test_must_without_oracle_rejected_g1 (test_rcca.RCCATests.test_must_without_oracle_rejected_g1) ... ok
++test_no_must_exception_unapproved (test_rcca.RCCATests.test_no_must_exception_unapproved) ... ok
++test_original_changed_detected (test_rcca.RCCATests.test_original_changed_detected) ... ok
++test_risk_r3_needs_l3 (test_rcca.RCCATests.test_risk_r3_needs_l3) ... ok
++test_sentence_split_in_one_line (test_rcca.RCCATests.test_sentence_split_in_one_line) ... ok
++test_short_nonbinding_reason_fails (test_rcca.RCCATests.test_short_nonbinding_reason_fails) ... ok
++test_should_with_documented_deviation_passes (test_rcca.RCCATests.test_should_with_documented_deviation_passes) ... ok
++test_should_without_reason_fails (test_rcca.RCCATests.test_should_without_reason_fails) ... ok
++test_template_source_units_complete (test_rcca.RCCATests.test_template_source_units_complete) ... ok
++test_unknown_must_blocks_g5 (test_rcca.RCCATests.test_unknown_must_blocks_g5) ... ok
++
++----------------------------------------------------------------------
++Ran 24 tests in 40.146s
++
++OK
+--- v1.3.0/verification/V131_LEGACY_TOOLS.txt
++++ v1.3.1/verification/V131_LEGACY_TOOLS.txt
+@@ -0,0 +1,25 @@
++test_absolute_path_rejected (test_tools.GovernanceToolTests.test_absolute_path_rejected) ... ok
++test_allow_declared_path (test_tools.GovernanceToolTests.test_allow_declared_path) ... ok
++test_denies_outside (test_tools.GovernanceToolTests.test_denies_outside) ... ok
++test_denies_protected_even_if_allowlisted (test_tools.GovernanceToolTests.test_denies_protected_even_if_allowlisted) ... ok
++test_empty_allowlist_fails_closed (test_tools.GovernanceToolTests.test_empty_allowlist_fails_closed) ... ok
++test_fingerprint_and_staleness (test_tools.GovernanceToolTests.test_fingerprint_and_staleness) ... ok
++test_fingerprint_reject_secret_config (test_tools.GovernanceToolTests.test_fingerprint_reject_secret_config) ... ok
++test_git_internal_path_rejected (test_tools.GovernanceToolTests.test_git_internal_path_rejected) ... ok
++test_git_inventory_includes_untracked (test_tools.GovernanceToolTests.test_git_inventory_includes_untracked) ... ok
++test_git_missing_head_inconclusive (test_tools.GovernanceToolTests.test_git_missing_head_inconclusive) ... ok
++test_git_workspace_includes_untracked (test_tools.GovernanceToolTests.test_git_workspace_includes_untracked) ... ok
++test_malformed_policy_inconclusive (test_tools.GovernanceToolTests.test_malformed_policy_inconclusive) ... ok
++test_metadata_inventory (test_tools.GovernanceToolTests.test_metadata_inventory) ... ok
++test_new_governance_source_stales_view (test_tools.GovernanceToolTests.test_new_governance_source_stales_view) ... ok
++test_parent_path_rejected (test_tools.GovernanceToolTests.test_parent_path_rejected) ... ok
++test_symlink_detected (test_tools.GovernanceToolTests.test_symlink_detected) ... ok
++test_windows_casefold_allow (test_tools.GovernanceToolTests.test_windows_casefold_allow) ... ok
++test_windows_casefold_protected (test_tools.GovernanceToolTests.test_windows_casefold_protected) ... ok
++test_windows_reserved_alias_rejected (test_tools.GovernanceToolTests.test_windows_reserved_alias_rejected) ... ok
++test_windows_trailing_dot_rejected (test_tools.GovernanceToolTests.test_windows_trailing_dot_rejected) ... ok
++
++----------------------------------------------------------------------
++Ran 20 tests in 17.002s
++
++OK
+--- v1.3.0/verification/V131_NEW_TESTS.txt
++++ v1.3.1/verification/V131_NEW_TESTS.txt
+@@ -0,0 +1,146 @@
++test_G1_does_not_grant_execution (test_assurance.AssuranceTests.test_G1_does_not_grant_execution) ... ok
++test_binding_unknown_requirement (test_assurance.AssuranceTests.test_binding_unknown_requirement) ... ok
++test_complete_metadata_is_not_approval (test_assurance.AssuranceTests.test_complete_metadata_is_not_approval) ... ok
++test_current_revision_mismatch (test_assurance.AssuranceTests.test_current_revision_mismatch) ... ok
++test_duplicate_evidence (test_assurance.AssuranceTests.test_duplicate_evidence) ... ok
++test_duplicate_reference (test_assurance.AssuranceTests.test_duplicate_reference) ... ok
++test_duplicate_requirement (test_assurance.AssuranceTests.test_duplicate_requirement) ... ok
++test_duplicate_task (test_assurance.AssuranceTests.test_duplicate_task) ... ok
++test_evidence_pointer_must_match (test_assurance.AssuranceTests.test_evidence_pointer_must_match) ... ok
++test_evidence_request_stale (test_assurance.AssuranceTests.test_evidence_request_stale) ... ok
++test_evidence_revision_stale (test_assurance.AssuranceTests.test_evidence_revision_stale) ... ok
++test_exception_needs_decision (test_assurance.AssuranceTests.test_exception_needs_decision) ... ok
++test_exception_record_does_not_authenticate_owner (test_assurance.AssuranceTests.test_exception_record_does_not_authenticate_owner) ... ok
++test_explicit_unimplemented (test_assurance.AssuranceTests.test_explicit_unimplemented) ... ok
++test_extra_field_cannot_claim_system_authority (test_assurance.AssuranceTests.test_extra_field_cannot_claim_system_authority) ... ok
++test_failed_negative_control (test_assurance.AssuranceTests.test_failed_negative_control) ... ok
++test_grant_ref_is_required (test_assurance.AssuranceTests.test_grant_ref_is_required) ... ok
++test_high_risk_needs_external_qualification (test_assurance.AssuranceTests.test_high_risk_needs_external_qualification) ... ok
++test_implementation_file_changed (test_assurance.AssuranceTests.test_implementation_file_changed) ... ok
++test_linked_task_incomplete_not_done (test_assurance.AssuranceTests.test_linked_task_incomplete_not_done) ... ok
++test_log_changed (test_assurance.AssuranceTests.test_log_changed) ... ok
++test_missing_binding (test_assurance.AssuranceTests.test_missing_binding) ... ok
++test_missing_coverage_review (test_assurance.AssuranceTests.test_missing_coverage_review) ... ok
++test_missing_current_revision (test_assurance.AssuranceTests.test_missing_current_revision) ... ok
++test_missing_evidence (test_assurance.AssuranceTests.test_missing_evidence) ... ok
++test_missing_implementation_snapshot (test_assurance.AssuranceTests.test_missing_implementation_snapshot) ... ok
++test_missing_log_is_unknown_not_pass (test_assurance.AssuranceTests.test_missing_log_is_unknown_not_pass) ... ok
++test_missing_mandatory_oracle (test_assurance.AssuranceTests.test_missing_mandatory_oracle) ... ok
++test_missing_source_unit (test_assurance.AssuranceTests.test_missing_source_unit) ... ok
++test_missing_spec_link_requires_reason (test_assurance.AssuranceTests.test_missing_spec_link_requires_reason) ... ok
++test_nonreciprocal_evidence (test_assurance.AssuranceTests.test_nonreciprocal_evidence) ... ok
++test_not_run_not_pass (test_assurance.AssuranceTests.test_not_run_not_pass) ... ok
++test_original_request_drift (test_assurance.AssuranceTests.test_original_request_drift) ... ok
++test_quick_fix_need_not_create_spec (test_assurance.AssuranceTests.test_quick_fix_need_not_create_spec) ... ok
++test_quick_fix_need_not_create_task_database (test_assurance.AssuranceTests.test_quick_fix_need_not_create_task_database) ... ok
++test_readonly_no_file_changes (test_assurance.AssuranceTests.test_readonly_no_file_changes) ... ok
++test_reference_to_sensitive_file_rejected (test_assurance.AssuranceTests.test_reference_to_sensitive_file_rejected) ... ok
++test_reviewed_without_reviewer_not_verified (test_assurance.AssuranceTests.test_reviewed_without_reviewer_not_verified) ... ok
++test_risk_mismatch (test_assurance.AssuranceTests.test_risk_mismatch) ... ok
++test_self_review_not_independent (test_assurance.AssuranceTests.test_self_review_not_independent) ... ok
++test_should_can_deviate_with_reason (test_assurance.AssuranceTests.test_should_can_deviate_with_reason) ... ok
++test_should_requires_deviation (test_assurance.AssuranceTests.test_should_requires_deviation) ... ok
++test_source_hash_format (test_assurance.AssuranceTests.test_source_hash_format) ... ok
++test_spec_changed_without_refresh (test_assurance.AssuranceTests.test_spec_changed_without_refresh) ... ok
++test_synthetic_evidence_not_live (test_assurance.AssuranceTests.test_synthetic_evidence_not_live) ... ok
++test_typed_contract_rejects_unhashable_id (test_assurance.AssuranceTests.test_typed_contract_rejects_unhashable_id) ... ok
++test_unknown_applicability (test_assurance.AssuranceTests.test_unknown_applicability) ... ok
++test_unknown_authorization (test_assurance.AssuranceTests.test_unknown_authorization) ... ok
++test_unknown_implementation_not_missing (test_assurance.AssuranceTests.test_unknown_implementation_not_missing) ... ok
++test_unknown_normative_level (test_assurance.AssuranceTests.test_unknown_normative_level) ... ok
++test_unknown_revision_label_not_verified (test_assurance.AssuranceTests.test_unknown_revision_label_not_verified) ... ok
++test_unknown_risk (test_assurance.AssuranceTests.test_unknown_risk) ... ok
++test_unknown_task_link (test_assurance.AssuranceTests.test_unknown_task_link) ... ok
++test_unresolved_conflict (test_assurance.AssuranceTests.test_unresolved_conflict) ... ok
++test_valid_hash_does_not_authenticate_forged_content (test_assurance.AssuranceTests.test_valid_hash_does_not_authenticate_forged_content) ... ok
++test_whitespace_revision_not_verified (test_assurance.AssuranceTests.test_whitespace_revision_not_verified) ... ok
++test_wrong_artifact_kind (test_assurance.AssuranceTests.test_wrong_artifact_kind) ... ok
++test_wrong_implementation_kind (test_assurance.AssuranceTests.test_wrong_implementation_kind) ... ok
++test_wrong_spec_kind (test_assurance.AssuranceTests.test_wrong_spec_kind) ... ok
++test_continuity_unknown_revision (test_assurance.ContinuityTests.test_continuity_unknown_revision) ... ok
++test_continuity_ready_task (test_assurance.ContinuityTests.test_continuity_ready_task) ... ok
++test_continuity_cycle (test_assurance.ContinuityTests.test_continuity_cycle) ... ok
++test_continuity_unknown_dependency (test_assurance.ContinuityTests.test_continuity_unknown_dependency) ... ok
++test_continuity_done_before_dependency (test_assurance.ContinuityTests.test_continuity_done_before_dependency) ... ok
++test_continuity_revision_change (test_assurance.ContinuityTests.test_continuity_revision_change) ... ok
++test_continuity_blocked_is_not_ready (test_assurance.ContinuityTests.test_continuity_blocked_is_not_ready) ... ok
++test_fake_loading_claim_not_proof (test_instruction_audit.InstructionAuditTests.test_fake_loading_claim_not_proof) ... ok
++test_files_found_without_promoting_to_authority (test_instruction_audit.InstructionAuditTests.test_files_found_without_promoting_to_authority) ... ok
++test_invalid_input (test_instruction_audit.InstructionAuditTests.test_invalid_input) ... ok
++test_no_changes (test_instruction_audit.InstructionAuditTests.test_no_changes) ... ok
++test_path_outside_root_not_read (test_instruction_audit.InstructionAuditTests.test_path_outside_root_not_read) ... ok
++test_secret_ref_not_read (test_instruction_audit.InstructionAuditTests.test_secret_ref_not_read) ... ok
++test_oversized_raw_document_not_emitted (test_io_bridge_scope.BridgeBoundTests.test_oversized_raw_document_not_emitted) ... ok
++test_authority_promotion_rejected (test_io_bridge_scope.BridgeTests.test_authority_promotion_rejected) ... ok
++test_bad_base64 (test_io_bridge_scope.BridgeTests.test_bad_base64) ... ok
++test_bom_roundtrip (test_io_bridge_scope.BridgeTests.test_bom_roundtrip) ... ok
++test_checkbox_not_completion_proof (test_io_bridge_scope.BridgeTests.test_checkbox_not_completion_proof) ... ok
++test_crlf_roundtrip (test_io_bridge_scope.BridgeTests.test_crlf_roundtrip) ... ok
++test_duplicate_task_id_reported (test_io_bridge_scope.BridgeTests.test_duplicate_task_id_reported) ... ok
++test_fenced_tasks_are_raw_only (test_io_bridge_scope.BridgeTests.test_fenced_tasks_are_raw_only) ... ok
++test_injection_text_is_only_data (test_io_bridge_scope.BridgeTests.test_injection_text_is_only_data) ... ok
++test_non_utf8_rejected (test_io_bridge_scope.BridgeTests.test_non_utf8_rejected) ... ok
++test_openspec_delta_sections (test_io_bridge_scope.BridgeTests.test_openspec_delta_sections) ... ok
++test_speckit_ids_preserved (test_io_bridge_scope.BridgeTests.test_speckit_ids_preserved) ... ok
++test_tampered_envelope_rejected (test_io_bridge_scope.BridgeTests.test_tampered_envelope_rejected) ... ok
++test_unknown_task_grammar_reported (test_io_bridge_scope.BridgeTests.test_unknown_task_grammar_reported) ... ok
++test_unsupported_format (test_io_bridge_scope.BridgeTests.test_unsupported_format) ... ok
++test_bad_record_inconclusive (test_io_bridge_scope.CLITests.test_bad_record_inconclusive) ... ok
++test_doctor_does_not_claim_host_inspection (test_io_bridge_scope.CLITests.test_doctor_does_not_claim_host_inspection) ... ok
++test_duplicate_json_cli (test_io_bridge_scope.CLITests.test_duplicate_json_cli) ... ok
++test_no_execution_command (test_io_bridge_scope.CLITests.test_no_execution_command) ... ok
++test_rule_authority_cannot_be_elevated (test_io_bridge_scope.CLITests.test_rule_authority_cannot_be_elevated) ... ok
++test_rule_catalog_valid (test_io_bridge_scope.CLITests.test_rule_catalog_valid) ... ok
++test_rule_impact_not_authority (test_io_bridge_scope.CLITests.test_rule_impact_not_authority) ... ok
++test_rule_runtime_enforcement_not_claimed (test_io_bridge_scope.CLITests.test_rule_runtime_enforcement_not_claimed) ... ok
++test_version (test_io_bridge_scope.CLITests.test_version) ... ok
++test_backslash_rejected (test_io_bridge_scope.IOTests.test_backslash_rejected) ... ok
++test_duplicate_json_keys (test_io_bridge_scope.IOTests.test_duplicate_json_keys) ... ok
++test_git_internal_rejected (test_io_bridge_scope.IOTests.test_git_internal_rejected) ... ok
++test_nan_rejected (test_io_bridge_scope.IOTests.test_nan_rejected) ... ok
++test_path_parent_rejected (test_io_bridge_scope.IOTests.test_path_parent_rejected) ... ok
++test_reserved_windows_name (test_io_bridge_scope.IOTests.test_reserved_windows_name) ... ok
++test_sensitive_env_rejected (test_io_bridge_scope.IOTests.test_sensitive_env_rejected) ... ok
++test_symlink_rejected (test_io_bridge_scope.IOTests.test_symlink_rejected) ... ok
++test_trailing_dot_rejected (test_io_bridge_scope.IOTests.test_trailing_dot_rejected) ... ok
++test_unicode_alias_rejected (test_io_bridge_scope.IOTests.test_unicode_alias_rejected) ... ok
++test_windows_drive_rejected (test_io_bridge_scope.IOTests.test_windows_drive_rejected) ... ok
++test_draft_not_grant (test_io_bridge_scope.ScopeTests.test_draft_not_grant) ... ok
++test_expired (test_io_bridge_scope.ScopeTests.test_expired) ... ok
++test_expiry_timezone_required (test_io_bridge_scope.ScopeTests.test_expiry_timezone_required) ... ok
++test_local_task_no_repeated_approval_diagnostic (test_io_bridge_scope.ScopeTests.test_local_task_no_repeated_approval_diagnostic) ... ok
++test_malformed_operation (test_io_bridge_scope.ScopeTests.test_malformed_operation) ... ok
++test_no_targets (test_io_bridge_scope.ScopeTests.test_no_targets) ... ok
++test_outside_scope (test_io_bridge_scope.ScopeTests.test_outside_scope) ... ok
++test_owner_reference_required (test_io_bridge_scope.ScopeTests.test_owner_reference_required) ... ok
++test_prefix_sibling_not_allowed (test_io_bridge_scope.ScopeTests.test_prefix_sibling_not_allowed) ... ok
++test_project_binding_changed (test_io_bridge_scope.ScopeTests.test_project_binding_changed) ... ok
++test_protected_casefold (test_io_bridge_scope.ScopeTests.test_protected_casefold) ... ok
++test_protected_over_allow (test_io_bridge_scope.ScopeTests.test_protected_over_allow) ... ok
++test_push_reserved_not_silent (test_io_bridge_scope.ScopeTests.test_push_reserved_not_silent) ... ok
++test_request_binding_changed (test_io_bridge_scope.ScopeTests.test_request_binding_changed) ... ok
++test_revoked (test_io_bridge_scope.ScopeTests.test_revoked) ... ok
++test_F01_cycle_with_done_tasks_must_fail (test_v131_regressions.GateAndScopeRegressions.test_F01_cycle_with_done_tasks_must_fail) ... ok
++test_F01_linked_done_task_with_incomplete_dependency_must_fail (test_v131_regressions.GateAndScopeRegressions.test_F01_linked_done_task_with_incomplete_dependency_must_fail) ... ok
++test_F01_missing_dependency_must_fail (test_v131_regressions.GateAndScopeRegressions.test_F01_missing_dependency_must_fail) ... ok
++test_F01_transitive_incomplete_dependency_must_fail (test_v131_regressions.GateAndScopeRegressions.test_F01_transitive_incomplete_dependency_must_fail) ... ok
++test_F01_unrelated_optional_cycle_does_not_block_scoped_completion (test_v131_regressions.GateAndScopeRegressions.test_F01_unrelated_optional_cycle_does_not_block_scoped_completion) ... ok
++test_F02_deferred_requires_decision_reference (test_v131_regressions.GateAndScopeRegressions.test_F02_deferred_requires_decision_reference) ... ok
++test_F02_deferred_with_checked_decision_warns_not_authenticates (test_v131_regressions.GateAndScopeRegressions.test_F02_deferred_with_checked_decision_warns_not_authenticates) ... ok
++test_F02_explicit_optional_unbound_todo_does_not_block (test_v131_regressions.GateAndScopeRegressions.test_F02_explicit_optional_unbound_todo_does_not_block) ... ok
++test_F02_explicit_required_unbound_todo_fails (test_v131_regressions.GateAndScopeRegressions.test_F02_explicit_required_unbound_todo_fails) ... ok
++test_F02_mandatory_task_cannot_be_marked_optional (test_v131_regressions.GateAndScopeRegressions.test_F02_mandatory_task_cannot_be_marked_optional) ... ok
++test_F02_unclassified_unbound_todo_is_unknown_not_pass (test_v131_regressions.GateAndScopeRegressions.test_F02_unclassified_unbound_todo_is_unknown_not_pass) ... ok
++test_F03_G1_accepts_initial_extract_only_envelope (test_v131_regressions.GateAndScopeRegressions.test_F03_G1_accepts_initial_extract_only_envelope) ... ok
++test_F03_G1_does_not_fake_owner_authorization (test_v131_regressions.GateAndScopeRegressions.test_F03_G1_does_not_fake_owner_authorization) ... ok
++test_F03_G1_does_not_require_bindings (test_v131_regressions.GateAndScopeRegressions.test_F03_G1_does_not_require_bindings) ... ok
++test_F03_G2_does_not_require_G5_references (test_v131_regressions.GateAndScopeRegressions.test_F03_G2_does_not_require_G5_references) ... ok
++test_F03_G2_grant_hash_mismatch_is_found (test_v131_regressions.GateAndScopeRegressions.test_F03_G2_grant_hash_mismatch_is_found) ... ok
++test_G1_does_not_validate_future_task_scope (test_v131_regressions.GateAndScopeRegressions.test_G1_does_not_validate_future_task_scope) ... ok
++test_existing_fixture_still_passes_G5 (test_v131_regressions.GateAndScopeRegressions.test_existing_fixture_still_passes_G5) ... ok
++test_invalid_completion_scope_fails_schema (test_v131_regressions.GateAndScopeRegressions.test_invalid_completion_scope_fails_schema) ... ok
++
++----------------------------------------------------------------------
++Ran 141 tests in 4.793s
++
++OK
+--- v1.3.0/verification/V131_PATCH_LEDGER.json
++++ v1.3.1/verification/V131_PATCH_LEDGER.json
+@@ -0,0 +1,45 @@
++{
++  "version": "1.3.1",
++  "date": "2026-11-06",
++  "environment": {
++    "os": "Linux",
++    "python": "3.13.5"
++  },
++  "independence": "AUTHOR_SELF_ASSESSMENT_NOT_INDEPENDENT",
++  "checks": [
++    {
++      "id": "V131_NEW_UNIT",
++      "status": "PASSED",
++      "count": 141,
++      "duration_seconds": 4.793,
++      "evidence": "V131_NEW_TESTS.txt"
++    },
++    {
++      "id": "V131_LEGACY_TOOLS",
++      "status": "PASSED",
++      "count": 20,
++      "duration_seconds": 17.002,
++      "evidence": "V131_LEGACY_TOOLS.txt"
++    },
++    {
++      "id": "V131_LEGACY_RCCA",
++      "status": "PASSED",
++      "count": 24,
++      "duration_seconds": 40.146,
++      "evidence": "V131_LEGACY_RCCA.txt"
++    }
++  ],
++  "distinct_unit_tests_passed": 185,
++  "smoke": {
++    "cli_version": "1.3.1",
++    "fixture_G5": "METADATA_READY_FOR_REVIEW",
++    "instruction_audit": "INCONCLUSIVE_BY_DESIGN",
++    "instruction_audit_loaded": "NOT_VERIFIED"
++  },
++  "live_codex_on_windows": "NOT_RUN",
++  "runtime_enforcement": "NOT_IMPLEMENTED",
++  "independent_holdout": "NOT_RUN",
++  "actual_project_pre_post": "NOT_RUN",
++  "owner_acceptance": "NOT_GRANTED",
++  "activation": "NOT_ACTIVE"
++}
+--- v1.3.0/verification/V131_PATCH_VERIFICATION.md
++++ v1.3.1/verification/V131_PATCH_VERIFICATION.md
+@@ -0,0 +1,36 @@
++# v1.3.1 Corrective Release — Verification Report
++
++**Status:** `IMPLEMENTED_CANDIDATE / NOT_OWNER_ACCEPTED / NOT_ACTIVE`  
++**Scope:** offline synthetic diagnostics and unchanged legacy compatibility tests on Linux.  
++**Independence:** author self-assessment; NOT independent host qualification.
++
++## Verified checks
++
++| Test group | Observed result | Evidence |
++|---|---|---|
++| `V131_NEW_UNIT` | 141 tests, PASSED | `V131_NEW_TESTS.txt` |
++| `V131_LEGACY_TOOLS` | 20 tests, PASSED | `V131_LEGACY_TOOLS.txt` |
++| `V131_LEGACY_RCCA` | 24 tests, PASSED | `V131_LEGACY_RCCA.txt` |
++
++Total distinct tests in these groups: **185**. Existing v1.3.0 verification and its 160-test claim remain as historical evidence; those counts are not added to this total. The v1.3.1 new suite contains the prior 116 tests plus 19 F-01/F-02/F-03 regressions and 6 instruction audit tests. Legacy tools and RCCA suites together contain 44 unmodified tests.
++
++## Negative scenarios exercised
++
++- G5 rejects a DONE task whose immediate or transitive mandatory dependency is not DONE.
++- G5 detects a required-task dependency cycle and unknown dependency target.
++- G5 returns INCONCLUSIVE for an unfinished unbound unclassified task, instead of silently passing it.
++- An explicitly required unfinished unbound task is a G5 gap; explicitly optional task incompleteness does not veto an unrelated scoped claim.
++- DEFERRED / OUT_OF_SCOPE requires a checked DECISION reference; metadata does not authenticate owner authority.
++- G1 accepts an early source-only envelope without downstream bindings; G2 accepts an authorization-stage envelope without G5 artifacts.
++- Explicit instruction-source audit reports file presence/hashes but not actual host loading, instruction priority or enforcement.
++
++## Interpretation and limits
++
++G5 metadata readiness is **not** acceptance. Tests are author-created synthetic fixtures; task graph and scope may be incomplete or fabricated by an agent. SHA-256 does not validate a signer or a claimed test execution. The instruction audit is not a hidden-prompt inspection tool. No production PEP/PDP, live Windows/Codex evaluation, independent test oracle, target-project adoption or PRE/POST performance comparison was performed.
++
++## What remains before owner adoption
++
++1. Qualify the package on the intended Windows and Codex configuration, with environment/version-specific evidence.
++2. Reconcile current project authority and protected owner decisions; do not overwrite existing rules or grants.
++3. Conduct a proportionate representative behavioral pilot with external acceptance labels; compare the same baseline tasks where possible.
++4. Request separate owner approval for adopting or activating this candidate. No Git push, merge, deployment or external runtime permissions are included in this deliverable.

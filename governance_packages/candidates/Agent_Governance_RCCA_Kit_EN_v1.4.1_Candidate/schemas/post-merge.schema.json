@@ -1,0 +1,207 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agdl:post-merge:1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_kind",
+    "task_id",
+    "git",
+    "watchers",
+    "branches",
+    "runtime",
+    "risk_acceptances",
+    "excluded_operations",
+    "owner_acceptance",
+    "production_activation"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "agdl-post-merge-1.0"
+    },
+    "record_kind": {
+      "type": "string",
+      "const": "DERIVED_NON_AUTHORITATIVE"
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "git": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_branch",
+        "expected_remote_sha",
+        "observed_remote_sha",
+        "sync_mode",
+        "sync_status",
+        "fast_forward_possible",
+        "dirty_worktree_collides",
+        "divergent_local_commits",
+        "linked_worktree_conflict",
+        "pending_operations",
+        "unrelated_changes_preserved"
+      ],
+      "properties": {
+        "target_branch": { "type": "string", "minLength": 1 },
+        "expected_remote_sha": { "type": "string" },
+        "observed_remote_sha": { "type": "string" },
+        "sync_mode": {
+          "type": "string",
+          "enum": ["FF_ONLY", "NONE", "MERGE_COMMIT", "REBASE"]
+        },
+        "sync_status": {
+          "type": "string",
+          "enum": ["SYNCED", "PENDING", "ABORTED", "NOT_NEEDED"]
+        },
+        "fast_forward_possible": { "type": "boolean" },
+        "dirty_worktree_collides": { "type": "boolean" },
+        "divergent_local_commits": { "type": "boolean" },
+        "linked_worktree_conflict": { "type": "boolean" },
+        "pending_operations": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 0
+        },
+        "unrelated_changes_preserved": { "type": "boolean" }
+      }
+    },
+    "watchers": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "effect_class", "quiesced", "identity_verified"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "effect_class": {
+            "type": "string",
+            "enum": [
+              "HARMLESS_READ_ONLY",
+              "UNRELATED",
+              "AUTO_WRITE",
+              "FILE_LOCK",
+              "UNSAFE_HOT_RELOAD"
+            ]
+          },
+          "quiesced": { "type": "boolean" },
+          "identity_verified": { "type": "boolean" }
+        }
+      }
+    },
+    "branches": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "tip_sha",
+          "delete_requested",
+          "ancestry_merged",
+          "tree_or_pr_equivalent",
+          "unique_unmerged_commits",
+          "dirty_or_untracked_worktree",
+          "pending_stash",
+          "recoverability_recorded"
+        ],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "tip_sha": { "type": "string", "minLength": 1 },
+          "delete_requested": { "type": "boolean" },
+          "ancestry_merged": { "type": "boolean" },
+          "tree_or_pr_equivalent": { "type": "boolean" },
+          "unique_unmerged_commits": { "type": "integer", "minimum": 0 },
+          "dirty_or_untracked_worktree": { "type": "boolean" },
+          "pending_stash": { "type": "boolean" },
+          "recoverability_recorded": { "type": "boolean" }
+        }
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "refresh_required",
+        "affected_services",
+        "unrelated_services_restarted",
+        "process_identity_verified",
+        "health_passed",
+        "loaded_revision_matches",
+        "protected_state_intact",
+        "reused_qualification_refs",
+        "requalification_trigger",
+        "destructive_auto_rollback_attempted"
+      ],
+      "properties": {
+        "refresh_required": { "type": "boolean" },
+        "affected_services": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 0
+        },
+        "unrelated_services_restarted": { "type": "boolean" },
+        "process_identity_verified": { "type": "boolean" },
+        "health_passed": { "type": "boolean" },
+        "loaded_revision_matches": { "type": "boolean" },
+        "protected_state_intact": { "type": "boolean" },
+        "reused_qualification_refs": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 0
+        },
+        "requalification_trigger": { "type": "boolean" },
+        "destructive_auto_rollback_attempted": { "type": "boolean" }
+      }
+    },
+    "risk_acceptances": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "decision_ref",
+          "valid_until",
+          "scope_matches",
+          "material_change_invalidated"
+        ],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "decision_ref": { "type": "string", "minLength": 1 },
+          "valid_until": { "type": ["string", "null"] },
+          "scope_matches": { "type": "boolean" },
+          "material_change_invalidated": { "type": "boolean" }
+        }
+      }
+    },
+    "excluded_operations": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["operation", "scope_decision_ref", "attempted"],
+        "properties": {
+          "operation": { "type": "string", "minLength": 1 },
+          "scope_decision_ref": { "type": "string" },
+          "attempted": { "type": "boolean" }
+        }
+      }
+    },
+    "owner_acceptance": {
+      "type": "string",
+      "enum": ["NOT_REQUESTED", "PENDING", "ACCEPTED", "REJECTED"]
+    },
+    "production_activation": {
+      "type": "string",
+      "enum": ["NOT_ACTIVE", "AUTHORIZED_ACTIVE"]
+    }
+  }
+}

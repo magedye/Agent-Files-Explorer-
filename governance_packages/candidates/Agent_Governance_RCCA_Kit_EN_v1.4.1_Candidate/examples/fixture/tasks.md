@@ -1,0 +1,1 @@
+- [x] T001 Implement and test the fixture validator.

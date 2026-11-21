@@ -1,0 +1,120 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "agdl-delegation-1.3"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "DRAFT",
+        "OWNER_RECORDED",
+        "REVOKED"
+      ]
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "owner_decision_ref": {
+      "type": "string",
+      "minLength": 0
+    },
+    "request_sha256": {
+      "type": "string",
+      "minLength": 64,
+      "pattern": "^[0-9a-f]{64}$",
+      "maxLength": 64
+    },
+    "valid_until": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "allowed_operations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "read",
+          "edit",
+          "test",
+          "build",
+          "dependency_update",
+          "local_commit",
+          "delete_agent_created",
+          "push",
+          "merge",
+          "deploy",
+          "production_migration",
+          "permissions_change",
+          "secret_access",
+          "external_publish",
+          "install_global",
+          "execute_imported"
+        ]
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "allowed_files": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "allowed_prefixes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "protected_files": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "protected_prefixes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "schema_version",
+    "status",
+    "project_id",
+    "owner_decision_ref",
+    "request_sha256",
+    "valid_until",
+    "allowed_operations",
+    "allowed_files",
+    "allowed_prefixes",
+    "protected_files",
+    "protected_prefixes",
+    "purpose"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agdl:delegation:1.3"
+}

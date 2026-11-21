@@ -1,0 +1,121 @@
+{
+  "scope": "AUTHOR_CREATED_SYNTHETIC_METADATA_CHECKS",
+  "case_count": 7,
+  "independent": false,
+  "holdout": false,
+  "live_agent_run": false,
+  "live_value_decision": "NOT_RUN",
+  "metrics": {
+    "legacy_oracle_agreement_count": 3,
+    "v13_oracle_agreement_count": 7,
+    "legacy_ready_on_negative": 4,
+    "v13_ready_on_negative": 0
+  },
+  "cost_telemetry": "NO_TELEMETRY",
+  "rows": [
+    {
+      "id": "CONTROL",
+      "expected": "READY",
+      "legacy_diagnostic": "READY",
+      "v13_diagnostic": "READY",
+      "legacy_agrees": true,
+      "v13_agrees": true,
+      "legacy_issues": [],
+      "legacy_warnings": [],
+      "v13_issues": [],
+      "v13_unknowns": []
+    },
+    {
+      "id": "LOG_MISSING",
+      "expected": "NOT_READY",
+      "legacy_diagnostic": "READY",
+      "v13_diagnostic": "NOT_READY",
+      "legacy_agrees": false,
+      "v13_agrees": true,
+      "legacy_issues": [],
+      "legacy_warnings": [],
+      "v13_issues": [],
+      "v13_unknowns": [
+        "evidence_artifact_unchecked:EV-1",
+        "reference_unreadable:LOG-1:input_inaccessible:FileNotFoundError"
+      ]
+    },
+    {
+      "id": "IMPLEMENTATION_CHANGED",
+      "expected": "NOT_READY",
+      "legacy_diagnostic": "READY",
+      "v13_diagnostic": "NOT_READY",
+      "legacy_agrees": false,
+      "v13_agrees": true,
+      "legacy_issues": [],
+      "legacy_warnings": [],
+      "v13_issues": [
+        "reference_hash_mismatch:IMPL-1"
+      ],
+      "v13_unknowns": []
+    },
+    {
+      "id": "CURRENT_REVISION_CHANGED",
+      "expected": "NOT_READY",
+      "legacy_diagnostic": "READY",
+      "v13_diagnostic": "NOT_READY",
+      "legacy_agrees": false,
+      "v13_agrees": true,
+      "legacy_issues": [],
+      "legacy_warnings": [],
+      "v13_issues": [
+        "current_revision_mismatch"
+      ],
+      "v13_unknowns": []
+    },
+    {
+      "id": "SOURCE_UNIT_OMITTED",
+      "expected": "NOT_READY",
+      "legacy_diagnostic": "NOT_READY",
+      "v13_diagnostic": "NOT_READY",
+      "legacy_agrees": true,
+      "v13_agrees": true,
+      "legacy_issues": [
+        "missing_source_unit:SRC-0002",
+        "requirement_source_not_reciprocal:REQ-002:SRC-0002"
+      ],
+      "legacy_warnings": [],
+      "v13_issues": [
+        "missing_source_unit:SRC-0002",
+        "requirement_source_not_reciprocal:REQ-002:SRC-0002"
+      ],
+      "v13_unknowns": []
+    },
+    {
+      "id": "AUTHORIZATION_DENIED",
+      "expected": "NOT_READY",
+      "legacy_diagnostic": "NOT_READY",
+      "v13_diagnostic": "NOT_READY",
+      "legacy_agrees": true,
+      "v13_agrees": true,
+      "legacy_issues": [
+        "authorization_not_verified_by_project_source"
+      ],
+      "legacy_warnings": [],
+      "v13_issues": [
+        "authorization_not_verified_by_project_source"
+      ],
+      "v13_unknowns": []
+    },
+    {
+      "id": "TASK_INCOMPLETE",
+      "expected": "NOT_READY",
+      "legacy_diagnostic": "READY",
+      "v13_diagnostic": "NOT_READY",
+      "legacy_agrees": false,
+      "v13_agrees": true,
+      "legacy_issues": [],
+      "legacy_warnings": [],
+      "v13_issues": [
+        "linked_task_not_complete:REQ-001:T001",
+        "linked_task_not_complete:REQ-002:T001"
+      ],
+      "v13_unknowns": []
+    }
+  ]
+}
