@@ -76,6 +76,8 @@ unavailable, invalid or incomparable inputs. It is not a security authorization 
 | Seven on-demand procedures | `workflows/QUALITY_WORKFLOWS.md` |
 | Post-merge Git and runtime closure | `docs/16_POST_MERGE_CLOSURE.md` |
 | Governed engineering skills integration (GESI) | `docs/17_GOVERNED_ENGINEERING_SKILLS.md` |
+| Owner working agreements coverage and source custody | `docs/18_WORKING_AGREEMENTS_INTEGRATION.md` |
+| Codex-only FINALIZE command (after scoped adoption) | `adapters/CODEX.md` |
 | Responsibility map and five enhancements | `docs/12_ADEQ_INTEGRATION.md` |
 | Precise diagnostic contracts | `docs/13_QUALITY_CONTRACTS.md` |
 | Measurement definitions and live test protocol | `docs/14_QUALITY_EVALUATION.md` |

@@ -12,6 +12,10 @@ This procedure defines a reusable, project-neutral workflow for post-merge Git s
 
 These are **declarative operational instructions**, not runtime PEP/PDP enforcement, Git hooks, or owner authentication (`policies/CORE.md`). The optional CLI diagnostic `python -B -m agdl post-merge-check` inspects caller-supplied state metadata read-only and never runs Git commands, stops processes, restarts services, or grants approval.
 
+For Codex, the optional owner command `FINALIZE` is defined only in `adapters/CODEX.md`.
+Its Git-only scope excludes all service restarts and runtime refresh steps below; those require
+separate applicable authorization. Other hosts acquire no command behavior from this reference.
+
 ---
 
 ## 2. Bounded Maintenance Delegation

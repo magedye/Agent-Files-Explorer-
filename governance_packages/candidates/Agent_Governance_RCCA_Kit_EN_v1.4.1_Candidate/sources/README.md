@@ -15,3 +15,11 @@ Local Arabic filenames in INPUT_MANIFEST are provenance identifiers; operational
 ## v1.4.0 additions
 
 See `sources/V140_INPUT_MANIFEST.json` for the actual baseline and supplied plans, and `sources/V140_SOURCE_REGISTER.json` for this release's official-source review. Earlier manifests describe their original deliveries and are preserved as historical provenance.
+
+## Owner working agreements integration
+
+`sources/WORKING_AGREEMENTS_INPUT_MANIFEST.json` pins the inspected seven-section owner
+source and integration request without copying the agreement into another editable policy.
+`docs/18_WORKING_AGREEMENTS_INTEGRATION.md` maps all sections to existing canonical ADEQ
+rules and the Codex adapter. The input record is provenance, not a second rule registry,
+an authenticated future Git grant or project activation.
