@@ -58,3 +58,7 @@ When a task requires deeper context, navigate directly to the relevant document:
   - `governance_packages/**/compatibility/` (Contains legacy mappings, ~355k tokens).
   - `governance_packages/**/verification/` (Historical evaluation logs).
   - `.governance/backups/` and `.governance/staging/` (Transient runtime state).
+
+## Graphify usage policy
+
+[Guide](docs/GRAPHIFY.md)
