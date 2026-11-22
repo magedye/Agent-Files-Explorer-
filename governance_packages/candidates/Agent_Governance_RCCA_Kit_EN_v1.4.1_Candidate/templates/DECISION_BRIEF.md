@@ -6,7 +6,7 @@ Task / original request / current revision / existing authorization:
 **Recommended option and evidence:**
 **Meaningful alternatives and trade-offs:**
 **Impact:** behavior, contracts, data, permissions, compatibility, cost and affected documentation.
-**Open consequential decision:** options, recommendation, smallest question, affected work only.
+**Open consequential decision:** apply ADEQ-05 (`policies/ADEQ.md`); record the selected option number/keyword and its exact scope in the existing decision record; affected work only.
 **Solution suitability confidence:** HIGH / MEDIUM / LOW / INSUFFICIENT_EVIDENCE; reasons and uncertainties.
 **Execution feasibility confidence:** same scale; environment/tool/dependency limits.
 **Recovery readiness:** rollback/restore/forward recovery, verification signal, residual risk; rehearsal result or NOT_RUN.

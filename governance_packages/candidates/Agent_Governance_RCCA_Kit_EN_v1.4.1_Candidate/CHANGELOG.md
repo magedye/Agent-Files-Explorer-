@@ -2,6 +2,7 @@
 
 ## 1.4.1-candidate — Post-merge closure & GESI increment
 
+- Integrated the owner's seven-section Global Codex Working Agreements into existing ADEQ IDs and generated views, with source custody and coverage in `docs/18_WORKING_AGREEMENTS_INTEGRATION.md`. The complete Git-only `FINALIZE` procedure lives solely in `adapters/CODEX.md`; no global configuration, registered reference, host activation or Git delivery is changed by this integration.
 - Added focused reusable post-merge operational procedure and project-neutral checklist in `docs/16_POST_MERGE_CLOSURE.md` (reusing existing `GOV-*`, `ADEQ-*`, `INT-*`, and optional skills without adding rival rules or new skills).
 - Added read-only diagnostic `agdl/post_merge.py`, closed schema `schemas/post-merge.schema.json`, CLI subcommand `post-merge-check`, and focused tests `tests/test_post_merge_closure.py`.
 - Added Governed Engineering Skills Integration (GESI) specification, external skill evaluation, and assessment template in `docs/17_GOVERNED_ENGINEERING_SKILLS.md`, plus read-only `agdl/gesi.py`, `schemas/gesi.schema.json`, CLI subcommand `skills-check`, and focused tests `tests/test_gesi_skills.py` (including M1–M5 host-pilot corrective refinements for task-vs-inventory findings, safety-first ordering, constraint preservation, slice-gated partial adaptation, and cross-root/session visibility tracking).
